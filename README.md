@@ -1,4 +1,4 @@
-# Claude Code Skills for AEC & Workplace Strategy
+# Claude Code Skills for Architects & Designers
 
 > Slash-command skills for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) that bring domain expertise to architecture, real estate, and workplace design. Clone, symlink, type `/skill-name` — done.
 
