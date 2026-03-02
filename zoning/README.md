@@ -1,4 +1,4 @@
-# /zoning
+# /zoning-envelope
 
 Zoning envelope analyzer for lots in Maldonado, Uruguay as a [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skill. Paste GIS JSON from the [Maldonado cadastral portal](https://ide.maldonado.gub.uy/) and get a full building envelope analysis based on the TONE (Texto Ordenado de Normas de Edificación) regulations.
 
