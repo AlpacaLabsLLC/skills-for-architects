@@ -14,6 +14,14 @@ AI workplace strategy consultant that builds office space programs through conve
 
 Zoning envelope analyzer for lots in Maldonado, Uruguay. Paste GIS JSON from the [municipal cadastral portal](https://ide.maldonado.gub.uy/), get a full building envelope analysis — zone determination, setbacks, height limits, FOS/FOT, and an ASCII buildable-area sketch — all referenced to the TONE regulations.
 
+### [`/product-spec-bulk-fetch`](./product-spec-bulk-fetch)
+
+Bulk FF&E product spec extractor. Feed it a list of product page URLs — get a standardized schedule with names, dimensions, materials, pricing, and images extracted from each page using AI. Outputs to CSV, Google Sheets, or markdown.
+
+### [`/product-spec-bulk-cleanup`](./product-spec-bulk-cleanup)
+
+FF&E schedule normalizer. Takes a messy furniture schedule — mixed casing, combined dimensions, Spanish material names, inconsistent categories — and cleans it into consistent, procurement-ready data. Pairs with `/product-spec-bulk-fetch` for a full fetch → cleanup pipeline.
+
 ## Quick Start
 
 ```bash
@@ -23,6 +31,8 @@ cd skills
 # Symlink the skills you want (recommended — stays in sync with updates)
 ln -s "$(pwd)/workplace-programmer" ~/.claude/skills/workplace-programmer
 ln -s "$(pwd)/zoning-analyzer" ~/.claude/skills/zoning-analyzer
+ln -s "$(pwd)/product-spec-bulk-fetch" ~/.claude/skills/product-spec-bulk-fetch
+ln -s "$(pwd)/product-spec-bulk-cleanup" ~/.claude/skills/product-spec-bulk-cleanup
 ```
 
 Then in Claude Code:
@@ -30,6 +40,8 @@ Then in Claude Code:
 ```
 /workplace-programmer 30,000 RSF tech company, 200 people, 3 days hybrid
 /zoning-analyzer
+/product-spec-bulk-fetch https://www.hermanmiller.com/products/seating/lounge-chairs/eames-lounge-chair/
+/product-spec-bulk-cleanup ~/Documents/ffe-schedule.csv
 ```
 
 ## What Are Claude Code Skills?
