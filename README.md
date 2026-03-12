@@ -6,6 +6,10 @@
 
 ## Available Skills
 
+### [`/alpa-presentation`](./alpa-presentation)
+
+HTML slide deck generator. Describe a topic, paste an outline, or feed it data — get a self-contained `.html` presentation with the ALPA design system: Helvetica, left-aligned editorial layout, monochrome palette, 22 slide types (stats, tables, bar charts, timelines, comparisons, image grids), keyboard/touch navigation, and a progress bar. Open in any browser.
+
 ### [`/workplace-programmer`](./workplace-programmer)
 
 AI workplace strategy consultant that builds office space programs through conversation. Give it a headcount, square footage, and work policy — get area splits, room schedules, seat counts, and exportable reports backed by 10 archetypes, 43 research findings from JLL, CBRE, Gensler, Hassell (6 years of Workplace Futures Survey), and others.
@@ -57,6 +61,7 @@ Skills are symlinked into `~/.claude/skills/` so they stay in sync when you `git
 Then in Claude Code:
 
 ```
+/alpa-presentation Q1 results for our consulting practice — revenue up 40%, 3 new clients
 /workplace-programmer 30,000 RSF tech company, 200 people, 3 days hybrid
 /occupancy-calculator 50,000 SF office building, 3 floors
 /zoning-analyzer
