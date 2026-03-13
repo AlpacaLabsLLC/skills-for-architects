@@ -1,6 +1,6 @@
-# Creative & Presenting
+# Presentations
 
-Creative and presentation skills for Claude Code — editorial slide decks and color palette generation.
+Presentation skills for Claude Code — editorial slide decks and color palette generation.
 
 ## Skills
 

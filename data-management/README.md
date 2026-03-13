@@ -1,6 +1,6 @@
-# Specifications & Data
+# Data Management
 
-FF&E specifications and product data skills for Claude Code — bulk extraction, cleanup, image processing, PDF parsing, spec writing, and redline review.
+Product data management skills for Claude Code — bulk FF&E spec extraction, cleanup, PDF parsing, and image processing.
 
 ## Skills
 
@@ -10,8 +10,6 @@ FF&E specifications and product data skills for Claude Code — bulk extraction,
 | [product-spec-bulk-cleanup](skills/product-spec-bulk-cleanup/) | Normalizes, translates, deduplicates, and standardizes fetched product spec data |
 | [product-spec-pdf-parser](skills/product-spec-pdf-parser/) | Extracts product specifications from manufacturer PDF cut sheets |
 | [product-image-processor](skills/product-image-processor/) | Downloads, crops, and standardizes product images from spec sheets |
-| [spec-writer](skills/spec-writer/) | CSI outline specification writer — maps materials to MasterFormat 2020 divisions with three-part specs |
-| [redline-punch-list](skills/redline-punch-list/) | Generates punch lists and redline reviews from construction documents |
 
 ## Commands
 

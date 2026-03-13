@@ -1,0 +1,12 @@
+{
+  "name": "data-management",
+  "version": "1.0.0",
+  "description": "Product data management skills — bulk FF&E spec extraction, cleanup, PDF parsing, and image processing.",
+  "author": {
+    "name": "ALPA",
+    "url": "https://alpa.llc"
+  },
+  "keywords": ["FF&E", "product-data", "bulk-fetch", "PDF-parsing", "image-processing", "architecture"],
+  "homepage": "https://alpa.llc/skills",
+  "license": "MIT"
+}
