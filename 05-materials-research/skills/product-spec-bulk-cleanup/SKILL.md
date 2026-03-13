@@ -18,12 +18,14 @@ allowed-tools:
 
 Takes a messy FF&E schedule and normalizes everything: casing, dimensions, units, language, materials vocabulary, currency formatting, and duplicates. Outputs a clean, consistent, spec-ready schedule.
 
+Operates on the **master Google Sheet** — the same 33-column schema used by Norma Jean, `/product-research`, and all other data-management skills. Also works on standalone CSV files and pasted tables.
+
 ## Input
 
 The user provides a schedule in one of these ways:
 
-1. **File path** — a `.csv`, `.tsv`, `.xlsx` export, or `.md` file
-2. **Google Sheet** — a spreadsheet ID (+ optional sheet/tab name)
+1. **Master Google Sheet** — the shared product library (same sheet used by Norma Jean). Provide spreadsheet ID or URL.
+2. **File path** — a `.csv`, `.tsv`, `.xlsx` export, or `.md` file
 3. **Pasted table** — markdown or tab-separated data in the message
 
 If the input format is unclear, ask.
@@ -37,7 +39,7 @@ If the input format is unclear, ask.
 | Product Name | Title Case | `eames lounge chair` → `Eames Lounge Chair` |
 | Brand | Title Case, preserve known abbreviations | `HERMAN MILLER` → `Herman Miller`, `HAY` → `HAY` |
 | Collection | Title Case | `cosm` → `Cosm` |
-| Category | Title Case, singular | `chairs` → `Seating`, `TABLES` → `Tables` |
+| Category | Title Case, singular | `chairs` → `Chair`, `TABLES` → `Table` |
 | Materials | Sentence case, lowercase after first word | `MOLDED PLYWOOD, FULL GRAIN LEATHER` → `Molded plywood, full grain leather` |
 | Colors/Finishes | Title Case per item | `walnut/black leather` → `Walnut / Black Leather` |
 
@@ -45,23 +47,36 @@ If the input format is unclear, ask.
 
 ### 2. Category Normalization
 
-Map free-text categories to a controlled vocabulary:
+Map free-text categories to the unified vocabulary shared by Norma Jean and all data-management skills:
 
-| Canonical Category | Also matches |
-|-------------------|--------------|
-| Seating | Chair, Chairs, Silla, Sillas, Task Chair, Lounge Chair, Stool, Stools, Bench seating, Office Chair |
-| Tables | Table, Mesa, Mesas, Desk, Desks, Conference Table, Coffee Table, Side Table, Escritorio |
-| Desks | Desk, Desks, Escritorio, Workstation (only if clearly a desk, not a table) |
-| Lighting | Light, Lights, Lamp, Lamps, Luminaria, Luminarias, Pendant, Sconce, Fixture |
-| Storage | Cabinet, Cabinets, Shelving, Shelf, Bookcase, Credenza, Filing, Locker, Estante |
-| Accessories | Accessory, Accesorios, Planter, Clock, Mirror, Rug, Cushion, Throw, Tray |
-| Textiles | Fabric, Textile, Curtain, Drape, Upholstery, Carpet, Rug, Tapiz, Alfombra |
-| Acoustic | Acoustic panel, Sound panel, Baffle, Screen, Panel acústico |
-| Planters | Planter, Plant pot, Maceta, Jardinera (override Accessories if clearly a planter) |
-| Partitions | Partition, Divider, Screen, Panel, Biombo, Mampara |
+| Canonical | Also matches |
+|-----------|-------------|
+| Chair | Chairs, Seating, Silla, Sillas, Task Chair, Lounge Chair, Stool, Stools, Bench seating, Office Chair |
+| Table | Tables, Mesa, Mesas, Conference Table, Coffee Table, Side Table, Dining Table |
+| Sofa | Couch, Loveseat, Settee, Sofá |
+| Bed | Beds, Cama, Daybed, Bunk |
+| Light | Lights, Lighting, Lamp, Lamps, Luminaria, Luminarias, Pendant, Sconce, Fixture, Chandelier |
+| Storage | Cabinet, Cabinets, Credenza, Filing, Locker, Estante |
+| Desk | Desks, Escritorio, Workstation (only if clearly a desk, not a table) |
+| Shelving | Shelf, Shelves, Bookcase, Bookshelf, Estantería |
+| Rug | Rugs, Carpet, Alfombra, Tapete |
+| Mirror | Mirrors, Espejo |
+| Accessory | Accessories, Accesorios, Clock, Cushion, Throw, Tray, Vase |
+| Tabletop | Dinnerware, Glassware, Flatware, Serveware, Vajilla |
+| Kitchen | Kitchen fixtures, Cocina |
+| Bath | Bathroom, Baño, Bath fixtures |
+| Window | Curtain, Drape, Blind, Shade, Cortina, Persiana |
+| Door | Doors, Puerta |
+| Outdoor Furniture | Outdoor, Exterior, Mueble exterior |
+| Textile | Textiles, Fabric, Upholstery, Tapiz |
+| Acoustic | Acoustic panel, Sound panel, Baffle, Panel acústico |
+| Planter | Planters, Plant pot, Maceta, Jardinera |
+| Partition | Partitions, Divider, Screen, Panel, Biombo, Mampara |
 | Other | Anything that doesn't fit above |
 
 If a category is ambiguous, keep the closest match and add a `[?]` flag for the user to review.
+
+**Legacy mapping:** If the schedule uses older category terms (e.g., "Seating", "Lighting", "Tables", "Accessories"), map them to the canonical terms above.
 
 ### 3. Dimensions
 
@@ -91,9 +106,9 @@ Detect the language of each field value and normalize to **English** unless the 
 
 | Spanish (common in UY sources) | → English |
 |-------------------------------|-----------|
-| Silla | Seating (category) |
-| Mesa | Tables (category) |
-| Escritorio | Desks (category) |
+| Silla | Chair (category) |
+| Mesa | Table (category) |
+| Escritorio | Desk (category) |
 | Madera | Wood (material) |
 | Cuero | Leather (material) |
 | Acero | Steel (material) |

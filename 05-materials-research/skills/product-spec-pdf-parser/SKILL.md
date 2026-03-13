@@ -33,34 +33,60 @@ Also ask (or use defaults):
 
 ## Output Schema
 
-24 fields per product row. Extends the Canoa Clipper FF&E format with fields commonly found in PDF spec sheets:
+Products are written to the **master Google Sheet** — the same 33-column schema used by Norma Jean, `/product-research`, and all other data-management skills, plus PDF-specific extra columns. When writing to CSV, use the same column order.
 
-| # | Field | Description | Format |
-|---|-------|-------------|--------|
-| 1 | Product Name | Full product name | Title Case |
-| 2 | Variant | What distinguishes this row (shade shape, color, size, upholstery) | Free text, blank if single variant |
-| 3 | SKU | Model or part number | As listed |
-| 4 | Brand | Manufacturer or vendor | Title Case |
-| 5 | Designer | Credited designer(s) | Title Case, blank if not listed |
-| 6 | Collection | Product line or collection name | Title Case, blank if N/A |
-| 7 | Category | Seating, Lighting, Tables, Storage, Desks, Accessories, Textiles, Acoustic, Planters, Other | Title Case, singular |
-| 8 | Description | 1-2 sentence product description | Sentence case |
-| 9 | W | Width, numeric only | Decimal number |
-| 10 | D | Depth, numeric only | Decimal number |
-| 11 | H | Height, numeric only | Decimal number |
-| 12 | Seat H | Seat height (seating only) | Decimal number, blank if N/A |
-| 13 | Unit | Dimension unit | `in`, `cm`, or `mm` |
-| 14 | Weight | Product weight with unit | As listed (e.g., "12 kg", "26.4 lbs") |
-| 15 | Materials | Primary materials | Comma-separated |
-| 16 | Colors/Finishes | For this specific variant | Comma-separated |
-| 17 | List Price | Base or total price | Decimal number, no currency symbol |
-| 18 | Price Adder | Incremental cost for configurator option | Decimal number, blank if N/A |
-| 19 | Currency | Currency code | `USD`, `EUR`, etc. |
-| 20 | Lead Time | Delivery estimate | As stated |
-| 21 | Warranty | Warranty terms | As stated, blank if not listed |
-| 22 | Certifications | Standards or certifications (CE, UL, EN, etc.) | Comma-separated |
-| 23 | Country of Origin | Manufacturing origin | As stated, blank if not listed |
-| 24 | Source File | PDF filename | Filename only, no path |
+This skill populates the following columns:
+
+| Col | Field | Description | Format |
+|-----|-------|-------------|--------|
+| A | Link | — | Blank (no URL for PDFs) |
+| B | Thumbnail | — | Blank (no image URL typically) |
+| C | Product Name | Full product name | Title Case |
+| D | Description | 1-2 sentence product description | Sentence case |
+| E | SKU | Model or part number | As listed |
+| F | Brand | Manufacturer | Title Case |
+| G | Designer | Credited designer(s) | Title Case, blank if not listed |
+| H | Vendor | — | Blank (source is PDF, not a retailer) |
+| I | Collection | Product line or collection name | Title Case, blank if N/A |
+| J | Category | Normalized category | See vocabulary below |
+| K | W | Width, numeric only | Decimal number |
+| L | D | Depth, numeric only | Decimal number |
+| M | H | Height, numeric only | Decimal number |
+| N | Seat H | Seat height (seating only) | Decimal number, blank if N/A |
+| O | Unit | Dimension unit | `in`, `cm`, or `mm` |
+| P | Weight | Product weight with unit | As listed |
+| Q | Materials | Primary materials | Comma-separated |
+| R | Colors/Finishes | For this specific variant | Comma-separated |
+| S | Selected Color/Finish | — | Blank |
+| T | List Price | Base or total price | Decimal number, no symbol |
+| U | Sale Price | — | Blank (PDFs don't have sale prices) |
+| V | Currency | Currency code | `USD`, `EUR`, etc. |
+| W | Lead Time | Delivery estimate | As stated |
+| X | Warranty | Warranty terms | As stated |
+| Y | Certifications | Standards (CE, UL, GREENGUARD, etc.) | Comma-separated |
+| Z | COM/COL | If mentioned | `COM`, `COL`, `COM/COL`, or blank |
+| AA | Indoor/Outdoor | If specified | `Indoor`, `Outdoor`, `Indoor/Outdoor` |
+| AB | Clipped At | Timestamp | ISO 8601 |
+| AC | Image URL | — | Blank (no image from PDF) |
+| AD | Tags | — | Blank |
+| AE | Notes | Variant info, price adders, country of origin, source filename | See below |
+| AF | Status | — | `saved` |
+| AG | Source | — | `pdf-parser` |
+
+### PDF-specific data in Notes (col AE)
+
+PDFs contain fields that don't have dedicated master columns. Append these to Notes:
+
+- **Variant**: `Variant: Diamond, Black`
+- **Price Adder**: `Price adder: +$130 (PostureFit SL)`
+- **Country of Origin**: `Origin: Sweden`
+- **Source File**: `Source: alphabeta-fact-sheet.pdf`
+
+Example Notes cell: `Variant: Diamond, Black | Origin: Sweden | Source: alphabeta-fact-sheet.pdf`
+
+### Category vocabulary
+
+Use ONE normalized term: Chair, Table, Sofa, Bed, Light, Storage, Desk, Shelving, Rug, Mirror, Accessory, Tabletop, Kitchen, Bath, Window, Door, Outdoor Furniture, Textile, Acoustic, Planter, Partition, Other.
 
 ## Variant Handling
 
@@ -154,20 +180,21 @@ Ask: **"Does this look correct? Should I adjust anything before saving?"**
 Ask the user (if not already specified): **"Where should I save this?"**
 
 Options:
-- **Google Sheet** — write rows to a specified sheet (ask for spreadsheet ID or create new)
+- **Master Google Sheet** — append rows to the shared product library (same sheet used by Norma Jean). Ask for spreadsheet ID if not already known.
 - **Local CSV** — save to a specified path (default: `~/Documents/Work-Docs/ffe-pdf-parse-YYYY-MM-DD.csv`)
 - **Just the table** — leave as markdown in the conversation
 
 ## CSV Format
 
+When saving to CSV (instead of Google Sheet), use the master 33-column header:
+
 ```csv
-Product Name,Variant,SKU,Brand,Designer,Collection,Category,Description,W,D,H,Seat H,Unit,Weight,Materials,Colors/Finishes,List Price,Price Adder,Currency,Lead Time,Warranty,Certifications,Country of Origin,Source File
-"Alphabeta Floor Lamp","Diamond, Black","HEM-AF-DB",Hem,"Luca Nichetto",Alphabeta,Lighting,"Modular floor lamp with interchangeable shades",,,,,,,"Aluminium, Steel","Black",595.00,,EUR,,"","CE","Sweden","alphabeta-fact-sheet.pdf"
+Link,Thumbnail,Product Name,Description,SKU,Brand,Designer,Vendor,Collection,Category,W,D,H,Seat H,Unit,Weight,Materials,Colors/Finishes,Selected Color/Finish,List Price,Sale Price,Currency,Lead Time,Warranty,Certifications,COM/COL,Indoor/Outdoor,Clipped At,Image URL,Tags,Notes,Status,Source
 ```
 
 ## Google Sheets Format
 
-Write header row first, then data rows. Use the same 24-column order as the CSV. Wrap text fields in proper formatting — no extra quotes needed for Sheets API.
+Append rows to the master Google Sheet using the same 33-column schema. Set `Clipped At` to current timestamp and `Source` to `pdf-parser`. PDF-specific data (variant, price adder, country of origin, source filename) goes in the Notes column.
 
 ## Edge Cases
 

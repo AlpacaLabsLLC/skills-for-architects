@@ -31,25 +31,49 @@ If the input format is unclear, ask.
 
 ## Output Schema
 
-Every product is extracted into these fields, matching the Canoa Clipper FF&E schedule:
+Products are written to the **master Google Sheet** — the same 33-column schema used by Norma Jean, `/product-research`, and all other data-management skills. When writing to CSV, use the same column order.
 
-| Field | Description | Format |
-|-------|-------------|--------|
-| Product Name | Full product name as listed | Title Case |
-| Brand | Manufacturer or vendor | Title Case |
-| Collection | Product line or collection name | Title Case, blank if N/A |
-| Category | Seating, Tables, Lighting, Storage, Accessories, etc. | Title Case, singular |
-| W | Width, numeric only | Decimal number |
-| D | Depth, numeric only | Decimal number |
-| H | Height, numeric only | Decimal number |
-| Unit | Dimension unit | `in`, `cm`, or `mm` |
-| Materials | Primary materials | Comma-separated |
-| Colors/Finishes | Available or selected finishes | Comma-separated |
-| Price | Numeric price | Decimal number, no currency symbol |
-| Currency | Currency code | `USD`, `EUR`, `UYU`, etc. |
-| Lead Time | Delivery estimate | As stated (e.g., "4-6 weeks", "In Stock") |
-| URL | Source page | Full URL |
-| Image URL | Primary product image | Direct image URL |
+This skill populates the following columns (others are left blank):
+
+| Col | Field | Description | Format |
+|-----|-------|-------------|--------|
+| A | Link | Source page | `=HYPERLINK(url, "Link")` |
+| B | Thumbnail | Primary product image | `=IMAGE(image_url)` |
+| C | Product Name | Full product name as listed | Title Case |
+| D | Description | Short description if found | Sentence case |
+| E | SKU | Model/part number if found | As listed |
+| F | Brand | Manufacturer or vendor | Title Case |
+| G | Designer | Designer if attributed | Title Case, blank if N/A |
+| H | Vendor | Retailer/site selling the product | Title Case |
+| I | Collection | Product line or collection name | Title Case, blank if N/A |
+| J | Category | Normalized category | See vocabulary below |
+| K | W | Width, numeric only | Decimal number |
+| L | D | Depth, numeric only | Decimal number |
+| M | H | Height, numeric only | Decimal number |
+| N | Seat H | Seat height (seating only) | Decimal number, blank if N/A |
+| O | Unit | Dimension unit | `in`, `cm`, or `mm` |
+| P | Weight | Product weight with unit | As stated |
+| Q | Materials | Primary materials | Comma-separated |
+| R | Colors/Finishes | Available finishes | Comma-separated |
+| S | Selected Color/Finish | — | Blank (unknown from URL) |
+| T | List Price | Numeric price | Decimal number, no symbol |
+| U | Sale Price | Discounted price if shown | Decimal number |
+| V | Currency | Currency code | `USD`, `EUR`, `UYU`, etc. |
+| W | Lead Time | Delivery estimate | As stated |
+| X | Warranty | Warranty if found | As stated |
+| Y | Certifications | If found | Comma-separated |
+| Z | COM/COL | If found | `COM`, `COL`, `COM/COL`, or blank |
+| AA | Indoor/Outdoor | If specified | `Indoor`, `Outdoor`, `Indoor/Outdoor` |
+| AB | Clipped At | Timestamp | ISO 8601 |
+| AC | Image URL | Primary product image | Direct URL |
+| AD | Tags | — | Blank (set by user later) |
+| AE | Notes | — | Blank |
+| AF | Status | — | `saved` |
+| AG | Source | — | `bulk-fetch` |
+
+### Category vocabulary
+
+Use ONE normalized term: Chair, Table, Sofa, Bed, Light, Storage, Desk, Shelving, Rug, Mirror, Accessory, Tabletop, Kitchen, Bath, Window, Door, Outdoor Furniture, Textile, Acoustic, Planter, Partition, Other.
 
 ## Extraction Process
 
@@ -68,18 +92,29 @@ Use this prompt (or close variant) for each URL:
 Extract structured product/furniture specification data from this page. Return a JSON object with these exact fields:
 
 - product_name: Full product name (Title Case)
-- brand: Manufacturer or vendor name (Title Case)
-- collection: Product line or collection name (empty string if not found)
-- category: One of: Seating, Tables, Desks, Lighting, Storage, Accessories, Textiles, Acoustic, Planters, Other
+- description: Short description or tagline (1-2 sentences), or null
+- sku: Product ID, SKU, model number, or catalog number, or null
+- brand: Manufacturer name (Title Case)
+- designer: Designer or design studio name if attributed, or null
+- vendor: The retailer/website selling the product (may differ from brand), or null
+- collection: Product line or collection name, or null
+- category: One of: Chair, Table, Sofa, Bed, Light, Storage, Desk, Shelving, Rug, Mirror, Accessory, Tabletop, Kitchen, Bath, Window, Door, Outdoor Furniture, Textile, Acoustic, Planter, Partition, Other
 - width: Numeric width value only (no units), or null
 - depth: Numeric depth value only (no units), or null
 - height: Numeric height value only (no units), or null
+- seat_height: Numeric seat height for seating products, or null
 - unit: "in", "cm", or "mm" — whichever the page uses
+- weight: Weight as stated with unit (e.g. "45 lbs"), or null
 - materials: Comma-separated list of primary materials
-- colors_finishes: Comma-separated list of colors or finish options shown
-- price: Numeric price (no currency symbol, no commas), or null if not shown
+- colors_finishes: Comma-separated list of ALL available colors or finish options
+- list_price: Numeric price (no currency symbol, no commas), or null
+- sale_price: Discounted/sale price if shown, or null
 - currency: "USD", "EUR", "GBP", etc.
-- lead_time: Delivery estimate as stated, or empty string
+- lead_time: Delivery estimate as stated, or null
+- warranty: Warranty info as stated, or null
+- certifications: Comma-separated certifications (GREENGUARD, FSC, BIFMA, etc.), or null
+- com_col: "COM", "COL", "COM/COL" if mentioned, or null
+- indoor_outdoor: "Indoor", "Outdoor", or "Indoor/Outdoor" if specified, or null
 - image_url: URL of the primary product image (largest/hero image)
 
 If this is NOT a product page, return: {"error": "not_a_product_page"}
@@ -111,18 +146,19 @@ Show a summary table in markdown with all successful + partial results. Flag any
 ### Step 5: Ask about output format
 Ask the user: **"Where should I save this?"**
 Options:
+- **Master Google Sheet** — append rows to the shared product library (same sheet used by Norma Jean). Ask for spreadsheet ID if not already known.
 - **Local CSV** — save to a specified path (default: `~/Documents/Work-Docs/ffe-fetch-YYYY-MM-DD.csv`)
-- **Google Sheet** — write rows to a specified sheet (ask for spreadsheet ID or create new)
 - **Just the table** — leave as markdown in the conversation
 
 ### Step 6: Save
-Write the output in the chosen format. For CSV, use proper escaping. For Google Sheets, use the `mcp__google__sheets_values_update` tool to write rows.
+Write the output in the chosen format using the 33-column master schema. For Google Sheets, use `mcp__google__sheets_values_update` to append rows. Set `Clipped At` to current timestamp and `Source` to `bulk-fetch`.
 
 ## CSV Format
 
+When saving to CSV (instead of Google Sheet), use the master 33-column header:
+
 ```csv
-Product Name,Brand,Collection,Category,W,D,H,Unit,Materials,Colors/Finishes,Price,Currency,Lead Time,URL,Image URL
-"Eames Lounge Chair",Herman Miller,Eames,Seating,32.75,32.5,33.5,in,"Molded plywood, leather","Walnut/Black leather",5695.00,USD,"8-10 weeks",https://example.com/eames,https://example.com/eames.jpg
+Link,Thumbnail,Product Name,Description,SKU,Brand,Designer,Vendor,Collection,Category,W,D,H,Seat H,Unit,Weight,Materials,Colors/Finishes,Selected Color/Finish,List Price,Sale Price,Currency,Lead Time,Warranty,Certifications,COM/COL,Indoor/Outdoor,Clipped At,Image URL,Tags,Notes,Status,Source
 ```
 
 ## Edge Cases

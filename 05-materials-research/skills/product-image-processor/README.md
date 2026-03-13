@@ -4,12 +4,6 @@ Batch product image processor for [Claude Code](https://docs.anthropic.com/en/do
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../../LICENSE)
 
-## Install
-
-```bash
-claude install github:AlpacaLabsLLC/skills-for-architects/05-materials-research
-```
-
 ### Dependencies
 
 Requires Python 3.9+ with:
@@ -17,7 +11,7 @@ Requires Python 3.9+ with:
 - **Pillow** — image resizing and format conversion
 - **rembg + onnxruntime** — AI background removal (u2net model)
 
-The skill auto-installs missing packages on first run. The u2net model (~170MB) downloads once and is cached at `~/.u2net/`.
+The skill auto-installs missing packages on first run. The u2net model (~170MB) downloads once and is cached.
 
 ## Usage
 
@@ -25,21 +19,13 @@ The skill auto-installs missing packages on first run. The u2net model (~170MB) 
 /product-image-processor
 ```
 
-Then provide a Google Sheet ID and tell it which column has image URLs. Optionally specify a name column for file naming and a custom output path.
+Then provide a Google Sheet ID. In the master schema, Image URLs are in column AC and Product Names in column C.
 
 ```
 /product-image-processor
 
 Sheet: 1FMScYW9guezOWc_m4ClTQxxFIpS6TNRr373R-MJGzgE
-Image URL column: AC
-Name column: C (Product Name)
-Output: ~/Documents/Work-Docs/product-images-2026-03-04/
 ```
-
-### Input
-
-- **Google Sheet** — spreadsheet ID + column letter or header name containing image URLs
-- **Name column** (optional) — adjacent column with product names for file naming; otherwise names are derived from the URL
 
 ### Output
 
@@ -52,32 +38,16 @@ product-images-YYYY-MM-DD/
 └── nobg/         # Background removed, transparent PNG
 ```
 
-## Demo: 14-Product Batch
+## How it fits
 
-Real output from a Norma Jean FF&E schedule with 14 product URLs across IKEA, Herman Miller, RH, and local Uruguayan vendors:
+This is a **utility** that processes images from any source:
 
-```
-## Product Image Processing Complete
-
-Output: ~/Documents/Work-Docs/product-images-2026-03-04/
-
-| Stage       | Success | Failed |
-|-------------|---------|--------|
-| Downloaded  | 14      | 0      |
-| Resized     | 14      | 0      |
-| BG Removed  | 14      | 0      |
-
-Files:
-  001-vardagen-vaso.png          250x250
-  002-kvot.png                   250x250
-  003-soria-teak-lounge.png      1200x985
-  004-ateco-icing-spatula.png    800x800
-  005-eames-lcw-red-stain.png    750x1000
-  006-eames-lcw-natural.png      862x1000
-  ...
-  012-silla-plona-verde.png      2000x1583  (scaled from 3118px)
-  014-pedrali-osaka-armchair.png 1000x1000
-```
+| Context | How it's used |
+|---------|--------------|
+| Standalone | Process images from any Google Sheet with image URLs |
+| After `/product-spec-bulk-fetch` | Process images from fetched products |
+| After `/product-research` | Process images from research results |
+| On the master sheet | Process all product images in the library |
 
 ## Processing Pipeline
 
@@ -89,24 +59,22 @@ Files:
 
 ## Error Handling
 
-The skill never stops a batch on a single failure:
+Never stops a batch on a single failure:
 
-- **Download failures** (404, timeouts) — logged and skipped, batch continues
-- **Resize failures** (corrupt files) — logged and skipped in subsequent stages
-- **rembg failures** (vectors, icons) — logged, original kept in `resized/`
-- **Sheet read errors** — stops and asks user to verify spreadsheet ID and column
+- **Download failures** (404, timeouts) — logged and skipped
+- **Resize failures** (corrupt files) — logged and skipped
+- **rembg failures** (vectors, icons) — logged, original kept
 
-After every batch: success/failure counts per stage with reasons for any failures.
+After every batch: success/failure counts per stage.
 
-## What's Included
+## Works with
 
-| File | Purpose |
-|------|---------|
-| `SKILL.md` | Download, resize, and bg-removal workflow with Python scripts |
-
-## Pairs With
-
-Use [`/product-spec-bulk-fetch`](../product-spec-bulk-fetch) to extract product specs and image URLs from vendor pages into a Google Sheet, then run `/product-image-processor` on that sheet to download and process all images. **Fetch specs → process images → spec-ready assets.**
+| Skill | Relationship |
+|-------|-------------|
+| [Norma Jean](https://github.com/AlpacaLabsLLC/norma-jean) | Processes images from the same master sheet |
+| `/product-research` | Processes images from research results |
+| `/product-spec-bulk-fetch` | Processes images from fetched products |
+| `/product-spec-bulk-cleanup` | Run cleanup first, then process images |
 
 ## License
 

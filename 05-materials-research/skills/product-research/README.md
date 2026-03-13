@@ -1,19 +1,18 @@
 # Product Research
 
-FF&E product research companion for Claude Code. Captures, structures, and organizes products into a shared Google Sheet as the designer browses — the same sheet used by [Norma Jean](https://github.com/AlpacaLabsLLC/norma-jean) and the other data-management skills.
+FF&E product research for Claude Code. Give it a brief, it searches the web, and comes back with a curated shortlist. Save the winners to your master Google Sheet.
 
-## The idea
+## How it works
 
-One master Google Sheet holds every product the firm has ever researched. Products get in through multiple doors:
+```
+Brief → Search → Candidates → Pick → Sheet
+```
 
-| Source | How |
-|--------|-----|
-| **Norma Jean** | Browser extension — Alt+C on any product page |
-| **This skill** | Conversational — screenshots, paste, verbal notes, PDFs, search |
-| `/product-spec-bulk-fetch` | Batch URL extraction |
-| `/product-spec-pdf-parser` | PDF catalog parsing |
-
-Every source writes to the same 33-column schema. The sheet is the library.
+1. **Brief** — Tell Claude what you're looking for ("round walnut dining table under $3k")
+2. **Research** — Claude searches across brands, trade platforms, and design publications
+3. **Candidates** — Get 6-10 options with specs, pricing, and reasoning
+4. **Pick** — Choose which products to save
+5. **Sheet** — Saved to the same Google Sheet used by Norma Jean and other skills
 
 ## Usage
 
@@ -21,40 +20,42 @@ Every source writes to the same 33-column schema. The sheet is the library.
 /product-research
 ```
 
-Connect to your Google Sheet (or create one), then start dropping things in.
+Then describe what you need — loose or specific:
 
-## What you can do
+```
+# Loose
+"acoustic panels for a tech office lobby"
 
-- **Capture** — Drop a screenshot, paste specs, describe a product, or share a PDF. Claude extracts what it can and appends to the sheet.
-- **Search** — "Find sustainable acoustic panels under $300" — Claude searches the web and presents candidates to capture.
-- **Recall** — "What chairs do we have?" — Filter and browse the library by category, brand, price, tags, or date.
-- **Organize** — Tag products, add notes, shortlist favorites, update status.
-- **Compare** — Side-by-side comparison of products on any criteria.
-- **Stats** — "How's the library?" — Category counts, brand breakdown, gap analysis.
+# Specific
+"round dining table, 48-54" dia, solid walnut or oak,
+steel base, under $3,000, needs to ship in 6 weeks"
+```
 
-## Schema
+## What it understands
 
-29 columns from the Norma Jean standard + 4 research columns:
+Category, use context, style, materials, dimensions, budget, sustainability certs, lead time, quantity, indoor/outdoor, brand preferences, and must-haves. **Only mention what matters — it works with whatever you give it.**
 
-| Section | Columns |
-|---------|---------|
-| Product | Link, Thumbnail, Product Name, Description, SKU, Brand, Designer, Vendor, Collection, Category |
-| Dimensions | W, D, H, Seat H, Unit, Weight |
-| Materials & Finish | Materials, Colors/Finishes, Selected Color/Finish |
-| Pricing | List Price, Sale Price, Currency |
-| Logistics | Lead Time, Warranty, Certifications, COM/COL, Indoor/Outdoor |
-| Meta | Clipped At, Image URL |
-| Research | Tags, Notes, Status, Source |
+## How it relates to Norma Jean
+
+| | Norma Jean | /product-research |
+|--|-----------|-------------------|
+| **Mode** | Sidecar — you browse, it clips | Brief — you describe, it searches |
+| **Who drives** | The designer | Claude |
+| **Input** | Alt+C on a product page | "Find me..." |
+| **Output** | Row in Google Sheet | Curated shortlist → Google Sheet |
+| **Best for** | Known products, fast capture | Discovery, exploration, alternatives |
+
+Both write to the same master sheet with the same schema.
 
 ## Works with
 
 | Tool | How |
 |------|-----|
-| [Norma Jean](https://github.com/AlpacaLabsLLC/norma-jean) | Browser clipper — writes to the same sheet |
-| `/product-spec-bulk-cleanup` | Normalize the sheet — casing, categories, dimensions, materials |
-| `/product-spec-bulk-fetch` | Batch-add products from URLs to the sheet |
-| `/product-spec-pdf-parser` | Extract products from PDF catalogs to the sheet |
-| `/product-image-processor` | Download and process images from the sheet's Image URL column |
+| [Norma Jean](https://github.com/AlpacaLabsLLC/norma-jean) | Same sheet, different door — sidecar mode |
+| `/product-spec-bulk-cleanup` | Normalize the sheet after adding products |
+| `/product-spec-bulk-fetch` | Batch-add from URLs |
+| `/product-spec-pdf-parser` | Extract from PDF catalogs |
+| `/product-image-processor` | Process images from the sheet |
 
 ## License
 

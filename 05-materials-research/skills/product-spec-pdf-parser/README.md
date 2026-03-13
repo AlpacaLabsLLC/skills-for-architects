@@ -1,14 +1,8 @@
 # /product-spec-pdf-parser
 
-PDF product spec parser for [Claude Code](https://docs.anthropic.com/en/docs/claude-code). Feed it price books, fact sheets, or spec sheets — get a standardized FF&E schedule with names, variants, SKUs, dimensions, materials, and pricing extracted using AI.
+PDF product spec parser for [Claude Code](https://docs.anthropic.com/en/docs/claude-code). Feed it price books, fact sheets, or spec sheets — get structured FF&E data written to your master Google Sheet.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../../LICENSE)
-
-## Install
-
-```bash
-claude install github:AlpacaLabsLLC/skills-for-architects/05-materials-research
-```
 
 ### Dependencies
 
@@ -26,10 +20,7 @@ claude install github:AlpacaLabsLLC/skills-for-architects/05-materials-research
 Then provide PDF paths — point to individual files or a folder.
 
 ```
-/product-spec-pdf-parser
-
-~/Documents/specs/alphabeta-floor-lamp.pdf
-~/Documents/specs/aeron-price-book.pdf
+/product-spec-pdf-parser ~/Documents/specs/alphabeta-floor-lamp.pdf
 ```
 
 Or a folder:
@@ -43,85 +34,62 @@ Or a folder:
 - **expand** (default) — one row per variant/SKU. Best for procurement.
 - **summarize** — one row per product, variants comma-separated. Best for quick reference.
 
-### Output formats
+### Output
 
-After extraction, choose where to save:
+Appends rows to the **master Google Sheet** (same sheet used by Norma Jean and all data-management skills) using the 33-column schema. PDF-specific data (variant, price adder, country of origin, source filename) is stored in the Notes column. Can also output to local CSV or markdown.
 
-- **Local CSV** — default: `~/Documents/Work-Docs/ffe-pdf-parse-YYYY-MM-DD.csv`
-- **Google Sheet** — writes rows to a specified spreadsheet
-- **Markdown table** — stays in the conversation
+## How it fits
 
-## How It Works
+This is a **utility** — it can be called standalone or as part of a larger workflow:
 
-1. **PyMuPDF** extracts raw text from each PDF page
-2. **Claude** reads the text and reasons about the structure — identifying products, variants, dimensions, pricing
-3. Results are structured into a 24-field schema and presented for review
-4. Output is saved in the chosen format
-
-No custom extraction code or regex — Claude IS the parser. This handles the wild variation in PDF layouts that rule-based parsers can't.
+| Context | How it's used |
+|---------|--------------|
+| Standalone | Designer has spec sheets or catalogs to process |
+| `/product-research` | Designer drops a PDF from a rep into the conversation |
+| `/spec-package` | Alternative to bulk-fetch as step 1 (PDF source instead of URLs) |
 
 ## Output Schema
 
-24 fields per product row, extending the Canoa Clipper FF&E format:
+33 columns matching the master schema. Key fields populated:
 
 | Field | Example |
 |-------|---------|
 | Product Name | Alphabeta Floor Lamp |
-| Variant | Diamond, Black |
 | SKU | HEM-AF-DB |
 | Brand | Hem |
 | Designer | Luca Nichetto |
-| Collection | Alphabeta |
-| Category | Lighting |
-| Description | Modular floor lamp with interchangeable shades |
-| W / D / H | — / — / 135.5 |
-| Seat H | — |
-| Unit | cm |
-| Weight | 4.5 kg |
+| Category | Light |
 | Materials | Aluminium, Steel |
-| Colors/Finishes | Black |
-| List Price | 595.00 |
-| Price Adder | — |
-| Currency | EUR |
-| Lead Time | — |
-| Warranty | — |
-| Certifications | CE |
-| Country of Origin | Sweden |
-| Source File | alphabeta-fact-sheet.pdf |
+| List Price | 595.00 EUR |
+| Notes | Variant: Diamond, Black \| Origin: Sweden \| Source: alphabeta-fact-sheet.pdf |
+| Source | `pdf-parser` |
 
 ## PDF Types Supported
 
-| Type | Example | Variant strategy |
-|------|---------|-----------------|
-| **Fact sheet with SKUs** | Hem Alphabeta | One row per SKU (shade × color) |
-| **Fact sheet with finishes** | Hem Puffy | One row per upholstery option |
-| **Price book / configurator** | Herman Miller Aeron | One row per product type, options summarized |
-| **Product catalog** | Multi-product catalogs | Rows for each distinct product |
-| **Spec sheet** | Single-product tech specs | One row with full detail |
+| Type | Variant strategy |
+|------|-----------------|
+| **Fact sheet with SKUs** | One row per SKU (shade × color) |
+| **Fact sheet with finishes** | One row per upholstery option |
+| **Price book / configurator** | One row per product type, options summarized |
+| **Product catalog** | Rows for each distinct product |
+| **Spec sheet** | One row with full detail |
 
 ## Error Handling
 
-- **Scanned/image PDFs** — detected (no extractable text) and flagged for OCR
+- **Scanned/image PDFs** — detected and flagged for OCR
 - **Password-protected PDFs** — caught and reported
-- **Tables as images** — flagged for manual review
-- **Mixed languages** — extracted as-is, cleanup skill handles translation
 - **Large PDFs (100+ pages)** — processed in 10-page chunks with progress updates
 
-After every batch: `Parsed: X products from Y PDF(s)` with per-file counts and any issues.
+After every batch: `Parsed: X products from Y PDF(s)`
 
-## What's Included
+## Works with
 
-| File | Purpose |
-|------|---------|
-| `SKILL.md` | Parsing workflow, schema, variant handling rules |
-
-## Pairs With
-
-- Use [`/product-spec-bulk-fetch`](../product-spec-bulk-fetch) to extract specs from web URLs instead of PDFs
-- Use [`/product-spec-bulk-cleanup`](../product-spec-bulk-cleanup) after parsing to normalize casing, translate, and deduplicate
-- Use [`/product-image-processor`](../product-image-processor) to download and process product images
-
-**PDF parse → cleanup → spec-ready schedule.**
+| Skill | Relationship |
+|-------|-------------|
+| [Norma Jean](https://github.com/AlpacaLabsLLC/norma-jean) | Same sheet — Norma Jean clips from browser, this parses PDFs |
+| `/product-research` | Designer drops a PDF during research, this extracts the data |
+| `/product-spec-bulk-cleanup` | Run after parsing to normalize the sheet |
+| `/product-image-processor` | Run after parsing to process product images |
 
 ## License
 
