@@ -7,7 +7,7 @@ FF&E schedule normalizer for [Claude Code](https://docs.anthropic.com/en/docs/cl
 ## Install
 
 ```bash
-claude install github:AlpacaLabsLLC/skills-for-architects/05-product-materials
+claude install github:AlpacaLabsLLC/skills-for-architects/05-materials-research
 ```
 
 ## Usage

@@ -7,7 +7,7 @@ Bulk FF&E product spec extractor for [Claude Code](https://docs.anthropic.com/en
 ## Install
 
 ```bash
-claude install github:AlpacaLabsLLC/skills-for-architects/05-product-materials
+claude install github:AlpacaLabsLLC/skills-for-architects/05-materials-research
 ```
 
 ## Usage

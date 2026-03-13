@@ -21,7 +21,7 @@ Product and materials research skills for [Claude Code](https://docs.anthropic.c
 ## Install
 
 ```bash
-claude install github:AlpacaLabsLLC/skills-for-architects/05-product-materials
+claude install github:AlpacaLabsLLC/skills-for-architects/05-materials-research
 ```
 
 ## License

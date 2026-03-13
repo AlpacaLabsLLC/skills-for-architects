@@ -7,7 +7,7 @@ Batch product image processor for [Claude Code](https://docs.anthropic.com/en/do
 ## Install
 
 ```bash
-claude install github:AlpacaLabsLLC/skills-for-architects/05-product-materials
+claude install github:AlpacaLabsLLC/skills-for-architects/05-materials-research
 ```
 
 ### Dependencies
