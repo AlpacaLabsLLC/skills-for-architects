@@ -6,6 +6,12 @@
 
 **13 skills** and **3 commands** across **4 plugins** for architects, designers, and AEC professionals.
 
+## What Are Skills and Commands?
+
+- **Skills** are domain knowledge units (nouns). They teach Claude about a design topic — like calculating occupancy loads, analyzing zoning envelopes, or writing CSI specs.
+- **Commands** are workflows (verbs). They chain multiple skills together to accomplish a task — like running a full FF&E extraction pipeline or complete site due diligence.
+- **Plugins** are the containers. Each groups related skills and commands by topic.
+
 ## Plugins
 
 | Plugin | Skills | Commands | Description |
@@ -73,11 +79,6 @@ Skills are symlinked into `~/.claude/skills/` so they stay in sync when you upda
 |-------|-------------|
 | [`/slide-deck-generator`](./creative-presenting/skills/slide-deck-generator) | Self-contained HTML slide decks — Helvetica, editorial layout, 22 slide types, keyboard/touch navigation. |
 | [`/color-palette-generator`](./creative-presenting/skills/color-palette-generator) | Color palettes from descriptions, images, or hex codes — swatches, WCAG contrast, example pairings. |
-
-## What Are Skills and Commands?
-
-- **Skills** are domain knowledge units (nouns). They teach Claude about a design topic — like calculating occupancy loads, analyzing zoning envelopes, or writing CSI specs.
-- **Commands** are workflows (verbs). They chain multiple skills together to accomplish a task — like running a full FF&E extraction pipeline or complete site due diligence.
 
 ## Contributing
 
