@@ -1,18 +1,18 @@
-# Zoning
+# Zoning Analysis
 
-Zoning analysis skills for Claude Code — envelope calculations, setbacks, height limits, and land-use regulations.
+Zoning analysis skills for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) — envelope calculations, setbacks, height limits, and land-use regulations.
 
 ## Skills
 
 | Skill | Description |
 |-------|-------------|
-| [zoning-analyzer](skills/zoning-analyzer/) | Zoning envelope analyzer for Maldonado, Uruguay — parses GIS data and calculates height, setbacks, FOS/FOT from TONE regulations |
+| [zoning-analysis-uruguay](skills/zoning-analysis-uruguay/) | Buildable envelope analysis for lots in Maldonado, Uruguay — setbacks, heights, FOS/FOT from TONE regulations. |
+| [zoning-analysis-nyc](skills/zoning-analysis-nyc/) | Buildable envelope analysis for lots in New York City — FAR, height, setbacks, use groups from PLUTO data and the Zoning Resolution. |
 
 ## Install
 
 ```bash
-git clone https://github.com/AlpacaLabsLLC/skills.git
-# Then symlink individual skills or install the full plugin
+claude install github:AlpacaLabsLLC/skills-for-architects/zoning-analysis
 ```
 
 ## License
