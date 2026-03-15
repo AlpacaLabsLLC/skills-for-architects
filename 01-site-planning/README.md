@@ -11,44 +11,32 @@ Early-stage site analysis requires pulling data from dozens of sources — NOAA 
 Four research skills that each investigate a different dimension of a site, plus a command that runs them all in sequence for full due diligence. Each skill searches authoritative public data sources, synthesizes findings, and outputs a structured markdown report.
 
 ```
-                          ┌─────────────┐
-                          │   Address   │
-                          └──────┬──────┘
-                                 │
-            ┌────────────────────┼────────────────────┐
-            │                    │                    │
-            ▼                    ▼                    ▼
-  ┌──────────────────┐ ┌──────────────────┐ ┌──────────────────┐
-  │  Environmental   │ │    Mobility      │ │  Demographics    │
-  │                  │ │                  │ │                  │
-  │ Climate          │ │ Transit routes   │ │ Population       │
-  │ Precipitation    │ │ Walk/Bike/       │ │ Income           │
-  │ Wind patterns    │ │ Transit scores   │ │ Age distribution │
-  │ Sun angles       │ │ Major roads      │ │ Housing market   │
-  │ Flood zones      │ │ Airport access   │ │ Employment       │
-  │ Seismic risk     │ │ Ped. infra.      │ │                  │
-  │ Soil & topo      │ │                  │ │                  │
-  └────────┬─────────┘ └────────┬─────────┘ └────────┬─────────┘
-           │                    │                     │
-           ▼                    ▼                     ▼
-  ┌──────────────────┐
-  │  History         │
-  │                  │
-  │ Adjacent uses    │
-  │ Arch. character  │
-  │ Historic dist.   │
-  │ Landmarks        │
-  │ Commercial       │
-  │ Planned devt.    │
-  └────────┬─────────┘
-           │
-           ▼
-  ┌─────────────────────────────────────────┐
-  │         Markdown Reports                │
-  │                                         │
-  │  One file per analysis, each with:      │
-  │  Key Metrics table + detailed sections  │
-  └─────────────────────────────────────────┘
+                                    ┌─────────────┐
+                                    │   Address   │
+                                    └──────┬──────┘
+                                           │
+         ┌─────────────┬───────────────────┼───────────────────┐
+         │             │                   │                   │
+         ▼             ▼                   ▼                   ▼
+  ┌────────────┐ ┌────────────┐ ┌──────────────────┐ ┌──────────────────┐
+  │Environmental│ │  Mobility  │ │  Demographics    │ │  History         │
+  │            │ │            │ │                  │ │                  │
+  │ Climate    │ │ Transit    │ │ Population       │ │ Adjacent uses    │
+  │ Precip.    │ │ Walk/Bike/ │ │ Income           │ │ Arch. character  │
+  │ Wind       │ │ Transit    │ │ Age distribution │ │ Historic dist.   │
+  │ Sun angles │ │ scores     │ │ Housing market   │ │ Landmarks        │
+  │ Flood zones│ │ Major roads│ │ Employment       │ │ Commercial       │
+  │ Seismic    │ │ Airport    │ │                  │ │ Planned devt.    │
+  │ Soil & topo│ │ Ped. infra.│ │                  │ │                  │
+  └─────┬──────┘ └─────┬──────┘ └────────┬─────────┘ └────────┬─────────┘
+        │              │                 │                     │
+        ▼              ▼                 ▼                     ▼
+  ┌────────────────────────────────────────────────────────────────────┐
+  │                      Markdown Reports                            │
+  │                                                                  │
+  │  One file per analysis, each with:                               │
+  │  Key Metrics table + detailed sections                           │
+  └──────────────────────────────────────────────────────────────────┘
 ```
 
 ## Data Flow
@@ -77,7 +65,7 @@ Each skill produces a **structured markdown report** with a Key Metrics summary 
 The `/site-due-diligence-nyc` command runs all four research skills plus NYC zoning in sequence, carrying context forward between steps:
 
 ```
-Address → Environmental → Mobility → Demographics → Neighborhood → Zoning → 5 reports
+Address → Environmental → Mobility → Demographics → History → Zoning → 5 reports
 ```
 
 ## Skills
