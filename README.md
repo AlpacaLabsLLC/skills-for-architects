@@ -1,23 +1,22 @@
 # Skills for Architects
 
-> Skills, commands, and plugins for [Claude](https://claude.ai) — use with Claude Desktop or [Claude Code](https://docs.anthropic.com/en/docs/claude-code). From site research to zoning, programming, specifications, and creative delivery.
+> Skills and plugins for [Claude](https://claude.ai) — use with Claude Desktop or [Claude Code](https://docs.anthropic.com/en/docs/claude-code). From site research to zoning, programming, specifications, and creative delivery.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 Claude is an AI assistant made by Anthropic. These skills teach it architecture-specific workflows — site analysis, space programming, specifications, and more.
 
-**16 skills** and **3 commands** across **6 plugins** for architects, designers, and AEC professionals.
+**16 skills** across **6 plugins** for architects, designers, and AEC professionals.
 
 ## Prerequisites
 
 - **Claude Desktop** (recommended) or **Claude Code CLI**
 - A [Claude subscription](https://claude.ai) (Pro, Max, Team, or Enterprise)
 
-## What Are Skills and Commands?
+## What Are Skills and Plugins?
 
-- **Skills** teach Claude about a design topic — like calculating occupancy loads, analyzing zoning envelopes, or writing CSI specs.
-- **Commands** chain multiple skills together to accomplish a task — like running a full FF&E extraction pipeline or complete site due diligence.
-- **Plugins** are the containers. Each groups related skills and commands by topic.
+- **Skills** teach Claude about a design topic — like calculating occupancy loads, analyzing zoning envelopes, or writing CSI specs. You invoke them with a slash command (e.g. `/environmental-analysis`).
+- **Plugins** group related skills together. Some plugins include a skill that runs the others in sequence — for example, `/site-due-diligence-nyc` runs all four site planning skills plus zoning in one go.
 
 ## Quick Start
 
@@ -62,22 +61,14 @@ Pick your task, run the skill:
 
 Organized by project lifecycle — from site research through delivery.
 
-| # | Plugin | Skills | Commands | Description |
-|---|--------|--------|----------|-------------|
-| 1 | [01-site-planning](./01-site-planning) | 4 | 1 | Site research: environmental, mobility, demographics, history. |
-| 2 | [02-zoning-analysis](./02-zoning-analysis) | 1 | — | Buildable envelope analysis from zoning regulations and public data APIs. |
-| 3 | [03-programming](./03-programming) | 2 | 1 | Workplace strategy: space programs, occupancy loads, IBC compliance. |
-| 4 | [04-specifications](./04-specifications) | 2 | — | CSI outline specs and construction punch lists. |
-| 5 | [05-materials-research](./05-materials-research) | 5 | 1 | FF&E product research, spec extraction, cleanup, and image processing. |
-| 6 | [06-presentations](./06-presentations) | 2 | — | Slide deck generation and color palette creation. |
-
-## All Commands
-
-| Command | Plugin | Description |
-|---------|--------|-------------|
-| `/site-due-diligence-nyc` | site-planning | Full NYC site due diligence — environmental, mobility, demographics, history, and zoning. |
-| `/space-program` | programming | Build a complete space program — occupancy loads then workplace programming. |
-| `/spec-package` | product-materials | Full FF&E pipeline — fetch specs, clean data, process images. |
+| # | Plugin | Skills | Description |
+|---|--------|--------|-------------|
+| 1 | [01-site-planning](./01-site-planning) | 4 | Site research: environmental, mobility, demographics, history. |
+| 2 | [02-zoning-analysis](./02-zoning-analysis) | 1 | Buildable envelope analysis from zoning regulations and public data APIs. |
+| 3 | [03-programming](./03-programming) | 2 | Workplace strategy: space programs, occupancy loads, IBC compliance. |
+| 4 | [04-specifications](./04-specifications) | 2 | CSI outline specs and construction punch lists. |
+| 5 | [05-materials-research](./05-materials-research) | 5 | FF&E product research, spec extraction, cleanup, and image processing. |
+| 6 | [06-presentations](./06-presentations) | 2 | Slide deck generation and color palette creation. |
 
 ## All Skills
 
