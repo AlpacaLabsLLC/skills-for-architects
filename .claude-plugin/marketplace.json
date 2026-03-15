@@ -1,0 +1,43 @@
+{
+  "name": "skills-for-architects",
+  "owner": {
+    "name": "ALPA",
+    "email": "hello@alpa.llc"
+  },
+  "metadata": {
+    "description": "Skills, commands, and plugins for architects, designers, and AEC professionals — site research, zoning, programming, specifications, materials research, and presentations.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "01-site-planning",
+      "source": "./01-site-planning",
+      "description": "Site planning skills — environmental analysis, mobility, demographics, neighborhood history, and design briefs."
+    },
+    {
+      "name": "02-zoning-analysis",
+      "source": "./02-zoning-analysis",
+      "description": "Zoning analysis skills — buildable envelope calculations for New York City lots."
+    },
+    {
+      "name": "03-programming",
+      "source": "./03-programming",
+      "description": "Architectural programming skills — occupancy load calculations (IBC) and workplace space programming."
+    },
+    {
+      "name": "04-specifications",
+      "source": "./04-specifications",
+      "description": "Construction specification skills — CSI MasterFormat spec writing and redline punch list generation."
+    },
+    {
+      "name": "05-materials-research",
+      "source": "./05-materials-research",
+      "description": "Product and materials research skills — FF&E product search, spec extraction, cleanup, PDF parsing, and image processing."
+    },
+    {
+      "name": "06-presentations",
+      "source": "./06-presentations",
+      "description": "Presentation skills — HTML slide deck generation and color palette creation."
+    }
+  ]
+}
