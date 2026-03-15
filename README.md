@@ -1,8 +1,10 @@
 # Skills for Architects
 
-> Agentic skills, commands, and plugins for Claude — use with [Claude Desktop (Cowork)](https://claude.ai/download) or [Claude Code](https://docs.anthropic.com/en/docs/claude-code). From site research to zoning, programming, specifications, and creative delivery.
+> Skills, commands, and plugins for [Claude](https://claude.ai) — use with Claude Desktop or [Claude Code](https://docs.anthropic.com/en/docs/claude-code). From site research to zoning, programming, specifications, and creative delivery.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+Claude is an AI assistant made by Anthropic. These skills teach it architecture-specific workflows — site analysis, space programming, specifications, and more.
 
 **17 skills** and **3 commands** across **6 plugins** for architects, designers, and AEC professionals.
 
@@ -13,8 +15,8 @@
 
 ## What Are Skills and Commands?
 
-- **Skills** are domain knowledge units (nouns). They teach Claude about a design topic — like calculating occupancy loads, analyzing zoning envelopes, or writing CSI specs.
-- **Commands** are workflows (verbs). They chain multiple skills together to accomplish a task — like running a full FF&E extraction pipeline or complete site due diligence.
+- **Skills** teach Claude about a design topic — like calculating occupancy loads, analyzing zoning envelopes, or writing CSI specs.
+- **Commands** chain multiple skills together to accomplish a task — like running a full FF&E extraction pipeline or complete site due diligence.
 - **Plugins** are the containers. Each groups related skills and commands by topic.
 
 ## Quick Start
@@ -38,7 +40,7 @@ claude install github:AlpacaLabsLLC/skills-for-architects/01-site-planning
 claude install github:AlpacaLabsLLC/skills-for-architects
 ```
 
-Skills are symlinked into `~/.claude/skills/` so they stay in sync when you update.
+Skills stay in sync automatically when the source is updated.
 
 ## Where to Start
 
@@ -99,7 +101,7 @@ Organized by project lifecycle — from site research through delivery.
 
 | Skill | Description |
 |-------|-------------|
-| [`/workplace-programmer`](./03-programming/skills/workplace-programmer) | AI workplace strategy consultant — area splits, room schedules, seat counts from 10 archetypes and 43 research findings. |
+| [`/workplace-programmer`](./03-programming/skills/workplace-programmer) | AI workplace strategy consultant — area splits, room schedules, seat counts from workplace research benchmarks. |
 | [`/occupancy-calculator`](./03-programming/skills/occupancy-calculator) | IBC occupancy load calculator — per-area loads from Table 1004.5, egress requirements, use group classification. |
 
 ### 4. Specifications
@@ -130,13 +132,13 @@ Organized by project lifecycle — from site research through delivery.
 
 Want to add a skill for the built environment? Here's how:
 
-1. **Fork** this repo
+1. **Copy (fork)** this repository on GitHub
 2. Create your skill in the appropriate plugin folder (or propose a new plugin)
 3. Each skill needs:
    - A `SKILL.md` with clear instructions and domain knowledge
    - A `README.md` with install, usage, and sample output
    - Any supporting data files in a `data/` or `zoning-rules/` directory
-4. Open a **pull request** — describe what the skill does, how you tested it, and sample output
+4. Open a **pull request** (GitHub's way of proposing changes for review) — describe what the skill does, how you tested it, and sample output
 
 For guidance on organizing skills across a team, read [Distributing Skills to Teams](https://alpa.llc/articles/distributing-skills-to-teams).
 
