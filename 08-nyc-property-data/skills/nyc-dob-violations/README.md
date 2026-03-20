@@ -7,7 +7,7 @@ DOB and ECB violation lookup for any NYC building as a [Claude Code](https://doc
 ## Install
 
 ```bash
-claude install github:AlpacaLabsLLC/skills-for-architects/02-zoning-analysis
+claude install github:AlpacaLabsLLC/skills-for-architects/08-nyc-property-data
 ```
 
 ## Usage

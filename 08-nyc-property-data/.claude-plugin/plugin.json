@@ -1,0 +1,12 @@
+{
+  "name": "08-nyc-property-data",
+  "version": "1.0.0",
+  "description": "NYC property data skills — landmarks, DOB permits, violations, ACRIS records, HPD, and BSA variances from NYC Open Data.",
+  "author": {
+    "name": "ALPA",
+    "url": "https://alpa.llc"
+  },
+  "keywords": ["nyc", "property", "building", "permits", "violations", "landmarks", "acris", "bsa", "hpd", "architecture"],
+  "homepage": "https://alpa.llc/plugins/nyc-property-data",
+  "license": "MIT"
+}

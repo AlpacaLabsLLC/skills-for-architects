@@ -7,7 +7,7 @@ HPD violations, complaints, and building registration lookup for NYC residential
 ## Install
 
 ```bash
-claude install github:AlpacaLabsLLC/skills-for-architects/02-zoning-analysis
+claude install github:AlpacaLabsLLC/skills-for-architects/08-nyc-property-data
 ```
 
 ## Usage

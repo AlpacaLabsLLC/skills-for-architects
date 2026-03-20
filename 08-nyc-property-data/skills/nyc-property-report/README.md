@@ -7,7 +7,7 @@ Combined NYC property report as a [Claude Code](https://docs.anthropic.com/en/do
 ## Install
 
 ```bash
-claude install github:AlpacaLabsLLC/skills-for-architects/02-zoning-analysis
+claude install github:AlpacaLabsLLC/skills-for-architects/08-nyc-property-data
 ```
 
 ## Usage
