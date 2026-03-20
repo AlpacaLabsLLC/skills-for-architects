@@ -4,9 +4,11 @@ NYC's Primary Land Use Tax Lot Output (PLUTO) dataset contains extensive data fo
 
 ## API Access
 
+### Tabular Data (Socrata PLUTO)
+
 **Endpoint:** `https://data.cityofnewyork.us/resource/64uk-42ks.json`
 
-### Query Examples
+#### Query Examples
 
 By BBL (10-digit):
 ```
@@ -27,6 +29,43 @@ With field selection (faster):
 ```
 ?bbl=1005670032&$select=bbl,address,zonedist1,overlay1,spdist1,lotarea,residfar,commfar,facilfar,builtfar,numfloors,splitzone,landmark,histdist,ltdheight
 ```
+
+### Lot Polygon (MapPLUTO ArcGIS Feature Service)
+
+**Endpoint:** `https://a841-dotweb01.nyc.gov/arcgis/rest/services/GAZETTEER/MapPLUTO/MapServer/0/query`
+
+Returns the **exact tax lot polygon** geometry. No authentication required.
+
+#### Query Examples
+
+By BBL (returns WGS84 lat/lon polygon):
+```
+?where=BBL='1005670032'&outFields=BBL&f=json&outSR=4326
+```
+
+By BBL (returns Web Mercator):
+```
+?where=BBL='1005670032'&outFields=BBL&f=json&outSR=3857
+```
+
+GeoJSON format:
+```
+?where=BBL='1005670032'&outFields=BBL&f=geojson
+```
+
+#### Response Format
+
+JSON with `features[0].geometry.rings[0]` containing an array of `[lon, lat]` coordinate pairs (when `outSR=4326`). The polygon is closed (first and last points are identical).
+
+#### Coordinate Conversion to Local Feet
+
+```
+cos_lat = cos(centroid_latitude_in_radians)
+x_ft = (lon - lon_min) × 111320 × cos_lat × 3.28084
+y_ft = (lat - lat_min) × 111320 × 3.28084
+```
+
+This uses equirectangular projection — accurate to ±5% for lot-sized polygons in NYC. Always verify computed area against PLUTO's `lotarea` field.
 
 ### Response Format
 

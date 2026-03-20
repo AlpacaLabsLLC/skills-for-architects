@@ -37,9 +37,11 @@ Borough codes:
 | 4 | Queens |
 | 5 | Staten Island |
 
-### Step 2: Query PLUTO
+### Step 2: Query PLUTO (tabular + polygon)
 
-Fetch lot data from the NYC PLUTO dataset via the Socrata Open Data API.
+Fetch lot data from **two** NYC APIs in parallel:
+
+#### 2a. Tabular data (Socrata PLUTO)
 
 **Endpoint:** `https://data.cityofnewyork.us/resource/64uk-42ks.json`
 
@@ -78,7 +80,30 @@ Read `zoning-rules/pluto-fields.md` for the full field reference.
 - `histdist` — historic district name
 - `borocode`, `block`, `lot` — parsed BBL components
 
-If the query returns no results, inform the user and ask them to verify the address or BBL.
+#### 2b. Lot polygon (MapPLUTO ArcGIS Feature Service)
+
+**Endpoint:** `https://a841-dotweb01.nyc.gov/arcgis/rest/services/GAZETTEER/MapPLUTO/MapServer/0/query`
+
+**Query by BBL:**
+```
+https://a841-dotweb01.nyc.gov/arcgis/rest/services/GAZETTEER/MapPLUTO/MapServer/0/query?where=BBL='XXXXXXXXXX'&outFields=BBL&f=json&outSR=4326
+```
+
+This returns the **exact tax lot polygon** in WGS84 (lat/lon). No authentication required.
+
+**Convert to local feet:**
+1. Extract the `features[0].geometry.rings[0]` coordinate array (pairs of `[lon, lat]`)
+2. Compute the centroid latitude for the cos correction factor: `cos(lat)`
+3. Convert to local feet using:
+   - `x_ft = (lon - lon_min) × 111320 × cos(lat) × 3.28084`
+   - `y_ft = (lat - lat_min) × 111320 × 3.28084`
+4. Origin at the southernmost point (Y=0 at street/south side)
+5. Output a `LOT_POLY` array of `[x, y]` pairs in feet
+6. Verify the computed area against PLUTO's `lotarea` (expect ±5% due to projection)
+
+**Always use the real polygon** for the 3D envelope viewer. Never fall back to a `lotfront × lotdepth` rectangle when polygon data is available.
+
+If either query returns no results, inform the user and ask them to verify the address or BBL.
 
 ### Step 3: Identify Zoning District
 
@@ -314,6 +339,32 @@ Example:
 ```
 
 Adapt both diagrams to the specific lot. Use actual dimensions and controls from the analysis. If the lot is irregular or split-zone, note the complexity and simplify where needed.
+
+## Envelope Data
+
+Machine-readable data for `/zoning-envelope`. Include the exact lot polygon from Step 2b (MapPLUTO ArcGIS) converted to local feet, plus all computed envelope parameters.
+
+```json
+{
+  "lot_poly": [[x, y], ...],
+  "unit": "ft",
+  "setbacks": { "front": 0, "rear": 20, "lateral1": 0, "lateral2": 0 },
+  "volumes": [
+    { "type": "base", "inset": 20, "h_bottom": 0, "h_top": 85, "label": "base (streetwall)" },
+    { "type": "tower", "inset": 10, "h_bottom": 85, "h_top": 290, "label": "tower" }
+  ],
+  "height_cap": 290,
+  "info": { "title": "...", "zone": "...", "id": "BBL ...", "area": "... SF" },
+  "stats": { "Commercial FAR": "10.0", "Max Floor Area": "218,620 SF", ... }
+}
+```
+
+Adapt the `volumes` array to the district type:
+- **Height-factor:** One base volume (0 to sky start) + one tapered volume or approximation
+- **Contextual:** Base/streetwall volume + tower volume with deeper inset
+- **With front yard:** Add front setback to `setbacks`
+
+To generate an interactive 3D viewer from this data, run: `/zoning-envelope path/to/this-report.md`
 
 ## Caveats
 - This analysis is based on publicly available zoning data (PLUTO) and general Zoning Resolution rules

@@ -59,6 +59,15 @@ A skill that queries the city's PLUTO dataset for lot-specific data, identifies 
                    ┌──────────────────────┐
                    │  Markdown Report     │
                    │  with caveats        │
+                   └──────────┬───────────┘
+                              │
+                              ▼
+                   ┌──────────────────────┐
+                   │  /zoning-envelope    │
+                   │                      │
+                   │  Interactive 3D      │
+                   │  HTML viewer         │
+                   │  (Three.js)          │
                    └──────────────────────┘
 ```
 
@@ -89,13 +98,17 @@ A structured markdown report with:
 - Bonuses & Incentives
 - Restrictions
 - Development Potential (max buildable SF)
+- Envelope Data (machine-readable JSON for `/zoning-envelope`)
 - Caveats (mandatory warnings about professional verification)
+
+Optionally, run `/zoning-envelope` on the report to generate an interactive 3D viewer — a self-contained HTML file with the exact lot polygon, extruded buildable volumes, setback zones, and height caps.
 
 ## Skills
 
 | Skill | Description |
 |-------|-------------|
 | [zoning-analysis-nyc](skills/zoning-analysis-nyc/) | Buildable envelope analysis for NYC lots — FAR, height, setbacks, use groups from PLUTO and the Zoning Resolution |
+| [zoning-envelope](skills/zoning-envelope/) | Interactive 3D envelope viewer — generates a self-contained HTML file from any zoning analysis report |
 
 ## Install
 
