@@ -1,298 +1,136 @@
 ---
 name: nyc-property-report
-description: NYC property data — landmarks, DOB permits, violations, ACRIS records, HPD, and BSA variances from NYC Open Data APIs.
+description: Combined NYC property report — landmarks, DOB permits, violations, ACRIS records, HPD, and BSA variances.
 allowed-tools:
   - WebFetch
   - Write
   - Read
   - Bash
-  - Glob
-  - Grep
 user-invocable: true
 ---
 
-# /nyc-property-report — NYC Property Data
+# /nyc-property-report — Combined NYC Property Report
 
-Look up building and property data for any NYC address. Queries NYC Open Data (Socrata) across 7 data domains: property identification, landmarks, DOB permits, DOB violations, ACRIS property records, HPD (residential), and BSA variances. No API key required — works out of the box using PLUTO for address resolution.
+Runs all 6 NYC property data lookups and produces a combined report. For individual lookups, use the standalone skills:
+- `/nyc-landmarks` — LPC landmark & historic district check
+- `/nyc-dob-permits` — DOB permit & filing history
+- `/nyc-dob-violations` — DOB & ECB violations
+- `/nyc-acris` — ACRIS property transaction records
+- `/nyc-hpd` — HPD violations, complaints & registration
+- `/nyc-bsa` — BSA variances & special permits
+
+No API key required — all queries use NYC Open Data (Socrata) with PLUTO for address resolution.
 
 ## Usage
 
 ```
-/nyc-property-report [address]                    → full report (all domains)
-/nyc-property-report [address] landmarks          → LPC landmark check only
-/nyc-property-report [address] permits            → DOB permits & filings only
-/nyc-property-report [address] violations         → DOB + ECB violations only
-/nyc-property-report [address] acris              → property records only
-/nyc-property-report [address] hpd                → HPD violations & registration only
-/nyc-property-report [address] bsa                → BSA variances & special permits only
-/nyc-property-report [BBL]                        → full report by BBL
-/nyc-property-report [BIN]                        → full report by BIN
+/nyc-property-report 120 Broadway, Manhattan
+/nyc-property-report 1000770001          (BBL)
+/nyc-property-report 1001389             (BIN)
 ```
-
-Examples:
-- `/nyc-property-report 120 Broadway, Manhattan`
-- `/nyc-property-report 375 Sterling Place, Brooklyn 11238`
-- `/nyc-property-report 1000770001 landmarks` (BBL for 120 Broadway)
-- `/nyc-property-report 25-15 Queens Blvd, Queens violations`
-
-## Environment Variables
-
-No API keys are required. The skill uses PLUTO (Socrata) for address resolution — fully public, no registration.
-
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `NYC_SOCRATA_TOKEN` | No (recommended) | NYC Open Data app token for higher rate limits. Register at https://data.cityofnewyork.us/profile/edit/developer_settings |
-| `NYC_GEOCLIENT_KEY` | No (optional upgrade) | NYC Geoclient API key for richer address data (100+ geographic fields). Register at https://api-portal.nyc.gov |
-
-If `NYC_SOCRATA_TOKEN` is set, append `&$$app_token={token}` to all Socrata queries for higher rate limits (1000/hour vs throttled).
 
 ## Step 1: Parse Input
 
-Accept:
+Accept one of:
 - **Address + Borough/Zip** — "120 Broadway, Manhattan" or "120 Broadway 10271"
-- **BBL** — 10-digit number (borough 1 digit + block 5 digits + lot 4 digits), e.g., 1000770001
+- **BBL** — 10-digit number (boro 1 + block 5 + lot 4)
 - **BIN** — 7-digit Building Identification Number
 
-Parse the address into components: house number, street name, borough (or zip). Handle:
-- Hyphenated Queens addresses: "25-15 Queens Blvd" → houseNumber=25-15
-- Unit/floor suffixes: strip them (they're not needed for lot lookup)
-- Borough names: Manhattan=1, Bronx=2, Brooklyn=3, Queens=4, Staten Island=5
+Borough codes: Manhattan=1/MN, Bronx=2/BX, Brooklyn=3/BK, Queens=4/QN, Staten Island=5/SI
 
-Detect mode from the last word of the arguments: landmarks, permits, violations, acris, hpd, bsa. If none specified, mode = "full".
+Strip apartment/unit/floor suffixes. Handle hyphenated Queens addresses.
 
-## Step 2: Resolve to BBL/BIN
+## Step 2: Resolve via PLUTO
 
-If the user provided an address (not BBL/BIN), resolve it via PLUTO — the same approach used by `/zoning-analysis-nyc`. No API key required.
-
-### Default: PLUTO Lookup (no auth)
-
-Query PLUTO by address:
-```
-https://data.cityofnewyork.us/resource/64uk-42ks.json?$where=upper(address) LIKE '%{STREET}%'&borough='{BOROUGH_CODE}'&$limit=5
-```
-
-Or by address + zip (more precise):
-```
-https://data.cityofnewyork.us/resource/64uk-42ks.json?$where=address='{HOUSE_NUM} {STREET}'&zipcode='{ZIP}'
-```
-
-PLUTO returns all the fields needed for subsequent queries:
-- `bbl` — 10-digit BBL
-- `bin` — BIN (labeled `bldgbin` in some PLUTO versions)
-- `address`, `zipcode`, `borough`
-- `bldgclass` — building class (needed to determine if HPD applies)
-- `zonedist1`, `landuse`, `yearbuilt`, `numfloors`, `unitstotal`, `lotarea`, `bldgarea`
-- `histdist` — historic district name (bonus: partial landmark check from PLUTO itself)
-- `ownername` — owner name (bonus: cross-reference with ACRIS)
-- `cd` — community district
-- `latitude`, `longitude`
-
-If the PLUTO query returns multiple rows, show the options and ask the user to pick. If zero rows, try variations:
-- Normalize the address: uppercase, strip unit numbers, try alternate spellings (ST vs STREET, AVE vs AVENUE)
-- Try without zip code
-- Suggest the user provide a BBL directly
-
-**Address normalization:** Before querying, normalize the address:
-- Uppercase everything
-- Strip apartment/unit/floor suffixes
-- Expand abbreviations only if needed for matching (try exact first)
-- Borough names to codes: Manhattan=MN, Bronx=BX, Brooklyn=BK, Queens=QN, Staten Island=SI
-
-### Optional Upgrade: Geoclient (richer data)
-
-If `NYC_GEOCLIENT_KEY` is set (check via `echo $NYC_GEOCLIENT_KEY` in Bash), use Geoclient for address resolution instead. It returns 100+ geographic identifiers (census tract, council district, police precinct, fire company, school district, etc.) that PLUTO does not have.
-
-```
-GET https://api.nyc.gov/geo/geoclient/v2/address?houseNumber={num}&street={street}&borough={borough}
-Header: Ocp-Apim-Subscription-Key: {NYC_GEOCLIENT_KEY}
-```
-
-If Geoclient is used, the Property Identification section of the report will be richer. If PLUTO is used, the identification section shows what PLUTO provides (BBL, BIN, address, borough, zip, community district, coordinates, building class, zoning, year built).
-
-### From BBL or BIN (direct)
-
-If the user provides a BBL (10-digit number) or BIN (7-digit number), skip address resolution entirely. Query PLUTO by BBL to get the remaining fields:
+By BBL:
 ```
 https://data.cityofnewyork.us/resource/64uk-42ks.json?bbl={BBL}
 ```
 
-Parse BBL into borough code (1st digit), block (digits 2-6), and lot (digits 7-10) for APIs that need them separately.
-
-## Step 3: Query Data Domains
-
-Based on mode, query the relevant domains. For "full" mode, query all 7 in sequence.
-
-For each Socrata query, use WebFetch with the URL. Socrata returns JSON arrays. If `NYC_SOCRATA_TOKEN` is set, append `&$$app_token={token}` to each URL.
-
-Read `socrata-reference.md` for the full API reference with field names and SoQL patterns.
-
-### Domain 1: Property Identification (always runs)
-
-Already resolved in Step 2 via PLUTO (or Geoclient if key is set). Format as a summary table showing BBL, BIN, address, borough, zip, community district, building class, zoning district, year built, lot area, number of floors, coordinates, and owner name — all from the PLUTO response.
-
-### Domain 2: Landmarks (mode: "landmarks" or "full")
-
-Query LPC database by BIN:
+By address:
 ```
-https://data.cityofnewyork.us/resource/7mgd-s57w.json?bin_number={BIN}
+https://data.cityofnewyork.us/resource/64uk-42ks.json?$where=upper(address) LIKE '%{STREET}%'&borough='{BORO_CODE}'&$limit=5
 ```
 
-If no results, try by BBL:
-```
-https://data.cityofnewyork.us/resource/7mgd-s57w.json?bbl={BBL}
-```
+**Address normalization:** Uppercase, strip unit/apt. Borough names to codes: Manhattan=MN, Bronx=BX, Brooklyn=BK, Queens=QN, Staten Island=SI. If multiple results, ask user to pick. If zero, try variations or suggest BBL.
+
+Store: `bbl`, `bin`/`bldgbin`, `address`, `borough`, `zipcode`, `cd`, `bldgclass`, `zonedist1`, `yearbuilt`, `ownername`, `numfloors`, `lotarea`, `bldgarea`, `unitstotal`, `histdist`, `latitude`, `longitude`.
+
+Parse BBL: boro (1 digit), block (5 digits zero-padded), lot (4 digits zero-padded).
+
+## Step 3: Query All 6 Domains
+
+Query each domain in sequence. If any query fails, note the error and continue with the next domain.
+
+Read `socrata-reference.md` (in this skill's directory) for the full API reference with field names and SoQL patterns.
+
+### Domain 1: Landmarks
+
+By BIN: `https://data.cityofnewyork.us/resource/7mgd-s57w.json?bin_number={BIN}`
+Fallback by BBL: `https://data.cityofnewyork.us/resource/7mgd-s57w.json?bbl={BBL}`
+
+Also check PLUTO `histdist` field — if set, property is in a historic district.
 
 Key fields: `lpc_name`, `lpc_number`, `date_designated`, `building_type`, `style`, `architect`, `historic_district_name`, `status`
 
-If no results: "No landmark designation found for this property."
+### Domain 2: DOB Permits
 
-**Implications note:** If landmarked, add: "Exterior alterations require LPC Certificate of Appropriateness before DOB permits."
+**IMPORTANT:** Legacy datasets use `bin__` (double underscore). DOB NOW uses `bin`.
 
-### Domain 3: DOB Permits (mode: "permits" or "full")
+Legacy permits: `https://data.cityofnewyork.us/resource/ipu4-2q9a.json?$where=bin__='{BIN}'&$order=issuance_date DESC&$limit=30`
+Legacy filings: `https://data.cityofnewyork.us/resource/ic3t-wcy2.json?$where=bin__='{BIN}'&$order=latest_action_date DESC&$limit=30`
+DOB NOW permits: `https://data.cityofnewyork.us/resource/rbx6-tga4.json?$where=bin='{BIN}'&$order=approved_date DESC&$limit=30`
+DOB NOW filings: `https://data.cityofnewyork.us/resource/w9ak-ipjd.json?$where=bin='{BIN}'&$order=filing_date DESC&$limit=30`
 
-Query 4 datasets. Use BIN where possible, fall back to borough/block/lot.
+Merge, sort by date DESC, group by job type (NB, A1, A2, A3, DM, Other).
 
-Legacy Permit Issuance:
-```
-https://data.cityofnewyork.us/resource/ipu4-2q9a.json?$where=bin__='{BIN}'&$order=issuance_date DESC&$limit=30
-```
+### Domain 3: DOB Violations
 
-Legacy Job Filings:
-```
-https://data.cityofnewyork.us/resource/ic3t-wcy2.json?$where=bin__='{BIN}'&$order=latest_action_date DESC&$limit=30
-```
+DOB violations: `https://data.cityofnewyork.us/resource/3h2n-5cm9.json?$where=bin='{BIN}'&$order=issue_date DESC&$limit=50`
+ECB violations: `https://data.cityofnewyork.us/resource/6bgk-3dad.json?$where=bin='{BIN}'&$order=violation_date DESC&$limit=50`
+Active violations: `https://data.cityofnewyork.us/resource/sjhj-bc8q.json?$where=bin='{BIN}'`
 
-DOB NOW Approved Permits:
-```
-https://data.cityofnewyork.us/resource/rbx6-tga4.json?$where=bin='{BIN}'&$order=approved_date DESC&$limit=30
-```
+Flag open violations with ⚠. Show ECB penalties.
 
-DOB NOW Job Filings:
-```
-https://data.cityofnewyork.us/resource/w9ak-ipjd.json?$where=bin='{BIN}'&$order=filing_date DESC&$limit=30
-```
+### Domain 4: ACRIS
 
-**IMPORTANT:** Legacy and DOB NOW datasets use different field names. See socrata-reference.md for the field mapping.
+**Requires BBL** (not BIN). Uses separate borough/block/lot fields.
 
-Merge results, sort by date descending. Group by job type:
-- NB = New Building
-- A1 = Alteration Type 1 (major, changes use/egress/occupancy)
-- A2 = Alteration Type 2 (multiple work types)
-- A3 = Alteration Type 3 (minor, one work type)
-- DM = Demolition
-- Other
+Step A — Legals: `https://data.cityofnewyork.us/resource/8h5j-fqxa.json?borough={boro}&block={block}&lot={lot}&$order=good_through_date DESC&$limit=20`
+Step B — Master: `https://data.cityofnewyork.us/resource/bnx9-e6tj.json?$where=document_id IN ('{id1}','{id2}',...)&$order=doc_date DESC`
+Step C — Parties: `https://data.cityofnewyork.us/resource/636b-3b5g.json?$where=document_id IN ('{id1}','{id2}',...)`
+Step D — Doc codes: `https://data.cityofnewyork.us/resource/7isb-wh4c.json?$limit=200`
 
-Show: date, job #, permit #, work type/description, status, applicant/owner.
+Join by document_id. Party type 1=Grantor, 2=Grantee. Group by doc type (Deeds, Mortgages, Other).
 
-### Domain 4: DOB Violations (mode: "violations" or "full")
+### Domain 5: HPD
 
-Query 3 datasets:
+**First check `bldgclass`** — HPD only applies to residential (classes starting with A, B, C, D, R, S). If non-residential, skip with note.
 
-DOB Violations:
-```
-https://data.cityofnewyork.us/resource/3h2n-5cm9.json?$where=bin='{BIN}'&$order=issue_date DESC&$limit=50
-```
+**Uses `boroid`** (not `borough`) and separate block/lot fields.
 
-ECB Violations:
-```
-https://data.cityofnewyork.us/resource/6bgk-3dad.json?$where=bin='{BIN}'&$order=violation_date DESC&$limit=50
-```
+Violations: `https://data.cityofnewyork.us/resource/wvxf-dwi5.json?$where=boroid='{boro}' AND block='{block}' AND lot='{lot}'&$order=inspectiondate DESC&$limit=50`
+Open violations: `https://data.cityofnewyork.us/resource/csn4-vhvf.json?$where=boroid='{boro}' AND block='{block}' AND lot='{lot}'`
+Complaints: `https://data.cityofnewyork.us/resource/ygpa-z7cr.json?$where=boroid='{boro}' AND block='{block}' AND lot='{lot}'&$order=receiveddate DESC&$limit=30`
+Registrations: `https://data.cityofnewyork.us/resource/tesw-yqqr.json?$where=boroid='{boro}' AND block='{block}' AND lot='{lot}'`
 
-Active/Open Violations:
-```
-https://data.cityofnewyork.us/resource/sjhj-bc8q.json?$where=bin='{BIN}'
-```
+Flag Class C violations with ⚠ (immediately hazardous).
 
-Flag open violations prominently with ⚠. Show ECB penalties (penalty_applied, amount_paid, amount_baldue).
+### Domain 6: BSA
 
-### Domain 5: ACRIS Property Records (mode: "acris" or "full")
-
-This is the most complex domain — requires a 3-table join. BBL is required (not BIN).
-
-Parse BBL into: borough (1 digit), block (5 digits), lot (4 digits).
-
-Step A — Get document IDs from Legals table:
-```
-https://data.cityofnewyork.us/resource/8h5j-fqxa.json?borough={boro}&block={block}&lot={lot}&$order=good_through_date DESC&$limit=20
-```
-
-Step B — Get document details from Master table. Build a `$where` clause with the document_ids from Step A:
-```
-https://data.cityofnewyork.us/resource/bnx9-e6tj.json?$where=document_id IN ('{id1}','{id2}',...)&$order=doc_date DESC
-```
-
-Step C — Get parties from Parties table with the same document_ids:
-```
-https://data.cityofnewyork.us/resource/636b-3b5g.json?$where=document_id IN ('{id1}','{id2}',...)
-```
-
-Step D — Look up doc type codes (fetch once):
-```
-https://data.cityofnewyork.us/resource/7isb-wh4c.json?$limit=200
-```
-
-Join: for each document, combine Master (date, type, amount) with Parties (grantor/grantee names). Group by document type (Deed, Mortgage, Assignment, Satisfaction, etc.).
-
-Show ownership chain: most recent deed's grantee = current owner.
-
-### Domain 6: HPD (mode: "hpd" or "full")
-
-**First check building class** from PLUTO (or from the Geoclient response if available). HPD only applies to residential buildings (class A, B, C, D, R, S). If non-residential, skip and note: "Building class {X} — HPD records not applicable (non-residential)."
-
-If residential, query 4 datasets using borough/block/lot (HPD uses boroid, not BBL as a single field):
-
-Violations:
-```
-https://data.cityofnewyork.us/resource/wvxf-dwi5.json?$where=boroid='{boro}' AND block='{block}' AND lot='{lot}'&$order=inspectiondate DESC&$limit=50
-```
-
-Open Violations:
-```
-https://data.cityofnewyork.us/resource/csn4-vhvf.json?$where=boroid='{boro}' AND block='{block}' AND lot='{lot}'
-```
-
-Complaints:
-```
-https://data.cityofnewyork.us/resource/ygpa-z7cr.json?$where=boroid='{boro}' AND block='{block}' AND lot='{lot}'&$order=receiveddate DESC&$limit=30
-```
-
-Registrations:
-```
-https://data.cityofnewyork.us/resource/tesw-yqqr.json?$where=boroid='{boro}' AND block='{block}' AND lot='{lot}'
-```
-
-Flag Class C violations (immediately hazardous) prominently with ⚠.
-
-### Domain 7: BSA (mode: "bsa" or "full")
-
-Query by BBL:
-```
-https://data.cityofnewyork.us/resource/yvxd-uipr.json?$where=bbl='{BBL}'&$order=calendar_date DESC
-```
-
-If no BBL match, try address:
-```
-https://data.cityofnewyork.us/resource/yvxd-uipr.json?$where=upper(premises_address) LIKE '%{STREET}%' AND borough='{BOROUGH}'&$order=calendar_date DESC
-```
-
-Show: calendar #, type (variance/special permit), status, decision, date, description.
-
-Note: "Approved variances remain with the land. Check if conditions affect proposed work."
+By BBL: `https://data.cityofnewyork.us/resource/yvxd-uipr.json?$where=bbl='{BBL}'&$order=calendar_date DESC`
+Address fallback: `https://data.cityofnewyork.us/resource/yvxd-uipr.json?$where=upper(premises_address) LIKE '%{STREET}%' AND borough='{BOROUGH}'&$order=calendar_date DESC`
 
 ## Step 4: Write Report
 
-Write the report to the user's working directory. Filename: `property-{address-slug}.md`
-
-Use the file path convention from the user's system. If no clear working directory, write to `~/Documents/Alpaca Labs/` or ask.
-
-### Report Structure
+Write to working directory as `property-{address-slug}.md`.
 
 ```markdown
 # NYC Property Report — {Address}
 
 **Generated:** {date}
 **BBL:** {bbl} | **BIN:** {bin}
-**Source:** NYC Geoclient API, NYC Open Data (Socrata)
+**Source:** NYC Open Data (Socrata)
 
 ---
 
@@ -307,119 +145,65 @@ Use the file path convention from the user's system. If no clear working directo
 | Lot | {lot} |
 | ZIP | {zip} |
 | Community District | {cd} |
-| Council District | {council} |
-| Census Tract | {tract} |
+| Building Class | {bldgclass} |
+| Zoning | {zonedist1} |
+| Year Built | {yearbuilt} |
+| Floors | {numfloors} |
+| Lot Area | {lotarea} SF |
+| Building Area | {bldgarea} SF |
+| Owner | {ownername} |
 | Coordinates | {lat}, {lon} |
 
 ---
 
 ## 2. Landmark Status
-
-{LANDMARKED or NOT LANDMARKED}
-
-{If landmarked: LP number, name, designation date, district, architect, style}
-{If not: "No landmark designation found."}
+{LANDMARKED / IN HISTORIC DISTRICT / NOT DESIGNATED}
+{If landmarked: LP number, name, date, district, architect, style}
+{Implications note if designated}
 
 ---
 
 ## 3. DOB Permits & Filings
-
 **Total found:** {count} ({x} legacy, {y} DOB NOW)
-
-### New Building (NB)
-| Date | Job # | Permit # | Status | Applicant |
-|------|-------|----------|--------|-----------|
-
-### Alteration Type 1 (A1)
-{table}
-
-### Alteration Type 2-3 (A2/A3)
-{table}
-
-{other types}
+{Tables grouped by NB, A1, A2/A3, DM, Other}
 
 ---
 
 ## 4. DOB Violations
-
 ### ⚠ Open Violations: {count}
-| Violation # | Type | Date | Description | Disposition |
-|-------------|------|------|-------------|-------------|
-
+{Open violations table}
 ### All DOB Violations
-{table}
-
+{Table}
 ### ECB Violations
-| ISN | Date | Violation Type | Penalty | Balance Due | Status |
-|-----|------|----------------|---------|-------------|--------|
-
+{Table with penalties}
 **Total penalties assessed:** ${amount}
 
 ---
 
 ## 5. Property Records (ACRIS)
-
 ### Deeds (Ownership)
-| Date | Doc Type | Amount | From (Grantor) | To (Grantee) |
-|------|----------|--------|----------------|--------------|
-
-**Current owner (per most recent deed):** {name}
-
+{Table — current owner from most recent deed}
 ### Mortgages
-| Date | Amount | Lender | Borrower |
-|------|--------|--------|----------|
-
+{Table}
 ### Other Documents
-{table for assignments, satisfactions, liens, etc.}
+{Table}
 
 ---
 
 ## 6. HPD — Housing Preservation & Development
-
 {If non-residential: "Building class {X} — HPD records not applicable."}
-
-{If residential:}
-
-### Registration
-| Field | Value |
-|-------|-------|
-| Owner | {owner} |
-| Managing Agent | {agent} |
-| Registration Expiry | {date} |
-
-### ⚠ Open Violations: {count}
-**Class C (Immediately Hazardous):** {count}
-**Class B (Hazardous):** {count}
-**Class A (Non-Hazardous):** {count}
-
-{table of open violations}
-
-### Recent Complaints
-{table}
+{If residential: Registration, open violations by class, complaints}
 
 ---
 
 ## 7. BSA — Board of Standards and Appeals
-
-{If no applications: "No BSA applications found (records from 1998–present)."}
-
-{If applications found:}
-| Calendar # | Type | Decision | Date | Description |
-|------------|------|----------|------|-------------|
+{Applications table or "No BSA applications found (records from 1998-present)."}
 
 ---
 
 *Generated by /nyc-property-report — NYC Open Data*
 *Data currency varies by dataset. Verify critical findings with source agencies.*
 ```
-
-### Report Rules
-- All dates in YYYY-MM-DD format
-- Dollar amounts with comma separators
-- Open violations always at the top of their section, flagged with ⚠
-- If a domain returns no results, say so explicitly (don't omit the section)
-- If a domain query fails (network error, rate limit), note the error and continue with other domains
-- Always include the "Data currency varies" caveat at the end
 
 ## Step 5: Summary
 
@@ -432,19 +216,27 @@ Key findings:
 - Landmark: Not designated
 - DOB Permits: 47 found (3 active filings)
 - Open Violations: 2 (1 ECB with $25,000 penalty)
-- Owner: SL Green Realty (per ACRIS deed 2019-03-15)
+- Owner: {name} (per ACRIS deed YYYY-MM-DD)
 - HPD: N/A (commercial building)
 - BSA: 1 approved variance (2004)
 
-Run /zoning-analysis-nyc for zoning data, or /nyc-due-diligence for the full package.
+Run /zoning-analysis-nyc for zoning envelope data.
 ```
+
+## Conventions
+
+- All dates: YYYY-MM-DD
+- Dollar amounts: comma-separated
+- Open/active items flagged with ⚠
+- If a domain returns no results, say so explicitly (don't omit the section)
+- If a domain query fails (network error, rate limit), note the error and continue
+- Always include the "Data currency varies" caveat
 
 ## Edge Cases
 
-- **No results from any API**: State clearly per section. Don't fail the whole report.
-- **Rate limited (HTTP 429)**: Wait 5 seconds, retry once. If still 429, note the error and suggest setting `NYC_SOCRATA_TOKEN`.
-- **ACRIS with many documents**: Limit to 20 most recent. Note if truncated.
-- **Condo lots**: ACRIS keys on individual unit lots. Note that the user may need to search by both the unit lot and the main condo lot.
-- **Very old buildings**: Pre-BIS DOB records (before ~1989) are not digitized. Note this if no permits found for a pre-1989 building.
-- **Hyphenated Queens addresses**: Pass as-is to Geoclient — it handles them.
-- **Multiple BINs for one BBL**: Possible for lot with multiple buildings. Geoclient returns the primary BIN. Note if PLUTO shows `numbldgs` > 1.
+- **Rate limited (HTTP 429):** Wait 5 seconds, retry once. If still 429, note error and suggest setting `NYC_SOCRATA_TOKEN`.
+- **ACRIS with many documents:** Limit to 20 most recent. Note if truncated.
+- **Condo lots:** ACRIS keys on individual unit lots. Note to search parent condo lot too.
+- **Pre-1989 buildings:** Pre-BIS DOB records not digitized. Note if few permits for old building.
+- **Multiple BINs:** If PLUTO shows `numbldgs` > 1, note that lot has multiple buildings.
+- **No results from any API:** State clearly per section. Don't fail the whole report.
