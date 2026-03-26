@@ -78,6 +78,7 @@ A skill that queries the city's PLUTO dataset for lot-specific data, identifies 
 | Skill | Description |
 |-------|-------------|
 | [zoning-analysis-nyc](skills/zoning-analysis-nyc/) | Buildable envelope analysis for NYC lots — FAR, height, setbacks, use groups from PLUTO and the Zoning Resolution |
+| [zoning-analysis-uruguay](skills/zoning-analysis-uruguay/) | Buildable envelope analysis for lots in Maldonado, Uruguay — FOS, FOT, height, setbacks from TONE regulations |
 | [zoning-envelope](skills/zoning-envelope/) | Interactive 3D envelope viewer — generates a self-contained HTML file from any zoning analysis report |
 
 ## Install

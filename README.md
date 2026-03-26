@@ -1,12 +1,12 @@
 # Skills for Architects
 
-> Skills and plugins for [Claude](https://claude.ai) — use with Claude Desktop or [Claude Code](https://docs.anthropic.com/en/docs/claude-code). From site research to zoning, programming, specifications, and creative delivery.
+> Skills and plugins for [Claude](https://claude.ai) — use with Claude Desktop or [Claude Code](https://docs.anthropic.com/en/docs/claude-code). From due diligence to zoning, programming, specifications, sustainability, and creative delivery.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 Claude is an AI assistant made by Anthropic. These skills teach it architecture-specific workflows — site analysis, space programming, specifications, and more.
 
-**24 skills** across **7 plugins** for architects, designers, and AEC professionals.
+**28 skills** across **8 plugins** for architects, designers, and AEC professionals.
 
 ## Prerequisites
 
@@ -47,32 +47,48 @@ Pick your task, run the skill:
 
 | I need to... | Run this | Plugin |
 |--------------|----------|--------|
+| Full NYC property due diligence | `/nyc-property-report 123 Main St` | Due Diligence |
 | Research a new site | `/environmental-analysis 123 Main St` | Site Planning |
 | Understand neighborhood context | `/history 123 Main St` | Site Planning |
 | Check NYC zoning | `/zoning-analysis-nyc 123 Main St` | Zoning Analysis |
-| Full NYC property due diligence | `/nyc-property-report 123 Main St` | NYC Property Data |
+| Analyze a lot in Uruguay | `/zoning-analysis-uruguay` | Zoning Analysis |
 | Build a space program | `/workplace-programmer` | Programming |
 | Calculate occupancy loads | `/occupancy-calculator` | Programming |
 | Write CSI specs | `/spec-writer` | Specifications |
+| Parse an EPD PDF | `/epd-parser ~/Downloads/EPD.pdf` | Sustainability |
+| Find EPDs for a material | `/epd-research CLT` | Sustainability |
 | Find FF&E products | `/product-research` | Materials Research |
 | Generate a slide deck | `/slide-deck-generator Q1 results` | Presentations |
 | Full NYC site due diligence | `/site-due-diligence-nyc 123 Main St` | Site Planning |
 
 ## Plugins
 
-Organized by project lifecycle — from site research through delivery.
+Organized by project lifecycle — from due diligence through delivery.
 
 | # | Plugin | Skills | Description |
 |---|--------|--------|-------------|
+| 0 | [00-due-diligence](./00-due-diligence) | 7 | NYC property data: landmarks, DOB permits, violations, ACRIS, HPD, BSA. |
 | 1 | [01-site-planning](./01-site-planning) | 4 | Site research: environmental, mobility, demographics, history. |
-| 2 | [02-zoning-analysis](./02-zoning-analysis) | 2 | Zoning envelope analysis and 3D visualization from PLUTO data. |
+| 2 | [02-zoning-analysis](./02-zoning-analysis) | 3 | Zoning envelope analysis and 3D visualization for NYC and Maldonado, Uruguay. |
 | 3 | [03-programming](./03-programming) | 2 | Workplace strategy: space programs, occupancy loads, IBC compliance. |
 | 4 | [04-specifications](./04-specifications) | 1 | CSI outline specifications from a materials list. |
+| 4.5 | [045-sustainability](./045-sustainability) | 4 | EPD parsing, research, comparison, and CSI specification with GWP thresholds. |
 | 5 | [05-materials-research](./05-materials-research) | 5 | FF&E product research, spec extraction, cleanup, and image processing. |
 | 6 | [06-presentations](./06-presentations) | 2 | Slide deck generation and color palette creation. |
-| 8 | [08-nyc-property-data](./08-nyc-property-data) | 7 | NYC property data: landmarks, DOB permits, violations, ACRIS, HPD, BSA. |
 
 ## All Skills
+
+### 0. Due Diligence
+
+| Skill | Description |
+|-------|-------------|
+| [`/nyc-landmarks`](./00-due-diligence/skills/nyc-landmarks) | LPC landmark and historic district check — designation status, LP number, architect, style, permit implications. |
+| [`/nyc-dob-permits`](./00-due-diligence/skills/nyc-dob-permits) | DOB permit and filing history across Legacy BIS and DOB NOW — 4 datasets, grouped by job type. |
+| [`/nyc-dob-violations`](./00-due-diligence/skills/nyc-dob-violations) | DOB and ECB violations — open violations flagged, ECB penalties with amounts assessed and balance due. |
+| [`/nyc-acris`](./00-due-diligence/skills/nyc-acris) | ACRIS property transaction records — deeds, mortgages, liens via 3-table join. |
+| [`/nyc-hpd`](./00-due-diligence/skills/nyc-hpd) | HPD violations, complaints, and registration for residential buildings. |
+| [`/nyc-bsa`](./00-due-diligence/skills/nyc-bsa) | BSA variances and special permits — application history from 1998. |
+| [`/nyc-property-report`](./00-due-diligence/skills/nyc-property-report) | Combined NYC property report — runs all 6 property skills, one document. |
 
 ### 1. Site Planning
 
@@ -89,6 +105,7 @@ Organized by project lifecycle — from site research through delivery.
 | Skill | Description |
 |-------|-------------|
 | [`/zoning-analysis-nyc`](./02-zoning-analysis/skills/zoning-analysis-nyc) | Buildable envelope analysis for lots in New York City — FAR, height, setbacks, use groups from PLUTO data and the Zoning Resolution. |
+| [`/zoning-analysis-uruguay`](./02-zoning-analysis/skills/zoning-analysis-uruguay) | Buildable envelope analysis for lots in Maldonado, Uruguay — FOS, FOT, height, setbacks from TONE regulations. |
 | [`/zoning-envelope`](./02-zoning-analysis/skills/zoning-envelope) | Interactive 3D zoning envelope viewer — exact lot polygon, extruded volumes, setback zones, height caps. |
 
 ### 3. Programming
@@ -103,6 +120,15 @@ Organized by project lifecycle — from site research through delivery.
 | Skill | Description |
 |-------|-------------|
 | [`/spec-writer`](./04-specifications/skills/spec-writer) | CSI outline specs from a materials list — MasterFormat divisions, three-part sections, performance criteria. |
+
+### 4.5. Sustainability
+
+| Skill | Description |
+|-------|-------------|
+| [`/epd-parser`](./045-sustainability/skills/epd-parser) | Extract structured data from EPD PDFs — GWP, life cycle stages, certifications, LEED eligibility. |
+| [`/epd-research`](./045-sustainability/skills/epd-research) | Search EC3, UL, Environdec, and manufacturer sites for EPDs by material or product category. |
+| [`/epd-comparator`](./045-sustainability/skills/epd-comparator) | Side-by-side environmental impact comparison with LEED v4.1 MRc2 eligibility check. |
+| [`/epd-to-spec`](./045-sustainability/skills/epd-to-spec) | CSI specification sections requiring EPDs and setting maximum GWP thresholds. |
 
 ### 5. Product & Materials Research
 
@@ -120,18 +146,6 @@ Organized by project lifecycle — from site research through delivery.
 |-------|-------------|
 | [`/slide-deck-generator`](./06-presentations/skills/slide-deck-generator) | Self-contained HTML slide decks — Helvetica, editorial layout, 22 slide types, keyboard/touch navigation. |
 | [`/color-palette-generator`](./06-presentations/skills/color-palette-generator) | Color palettes from descriptions, images, or hex codes — swatches, WCAG contrast, example pairings. |
-
-### 8. NYC Property Data
-
-| Skill | Description |
-|-------|-------------|
-| [`/nyc-landmarks`](./08-nyc-property-data/skills/nyc-landmarks) | LPC landmark and historic district check — designation status, LP number, architect, style, permit implications. |
-| [`/nyc-dob-permits`](./08-nyc-property-data/skills/nyc-dob-permits) | DOB permit and filing history across Legacy BIS and DOB NOW — 4 datasets, grouped by job type. |
-| [`/nyc-dob-violations`](./08-nyc-property-data/skills/nyc-dob-violations) | DOB and ECB violations — open violations flagged, ECB penalties with amounts assessed and balance due. |
-| [`/nyc-acris`](./08-nyc-property-data/skills/nyc-acris) | ACRIS property transaction records — deeds, mortgages, liens via 3-table join. |
-| [`/nyc-hpd`](./08-nyc-property-data/skills/nyc-hpd) | HPD violations, complaints, and registration for residential buildings. |
-| [`/nyc-bsa`](./08-nyc-property-data/skills/nyc-bsa) | BSA variances and special permits — application history from 1998. |
-| [`/nyc-property-report`](./08-nyc-property-data/skills/nyc-property-report) | Combined NYC property report — runs all 6 property skills, one document. |
 
 ## Contributing
 

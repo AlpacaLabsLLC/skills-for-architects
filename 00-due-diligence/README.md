@@ -1,4 +1,4 @@
-# NYC Property Data
+# Due Diligence
 
 A Claude Code plugin for looking up building and property data in New York City. 7 skills that query NYC Open Data (Socrata) across landmarks, DOB permits, violations, ACRIS property records, HPD, and BSA variances. No API key required.
 
@@ -60,7 +60,7 @@ All queries use the NYC Open Data Socrata API. No authentication required.
 ## Install
 
 ```bash
-claude install github:AlpacaLabsLLC/skills-for-architects/08-nyc-property-data
+claude install github:AlpacaLabsLLC/skills-for-architects/00-due-diligence
 ```
 
 ## License

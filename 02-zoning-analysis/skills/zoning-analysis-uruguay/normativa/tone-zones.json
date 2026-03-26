@@ -1,0 +1,2295 @@
+{
+  "localities": {
+    "PUNTA DEL ESTE": {
+      "titulo": "II",
+      "capitulo": "II",
+      "sector": "1",
+      "decreto": "3718/1997",
+      "zones": {
+        "1.1": {
+          "name": "Faro",
+          "subzones": {
+            "1.1.1": {
+              "zone_code": "1.1.1",
+              "zone_name": "Faro — Comercial",
+              "locality": "PUNTA DEL ESTE",
+              "article": "Art. D.182",
+              "decreto": "3718/1997",
+              "manzanas": "Calle 14 hasta calle 9, hacia el mar y Rambla de Circunvalacion",
+              "allowed_building_types": ["comercial"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": null,
+                "lateral1": null,
+                "lateral2": null,
+                "fondo": null
+              },
+              "altura_maxima": null,
+              "pisos_maximos": null,
+              "FOS_SS": null,
+              "FOS": null,
+              "FOT": null,
+              "FOS_verde": null,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "Pendiente de detalle completo en normativa digitalizada"
+              ]
+            },
+            "1.1.2": {
+              "zone_code": "1.1.2",
+              "zone_name": "Faro — Residencial",
+              "locality": "PUNTA DEL ESTE",
+              "article": "Art. D.183",
+              "decreto": "3718/1997",
+              "manzanas": "Resto de la zona Faro (fuera de subzona 1.1.1)",
+              "allowed_building_types": ["unidad aislada"],
+              "prohibited_uses": ["hoteles", "bloques de apartamentos", "locales comerciales", "oficinas"],
+              "retiros": {
+                "frontal": "4 m (6 m en predios frentistas a la Costanera)",
+                "lateral1": 2,
+                "lateral2": 2,
+                "fondo": 2
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + PA (2 plantas)",
+              "FOS_SS": 50,
+              "FOS": 50,
+              "FOT": 100,
+              "FOS_verde": 30,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "Solo una vivienda por predio",
+                "Local gastronomico permitido en predios frentistas a: Rambla Portuaria entre calles 14 y 11; calle 11 entre calles 14 y 8; calle 9 entre subzona 1.1.1 y calle 8; calle 8 entre calle 9 y Rambla Portuaria; calles 10, 12 y 14 entre subzona 1.1.1 y Rambla Portuaria",
+                "Terrenos con frente < 12 m: se autoriza ocupar uno de los retiros laterales hasta 3.50 m de altura maxima",
+                "Salientes: 1.50 m sobre retiro frontal en toda la extension del volumen edificado, altura minima 2.40 m",
+                "Obligatorio acondicionamiento de jardineria en retiro frontal",
+                "Altura referida a recta de comparacion, incluyendo sala de maquinas y tanque de agua"
+              ]
+            }
+          }
+        },
+        "1.2": {
+          "name": "Centro de Punta del Este",
+          "subzones": {
+            "1.2.1": {
+              "zone_code": "1.2.1",
+              "zone_name": "Centro — Gorlero",
+              "locality": "PUNTA DEL ESTE",
+              "article": "Art. D.185",
+              "decreto": "3718/1997",
+              "manzanas": "Predios frentistas a Av. Gorlero desde calle 32 hasta 14, mas frentistas a calle 14 entre Gorlero y calle 9",
+              "allowed_building_types": ["bloque alto", "bloque medio", "bloque bajo", "comercial"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": "4 m + pasiva cubierta 3 m (obligatoria en Gorlero)",
+                "lateral1": "3 m (desde 6 m de altura)",
+                "lateral2": "3 m (desde 6 m de altura)",
+                "fondo": "3 m (desde 6 m de altura)"
+              },
+              "altura_maxima": "14 m minimo obligatorio",
+              "pisos_maximos": "PB + 4 PA (minimo obligatorio)",
+              "FOS_SS": null,
+              "FOS": "100% PB / 100% 1er piso / 30% pisos superiores",
+              "FOT": 290,
+              "FOS_verde": null,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "Altura minima obligatoria: 14 m (PB + 4 PA)",
+                "PB y 1er piso en zona retiro: max 6 m de altura",
+                "Salientes Gorlero: 2 m (1er PA)",
+                "Salientes perpendiculares: 1.50 m",
+                "Estacionamiento obligatorio: 1 por vivienda/oficina/local, excepcion en Av. Gorlero no esquineros"
+              ]
+            },
+            "1.2.2": {
+              "zone_code": "1.2.2",
+              "zone_name": "Centro — Manzanas adyacentes a Gorlero",
+              "locality": "PUNTA DEL ESTE",
+              "article": "Art. D.186",
+              "decreto": "3718/1997",
+              "manzanas": "Manzanas adyacentes a Gorlero",
+              "allowed_building_types": ["bloque bajo", "bloque medio"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": 4,
+                "lateral1": "3 m (desde 6 m de altura)",
+                "lateral2": "3 m (desde 6 m de altura)",
+                "fondo": "3 m (desde 6 m de altura)"
+              },
+              "altura_maxima": 14,
+              "pisos_maximos": "PB + 4 PA",
+              "FOS_SS": null,
+              "FOS": "100% PB (excluyendo retiro frontal)",
+              "FOT": 290,
+              "FOS_verde": null,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": []
+            },
+            "1.2.3": {
+              "zone_code": "1.2.3",
+              "zone_name": "Centro — Calles 20 y 24",
+              "locality": "PUNTA DEL ESTE",
+              "article": "Art. D.187",
+              "decreto": "3718/1997",
+              "manzanas": "Predios frentistas a calles 20 y 24, excluyendo subzona 1.2.2",
+              "allowed_building_types": ["bloque bajo", "bloque medio"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": 4,
+                "lateral1": 3,
+                "lateral2": 3,
+                "fondo": 3
+              },
+              "altura_maxima": 12,
+              "pisos_maximos": "PB + 3 PA",
+              "FOS_SS": null,
+              "FOS": "100% PB / 30% pisos superiores",
+              "FOT": 190,
+              "FOS_verde": null,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "Salientes: 1.50 m sobre retiro frontal"
+              ]
+            },
+            "1.2.4": {
+              "zone_code": "1.2.4",
+              "zone_name": "Centro — Manzanas 39 y 40",
+              "locality": "PUNTA DEL ESTE",
+              "article": "Art. D.188",
+              "decreto": "3718/1997",
+              "manzanas": "Manzanas 39 y 40",
+              "allowed_building_types": [],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": null,
+                "lateral1": null,
+                "lateral2": null,
+                "fondo": null
+              },
+              "altura_maxima": null,
+              "pisos_maximos": null,
+              "FOS_SS": null,
+              "FOS": null,
+              "FOT": null,
+              "FOS_verde": null,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "Pendiente de detalle completo en normativa digitalizada"
+              ]
+            },
+            "1.2.5": {
+              "zone_code": "1.2.5",
+              "zone_name": "Centro — Resto de zona centro",
+              "locality": "PUNTA DEL ESTE",
+              "article": "Art. D.189",
+              "decreto": "3718/1997",
+              "manzanas": null,
+              "allowed_building_types": ["bloque bajo", "residencial"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": "4 m (6 m en ramblas)",
+                "lateral1": 3,
+                "lateral2": 3,
+                "fondo": 3
+              },
+              "altura_maxima": 12,
+              "pisos_maximos": "PB + 2 PA + penthouse a 45 grados",
+              "FOS_SS": null,
+              "FOS": 30,
+              "FOT": 120,
+              "FOS_verde": 20,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "Salientes: 1.50 m",
+                "Retiro frontal: 50% debe estar ajardinado"
+              ]
+            }
+          }
+        },
+        "1.3": {
+          "name": "La Pastora",
+          "subzones": {
+            "1.3.1": {
+              "zone_code": "1.3.1",
+              "zone_name": "La Pastora — Areas costeras",
+              "locality": "PUNTA DEL ESTE",
+              "article": "Art. D.190",
+              "decreto": "3718/1997",
+              "manzanas": "Predios a menos de 100 m de las ramblas costeras",
+              "allowed_building_types": ["bloque bajo", "bloque medio", "bloque alto"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": "10 m (bloques medios > 28 m)",
+                "lateral1": "2/7 de la altura",
+                "lateral2": "2/7 de la altura",
+                "fondo": "2/7 de la altura"
+              },
+              "altura_maxima": null,
+              "pisos_maximos": null,
+              "FOS_SS": null,
+              "FOS": null,
+              "FOT": null,
+              "FOS_verde": 70,
+              "superficie_minima": 1000,
+              "frente_minimo": 24,
+              "special_rules": [
+                "Proyeccion total del volumen desde PB inscrita en circunferencia de diametro maximo 42.50 m",
+                "Multiples programas por predio separados por minimo 2/7 de la suma de alturas",
+                "Interpolacion de parametros para predios de 2000 m2 al maximo",
+                "Bloques medios: frente minimo 24 m, superficie minima 1000 m2",
+                "Bloques altos: frente minimo 40 m, superficie minima 3000 m2",
+                "Salientes PB: voladizos < 90 m2 por nivel y <= 10% del volumen de planta no computan en FOS/FOT",
+                "Profundidad max salientes: 2 m (bloques bajos), 2 m frontal / 1.50 m lateral (bloques medios)"
+              ]
+            },
+            "1.3.2": {
+              "zone_code": "1.3.2",
+              "zone_name": "La Pastora — Resto del sector",
+              "locality": "PUNTA DEL ESTE",
+              "article": "Art. D.190",
+              "decreto": "3718/1997",
+              "manzanas": "Predios a mas de 100 m de las ramblas costeras",
+              "allowed_building_types": ["bloque bajo", "bloque medio", "bloque alto"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": "10 m (bloques medios > 28 m)",
+                "lateral1": "2/7 de la altura",
+                "lateral2": "2/7 de la altura",
+                "fondo": "2/7 de la altura"
+              },
+              "altura_maxima": 63,
+              "pisos_maximos": null,
+              "FOS_SS": null,
+              "FOS": null,
+              "FOT": null,
+              "FOS_verde": 70,
+              "superficie_minima": 1000,
+              "frente_minimo": 24,
+              "special_rules": [
+                "Altura maxima: 63 m",
+                "Mismas reglas generales que subzona 1.3.1",
+                "Bloques medios: frente minimo 24 m, superficie minima 1000 m2",
+                "Bloques altos: frente minimo 40 m, superficie minima 3000 m2"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "MALDONADO": {
+      "titulo": "II",
+      "capitulo": "II",
+      "sector": "2",
+      "decreto": "3885/2011",
+      "zones": {
+        "2.1": {
+          "name": "Plaza",
+          "subzones": {
+            "2.1": {
+              "zone_code": "2.1",
+              "zone_name": "Plaza",
+              "locality": "MALDONADO",
+              "article": "Art. D.199",
+              "decreto": "3885/2011",
+              "manzanas": "Manzanas comprendidas por Roman Guerra, Ventura Alegre, Jose Dodera y Arturo Santana",
+              "allowed_building_types": ["bloque bajo"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": 0,
+                "lateral1": null,
+                "lateral2": null,
+                "fondo": 5
+              },
+              "altura_maxima": 13.6,
+              "pisos_maximos": "PB + 4 PA",
+              "FOS_SS": 80,
+              "FOS": 60,
+              "FOT": 270,
+              "FOS_verde": null,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "Alineacion con construcciones existentes obligatoria",
+                "Galibo a 45 grados en ultimo nivel",
+                "Usos no residenciales en PB y 1PA pueden alcanzar FOS 100%; excedente no computa en FOT",
+                "1 plaza de estacionamiento por unidad; minimo 1 por cada 100 m2 de otros usos",
+                "Indice de ponderacion: 0",
+                "Patrimonio Historico — requiere revision del CEP"
+              ]
+            }
+          }
+        },
+        "2.2": {
+          "name": "Casco Urbano",
+          "subzones": {
+            "2.2.BB": {
+              "zone_code": "2.2.BB",
+              "zone_name": "Casco Urbano — Bloque Bajo",
+              "locality": "MALDONADO",
+              "article": "Art. D.200",
+              "decreto": "3817/2006",
+              "manzanas": "Poligono: 19 de Abril, Batlle y Ordonez, Lavalleja, Treinta y Tres, Dodera, 3 de Febrero. Excluye Zona 2.1.",
+              "allowed_building_types": ["bloque bajo"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": 0,
+                "lateral1": null,
+                "lateral2": null,
+                "fondo": 5
+              },
+              "altura_maxima": 13.6,
+              "pisos_maximos": "PB + 4 PA",
+              "FOS_SS": 80,
+              "FOS": 50,
+              "FOT": 220,
+              "FOS_verde": null,
+              "superficie_minima": 300,
+              "frente_minimo": 12,
+              "special_rules": [
+                "Alineacion con construcciones existentes obligatoria",
+                "Galibo a 45 grados en ultimo nivel",
+                "Usos no residenciales en PB y 1PA: FOS 100%; excedente no computa en FOT",
+                "Patrimonio Historico — requiere revision del CEP"
+              ]
+            },
+            "2.2.BM": {
+              "zone_code": "2.2.BM",
+              "zone_name": "Casco Urbano — Bloque Medio",
+              "locality": "MALDONADO",
+              "article": "Art. D.200",
+              "decreto": "3817/2006",
+              "manzanas": "Poligono: 19 de Abril, Batlle y Ordonez, Lavalleja, Treinta y Tres, Dodera, 3 de Febrero. Excluye Zona 2.1.",
+              "allowed_building_types": ["bloque medio"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": 4,
+                "lateral1": null,
+                "lateral2": null,
+                "fondo": 9
+              },
+              "altura_maxima": 28,
+              "pisos_maximos": "PB + 9 PA",
+              "FOS_SS": 80,
+              "FOS": 50,
+              "FOT": 480,
+              "FOS_verde": null,
+              "superficie_minima": 500,
+              "frente_minimo": 15,
+              "special_rules": [
+                "Galibo a 45 grados en ultimo nivel",
+                "Usos no residenciales en PB y 1PA: FOS 100%; excedente no computa en FOT",
+                "Patrimonio Historico — requiere revision del CEP",
+                "Conexion a saneamiento, agua potable y electricidad obligatoria"
+              ]
+            }
+          }
+        },
+        "2.3": {
+          "name": "Barrio Jardin",
+          "subzones": {
+            "2.3.BB": {
+              "zone_code": "2.3.BB",
+              "zone_name": "Barrio Jardin — Bloque Bajo",
+              "locality": "MALDONADO",
+              "article": "Art. D.201",
+              "decreto": "3885/2011",
+              "manzanas": "Poligono: 3 de Febrero, Chiossi, Burnett, Acuna de Figueroa, Roosevelt, Viana, Espana, Santana, Treinta y Tres, Dodera",
+              "allowed_building_types": ["bloque bajo"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": 4,
+                "lateral1": "2/7 de la altura (min 3 m)",
+                "lateral2": "2/7 de la altura (min 3 m)",
+                "fondo": 5
+              },
+              "altura_maxima": 13.6,
+              "pisos_maximos": "PB + 4 PA",
+              "FOS_SS": 70,
+              "FOS": 50,
+              "FOT": 180,
+              "FOS_verde": 20,
+              "superficie_minima": 450,
+              "frente_minimo": 14,
+              "special_rules": [
+                "Galibo a 45 grados en ultimo nivel",
+                "Retiros laterales ocupables desde la mitad del predio hacia el fondo",
+                "Construcciones auxiliares: max 20 m2, 3 m de altura",
+                "Conexion a saneamiento, agua potable y electricidad obligatoria"
+              ]
+            },
+            "2.3.BM": {
+              "zone_code": "2.3.BM",
+              "zone_name": "Barrio Jardin — Bloque Medio",
+              "locality": "MALDONADO",
+              "article": "Art. D.201",
+              "decreto": "3885/2011",
+              "manzanas": "Poligono: 3 de Febrero, Chiossi, Burnett, Acuna de Figueroa, Roosevelt, Viana, Espana, Santana, Treinta y Tres, Dodera",
+              "allowed_building_types": ["bloque medio"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": 4,
+                "lateral1": "2/7 de la altura (min 3 m)",
+                "lateral2": "2/7 de la altura (min 3 m)",
+                "fondo": 9
+              },
+              "altura_maxima": 28,
+              "pisos_maximos": "PB + 9 PA",
+              "FOS_SS": 70,
+              "FOS": 30,
+              "FOT": 290,
+              "FOS_verde": 20,
+              "superficie_minima": 1000,
+              "frente_minimo": 30,
+              "special_rules": [
+                "Galibo a 45 grados en ultimo nivel",
+                "Retiros laterales ocupables desde la mitad del predio hacia el fondo",
+                "Construcciones auxiliares: max 20 m2, 3 m de altura",
+                "Terrenos con frente en tres lados: solo tercio central",
+                "Conexion a saneamiento, agua potable y electricidad obligatoria"
+              ]
+            }
+          }
+        },
+        "2.4": {
+          "name": "Barrios",
+          "subzones": {
+            "2.4.1": {
+              "zone_code": "2.4.1",
+              "zone_name": "Barrios — Subzona 2.4.1",
+              "locality": "MALDONADO",
+              "article": "Art. D.202",
+              "decreto": "3718/1997",
+              "manzanas": "Av. Lussich, Villa Delia, La Fortuna, Alberto Dutra, Aguamarina, Miguel Benzo, Wilson Amaral, Av. Leandro Gomez, Canada La Cantera, Camino Mussio",
+              "allowed_building_types": ["unidad aislada"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": 4,
+                "lateral1": 3,
+                "lateral2": "3 m (exonerable un lado para frentes < 18 m, hasta 3 m de altura)",
+                "fondo": null
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + PA",
+              "FOS_SS": 60,
+              "FOS": 40,
+              "FOT": 80,
+              "FOS_verde": 50,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "Ocupacion lateral: hasta 20 m2 en la mitad posterior del predio",
+                "Proyectos industriales/grandes superficies requieren plan de drenaje pluvial con retencion in situ",
+                "Zonas de Fragilidad Ecosistemica en cerros (cotas variables)",
+                "Zona Buffer: 100 m desde areas de fragilidad, 1 unidad cada 150 m2, lote min 700 m2, max 240 m2 construidos + 60 m2 decks"
+              ]
+            },
+            "2.4.2": {
+              "zone_code": "2.4.2",
+              "zone_name": "Barrios — Subzona 2.4.2",
+              "locality": "MALDONADO",
+              "article": "Art. D.202",
+              "decreto": "3718/1997",
+              "manzanas": "Avda. Viana, calles Guavira, Araza; Avda. Aigua hasta Avda. Gral. Aparicio Saravia; manzanas 2512-2514",
+              "allowed_building_types": ["unidad aislada"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": "4 m (pergolas permitidas)",
+                "lateral1": null,
+                "lateral2": null,
+                "fondo": null
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + PA",
+              "FOS_SS": 70,
+              "FOS": 50,
+              "FOT": 100,
+              "FOS_verde": 30,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "Cocheras descubiertas permitidas en retiro frontal"
+              ]
+            },
+            "2.4.3": {
+              "zone_code": "2.4.3",
+              "zone_name": "Barrios — Subzona 2.4.3",
+              "locality": "MALDONADO",
+              "article": "Art. D.202",
+              "decreto": "3718/1997",
+              "manzanas": "Areas restantes no incluidas en otras subzonas de 2.4",
+              "allowed_building_types": ["unidad aislada", "bloque bajo"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": "4 m (pergolas permitidas)",
+                "lateral1": null,
+                "lateral2": null,
+                "fondo": "4 m (programas VIS con > 9 m de altura)"
+              },
+              "altura_maxima": 9,
+              "pisos_maximos": "PB + 2 PA",
+              "FOS_SS": 80,
+              "FOS": 70,
+              "FOT": 150,
+              "FOS_verde": 20,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": []
+            },
+            "2.4.4": {
+              "zone_code": "2.4.4",
+              "zone_name": "Barrios — Subzona 2.4.4",
+              "locality": "MALDONADO",
+              "article": "Art. D.202",
+              "decreto": "3718/1997",
+              "manzanas": "Camino Benito Nardone y multiples padrones (descripcion catastral detallada)",
+              "allowed_building_types": ["unidad aislada", "bloque bajo"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": "4 m (pergolas horizontales hasta 50% del ancho, max 3 m de altura)",
+                "lateral1": 3,
+                "lateral2": null,
+                "fondo": null
+              },
+              "altura_maxima": "7 m (PB+PA); 9 m para bloques bajos (PB+2PA)",
+              "pisos_maximos": "PB + PA / PB + 2 PA (bloques bajos)",
+              "FOS_SS": 50,
+              "FOS": 50,
+              "FOT": "100% (7 m); 150% (9 m)",
+              "FOS_verde": 40,
+              "superficie_minima": 600,
+              "frente_minimo": null,
+              "special_rules": [
+                "Ocupacion lateral: hasta 20 m2 en mitad posterior, max 3 m de altura",
+                "Dimension minima para Bloque Bajo: 600 m2 (D.192)"
+              ]
+            },
+            "2.4.5": {
+              "zone_code": "2.4.5",
+              "zone_name": "Barrios — Subzona 2.4.5",
+              "locality": "MALDONADO",
+              "article": "Art. D.202",
+              "decreto": "3718/1997",
+              "manzanas": "Calle Tacuave desde Av. Aigua hasta padrones 16739, 13570, 21239",
+              "allowed_building_types": ["unidad aislada", "bloque bajo"],
+              "prohibited_uses": ["bloque alto"],
+              "retiros": {
+                "frontal": "4 m (H<=9m); 6 m (H>9m y sobre Av. Aigua)",
+                "lateral1": "3 m (H<=9m); 4 m (H>9m)",
+                "lateral2": "3 m (H<=9m); 4 m (H>9m)",
+                "fondo": "3 m (H<=9m); 5 m (H>9m)"
+              },
+              "altura_maxima": "9 m (H<=9m); 12 m (H>9m)",
+              "pisos_maximos": "PB + 2 PA (H<=9m); PB + 3 PA (H>9m)",
+              "FOS_SS": 50,
+              "FOS": 50,
+              "FOT": "120% (H<=9m); 150% (H>9m)",
+              "FOS_verde": 30,
+              "superficie_minima": "900 m2 (para H>9m)",
+              "frente_minimo": "12 m (para H>9m)",
+              "special_rules": [
+                "No se autorizan bloques altos",
+                "Separacion entre bloques: 5 m (H<=9m); 8 m (H>9m)",
+                "FOS PA para H>9m: 30%",
+                "Salientes: hasta 2 m en retiros, maximo 35% de superficie de fachada",
+                "Ocupacion lateral: hasta 20 m2 en mitad posterior",
+                "Indice de ponderacion: 0.4"
+              ]
+            },
+            "2.4.6": {
+              "zone_code": "2.4.6",
+              "zone_name": "Barrios — Rural (SRPT)",
+              "locality": "MALDONADO",
+              "article": "Art. D.202",
+              "decreto": "3718/1997",
+              "manzanas": "Padrones 19039, 166, 18383, 168, 59, 68, 169, 173, 8241",
+              "allowed_building_types": ["productivo", "vivienda aislada"],
+              "prohibited_uses": ["urbanizacion"],
+              "retiros": {
+                "frontal": "25 m (rutas nacionales); 15 m (caminos publicos); 10 m (otros)",
+                "lateral1": 6,
+                "lateral2": 6,
+                "fondo": 6
+              },
+              "altura_maxima": "7 m (PB+PA); 12 m depositos (con estudio paisajistico)",
+              "pisos_maximos": "PB + PA (vivienda solo PB)",
+              "FOS_SS": null,
+              "FOS": null,
+              "FOT": null,
+              "FOS_verde": null,
+              "superficie_minima": 30000,
+              "frente_minimo": 150,
+              "special_rules": [
+                "Lote minimo: 3 ha, 150 m de frente",
+                "Area edificable max: 1000 m2 uso productivo + 500 m2 complementario/vivienda (solo PB)",
+                "Area impermeable max: 3000 m2 (excl. caminos)",
+                "Unidades max: 2 por predio + vivienda de cuidador",
+                "Suelo Rural Potencialmente Transformable (SRPT)",
+                "Proteccion Canada Marrero: 30 m a cada lado del eje central; monte nativo; area inundable TR100",
+                "Afluentes: 10 m a cada lado; vegetacion nativa; TR100"
+              ]
+            }
+          }
+        },
+        "2.5": {
+          "name": "Avenidas",
+          "subzones": {
+            "2.5.1.BB": {
+              "zone_code": "2.5.1.BB",
+              "zone_name": "Avenidas Principales — Bloque Bajo",
+              "locality": "MALDONADO",
+              "article": "Art. D.203",
+              "decreto": "3885/2011",
+              "manzanas": "Manzanas frentistas a Avda. Antonio Lussich y Avda. Wilson Ferreira Aldunate entre Avda. Lavalleja y Avda. Dr. Luis Alberto de Herrera",
+              "allowed_building_types": ["bloque bajo"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": 4,
+                "lateral1": "2/7 de la altura (min 3 m)",
+                "lateral2": "2/7 de la altura (min 3 m)",
+                "fondo": 5
+              },
+              "altura_maxima": 13.6,
+              "pisos_maximos": "PB + 4 PA",
+              "FOS_SS": 70,
+              "FOS": 50,
+              "FOT": 180,
+              "FOS_verde": 20,
+              "superficie_minima": 450,
+              "frente_minimo": 14,
+              "special_rules": [
+                "Galibo 45 grados en ultimo nivel",
+                "Predios con frente <= 12 m: un retiro lateral exonerable (max 3 m de altura)",
+                "Indice de ponderacion: 0.4"
+              ]
+            },
+            "2.5.1.BM": {
+              "zone_code": "2.5.1.BM",
+              "zone_name": "Avenidas Principales — Bloque Medio",
+              "locality": "MALDONADO",
+              "article": "Art. D.203",
+              "decreto": "3885/2011",
+              "manzanas": "Manzanas frentistas a Avda. Antonio Lussich y Avda. Wilson Ferreira Aldunate entre Avda. Lavalleja y Avda. Dr. Luis Alberto de Herrera",
+              "allowed_building_types": ["bloque medio"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": 4,
+                "lateral1": "2/7 de la altura (min 3 m)",
+                "lateral2": "2/7 de la altura (min 3 m)",
+                "fondo": 9
+              },
+              "altura_maxima": 28,
+              "pisos_maximos": "PB + 9 PA",
+              "FOS_SS": 70,
+              "FOS": 50,
+              "FOT": 290,
+              "FOS_verde": 20,
+              "superficie_minima": 1000,
+              "frente_minimo": 30,
+              "special_rules": [
+                "Galibo 45 grados en ultimo nivel",
+                "Predios con frente <= 12 m: un retiro lateral exonerable (max 3 m de altura)",
+                "Indice de ponderacion: 0.4",
+                "Conexion a saneamiento, agua potable y electricidad obligatoria"
+              ]
+            },
+            "2.5.2": {
+              "zone_code": "2.5.2",
+              "zone_name": "Avenidas Secundarias",
+              "locality": "MALDONADO",
+              "article": "Art. D.203",
+              "decreto": "3885/2011",
+              "manzanas": "Frentistas a Av. de los Gauchos, Francisco Martinez, Av. Aigua y otras avenidas, hasta 120 m de profundidad",
+              "allowed_building_types": ["unidad aislada", "bloque bajo"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": "4 m (H<=7m); 6 m (H>7m y sobre Av. Aigua)",
+                "lateral1": 4,
+                "lateral2": 3,
+                "fondo": "3 m (H<=7m); 5 m (H>7m)"
+              },
+              "altura_maxima": "7 m (H<=7m); 13.60 m (H>7m); 15 m frentista Av. Aigua (Tacuave-Arroyo Maldonado)",
+              "pisos_maximos": "PB + PA (H<=7m); PB + 4 PA (H>7m)",
+              "FOS_SS": 80,
+              "FOS": 50,
+              "FOT": 250,
+              "FOS_verde": 30,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "Indice de ponderacion: 0.4"
+              ]
+            },
+            "2.5.3": {
+              "zone_code": "2.5.3",
+              "zone_name": "Avenidas — Ruta 39",
+              "locality": "MALDONADO",
+              "article": "Art. D.203",
+              "decreto": "3885/2011",
+              "manzanas": null,
+              "allowed_building_types": [],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": null,
+                "lateral1": null,
+                "lateral2": null,
+                "fondo": null
+              },
+              "altura_maxima": null,
+              "pisos_maximos": null,
+              "FOS_SS": null,
+              "FOS": null,
+              "FOT": null,
+              "FOS_verde": null,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "Sector complejo con subareas para humedales, servicios, proteccion paisajistica y residencial",
+                "Techos verdes obligatorios (100% de cobertura)",
+                "Parametros detallados requieren consulta adicional del articulo completo"
+              ]
+            },
+            "2.5.4": {
+              "zone_code": "2.5.4",
+              "zone_name": "Avenidas — Roosevelt Maldonado",
+              "locality": "MALDONADO",
+              "article": "Art. D.203",
+              "decreto": "3885/2011",
+              "manzanas": "Avda. Franklin D. Roosevelt entre Francisco Acuna de Figueroa y Avda. Espana",
+              "allowed_building_types": ["bloque bajo", "bloque medio", "bloque alto"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": null,
+                "lateral1": null,
+                "lateral2": null,
+                "fondo": null
+              },
+              "altura_maxima": "55 m (bloque alto); 28 m (bloque medio); 13.60 m (bloque bajo)",
+              "pisos_maximos": null,
+              "FOS_SS": null,
+              "FOS": null,
+              "FOT": "520% (bloque alto); 290% (bloque medio); 180% (bloque bajo)",
+              "FOS_verde": null,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "Altura minima: 7 m",
+                "Indice de ponderacion: 0.3"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "LA BARRA - MANANTIALES": {
+      "titulo": "III",
+      "capitulo": "II",
+      "sector": "1",
+      "decreto": "3718/1997",
+      "zones": {
+        "1.1": {
+          "name": "Predios frentistas a la Ruta 10 y a la Costa",
+          "subzones": {
+            "1.1": {
+              "zone_code": "1.1",
+              "zone_name": "Predios frentistas a la Ruta 10 y a la Costa",
+              "locality": "LA BARRA - MANANTIALES",
+              "article": "Art. D.263",
+              "decreto": "3718/1997",
+              "manzanas": "Manzanas 3, 79 y 80 de La Barra",
+              "allowed_building_types": ["unidad aislada"],
+              "prohibited_uses": ["bloques", "unidades apareadas"],
+              "retiros": {
+                "frontal": 6,
+                "lateral1": "4 m (calles transversales); 3 m (bilateral)",
+                "lateral2": 3,
+                "fondo": "6 m (terrazas/pergolas PB permitidas hasta 3 m de profundidad)"
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + PA",
+              "FOS_SS": 25,
+              "FOS": 25,
+              "FOT": 50,
+              "FOS_verde": 50,
+              "superficie_minima": "1000 m2 por vivienda (para conjuntos)",
+              "frente_minimo": null,
+              "special_rules": [
+                "Solo unidades locativas aisladas o conjuntos de unidades aisladas",
+                "Separacion minima entre viviendas: 6 m",
+                "Salientes: 1.50 m sobre retiro lateral, 2 m sobre retiros de frente y fondo en 30% de superficie"
+              ]
+            }
+          }
+        },
+        "1.2": {
+          "name": "Costa",
+          "subzones": {
+            "1.2.1": {
+              "zone_code": "1.2.1",
+              "zone_name": "Costa — Residencial (Area Protegida)",
+              "locality": "LA BARRA - MANANTIALES",
+              "article": "Art. D.264",
+              "decreto": "3718/1997",
+              "manzanas": "Manzanas 10, 11, 14, 19, 20, 28, 29, 33; predios frentistas a Salvador Pallas (acera norte) entre Los Destinos y Las Espumas",
+              "allowed_building_types": ["unidad aislada", "unidad apareada"],
+              "prohibited_uses": ["bloques"],
+              "retiros": {
+                "frontal": "4 m (6 m sobre Ruta 10 y predios fiscales)",
+                "lateral1": null,
+                "lateral2": null,
+                "fondo": null
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + PA",
+              "FOS_SS": 40,
+              "FOS": 40,
+              "FOT": 70,
+              "FOS_verde": 20,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "Area Protegida (Dto. 3910/2012)",
+                "Terrazas con pergolas/toldos permitidas hasta 75% del retiro frontal",
+                "Muro frontal maximo: 1.30 m de altura promedio",
+                "Salientes: 1.50 m sobre retiro frontal"
+              ]
+            },
+            "1.2.2": {
+              "zone_code": "1.2.2",
+              "zone_name": "Costa — Resto",
+              "locality": "LA BARRA - MANANTIALES",
+              "article": "Art. D.264",
+              "decreto": "3718/1997",
+              "manzanas": "La Barra: manzanas 4, 9-22, 25-30, 32-38, 164, 372 (restantes). Manantiales: manzanas 1-16 (restantes excl. Zona 1.3)",
+              "allowed_building_types": ["bloque bajo"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": "4 m (6 m sobre Ruta 10 y predios fiscales)",
+                "lateral1": null,
+                "lateral2": null,
+                "fondo": null
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + PA",
+              "FOS_SS": 40,
+              "FOS": 40,
+              "FOT": 70,
+              "FOS_verde": 20,
+              "superficie_minima": 1200,
+              "frente_minimo": 30,
+              "special_rules": [
+                "Solo bloques permitidos",
+                "Terrazas con pergolas/toldos permitidas hasta 75% del retiro frontal",
+                "Muro frontal maximo: 1.30 m de altura promedio",
+                "Salientes: 1.50 m sobre retiro frontal"
+              ]
+            }
+          }
+        },
+        "1.3": {
+          "name": "Predios frentistas a la Ruta 10",
+          "subzones": {
+            "1.3": {
+              "zone_code": "1.3",
+              "zone_name": "Predios frentistas a la Ruta 10",
+              "locality": "LA BARRA - MANANTIALES",
+              "article": "Art. D.265",
+              "decreto": "3718/1997",
+              "manzanas": "Manzanas 23, 24, 31, 72, 73, 74, 343, 344, 371 (La Barra); manzanas 8, 9, 10 (Manantiales). Hasta 50 m desde limite de propiedad.",
+              "allowed_building_types": ["bloque bajo", "residencial"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": "4 m (6 m sobre Ruta 10)",
+                "lateral1": null,
+                "lateral2": null,
+                "fondo": null
+              },
+              "altura_maxima": 9,
+              "pisos_maximos": "PB + 1 PA + PH",
+              "FOS_SS": 40,
+              "FOS": 40,
+              "FOT": 105,
+              "FOS_verde": 20,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "Edificios frentistas a Ruta 10 deben proyectarse normalmente a la Ruta en 100% de fachada sobre PB",
+                "Ultimo piso a dos aguas con pendiente de 45 grados",
+                "Salientes: 2 m en 30% de superficie de fachada en retiros de frente y fondo"
+              ]
+            }
+          }
+        },
+        "1.4": {
+          "name": "Barrio Jardin",
+          "subzones": {
+            "1.4.1": {
+              "zone_code": "1.4.1",
+              "zone_name": "Barrio Jardin — Costanera Norte",
+              "locality": "LA BARRA - MANANTIALES",
+              "article": "Art. D.266",
+              "decreto": "3718/1997",
+              "manzanas": "Predios urbanos y suburbanos al Norte de Ruta 10, frentistas a la ruta, entre limite Este del Fraccionamiento San Carlos y Ruta 104/Av. Las Ballenas",
+              "allowed_building_types": ["bloque bajo"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": "10 m (Ruta 10); 6 m (calles transversales)",
+                "lateral1": "3 m (suma de laterales > 8 m)",
+                "lateral2": "3 m (suma de laterales > 8 m)",
+                "fondo": 4
+              },
+              "altura_maxima": "9-12 m",
+              "pisos_maximos": "PB + PA + PH (9 m) / PB + 2PA + PH (12 m)",
+              "FOS_SS": "25-40% (segun superficie)",
+              "FOS": "25-40% (segun superficie)",
+              "FOT": 70,
+              "FOS_verde": 50,
+              "superficie_minima": "1200 m2 (individual); 2000 m2 (bloque 12 m)",
+              "frente_minimo": "30 m (bloques)",
+              "special_rules": [
+                "Bloques proyectados normalmente a Ruta 10 en 100% de fachada sobre PB",
+                "Separacion minima entre proyecciones: 8 m",
+                "Bloques inscritos en circunferencia de diametro 42.50 m",
+                "Planta maxima: 900 m2",
+                "Bloque en faja de 50 m desde limite de propiedad",
+                "Galibo ultimo piso sobre retiro frontal",
+                "Salientes: 2 m en 30% de superficie de fachada"
+              ]
+            },
+            "1.4.2": {
+              "zone_code": "1.4.2",
+              "zone_name": "Barrio Jardin — Resto",
+              "locality": "LA BARRA - MANANTIALES",
+              "article": "Art. D.266",
+              "decreto": "3718/1997",
+              "manzanas": "Predios no incluidos en zonas 1.1, 1.2, 1.3, ni en subzona 1.4.1",
+              "allowed_building_types": ["unidad aislada", "unidad apareada"],
+              "prohibited_uses": ["bloques"],
+              "retiros": {
+                "frontal": "4 m (6 m sobre Ruta 10 y predios fiscales)",
+                "lateral1": 3,
+                "lateral2": 2,
+                "fondo": 3
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + PA",
+              "FOS_SS": "25-40% (interpolacion por superficie)",
+              "FOS": "25-40% (interpolacion por superficie: 40% < 400m2, 25% > 1000m2)",
+              "FOT": "50-60% (interpolacion: 60% < 400m2, 50% > 1000m2)",
+              "FOS_verde": 50,
+              "superficie_minima": "1000 m2 por unidad o par",
+              "frente_minimo": null,
+              "special_rules": [
+                "Separacion minima entre unidades o pares: 6 m",
+                "Predios con frente <= 15 m: retiro unilateral de 3 m, lateral de 2 m exonerado (max 3 m altura)",
+                "Construcciones auxiliares en retiros: hasta 36 m2, max 3 m, mitad posterior del predio",
+                "Salientes: 2 m en 30% de superficie de fachada",
+                "10% FOS adicional para garaje PB (no computa FOT)"
+              ]
+            },
+            "1.4.3": {
+              "zone_code": "1.4.3",
+              "zone_name": "Barrio Jardin — Costanera Sur",
+              "locality": "LA BARRA - MANANTIALES",
+              "article": "Art. D.266",
+              "decreto": "4042/2021",
+              "manzanas": "Predios urbanos/suburbanos al Sur de Ruta 10, entre padron 18156 (manzana 394 Balneario Buenos Aires) y Padron Rural 26633",
+              "allowed_building_types": ["edificacion baja"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": "10 m (Ruta 10)",
+                "lateral1": "6 m (suma > 12 m)",
+                "lateral2": "6 m (suma > 12 m)",
+                "fondo": null
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + PA",
+              "FOS_SS": null,
+              "FOS": 25,
+              "FOT": 50,
+              "FOS_verde": null,
+              "superficie_minima": 2000,
+              "frente_minimo": 30,
+              "special_rules": [
+                "Agrupamiento de mas de 2 unidades = Edificacion Baja",
+                "Volumenes proyectados normalmente a Ruta 10, 100% de fachada sobre PB",
+                "Separacion minima entre proyecciones y edificios: 12 m",
+                "Inscrito en circunferencia diametro 30 m",
+                "Agrupamiento solo si unidades >= 200 m2",
+                "Predios de subzona 1.4.2 podran optar por construir Edificacion Baja"
+              ]
+            },
+            "1.4.4": {
+              "zone_code": "1.4.4",
+              "zone_name": "Barrio Jardin — Marina Beach",
+              "locality": "LA BARRA - MANANTIALES",
+              "article": "Art. D.266",
+              "decreto": "3718/1997",
+              "manzanas": "Padrones entre limite este del padron 18166 y limite oeste del padron 18203",
+              "allowed_building_types": ["unidad aislada", "unidad apareada", "edificacion baja"],
+              "prohibited_uses": ["bloques"],
+              "retiros": {
+                "frontal": "15 m sobre Ruta 10 (10 m servidumbre + 5 m)",
+                "lateral1": null,
+                "lateral2": null,
+                "fondo": null
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + PA",
+              "FOS_SS": "0% (no se permiten subsuelos)",
+              "FOS": 25,
+              "FOT": 45,
+              "FOS_verde": "60% (natural no pavimentado)",
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "Niveles altimetricos naturales conservados (solo alterar donde se implanta la edificacion)",
+                "No se permite enjardinado ni especies exoticas",
+                "Retiro frontal: area de intervencion <= 50% de superficie libre entre edificacion y servidumbre",
+                "No cortinas de arboles que impidan visuales al mar",
+                "Mantener visuales desde Ruta 10",
+                "No construcciones secundarias en retiros (ni permanentes ni transitorias)",
+                "FOS PA: 20%",
+                "Hoteles: Parametros Opcionales Art. 308 (Decreto 3889), altura max 7 m, FOS NNP 50%"
+              ]
+            }
+          }
+        },
+        "1.5": {
+          "name": "Santa Monica",
+          "subzones": {
+            "1.5": {
+              "zone_code": "1.5",
+              "zone_name": "Santa Monica",
+              "locality": "LA BARRA - MANANTIALES",
+              "article": "Art. D.267",
+              "decreto": "3718/1997",
+              "manzanas": "Manzanas 1-6, 9, 16-22, 47-70, 72-73 del Balneario Santa Monica",
+              "allowed_building_types": ["unidad aislada"],
+              "prohibited_uses": ["bloques", "unidades apareadas"],
+              "retiros": {
+                "frontal": "6 m (sobre Ruta 10 y predios fiscales); 4 m (resto)",
+                "lateral1": 3,
+                "lateral2": 2,
+                "fondo": 3
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + PA",
+              "FOS_SS": null,
+              "FOS": 25,
+              "FOT": 50,
+              "FOS_verde": "100% natural no pavimentado",
+              "superficie_minima": "1000 m2 por vivienda (para conjuntos)",
+              "frente_minimo": 15,
+              "special_rules": [
+                "Construccion sobre pilotes obligatoria: pilotes separados > 2.50 m, diametro <= 30 cm",
+                "No se permiten subsuelos",
+                "No se permite modificacion topografica",
+                "No se permite cesped ni cubierta de tierra: solo plantas costeras nativas",
+                "10% adicional de FOS para garaje en PB (excluido del FOT)",
+                "Altura medida desde linea 1 m superior a la recta de comparacion",
+                "Salientes: 2 m maximo en 30% de la superficie de fachada",
+                "Separacion minima entre viviendas en conjuntos: 6 m"
+              ]
+            }
+          }
+        },
+        "1.6": {
+          "name": "Pedro Campbell y Manzanas adyacentes al Norte",
+          "subzones": {
+            "1.6.BB": {
+              "zone_code": "1.6.BB",
+              "zone_name": "Pedro Campbell — Bloques Bajos",
+              "locality": "LA BARRA - MANANTIALES",
+              "article": "Art. D.325",
+              "decreto": "3970/2017",
+              "manzanas": "Manzanas 373, 376, 377, 380, 382, 383, 384 de La Barra; predios frentistas a Leopoldina Rosa, Pedro Campbell, El Pedregal, Iris, Los Suspiros, Graff Spee, Anglo Saxon, Syren (hasta 50 m de profundidad)",
+              "allowed_building_types": ["bloque bajo", "conjuntos de bloques"],
+              "prohibited_uses": ["bloque medio", "bloque alto"],
+              "retiros": {
+                "frontal": 6,
+                "lateral1": "3 m (suma > 8 m)",
+                "lateral2": "3 m (suma > 8 m)",
+                "fondo": 4
+              },
+              "altura_maxima": 9,
+              "pisos_maximos": "PB + 2 PA",
+              "FOS_SS": 40,
+              "FOS": 20,
+              "FOT": 60,
+              "FOS_verde": 60,
+              "superficie_minima": 1200,
+              "frente_minimo": 30,
+              "special_rules": [
+                "Conjuntos: separacion minima entre edificios 8 m",
+                "Edificacion inscrita en circunferencia diametro 42.50 m, planta max 900 m2",
+                "Conjunto de Bloques: 900 m2 por bloque, 30 m frente",
+                "Salientes: hasta 2 m para bloques bajos"
+              ]
+            },
+            "1.6.UA": {
+              "zone_code": "1.6.UA",
+              "zone_name": "Pedro Campbell — Unidades aisladas/apareadas",
+              "locality": "LA BARRA - MANANTIALES",
+              "article": "Art. D.325",
+              "decreto": "3970/2017",
+              "manzanas": "Manzanas 373, 376, 377, 380, 382, 383, 384 de La Barra; predios frentistas a calles especificadas (hasta 50 m de profundidad)",
+              "allowed_building_types": ["unidad aislada", "unidad apareada"],
+              "prohibited_uses": ["bloque medio", "bloque alto"],
+              "retiros": {
+                "frontal": 4,
+                "lateral1": "2 m (suma > 6 m)",
+                "lateral2": "2 m (suma > 6 m)",
+                "fondo": 3
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + PA",
+              "FOS_SS": 40,
+              "FOS": 20,
+              "FOT": 60,
+              "FOS_verde": 60,
+              "superficie_minima": 600,
+              "frente_minimo": null,
+              "special_rules": [
+                "Salientes: 1.50 m"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "JOSE IGNACIO": {
+      "titulo": "III",
+      "capitulo": "III",
+      "sector": "2",
+      "decreto": "3718/1997",
+      "zones": {
+        "2.1": {
+          "name": "Costera Sur",
+          "subzones": {
+            "2.1.1.1": {
+              "zone_code": "2.1.1.1",
+              "zone_name": "Pueblo Jose Ignacio — Amanzanado Fundacional",
+              "locality": "JOSE IGNACIO",
+              "article": "Art. D.279",
+              "decreto": "3718/1997",
+              "manzanas": "Damero (cuadricula) de la peninsula de Jose Ignacio + manzanas 74, 75, 76, 77. Excluye manzanas 34, 28, 22.",
+              "allowed_building_types": ["unidad aislada", "unidad apareada"],
+              "prohibited_uses": ["bloques"],
+              "retiros": {
+                "frontal": "4 m (6 m costa/espacios publicos, mzna. 77); 20 m (frente oceanico)",
+                "lateral1": 2,
+                "lateral2": 2,
+                "fondo": null
+              },
+              "altura_maxima": 6,
+              "pisos_maximos": "PB + PA",
+              "FOS_SS": null,
+              "FOS": "35% (aislada); 30% (apareada)",
+              "FOT": 60,
+              "FOS_verde": "50% natural no pavimentado",
+              "superficie_minima": "400 m2 (aislada); 800 m2 (apareada)",
+              "frente_minimo": "9 m (aislada); 14 m (apareada)",
+              "special_rules": [
+                "Cumbrera (techo inclinado): max 6.90 m si promedio <= 6.00 m",
+                "Altura absoluta maxima auxiliar: 9.00 m (Art. D.277.1)",
+                "Separacion entre volumenes: minimo 2.50 m",
+                "Desarrollo lineal maximo PB: 20.00 m; PA: 16.00 m",
+                "Salientes: max 1.50 m (Art. D.276)",
+                "Edificaciones de bloque prohibidas en todo el sector salvo autorizacion especifica",
+                "1 estacionamiento por unidad de vivienda/local",
+                "Lotes < 4000 m2 deben conectar a red publica de saneamiento"
+              ]
+            },
+            "2.1.1.2": {
+              "zone_code": "2.1.1.2",
+              "zone_name": "Pueblo Jose Ignacio — Fragilidad Ecosistemica",
+              "locality": "JOSE IGNACIO",
+              "article": "Art. D.280",
+              "decreto": "3718/1997",
+              "manzanas": "Manzanas 34, 28, 22",
+              "allowed_building_types": ["unidad aislada", "unidad apareada"],
+              "prohibited_uses": ["bloques"],
+              "retiros": {
+                "frontal": "4 m (6 m en costa/espacios publicos)",
+                "lateral1": 2,
+                "lateral2": 2,
+                "fondo": null
+              },
+              "altura_maxima": 6,
+              "pisos_maximos": "PB + PA",
+              "FOS_SS": null,
+              "FOS": "35% (aislada); 30% (apareada)",
+              "FOT": 60,
+              "FOS_verde": "60% natural no pavimentado",
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "Consulta previa obligatoria con planos topograficos mostrando crestas de dunas costeras",
+                "Construccion sobre pilotes obligatoria: separacion > 2.50 m, min 1 m altura, max 30 cm diametro",
+                "No se permite cesped ni cubierta de dunas; solo plantas costeras nativas",
+                "No se permite cercado",
+                "No se permite impermeabilizacion ni pavimentacion",
+                "Solo saneamiento via red publica",
+                "Separacion entre volumenes: minimo 2.50 m",
+                "Desarrollo lineal maximo PB: 20.00 m; PA: 16.00 m",
+                "Altura medida desde terreno natural + 1 m (por pilotes)"
+              ]
+            },
+            "2.1.2.1": {
+              "zone_code": "2.1.2.1",
+              "zone_name": "Barrios Jardin — Areas balnearias urbanizadas",
+              "locality": "JOSE IGNACIO",
+              "article": "Art. D.282",
+              "decreto": "3718/1997",
+              "manzanas": "Todas las areas urbanas del sector, incluyendo Faro Bahia, Santa Maria de los Medanos, Arenas de Jose Ignacio, otros",
+              "allowed_building_types": ["unidad aislada", "unidad apareada"],
+              "prohibited_uses": ["bloques"],
+              "retiros": {
+                "frontal": "4 m (6 m costa/espacios publicos)",
+                "lateral1": 2,
+                "lateral2": 2,
+                "fondo": 3
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + PA (2 plantas)",
+              "FOS_SS": null,
+              "FOS": "25% (aislada); 20% (apareada)",
+              "FOT": "50% (aislada); 40% (apareada)",
+              "FOS_verde": "50% natural no pavimentado",
+              "superficie_minima": "600 m2 (aislada); 1200 m2 (apareada)",
+              "frente_minimo": "20 m (apareada); 25 m (grupos apareados)",
+              "special_rules": [
+                "Cumbrera: max 8.05 m si promedio <= 7.00 m",
+                "Separacion entre volumenes: 3.00 m",
+                "Desarrollo lineal maximo PB: 20.00 m; PA: 16.00 m",
+                "Estructuras secundarias en retiros laterales: tercio interior de profundidad, max 20 m2, max 3 m altura",
+                "Cercos: frente 0.80 m (transparencia < 90%), otros 1.30 m",
+                "Salientes: max 1.50 m (Art. D.276)"
+              ]
+            },
+            "2.1.2.2": {
+              "zone_code": "2.1.2.2",
+              "zone_name": "Barrios Jardin — La Juanita",
+              "locality": "JOSE IGNACIO",
+              "article": "Art. D.283",
+              "decreto": "3718/1997",
+              "manzanas": "Fraccionamiento Playa Juanita y manzana catastral 19",
+              "allowed_building_types": ["unidad aislada", "unidad apareada", "bloque bajo"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": "4 m (10 m sobre rutas nacionales)",
+                "lateral1": 2,
+                "lateral2": 2,
+                "fondo": 3
+              },
+              "altura_maxima": "7 m (unidades); 9 m (bloques bajos)",
+              "pisos_maximos": "PB + PA",
+              "FOS_SS": null,
+              "FOS": "35% (aislada); 30% (apareada/bloques)",
+              "FOT": "70% (aislada); 60% (apareada/bloques)",
+              "FOS_verde": "50% natural no pavimentado",
+              "superficie_minima": "400 m2 (aislada); 800 m2 (apareada); 1000 m2 (bloque bajo)",
+              "frente_minimo": "12 m (aislada); 24 m (apareada); 30 m (bloque bajo)",
+              "special_rules": [
+                "Cumbrera: max 8.05 m si promedio <= 7.00 m",
+                "En manzanas 3, 4, 26, 27, 40, 41, 48-52, 54-62, 68-71: viviendas unifamiliares prohibidas en lotes > 1000 m2",
+                "Separacion entre volumenes: 4 m (aislada), 12 m (apareada)",
+                "Estructuras secundarias en retiros: tercio interior, max 20 m2, max 3 m",
+                "Desarrollo lineal maximo PB: 20.00 m; PA: 16.00 m",
+                "Cercos: frente 0.80 m, otros 1.30 m",
+                "Salientes: max 1.50 m (Art. D.276)"
+              ]
+            }
+          }
+        },
+        "2.2": {
+          "name": "Chacras Maritimas",
+          "subzones": {
+            "2.2": {
+              "zone_code": "2.2",
+              "zone_name": "Chacras Maritimas",
+              "locality": "JOSE IGNACIO",
+              "article": "Art. D.284",
+              "decreto": "3718/1997",
+              "manzanas": null,
+              "allowed_building_types": ["unidad aislada"],
+              "prohibited_uses": ["bloques"],
+              "retiros": {
+                "frontal": null,
+                "lateral1": null,
+                "lateral2": null,
+                "fondo": null
+              },
+              "altura_maxima": 9,
+              "pisos_maximos": null,
+              "FOS_SS": null,
+              "FOS": null,
+              "FOT": null,
+              "FOS_verde": null,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "Baja, media y alta densidad — articulo no completamente transcrito",
+                "Altura absoluta maxima: 9.00 m (Art. D.277.1)",
+                "Edificaciones de bloque prohibidas en todo el sector salvo autorizacion especifica"
+              ]
+            }
+          }
+        },
+        "2.3": {
+          "name": "Chacras del Norte",
+          "subzones": {
+            "2.3": {
+              "zone_code": "2.3",
+              "zone_name": "Chacras del Norte",
+              "locality": "JOSE IGNACIO",
+              "article": "Art. D.284",
+              "decreto": "3718/1997",
+              "manzanas": null,
+              "allowed_building_types": ["unidad aislada"],
+              "prohibited_uses": ["bloques"],
+              "retiros": {
+                "frontal": null,
+                "lateral1": null,
+                "lateral2": null,
+                "fondo": null
+              },
+              "altura_maxima": 9,
+              "pisos_maximos": null,
+              "FOS_SS": null,
+              "FOS": null,
+              "FOT": null,
+              "FOS_verde": null,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "Baja y media densidad — articulo no completamente transcrito",
+                "Altura absoluta maxima: 9.00 m (Art. D.277.1)"
+              ]
+            }
+          }
+        },
+        "2.4": {
+          "name": "Prioridad Ambiental",
+          "subzones": {
+            "2.4": {
+              "zone_code": "2.4",
+              "zone_name": "Prioridad Ambiental",
+              "locality": "JOSE IGNACIO",
+              "article": "Art. D.284",
+              "decreto": "3718/1997",
+              "manzanas": null,
+              "allowed_building_types": [],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": null,
+                "lateral1": null,
+                "lateral2": null,
+                "fondo": null
+              },
+              "altura_maxima": 9,
+              "pisos_maximos": null,
+              "FOS_SS": null,
+              "FOS": null,
+              "FOT": null,
+              "FOS_verde": null,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "Articulo no completamente transcrito",
+                "Altura absoluta maxima: 9.00 m (Art. D.277.1)"
+              ]
+            }
+          }
+        },
+        "2.5": {
+          "name": "Proteccion de Cuerpos de Agua",
+          "subzones": {
+            "2.5": {
+              "zone_code": "2.5",
+              "zone_name": "Proteccion de Cuerpos de Agua",
+              "locality": "JOSE IGNACIO",
+              "article": "Art. D.284",
+              "decreto": "3718/1997",
+              "manzanas": null,
+              "allowed_building_types": [],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": null,
+                "lateral1": null,
+                "lateral2": null,
+                "fondo": null
+              },
+              "altura_maxima": 9,
+              "pisos_maximos": null,
+              "FOS_SS": null,
+              "FOS": null,
+              "FOT": null,
+              "FOS_verde": null,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "Articulo no completamente transcrito",
+                "Altura absoluta maxima: 9.00 m (Art. D.277.1)"
+              ]
+            }
+          }
+        },
+        "2.6": {
+          "name": "Banda de Resguardo",
+          "subzones": {
+            "2.6": {
+              "zone_code": "2.6",
+              "zone_name": "Banda de Resguardo",
+              "locality": "JOSE IGNACIO",
+              "article": "Art. D.284",
+              "decreto": "3718/1997",
+              "manzanas": null,
+              "allowed_building_types": [],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": null,
+                "lateral1": null,
+                "lateral2": null,
+                "fondo": null
+              },
+              "altura_maxima": 9,
+              "pisos_maximos": null,
+              "FOS_SS": null,
+              "FOS": null,
+              "FOT": null,
+              "FOS_verde": null,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "Articulo no completamente transcrito",
+                "Altura absoluta maxima: 9.00 m (Art. D.277.1)"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "SAN CARLOS": {
+      "titulo": "V",
+      "capitulo": "I",
+      "sector": "1",
+      "decreto": "3718/1997",
+      "zones": {
+        "1.1": {
+          "name": "De las plazas",
+          "subzones": {
+            "1.1.BB": {
+              "zone_code": "1.1.BB",
+              "zone_name": "De las plazas — Bloque Bajo",
+              "locality": "SAN CARLOS",
+              "article": "Art. D.316",
+              "decreto": "3718/1997",
+              "manzanas": "25 de Agosto, Rocha, Carlos Reyles, Ituzaingo",
+              "allowed_building_types": ["bloque bajo"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": "0 m (hasta 7 m); 4 m (sobre 7 m)",
+                "lateral1": 2,
+                "lateral2": 2,
+                "fondo": 2
+              },
+              "altura_maxima": 12,
+              "pisos_maximos": "PB + 3 PA",
+              "FOS_SS": "70% (comercial); 80% (sub-sotano)",
+              "FOS": 50,
+              "FOT": "200% (sin sotano); 240% (con sotano comercial)",
+              "FOS_verde": null,
+              "superficie_minima": 230,
+              "frente_minimo": null,
+              "special_rules": [
+                "No se autorizan salientes en todo el sector San Carlos",
+                "Reforma de fachada: mantener estructura formal y resistente",
+                "Porcentaje de aberturas: mantener proporcion existente, max 30% si nuevas",
+                "Zonas 1.1 y 1.2 bajo regimen de Patrimonio Historico"
+              ]
+            },
+            "1.1.OE": {
+              "zone_code": "1.1.OE",
+              "zone_name": "De las plazas — Otra estructura",
+              "locality": "SAN CARLOS",
+              "article": "Art. D.316",
+              "decreto": "3718/1997",
+              "manzanas": "25 de Agosto, Rocha, Carlos Reyles, Ituzaingo",
+              "allowed_building_types": ["residencial"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": "0 m (D.311)",
+                "lateral1": 2,
+                "lateral2": 2,
+                "fondo": 2
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + PA",
+              "FOS_SS": null,
+              "FOS": 55,
+              "FOT": "110% (sin sotano); 140% (con sotano)",
+              "FOS_verde": null,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "No se autorizan salientes en todo el sector San Carlos",
+                "Patrimonio Historico"
+              ]
+            }
+          }
+        },
+        "1.2": {
+          "name": "Casco",
+          "subzones": {
+            "1.2.BB": {
+              "zone_code": "1.2.BB",
+              "zone_name": "Casco — Bloque Bajo",
+              "locality": "SAN CARLOS",
+              "article": "Art. D.317",
+              "decreto": "3817/2006",
+              "manzanas": "M. Amenedo de Montenegro, Rocha, Tomas Berreta, Oficial 3. Excluye zonas 1.1 y 1.3.",
+              "allowed_building_types": ["bloque bajo"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": "0 m (hasta 7 m); 2 m (sobre 7 m)",
+                "lateral1": 2,
+                "lateral2": 2,
+                "fondo": 2
+              },
+              "altura_maxima": 9,
+              "pisos_maximos": "PB + 2 PA",
+              "FOS_SS": 80,
+              "FOS": 70,
+              "FOT": 155,
+              "FOS_verde": null,
+              "superficie_minima": 230,
+              "frente_minimo": null,
+              "special_rules": [
+                "No se autorizan salientes en todo el sector San Carlos",
+                "Patrimonio Historico"
+              ]
+            },
+            "1.2.OE": {
+              "zone_code": "1.2.OE",
+              "zone_name": "Casco — Otra estructura",
+              "locality": "SAN CARLOS",
+              "article": "Art. D.317",
+              "decreto": "3817/2006",
+              "manzanas": "M. Amenedo de Montenegro, Rocha, Tomas Berreta, Oficial 3. Excluye zonas 1.1 y 1.3.",
+              "allowed_building_types": ["residencial"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": "0 m (D.311)",
+                "lateral1": 2,
+                "lateral2": 2,
+                "fondo": 2
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + PA",
+              "FOS_SS": null,
+              "FOS": 55,
+              "FOT": 110,
+              "FOS_verde": null,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "No se autorizan salientes en todo el sector San Carlos",
+                "Patrimonio Historico"
+              ]
+            }
+          }
+        },
+        "1.3": {
+          "name": "Alvariza",
+          "subzones": {
+            "1.3.BM": {
+              "zone_code": "1.3.BM",
+              "zone_name": "Alvariza — Bloque Medio",
+              "locality": "SAN CARLOS",
+              "article": "Art. D.318",
+              "decreto": "3718/1997",
+              "manzanas": "M. Amenedo de Montenegro, Ituzaingo, Rincon, Ceberio",
+              "allowed_building_types": ["bloque medio"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": 6,
+                "lateral1": "2/7 de la altura",
+                "lateral2": "2/7 de la altura",
+                "fondo": "2/7 de la altura"
+              },
+              "altura_maxima": 28,
+              "pisos_maximos": "PB + 9 PA",
+              "FOS_SS": 70,
+              "FOS": "30% (sin basamento); 50% (con basamento)",
+              "FOT": "300% (sin basamento); 340% (con basamento)",
+              "FOS_verde": null,
+              "superficie_minima": 600,
+              "frente_minimo": 20,
+              "special_rules": [
+                "No se autorizan salientes en todo el sector San Carlos"
+              ]
+            },
+            "1.3.BB": {
+              "zone_code": "1.3.BB",
+              "zone_name": "Alvariza — Bloque Bajo",
+              "locality": "SAN CARLOS",
+              "article": "Art. D.318",
+              "decreto": "3718/1997",
+              "manzanas": "M. Amenedo de Montenegro, Ituzaingo, Rincon, Ceberio",
+              "allowed_building_types": ["bloque bajo"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": 4,
+                "lateral1": null,
+                "lateral2": null,
+                "fondo": "2/7 de la altura"
+              },
+              "altura_maxima": 12,
+              "pisos_maximos": "PB + 3 PA",
+              "FOS_SS": null,
+              "FOS": null,
+              "FOT": 160,
+              "FOS_verde": null,
+              "superficie_minima": 230,
+              "frente_minimo": 12,
+              "special_rules": [
+                "No se autorizan salientes en todo el sector San Carlos"
+              ]
+            },
+            "1.3.OE": {
+              "zone_code": "1.3.OE",
+              "zone_name": "Alvariza — Otra estructura",
+              "locality": "SAN CARLOS",
+              "article": "Art. D.318",
+              "decreto": "3718/1997",
+              "manzanas": "M. Amenedo de Montenegro, Ituzaingo, Rincon, Ceberio",
+              "allowed_building_types": ["residencial"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": null,
+                "lateral1": null,
+                "lateral2": null,
+                "fondo": null
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + PA",
+              "FOS_SS": null,
+              "FOS": 40,
+              "FOT": 80,
+              "FOS_verde": null,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "No se autorizan salientes en todo el sector San Carlos"
+              ]
+            }
+          }
+        },
+        "1.4": {
+          "name": "Costa",
+          "subzones": {
+            "1.4": {
+              "zone_code": "1.4",
+              "zone_name": "Costa",
+              "locality": "SAN CARLOS",
+              "article": "Art. D.319",
+              "decreto": "3718/1997",
+              "manzanas": "M. Amenedo de Montenegro, Costanera del Arroyo San Carlos, 4 de Octubre, Av. Rocha",
+              "allowed_building_types": ["residencial"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": "Segun D.311 (2 m o 4 m segun calle)",
+                "lateral1": 2,
+                "lateral2": 2,
+                "fondo": 2
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + PA",
+              "FOS_SS": 40,
+              "FOS": 40,
+              "FOT": 80,
+              "FOS_verde": 40,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "No se autorizan salientes en todo el sector San Carlos",
+                "Predios con frente <= 15 m: un retiro lateral puede ocuparse hasta 3 m de altura promedial",
+                "Construcciones auxiliares en retiros laterales/fondo: permitidas si altura < 3 m y superficie < 20 m2"
+              ]
+            }
+          }
+        },
+        "1.5": {
+          "name": "Resto del Sector",
+          "subzones": {
+            "1.5": {
+              "zone_code": "1.5",
+              "zone_name": "Resto del Sector",
+              "locality": "SAN CARLOS",
+              "article": "Art. D.320",
+              "decreto": "3718/1997",
+              "manzanas": "Area fraccionada dentro de los limites del Sector, no incluida en las restantes zonas",
+              "allowed_building_types": ["residencial"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": null,
+                "lateral1": 2,
+                "lateral2": null,
+                "fondo": null
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + PA",
+              "FOS_SS": 50,
+              "FOS": 50,
+              "FOT": 100,
+              "FOS_verde": 30,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "No se autorizan salientes en todo el sector San Carlos",
+                "Retiro unilateral de 2 m"
+              ]
+            }
+          }
+        },
+        "1.4BJ": {
+          "name": "Barrio Jardin (San Carlos Urbano/Suburbano)",
+          "subzones": {
+            "1.4BJ.1": {
+              "zone_code": "1.4BJ.1",
+              "zone_name": "Barrio Jardin — Costanera Norte",
+              "locality": "SAN CARLOS",
+              "article": "Art. D.266 (aplicado a San Carlos)",
+              "decreto": "4042/2021",
+              "manzanas": "Parcelas urbanas/suburbanas al Norte de Ruta 10, frentistas, entre limite Este del Fraccionamiento San Carlos y Ruta 104/Av. Las Ballenas",
+              "allowed_building_types": ["bloque bajo"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": "10 m (Ruta 10); 6 m (calles transversales)",
+                "lateral1": "3 m (suma > 8 m)",
+                "lateral2": "3 m (suma > 8 m)",
+                "fondo": 4
+              },
+              "altura_maxima": "9-12 m",
+              "pisos_maximos": "PB + 2 pisos",
+              "FOS_SS": "25-40% (segun superficie)",
+              "FOS": "25-40% (segun superficie)",
+              "FOT": 70,
+              "FOS_verde": 50,
+              "superficie_minima": "2000 m2 (bloques); 1200 m2 (individual)",
+              "frente_minimo": "30 m (bloques)",
+              "special_rules": [
+                "Bloques frentistas a Ruta 10 con 100% fachada sobre PB",
+                "Max 900 m2 por planta, inscrito en diametro 42.50 m",
+                "Decreto 4042/2021"
+              ]
+            },
+            "1.4BJ.2": {
+              "zone_code": "1.4BJ.2",
+              "zone_name": "Barrio Jardin — Resto",
+              "locality": "SAN CARLOS",
+              "article": "Art. D.266 (aplicado a San Carlos)",
+              "decreto": "3982/2017",
+              "manzanas": "Todas las propiedades restantes en Zona 1.4 Barrio Jardin",
+              "allowed_building_types": ["unidad aislada", "unidad apareada"],
+              "prohibited_uses": ["bloques"],
+              "retiros": {
+                "frontal": "6 m (4 m originalmente; 10 m sobre Ruta 10)",
+                "lateral1": 3,
+                "lateral2": 2,
+                "fondo": 3
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + 1 piso",
+              "FOS_SS": "25-40% (interpolacion)",
+              "FOS": "25-40% (interpolacion: 40% < 400m2, 25% > 1000m2)",
+              "FOT": "50-60% (interpolacion: 60% < 400m2, 50% > 1000m2)",
+              "FOS_verde": 50,
+              "superficie_minima": "1000 m2 por unidad",
+              "frente_minimo": null,
+              "special_rules": [
+                "Separacion minima entre unidades: 6 m",
+                "Predios con frente <= 15 m: retiro unilateral 3 m, lateral 2 m exonerado (max 3 m altura)",
+                "Construcciones auxiliares en retiros: hasta 36 m2, max 3 m, mitad posterior del predio",
+                "Salientes: 2 m en 30% de superficie de fachada",
+                "10% FOS adicional para garaje PB (no computa FOT)",
+                "Servicios en azotea: 20% del area de techo, max 2.60 m interior"
+              ]
+            },
+            "1.4BJ.3": {
+              "zone_code": "1.4BJ.3",
+              "zone_name": "Barrio Jardin — Costanera Sur",
+              "locality": "SAN CARLOS",
+              "article": "Art. D.266 (aplicado a San Carlos)",
+              "decreto": "4042/2021",
+              "manzanas": "Parcelas al Sur de Ruta 10, entre padron 18156 y padron 26633",
+              "allowed_building_types": ["edificacion baja"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": "10 m (Ruta 10)",
+                "lateral1": "6 m (suma > 12 m)",
+                "lateral2": "6 m (suma > 12 m)",
+                "fondo": null
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + PA",
+              "FOS_SS": null,
+              "FOS": 25,
+              "FOT": 50,
+              "FOS_verde": null,
+              "superficie_minima": 2000,
+              "frente_minimo": 30,
+              "special_rules": [
+                "Agrupamiento de mas de 2 unidades = Edificacion Baja",
+                "Separacion minima entre edificios: 12 m",
+                "Inscrito en circunferencia diametro 30 m"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "SAN CARLOS RURAL": {
+      "titulo": "V",
+      "capitulo": "I",
+      "sector": "rural",
+      "decreto": "3103/2014",
+      "zones": {
+        "SR": {
+          "name": "Coastal Zone Rural",
+          "subzones": {
+            "SR": {
+              "zone_code": "SR",
+              "zone_name": "Coastal Zone Rural",
+              "locality": "SAN CARLOS RURAL",
+              "article": "Resolucion 3103/2014",
+              "decreto": "3103/2014",
+              "manzanas": null,
+              "allowed_building_types": ["unidad aislada", "auxiliar rural"],
+              "prohibited_uses": ["bloques", "unidades apareadas", "urbanizacion", "subdivision"],
+              "retiros": {
+                "frontal": 20,
+                "lateral1": 20,
+                "lateral2": 20,
+                "fondo": 20
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + 1 piso",
+              "FOS_SS": null,
+              "FOS": 5,
+              "FOT": 8,
+              "FOS_verde": "90% natural no pavimentado",
+              "superficie_minima": 50000,
+              "frente_minimo": null,
+              "special_rules": [
+                "Minimo 50000 m2 por unidad de vivienda",
+                "Minimo 20 m separacion entre unidades",
+                "150 m faja no edificable desde cauces de agua publicos (Art. 170 TONE)",
+                "90% del lote debe permanecer natural/no pavimentado",
+                "Solo unidades aisladas residenciales permitidas"
+              ]
+            }
+          }
+        },
+        "ZII": {
+          "name": "Maritime Chacras Rural",
+          "subzones": {
+            "ZII": {
+              "zone_code": "ZII",
+              "zone_name": "Maritime Chacras Rural",
+              "locality": "SAN CARLOS RURAL",
+              "article": "Resolucion 3103/2014",
+              "decreto": "3103/2014",
+              "manzanas": null,
+              "allowed_building_types": ["unidad aislada", "auxiliar rural"],
+              "prohibited_uses": ["bloques", "unidades apareadas", "urbanizacion", "subdivision"],
+              "retiros": {
+                "frontal": 25,
+                "lateral1": 25,
+                "lateral2": 25,
+                "fondo": 25
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + 1 piso",
+              "FOS_SS": null,
+              "FOS": 5,
+              "FOT": 8,
+              "FOS_verde": "90% natural no pavimentado",
+              "superficie_minima": 50000,
+              "frente_minimo": null,
+              "special_rules": [
+                "Minimo 50000 m2 por unidad de vivienda",
+                "Minimo 20 m separacion entre unidades",
+                "150 m faja no edificable desde cauces de agua publicos (Art. 170 TONE)",
+                "Zona mas comun en area rural de San Carlos"
+              ]
+            }
+          }
+        },
+        "ZIII": {
+          "name": "Northern Chacras Rural",
+          "subzones": {
+            "ZIII": {
+              "zone_code": "ZIII",
+              "zone_name": "Northern Chacras Rural",
+              "locality": "SAN CARLOS RURAL",
+              "article": "Resolucion 3103/2014",
+              "decreto": "3103/2014",
+              "manzanas": null,
+              "allowed_building_types": ["unidad aislada", "auxiliar rural"],
+              "prohibited_uses": ["bloques", "unidades apareadas", "urbanizacion", "subdivision"],
+              "retiros": {
+                "frontal": 30,
+                "lateral1": 30,
+                "lateral2": 30,
+                "fondo": 30
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + 1 piso",
+              "FOS_SS": null,
+              "FOS": 5,
+              "FOT": 8,
+              "FOS_verde": "90% natural no pavimentado",
+              "superficie_minima": 50000,
+              "frente_minimo": null,
+              "special_rules": [
+                "Minimo 50000 m2 por unidad de vivienda",
+                "Minimo 20 m separacion entre unidades",
+                "150 m faja no edificable desde cauces de agua publicos (Art. 170 TONE)"
+              ]
+            }
+          }
+        },
+        "ZIV": {
+          "name": "Priority Environmental",
+          "subzones": {
+            "ZIV": {
+              "zone_code": "ZIV",
+              "zone_name": "Priority Environmental",
+              "locality": "SAN CARLOS RURAL",
+              "article": "Resolucion 3103/2014",
+              "decreto": "3103/2014",
+              "manzanas": null,
+              "allowed_building_types": ["unidad aislada"],
+              "prohibited_uses": ["bloques", "unidades apareadas", "urbanizacion", "subdivision"],
+              "retiros": {
+                "frontal": 40,
+                "lateral1": 40,
+                "lateral2": 40,
+                "fondo": 40
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + 1 piso",
+              "FOS_SS": null,
+              "FOS": 5,
+              "FOT": 8,
+              "FOS_verde": "90% natural no pavimentado",
+              "superficie_minima": 50000,
+              "frente_minimo": null,
+              "special_rules": [
+                "Zona restringida: solo via programas de desarrollo integrado",
+                "Minimo 50000 m2 por unidad de vivienda",
+                "150 m faja no edificable desde cauces de agua publicos (Art. 170 TONE)"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "GARZON": {
+      "titulo": "V",
+      "capitulo": "II",
+      "sector": "2",
+      "decreto": "3718/1997",
+      "zones": {
+        "2.1": {
+          "name": "Pueblo Garzon",
+          "subzones": {
+            "2.1.1": {
+              "zone_code": "2.1.1",
+              "zone_name": "Garzon — Casco Urbano",
+              "locality": "GARZON",
+              "article": "Art. D.321",
+              "decreto": "3718/1997",
+              "manzanas": "Manzanas catastrales 1-30, incluyendo poligono hasta 25 m de la margen SE de la Canada de los Pereira",
+              "allowed_building_types": ["residencial"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": 0,
+                "lateral1": null,
+                "lateral2": null,
+                "fondo": null
+              },
+              "altura_maxima": 5,
+              "pisos_maximos": "PB",
+              "FOS_SS": 55,
+              "FOS": 55,
+              "FOT": 55,
+              "FOS_verde": "40% natural",
+              "superficie_minima": 300,
+              "frente_minimo": null,
+              "special_rules": [
+                "Alineacion obligatoria: 60% del frente",
+                "Aberturas en fachada: maximo 25%",
+                "Colores obligatorios: tonos tierra y colores especificos reglamentados",
+                "Carpinteria: madera o pintada unicamente",
+                "Caracter de pueblo historico preservado"
+              ]
+            },
+            "2.1.2": {
+              "zone_code": "2.1.2",
+              "zone_name": "Garzon — Estacion",
+              "locality": "GARZON",
+              "article": "Art. D.321",
+              "decreto": "3718/1997",
+              "manzanas": null,
+              "allowed_building_types": ["residencial"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": 4,
+                "lateral1": 3,
+                "lateral2": 3,
+                "fondo": 4
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + PA",
+              "FOS_SS": 40,
+              "FOS": 40,
+              "FOT": 80,
+              "FOS_verde": "40% natural",
+              "superficie_minima": 2000,
+              "frente_minimo": null,
+              "special_rules": []
+            },
+            "2.1.3.O": {
+              "zone_code": "2.1.3.O",
+              "zone_name": "Garzon — Chacras Oeste",
+              "locality": "GARZON",
+              "article": "Art. D.321",
+              "decreto": "3718/1997",
+              "manzanas": null,
+              "allowed_building_types": ["unidad aislada"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": 6,
+                "lateral1": 3,
+                "lateral2": 3,
+                "fondo": 4
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + PA",
+              "FOS_SS": 25,
+              "FOS": 25,
+              "FOT": 50,
+              "FOS_verde": "60% natural",
+              "superficie_minima": 4000,
+              "frente_minimo": null,
+              "special_rules": [
+                "Una sola unidad habitacional por predio"
+              ]
+            },
+            "2.1.3.E": {
+              "zone_code": "2.1.3.E",
+              "zone_name": "Garzon — Chacras Este",
+              "locality": "GARZON",
+              "article": "Art. D.321",
+              "decreto": "3718/1997",
+              "manzanas": null,
+              "allowed_building_types": ["unidad aislada"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": 6,
+                "lateral1": 3,
+                "lateral2": 3,
+                "fondo": 4
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + PA",
+              "FOS_SS": 25,
+              "FOS": 25,
+              "FOT": 50,
+              "FOS_verde": "60% natural",
+              "superficie_minima": 2000,
+              "frente_minimo": null,
+              "special_rules": [
+                "Una sola unidad habitacional por predio"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "AIGUA": {
+      "titulo": "V",
+      "capitulo": "II",
+      "sector": "2",
+      "decreto": "3718/1997",
+      "zones": {
+        "2.2": {
+          "name": "Aigua",
+          "subzones": {
+            "2.2.1": {
+              "zone_code": "2.2.1",
+              "zone_name": "Aigua — Casco Historico",
+              "locality": "AIGUA",
+              "article": "Art. D.321",
+              "decreto": "3718/1997",
+              "manzanas": null,
+              "allowed_building_types": ["residencial"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": null,
+                "lateral1": null,
+                "lateral2": null,
+                "fondo": null
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + PA",
+              "FOS_SS": null,
+              "FOS": "80% (< 300 m2); 55% (> 300 m2)",
+              "FOT": "160% (< 300 m2); 110% (> 300 m2)",
+              "FOS_verde": null,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "Comision Asesora para Patrimonio Arquitectonico",
+                "Aberturas en fachada max 25%",
+                "Materiales prohibidos especificados",
+                "Equipos A/C prohibidos en fachadas",
+                "Ochava de 3 m obligatoria en esquinas"
+              ]
+            },
+            "2.2.2": {
+              "zone_code": "2.2.2",
+              "zone_name": "Aigua — Centro",
+              "locality": "AIGUA",
+              "article": "Art. D.321",
+              "decreto": "3718/1997",
+              "manzanas": null,
+              "allowed_building_types": ["residencial"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": 0,
+                "lateral1": 2,
+                "lateral2": null,
+                "fondo": 3
+              },
+              "altura_maxima": 7,
+              "pisos_maximos": "PB + PA",
+              "FOS_SS": 55,
+              "FOS": 55,
+              "FOT": 110,
+              "FOS_verde": "20% natural",
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "Retiro unilateral de 2 m"
+              ]
+            },
+            "2.2.3": {
+              "zone_code": "2.2.3",
+              "zone_name": "Aigua — Bienes y Servicios",
+              "locality": "AIGUA",
+              "article": "Art. D.321",
+              "decreto": "3718/1997",
+              "manzanas": null,
+              "allowed_building_types": ["comercial", "servicios", "residencial"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": "4 m (15 m sobre Ruta 39)",
+                "lateral1": 4,
+                "lateral2": 4,
+                "fondo": 4
+              },
+              "altura_maxima": 12,
+              "pisos_maximos": "PB + 3 PA",
+              "FOS_SS": 55,
+              "FOS": 55,
+              "FOT": 110,
+              "FOS_verde": "20% (FIS)",
+              "superficie_minima": "1000 m2 (con saneamiento); 4000 m2 (otros sistemas)",
+              "frente_minimo": null,
+              "special_rules": [
+                "Area minima depende del tipo de saneamiento",
+                "15 m de retiro frontal sobre Ruta 39"
+              ]
+            },
+            "2.2.4": {
+              "zone_code": "2.2.4",
+              "zone_name": "Aigua — Resto",
+              "locality": "AIGUA",
+              "article": "Art. D.321",
+              "decreto": "3718/1997",
+              "manzanas": null,
+              "allowed_building_types": ["unidad aislada", "unidad apareada", "bloque bajo"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": null,
+                "lateral1": null,
+                "lateral2": null,
+                "fondo": null
+              },
+              "altura_maxima": "7 m (vivienda); 9 m (bloque bajo)",
+              "pisos_maximos": "PB + PA (vivienda); PB + 2 PA (bloque bajo)",
+              "FOS_SS": null,
+              "FOS": 40,
+              "FOT": "80% (vivienda); 120% (bloque bajo)",
+              "FOS_verde": null,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": []
+            }
+          }
+        }
+      }
+    },
+    "PAN DE AZUCAR": {
+      "titulo": "V",
+      "capitulo": "II",
+      "sector": "2",
+      "decreto": "3718/1997",
+      "zones": {
+        "2.3": {
+          "name": "Pan de Azucar y otros centros poblados",
+          "subzones": {
+            "2.3": {
+              "zone_code": "2.3",
+              "zone_name": "Pan de Azucar y otros centros poblados",
+              "locality": "PAN DE AZUCAR",
+              "article": "Art. D.321",
+              "decreto": "3718/1997",
+              "manzanas": null,
+              "allowed_building_types": ["residencial", "bloque bajo"],
+              "prohibited_uses": [],
+              "retiros": {
+                "frontal": "6 m (predios fiscales); 15 m (Rutas Nacionales)",
+                "lateral1": null,
+                "lateral2": null,
+                "fondo": null
+              },
+              "altura_maxima": 10,
+              "pisos_maximos": "PB + 2 PA",
+              "FOS_SS": null,
+              "FOS": 80,
+              "FOT": 240,
+              "FOS_verde": null,
+              "superficie_minima": null,
+              "frente_minimo": null,
+              "special_rules": [
+                "Ochava de 3 m obligatoria en esquinas"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

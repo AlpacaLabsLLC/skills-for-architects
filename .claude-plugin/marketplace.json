@@ -10,6 +10,11 @@
   },
   "plugins": [
     {
+      "name": "00-due-diligence",
+      "source": "./00-due-diligence",
+      "description": "NYC property due diligence — landmarks, DOB permits, violations, ACRIS records, HPD, and BSA variances from NYC Open Data."
+    },
+    {
       "name": "01-site-planning",
       "source": "./01-site-planning",
       "description": "Site planning skills — environmental analysis, mobility, demographics, and history."
@@ -17,7 +22,7 @@
     {
       "name": "02-zoning-analysis",
       "source": "./02-zoning-analysis",
-      "description": "Zoning analysis skills — buildable envelope calculations for New York City lots."
+      "description": "Zoning analysis skills — buildable envelope calculations for New York City and Maldonado, Uruguay."
     },
     {
       "name": "03-programming",
@@ -27,7 +32,12 @@
     {
       "name": "04-specifications",
       "source": "./04-specifications",
-      "description": "Construction specification skills — CSI MasterFormat spec writing and redline punch list generation."
+      "description": "Construction specification skills — CSI MasterFormat spec writing."
+    },
+    {
+      "name": "045-sustainability",
+      "source": "./045-sustainability",
+      "description": "Sustainability skills — EPD parsing, research, comparison, and CSI specification with GWP thresholds."
     },
     {
       "name": "05-materials-research",
