@@ -7,7 +7,7 @@ LPC landmark and historic district check for any NYC building as a [Claude Code]
 ## Install
 
 ```bash
-claude install github:AlpacaLabsLLC/skills-for-architects/08-nyc-property-data
+claude install github:AlpacaLabsLLC/skills-for-architects/00-due-diligence
 ```
 
 ## Usage

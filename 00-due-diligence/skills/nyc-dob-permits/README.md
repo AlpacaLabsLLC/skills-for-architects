@@ -7,7 +7,7 @@ DOB permit and job filing history for any NYC building as a [Claude Code](https:
 ## Install
 
 ```bash
-claude install github:AlpacaLabsLLC/skills-for-architects/08-nyc-property-data
+claude install github:AlpacaLabsLLC/skills-for-architects/00-due-diligence
 ```
 
 ## Usage

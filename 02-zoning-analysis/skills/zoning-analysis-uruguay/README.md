@@ -7,7 +7,7 @@ Zoning envelope analyzer for lots in Maldonado, Uruguay as a [Claude Code](https
 ## Install
 
 ```bash
-claude install github:AlpacaLabsLLC/skills-for-architects/zoning-analysis
+claude install github:AlpacaLabsLLC/skills-for-architects/02-zoning-analysis
 ```
 
 ## Usage

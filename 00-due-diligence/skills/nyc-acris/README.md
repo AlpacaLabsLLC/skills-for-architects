@@ -7,7 +7,7 @@ ACRIS property transaction record lookup for any NYC property as a [Claude Code]
 ## Install
 
 ```bash
-claude install github:AlpacaLabsLLC/skills-for-architects/08-nyc-property-data
+claude install github:AlpacaLabsLLC/skills-for-architects/00-due-diligence
 ```
 
 ## Usage
