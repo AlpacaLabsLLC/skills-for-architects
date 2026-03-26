@@ -92,7 +92,7 @@ Considers warm/cool balance, dominant/supporting/accent proportions, and tinted 
 ## Install
 
 ```bash
-claude install github:AlpacaLabsLLC/skills-for-architects/06-presentations
+claude install github:AlpacaLabsLLC/skills-for-architects/07-presentations
 ```
 
 ## License

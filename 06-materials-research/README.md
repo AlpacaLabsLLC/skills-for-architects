@@ -127,7 +127,7 @@ Chair, Table, Sofa, Bed, Light, Storage, Desk, Shelving, Rug, Mirror, Accessory,
 ## Install
 
 ```bash
-claude install github:AlpacaLabsLLC/skills-for-architects/05-materials-research
+claude install github:AlpacaLabsLLC/skills-for-architects/06-materials-research
 ```
 
 ## License

@@ -40,7 +40,7 @@ All skills share a **42-column EPD schema** covering product identity, EPD metad
 ## Install
 
 ```bash
-claude install github:AlpacaLabsLLC/skills-for-architects/045-sustainability
+claude install github:AlpacaLabsLLC/skills-for-architects/05-sustainability
 ```
 
 ## License

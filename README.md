@@ -72,9 +72,9 @@ Organized by project lifecycle — from due diligence through delivery.
 | 2 | [02-zoning-analysis](./02-zoning-analysis) | 3 | Zoning envelope analysis and 3D visualization for NYC and Maldonado, Uruguay. |
 | 3 | [03-programming](./03-programming) | 2 | Workplace strategy: space programs, occupancy loads, IBC compliance. |
 | 4 | [04-specifications](./04-specifications) | 1 | CSI outline specifications from a materials list. |
-| 4.5 | [045-sustainability](./045-sustainability) | 4 | EPD parsing, research, comparison, and CSI specification with GWP thresholds. |
-| 5 | [05-materials-research](./05-materials-research) | 5 | FF&E product research, spec extraction, cleanup, and image processing. |
-| 6 | [06-presentations](./06-presentations) | 2 | Slide deck generation and color palette creation. |
+| 5 | [05-sustainability](./05-sustainability) | 4 | EPD parsing, research, comparison, and CSI specification with GWP thresholds. |
+| 6 | [06-materials-research](./06-materials-research) | 5 | FF&E product research, spec extraction, cleanup, and image processing. |
+| 7 | [07-presentations](./07-presentations) | 2 | Slide deck generation and color palette creation. |
 
 ## All Skills
 
@@ -121,31 +121,31 @@ Organized by project lifecycle — from due diligence through delivery.
 |-------|-------------|
 | [`/spec-writer`](./04-specifications/skills/spec-writer) | CSI outline specs from a materials list — MasterFormat divisions, three-part sections, performance criteria. |
 
-### 4.5. Sustainability
+### 5. Sustainability
 
 | Skill | Description |
 |-------|-------------|
-| [`/epd-parser`](./045-sustainability/skills/epd-parser) | Extract structured data from EPD PDFs — GWP, life cycle stages, certifications, LEED eligibility. |
-| [`/epd-research`](./045-sustainability/skills/epd-research) | Search EC3, UL, Environdec, and manufacturer sites for EPDs by material or product category. |
-| [`/epd-comparator`](./045-sustainability/skills/epd-comparator) | Side-by-side environmental impact comparison with LEED v4.1 MRc2 eligibility check. |
-| [`/epd-to-spec`](./045-sustainability/skills/epd-to-spec) | CSI specification sections requiring EPDs and setting maximum GWP thresholds. |
+| [`/epd-parser`](./05-sustainability/skills/epd-parser) | Extract structured data from EPD PDFs — GWP, life cycle stages, certifications, LEED eligibility. |
+| [`/epd-research`](./05-sustainability/skills/epd-research) | Search EC3, UL, Environdec, and manufacturer sites for EPDs by material or product category. |
+| [`/epd-comparator`](./05-sustainability/skills/epd-comparator) | Side-by-side environmental impact comparison with LEED v4.1 MRc2 eligibility check. |
+| [`/epd-to-spec`](./05-sustainability/skills/epd-to-spec) | CSI specification sections requiring EPDs and setting maximum GWP thresholds. |
 
-### 5. Product & Materials Research
-
-| Skill | Description |
-|-------|-------------|
-| [`/product-research`](./05-materials-research/skills/product-research) | Brief-based product research — describe what you need, Claude searches and returns curated candidates. |
-| [`/product-spec-bulk-fetch`](./05-materials-research/skills/product-spec-bulk-fetch) | Extract FF&E specs from product URLs at scale — names, dimensions, materials, pricing, images. |
-| [`/product-spec-bulk-cleanup`](./05-materials-research/skills/product-spec-bulk-cleanup) | Normalize messy FF&E schedules — casing, dimensions, materials, categories, deduplication. |
-| [`/product-spec-pdf-parser`](./05-materials-research/skills/product-spec-pdf-parser) | Extract FF&E specs from PDFs — price books, fact sheets, spec sheets into standardized schedules. |
-| [`/product-image-processor`](./05-materials-research/skills/product-image-processor) | Batch download, resize, and remove backgrounds from product images. |
-
-### 6. Presentations
+### 6. Product & Materials Research
 
 | Skill | Description |
 |-------|-------------|
-| [`/slide-deck-generator`](./06-presentations/skills/slide-deck-generator) | Self-contained HTML slide decks — Helvetica, editorial layout, 22 slide types, keyboard/touch navigation. |
-| [`/color-palette-generator`](./06-presentations/skills/color-palette-generator) | Color palettes from descriptions, images, or hex codes — swatches, WCAG contrast, example pairings. |
+| [`/product-research`](./06-materials-research/skills/product-research) | Brief-based product research — describe what you need, Claude searches and returns curated candidates. |
+| [`/product-spec-bulk-fetch`](./06-materials-research/skills/product-spec-bulk-fetch) | Extract FF&E specs from product URLs at scale — names, dimensions, materials, pricing, images. |
+| [`/product-spec-bulk-cleanup`](./06-materials-research/skills/product-spec-bulk-cleanup) | Normalize messy FF&E schedules — casing, dimensions, materials, categories, deduplication. |
+| [`/product-spec-pdf-parser`](./06-materials-research/skills/product-spec-pdf-parser) | Extract FF&E specs from PDFs — price books, fact sheets, spec sheets into standardized schedules. |
+| [`/product-image-processor`](./06-materials-research/skills/product-image-processor) | Batch download, resize, and remove backgrounds from product images. |
+
+### 7. Presentations
+
+| Skill | Description |
+|-------|-------------|
+| [`/slide-deck-generator`](./07-presentations/skills/slide-deck-generator) | Self-contained HTML slide decks — Helvetica, editorial layout, 22 slide types, keyboard/touch navigation. |
+| [`/color-palette-generator`](./07-presentations/skills/color-palette-generator) | Color palettes from descriptions, images, or hex codes — swatches, WCAG contrast, example pairings. |
 
 ## Contributing
 

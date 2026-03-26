@@ -7,7 +7,7 @@ Search for Environmental Product Declarations by product category, CSI division,
 ## Install
 
 ```bash
-claude install github:AlpacaLabsLLC/skills-for-architects/045-sustainability
+claude install github:AlpacaLabsLLC/skills-for-architects/05-sustainability
 ```
 
 ## Usage

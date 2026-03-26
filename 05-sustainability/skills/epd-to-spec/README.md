@@ -7,7 +7,7 @@ Generate CSI-formatted specification sections requiring EPDs and setting maximum
 ## Install
 
 ```bash
-claude install github:AlpacaLabsLLC/skills-for-architects/045-sustainability
+claude install github:AlpacaLabsLLC/skills-for-architects/05-sustainability
 ```
 
 ## Usage

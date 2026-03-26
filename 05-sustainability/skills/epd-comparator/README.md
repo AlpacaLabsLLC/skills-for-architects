@@ -7,7 +7,7 @@ Compare 2+ products side-by-side on environmental impact metrics for [Claude Cod
 ## Install
 
 ```bash
-claude install github:AlpacaLabsLLC/skills-for-architects/045-sustainability
+claude install github:AlpacaLabsLLC/skills-for-architects/05-sustainability
 ```
 
 ## Usage

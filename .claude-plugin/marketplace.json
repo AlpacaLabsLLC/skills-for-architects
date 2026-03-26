@@ -35,18 +35,18 @@
       "description": "Construction specification skills — CSI MasterFormat spec writing."
     },
     {
-      "name": "045-sustainability",
-      "source": "./045-sustainability",
+      "name": "05-sustainability",
+      "source": "./05-sustainability",
       "description": "Sustainability skills — EPD parsing, research, comparison, and CSI specification with GWP thresholds."
     },
     {
-      "name": "05-materials-research",
-      "source": "./05-materials-research",
+      "name": "06-materials-research",
+      "source": "./06-materials-research",
       "description": "Product and materials research skills — FF&E product search, spec extraction, cleanup, PDF parsing, and image processing."
     },
     {
-      "name": "06-presentations",
-      "source": "./06-presentations",
+      "name": "07-presentations",
+      "source": "./07-presentations",
       "description": "Presentation skills — HTML slide deck generation and color palette creation."
     }
   ]

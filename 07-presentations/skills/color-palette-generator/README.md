@@ -7,7 +7,7 @@ Generates harmonious color palettes from descriptions, moods, images, or referen
 ## Install
 
 ```bash
-claude install github:AlpacaLabsLLC/skills-for-architects/06-presentations
+claude install github:AlpacaLabsLLC/skills-for-architects/07-presentations
 ```
 
 ## Usage
