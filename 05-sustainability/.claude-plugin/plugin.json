@@ -1,0 +1,12 @@
+{
+  "name": "05-sustainability",
+  "version": "1.0.0",
+  "description": "Sustainability skills — EPD parsing, research, comparison, and CSI specification with GWP thresholds.",
+  "author": {
+    "name": "ALPA",
+    "url": "https://alpa.llc"
+  },
+  "keywords": ["sustainability", "EPD", "GWP", "carbon", "specifications", "architecture"],
+  "homepage": "https://alpa.llc/skills",
+  "license": "MIT"
+}
