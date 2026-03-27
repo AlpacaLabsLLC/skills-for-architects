@@ -13,7 +13,7 @@ Four skills form a pipeline: parse EPD PDFs into structured data, search registr
 ```
 EPD PDFs ──→ /epd-parser ──→ structured data ←── /epd-research ←── registries
                                     │
-                             /epd-comparator
+                             /epd-compare
                                     │
                           comparison report
                                     │
@@ -30,7 +30,7 @@ Each skill works standalone. Chaining is natural but not required.
 |-------|-------------|
 | [epd-parser](skills/epd-parser/) | Extract structured data from EPD PDFs — GWP, life cycle stages, certifications |
 | [epd-research](skills/epd-research/) | Search EC3, UL, Environdec, and manufacturer sites for EPDs by material |
-| [epd-comparator](skills/epd-comparator/) | Side-by-side impact comparison with LEED MRc2 eligibility check |
+| [epd-compare](skills/epd-compare/) | Side-by-side impact comparison with LEED MRc2 eligibility check |
 | [epd-to-spec](skills/epd-to-spec/) | CSI specification sections requiring EPDs and setting GWP limits |
 
 ## Output

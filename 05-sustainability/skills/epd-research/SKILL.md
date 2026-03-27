@@ -191,7 +191,7 @@ The user may want to refine:
 
 - **"Any with lower GWP?"** — search for supplementary cementitious material (SCM) blends, newer EPDs
 - **"What about precast?"** — expand to related product categories
-- **"Compare #1 and #2"** — hand off to `/epd-comparator`
+- **"Compare #1 and #2"** — hand off to `/epd-compare`
 - **"Write spec language for #1's GWP as the max threshold"** — hand off to `/epd-to-spec`
 - **"Find the PDF for #3 so I can parse the full data"** — search for downloadable EPD document
 

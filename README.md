@@ -131,7 +131,7 @@ Organized by project lifecycle — from due diligence through delivery.
 |-------|-------------|
 | [`/epd-parser`](./05-sustainability/skills/epd-parser) | Extract structured data from EPD PDFs — GWP, life cycle stages, certifications, LEED eligibility. |
 | [`/epd-research`](./05-sustainability/skills/epd-research) | Search EC3, UL, Environdec, and manufacturer sites for EPDs by material or product category. |
-| [`/epd-comparator`](./05-sustainability/skills/epd-comparator) | Side-by-side environmental impact comparison with LEED v4.1 MRc2 eligibility check. |
+| [`/epd-compare`](./05-sustainability/skills/epd-compare) | Side-by-side environmental impact comparison with LEED v4.1 MRc2 eligibility check. |
 | [`/epd-to-spec`](./05-sustainability/skills/epd-to-spec) | CSI specification sections requiring EPDs and setting maximum GWP thresholds. |
 
 ### 6. Product & Materials Research

@@ -1,5 +1,5 @@
 ---
-name: epd-comparator
+name: epd-compare
 description: Compare 2+ products side-by-side on environmental impact metrics. Normalizes declared units, checks system boundary alignment, and flags LEED MRc2 compliance.
 allowed-tools:
   - Read
@@ -13,7 +13,7 @@ allowed-tools:
   - mcp__google__sheets_spreadsheet_get
 ---
 
-# /epd-comparator — EPD Comparator
+# /epd-compare — EPD Comparator
 
 Compare 2 or more products side-by-side on environmental impact metrics. Validates comparability (declared units, system boundaries, PCR alignment), generates comparison tables with percentage deltas, and checks LEED v4.1 MRc2 eligibility.
 

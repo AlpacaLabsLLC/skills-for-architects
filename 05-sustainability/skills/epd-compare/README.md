@@ -1,4 +1,4 @@
-# /epd-comparator
+# /epd-compare
 
 Compare 2+ products side-by-side on environmental impact metrics for [Claude Code](https://docs.anthropic.com/en/docs/claude-code). Validates comparability, normalizes declared units, generates percentage deltas, and checks LEED v4.1 MRc2 eligibility.
 
@@ -13,7 +13,7 @@ claude plugin install 05-sustainability@skills-for-architects
 
 # Or symlink just this skill
 git clone https://github.com/AlpacaLabsLLC/skills-for-architects.git
-ln -s $(pwd)/skills-for-architects/05-sustainability/skills/epd-comparator ~/.claude/skills/epd-comparator
+ln -s $(pwd)/skills-for-architects/05-sustainability/skills/epd-compare ~/.claude/skills/epd-compare
 ```
 
 ## Usage
@@ -21,13 +21,13 @@ ln -s $(pwd)/skills-for-architects/05-sustainability/skills/epd-comparator ~/.cl
 After parsing or researching EPDs:
 
 ```
-/epd-comparator compare the CLT EPDs I just found
+/epd-compare compare the CLT EPDs I just found
 ```
 
 Or with inline data:
 
 ```
-/epd-comparator concrete A: 320 kg CO2e/m3, concrete B: 280 kg CO2e/m3, concrete C: 410 kg CO2e/m3
+/epd-compare concrete A: 320 kg CO2e/m3, concrete B: 280 kg CO2e/m3, concrete C: 410 kg CO2e/m3
 ```
 
 ## What it checks
