@@ -17,7 +17,7 @@ user-invocable: true
 
 # /sif-to-csv — SIF to CSV Converter
 
-Converts a SIF (Standard Interchange Format) file from a dealer or procurement system into a clean, human-readable CSV or Google Sheet. Translates field codes to column headers, expands options and attributes, and calculates totals.
+Converts a SIF (Standard Interchange Format) file from a dealer or procurement system into a clean, human-readable CSV or Google Sheet. Translates field codes to column headers, expands options and attributes, calculates pricing, and computes totals.
 
 ## When to Use
 
@@ -25,6 +25,63 @@ Converts a SIF (Standard Interchange Format) file from a dealer or procurement s
 - Importing dealer pricing back into your FF&E schedule
 - Comparing a dealer quote (SIF) against your original specification
 - Loading dealer data into the master Google Sheet
+
+## SIF Format Reference
+
+SIF is a text-based key-value format. Each line is `CODE=VALUE`, terminated by CRLF. Products are separated by records starting with `PN=`.
+
+### Core fields
+
+| Code | Name | Description |
+|------|------|-------------|
+| `SF` | Specification File | Project reference (header) |
+| `ST` | Specification Title | Display title (header) |
+| `PN` | Product Number | SKU — starts a new record |
+| `PD` | Product Description | Product name |
+| `MC` | Manufacturer Code | 3-5 char code |
+| `MN` | Manufacturer Name | Full name |
+| `QT` | Quantity | Integer |
+| `NT` | Quantity (alt) | Some systems use NT instead of QT |
+| `GC` | Category / Group Code | Product category |
+| `G0` | Vendor / Group ID | Vendor identifier |
+
+### Pricing fields
+
+| Code | Name | Description |
+|------|------|-------------|
+| `PL` | List Price | Unit list price |
+| `P1`-`P5` | Price Tiers | Alternate price tiers |
+| `I1` | Unit List Price (Cyncly) | Cyncly Worksheet |
+| `I2` | Purchase Price (Cyncly) | Cyncly Worksheet |
+| `S-` / `S%` | Sell Discount % | Sell = PL - (PL × S- × 0.01) |
+| `P%` / `B%` | Purchase/Buy % | Cost = PL × (P% × 0.01) |
+
+### Product detail fields
+
+| Code | Name | Description |
+|------|------|-------------|
+| `TG` | Side Mark / Tag | Room, area, or project tag |
+| `ON` / `OD` | Option | Number + description pair |
+| `AN` / `AD` | Attribute | Number + description pair |
+| `WT` | Weight | Product weight |
+| `VO` | Volume | Product volume |
+| `PRC` | Product Category (Cyncly) | Cyncly category |
+
+### Link fields
+
+| Code | Name | Description |
+|------|------|-------------|
+| `ProductURL` | Product Page URL | Link to product page |
+| `ImageURL` | Product Image URL | Link to product image |
+| `PV` | Picture Path | Local file path |
+
+### Alternate manufacturer codes
+
+| System | Code | Purpose |
+|--------|------|---------|
+| Standard | `MC` | 3-5 char manufacturer code |
+| Cyncly | `MG` | Manufacturer code (replaces MC) |
+| CET | `EC` | Manufacturer code (alt) |
 
 ## Step 1: Accept Input
 
@@ -52,44 +109,39 @@ OD=Santos Palisander / Black MCL Leather
 
 Read the file and parse each record:
 
-1. **Header fields**: Extract `SF` (file reference) and `ST` (specification title)
-2. **Records**: Split on `PN=` boundaries — each `PN` starts a new product record
-3. **For each record**, extract all fields into a structured object:
-   - Required: PN, PD, MC, QT, PL
-   - Optional: TG, S-/S%, P%/B%, ON/OD pairs, AN/AD pairs, PV
-4. **Calculate derived values**:
-   - Sell Price: `PL - (PL × S- × 0.01)` if S- is present
-   - Net Price: `PL × (P% × 0.01)` if P% is present
+1. **Header fields**: Extract `SF` and `ST`
+2. **Records**: Split on `PN=` boundaries
+3. **For each record**, extract all fields
+4. **Detect manufacturer code variant**: look for MC, MG, or EC — normalize to brand name
+5. **Detect price variant**: look for PL, P1, I1 — use whichever is present
+6. **Detect quantity variant**: look for QT or NT
+7. **Calculate derived values**:
+   - Sell Price: `PL - (PL × S- × 0.01)` if discount present
+   - Net Price: `PL × (P% × 0.01)` if purchase % present
    - Extended List: `PL × QT`
    - Extended Sell: `Sell Price × QT`
 
 ### Manufacturer code expansion
 
-Expand common MC codes to full brand names:
+| MC | Brand | MC | Brand |
+|----|-------|----|-------|
+| HMI | Herman Miller | BLU | Blu Dot |
+| MKN | MillerKnoll | DWR | Design Within Reach |
+| KNL | Knoll | FRH | Fritz Hansen |
+| STC | Steelcase | VIT | Vitra |
+| HAW | Haworth | ARP | Arper |
+| TEK | Teknion | FLS | Flos |
+| HUM | Humanscale | LPO | Louis Poulsen |
+| KIM | Kimball | ART | Artemide |
+| OFS | OFS | HBF | HBF |
+| GEI | Geiger | BRN | Bernhardt |
 
-| MC | Brand |
-|----|-------|
-| HMI | Herman Miller |
-| KNL | Knoll |
-| STC | Steelcase |
-| HAW | Haworth |
-| TEK | Teknion |
-| HUM | Humanscale |
-| DWR | Design Within Reach |
-| FRH | Fritz Hansen |
-| VIT | Vitra |
-| ARP | Arper |
-| FLS | Flos |
-| LPO | Louis Poulsen |
-| ART | Artemide |
-
-For unknown codes, keep the code as-is and flag for the user.
+For unknown codes, keep as-is and flag.
 
 ### Options and attributes
-
-- Multiple `ON`/`OD` pairs on a record → concatenate into a single "Options" column, separated by ` | `
-- Multiple `AN`/`AD` pairs → concatenate into an "Attributes" column, separated by ` | `
-- If AN=DIM, parse the dimension string back into W/D/H if possible
+- Multiple `ON`/`OD` pairs → concatenate into "Options" column, separated by ` | `
+- Multiple `AN`/`AD` pairs → concatenate into "Attributes" column, separated by ` | `
+- If `AN=DIM`, parse dimension string back into W/D/H if possible
 
 ## Step 3: Present Preview
 
@@ -100,14 +152,12 @@ For unknown codes, keep the code as-is and flag for the user.
 
 | # | SKU | Product | Brand | Qty | List $ | Disc % | Sell $ | Ext Sell | Options | Tag |
 |---|-----|---------|-------|-----|--------|--------|--------|----------|---------|-----|
-| 1 | 670 | Eames Lounge Chair and Ottoman | Herman Miller | 3 | $5,695 | 42% | $3,303.10 | $9,909.30 | Santos Palisander / Black MCL | Exec Lounge |
-| 2 | 164-500 | Saarinen Table 54" | Knoll | 1 | $4,750 | 38% | $2,945.00 | $2,945.00 | Arabescato / White | Dining |
-| 3 | 462-CG | Gesture Chair | Steelcase | 8 | $1,189 | 45% | $653.95 | $5,231.60 | Cogent Connect / Licorice | Open Office |
+| 1 | 670 | Eames Lounge Chair | Herman Miller | 3 | $5,695 | 42% | $3,303 | $9,909 | Palisander/Black | Exec Lounge |
+| 2 | 164-500 | Saarinen Table 54" | Knoll | 1 | $4,750 | 38% | $2,945 | $2,945 | Arabescato/White | Dining |
+| 3 | 462-CG | Gesture Chair | Steelcase | 8 | $1,189 | 45% | $654 | $5,232 | Cogent/Licorice | Open Office |
 
 **Totals:**
-- List: $22,147.00
-- Sell: $18,085.90
-- Savings: $4,061.10 (18.3%)
+- List: $22,147 · Sell: $18,086 · Savings: $4,061 (18.3%)
 ```
 
 ## Step 4: Output
@@ -115,27 +165,29 @@ For unknown codes, keep the code as-is and flag for the user.
 Ask the user for output format:
 
 ### CSV file
-Save as `{input-name}-parsed.csv` with columns:
+Save as `{input-name}-parsed.csv`:
 
 ```
-Item #, SKU, Product, Brand, Qty, List Price, Discount %, Sell Price, Extended List, Extended Sell, Options, Attributes, Tag, MC Code
+Item #, SKU, Product, Brand, Qty, List Price, Discount %, Sell Price, Ext List, Ext Sell, Category, Weight, Options, Attributes, Tag, Product URL, Image URL, MC Code
 ```
 
 ### Google Sheet (master schema)
-Write to the 33-column master schema:
+Write to the 33-column schema:
+- Column A (Link) ← ProductURL
 - Column C (Product Name) ← PD
 - Column E (SKU) ← PN
 - Column F (Brand) ← MC expanded
-- Column J (Category) ← leave for `/product-enrich`
-- Column T (List Price) ← PL
+- Column J (Category) ← GC or PRC
+- Column K-O (Dims) ← parsed from AD where AN=DIM
+- Column P (Weight) ← WT
+- Column T (List Price) ← PL/P1/I1
 - Column U (Sale Price) ← calculated sell price
-- Column S (Selected Color/Finish) ← OD
+- Column S (Selected Finish) ← OD
+- Column AC (Image URL) ← ImageURL
 - Column AD (Tags) ← TG
-- Column AE (Notes) ← "From SIF: {ST}. Discount: {S-}%"
+- Column AE (Notes) ← "From SIF: {ST}. Discount: {S-}%. Qty: {QT} · Ext: ${ext_sell}"
 - Column AF (Status) ← "quoted"
 - Column AG (Source) ← "sif-to-csv"
-
-Quantity goes in Notes: "Qty: {QT} · Ext List: ${ext_list} · Ext Sell: ${ext_sell}"
 
 ### Markdown
 Output the table in conversation.
@@ -146,15 +198,14 @@ Output the table in conversation.
 ✓ Parsed dealer-quote.sif
   Specification: Project Alpha — Dealer Quote March 2026
   3 records · 12 units
-  Total list: $22,147.00
-  Total sell: $18,085.90 (18.3% average discount)
+  Total list: $22,147 · Total sell: $18,086 (18.3% avg discount)
   Manufacturers: HMI (1), KNL (1), STC (1)
   Saved to: ~/Documents/project/dealer-quote-parsed.csv
 ```
 
 ## Pairs With
 
-- `/csv-to-sif` — round-trip: create SIF from your schedule, send to dealer, parse their quote back
+- `/csv-to-sif` — round-trip: create SIF, send to dealer, parse their quote back
 - `/product-spec-bulk-cleanup` — normalize the parsed data
-- `/ffe-schedule` — reformulate the dealer data into a formatted schedule
-- `/product-enrich` — add categories and tags to the imported products
+- `/ffe-schedule` — reformulate dealer data into a formatted schedule
+- `/product-enrich` — add categories and tags to imported products
