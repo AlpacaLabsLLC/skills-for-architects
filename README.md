@@ -6,7 +6,7 @@
 
 Claude is an AI assistant made by Anthropic. These skills teach it architecture-specific workflows — site analysis, space programming, specifications, and more.
 
-**28 skills** across **8 plugins** for architects, designers, and AEC professionals.
+**29 skills** across **8 plugins** for architects, designers, and AEC professionals.
 
 ## Prerequisites
 
@@ -77,7 +77,7 @@ Organized by project lifecycle — from due diligence through delivery.
 | 3 | [03-programming](./03-programming) | 2 | Workplace strategy: space programs, occupancy loads, IBC compliance. |
 | 4 | [04-specifications](./04-specifications) | 1 | CSI outline specifications from a materials list. |
 | 5 | [05-sustainability](./05-sustainability) | 4 | EPD parsing, research, comparison, and CSI specification with GWP thresholds. |
-| 6 | [06-materials-research](./06-materials-research) | 5 | FF&E product research, spec extraction, cleanup, and image processing. |
+| 6 | [06-materials-research](./06-materials-research) | 6 | FF&E product research, spec extraction, cleanup, and image processing. |
 | 7 | [07-presentations](./07-presentations) | 2 | Slide deck generation and color palette creation. |
 
 ## All Skills
@@ -143,6 +143,7 @@ Organized by project lifecycle — from due diligence through delivery.
 | [`/product-spec-bulk-cleanup`](./06-materials-research/skills/product-spec-bulk-cleanup) | Normalize messy FF&E schedules — casing, dimensions, materials, categories, deduplication. |
 | [`/product-spec-pdf-parser`](./06-materials-research/skills/product-spec-pdf-parser) | Extract FF&E specs from PDFs — price books, fact sheets, spec sheets into standardized schedules. |
 | [`/product-image-processor`](./06-materials-research/skills/product-image-processor) | Batch download, resize, and remove backgrounds from product images. |
+| [`/ffe-schedule`](./06-materials-research/skills/ffe-schedule) | Turn raw product lists into formatted FF&E specification schedules. |
 
 ### 7. Presentations
 

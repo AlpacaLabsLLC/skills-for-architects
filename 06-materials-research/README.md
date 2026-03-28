@@ -99,6 +99,7 @@ Norma Jean ─────────┼──→ Master Sheet ──→ /bulk-
 | [product-spec-bulk-cleanup](skills/product-spec-bulk-cleanup/) | Utility | Normalize casing, categories, dimensions, materials, language |
 | [product-spec-pdf-parser](skills/product-spec-pdf-parser/) | Utility | Extract specs from PDF catalogs, price books, and spec sheets |
 | [product-image-processor](skills/product-image-processor/) | Utility | Download, resize, and remove backgrounds from product images |
+| [ffe-schedule](skills/ffe-schedule/) | Workflow | Turn raw product lists into formatted FF&E specification schedules |
 
 ## Commands
 
