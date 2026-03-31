@@ -6,7 +6,7 @@
 
 **Architecture Studio** teaches Claude architecture-specific workflows — site analysis, zoning, space programming, specifications, materials research, sustainability, and presentations.
 
-**7 agents**, **36 skills**, **6 rules**, and **3 hooks** across **9 plugins**. Built by [ALPA](https://alpa.llc).
+**7 agents**, **36 skills**, **7 rules**, and **3 hooks** across **9 plugins**. Built by [ALPA](https://alpa.llc).
 
 ## Architecture
 
@@ -198,6 +198,7 @@ Always-on conventions that govern every output — loaded automatically, not inv
 | [csi-formatting](./rules/csi-formatting.md) | MasterFormat 2018 section numbers, three-part structure |
 | [terminology](./rules/terminology.md) | AEC standard terms, abbreviations, material names |
 | [output-formatting](./rules/output-formatting.md) | Tables, source attribution, file naming, list structure |
+| [transparency](./rules/transparency.md) | Show your work — link sources, expose inputs, make outputs verifiable |
 
 ## Hooks
 

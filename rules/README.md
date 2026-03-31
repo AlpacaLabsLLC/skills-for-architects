@@ -10,6 +10,7 @@ Rules are always-on conventions that shape every skill output. Unlike skills (in
 | [csi-formatting](./csi-formatting.md) | MasterFormat 2018 section numbers, three-part structure, cross-references |
 | [terminology](./terminology.md) | AEC standard terms, abbreviation conventions, material names |
 | [output-formatting](./output-formatting.md) | Tables, headings, source attribution, file naming, list structure |
+| [transparency](./transparency.md) | Show your work — link sources, expose inputs, make outputs verifiable |
 
 ## How Rules Work
 
