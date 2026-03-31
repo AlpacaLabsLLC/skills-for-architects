@@ -21,7 +21,7 @@ These conventions govern how skill outputs are structured and presented.
   - Census data: "Source: U.S. Census Bureau, ACS 2020 5-Year Estimates"
   - NYC data: "Source: NYC Open Data, [dataset name]"
   - Environmental: "Source: NOAA Climate Normals 1991–2020"
-  - Zoning: "Source: NYC DCP PLUTO 24v1" or "Source: Intendencia de Maldonado, TONE 2014"
+  - Zoning: "Source: NYC DCP PLUTO 24v1"
 - Place sources at the end of each section or in a footnote — not inline in every sentence
 
 ## File Output
