@@ -2,6 +2,13 @@
 
 IBC occupancy load calculator for [Claude Code](https://docs.anthropic.com/en/docs/claude-code). Describe your building — get per-area occupant loads from IBC Table 1004.5, gross vs net area handling, egress requirements, and exportable reports.
 
+**Jurisdiction-aware.** The skill asks what state or city your project is in and uses the correct code source:
+- **New York City** — [NYC Building Code 2022](https://codelibrary.amlegal.com/codes/newyorkcity/latest/NYCbldg/) (based on IBC 2015 + NYC amendments)
+- **California** — [CBC 2022, Title 24 Part 2](https://govt.westlaw.com/calregs/) (based on IBC 2021 + CA amendments)
+- **Other US** — IBC 2021 bundled as reference; verify your state's version at [UpCodes](https://up.codes/viewer/general/ibc-2021/chapter/10)
+
+Every report cites the code edition, table, and a public link to the source.
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../../../LICENSE)
 
 ## Install
