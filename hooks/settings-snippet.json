@@ -1,0 +1,34 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/plugins/skills-for-architects/hooks/post-write-disclaimer-check.sh",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/plugins/skills-for-architects/hooks/post-output-metadata.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "if": "Bash(git commit *)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/plugins/skills-for-architects/hooks/pre-commit-spec-lint.sh",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}

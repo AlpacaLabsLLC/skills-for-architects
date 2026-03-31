@@ -11,43 +11,48 @@
   "plugins": [
     {
       "name": "00-due-diligence",
-      "source": "./00-due-diligence",
+      "source": "./plugins/00-due-diligence",
       "description": "NYC property due diligence — landmarks, DOB permits, violations, ACRIS records, HPD, and BSA variances from NYC Open Data."
     },
     {
       "name": "01-site-planning",
-      "source": "./01-site-planning",
+      "source": "./plugins/01-site-planning",
       "description": "Site planning skills — environmental analysis, mobility, demographics, and history."
     },
     {
       "name": "02-zoning-analysis",
-      "source": "./02-zoning-analysis",
+      "source": "./plugins/02-zoning-analysis",
       "description": "Zoning analysis skills — buildable envelope calculations for New York City and Maldonado, Uruguay."
     },
     {
       "name": "03-programming",
-      "source": "./03-programming",
+      "source": "./plugins/03-programming",
       "description": "Architectural programming skills — occupancy load calculations (IBC) and workplace space programming."
     },
     {
       "name": "04-specifications",
-      "source": "./04-specifications",
+      "source": "./plugins/04-specifications",
       "description": "Construction specification skills — CSI MasterFormat spec writing."
     },
     {
       "name": "05-sustainability",
-      "source": "./05-sustainability",
+      "source": "./plugins/05-sustainability",
       "description": "Sustainability skills — EPD parsing, research, comparison, and CSI specification with GWP thresholds."
     },
     {
       "name": "06-materials-research",
-      "source": "./06-materials-research",
+      "source": "./plugins/06-materials-research",
       "description": "Product and materials research skills — FF&E product search, spec extraction, cleanup, PDF parsing, and image processing."
     },
     {
       "name": "07-presentations",
-      "source": "./07-presentations",
+      "source": "./plugins/07-presentations",
       "description": "Presentation skills — HTML slide deck generation and color palette creation."
+    },
+    {
+      "name": "08-dispatcher",
+      "source": "./plugins/08-dispatcher",
+      "description": "Smart router and help menu — describe a task and get routed to the right agent or skill."
     }
   ]
 }
