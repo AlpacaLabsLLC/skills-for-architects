@@ -4,12 +4,12 @@ The entry point for the skills-for-architects plugin system. Two skills:
 
 | Skill | What it does |
 |-------|-------------|
-| [/architect](skills/architect/) | Smart router — describe your task, get routed to the right agent or skill |
+| [/studio](skills/studio/) | Studio router — describe your task, get routed to the right agent or skill |
 | [/skills](skills/skills-menu/) | Help menu — shows all available skills and agents organized by task |
 
 ## Why
 
-The repo has 34 skills and 7 agents. New users shouldn't need to memorize them. `/architect` accepts natural language and figures out the right path. Power users can still call any skill directly by name.
+The repo has 34 skills and 7 agents. New users shouldn't need to memorize them. `/studio` accepts natural language and figures out the right path. Power users can still call any skill directly by name.
 
 ## Install
 

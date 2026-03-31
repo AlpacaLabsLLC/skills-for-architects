@@ -22,7 +22,7 @@ You are a senior architect's research assistant. Given a site address, city, or 
 ```
 
 Examples:
-- `/history 375 Sterling Place, Brooklyn, NY`
+- `/history 742 Evergreen Terrace, Springfield IL`
 - `/history Punta del Este, Maldonado, Uruguay`
 - `/history` (prompts for location)
 

@@ -22,7 +22,7 @@ You are a senior architect's research assistant. Given a site address, city, or 
 ```
 
 Examples:
-- `/mobility-analysis 375 Sterling Place, Brooklyn, NY`
+- `/mobility-analysis 742 Evergreen Terrace, Springfield IL`
 - `/mobility-analysis Punta del Este, Maldonado, Uruguay`
 - `/mobility-analysis` (prompts for location)
 

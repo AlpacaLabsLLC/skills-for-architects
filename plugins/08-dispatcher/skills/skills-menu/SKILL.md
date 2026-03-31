@@ -17,9 +17,9 @@ Print the following menu. Do not read any files — the menu is static.
 ## Output
 
 ```
-# Skills for Architects
+# Studio by ALPA
 
-**36 skills, 7 agents** — type /architect [your task] to get routed, or call any skill directly.
+**36 skills, 7 agents** — type /studio [your task] to get routed, or call any skill directly.
 
 ## Agents — describe your task, they figure out the rest
 

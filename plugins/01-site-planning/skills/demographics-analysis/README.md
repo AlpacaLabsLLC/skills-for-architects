@@ -19,7 +19,7 @@ ln -s $(pwd)/skills-for-architects/plugins/01-site-planning/skills/demographics-
 ## Usage
 
 ```
-/demographics-analysis 375 Sterling Place, Brooklyn, NY
+/demographics-analysis 742 Evergreen Terrace, Springfield IL
 ```
 
 Or start with no context:

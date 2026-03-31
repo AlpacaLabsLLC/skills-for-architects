@@ -16,7 +16,7 @@ Look up HPD (Housing Preservation & Development) violations, complaints, and bui
 ## Usage
 
 ```
-/nyc-hpd 375 Sterling Place, Brooklyn
+/nyc-hpd 742 Evergreen Terrace, Springfield
 /nyc-hpd 3011650045          (BBL)
 /nyc-hpd 3388190             (BIN)
 ```
@@ -24,7 +24,7 @@ Look up HPD (Housing Preservation & Development) violations, complaints, and bui
 ## Step 1: Parse Input
 
 Accept one of:
-- **Address + Borough/Zip** — "375 Sterling Place, Brooklyn 11238"
+- **Address + Borough/Zip** — "742 Evergreen Terrace, Springfield 62704"
 - **BBL** — 10-digit number (boro 1 + block 5 + lot 4)
 - **BIN** — 7-digit Building Identification Number
 

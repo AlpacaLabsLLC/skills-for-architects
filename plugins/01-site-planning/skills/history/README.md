@@ -19,7 +19,7 @@ ln -s $(pwd)/skills-for-architects/plugins/01-site-planning/skills/history ~/.cl
 ## Usage
 
 ```
-/history 375 Sterling Place, Brooklyn, NY
+/history 742 Evergreen Terrace, Springfield IL
 ```
 
 Or start with no context:

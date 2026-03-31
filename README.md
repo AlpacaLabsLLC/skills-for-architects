@@ -1,12 +1,12 @@
-# Skills for Architects
+# Studio
 
-> Skills and plugins for [Claude](https://claude.ai) — use with Claude Desktop or [Claude Code](https://docs.anthropic.com/en/docs/claude-code). From due diligence to zoning, programming, specifications, sustainability, and creative delivery.
+> Agents, skills, and rules for architects, designers, and AEC professionals — use with [Claude Desktop](https://claude.ai) or [Claude Code](https://docs.anthropic.com/en/docs/claude-code).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Claude is an AI assistant made by Anthropic. These skills teach it architecture-specific workflows — site analysis, space programming, specifications, and more.
+**Studio** teaches Claude architecture-specific workflows — site analysis, zoning, space programming, specifications, materials research, sustainability, and presentations.
 
-**36 skills**, **7 agents**, **6 rules**, and **3 hooks** across **9 plugins** for architects, designers, and AEC professionals.
+**36 skills**, **7 agents**, **6 rules**, and **3 hooks** across **9 plugins**. Built by [ALPA](https://alpa.llc).
 
 ## Prerequisites
 
@@ -48,13 +48,13 @@ Plugin-installed skills sync automatically. Symlinked skills stay in sync when y
 
 ## Where to Start
 
-**Don't know which skill to use?** Type `/architect` followed by what you need:
+**Don't know which skill to use?** Type `/studio` followed by what you need:
 
 ```
-/architect task chair, mesh back, under $800
-/architect 375 Sterling Place Brooklyn
-/architect I need a space program for 200 people
-/architect parse this EPD
+/studio task chair, mesh back, under $800
+/studio 123 Main St, Brooklyn NY
+/studio I need a space program for 200 people
+/studio parse this EPD
 ```
 
 The router reads your request and hands off to the right agent or skill. Type `/skills` to see the full menu.
@@ -88,7 +88,7 @@ Organized by project lifecycle — from due diligence through delivery.
 | 5 | [05-sustainability](./plugins/05-sustainability) | 4 | EPD parsing, research, comparison, and CSI specification with GWP thresholds. |
 | 6 | [06-materials-research](./plugins/06-materials-research) | 11 | FF&E product research, spec extraction, cleanup, and image processing. |
 | 7 | [07-presentations](./plugins/07-presentations) | 2 | Slide deck generation and color palette creation. |
-| 8 | [08-dispatcher](./plugins/08-dispatcher) | 2 | Smart router (`/architect`) and help menu (`/skills`). |
+| 8 | [08-dispatcher](./plugins/08-dispatcher) | 2 | Studio router (`/studio`) and help menu (`/skills`). |
 
 ## All Skills
 

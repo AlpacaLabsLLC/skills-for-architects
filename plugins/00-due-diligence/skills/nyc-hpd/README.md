@@ -19,7 +19,7 @@ ln -s $(pwd)/skills-for-architects/plugins/00-due-diligence/skills/nyc-hpd ~/.cl
 ## Usage
 
 ```
-/nyc-hpd 375 Sterling Place, Brooklyn
+/nyc-hpd 742 Evergreen Terrace, Springfield
 /nyc-hpd 3011650045          (BBL)
 /nyc-hpd 3388190             (BIN)
 ```

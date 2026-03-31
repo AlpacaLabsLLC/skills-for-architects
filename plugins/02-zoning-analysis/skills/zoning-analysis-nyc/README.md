@@ -34,7 +34,7 @@ Then provide an address, BBL (Borough-Block-Lot), or BIN. The skill:
 ## Sample Output
 
 ```
-# Zoning Analysis — 375 Sterling Place, Brooklyn
+# Zoning Analysis — 742 Evergreen Terrace, Springfield
 
 ## Lot Summary
 | Parameter             | Value                              |

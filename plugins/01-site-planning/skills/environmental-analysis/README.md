@@ -19,7 +19,7 @@ ln -s $(pwd)/skills-for-architects/plugins/01-site-planning/skills/environmental
 ## Usage
 
 ```
-/environmental-analysis 375 Sterling Place, Brooklyn, NY
+/environmental-analysis 742 Evergreen Terrace, Springfield IL
 ```
 
 Or start with no context:
