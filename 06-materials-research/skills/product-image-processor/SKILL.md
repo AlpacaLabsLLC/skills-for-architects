@@ -18,7 +18,7 @@ allowed-tools:
 
 Download product images from a Google Sheet, normalize sizing, and remove backgrounds. Saves output at each processing stage.
 
-Works with the **master Google Sheet** — the same 33-column schema used by Norma Jean, `/product-research`, and all other data-management skills. Image URLs are in column AC, product names in column C.
+Works with the **master Google Sheet** — the 33-column schema defined in `../../schema/product-schema.md`. Image URLs are in column AC, product names in column C. Read `../../schema/sheet-conventions.md` for CRUD patterns with MCP tools.
 
 ## Step 1: Get Input
 

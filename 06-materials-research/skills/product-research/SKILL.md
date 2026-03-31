@@ -151,39 +151,14 @@ If not already connected, ask for the Google Sheet ID or URL. Same sheet used by
 
 ### Row format
 
-Write to the 33-column master schema:
+Write rows to the master product sheet using the 33-column schema. Read `../../schema/product-schema.md` (relative to this SKILL.md) for the full column reference, field formats, and category vocabulary. Read `../../schema/sheet-conventions.md` for CRUD patterns with MCP tools.
 
-```
-A:  Link                    — =HYPERLINK(url, "Link")
-B:  Thumbnail               — =IMAGE(image_url) if available
-C:  Product Name
-D:  Description             — Short description from the product page
-E:  SKU                     — If found
-F:  Brand
-G:  Designer                — If attributed
-H:  Vendor                  — The site/retailer the product was found on
-I:  Collection              — If applicable
-J:  Category                — Normalized category
-K-O: W, D, H, Seat H, Unit — Dimensions
-P:  Weight                  — If found
-Q:  Materials               — Comma-separated
-R:  Colors/Finishes         — All available
-S:  Selected Color/Finish   — Leave blank (designer hasn't configured yet)
-T:  List Price              — Numeric
-U:  Sale Price              — If applicable
-V:  Currency
-W:  Lead Time
-X:  Warranty                — If found
-Y:  Certifications          — If found
-Z:  COM/COL                 — If found
-AA: Indoor/Outdoor
-AB: Clipped At              — Current ISO timestamp
-AC: Image URL               — Direct URL
-AD: Tags                    — From brief context (e.g. "lobby-reno, walnut")
-AE: Notes                   — The "Why" reasoning from the presentation
-AF: Status                  — "saved"
-AG: Source                   — "research"
-```
+Skill-specific column values:
+- **AG (Source):** `research`
+- **AF (Status):** `saved`
+- **AD (Tags):** From brief context (e.g. "lobby-reno, walnut")
+- **AE (Notes):** The "Why" reasoning from the presentation
+- **S (Selected Color/Finish):** Blank (designer hasn't configured yet)
 
 ### After saving
 

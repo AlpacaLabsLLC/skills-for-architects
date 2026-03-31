@@ -172,7 +172,7 @@ Item #, SKU, Product, Brand, Qty, List Price, Discount %, Sell Price, Ext List, 
 ```
 
 ### Google Sheet (master schema)
-Write to the 33-column schema:
+Write to the 33-column schema (defined in `../../schema/product-schema.md`, CRUD patterns in `../../schema/sheet-conventions.md`):
 - Column A (Link) ← ProductURL
 - Column C (Product Name) ← PD
 - Column E (SKU) ← PN

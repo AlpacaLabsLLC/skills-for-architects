@@ -114,21 +114,22 @@ Norma Jean ─────────┼──→ Master Sheet ──→ /bulk-
 
 ## Master Schema
 
-All skills write to a shared 33-column Google Sheet:
+All skills write to a shared 33-column Google Sheet. The full column reference, category vocabulary, CSV header, and CRUD patterns are in the schema directory:
+
+- **[schema/product-schema.md](schema/product-schema.md)** — column definitions, types, formats, category vocabulary, category aliases, status/source values, item number prefixes
+- **[schema/sheet-conventions.md](schema/sheet-conventions.md)** — tab naming, header formatting, section colors, CRUD patterns with MCP tools
+
+Quick reference:
 
 | Section | Columns |
 |---------|---------|
-| Product (A–J) | Link, Thumbnail, Product Name, Description, SKU, Brand, Designer, Vendor, Collection, Category |
-| Dimensions (K–P) | W, D, H, Seat H, Unit, Weight |
-| Materials & Finish (Q–S) | Materials, Colors/Finishes, Selected Color/Finish |
-| Pricing (T–V) | List Price, Sale Price, Currency |
-| Logistics (W–AA) | Lead Time, Warranty, Certifications, COM/COL, Indoor/Outdoor |
-| Meta (AB–AC) | Clipped At, Image URL |
-| Research (AD–AG) | Tags, Notes, Status, Source |
-
-### Category vocabulary (22 terms)
-
-Chair, Table, Sofa, Bed, Light, Storage, Desk, Shelving, Rug, Mirror, Accessory, Tabletop, Kitchen, Bath, Window, Door, Outdoor Furniture, Textile, Acoustic, Planter, Partition, Other
+| Product Identity | A–J |
+| Dimensions | K–P |
+| Materials & Finish | Q–S |
+| Pricing | T–V |
+| Logistics | W–AA |
+| Meta | AB–AC |
+| Research | AD–AG |
 
 ## Install
 

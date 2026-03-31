@@ -155,7 +155,7 @@ Available in COM.
 
 ## Step 6: Save
 
-If the designer picks matches ("save 1 and 3"), write to the master Google Sheet using the 33-column schema:
+If the designer picks matches ("save 1 and 3"), write to the master Google Sheet using the 33-column schema defined in `../../schema/product-schema.md` (read for column reference and formats). Use `../../schema/sheet-conventions.md` for CRUD patterns.
 
 - Column AD (Tags): append `match:{source-product-name}` so matches are traceable
 - Column AE (Notes): "Matched from {source product}. {Why reasoning}"

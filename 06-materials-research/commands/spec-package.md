@@ -3,7 +3,7 @@ description: Run a full FF&E spec extraction pipeline — fetch specs from URLs,
 argument-hint: [product URLs or file path with URLs]
 ---
 
-Run this three-step pipeline in sequence. All steps read from and write to the **master Google Sheet** (33-column schema shared with Norma Jean).
+Run this three-step pipeline in sequence. All steps read from and write to the **master Google Sheet** using the 33-column schema defined in `../schema/product-schema.md`. See `../schema/sheet-conventions.md` for CRUD patterns.
 
 ## Step 1: Product Spec Bulk Fetch
 

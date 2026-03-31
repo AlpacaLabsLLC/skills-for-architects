@@ -186,7 +186,7 @@ Auto-detect column mappings from header names:
 | Image, Image URL | ImageURL |
 | W, D, H (dimensions) | AD (with AN=DIM) |
 
-If using the master 33-column schema:
+If using the master 33-column schema (defined in `../../schema/product-schema.md`):
 
 | Column | SIF Field |
 |--------|-----------|

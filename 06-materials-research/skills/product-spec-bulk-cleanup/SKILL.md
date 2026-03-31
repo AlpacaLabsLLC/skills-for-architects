@@ -47,36 +47,9 @@ If the input format is unclear, ask.
 
 ### 2. Category Normalization
 
-Map free-text categories to the unified vocabulary shared by Norma Jean and all data-management skills:
-
-| Canonical | Also matches |
-|-----------|-------------|
-| Chair | Chairs, Seating, Silla, Sillas, Task Chair, Lounge Chair, Stool, Stools, Bench seating, Office Chair |
-| Table | Tables, Mesa, Mesas, Conference Table, Coffee Table, Side Table, Dining Table |
-| Sofa | Couch, Loveseat, Settee, Sofá |
-| Bed | Beds, Cama, Daybed, Bunk |
-| Light | Lights, Lighting, Lamp, Lamps, Luminaria, Luminarias, Pendant, Sconce, Fixture, Chandelier |
-| Storage | Cabinet, Cabinets, Credenza, Filing, Locker, Estante |
-| Desk | Desks, Escritorio, Workstation (only if clearly a desk, not a table) |
-| Shelving | Shelf, Shelves, Bookcase, Bookshelf, Estantería |
-| Rug | Rugs, Carpet, Alfombra, Tapete |
-| Mirror | Mirrors, Espejo |
-| Accessory | Accessories, Accesorios, Clock, Cushion, Throw, Tray, Vase |
-| Tabletop | Dinnerware, Glassware, Flatware, Serveware, Vajilla |
-| Kitchen | Kitchen fixtures, Cocina |
-| Bath | Bathroom, Baño, Bath fixtures |
-| Window | Curtain, Drape, Blind, Shade, Cortina, Persiana |
-| Door | Doors, Puerta |
-| Outdoor Furniture | Outdoor, Exterior, Mueble exterior |
-| Textile | Textiles, Fabric, Upholstery, Tapiz |
-| Acoustic | Acoustic panel, Sound panel, Baffle, Panel acústico |
-| Planter | Planters, Plant pot, Maceta, Jardinera |
-| Partition | Partitions, Divider, Screen, Panel, Biombo, Mampara |
-| Other | Anything that doesn't fit above |
+Map free-text categories to the canonical vocabulary and alias table defined in `../../schema/product-schema.md`. Read that file for the full mapping of variations (English, Spanish, legacy terms) to canonical category names.
 
 If a category is ambiguous, keep the closest match and add a `[?]` flag for the user to review.
-
-**Legacy mapping:** If the schedule uses older category terms (e.g., "Seating", "Lighting", "Tables", "Accessories"), map them to the canonical terms above.
 
 ### 3. Dimensions
 

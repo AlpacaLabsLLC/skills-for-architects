@@ -65,28 +65,14 @@ For each product in the input:
 
 1. **Extract known fields:** product name, brand, quantity, price, dimensions, materials, finish, category
 2. **Fill in from knowledge:** If the product is well-known (Eames Lounge Chair, Steelcase Leap, etc.), fill in standard dimensions, materials, and weight from your training data. Mark these as "from reference" in notes.
-3. **Assign categories:** Map to the canonical vocabulary: Seating, Tables, Desks, Storage, Lighting, Acoustic, Textiles, Accessories, Fixtures, Equipment, Planters, Partitions, Other
+3. **Assign categories:** Map to the canonical vocabulary defined in `../../schema/product-schema.md`
 4. **Calculate extended prices:** Unit price × quantity
 5. **Assign item numbers:** Sequential within each category group (S-01, S-02 for Seating; T-01 for Tables; L-01 for Lighting, etc.)
 6. **Flag unknowns:** If a product is vague ("pendant light, Flos, $800-1200"), note it as "TBD — needs specification" and include budget range
 
 ### Category prefixes for item numbers
 
-| Category | Prefix |
-|----------|--------|
-| Seating | S |
-| Tables | T |
-| Desks | D |
-| Storage | ST |
-| Lighting | L |
-| Acoustic | AC |
-| Textiles | TX |
-| Accessories | AX |
-| Fixtures | FX |
-| Equipment | EQ |
-| Planters | PL |
-| Partitions | PT |
-| Other | OT |
+Item number prefixes are defined in `../../schema/product-schema.md` under **Item Number Prefixes**. Read that file for the full mapping of canonical categories to prefixes (e.g. Chair → S, Table → T, Light → L).
 
 ## Step 3: Present the Schedule
 
@@ -142,39 +128,13 @@ Item #, Product Name, Brand, Category, Qty, W, D, H, Unit, Materials, Finish, Un
 
 ### Google Sheet output
 
-If the designer provides a Sheet ID or says "save to my sheet", write to the 33-column master schema:
+If the designer provides a Sheet ID or says "save to my sheet", write to the 33-column master schema. Read `../../schema/product-schema.md` (relative to this SKILL.md) for the full column reference, field formats, and category vocabulary. Read `../../schema/sheet-conventions.md` for CRUD patterns with MCP tools.
 
-```
-A:  Link                    — Leave blank (no URL for manually specified products)
-B:  Thumbnail               — Leave blank
-C:  Product Name
-D:  Description             — Short description or "from FF&E schedule"
-E:  SKU                     — If known
-F:  Brand
-G:  Designer                — If known
-H:  Vendor                  — Leave blank
-I:  Collection              — If known
-J:  Category                — Normalized category
-K-O: W, D, H, Seat H, Unit — Dimensions (from reference or input)
-P:  Weight                  — If known
-Q:  Materials               — Comma-separated
-R:  Colors/Finishes         — Available options
-S:  Selected Color/Finish   — What the designer specified
-T:  List Price              — Unit price, numeric
-U:  Sale Price              — Leave blank
-V:  Currency                — USD default
-W:  Lead Time               — If known
-X:  Warranty                — If known
-Y:  Certifications          — If known
-Z:  COM/COL                 — If found
-AA: Indoor/Outdoor          — If specified
-AB: Clipped At              — Current ISO timestamp
-AC: Image URL               — Leave blank
-AD: Tags                    — Item number (e.g. "S-01") + any project tags
-AE: Notes                   — "From FF&E schedule" + any flags
-AF: Status                  — "specified"
-AG: Source                   — "ffe-schedule"
-```
+Skill-specific column values:
+- **AG (Source):** `ffe-schedule`
+- **AF (Status):** `specified`
+- **AD (Tags):** Item number (e.g. "S-01") + any project tags
+- **AE (Notes):** `Qty: 3 · Ext: $17,085` (quantity and extended price, since the schema has no dedicated Qty column)
 
 ### Quantity handling
 

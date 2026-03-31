@@ -33,47 +33,14 @@ If the input format is unclear, ask.
 
 Products are written to the **master Google Sheet** — the same 33-column schema used by Norma Jean, `/product-research`, and all other data-management skills. When writing to CSV, use the same column order.
 
-This skill populates the following columns (others are left blank):
+Read `../../schema/product-schema.md` (relative to this SKILL.md) for the full column reference, field formats, and category vocabulary. Read `../../schema/sheet-conventions.md` for CRUD patterns with MCP tools.
 
-| Col | Field | Description | Format |
-|-----|-------|-------------|--------|
-| A | Link | Source page | `=HYPERLINK(url, "Link")` |
-| B | Thumbnail | Primary product image | `=IMAGE(image_url)` |
-| C | Product Name | Full product name as listed | Title Case |
-| D | Description | Short description if found | Sentence case |
-| E | SKU | Model/part number if found | As listed |
-| F | Brand | Manufacturer or vendor | Title Case |
-| G | Designer | Designer if attributed | Title Case, blank if N/A |
-| H | Vendor | Retailer/site selling the product | Title Case |
-| I | Collection | Product line or collection name | Title Case, blank if N/A |
-| J | Category | Normalized category | See vocabulary below |
-| K | W | Width, numeric only | Decimal number |
-| L | D | Depth, numeric only | Decimal number |
-| M | H | Height, numeric only | Decimal number |
-| N | Seat H | Seat height (seating only) | Decimal number, blank if N/A |
-| O | Unit | Dimension unit | `in`, `cm`, or `mm` |
-| P | Weight | Product weight with unit | As stated |
-| Q | Materials | Primary materials | Comma-separated |
-| R | Colors/Finishes | Available finishes | Comma-separated |
-| S | Selected Color/Finish | — | Blank (unknown from URL) |
-| T | List Price | Numeric price | Decimal number, no symbol |
-| U | Sale Price | Discounted price if shown | Decimal number |
-| V | Currency | Currency code | `USD`, `EUR`, `UYU`, etc. |
-| W | Lead Time | Delivery estimate | As stated |
-| X | Warranty | Warranty if found | As stated |
-| Y | Certifications | If found | Comma-separated |
-| Z | COM/COL | If found | `COM`, `COL`, `COM/COL`, or blank |
-| AA | Indoor/Outdoor | If specified | `Indoor`, `Outdoor`, `Indoor/Outdoor` |
-| AB | Clipped At | Timestamp | ISO 8601 |
-| AC | Image URL | Primary product image | Direct URL |
-| AD | Tags | — | Blank (set by user later) |
-| AE | Notes | — | Blank |
-| AF | Status | — | `saved` |
-| AG | Source | — | `bulk-fetch` |
-
-### Category vocabulary
-
-Use ONE normalized term: Chair, Table, Sofa, Bed, Light, Storage, Desk, Shelving, Rug, Mirror, Accessory, Tabletop, Kitchen, Bath, Window, Door, Outdoor Furniture, Textile, Acoustic, Planter, Partition, Other.
+Skill-specific column values:
+- **AF (Status):** `saved`
+- **AG (Source):** `bulk-fetch`
+- **AD (Tags):** Blank (set by user later)
+- **AE (Notes):** Blank
+- **S (Selected Color/Finish):** Blank (unknown from URL)
 
 ## Extraction Process
 
@@ -155,11 +122,7 @@ Write the output in the chosen format using the 33-column master schema. For Goo
 
 ## CSV Format
 
-When saving to CSV (instead of Google Sheet), use the master 33-column header:
-
-```csv
-Link,Thumbnail,Product Name,Description,SKU,Brand,Designer,Vendor,Collection,Category,W,D,H,Seat H,Unit,Weight,Materials,Colors/Finishes,Selected Color/Finish,List Price,Sale Price,Currency,Lead Time,Warranty,Certifications,COM/COL,Indoor/Outdoor,Clipped At,Image URL,Tags,Notes,Status,Source
-```
+When saving to CSV, use the CSV header from `../../schema/product-schema.md`.
 
 ## Edge Cases
 

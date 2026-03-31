@@ -35,47 +35,20 @@ Also ask (or use defaults):
 
 Products are written to the **master Google Sheet** — the same 33-column schema used by Norma Jean, `/product-research`, and all other data-management skills, plus PDF-specific extra columns. When writing to CSV, use the same column order.
 
-This skill populates the following columns:
+Read `../../schema/product-schema.md` (relative to this SKILL.md) for the full column reference, field formats, and category vocabulary. Read `../../schema/sheet-conventions.md` for CRUD patterns with MCP tools.
 
-| Col | Field | Description | Format |
-|-----|-------|-------------|--------|
-| A | Link | — | Blank (no URL for PDFs) |
-| B | Thumbnail | — | Blank (no image URL typically) |
-| C | Product Name | Full product name | Title Case |
-| D | Description | 1-2 sentence product description | Sentence case |
-| E | SKU | Model or part number | As listed |
-| F | Brand | Manufacturer | Title Case |
-| G | Designer | Credited designer(s) | Title Case, blank if not listed |
-| H | Vendor | — | Blank (source is PDF, not a retailer) |
-| I | Collection | Product line or collection name | Title Case, blank if N/A |
-| J | Category | Normalized category | See vocabulary below |
-| K | W | Width, numeric only | Decimal number |
-| L | D | Depth, numeric only | Decimal number |
-| M | H | Height, numeric only | Decimal number |
-| N | Seat H | Seat height (seating only) | Decimal number, blank if N/A |
-| O | Unit | Dimension unit | `in`, `cm`, or `mm` |
-| P | Weight | Product weight with unit | As listed |
-| Q | Materials | Primary materials | Comma-separated |
-| R | Colors/Finishes | For this specific variant | Comma-separated |
-| S | Selected Color/Finish | — | Blank |
-| T | List Price | Base or total price | Decimal number, no symbol |
-| U | Sale Price | — | Blank (PDFs don't have sale prices) |
-| V | Currency | Currency code | `USD`, `EUR`, etc. |
-| W | Lead Time | Delivery estimate | As stated |
-| X | Warranty | Warranty terms | As stated |
-| Y | Certifications | Standards (CE, UL, GREENGUARD, etc.) | Comma-separated |
-| Z | COM/COL | If mentioned | `COM`, `COL`, `COM/COL`, or blank |
-| AA | Indoor/Outdoor | If specified | `Indoor`, `Outdoor`, `Indoor/Outdoor` |
-| AB | Clipped At | Timestamp | ISO 8601 |
-| AC | Image URL | — | Blank (no image from PDF) |
-| AD | Tags | — | Blank |
-| AE | Notes | Variant info, price adders, country of origin, source filename | See below |
-| AF | Status | — | `saved` |
-| AG | Source | — | `pdf-parser` |
+Skill-specific column values:
+- **AG (Source):** `pdf-parser`
+- **AF (Status):** `saved`
+- **A (Link):** Blank (no URL for PDFs)
+- **B (Thumbnail):** Blank (no image URL typically)
+- **H (Vendor):** Blank (source is PDF, not a retailer)
+- **U (Sale Price):** Blank (PDFs don't have sale prices)
+- **AC (Image URL):** Blank (no image from PDF)
 
 ### PDF-specific data in Notes (col AE)
 
-PDFs contain fields that don't have dedicated master columns. Append these to Notes:
+PDFs contain fields that don't have dedicated master columns. Append these to Notes using `|` as delimiter:
 
 - **Variant**: `Variant: Diamond, Black`
 - **Price Adder**: `Price adder: +$130 (PostureFit SL)`
@@ -83,10 +56,6 @@ PDFs contain fields that don't have dedicated master columns. Append these to No
 - **Source File**: `Source: alphabeta-fact-sheet.pdf`
 
 Example Notes cell: `Variant: Diamond, Black | Origin: Sweden | Source: alphabeta-fact-sheet.pdf`
-
-### Category vocabulary
-
-Use ONE normalized term: Chair, Table, Sofa, Bed, Light, Storage, Desk, Shelving, Rug, Mirror, Accessory, Tabletop, Kitchen, Bath, Window, Door, Outdoor Furniture, Textile, Acoustic, Planter, Partition, Other.
 
 ## Variant Handling
 
@@ -186,11 +155,7 @@ Options:
 
 ## CSV Format
 
-When saving to CSV (instead of Google Sheet), use the master 33-column header:
-
-```csv
-Link,Thumbnail,Product Name,Description,SKU,Brand,Designer,Vendor,Collection,Category,W,D,H,Seat H,Unit,Weight,Materials,Colors/Finishes,Selected Color/Finish,List Price,Sale Price,Currency,Lead Time,Warranty,Certifications,COM/COL,Indoor/Outdoor,Clipped At,Image URL,Tags,Notes,Status,Source
-```
+When saving to CSV, use the CSV header from `../../schema/product-schema.md`.
 
 ## Google Sheets Format
 

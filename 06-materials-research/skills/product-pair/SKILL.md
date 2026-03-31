@@ -146,7 +146,7 @@ Neutral base grounds the navy. Contract-grade durability.
 
 ## Step 6: Save
 
-If the designer picks pairings, write to the master Google Sheet:
+If the designer picks pairings, write to the master Google Sheet using the 33-column schema defined in `../../schema/product-schema.md` (read for column reference and formats). Use `../../schema/sheet-conventions.md` for CRUD patterns.
 
 - Column AD (Tags): append `pair:{source-product-name}` for traceability
 - Column AE (Notes): "Paired with {source product}. {Design reasoning}"

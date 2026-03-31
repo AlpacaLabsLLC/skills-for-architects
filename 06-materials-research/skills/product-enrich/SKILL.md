@@ -54,8 +54,7 @@ Togo Sofa, Ligne Roset
 For each product, infer the following fields:
 
 ### Category
-Map to the canonical vocabulary (22 terms):
-Chair, Table, Sofa, Bed, Light, Storage, Desk, Shelving, Rug, Mirror, Accessory, Tabletop, Kitchen, Bath, Window, Door, Outdoor Furniture, Textile, Acoustic, Planter, Partition, Other
+Map to the canonical vocabulary (22 terms) defined in `../../schema/product-schema.md`.
 
 ### Subcategory
 More specific classification within the category:
