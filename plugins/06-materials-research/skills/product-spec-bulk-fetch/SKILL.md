@@ -114,7 +114,7 @@ Show a summary table in markdown with all successful + partial results. Flag any
 Ask the user: **"Where should I save this?"**
 Options:
 - **Master Google Sheet** — append rows to the shared product library (same sheet used by Norma Jean). Ask for spreadsheet ID if not already known.
-- **Local CSV** — save to a specified path (default: `~/Documents/Work-Docs/ffe-fetch-YYYY-MM-DD.csv`)
+- **Local CSV** — save to a specified path (default: `./ffe-fetch-YYYY-MM-DD.csv`)
 - **Just the table** — leave as markdown in the conversation
 
 ### Step 6: Save

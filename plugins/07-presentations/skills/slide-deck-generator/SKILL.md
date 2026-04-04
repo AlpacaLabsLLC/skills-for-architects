@@ -55,7 +55,7 @@ A sample deck demonstrating every type is at `~/.claude/skills/alpa-presentation
 
 3. **Write the HTML file.** Use the template below as the foundation. Customize only the slide content inside `<body>`.
 
-4. **Save the file.** Write to the path the user specifies, or default to `~/Documents/presentation.html`. Tell the user the path so they can open it.
+4. **Save the file.** Write to the path the user specifies, or default to `./presentation.html`. Tell the user the path so they can open it.
 
 ## Design System
 

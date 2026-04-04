@@ -177,9 +177,9 @@ Be direct and opinionated. The user wants a recommendation, not just data.
 
 Save the comparison report as markdown:
 
-- **Default path**: `~/Documents/Alpaca Labs/{client}/Working/epd-comparison-YYYY-MM-DD.md`
-- If the user says it's final: `~/Documents/Alpaca Labs/{client}/Deliverables/`
-- If no client context: `~/Documents/Alpaca Labs/Alpa/Deliverables/`
+- **Default path**: `./epd-comparison-YYYY-MM-DD.md`
+- If the user says it's final: `./deliverables/`
+- If no client context: `./deliverables/`
 - Ask the user if they want a different path
 
 After saving:

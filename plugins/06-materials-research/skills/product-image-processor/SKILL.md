@@ -26,7 +26,7 @@ If no arguments provided, ask the user:
 1. **Spreadsheet ID** — the Google Sheets ID (from the URL: `docs.google.com/spreadsheets/d/{ID}/...`). This is typically the same master sheet used by Norma Jean.
 2. **Image URL column** — which column contains image URLs (default: `AC` in the master schema, or the user can specify)
 3. **Name column** (optional) — which column has product names for file naming (default: `C` in the master schema). If not provided, derive names from the image URL/filename.
-4. **Output location** — where to save the images. Suggest `~/Documents/Work-Docs/product-images-YYYY-MM-DD/` as default but let the user pick any path.
+4. **Output location** — where to save the images. Suggest `./product-images-YYYY-MM-DD/` as default but let the user pick any path.
 5. **Header row** — whether row 1 is a header (default: yes, row 2 in master schema)
 
 ## Step 2: Read URLs from Google Sheet
@@ -144,7 +144,7 @@ After processing, print a summary:
 ```
 ## Product Image Processing Complete
 
-📁 Output: ~/Documents/Work-Docs/product-images-YYYY-MM-DD/
+📁 Output: ./product-images-YYYY-MM-DD/
 
 | Stage        | Success | Failed |
 |-------------|---------|--------|
