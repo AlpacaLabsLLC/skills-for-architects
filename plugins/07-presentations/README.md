@@ -10,31 +10,6 @@ Architects and designers spend hours on visual production work — fighting Powe
 
 Three skills that handle visual production. The slide deck generator builds complete HTML presentations from a topic or outline. The color palette generator creates systematic palettes with WCAG contrast checks from any starting point. The image resizer batch-exports project photos to every required format — web, social, slides, and print — in one step.
 
-
-## Data Flow
-
-### Slide Deck Generator
-
-| Step | What happens |
-|------|-------------|
-| **Understand** | Reads input — topic, outline, document, or data |
-| **Plan** | Selects slide types, plans narrative arc, decides count |
-| **Build** | Writes self-contained HTML with CSS, navigation, and responsive typography |
-| **Save** | Single `.html` file, no dependencies |
-
-22 slide types cover titles, text, statistics, data tables, bar charts, timelines, comparisons, image grids, and full-bleed images. Every deck follows composition rules — alternate backgrounds, limit dark slides to 1-2, headlines state insights not topics.
-
-### Color Palette Generator
-
-| Step | What happens |
-|------|-------------|
-| **Interpret** | Reads input — text description, image, brand reference, or single color |
-| **Generate** | Creates 8-12 colors in four groups with harmony rules (analogous, complementary, triadic) |
-| **Validate** | Checks WCAG AA contrast ratios for all pairings, flags failures |
-| **Export** | Self-contained HTML file that uses its own palette for styling |
-
-Considers warm/cool balance, dominant/supporting/accent proportions, and tinted neutrals (never pure `#FFFFFF`).
-
 ## Skills
 
 | Skill | Description |
