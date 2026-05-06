@@ -4,9 +4,15 @@ These rules govern how skill outputs are framed relative to professional practic
 
 ## Required Disclaimer
 
-Every skill output that includes code analysis, structural assumptions, zoning interpretations, or life-safety calculations must end with:
+Every skill output that includes code analysis, structural assumptions, zoning interpretations, or life-safety calculations must end with the canonical disclaimer block followed by a machine-readable marker. Both lines, in this order, with one blank line between them:
 
+```markdown
 > **Disclaimer:** This is an AI-generated analysis for preliminary planning purposes. All findings must be verified by a licensed professional before use in design, permitting, or regulatory submissions.
+
+<!-- architecture-studio:requires-disclaimer -->
+```
+
+The HTML-comment marker is invisible in rendered Markdown but is parsed by the `post-write-disclaimer-check` hook to verify the canonical block is present. Do not place the marker anywhere else in the document — it is a single end-of-file sentinel.
 
 ## Language Rules
 

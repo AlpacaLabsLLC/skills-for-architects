@@ -1,47 +1,46 @@
 #!/bin/bash
 # post-write-disclaimer-check.sh
-# Fires after Write tool — checks that regulatory outputs include the professional disclaimer.
+# Fires after Write tool. Verifies that markdown outputs claiming to be
+# regulatory (via the architecture-studio:requires-disclaimer marker) also
+# carry the canonical disclaimer block.
+#
+# Contract:
+#   - A regulatory output ends with the canonical disclaimer block followed
+#     by the HTML-comment marker `<!-- architecture-studio:requires-disclaimer -->`.
+#   - This hook is marker-driven: if the marker is present, the canonical
+#     disclaimer text must also be present. If the marker is absent, the
+#     hook stays silent — the skill considered the output non-regulatory.
+#   - See rules/professional-disclaimer.md for the canonical block.
 
 INPUT=$(cat)
 FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // empty')
 
-if [ -z "$FILE_PATH" ]; then
+# Only check writes with a known markdown path.
+[ -z "$FILE_PATH" ] && exit 0
+[[ "$FILE_PATH" != *.md ]] && exit 0
+[ ! -f "$FILE_PATH" ] && exit 0
+
+CONTENT=$(cat "$FILE_PATH")
+[ -z "$CONTENT" ] && exit 0
+
+MARKER='<!-- architecture-studio:requires-disclaimer -->'
+DISCLAIMER_PHRASE='AI-generated analysis for preliminary planning purposes'
+
+# If no marker, this isn't a regulatory output; nothing to check.
+if ! grep -qF "$MARKER" <<< "$CONTENT"; then
   exit 0
 fi
 
-# Only check markdown reports (skip HTML, CSV, JSON, images)
-if [[ "$FILE_PATH" != *.md ]]; then
+# Marker present → canonical disclaimer text must also be present.
+if ! grep -qF "$DISCLAIMER_PHRASE" <<< "$CONTENT"; then
+  echo "WARNING: $FILE_PATH carries the architecture-studio:requires-disclaimer marker but is missing the canonical disclaimer block. Restore the block from rules/professional-disclaimer.md." >&2
   exit 0
 fi
 
-# Check if the file came from a regulatory skill by scanning for keywords
-# that indicate zoning, occupancy, code analysis, or environmental risk content
-CONTENT=$(cat "$FILE_PATH" 2>/dev/null)
-if [ -z "$CONTENT" ]; then
-  exit 0
+# Marker should be a single end-of-file sentinel; flag duplicates.
+MARKER_COUNT=$(grep -cF "$MARKER" <<< "$CONTENT")
+if [ "$MARKER_COUNT" -gt 1 ]; then
+  echo "WARNING: $FILE_PATH contains the architecture-studio:requires-disclaimer marker $MARKER_COUNT times. It must appear exactly once, at end of file." >&2
 fi
 
-# Look for regulatory indicators
-REGULATORY=false
-if echo "$CONTENT" | grep -qiE 'zoning|setback|FAR |floor area ratio|height limit|use group'; then
-  REGULATORY=true
-elif echo "$CONTENT" | grep -qiE 'occupan(cy|t) load|egress|IBC|IRC|NFPA|fire rating'; then
-  REGULATORY=true
-elif echo "$CONTENT" | grep -qiE 'flood zone|seismic|FEMA|environmental risk'; then
-  REGULATORY=true
-elif echo "$CONTENT" | grep -qiE 'BSA|variance|special permit|DOB|violation'; then
-  REGULATORY=true
-fi
-
-if [ "$REGULATORY" = false ]; then
-  exit 0
-fi
-
-# Check for disclaimer
-if echo "$CONTENT" | grep -qiE 'disclaimer|verified by a licensed professional|preliminary planning purposes'; then
-  exit 0
-fi
-
-# Missing disclaimer on regulatory output — warn (don't block)
-echo "WARNING: $FILE_PATH contains regulatory content but no professional disclaimer. Add the standard disclaimer from rules/professional-disclaimer.md." >&2
 exit 0
