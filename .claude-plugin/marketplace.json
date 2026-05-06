@@ -22,7 +22,7 @@
     {
       "name": "02-zoning-analysis",
       "source": "./plugins/02-zoning-analysis",
-      "description": "Zoning analysis skills — buildable envelope calculations for New York City and Maldonado, Uruguay."
+      "description": "Zoning analysis skills — buildable envelope calculations for New York City."
     },
     {
       "name": "03-programming",

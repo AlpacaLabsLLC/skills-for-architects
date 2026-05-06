@@ -83,9 +83,9 @@ The skill then:
 ## Key features
 
 - **Self-correcting polygon inset** — automatically detects and corrects for different polygon winding directions across data sources
-- **Multi-volume envelopes** — base + tower for contextual districts, base + galibo for TONE districts
+- **Multi-volume envelopes** — base + tower for contextual districts
 - **Multi-scenario support** — toggle buttons for comparing development scenarios (individual, party-wall, unified)
-- **Works with any polygon source** — NYC MapPLUTO (WGS84), Uruguay GIS (EPSG:3857), or manual coordinates
+- **Works with any polygon source** — NYC MapPLUTO (WGS84) or manual coordinates
 
 ## Dependency
 

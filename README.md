@@ -19,7 +19,7 @@
 
 **Architecture Studio** teaches Claude architecture-specific workflows — site analysis, zoning, space programming, specifications, materials research, sustainability, and presentations.
 
-**7 agents**, **36 skills**, **7 rules**, and **3 hooks** across **9 plugins**. Built by [ALPA](https://alpa.llc).
+**7 agents**, **35 skills**, **7 rules**, and **3 hooks** across **9 plugins**. Built by [ALPA](https://alpa.llc).
 
 ## Architecture
 
@@ -39,7 +39,7 @@ Architecture Studio
 ├── plugins/
 │   ├── 00-due-diligence                 7 skills
 │   ├── 01-site-planning                 4 skills
-│   ├── 02-zoning-analysis               3 skills
+│   ├── 02-zoning-analysis               2 skills
 │   ├── 03-programming                   2 skills
 │   ├── 04-specifications                1 skill
 │   ├── 05-sustainability                4 skills
@@ -113,7 +113,7 @@ Organized by project lifecycle — from due diligence through delivery.
 |---|--------|--------|-------------|
 | 0 | [Due Diligence](./plugins/00-due-diligence) | 7 | NYC property data: landmarks, DOB permits, violations, ACRIS, HPD, BSA. |
 | 1 | [Site Planning](./plugins/01-site-planning) | 4 | Site research: environmental, mobility, demographics, history. |
-| 2 | [Zoning Analysis](./plugins/02-zoning-analysis) | 3 | Zoning envelope analysis and 3D visualization for NYC and Uruguay. |
+| 2 | [Zoning Analysis](./plugins/02-zoning-analysis) | 2 | Zoning envelope analysis and 3D visualization for NYC. |
 | 3 | [Programming](./plugins/03-programming) | 2 | Workplace strategy: space programs, occupancy loads, IBC compliance. |
 | 4 | [Specifications](./plugins/04-specifications) | 1 | CSI outline specifications from a materials list. |
 | 5 | [Sustainability](./plugins/05-sustainability) | 4 | EPD parsing, research, comparison, and GWP thresholds. |
@@ -122,7 +122,7 @@ Organized by project lifecycle — from due diligence through delivery.
 | 8 | [Dispatcher](./plugins/08-dispatcher) | 2 | Studio router (`/studio`) and help menu (`/skills`). |
 
 <details>
-<summary><strong>All 36 skills</strong></summary>
+<summary><strong>All 35 skills</strong></summary>
 
 ### Due Diligence
 
@@ -150,7 +150,6 @@ Organized by project lifecycle — from due diligence through delivery.
 | Skill | Description |
 |-------|-------------|
 | [`/zoning-analysis-nyc`](./plugins/02-zoning-analysis/skills/zoning-analysis-nyc) | NYC buildable envelope — FAR, height, setbacks, use groups from PLUTO |
-| [`/zoning-analysis-uruguay`](./plugins/02-zoning-analysis/skills/zoning-analysis-uruguay) | Maldonado, Uruguay — FOS, FOT, height, setbacks from TONE |
 | [`/zoning-envelope`](./plugins/02-zoning-analysis/skills/zoning-envelope) | Interactive 3D zoning envelope viewer |
 
 ### Programming

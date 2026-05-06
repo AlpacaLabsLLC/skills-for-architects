@@ -5,7 +5,7 @@ These conventions apply to all skill outputs.
 ## System
 
 - Default to **US customary (imperial)** units
-- Include metric equivalents in parentheses when the output may be used internationally or when the skill explicitly targets a metric jurisdiction (e.g., Uruguay)
+- Include metric equivalents in parentheses when the output may be used internationally or when the skill explicitly targets a metric jurisdiction
 - Never mix unit systems within a single table, calculation, or paragraph
 
 ## Area
