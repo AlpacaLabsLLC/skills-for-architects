@@ -19,7 +19,7 @@ Print the following menu. Do not read any files — the menu is static.
 ```
 # Architecture Studio
 
-**35 skills, 7 agents** (includes master-schedule) — type /studio [your task] to get routed, or call any skill directly.
+**37 skills, 7 agents** — type /studio [your task] to get routed, or call any skill directly.
 
 ## Agents — describe your task, they figure out the rest
 

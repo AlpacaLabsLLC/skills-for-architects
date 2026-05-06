@@ -19,7 +19,7 @@
 
 **Architecture Studio** teaches Claude architecture-specific workflows — site analysis, zoning, space programming, specifications, materials research, sustainability, and presentations.
 
-**7 agents**, **35 skills**, **7 rules**, and **3 hooks** across **9 plugins**. Built by [ALPA](https://alpa.llc).
+**7 agents**, **37 skills**, **7 rules**, and **3 hooks** across **9 plugins**. Built by [ALPA](https://alpa.llc).
 
 ## Architecture
 
@@ -122,7 +122,7 @@ Organized by project lifecycle — from due diligence through delivery.
 | 8 | [Dispatcher](./plugins/08-dispatcher) | 2 | Studio router (`/studio`) and help menu (`/skills`). |
 
 <details>
-<summary><strong>All 35 skills</strong></summary>
+<summary><strong>All 37 skills</strong></summary>
 
 ### Due Diligence
 
@@ -198,6 +198,13 @@ Organized by project lifecycle — from due diligence through delivery.
 | [`/slide-deck-generator`](./plugins/07-presentations/skills/slide-deck-generator) | HTML slide decks — editorial layout, 22 slide types |
 | [`/color-palette-generator`](./plugins/07-presentations/skills/color-palette-generator) | Color palettes from descriptions, images, or hex codes |
 | [`/resize-images`](./plugins/07-presentations/skills/resize-images) | Batch-resize photos for web, social, slides, and print |
+
+### Dispatcher
+
+| Skill | Description |
+|-------|-------------|
+| [`/studio`](./plugins/08-dispatcher/skills/studio) | Smart router — describe a task and get routed to the right agent or skill |
+| [`/skills`](./plugins/08-dispatcher/skills/skills-menu) | Help menu listing all available skills and agents |
 
 </details>
 

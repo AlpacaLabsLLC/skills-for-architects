@@ -95,6 +95,7 @@ for p in plugin_dirs:
         per_plugin[p.name] = sum(1 for s in skills_dir.iterdir()
                                  if s.is_dir() and not s.name.startswith('.'))
 
+total_skills = sum(per_plugin.values())
 readme = pathlib.Path('README.md').read_text()
 
 m = re.search(r'\*\*(\d+) plugins\*\*', readme)
@@ -103,6 +104,29 @@ if not m:
 elif int(m.group(1)) != plugin_count:
     errors.append(f"README headline claims {m.group(1)} plugins, actual {plugin_count}")
 
+m = re.search(r'\*\*(\d+) skills\*\*', readme)
+if not m:
+    errors.append("README headline missing '**N skills**'")
+elif int(m.group(1)) != total_skills:
+    errors.append(f"README headline claims {m.group(1)} skills, actual {total_skills}")
+
+m = re.search(r'<summary><strong>All (\d+) skills</strong></summary>', readme)
+if not m:
+    errors.append("README details block missing '<summary><strong>All N skills</strong></summary>'")
+elif int(m.group(1)) != total_skills:
+    errors.append(f"README details claims {m.group(1)} skills, actual {total_skills}")
+
+# Catalog row count inside the details block
+details_match = re.search(
+    r'<summary><strong>All \d+ skills</strong></summary>(.*?)</details>',
+    readme, re.DOTALL,
+)
+if details_match:
+    catalog_rows = len(re.findall(r'^\|\s*\[`/[^`]+`\]', details_match.group(1), re.MULTILINE))
+    if catalog_rows != total_skills:
+        errors.append(f"README details catalog has {catalog_rows} skill rows, actual {total_skills}")
+
+# Per-plugin counts in the README plugin table
 for name, count in per_plugin.items():
     pat = re.compile(rf'\[[^\]]+\]\(\./plugins/{re.escape(name)}\)\s*\|\s*(\d+)\s*\|')
     m = pat.search(readme)
@@ -110,10 +134,9 @@ for name, count in per_plugin.items():
         errors.append(f"README plugin table claims {name} has {m.group(1)} skills, actual {count}")
 
 menu = pathlib.Path('plugins/08-dispatcher/skills/skills-menu/SKILL.md').read_text()
-r_skills = re.search(r'\*\*(\d+) skills\*\*', readme)
-m_skills = re.search(r'\*\*(\d+) skills', menu)
-if r_skills and m_skills and r_skills.group(1) != m_skills.group(1):
-    errors.append(f"headline skill count mismatch: README={r_skills.group(1)} skills-menu={m_skills.group(1)}")
+m = re.search(r'\*\*(\d+) skills', menu)
+if m and int(m.group(1)) != total_skills:
+    errors.append(f"skills-menu claims {m.group(1)} skills, actual {total_skills}")
 
 mp = json.loads(pathlib.Path('.claude-plugin/marketplace.json').read_text())
 if len(mp.get('plugins', [])) != plugin_count:
