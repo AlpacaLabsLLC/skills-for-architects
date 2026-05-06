@@ -27,9 +27,5 @@ First public release.
 - **3 hooks** — post-write disclaimer check, post-output metadata, pre-commit spec lint.
 - Marketplace install: `claude plugin marketplace add AlpacaLabsLLC/skills-for-architects`.
 
-### Notes
-
-- Maldonado / Uruguay zoning is **not** part of Architecture Studio. It ships as a separate marketplace plugin: [`Estudio-Local/normativa`](https://github.com/Estudio-Local/normativa) (`/normativa` + `/informe`).
-
 [Unreleased]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.0.0...HEAD
 [1.0.0]: https://github.com/AlpacaLabsLLC/skills-for-architects/releases/tag/v1.0.0
