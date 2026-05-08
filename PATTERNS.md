@@ -83,16 +83,25 @@ Rules are cross-cutting conventions that apply to multiple skills. Examples: voi
 
 ## 6. Clear versioning behavior
 
-`.claude-plugin/plugin.json` carries an explicit `version` field (semver). On EVERY shipped change:
+Two version fields, two scopes — both pinned, both bumped on every shipped change.
 
-1. Bump `version` in `plugin.json` (patch for fixes, minor for new skills / behavior, major for breaking layout).
+| Field | Where | Bumps when |
+|---|---|---|
+| `plugin.json` `version` | Per-plugin | The plugin's behavior changes — new skill, edited skill body, MCP tool added, etc. |
+| `marketplace.json` `metadata.version` | Marketplace-wide | Anything the repo ships changes — including marketplace-level docs, top-level scripts/hooks/lint, marketplace.json structure itself, even if no individual plugin's behavior moves |
+
+On EVERY shipped change:
+
+1. Bump the relevant `version` (patch for fixes/docs, minor for new skills / behavior / non-breaking enhancements, major for breaking layout).
 2. Add a `CHANGELOG.md` entry under `## [X.Y.Z] - YYYY-MM-DD` describing what changed.
 3. Stage both alongside the actual change in a single commit.
 4. Push.
 
-**Why:** Cowork and Claude Code pin to the version field. Without a bump, `/plugin marketplace update` reports "already up to date" even when new commits exist. We hit this on canoa 2026-05-08 — three commits to the marketplace, no version bump, Cowork served `0.1.0` indefinitely. Bump discipline is the explicit signal that a release is meaningful.
+If a single change touches both plugin behavior and marketplace-level state, bump both versions in the same commit.
 
-If you ever need auto-publish on every commit (during very heavy iteration), drop the `version` field entirely — Cowork/Code falls through to commit SHAs and every commit auto-updates. But default is the pin + bump.
+**Why:** Cowork and Claude Code pin to `plugin.json` `version` for plugin updates — without a bump, `/plugin marketplace update` reports "already up to date" even when new commits exist (canoa 2026-05-08: three commits, no bump, Cowork served `0.1.0` indefinitely). The marketplace `metadata.version` is more of a documentation pin than a functional one (`/plugin marketplace update` re-fetches regardless), but bumping it gives every shipped change a clear version trail in CHANGELOG. We hit this on skills-for-architects 2026-05-08: pushed `PATTERNS.md` while `[Unreleased]` had been silently accumulating other changes since `[1.0.0] - 2026-05-06` — no version label, no roll-up. Bump discipline = every push leaves a trail.
+
+If you ever need auto-publish on every commit (during very heavy iteration), drop the `version` field entirely — Cowork/Code falls through to commit SHAs for plugin updates. But default is the pin + bump.
 
 ## 7. Layout pattern selection
 
