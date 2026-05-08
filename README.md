@@ -243,6 +243,8 @@ Want to add a skill for the built environment?
 3. Each skill needs a `SKILL.md` with instructions and domain knowledge, a `README.md`, and any supporting data files
 4. Open a **pull request** — describe what the skill does, how you tested it, and sample output
 
+For the full conventions we apply across all our plugins (naming, layout, dispatcher pattern, versioning, hard rules from real bugs), read [PATTERNS.md](./PATTERNS.md).
+
 For guidance on organizing skills across a team, read [Distributing Skills to Teams](https://alpa.llc/articles/distributing-skills-to-teams).
 
 ## License
