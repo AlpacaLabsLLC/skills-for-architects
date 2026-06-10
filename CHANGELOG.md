@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.2.1] - 2026-06-10
+
+### Changed
+
+- **README** — "What's New in 1.2" section added below the headline, summarizing the dossier plugin, native subagents, and self-registering hooks; links to the CHANGELOG for full history.
+
 ## [1.2.0] - 2026-06-10
 
 ### Added
@@ -85,7 +91,8 @@ First public release.
 - **3 hooks** — post-write disclaimer check, post-output metadata, pre-commit spec lint.
 - Marketplace install: `claude plugin marketplace add AlpacaLabsLLC/skills-for-architects`.
 
-[Unreleased]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.2.1...HEAD
+[1.2.1]: https://github.com/AlpacaLabsLLC/skills-for-architects/releases/tag/v1.2.1
 [1.2.0]: https://github.com/AlpacaLabsLLC/skills-for-architects/releases/tag/v1.2.0
 [1.1.3]: https://github.com/AlpacaLabsLLC/skills-for-architects/releases/tag/v1.1.3
 [1.1.2]: https://github.com/AlpacaLabsLLC/skills-for-architects/releases/tag/v1.1.2

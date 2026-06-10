@@ -22,6 +22,14 @@
 
 **7 agents**, **39 skills**, **7 rules**, and **3 hooks** across **10 plugins**. Built by [ALPA](https://alpa.llc).
 
+## What's New in 1.2
+
+- **Project dossier + decision records** — the new [Project Dossier plugin](./plugins/09-project-dossier) gives every project a persistent state: `/project-dossier` maintains `PROJECT.md` (sourced, dated facts — site, zoning, program, code), and `/decision` captures ADR-style decision records in `decisions/`. Analysis skills read the dossier before fetching, append their findings after, and propose `/decision` when an analysis forces a choice.
+- **Agents are native subagents** — each agent now ships inside the plugin it orchestrates; installing the plugin registers it with Claude Code, so Claude can delegate to it automatically.
+- **Hooks register themselves** — enable the [Dispatcher plugin](./plugins/08-dispatcher) and the three hooks are live. The manual settings merge is gone.
+
+Full history in the [CHANGELOG](./CHANGELOG.md).
+
 ## Architecture
 
 ```
