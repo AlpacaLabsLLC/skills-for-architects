@@ -1,6 +1,6 @@
 # /master-schedule
 
-Connects a product library Google Sheet to the current project. Called automatically by all product skills before reading or writing — if no sheet is configured, it copies the template and writes `canoa.json`.
+Connects a product library Google Sheet to the current project. Called automatically by all product skills before reading or writing — if no sheet is configured, it copies the template and writes `master-schedule.json`.
 
 ## Usage
 
@@ -18,7 +18,7 @@ Runs automatically when any product skill needs sheet access. Can also be invoke
 
 ## Config
 
-Writes `canoa.json` to the project root:
+Writes `master-schedule.json` to the project root (a legacy `canoa.json` from plugin versions ≤ 1.0.0 is migrated automatically):
 
 ```json
 {

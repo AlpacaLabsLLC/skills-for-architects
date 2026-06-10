@@ -1,6 +1,6 @@
 ---
 name: master-schedule
-description: Silent setup check. Verifies canoa.json exists and the sheet is accessible. If not, copies the template sheet to the user's account and writes canoa.json. Called automatically by other skills before reading or writing product data.
+description: Silent setup check. Verifies master-schedule.json exists and the sheet is accessible. If not, copies the template sheet to the user's account and writes master-schedule.json. Called automatically by other skills before reading or writing product data.
 allowed-tools:
   - Read
   - Write
@@ -20,11 +20,13 @@ Template sheet ID: `1mWnExnSWTKJv0vbu1mDnrQFmv_Iz_fNklIeuBYfMB5k`
 
 ---
 
-## Step 1: Check for canoa.json
+## Step 1: Check for master-schedule.json
 
 ```bash
-cat ./canoa.json 2>/dev/null
+cat ./master-schedule.json 2>/dev/null
 ```
+
+**Legacy config:** if `master-schedule.json` is missing but `./canoa.json` exists (written by plugin versions ≤ 1.0.0), migrate it — `mv ./canoa.json ./master-schedule.json` — and continue as found.
 
 ### Found and valid → Step 2 (verify access)
 ### Not found → Step 3 (auto-setup)
@@ -33,7 +35,7 @@ cat ./canoa.json 2>/dev/null
 
 ## Step 2: Verify Sheet Access
 
-Call `mcp__google-sheets__list_sheets` with the `master_sheet_id` from `canoa.json`.
+Call `mcp__google-sheets__list_sheets` with the `master_sheet_id` from `master-schedule.json`.
 
 - **Success** → sheet is accessible. Return silently — the calling skill continues.
 - **404 / error** → sheet was deleted or moved. Proceed to Step 3 to set up a new one.
@@ -59,13 +61,13 @@ drive.files.copy
 1. Call `mcp__google-sheets__create_spreadsheet` with title `"Product Library — {today's date}"`
 2. Write the 33-column header row to `Sheet1!A1:AG1` using the CSV header from `../../schema/product-schema.md`
 
-Note in `canoa.json` whether this was a template copy or a fresh sheet (`"setup": "copy"` or `"setup": "fresh"`).
+Note in `master-schedule.json` whether this was a template copy or a fresh sheet (`"setup": "copy"` or `"setup": "fresh"`).
 
 ### 3b: Identify the Products tab
 
-Look for a tab named `Products`. If not found (e.g. fresh sheet named `Sheet1`), use whatever tab exists and record its name in `canoa.json`.
+Look for a tab named `Products`. If not found (e.g. fresh sheet named `Sheet1`), use whatever tab exists and record its name in `master-schedule.json`.
 
-### 3c: Write canoa.json
+### 3c: Write master-schedule.json
 
 ```json
 {
@@ -97,7 +99,7 @@ Then return — the calling skill continues.
 
 When invoked directly (`/master-schedule`), run the same flow but also:
 
-- If `canoa.json` exists and the sheet is accessible, show current status:
+- If `master-schedule.json` exists and the sheet is accessible, show current status:
 
 ```
 Product library connected.
@@ -113,7 +115,7 @@ Options:
   3. Reset (create a new copy of the template)
 ```
 
-- If user chooses (2), ask for URL, validate, update `canoa.json`.
+- If user chooses (2), ask for URL, validate, update `master-schedule.json`.
 - If user chooses (3), run Step 3 again.
 
 ---
@@ -149,8 +151,8 @@ Need help creating a service account? Ask for instructions.
 
 | Situation | Handling |
 |-----------|----------|
-| `canoa.json` exists, sheet accessible | Return silently |
-| `canoa.json` exists, sheet deleted | Auto-create new copy, update `canoa.json` |
-| `canoa.json` missing | Auto-create new copy, write `canoa.json` |
+| `master-schedule.json` exists, sheet accessible | Return silently |
+| `master-schedule.json` exists, sheet deleted | Auto-create new copy, update `master-schedule.json` |
+| `master-schedule.json` missing | Auto-create new copy, write `master-schedule.json` |
 | Drive copy tool not available | Fall back to fresh sheet + header row |
 | MCP not connected | Stop, show setup instructions |

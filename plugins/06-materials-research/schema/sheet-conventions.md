@@ -14,7 +14,7 @@ To start a new project: duplicate the template in Google Drive, rename it, and s
 
 Each project gets its own Google Sheets spreadsheet. A designer working on multiple projects maintains separate sheets — one per project.
 
-The spreadsheet URL or ID is provided by the designer when first connecting. Store it in `canoa.json` — don't ask again within the same conversation.
+The spreadsheet URL or ID is provided by the designer when first connecting. Store it in `master-schedule.json` — don't ask again within the same conversation.
 
 ### Extracting Sheet ID from URL
 

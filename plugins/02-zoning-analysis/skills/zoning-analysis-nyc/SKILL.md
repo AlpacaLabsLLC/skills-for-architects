@@ -109,7 +109,7 @@ If either query returns no results, inform the user and ask them to verify the a
 
 Map the `zonedist1` value to its district type:
 
-| Prefix | Type | Normativa File |
+| Prefix | Type | Rules File |
 |--------|------|----------------|
 | R | Residential | `zoning-rules/residential.md` |
 | C | Commercial | `zoning-rules/commercial.md` |
@@ -124,7 +124,7 @@ Check for:
 
 State your district identification and reasoning clearly.
 
-### Step 4: Load Normativa
+### Step 4: Load Zoning Rules
 
 Read the relevant regulation files from the skill's `zoning-rules/` directory:
 

@@ -17,7 +17,7 @@ allowed-tools:
 
 # /product-spec-bulk-fetch — Bulk Product Spec Fetcher
 
-Extract structured FF&E data from a list of product page URLs. Outputs a standardized schedule ready for design specs, procurement, or import into Canoa.
+Extract structured FF&E data from a list of product page URLs. Outputs a standardized schedule ready for design specs, procurement, or import into [Norma](https://norma.llc).
 
 ## Input
 

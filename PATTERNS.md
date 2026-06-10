@@ -4,7 +4,6 @@ This is the canonical reference for how we build Claude plugins and marketplaces
 
 - [`AlpacaLabsLLC/skills-for-architects`](https://github.com/AlpacaLabsLLC/skills-for-architects) — multi-plugin marketplace for architects (this repo)
 - [`AlpacaLabsLLC/canoa`](https://github.com/AlpacaLabsLLC/canoa) — single-plugin marketplace, AI specifications manager for FF&E
-- [`Estudio-Local/normativa`](https://github.com/Estudio-Local/normativa) — single-plugin marketplace, Maldonado UY zoning toolkit
 - Any future plugin we ship
 
 The patterns are deliberately opinionated. They emerged from real iteration cycles — we tried alternatives, hit problems, encoded the fixes here. WHY each rule exists is documented inline; treat that as a constraint when judging edge cases.
@@ -35,10 +34,10 @@ Skills hand off via explicit cross-references in their bodies — never via impl
 
 | Layer | Format | Example |
 |---|---|---|
-| Marketplace name | kebab-case product family | `canoa`, `normativa`, `skills-for-architects` |
-| Plugin name | kebab-case (matches marketplace name when single-plugin) | `canoa`, `norma`, `00-due-diligence` |
-| Dispatcher skill name | matches plugin name | `canoa`, `norma`, `studio` |
-| Sub-skill name (single-plugin marketplace) | `<plugin>-<verb>` | `canoa-find`, `norma-analyze`, `norma-informe` |
+| Marketplace name | kebab-case product family | `canoa`, `skills-for-architects` |
+| Plugin name | kebab-case (matches marketplace name when single-plugin) | `canoa`, `00-due-diligence` |
+| Dispatcher skill name | matches plugin name | `canoa`, `studio` |
+| Sub-skill name (single-plugin marketplace) | `<plugin>-<verb>` | `canoa-find`, `canoa-audit`, `canoa-add-to-sheet` |
 | Sub-skill name (multi-plugin marketplace) | `<verb>` (already namespaced by plugin) | `nyc-landmarks`, `spec-writer`, `product-research` |
 
 User-facing slash invocation:
@@ -57,18 +56,17 @@ Every plugin has ONE entry-point skill (the dispatcher) that:
 3. Hands off to the right sub-skill.
 4. Falls back to working mode (relay through MCP / agent persona) for ambiguous freeform messages.
 
-The dispatcher is named the same as the plugin (`canoa`, `norma`, `studio`). Its `SKILL.md` includes:
+The dispatcher is named the same as the plugin (`canoa`, `studio`). Its `SKILL.md` includes:
 
 - A routing table (what intent → which sub-skill)
 - A working-mode fallback section (how to handle ambiguous requests)
 - Any hard rules that apply globally across all sub-skills
 
 Reference implementations:
-- [`Estudio-Local/normativa/skills/norma/SKILL.md`](https://github.com/Estudio-Local/normativa/blob/main/skills/norma/SKILL.md)
 - [`AlpacaLabsLLC/canoa/skills/canoa/SKILL.md`](https://github.com/AlpacaLabsLLC/canoa/blob/main/skills/canoa/SKILL.md)
 - [`AlpacaLabsLLC/skills-for-architects/plugins/08-dispatcher/skills/studio/SKILL.md`](https://github.com/AlpacaLabsLLC/skills-for-architects/blob/main/plugins/08-dispatcher/skills/studio/SKILL.md)
 
-**Why:** users shouldn't have to memorize which sub-skill handles which intent. The dispatcher does the routing. New users can just type `/canoa` (or `/norma`) and describe what they need in plain English.
+**Why:** users shouldn't have to memorize which sub-skill handles which intent. The dispatcher does the routing. New users can just type `/canoa` (or `/studio`) and describe what they need in plain English.
 
 ## 5. Clear rules across all plugins
 
@@ -110,7 +108,7 @@ If you ever need auto-publish on every commit (during very heavy iteration), dro
 
 | Layout | When | Marketplace source | Skills location |
 |---|---|---|---|
-| **Flat single-plugin** (normativa-style) | One plugin in the marketplace; the marketplace IS the plugin | `"./"` | `skills/<verb>/` at repo root |
+| **Flat single-plugin** (canoa-style) | One plugin in the marketplace; the marketplace IS the plugin | `"./"` | `skills/<verb>/` at repo root |
 | **Multi-plugin nested** (architects-style) | Two or more plugins sharing rules / agents / hooks at the marketplace level | `"./plugins/<name>"` | `plugins/<name>/skills/<verb>/` |
 
 For both: `.claude-plugin/marketplace.json` lives at the repo root. For single-plugin, `.claude-plugin/plugin.json` lives next to it. For multi-plugin, each plugin has its own `<plugin>/.claude-plugin/plugin.json`.
@@ -140,7 +138,7 @@ The MCP server source lives under `mcp/` (or `<plugin>/mcp/` for multi-plugin), 
 
 Default plugin marketplaces to **public GitHub repos** unless there's a deliberate strategic reason to keep them private. Public removes Cowork/Code auth friction, simplifies install for testers, and matches the OSS posture of Claude's plugin ecosystem.
 
-Strategy moats live in **server-side product surface** (Canoa's catalog cache, Estudio Local's GIS pipeline, etc.) — not in plugin packaging or skill bodies. The plugin shape is mostly product surface, not strategy.
+Strategy moats live in **server-side product surface** (e.g. Canoa's catalog cache) — not in plugin packaging or skill bodies. The plugin shape is mostly product surface, not strategy.
 
 If kept private: use Cowork's Admin → Private Marketplace flow with the Claude GitHub App; expect [bug #28125](https://github.com/anthropics/claude-code/issues/28125); have a ZIP-upload fallback ready.
 
@@ -188,4 +186,5 @@ See [`scripts/lint.sh`](./scripts/lint.sh) and [`.github/workflows/lint.yml`](./
 
 ## Versions of these patterns
 
-- **2026-05-08** — Initial version. Distilled from canoa V1 (single-plugin), normativa v0.8 (single-plugin with shared rules + dispatcher), and skills-for-architects v1.0 (multi-plugin). Six core principles requested by Federico; expanded to ten with layout / MCP bundling / public-default / hard-rules / lint additions.
+- **2026-05-08** — Initial version. Distilled from canoa V1 (single-plugin) and skills-for-architects v1.0 (multi-plugin). Six core principles requested by Federico; expanded to ten with layout / MCP bundling / public-default / hard-rules / lint additions.
+- **2026-06-10** — Examples made self-contained: external-org references removed; all examples now draw on this repo and canoa.
