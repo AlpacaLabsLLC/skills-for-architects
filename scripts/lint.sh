@@ -183,10 +183,10 @@ RC=$?
 [ "$RC" -ne 0 ] && FAIL=1
 
 # 6. Shellcheck on hooks
-echo "→ shellcheck on hooks/"
+echo "→ shellcheck on plugins/08-dispatcher/hooks/"
 if command -v shellcheck >/dev/null 2>&1; then
-  if shellcheck hooks/*.sh; then
-    pass_check "$(ls hooks/*.sh 2>/dev/null | wc -l | tr -d ' ') scripts"
+  if shellcheck plugins/08-dispatcher/hooks/*.sh; then
+    pass_check "$(ls plugins/08-dispatcher/hooks/*.sh 2>/dev/null | wc -l | tr -d ' ') scripts"
   else
     fail_check "shellcheck issues"
   fi

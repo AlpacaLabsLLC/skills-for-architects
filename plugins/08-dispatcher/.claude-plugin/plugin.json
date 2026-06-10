@@ -1,12 +1,18 @@
 {
   "name": "08-dispatcher",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Smart router and help menu — /architect routes tasks to the right agent or skill, /skills shows what's available.",
   "author": {
     "name": "ALPA",
     "url": "https://alpa.llc"
   },
-  "keywords": ["router", "dispatcher", "help", "architecture", "AEC"],
+  "keywords": [
+    "router",
+    "dispatcher",
+    "help",
+    "architecture",
+    "AEC"
+  ],
   "homepage": "https://alpa.llc/skills",
   "license": "MIT"
 }

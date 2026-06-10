@@ -1,12 +1,23 @@
 {
   "name": "07-presentations",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Presentation skills — HTML slide deck generation, color palette creation, and image resizing for web, social, slides, and print.",
   "author": {
     "name": "ALPA",
     "url": "https://alpa.llc"
   },
-  "keywords": ["presentations", "slides", "color-palette", "design", "HTML", "image-resize", "web", "social", "print", "architecture"],
+  "keywords": [
+    "presentations",
+    "slides",
+    "color-palette",
+    "design",
+    "HTML",
+    "image-resize",
+    "web",
+    "social",
+    "print",
+    "architecture"
+  ],
   "homepage": "https://alpa.llc/skills",
   "license": "MIT"
 }

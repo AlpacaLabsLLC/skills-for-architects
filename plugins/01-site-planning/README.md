@@ -72,7 +72,7 @@ Each skill produces a **structured markdown report** with a Key Metrics summary 
 
 ## Agent
 
-For full site due diligence (all four skills run in parallel with a synthesized brief), see the [Site Planner](../../agents/site-planner.md) agent.
+For full site due diligence (all four skills run in parallel with a synthesized brief), see the [Site Planner](./agents/site-planner.md) agent.
 
 ## Install
 

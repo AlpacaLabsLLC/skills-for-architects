@@ -1,12 +1,11 @@
 ---
 name: nyc-dob-permits
-description: Look up DOB permit and job filing history for any NYC building.
+description: Look up DOB permit and job filing history for any NYC building — new-building, alteration, and demolition filings with status and dates. Use when the user asks what work was filed or permitted at an address, or to gauge renovation history during due diligence. NYC only; for open violations use /nyc-dob-violations.
 allowed-tools:
   - WebFetch
   - Write
   - Read
   - Bash
-user-invocable: true
 ---
 
 # /nyc-dob-permits — DOB Permit & Filing History

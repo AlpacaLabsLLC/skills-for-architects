@@ -12,8 +12,11 @@ Rules are always-on conventions that shape every skill output. Unlike skills (in
 | [output-formatting](./output-formatting.md) | Tables, headings, source attribution, file naming, list structure |
 | [transparency](./transparency.md) | Show your work — link sources, expose inputs, make outputs verifiable |
 
-## How Rules Work
+## How Rules Work — honestly
 
-When you install a plugin from this repository, its skills follow these rules automatically. The rules are reference documents — Claude reads them to maintain consistency across all outputs.
+Claude Code has no mechanism that auto-loads a `rules/` directory, so these bind at two different strengths:
 
-Rules are not invoked directly. They inform how skills produce their outputs.
+- **Hook-enforced (2):** `professional-disclaimer` and `csi-formatting` are checked mechanically by the hooks that ship with the Dispatcher plugin (`post-write-disclaimer-check`, `pre-commit-spec-lint`). The disclaimer check is marker-driven — skills emit `<!-- architecture-studio:requires-disclaimer -->` and the hook verifies the canonical block.
+- **Advisory (5):** the other five are conventions written into the skills and agents that need them — the skill bodies carry the relevant rules inline, and these files are the canonical reference they're kept consistent with. Nothing enforces them at runtime.
+
+If a rule matters enough to your practice to enforce, the pattern is in the two hook-enforced rules: have skills emit a marker, check the marker in a hook. Rules are not invoked directly.

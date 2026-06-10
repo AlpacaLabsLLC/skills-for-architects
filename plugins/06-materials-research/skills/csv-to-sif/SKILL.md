@@ -9,7 +9,6 @@ allowed-tools:
   - Glob
   - Grep
   - AskUserQuestion
-user-invocable: true
 ---
 
 # /csv-to-sif — CSV to SIF Converter

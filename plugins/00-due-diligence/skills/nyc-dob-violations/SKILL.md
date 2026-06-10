@@ -1,12 +1,11 @@
 ---
 name: nyc-dob-violations
-description: Look up DOB and ECB violations for any NYC building.
+description: Look up open and resolved DOB and ECB violations for any NYC building, with class, status, and penalty detail. Use when the user asks whether a building has violations, stop-work orders, or outstanding ECB penalties. NYC only; for housing-code violations use /nyc-hpd.
 allowed-tools:
   - WebFetch
   - Write
   - Read
   - Bash
-user-invocable: true
 ---
 
 # /nyc-dob-violations — DOB & ECB Violations

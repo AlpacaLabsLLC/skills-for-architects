@@ -95,7 +95,7 @@ Outputs `program.json` for state persistence, a markdown report, and optional CS
 
 ## Agent
 
-For full space programming (occupancy compliance → workplace strategy → room schedule), see the [Workplace Strategist](../../agents/workplace-strategist.md) agent.
+For full space programming (occupancy compliance → workplace strategy → room schedule), see the [Workplace Strategist](./agents/workplace-strategist.md) agent.
 
 ## Install
 

@@ -6,7 +6,6 @@ allowed-tools:
   - Write
   - Read
   - Bash
-user-invocable: true
 ---
 
 # /nyc-property-report — Combined NYC Property Report
@@ -20,6 +19,10 @@ Runs all 6 NYC property data lookups and produces a combined report. For individ
 - `/nyc-bsa` — BSA variances & special permits
 
 No API key required — all queries use NYC Open Data (Socrata) with PLUTO for address resolution.
+
+## Project Dossier
+
+If `PROJECT.md` exists in the working directory, read it before fetching — prior lookups may already be on file. After completing, append identity facts (address, BBL, ownership), landmark status, and an open-violations summary to its **Identity** and **Zoning** sections. Update values in place (the dossier holds current state, not history), every entry with a source and date. No `PROJECT.md`? Skip silently — or mention `/project-dossier init` if the user is clearly starting a project.
 
 ## Usage
 

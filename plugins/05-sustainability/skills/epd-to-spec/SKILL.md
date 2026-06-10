@@ -17,6 +17,10 @@ allowed-tools:
 
 Takes EPD data, GWP limits, or a materials list and generates CSI-formatted specification sections that require Environmental Product Declarations and set maximum Global Warming Potential thresholds. Output follows the same three-part CSI SectionFormat used by `/spec-writer`.
 
+## Project Dossier
+
+If `PROJECT.md` exists in the working directory, read it before fetching — the **Decisions** index may already hold GWP threshold or material choices the spec must reflect. After completing, append chosen thresholds to its **Code** section. Update values in place (the dossier holds current state, not history), every entry with a source and date. A GWP threshold is a decision — if one was set here, propose recording it with `/decision`. No `PROJECT.md`? Skip silently — or mention `/project-dossier init` if the user is clearly starting a project.
+
 ## Input
 
 The user provides one or more of:

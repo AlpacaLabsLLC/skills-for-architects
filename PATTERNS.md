@@ -15,7 +15,7 @@ Each skill does one thing. Frontmatter is short, body is focused. If a `SKILL.md
 - `name` matches the directory and is kebab-case
 - `description` is pushy and trigger-phrase-rich — model invocation depends on it picking your skill out of the dispatcher's pool
 - `allowed-tools` is scoped to what THIS skill actually needs, not the union of everything the plugin can touch
-- Optional flags: `user-invocable: true` when the skill is meant to be slash-invoked; `disable-model-invocation: true` when slash-only
+- Optional flags: `disable-model-invocation: true` when a skill is slash-only. (Skills are slash-invocable by default; the legacy `user-invocable` flag is not part of the current frontmatter schema and was removed repo-wide in v1.2.0.)
 
 **Why:** smaller skills are easier to test, slash-invoke directly, restrict tool access on, and reason about. Monoliths drift; small skills stay honest. We split canoa's monolithic SKILL.md into 8 verb-scoped skills the same day we couldn't keep `/canoa:start`'s 200-line body internally consistent.
 
@@ -74,7 +74,7 @@ Rules are cross-cutting conventions that apply to multiple skills. Examples: voi
 
 - For multi-plugin marketplaces, put rules in a top-level `rules/` directory — referenced by per-plugin READMEs, enforced by hooks at marketplace level. See [`skills-for-architects/rules/`](./rules/).
 - For single-plugin marketplaces, rules live in the dispatcher skill body and are repeated in each sub-skill that touches them.
-- **Marker-driven hooks** — for enforceable rules, use HTML comment markers (e.g., `<!-- architecture-studio:requires-disclaimer -->`) that skills emit when they want the rule applied. Hooks check for the marker, not for keywords like "FAR" or "audit." See [`hooks/post-write-disclaimer-check.sh`](./hooks/post-write-disclaimer-check.sh).
+- **Marker-driven hooks** — for enforceable rules, use HTML comment markers (e.g., `<!-- architecture-studio:requires-disclaimer -->`) that skills emit when they want the rule applied. Hooks check for the marker, not for keywords like "FAR" or "audit." See [`post-write-disclaimer-check.sh`](./plugins/08-dispatcher/hooks/post-write-disclaimer-check.sh).
 - Hard rules in skills are stated explicitly in the body, with WHY they exist (often a past incident or strong invariant). E.g.: "Audit always re-parses. Reason: Eames bug where agent reported sheet value as verified when catalog had drifted to a newer price."
 
 **Why:** keyword-sniffing hooks misfire on docs that mention regulated terms in passing (READMEs, changelogs, meeting notes) AND miss terse regulatory replies that happen not to use those keywords. Marker-driven enforcement eliminates both. Documenting WHY the rule exists lets future maintainers judge edge cases instead of blindly following the rule.

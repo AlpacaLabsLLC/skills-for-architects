@@ -12,29 +12,15 @@ Hooks are event-driven automations that run automatically during Claude Code ses
 
 ## Installation
 
-Hooks are opt-in — they run from your local Claude Code settings, not from the plugin automatically.
-
-### Step 1: Make scripts executable
+None. The hooks ship with the **Dispatcher** plugin via [`hooks.json`](./hooks.json) and register automatically when the plugin is enabled:
 
 ```bash
-chmod +x ~/.claude/plugins/skills-for-architects/hooks/*.sh
+claude plugin install 08-dispatcher@skills-for-architects
 ```
 
-If you cloned the repo elsewhere, adjust the path accordingly.
+Run `/hooks` in Claude Code to confirm they're loaded. Disable them by disabling the plugin, or per-session via `/hooks`.
 
-### Step 2: Add to your Claude Code settings
-
-Copy the hook configuration from [`settings-snippet.json`](./settings-snippet.json) into your Claude Code settings file:
-
-- **All projects:** `~/.claude/settings.json`
-- **Single project:** `.claude/settings.json` (in your project root)
-- **Local only:** `.claude/settings.local.json` (gitignored)
-
-Merge the `hooks` key into your existing settings. If you already have `PostToolUse` or `PreToolUse` hooks, add these entries to the existing arrays.
-
-### Step 3: Verify
-
-Run `/hooks` in Claude Code to confirm your hooks are loaded.
+> Versions ≤ 1.1.3 distributed these hooks as a `settings-snippet.json` requiring a manual merge into `~/.claude/settings.json`. If you did that merge, remove those entries — the plugin now registers the same hooks itself, and the old entries point at a path that no longer exists.
 
 ## Behavior
 
@@ -42,7 +28,7 @@ All three hooks **warn but do not block**. They print messages to stderr when is
 
 ### post-write-disclaimer-check
 
-Scans written `.md` files for regulatory keywords (zoning, occupancy, IBC, flood zone, etc.). If found and no disclaimer is present, prints a warning. Skips non-markdown files, HTML decks, and data files.
+Checks written `.md` files for the `<!-- architecture-studio:requires-disclaimer -->` marker that regulatory skills emit. If the marker is present but the canonical disclaimer block is missing, prints a warning. Marker-driven — silent on files without the marker.
 
 ### post-output-metadata
 
@@ -51,6 +37,7 @@ Prepends YAML front matter to new markdown reports that don't already have it. S
 ### pre-commit-spec-lint
 
 Checks staged `.md` files for CSI section number formatting errors:
+
 - Missing spaces: `092900` → should be `09 29 00`
 - Dashed format: `09-29-00` → should be `09 29 00`
 - Dotted format: `09.29.00` → should be `09 29 00`
@@ -61,6 +48,5 @@ Checks staged `.md` files for CSI section number formatting errors:
 Each script is a standalone bash file. Edit to fit your workflow:
 
 - Change warning to enforcement: replace `exit 0` with `exit 2` after the warning message
-- Add more regulatory keywords to the disclaimer check
 - Add project-specific metadata fields to the front matter stamp
 - Adjust CSI lint patterns for your specification style

@@ -10,12 +10,15 @@ allowed-tools:
   - Bash
   - Glob
   - Grep
-user-invocable: true
 ---
 
 # /zoning-analysis-nyc — Zoning Envelope Analysis (New York City)
 
 Analyze building envelope rules for any lot in New York City using the PLUTO database (NYC Open Data) and the NYC Zoning Resolution.
+
+## Project Dossier
+
+If `PROJECT.md` exists in the working directory, read it before fetching — the BBL, district, and prior envelope results may already be on file. After completing, append the zoning district, FAR set, envelope results, overlays/special districts, and landmark status to its **Zoning** section. Update values in place (the dossier holds current state, not history), every entry with a source and date. If the analysis surfaces a choice between development paths (as-of-right vs. a City of Yes / UAP bonus scheme), propose recording it with `/decision`. No `PROJECT.md`? Skip silently — or mention `/project-dossier init` if the user is clearly starting a project.
 
 ## Workflow
 

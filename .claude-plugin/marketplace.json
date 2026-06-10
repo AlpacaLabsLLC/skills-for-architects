@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Skills, commands, and plugins for architects, designers, and AEC professionals — site research, zoning, programming, specifications, materials research, and presentations.",
-    "version": "1.1.3"
+    "version": "1.2.0"
   },
   "plugins": [
     {
@@ -53,6 +53,11 @@
       "name": "08-dispatcher",
       "source": "./plugins/08-dispatcher",
       "description": "Smart router and help menu — describe a task and get routed to the right agent or skill."
+    },
+    {
+      "name": "09-project-dossier",
+      "source": "./plugins/09-project-dossier",
+      "description": "Project dossier and decision records — persistent per-project facts (PROJECT.md) and ADR-style decision capture (decisions/)."
     }
   ]
 }

@@ -109,8 +109,8 @@ Two agents orchestrate the skills in this plugin:
 
 | Agent | What it does |
 |-------|-------------|
-| [Product & Materials Researcher](../../agents/product-and-materials-researcher.md) | Finds products from a brief, extracts specs from URLs/PDFs, tags and classifies, finds alternatives |
-| [FF&E Designer](../../agents/ffe-designer.md) | Builds clean schedules from messy inputs, composes room packages, runs QA, exports to dealer formats |
+| [Product & Materials Researcher](./agents/product-and-materials-researcher.md) | Finds products from a brief, extracts specs from URLs/PDFs, tags and classifies, finds alternatives |
+| [FF&E Designer](./agents/ffe-designer.md) | Builds clean schedules from messy inputs, composes room packages, runs QA, exports to dealer formats |
 
 ## Master Schema
 

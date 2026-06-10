@@ -14,6 +14,10 @@ allowed-tools:
 
 Takes a materials list, product schedule, or project description and produces outline specifications organized by CSI MasterFormat 2020 divisions. Output is a structured `.md` file ready for review by a senior specifier.
 
+## Project Dossier
+
+If `PROJECT.md` exists in the working directory, read it before fetching — the **Decisions** index and `decisions/` records hold material and product choices already made — specs must reflect them, not re-litigate them. After completing, note the produced spec sections in the dossier if a **Program** or **Code** entry references them. Update values in place (the dossier holds current state, not history), every entry with a source and date. No `PROJECT.md`? Skip silently — or mention `/project-dossier init` if the user is clearly starting a project.
+
 ## Input
 
 The user provides materials/products in one of these ways:

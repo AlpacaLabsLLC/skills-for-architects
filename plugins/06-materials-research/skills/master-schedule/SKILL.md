@@ -9,7 +9,6 @@ allowed-tools:
   - mcp__google-sheets__get_sheet_data
   - mcp__google-sheets__create_spreadsheet
   - mcp__google-sheets__update_cells
-user-invocable: true
 ---
 
 # /master-schedule — Sheet Setup Check

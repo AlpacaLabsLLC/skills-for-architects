@@ -6,7 +6,6 @@ allowed-tools:
   - Write
   - Read
   - Bash
-user-invocable: true
 ---
 
 # /nyc-landmarks — LPC Landmark & Historic District Check

@@ -3,7 +3,6 @@ name: skills-menu
 description: Show all available skills, agents, and how to use them — organized by task.
 allowed-tools:
   - Read
-user-invocable: true
 ---
 
 # /skills — What's Available
@@ -19,7 +18,7 @@ Print the following menu. Do not read any files — the menu is static.
 ```
 # Architecture Studio
 
-**37 skills, 7 agents** — type /studio [your task] to get routed, or call any skill directly.
+**39 skills, 7 agents** — type /studio [your task] to get routed, or call any skill directly.
 
 ## Agents — describe your task, they figure out the rest
 
@@ -83,6 +82,10 @@ Print the following menu. Do not read any files — the menu is static.
 /slide-deck-generator [topic] — HTML slide deck with editorial layout
 /color-palette-generator — color palettes from descriptions or images
 /resize-images — batch-resize photos for web, social, slides, and print
+
+### Project Dossier
+/project-dossier — create or update PROJECT.md, the project facts file
+/decision — record a project decision (ADR-style, numbered, statused)
 ```
 
 That's it. Do not add commentary, suggestions, or follow-up questions. Just print the menu.

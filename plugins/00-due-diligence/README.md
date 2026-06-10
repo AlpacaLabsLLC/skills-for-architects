@@ -52,7 +52,7 @@ All queries use the NYC Open Data Socrata API. No authentication required.
 
 ## Agent
 
-For full NYC property + zoning analysis (due diligence, zoning envelope, 3D visualization), see the [NYC Zoning Expert](../../agents/nyc-zoning-expert.md) agent — it orchestrates all 7 skills in this plugin plus the zoning analysis skills.
+For full NYC property + zoning analysis (due diligence, zoning envelope, 3D visualization), see the [NYC Zoning Expert](../02-zoning-analysis/agents/nyc-zoning-expert.md) agent — it orchestrates all 7 skills in this plugin plus the zoning analysis skills.
 
 ## Install
 

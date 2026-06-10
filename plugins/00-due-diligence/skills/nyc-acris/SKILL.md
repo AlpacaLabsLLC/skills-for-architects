@@ -1,12 +1,11 @@
 ---
 name: nyc-acris
-description: Look up ACRIS property transaction records — deeds, mortgages, liens.
+description: Look up ACRIS property transaction records for any NYC property — deeds, mortgages, satisfactions, liens, and ownership history. Use when the user asks who owns a building, when it last sold or for how much, or whether there are mortgages or liens against it. NYC only; for permits or violations use the DOB skills.
 allowed-tools:
   - WebFetch
   - Write
   - Read
   - Bash
-user-invocable: true
 ---
 
 # /nyc-acris — ACRIS Property Transaction Records

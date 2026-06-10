@@ -20,50 +20,30 @@
 
 **Architecture Studio** teaches Claude architecture-specific workflows — site analysis, zoning, space programming, specifications, materials research, sustainability, and presentations.
 
-**7 agents**, **37 skills**, **7 rules**, and **3 hooks** across **9 plugins**. Built by [ALPA](https://alpa.llc).
+**7 agents**, **39 skills**, **7 rules**, and **3 hooks** across **10 plugins**. Built by [ALPA](https://alpa.llc).
 
 ## Architecture
 
 ```
 Architecture Studio
-├── /studio                              ← entry point
-│
-├── agents/
-│   ├── site-planner                     4 skills · site research + synthesis
-│   ├── nyc-zoning-expert                9 skills · property records + zoning + 3D
-│   ├── workplace-strategist             2 skills · occupancy + programming
-│   ├── product-and-materials-researcher 5 skills · find, extract, tag
-│   ├── ffe-designer                     7 skills · schedule, QA, export
-│   ├── sustainability-specialist        4 skills · EPDs, GWP, LEED
-│   └── brand-manager                    2 skills · decks + palettes
+├── /studio                              ← entry point (08-dispatcher)
 │
 ├── plugins/
 │   ├── 00-due-diligence                 7 skills
-│   ├── 01-site-planning                 4 skills
-│   ├── 02-zoning-analysis               2 skills
-│   ├── 03-programming                   2 skills
+│   ├── 01-site-planning                 4 skills · agent: site-planner
+│   ├── 02-zoning-analysis               2 skills · agent: nyc-zoning-expert
+│   ├── 03-programming                   2 skills · agent: workplace-strategist
 │   ├── 04-specifications                1 skill
-│   ├── 05-sustainability                4 skills
-│   ├── 06-materials-research           12 skills
-│   ├── 07-presentations                 3 skills
-│   └── 08-dispatcher                    2 skills
+│   ├── 05-sustainability                4 skills · agent: sustainability-specialist
+│   ├── 06-materials-research           12 skills · agents: researcher + ffe-designer
+│   ├── 07-presentations                 3 skills · agent: brand-manager
+│   ├── 08-dispatcher                    2 skills · hooks ship here
+│   └── 09-project-dossier               2 skills · PROJECT.md + decisions/
 │
-├── rules/
-│   ├── units-and-measurements
-│   ├── code-citations
-│   ├── professional-disclaimer
-│   ├── csi-formatting
-│   ├── terminology
-│   ├── output-formatting
-│   └── transparency
-│
-└── hooks/
-    ├── post-write-disclaimer-check
-    ├── post-output-metadata
-    └── pre-commit-spec-lint
+└── rules/                               7 rules · 2 hook-enforced, 5 advisory
 ```
 
-**Agents** orchestrate skills across plugins — they assess your input, choose a path, and exercise judgment. **Skills** are single-purpose tools invoked with a slash command. **Rules** govern every output. **Hooks** are event-driven automations. Skills are grouped into **plugins** (installable bundles organized by project lifecycle).
+**Agents** orchestrate skills across plugins — they assess your input, choose a path, and exercise judgment; each ships inside the plugin it orchestrates and registers as a native Claude Code subagent. **Skills** are single-purpose tools invoked with a slash command. **Rules** are cross-cutting conventions (two hook-enforced, five advisory). **Hooks** are event-driven automations that ship with the Dispatcher plugin and register automatically. Skills are grouped into **plugins** (installable bundles organized by project lifecycle).
 
 ## Quick Start
 
@@ -96,15 +76,15 @@ Agents are the orchestration layer. Describe your task — the agent decides whi
 
 | Agent | Domain | What it does |
 |-------|--------|-------------|
-| [site-planner](./agents/site-planner.md) | Site Planning | Runs all site research in parallel, synthesizes a unified brief with opportunities and constraints |
-| [nyc-zoning-expert](./agents/nyc-zoning-expert.md) | Due Diligence + Zoning | Full NYC property and zoning analysis — due diligence, buildable envelope, 3D visualization |
-| [workplace-strategist](./agents/workplace-strategist.md) | Programming | Translates headcount and work style into space programs — occupancy compliance, zone allocation, room schedules |
-| [product-and-materials-researcher](./agents/product-and-materials-researcher.md) | Materials Research | Finds products from a brief, extracts specs from URLs/PDFs, tags and classifies, finds alternatives |
-| [ffe-designer](./agents/ffe-designer.md) | FF&E Design | Builds clean schedules from messy inputs, composes room packages, runs QA, exports to dealer formats |
-| [sustainability-specialist](./agents/sustainability-specialist.md) | Sustainability | Evaluates environmental impact — finds EPDs, compares GWP, checks LEED eligibility, writes spec thresholds |
-| [brand-manager](./agents/brand-manager.md) | Presentations | Owns visual identity — builds decks, creates palettes, QAs deliverables for presentation readiness |
+| [site-planner](./plugins/01-site-planning/agents/site-planner.md) | Site Planning | Runs all site research in parallel, synthesizes a unified brief with opportunities and constraints |
+| [nyc-zoning-expert](./plugins/02-zoning-analysis/agents/nyc-zoning-expert.md) | Due Diligence + Zoning | Full NYC property and zoning analysis — due diligence, buildable envelope, 3D visualization |
+| [workplace-strategist](./plugins/03-programming/agents/workplace-strategist.md) | Programming | Translates headcount and work style into space programs — occupancy compliance, zone allocation, room schedules |
+| [product-and-materials-researcher](./plugins/06-materials-research/agents/product-and-materials-researcher.md) | Materials Research | Finds products from a brief, extracts specs from URLs/PDFs, tags and classifies, finds alternatives |
+| [ffe-designer](./plugins/06-materials-research/agents/ffe-designer.md) | FF&E Design | Builds clean schedules from messy inputs, composes room packages, runs QA, exports to dealer formats |
+| [sustainability-specialist](./plugins/05-sustainability/agents/sustainability-specialist.md) | Sustainability | Evaluates environmental impact — finds EPDs, compares GWP, checks LEED eligibility, writes spec thresholds |
+| [brand-manager](./plugins/07-presentations/agents/brand-manager.md) | Presentations | Owns visual identity — builds decks, creates palettes, QAs deliverables for presentation readiness |
 
-See the [agents directory](./agents) for full workflows and handoff logic.
+See the [agents index](./agents/README.md) for full workflows and handoff logic.
 
 ## Plugins & Skills
 
@@ -120,10 +100,11 @@ Organized by project lifecycle — from due diligence through delivery.
 | 5 | [Sustainability](./plugins/05-sustainability) | 4 | EPD parsing, research, comparison, and GWP thresholds. |
 | 6 | [Materials Research](./plugins/06-materials-research) | 12 | FF&E product research, spec extraction, cleanup, and image processing. Exports to SIF dealer formats and [Norma](https://norma.llc). |
 | 7 | [Presentations](./plugins/07-presentations) | 3 | Slide deck generation, color palette creation, and image resizing for web, social, slides, and print. |
-| 8 | [Dispatcher](./plugins/08-dispatcher) | 2 | Studio router (`/studio`) and help menu (`/skills`). |
+| 8 | [Dispatcher](./plugins/08-dispatcher) | 2 | Studio router (`/studio`), help menu (`/skills`), and the three hooks. |
+| 9 | [Project Dossier](./plugins/09-project-dossier) | 2 | Persistent project facts (`PROJECT.md`) and ADR-style decision records. |
 
 <details>
-<summary><strong>All 37 skills</strong></summary>
+<summary><strong>All 39 skills</strong></summary>
 
 ### Due Diligence
 
@@ -207,11 +188,18 @@ Organized by project lifecycle — from due diligence through delivery.
 | [`/studio`](./plugins/08-dispatcher/skills/studio) | Smart router — describe a task and get routed to the right agent or skill |
 | [`/skills`](./plugins/08-dispatcher/skills/skills-menu) | Help menu listing all available skills and agents |
 
+### Project Dossier
+
+| Skill | Description |
+|-------|-------------|
+| [`/project-dossier`](./plugins/09-project-dossier/skills/project-dossier) | Create or update `PROJECT.md` — sourced, dated project facts |
+| [`/decision`](./plugins/09-project-dossier/skills/decision) | ADR-style decision records — context, options, the call, consequences |
+
 </details>
 
 ## Rules
 
-Always-on conventions that govern every output — loaded automatically, not invoked.
+Cross-cutting conventions every skill is written against. Two are hook-enforced (professional-disclaimer, csi-formatting); the other five are advisory references — see [rules/](./rules) for the honest breakdown.
 
 | Rule | What it governs |
 |------|-----------------|
@@ -225,15 +213,15 @@ Always-on conventions that govern every output — loaded automatically, not inv
 
 ## Hooks
 
-Event-driven automations — opt-in via Claude Code settings.
+Event-driven automations — they ship with the [Dispatcher plugin](./plugins/08-dispatcher) and register automatically when it's enabled. No settings merge needed.
 
 | Hook | Event | What it does |
 |------|-------|-------------|
-| [post-write-disclaimer-check](./hooks/post-write-disclaimer-check.sh) | After Write | Warns if regulatory output is missing the professional disclaimer |
-| [post-output-metadata](./hooks/post-output-metadata.sh) | After Write | Stamps markdown reports with YAML front matter |
-| [pre-commit-spec-lint](./hooks/pre-commit-spec-lint.sh) | Before git commit | Flags malformed CSI section numbers |
+| [post-write-disclaimer-check](./plugins/08-dispatcher/hooks/post-write-disclaimer-check.sh) | After Write | Warns if regulatory output is missing the professional disclaimer |
+| [post-output-metadata](./plugins/08-dispatcher/hooks/post-output-metadata.sh) | After Write | Stamps markdown reports with YAML front matter |
+| [pre-commit-spec-lint](./plugins/08-dispatcher/hooks/pre-commit-spec-lint.sh) | Before git commit | Flags malformed CSI section numbers |
 
-See the [hooks directory](./hooks) for installation instructions.
+See the [hooks directory](./plugins/08-dispatcher/hooks) for details and customization.
 
 ## Contributing
 

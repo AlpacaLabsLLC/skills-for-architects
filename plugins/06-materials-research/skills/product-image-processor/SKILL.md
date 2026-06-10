@@ -1,7 +1,6 @@
 ---
 name: product-image-processor
 description: Download, resize, and remove backgrounds from product images at scale
-user-invocable: true
 allowed-tools:
   - Read
   - Write

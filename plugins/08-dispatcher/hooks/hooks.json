@@ -6,12 +6,12 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.claude/plugins/skills-for-architects/hooks/post-write-disclaimer-check.sh",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/post-write-disclaimer-check.sh",
             "timeout": 10
           },
           {
             "type": "command",
-            "command": "~/.claude/plugins/skills-for-architects/hooks/post-output-metadata.sh",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/post-output-metadata.sh",
             "timeout": 10
           }
         ]
@@ -24,7 +24,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.claude/plugins/skills-for-architects/hooks/pre-commit-spec-lint.sh",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/pre-commit-spec-lint.sh",
             "timeout": 15
           }
         ]

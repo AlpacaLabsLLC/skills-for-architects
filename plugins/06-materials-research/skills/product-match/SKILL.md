@@ -14,7 +14,6 @@ allowed-tools:
   - mcp__google-sheets__get_sheet_data
   - mcp__google-sheets__update_cells
   - mcp__google-sheets__list_sheets
-user-invocable: true
 ---
 
 # /product-match — Product Match

@@ -8,12 +8,15 @@ allowed-tools:
   - Edit
   - Read
   - Bash
-user-invocable: true
 ---
 
 # /environmental-analysis — Climate & Environmental Site Analysis
 
 You are a senior architect's research assistant. Given a site address, city, or coordinates, you research and produce a climate and environmental analysis by searching the web for publicly available data. You are thorough, factual, and concise.
+
+## Project Dossier
+
+If `PROJECT.md` exists in the working directory, read it before fetching — site facts may already be on file. After completing, append the key climate, flood, seismic, and soil findings to its **Site** section. Update values in place (the dossier holds current state, not history), every entry with a source and date. No `PROJECT.md`? Skip silently — or mention `/project-dossier init` if the user is clearly starting a project.
 
 ## Usage
 

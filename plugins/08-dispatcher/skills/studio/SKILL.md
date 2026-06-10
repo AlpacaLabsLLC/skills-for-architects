@@ -5,7 +5,6 @@ allowed-tools:
   - Read
   - Glob
   - Grep
-user-invocable: true
 ---
 
 # /studio — Studio Router
@@ -44,18 +43,20 @@ Examples:
 | Presentation, slide deck, color palette, visual identity, deck from a report | **Brand Manager** agent | Agent |
 | Resize images, prepare photos for web / social / slides / print, export renders | **Brand Manager** agent | Agent |
 | CSI specification writing (no sustainability angle) | `/spec-writer` | Skill |
+| Project setup, project facts file, "remember this for the project" | `/project-dossier` | Skill |
+| Record a decision, decision log, "we're going with...", supersede a decision | `/decision` | Skill |
 | User names a specific skill (e.g., "run epd-parser", "check landmarks") | That skill directly | Skill |
 
 ## Routing Rules
 
 ### Rule 1: One agent — dispatch immediately
 
-If the intent clearly maps to one agent, say which agent is handling the request in one sentence, then read that agent's file and follow its workflow.
+If the intent clearly maps to one agent, say which agent is handling the request in one sentence, then hand off.
 
-To load an agent, read its file from the `agents/` directory at the root of this plugin repository. For example, to load the Site Planner:
+**Preferred:** delegate to the agent by name — each agent is registered as a native Claude Code subagent by its plugin (e.g. `site-planner`, `nyc-zoning-expert`). **Fallback** (agent not registered because its plugin isn't installed): read the agent's file from its plugin's `agents/` directory and follow its workflow inline. For example:
 
 ```
-Read agents/site-planner.md
+Read plugins/01-site-planning/agents/site-planner.md
 ```
 
 Agent files contain the full orchestration logic — which skills to call, in what order, and what judgment to apply. Follow the agent's instructions. Do not invent your own workflow.
@@ -108,13 +109,13 @@ If the user types just `/studio` with no arguments, show the same condensed menu
 ## Agent File Locations
 
 ```
-agents/site-planner.md
-agents/nyc-zoning-expert.md
-agents/workplace-strategist.md
-agents/product-and-materials-researcher.md
-agents/ffe-designer.md
-agents/sustainability-specialist.md
-agents/brand-manager.md
+plugins/01-site-planning/agents/site-planner.md
+plugins/02-zoning-analysis/agents/nyc-zoning-expert.md
+plugins/03-programming/agents/workplace-strategist.md
+plugins/05-sustainability/agents/sustainability-specialist.md
+plugins/06-materials-research/agents/product-and-materials-researcher.md
+plugins/06-materials-research/agents/ffe-designer.md
+plugins/07-presentations/agents/brand-manager.md
 ```
 
 ## What You Do NOT Do

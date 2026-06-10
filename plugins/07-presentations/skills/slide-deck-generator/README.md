@@ -103,7 +103,10 @@ The generated deck includes built-in navigation:
 
 | File | Purpose |
 |------|---------|
-| `SKILL.md` | Full skill prompt with HTML template, CSS, JS, and all component markup |
+| `SKILL.md` | Core skill prompt — workflow, design rules, and pointers to reference files |
+| `slide-types.md` | Component markup for all 22 slide types and the callout |
+| `html-template.md` | The exact HTML/CSS/JS template the deck is built on |
+| `image-handling.md` | Base64 image embedding workflow and placeholder conventions |
 | `sample.html` | Reference deck demonstrating all 22 slide types |
 | `README.md` | This file |
 

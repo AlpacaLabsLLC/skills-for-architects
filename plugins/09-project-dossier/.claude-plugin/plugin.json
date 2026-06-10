@@ -1,0 +1,12 @@
+{
+  "name": "09-project-dossier",
+  "version": "1.0.0",
+  "description": "Project dossier and decision records — persistent per-project facts (PROJECT.md) and ADR-style decision capture (decisions/), maintained by skills across the studio.",
+  "author": {
+    "name": "ALPA",
+    "url": "https://alpa.llc"
+  },
+  "keywords": ["project-dossier", "decision-records", "ADR", "project-state", "architecture"],
+  "homepage": "https://alpa.llc/skills",
+  "license": "MIT"
+}
