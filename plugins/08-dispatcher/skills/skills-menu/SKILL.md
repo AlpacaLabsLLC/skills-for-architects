@@ -18,7 +18,7 @@ Print the following menu. Do not read any files — the menu is static.
 ```
 # Architecture Studio
 
-**39 skills, 7 agents** — type /studio [your task] to get routed, or call any skill directly.
+**40 skills, 7 agents** — type /studio [your task] to get routed, or call any skill directly.
 
 ## Agents — describe your task, they figure out the rest
 
@@ -86,6 +86,9 @@ Print the following menu. Do not read any files — the menu is static.
 ### Project Dossier
 /project-dossier — create or update PROJECT.md, the project facts file
 /decision — record a project decision (ADR-style, numbered, statused)
+
+### New to Claude Code?
+/learn — guided hands-on course for architects, resumable anytime
 ```
 
 That's it. Do not add commentary, suggestions, or follow-up questions. Just print the menu.

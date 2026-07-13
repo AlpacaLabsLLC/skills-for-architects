@@ -1,0 +1,12 @@
+{
+  "name": "10-learn",
+  "version": "1.0.0",
+  "description": "Guided course teaching architects how to use Claude Code — eight hands-on modules on a sandbox project, resumable across sessions via PROGRESS.md.",
+  "author": {
+    "name": "ALPA",
+    "url": "https://alpa.llc"
+  },
+  "keywords": ["learn", "onboarding", "tutorial", "claude-code", "architecture", "education"],
+  "homepage": "https://alpa.llc/skills",
+  "license": "MIT"
+}

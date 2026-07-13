@@ -20,7 +20,7 @@
 
 **Architecture Studio** teaches Claude architecture-specific workflows — site analysis, zoning, space programming, specifications, materials research, sustainability, and presentations.
 
-**7 agents**, **39 skills**, **7 rules**, and **3 hooks** across **10 plugins**. Built by [ALPA](https://alpa.llc).
+**7 agents**, **40 skills**, **7 rules**, and **3 hooks** across **11 plugins**. Built by [ALPA](https://alpa.llc).
 
 ## What's New in 1.2
 
@@ -46,7 +46,8 @@ Architecture Studio
 │   ├── 06-materials-research           12 skills · agents: researcher + ffe-designer
 │   ├── 07-presentations                 3 skills · agent: brand-manager
 │   ├── 08-dispatcher                    2 skills · hooks ship here
-│   └── 09-project-dossier               2 skills · PROJECT.md + decisions/
+│   ├── 09-project-dossier               2 skills · PROJECT.md + decisions/
+│   └── 10-learn                         1 skill  · /learn — guided course
 │
 └── rules/                               7 rules · 2 hook-enforced, 5 advisory
 ```
@@ -110,9 +111,10 @@ Organized by project lifecycle — from due diligence through delivery.
 | 7 | [Presentations](./plugins/07-presentations) | 3 | Slide deck generation, color palette creation, and image resizing for web, social, slides, and print. |
 | 8 | [Dispatcher](./plugins/08-dispatcher) | 2 | Studio router (`/studio`), help menu (`/skills`), and the three hooks. |
 | 9 | [Project Dossier](./plugins/09-project-dossier) | 2 | Persistent project facts (`PROJECT.md`) and ADR-style decision records. |
+| 10 | [Learn](./plugins/10-learn) | 1 | Guided course teaching architects Claude Code itself — hands-on, resumable. |
 
 <details>
-<summary><strong>All 39 skills</strong></summary>
+<summary><strong>All 40 skills</strong></summary>
 
 ### Due Diligence
 
@@ -202,6 +204,12 @@ Organized by project lifecycle — from due diligence through delivery.
 |-------|-------------|
 | [`/project-dossier`](./plugins/09-project-dossier/skills/project-dossier) | Create or update `PROJECT.md` — sourced, dated project facts |
 | [`/decision`](./plugins/09-project-dossier/skills/decision) | ADR-style decision records — context, options, the call, consequences |
+
+### Learn
+
+| Skill | Description |
+|-------|-------------|
+| [`/learn`](./plugins/10-learn/skills/learn) | Guided course teaching architects Claude Code — 8 modules, sandbox project, resumable |
 
 </details>
 

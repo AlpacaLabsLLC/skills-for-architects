@@ -58,6 +58,11 @@
       "name": "09-project-dossier",
       "source": "./plugins/09-project-dossier",
       "description": "Project dossier and decision records — persistent per-project facts (PROJECT.md) and ADR-style decision capture (decisions/)."
+    },
+    {
+      "name": "10-learn",
+      "source": "./plugins/10-learn",
+      "description": "Guided course teaching architects how to use Claude Code — eight hands-on modules on a sandbox project, resumable via PROGRESS.md."
     }
   ]
 }
