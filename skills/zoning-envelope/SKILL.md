@@ -203,3 +203,12 @@ Open the file in the browser after saving.
 - **Units:** NYC reports use feet. The `unit` field in the Envelope Data block determines all labels and scaling.
 - **Camera:** Position proportional to max lot dimension. `PerspectiveCamera(35)` with OrbitControls.
 - **Multi-lot:** When the report includes `scenarios`, generate toggle buttons. Use simplified rectangles if individual lot polygons are not available in the report.
+
+## Final Step: Disclaimer + Marker (required)
+
+Zoning envelopes are regulatory output. The generated HTML viewer must carry the canonical disclaimer from `rules/professional-disclaimer.md`:
+
+1. Render the disclaimer text verbatim in the stats overlay footer: "This is an AI-generated analysis for preliminary planning purposes. All findings must be verified by a licensed professional before use in design, permitting, or regulatory submissions."
+2. End the HTML file with the marker on its own last line: `<!-- architecture-studio:requires-disclaimer -->`
+
+The marker is a single end-of-file sentinel — it appears exactly once. The `post-write-disclaimer-check` hook mechanically verifies `.md` reports; embedding the same marker in the `.html` output keeps this skill lintable against the same contract, and the source zoning-analysis report it reads from already ends with the canonical block.

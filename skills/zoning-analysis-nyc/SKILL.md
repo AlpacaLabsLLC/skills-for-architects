@@ -387,3 +387,15 @@ To generate an interactive 3D viewer from this data, run: `/zoning-envelope path
 - When in doubt about district classification or applicable rules, always ask the user
 - For split-zone lots, analyze each zone separately and note the complexity
 - ZoLa (zola.planning.nyc.gov) is the authoritative visual reference — recommend users verify there
+
+## Final Step: Disclaimer + Marker (required)
+
+This skill produces regulatory output. End every report this skill produces — printed in chat or saved to a file — with the canonical disclaimer block from `rules/professional-disclaimer.md`, followed by one blank line and the machine-readable marker, exactly as shown:
+
+```markdown
+> **Disclaimer:** This is an AI-generated analysis for preliminary planning purposes. All findings must be verified by a licensed professional before use in design, permitting, or regulatory submissions.
+
+<!-- architecture-studio:requires-disclaimer -->
+```
+
+The marker is a single end-of-file sentinel — it appears exactly once, as the last line of the report. The `post-write-disclaimer-check` hook parses saved `.md` reports for the marker and blocks the write if the canonical disclaimer block is missing.

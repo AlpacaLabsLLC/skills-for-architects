@@ -357,3 +357,15 @@ This policy is shared by all four EPD skills (`epd-parser`, `epd-research`, `epd
 - **Pair with `/spec-writer` for complete specs.** This skill adds EPD/sustainability requirements to specific sections. The general `/spec-writer` produces full outline specs without EPD language. For a complete specification package, use both.
 - **Baselines follow the GWP Baseline Policy above.** Cited source + publication year required; uncited from-memory numbers banned. EC3 API integration is in progress and will automate baseline lookups.
 - **Buy America / regional sourcing**: Some projects (federal, state-funded) require domestic materials. The regional materials preference in Part 2 can be strengthened to a requirement if needed.
+
+## Final Step: Disclaimer + Marker (required)
+
+This skill produces regulatory output. End every report this skill produces — printed in chat or saved to a file — with the canonical disclaimer block from `rules/professional-disclaimer.md`, followed by one blank line and the machine-readable marker, exactly as shown:
+
+```markdown
+> **Disclaimer:** This is an AI-generated analysis for preliminary planning purposes. All findings must be verified by a licensed professional before use in design, permitting, or regulatory submissions.
+
+<!-- architecture-studio:requires-disclaimer -->
+```
+
+The marker is a single end-of-file sentinel — it appears exactly once, as the last line of the report. The `post-write-disclaimer-check` hook parses saved `.md` reports for the marker and blocks the write if the canonical disclaimer block is missing.

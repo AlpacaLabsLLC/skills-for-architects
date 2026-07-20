@@ -75,3 +75,15 @@ If not landmarked and not in a historic district: "No landmark designation found
 - If Socrata returns empty array: "No results found"
 - If HTTP error: note it and suggest checking the address
 - If the user requests, write results to a file
+
+## Final Step: Disclaimer + Marker (required)
+
+This skill produces regulatory output. End every report this skill produces — printed in chat or saved to a file — with the canonical disclaimer block from `rules/professional-disclaimer.md`, followed by one blank line and the machine-readable marker, exactly as shown:
+
+```markdown
+> **Disclaimer:** This is an AI-generated analysis for preliminary planning purposes. All findings must be verified by a licensed professional before use in design, permitting, or regulatory submissions.
+
+<!-- architecture-studio:requires-disclaimer -->
+```
+
+The marker is a single end-of-file sentinel — it appears exactly once, as the last line of the report. The `post-write-disclaimer-check` hook parses saved `.md` reports for the marker and blocks the write if the canonical disclaimer block is missing.
