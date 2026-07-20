@@ -9,7 +9,7 @@ IBC occupancy load calculator for [Claude Code](https://docs.anthropic.com/en/do
 
 Every report cites the code edition, table, and a public link to the source.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../../../LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../LICENSE)
 
 ## Install
 

@@ -2,7 +2,7 @@
 
 Turn raw product lists into formatted FF&E specification schedules for [Claude Code](https://docs.anthropic.com/en/docs/claude-code).
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../../../LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../LICENSE)
 
 ## Install
 

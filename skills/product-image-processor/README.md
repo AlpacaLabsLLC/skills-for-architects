@@ -2,7 +2,7 @@
 
 Batch product image processor for [Claude Code](https://docs.anthropic.com/en/docs/claude-code). Read image URLs from a Google Sheet, download at full resolution, normalize sizing, and remove backgrounds — saving output at each stage.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../../../LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../LICENSE)
 
 ### Dependencies
 

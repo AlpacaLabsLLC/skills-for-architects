@@ -20,12 +20,12 @@
 
 **Architecture Studio** teaches Claude architecture-specific workflows — site analysis, zoning, space programming, specifications, materials research, sustainability, and presentations.
 
-**One plugin** — `architecture-studio` v1.3.0 — with **40 skills**, **7 agents**, **7 rules**, and **3 hooks**. Built by [ALPA](https://alpa.llc).
+**One plugin** — `architecture-studio` v1.3.0 — with **40 skills**, **7 agents**, **7 rules**, and **2 hooks**. Built by [ALPA](https://alpa.llc).
 
 ## What's New in 1.3
 
 - **One flat plugin.** The ten-plugin marketplace is now a single plugin: one install gets every skill, agent, and hook. The old per-plugin taxonomy (Due Diligence, Site Planning, Zoning, …) survives below as documentation groups — nothing to choose at install time.
-- **Renames:** `/history` is now `/site-history`; the help menu skill is `/skills` (formerly `skills-menu`).
+- **Renames:** the site history skill is now `/site-history` (formerly `history`); the help menu skill is `/skills` (formerly `skills-menu`).
 - **`/learn`** — a guided, resumable course teaching architects Claude Code itself, on a bundled sandbox project.
 
 Full history in the [CHANGELOG](./CHANGELOG.md).
@@ -38,7 +38,7 @@ Architecture Studio (one plugin: architecture-studio)
 │   ├── /studio      ← entry point: describe a task, get routed
 │   └── /skills      ← help menu
 ├── agents/           7 orchestration subagents
-├── hooks/            3 event-driven automations (auto-register)
+├── hooks/            2 event-driven automations (auto-register)
 ├── rules/            7 cross-cutting conventions (2 hook-enforced, 5 advisory)
 └── schema/           shared FF&E product schema (33 columns) + SIF crosswalk
 ```
@@ -57,7 +57,7 @@ claude plugin marketplace add AlpacaLabsLLC/skills-for-architects
 claude plugin install architecture-studio@skills-for-architects
 ```
 
-That single install loads all 40 skills, all 7 agents, and the 3 hooks.
+That single install loads all 40 skills, all 7 agents, and the 2 hooks.
 
 ### Use
 
@@ -231,8 +231,7 @@ Event-driven automations — they ship with the plugin and register automaticall
 
 | Hook | Event | What it does |
 |------|-------|-------------|
-| [post-write-disclaimer-check](./hooks/post-write-disclaimer-check.sh) | After Write | Warns if regulatory output is missing the professional disclaimer |
-| [post-output-metadata](./hooks/post-output-metadata.sh) | After Write | Stamps markdown reports with YAML front matter |
+| [post-write-disclaimer-check](./hooks/post-write-disclaimer-check.sh) | After Write or Edit | Warns if regulatory output is missing the professional disclaimer |
 | [pre-commit-spec-lint](./hooks/pre-commit-spec-lint.sh) | Before git commit | Flags malformed CSI section numbers |
 
 See the [hooks directory](./hooks) for details and customization.

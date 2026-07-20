@@ -17,8 +17,16 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install Python deps
-        run: pip install pyyaml
+      # lint.sh hard-fails in CI when shellcheck or jq is missing (it only
+      # skips them locally), so install them explicitly instead of trusting
+      # the runner image to keep shipping them (ALPA-366).
+      - name: Install lint dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y shellcheck jq
+          pip install pyyaml
 
       - name: Run lint
         run: ./scripts/lint.sh
+        env:
+          CI: "true"

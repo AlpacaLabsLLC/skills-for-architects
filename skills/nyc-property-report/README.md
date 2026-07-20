@@ -2,7 +2,7 @@
 
 Combined NYC property report as a [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skill. Runs all 6 NYC property data lookups in sequence and writes a comprehensive markdown report covering landmarks, DOB permits, violations, ACRIS records, HPD data, and BSA variances. No API key required.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../../../LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../LICENSE)
 
 ## Install
 

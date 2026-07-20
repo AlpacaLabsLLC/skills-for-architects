@@ -20,10 +20,10 @@ Examples:
 - `/color-palette-generator warm earth tones for a desert spa`
 - `/color-palette-generator corporate but not boring`
 - `/color-palette-generator Japanese wabi-sabi aesthetic`
-- `/color-palette-generator ~/Documents/Screenshots/inspiration.png`
+- `/color-palette-generator ./inspiration.png`
 - `/color-palette-generator Aesop meets Ace Hotel`
 - `/color-palette-generator build a palette from #2D5A3D`
-- `/color-palette-generator moody editorial feel, starting from this image ~/Documents/photo.jpg`
+- `/color-palette-generator moody editorial feel, starting from this image ./photo.jpg`
 
 ## How You Work
 

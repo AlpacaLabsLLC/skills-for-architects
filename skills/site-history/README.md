@@ -1,8 +1,8 @@
-# /history
+# /site-history
 
 Neighborhood context and history analysis for [Claude Code](https://docs.anthropic.com/en/docs/claude-code). Provide an address and get development history, architectural character, historic district status, landmarks, commercial activity, and planned development — sourced from landmarks commissions, planning departments, and archives.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../../../LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../LICENSE)
 
 ## Install
 
@@ -19,13 +19,13 @@ ln -s $(pwd)/skills-for-architects/skills/site-history ~/.claude/skills/site-his
 ## Usage
 
 ```
-/history 742 Evergreen Terrace, Springfield IL
+/site-history 742 Evergreen Terrace, Springfield IL
 ```
 
 Or start with no context:
 
 ```
-/history
+/site-history
 ```
 
 The skill researches:

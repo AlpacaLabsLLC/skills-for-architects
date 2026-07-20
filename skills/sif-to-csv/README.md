@@ -2,7 +2,7 @@
 
 Convert SIF (Standard Interchange Format) files from dealers into readable CSV spreadsheets, for [Claude Code](https://docs.anthropic.com/en/docs/claude-code).
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../../../LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../LICENSE)
 
 ## Install
 

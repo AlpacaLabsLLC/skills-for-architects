@@ -126,7 +126,7 @@ If any MCP call fails with "tool not found" or auth error, stop and report:
 ```
 Google Sheets MCP is not connected or not authenticated.
 
-To connect it, add to ~/.claude/mcp_settings.json:
+To connect it, add to your user-level MCP settings (mcp_settings.json in your Claude config directory):
 
 {
   "mcpServers": {

@@ -2,7 +2,7 @@
 
 DOB permit and job filing history for any NYC building as a [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skill. Queries both the Legacy BIS and DOB NOW systems — covering permits, job applications, and filing statuses across four datasets. No API key required.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../../../LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../LICENSE)
 
 ## Install
 

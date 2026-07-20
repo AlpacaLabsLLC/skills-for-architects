@@ -131,7 +131,7 @@ AD=54dia x 28.5H in
 
 **CSV file:**
 ```
-/csv-to-sif ~/Documents/project/product-data-import.csv
+/csv-to-sif ./product-data-import.csv
 ```
 
 **Google Sheet:**
@@ -272,7 +272,7 @@ Write the `.sif` file with CRLF line endings:
   12 records · 8 fields per record avg
   Manufacturers: HMI (5), KNL (3), STC (2), BLU (2)
   Total list value: $47,830.00
-  Saved to: ~/Documents/project/product-data-import.sif
+  Saved to: ./product-data-import.sif
 ```
 
 ## Pairs With

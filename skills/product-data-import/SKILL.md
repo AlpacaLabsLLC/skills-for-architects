@@ -46,7 +46,7 @@ Nelson Bench 48, Herman Miller, 2, $2195
 
 **A file path:**
 ```
-/product-data-import ~/Documents/project/product-list.csv
+/product-data-import ./product-list.csv
 ```
 
 **Conversational:**

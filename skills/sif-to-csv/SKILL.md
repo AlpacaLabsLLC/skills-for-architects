@@ -86,7 +86,7 @@ SIF is a text-based key-value format. Each line is `CODE=VALUE`, terminated by C
 
 **SIF file:**
 ```
-/sif-to-csv ~/Documents/project/dealer-quote.sif
+/sif-to-csv ./dealer-quote.sif
 ```
 
 **Pasted SIF content:**
@@ -201,7 +201,7 @@ Output the table in conversation.
   3 records · 12 units
   Total list: $22,147 · Total sell: $18,086 (18.3% avg discount)
   Manufacturers: HMI (1), KNL (1), STC (1)
-  Saved to: ~/Documents/project/dealer-quote-parsed.csv
+  Saved to: ./dealer-quote-parsed.csv
 ```
 
 ## Pairs With

@@ -2,7 +2,7 @@
 
 Suggest complementary products that pair well with a given item — side tables for sofas, task lights for desks, etc. for [Claude Code](https://docs.anthropic.com/en/docs/claude-code).
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../../../LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../LICENSE)
 
 ## Install
 

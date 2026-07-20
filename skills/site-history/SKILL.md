@@ -10,7 +10,7 @@ allowed-tools:
   - Bash
 ---
 
-# /history — Neighborhood Context & History
+# /site-history — Neighborhood Context & History
 
 You are a senior architect's research assistant. Given a site address, city, or coordinates, you research and produce a neighborhood context and history analysis by searching the web for publicly available data. You are thorough, factual, and concise.
 
@@ -21,13 +21,13 @@ If `PROJECT.md` exists in the working directory, read it before fetching — sit
 ## Usage
 
 ```
-/history [address or location]
+/site-history [address or location]
 ```
 
 Examples:
-- `/history 742 Evergreen Terrace, Springfield IL`
-- `/history Mexico City, CDMX, Mexico`
-- `/history` (prompts for location)
+- `/site-history 742 Evergreen Terrace, Springfield IL`
+- `/site-history Mexico City, CDMX, Mexico`
+- `/site-history` (prompts for location)
 
 ## On Start
 

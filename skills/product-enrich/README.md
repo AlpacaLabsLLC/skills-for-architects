@@ -2,7 +2,7 @@
 
 Auto-tag FF&E products with categories, colors, materials, and style tags using AI. for [Claude Code](https://docs.anthropic.com/en/docs/claude-code).
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../../../LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../LICENSE)
 
 ## Install
 

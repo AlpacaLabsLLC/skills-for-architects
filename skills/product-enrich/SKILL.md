@@ -36,7 +36,7 @@ Accept product data in any format:
 
 **CSV file:**
 ```
-/product-enrich ~/Documents/project/products.csv
+/product-enrich ./products.csv
 ```
 
 **Pasted data:**
