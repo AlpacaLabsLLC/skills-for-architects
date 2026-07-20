@@ -20,36 +20,15 @@ Look up ACRIS (Automated City Register Information System) property records — 
 /nyc-acris 1001389             (BIN)
 ```
 
-## Step 1: Parse Input
+## Steps 1–2: Parse Input & Resolve BBL
 
-Accept one of:
-- **Address + Borough/Zip** — "120 Broadway, Manhattan" or "120 Broadway 10271"
-- **BBL** — 10-digit number (boro 1 + block 5 + lot 4)
-- **BIN** — 7-digit Building Identification Number
+Read `../nyc-property-report/pluto-resolution.md` (shared by all 7 NYC due-diligence skills) and follow it: parse the input (address, BBL, or BIN) and resolve via PLUTO.
 
-Borough codes: Manhattan=1/MN, Bronx=2/BX, Brooklyn=3/BK, Queens=4/QN, Staten Island=5/SI
-
-## Step 2: Resolve via PLUTO
-
-Query PLUTO to get BBL, BIN, and building metadata. No API key needed.
-
-By BBL:
-```
-https://data.cityofnewyork.us/resource/64uk-42ks.json?bbl={BBL}
-```
-
-By address:
-```
-https://data.cityofnewyork.us/resource/64uk-42ks.json?$where=upper(address) LIKE '%{STREET}%'&borough='{BORO_CODE}'&$limit=5
-```
-
-**Address normalization:** Uppercase, strip unit/apt suffixes. Borough names to codes: Manhattan=MN, Bronx=BX, Brooklyn=BK, Queens=QN, Staten Island=SI. If multiple results, ask the user to pick. If zero, try variations or suggest providing a BBL.
-
-Store from PLUTO: `bbl`, `bin` (or `bldgbin`), `address`, `borough`, `bldgclass`, `zonedist1`, `yearbuilt`, `ownername`, `numfloors`, `lotarea`, `latitude`, `longitude`.
-
-**Parse BBL into separate components** (required for ACRIS): boro = digit 1, block = digits 2-6 (zero-padded), lot = digits 7-10 (zero-padded).
+**This skill's delta:** parsing the BBL into separate boro/block/lot components (per the shared file) is REQUIRED — the ACRIS Legals table has no combined BBL field. BIN resolution is only needed when the user's input was a BIN.
 
 ## Step 3: Query ACRIS (3-Table Join)
+
+Dataset IDs and field names are canonical in `../nyc-property-report/socrata-reference.md` — on any disagreement, the reference wins.
 
 **IMPORTANT:** ACRIS requires BBL (not BIN). The Legals table uses separate `borough`, `block`, `lot` fields — not a combined BBL field.
 
@@ -62,9 +41,9 @@ Extract `document_id` from each row. These are the join keys for the next two qu
 ### Step 3b: Get Document Details from Master Table
 Build a `$where` clause with the document_ids from Step 3a:
 ```
-https://data.cityofnewyork.us/resource/bnx9-e6tj.json?$where=document_id IN ('{id1}','{id2}','{id3}',...)&$order=doc_date DESC
+https://data.cityofnewyork.us/resource/bnx9-e6tj.json?$where=document_id IN ('{id1}','{id2}','{id3}',...)&$order=document_date DESC
 ```
-Key fields: `document_id`, `record_type`, `crfn`, `doc_type`, `doc_date`, `doc_amount`, `recorded_filed`
+Key fields: `document_id`, `record_type`, `crfn`, `doc_type`, `document_date`, `document_amt`, `recorded_datetime` (NOT `doc_date`/`doc_amount`/`recorded_filed` — those fields don't exist and 400)
 
 ### Step 3c: Get Parties from Parties Table
 Same document_ids:

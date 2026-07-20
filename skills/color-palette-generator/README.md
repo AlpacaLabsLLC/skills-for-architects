@@ -42,7 +42,7 @@ From a brand reference:
 /color-palette-generator Aesop meets Ace Hotel
 ```
 
-The skill generates 8-12 colors (primary, secondary, neutral, accent), checks WCAG contrast ratios, and writes a styled `.html` file to `~/Documents/palette-[name-slug].html`.
+The skill generates 8-12 colors (primary, secondary, neutral, accent), checks WCAG contrast ratios, and writes a styled `.html` file to `./palette-[name-slug].html` in the current working directory.
 
 ## What's Included
 

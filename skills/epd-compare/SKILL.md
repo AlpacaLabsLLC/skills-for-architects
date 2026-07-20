@@ -122,14 +122,14 @@ Use `—` for missing data. Never fill in missing values.
 | ECOPact (Holcim) | 242 kg CO2e/m3 | — baseline — | -40% |
 | ProPaving (CEMEX) | 298 kg CO2e/m3 | +23% | -26% |
 | ReadyMix (Buzzi) | 385 kg CO2e/m3 | +59% | -4% |
-| *Industry average* | *~400 kg CO2e/m3* | — | — |
+| *Industry average (NRMCA Industry-Wide Member EPD v3.2, 2022)* | *~400 kg CO2e/m3* | — | — |
 ```
 
-Include an industry average baseline **only if the user provides one** (e.g., from an industry-average EPD or a published baseline document). Do not use approximate or hardcoded baselines.
+Include an industry average baseline **only if it is citable** — either the user provides one (e.g., an industry-average EPD or a published baseline document) or you can attach a named source and publication year, per the GWP Baseline Policy below. Label the baseline row with its source and year.
 
-If the user hasn't provided a baseline, ask: **"Do you have an industry-average EPD or published baseline for this material category? If so, share it and I'll include it in the comparison. We're working on EC3 API integration that will automate baseline lookups — for now, provide an EPD or use `/epd-research` to find one."**
+If no citable baseline is at hand, ask: **"Do you have an industry-average EPD or published baseline for this material category? If so, share it and I'll include it in the comparison. We're working on EC3 API integration that will automate baseline lookups — for now, provide an EPD or use `/epd-research` to find one."**
 
-If no baseline is available, omit the "vs. Industry Avg" column entirely rather than guessing.
+If no citable baseline is available, omit the "vs. Industry Avg" column entirely rather than guessing.
 
 #### c. LEED v4.1 MRc2 assessment
 
@@ -143,10 +143,11 @@ Include this section if the user mentions LEED, or if LEED eligibility data is a
 |---------|----------------|------|-------|
 | ECOPact | ✓ | Product-specific | Third-party verified, ISO 14025 conforming |
 | ProPaving | ✓ | Product-specific | Third-party verified |
-| ReadyMix | ✗ | Industry-average | Does not qualify — industry-average EPDs earn half credit |
+| ReadyMix | ✓ (half) | Industry-wide | Counts as 0.5 product — LEED v4.1 MRc2 Option 1 values industry-wide (generic) EPDs at half the product count of product-specific EPDs |
 
 ### Option 2 — Embodied Carbon Optimization (up to 2 points)
-Products must demonstrate GWP below category baseline:
+Products must demonstrate GWP below category baseline
+(baseline: 400 kg CO2e/m3, NRMCA Industry-Wide Member EPD v3.2, 2022):
 | Product | GWP | Baseline | Delta | Qualifies? |
 |---------|-----|----------|-------|------------|
 | ECOPact | 242 | 400 | -40% | ✓ Yes — significant reduction |
@@ -178,8 +179,8 @@ Be direct and opinionated. The user wants a recommendation, not just data.
 Save the comparison report as markdown:
 
 - **Default path**: `./epd-comparison-YYYY-MM-DD.md`
-- If the user says it's final: `./deliverables/`
-- If no client context: `./deliverables/`
+- If the user says it's final: `./deliverables/epd-comparison-YYYY-MM-DD.md`
+- If no client context: keep it in the working directory (the default path above)
 - Ask the user if they want a different path
 
 After saving:
@@ -200,9 +201,13 @@ Next steps:
 - **All expired EPDs**: Proceed with comparison but add a prominent warning that results are based on expired declarations and should be verified with current EPDs.
 - **Very large comparisons (10+ products)**: Show summary table first, then offer to drill into top 3-5 candidates.
 
+## GWP Baseline Policy
+
+This policy is shared by all four EPD skills (`epd-parser`, `epd-research`, `epd-compare`, `epd-to-spec`) and must read identically in each. Industry-average GWP baselines are allowed only when cited with a named source and publication year (e.g., "NRMCA Industry-Wide Member EPD v3.2, 2022" or "AISC Fabricated Hot-Rolled Structural Sections EPD, 2021"). Uncited baseline numbers recalled from memory or training data are banned. If no source-and-year citation is available, ask the user to provide a baseline EPD or find one with `/epd-research` — never guess a baseline.
+
 ## Notes
 
 - **This skill reads, not writes.** It does not add rows to the EPD Google Sheet. It produces a comparison report as a markdown file.
-- **No hardcoded baselines.** Never use approximate GWP baselines from training data. If the user needs a baseline comparison, ask them to provide an industry-average EPD or use `/epd-research` to find one. EC3 API integration is in progress and will automate this.
+- **Baselines follow the GWP Baseline Policy above.** Cited source + publication year required; uncited from-memory numbers banned. EC3 API integration is in progress and will automate baseline lookups.
 - **GWP (A1-A3) is the primary metric** for most comparisons and LEED. Other indicators (ODP, AP, EP) provide a fuller picture but GWP drives most specification decisions.
 - **Suggest next skills.** After comparison, the natural next steps are `/epd-to-spec` (to write spec language) or `/epd-research` (to find alternatives).

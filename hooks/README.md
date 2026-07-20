@@ -1,18 +1,17 @@
 # Hooks
 
-Hooks are event-driven automations that run automatically during Claude Code sessions. Unlike skills (invoked manually) and rules (reference documents), hooks fire on lifecycle events — after a file is written, before a commit, etc.
+Hooks are event-driven automations that run automatically during Claude Code sessions. Unlike skills (invoked manually) and rules (reference documents), hooks fire on lifecycle events — after a file is written or edited, before a commit, etc.
 
 ## Available Hooks
 
 | Hook | Event | What it does |
 |------|-------|-------------|
-| [post-write-disclaimer-check](./post-write-disclaimer-check.sh) | After Write | Warns if a regulatory output (zoning, occupancy, code analysis) is missing the professional disclaimer |
-| [post-output-metadata](./post-output-metadata.sh) | After Write | Stamps markdown reports with YAML front matter (title, date, skill name) if missing |
-| [pre-commit-spec-lint](./pre-commit-spec-lint.sh) | Before git commit | Scans staged markdown files for malformed CSI section numbers |
+| [post-write-disclaimer-check](./post-write-disclaimer-check.sh) | After Write or Edit | Flags a regulatory output (zoning, occupancy, code analysis) that is missing the professional disclaimer |
+| [pre-commit-spec-lint](./pre-commit-spec-lint.sh) | Before git commit | Scans staged markdown files for malformed CSI section numbers and blocks the commit until they're fixed |
 
 ## Installation
 
-None. The hooks ship with the **Dispatcher** plugin via [`hooks.json`](./hooks.json) and register automatically when the plugin is enabled:
+None. The hooks ship with the **architecture-studio** plugin via [`hooks.json`](./hooks.json) and register automatically when the plugin is enabled:
 
 ```bash
 claude plugin install architecture-studio@skills-for-architects
@@ -24,17 +23,20 @@ Run `/hooks` in Claude Code to confirm they're loaded. Disable them by disabling
 
 ## Behavior
 
-All three hooks **warn but do not block**. They print messages to stderr when issues are found but allow the action to proceed. To make any hook enforce (block the action), change `exit 0` to `exit 2` at the warning point in the script.
+Both hooks surface their findings so Claude actually receives them (stderr with exit 0 is shown to no one in Claude Code):
+
+- **pre-commit-spec-lint** (PreToolUse) exits `2` on findings, which blocks the commit and feeds the stderr message back to Claude so it fixes the staged files before retrying.
+- **post-write-disclaimer-check** (PostToolUse) emits JSON `{"decision": "block", "reason": …}` on stdout on findings, which surfaces the reason to Claude so it restores the disclaimer block.
+
+To downgrade either hook to advisory-only, replace the `exit 2` / JSON emission with a plain `exit 0` at the finding point in the script (the finding then goes unseen).
 
 ### post-write-disclaimer-check
 
-Checks written `.md` files for the `<!-- architecture-studio:requires-disclaimer -->` marker that regulatory skills emit. If the marker is present but the canonical disclaimer block is missing, prints a warning. Marker-driven — silent on files without the marker.
-
-### post-output-metadata
-
-Prepends YAML front matter to new markdown reports that don't already have it. Skips README.md, SKILL.md, CLAUDE.md, and files inside rules/, hooks/, or .claude-plugin/ directories.
+Checks written or edited `.md` files for the `<!-- architecture-studio:requires-disclaimer -->` marker that regulatory skills emit. If the marker is present but the canonical disclaimer block is missing (or the marker appears more than once), it emits a `block` decision telling Claude to restore the block from `rules/professional-disclaimer.md`. Marker-driven — silent on files without the marker. Edit provides no full content in its tool input, so the hook always reads the file from disk.
 
 ### pre-commit-spec-lint
+
+Fires on any Bash command containing `git commit` as a standalone token — including compound forms like `git add -A && git commit -m …`, `git -C <dir> commit`, and `cd <dir> && git commit`. `git commitish` / `git commit-tree` do not trigger it; a quoted string containing `git commit` (e.g. `echo "git commit"`) is a known, harmless false positive — the lint just runs and passes.
 
 Checks staged `.md` files for CSI section number formatting errors:
 
@@ -45,8 +47,7 @@ Checks staged `.md` files for CSI section number formatting errors:
 
 ## Customization
 
-Each script is a standalone bash file. Edit to fit your workflow:
+Each script is a standalone bash file, portable across macOS (BSD sed/grep) and Linux. Edit to fit your workflow:
 
-- Change warning to enforcement: replace `exit 0` with `exit 2` after the warning message
-- Add project-specific metadata fields to the front matter stamp
+- Downgrade enforcement to advisory: replace the `exit 2` / JSON `block` output with `exit 0`
 - Adjust CSI lint patterns for your specification style

@@ -20,43 +20,22 @@ Check if a NYC building is individually landmarked or within a historic district
 /nyc-landmarks 1001389             (BIN)
 ```
 
-## Step 1: Parse Input
+## Steps 1–2: Parse Input & Resolve BBL
 
-Accept one of:
-- **Address + Borough/Zip** — "120 Broadway, Manhattan" or "120 Broadway 10271"
-- **BBL** — 10-digit number (boro 1 + block 5 + lot 4)
-- **BIN** — 7-digit Building Identification Number
+Read `../nyc-property-report/pluto-resolution.md` (shared by all 7 NYC due-diligence skills) and follow it: parse the input (address, BBL, or BIN) and resolve via PLUTO.
 
-Borough codes: Manhattan=1/MN, Bronx=2/BX, Brooklyn=3/BK, Queens=4/QN, Staten Island=5/SI
-
-## Step 2: Resolve via PLUTO
-
-Query PLUTO to get BBL, BIN, and building metadata. No API key needed.
-
-By BBL:
-```
-https://data.cityofnewyork.us/resource/64uk-42ks.json?bbl={BBL}
-```
-
-By address:
-```
-https://data.cityofnewyork.us/resource/64uk-42ks.json?$where=upper(address) LIKE '%{STREET}%'&borough='{BORO_CODE}'&$limit=5
-```
-
-**Address normalization:** Uppercase, strip unit/apt suffixes. Borough names to codes: Manhattan=MN, Bronx=BX, Brooklyn=BK, Queens=QN, Staten Island=SI. If multiple results, ask the user to pick. If zero, try variations (ST vs STREET, AVE vs AVENUE) or suggest providing a BBL.
-
-Store from PLUTO: `bbl`, `bin` (or `bldgbin`), `address`, `borough`, `bldgclass`, `zonedist1`, `yearbuilt`, `ownername`, `numfloors`, `lotarea`, `latitude`, `longitude`, `histdist`.
-
-Parse BBL into: boro (1 digit), block (5 digits zero-padded), lot (4 digits zero-padded).
+**This skill's extra:** also store `histdist` from PLUTO — used in Step 3.
 
 ## Step 3: Query LPC Database
+
+Dataset IDs and field names are canonical in `../nyc-property-report/socrata-reference.md` — on any disagreement, the reference wins.
 
 Use the Individual Landmarks dataset (`buis-pvji`). Query by BBL first:
 ```
 https://data.cityofnewyork.us/resource/buis-pvji.json?bbl={BBL}
 ```
 
-If no results, fallback by block + lot:
+If no results, fallback by block + lot. **This dataset stores block/lot WITHOUT zero-padding** (e.g. block `47`, lot `7501`) — strip leading zeros from the parsed BBL components:
 ```
 https://data.cityofnewyork.us/resource/buis-pvji.json?$where=block='{BLOCK}' AND lot='{LOT}' AND borough='{BOROUGH}'
 ```

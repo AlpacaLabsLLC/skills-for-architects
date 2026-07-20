@@ -38,7 +38,7 @@ The skill researches:
 - **Commercial activity** — retail corridors, restaurants, market character
 - **Planned development** — major projects approved or under construction
 
-Output is saved to `~/Documents/history-[location-slug].md`.
+Output is saved to `./history-[location-slug].md` in the current working directory.
 
 ## Data Sources
 

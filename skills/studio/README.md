@@ -1,6 +1,6 @@
 # /studio — Studio Router
 
-Describe your task and get routed to the right agent or skill. Start here if you don't know which of 34 skills to call.
+Describe your task and get routed to the right agent or skill. Start here if you don't know which skill to call — run `/skills` for the full menu.
 
 ## Usage
 

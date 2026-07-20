@@ -26,7 +26,7 @@ ln -s $(pwd)/skills-for-architects/skills/nyc-dob-permits ~/.claude/skills/nyc-d
 
 The skill:
 
-1. **Resolves the property** via PLUTO — gets BBL, BIN, and building metadata
+1. **Resolves the property** via PLUTO — gets BBL and building metadata (BIN via Building Footprints when needed)
 2. **Queries four DOB datasets** — Legacy permits, Legacy job filings, DOB NOW approved permits, DOB NOW job filings
 3. **Merges and groups results** — sorted by date, grouped by job type (NB, A1, A2, A3, DM, Other)
 4. **Presents the history** — tables with permit numbers, job numbers, statuses, applicants, and dates

@@ -61,8 +61,8 @@ These suffixes create **contextual districts** with mandatory height limits and 
 
 | Suffix | Character |
 |--------|-----------|
-| A | Lower buildings, wider streetwall |
-| B | Taller buildings, flexible streetwall (tower-on-base) |
+| A | Standard contextual — moderate height, continuous streetwall |
+| B | Lowest contextual variant — rowhouse/brownstone scale (e.g., R6B 50 ft, R8B 75 ft) |
 | D | Narrow lot variant — taller/slimmer than A, for lots ≤45 ft wide |
 | X | Hybrid — combines contextual base with some height-factor flexibility |
 
@@ -110,7 +110,7 @@ C1 and C2 overlay districts are mapped within residential districts to allow loc
 - **C1 overlays** (C1-1 through C1-5): Local shopping — retail, personal service, small restaurants
 - **C2 overlays** (C2-1 through C2-5): Broader local service — adds funeral homes, repair shops, etc.
 
-The overlay number (1–5) sets the commercial FAR (matching the underlying residential district's density tier). Commercial uses are typically limited to the ground floor and a depth of 150 ft from the street.
+The overlay's commercial FAR is fixed regardless of the number — 1.0 for all C1 overlays, 2.0 for all C2 overlays (see `commercial.md`). The number (1–5) governs parking requirements and related rules, not FAR: lower numbers carry higher parking requirements, while C1-4/C2-4 and C1-5/C2-5 (mapped in denser, transit-rich areas) require little or none. Commercial uses are typically limited to the ground floor and a depth of 150 ft from the street.
 
 The overlay does NOT change the residential zoning — it adds commercial permissions on top.
 

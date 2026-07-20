@@ -115,6 +115,8 @@ The HTML must include:
 - System font stack (no external font loading)
 - Print-friendly (colors render when printed)
 
+A complete reference output is [sample.html](sample.html) ("Desert Sanctuary" — warm earth tones for a desert spa). Match its structure, self-referential styling, and level of polish.
+
 ### After Writing the File
 
 - Tell the user the file path

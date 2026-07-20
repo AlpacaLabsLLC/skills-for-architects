@@ -26,7 +26,7 @@ ln -s $(pwd)/skills-for-architects/skills/nyc-acris ~/.claude/skills/nyc-acris
 
 The skill:
 
-1. **Resolves the property** via PLUTO — gets BBL, BIN, and building metadata
+1. **Resolves the property** via PLUTO — gets BBL and building metadata (BIN via Building Footprints when needed)
 2. **Gets document IDs** from the ACRIS Legals table by borough/block/lot
 3. **Fetches document details** from the ACRIS Master table — type, date, amount
 4. **Fetches parties** from the ACRIS Parties table — grantors and grantees

@@ -110,7 +110,7 @@ Write the analysis to a markdown file at `./mobility-analysis-[location-slug].md
 
 ## Preferred Sources
 
-Only use governmental, transit authority, or non-profit data sources. Never cite commercial websites (e.g., Google Maps travel times, Yelp, commercial real estate sites).
+Only use governmental, transit authority, or non-profit data sources — with one named exception: **Walk Score (walkscore.com, owned by Redfin)** is the accepted source for Walk/Transit/Bike scores only, because no public-sector equivalent of those scores exists. Cite no other commercial website (e.g., Google Maps travel times, Yelp, commercial real estate sites), and do not use Walk Score for anything beyond the three scores.
 
 | Source | URL | Data |
 |--------|-----|------|
@@ -120,7 +120,7 @@ Only use governmental, transit authority, or non-profit data sources. Never cite
 | LIRR / Metro-North | mta.info | Commuter rail schedules, stations |
 | NYC Open Data — Subway Stations | data.cityofnewyork.us | Station locations, entrances, ADA access |
 | NYC Open Data — Bike Routes | data.cityofnewyork.us | Protected lanes, bike network |
-| Walk Score | walkscore.com | Walk/Transit/Bike scores (non-profit methodology) |
+| Walk Score | walkscore.com | Walk/Transit/Bike scores (Redfin-owned; sole commercial exception, scores only) |
 | FAA Airport Data | faa.gov | Airport locations, codes |
 | USDOT BTS | transtats.bts.gov | National transportation statistics |
 | Local transit agencies | Varies | For non-NYC sites, search for the local transit authority |
@@ -129,7 +129,7 @@ Only use governmental, transit authority, or non-profit data sources. Never cite
 
 - **Be factual.** Every claim should come from a search result. If you cannot find data, say "Not found in public sources" rather than guessing.
 - **Cite sources.** Include URLs in the Sources section for every page you pulled data from.
-- **Only use governmental, transit authority, or non-profit sources.** Do not cite commercial mapping or real estate platforms.
+- **Only use governmental, transit authority, or non-profit sources.** Do not cite commercial mapping or real estate platforms. Walk Score is the single sanctioned exception, for its Walk/Transit/Bike scores only (see Preferred Sources).
 - **Be concise.** Use tables for quantitative data, bullet points for lists. No filler.
 - **Include distances.** Always state walking distance in miles/km and estimated walk time for transit stops.
 - **Use local units.** Imperial for US sites, metric for international sites. Include conversions in parentheses when useful.

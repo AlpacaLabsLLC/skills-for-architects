@@ -40,4 +40,4 @@ Use `src=""` with a descriptive `alt` attribute as a placeholder. Note the place
 
 ## File size note
 
-Base64-encoding large images increases HTML file size. If the user provides many high-res images, warn them: "Embedding N images will produce a large HTML file (~X MB). Consider running `/resize-images --slides` first to reduce file size before embedding."
+Base64-encoding large images increases HTML file size. If the user provides many high-res images, warn them: "Embedding N images will produce a large HTML file (~X MB). Consider running `/resize-images` first (choose the slides output when it asks which sizes you need) to reduce file size before embedding."

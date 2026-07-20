@@ -261,6 +261,12 @@ EPD Link,Manufacturer,Product Name,Description,Declared Unit,Functional Unit,CSI
 - **Very large PDFs (50+ pages)**: Process in 15-page chunks. Give progress updates.
 - **EPDs with impact tables as images**: Detect missing numeric data in what should be table sections. Flag: "Impact tables may be embedded as images — manual extraction needed."
 
+## GWP Baseline Policy
+
+This policy is shared by all four EPD skills (`epd-parser`, `epd-research`, `epd-compare`, `epd-to-spec`) and must read identically in each. Industry-average GWP baselines are allowed only when cited with a named source and publication year (e.g., "NRMCA Industry-Wide Member EPD v3.2, 2022" or "AISC Fabricated Hot-Rolled Structural Sections EPD, 2021"). Uncited baseline numbers recalled from memory or training data are banned. If no source-and-year citation is available, ask the user to provide a baseline EPD or find one with `/epd-research` — never guess a baseline.
+
+For this skill: report only values extracted from the parsed EPD itself. When contextualizing a parsed GWP against an industry average (e.g., in the parse-results summary), the baseline must carry a source-and-year citation or be omitted.
+
 ## Error Reporting
 
 After processing, always report:

@@ -42,7 +42,8 @@ This skill orchestrates all 6 standalone NYC property skills into a single repor
 | Source | Dataset ID | What it provides |
 |--------|-----------|-----------------|
 | PLUTO | `64uk-42ks` | Address resolution, property metadata |
-| LPC Building Database | `7mgd-s57w` | Landmark and historic district status |
+| Building Footprints | `5zhs-2jue` | BBL-to-BIN resolution |
+| LPC Individual Landmarks | `buis-pvji` | Landmark and historic district status |
 | DOB Permit Issuance (Legacy) | `ipu4-2q9a` | Legacy permits |
 | DOB Job Filings (Legacy) | `ic3t-wcy2` | Legacy job applications |
 | DOB NOW Approved Permits | `rbx6-tga4` | DOB NOW permits |
@@ -58,6 +59,7 @@ This skill orchestrates all 6 standalone NYC property skills into a single repor
 | HPD Open Violations | `csn4-vhvf` | Open housing violations |
 | HPD Complaints | `ygpa-z7cr` | Housing complaints |
 | HPD Registrations | `tesw-yqqr` | Building registrations |
+| HPD Registration Contacts | `feu5-w2e2` | Owner and agent names |
 | BSA Applications | `yvxd-uipr` | Variances and special permits |
 
 ## Output

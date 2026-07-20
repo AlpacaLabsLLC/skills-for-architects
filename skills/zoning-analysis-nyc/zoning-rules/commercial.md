@@ -71,7 +71,7 @@ Most C districts allow residential use as-of-right, with the residential FAR set
 | C1-6, C2-6 | R7 equiv | 3.44 |
 | C1-7, C2-7 | R7 equiv | 3.44 |
 | C1-8, C2-8 | R8 equiv | 6.02 |
-| C1-9, C2-9 | R9 equiv | 7.52 |
+| C1-9 | R10 equiv | 10.0 |
 | C4-2 through C4-4 | R6–R7 equiv | 2.43–3.44 |
 | C4-5 through C4-7 | R8–R10 equiv | 6.02–10.0 |
 | C5 (all) | R10 equiv | 10.0 |

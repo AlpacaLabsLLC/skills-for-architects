@@ -20,8 +20,8 @@ Key Quality Housing requirements:
 
 | Suffix | Character | Typical Form |
 |--------|-----------|--------------|
-| **A** | Lower height, wider streetwall | 6–8 story contextual buildings, common in brownstone/rowhouse areas |
-| **B** | Taller, tower-on-base allowed | 10–20+ story towers above a required base, common on wide streets |
+| **A** | Standard contextual — moderate height, continuous streetwall | Mid-rise contextual buildings (e.g., R6A 70 ft, R8A 120 ft), common on avenues and wide streets |
+| **B** | Lowest contextual variant — rowhouse/brownstone scale | 4–7 story buildings (R6B 50 ft, R8B 75 ft), common on brownstone/rowhouse side streets |
 | **D** | Narrow lot variant | Taller/slimmer than A, for lots ≤45 ft wide (infill on narrow frontages) |
 | **X** | Hybrid | Contextual base with some height-factor flexibility above |
 
@@ -157,10 +157,10 @@ In contextual districts, the ground floor of street-facing facades has additiona
 - Ground floor ceiling height minimum: 13 ft (commercial) or 10 ft (residential)
 - No blank walls longer than 25 ft without fenestration
 
-## Tower-on-Base (B suffix)
+## Low-Rise Contextual (B suffix)
 
-R7B and R8B districts allow a tower-on-base form:
-- The base must fill the streetwall to the required base height
-- Above the base, a tower portion may rise to the maximum height
-- The tower portion has a maximum footprint (typically 40% of lot area)
-- The tower must be set back from the base
+B-suffix districts (R6B, R7B, R8B) are the lowest contextual variants, mapped to preserve rowhouse and brownstone neighborhood character:
+- Strict, absolute height limits keep buildings at rowhouse scale — R6B 50 ft (4–5 stories), R7B and R8B 75 ft (6–7 stories), per the tables above
+- The streetwall must be continuous within a low base height range, matching adjacent rowhouse frontages
+- No tower form is permitted — the maximum height cannot be penetrated
+- Typically mapped on narrow side streets in historic rowhouse areas (e.g., Park Slope, Carroll Gardens), while A/D/X variants go on the avenues

@@ -33,7 +33,7 @@ The skill researches two sections:
 1. **Climate** — monthly temperature normals, precipitation, prevailing winds, sun angles, ASHRAE/Köppen classification, humidity, design temperatures
 2. **Natural Features & Hazards** — topography, FEMA flood zones, seismic risk, soil conditions, vegetation, water bodies, contamination
 
-Output is saved to `~/Documents/environmental-analysis-[location-slug].md`.
+Output is saved to `./environmental-analysis-[location-slug].md` in the current working directory.
 
 ## Data Sources
 

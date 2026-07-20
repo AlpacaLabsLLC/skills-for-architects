@@ -32,7 +32,7 @@ M1 districts are common transition zones between commercial/residential areas an
 
 ### M2 Districts
 - **Manufacturing:** Use Groups 16–17 (broader range than M1)
-- **Commercial:** Use Groups 6–14, 16 (limited retail/service)
+- **Commercial:** Use Groups 6–10 and 12–14, 16 (limited retail/service; Use Group 11 hotels not permitted)
 - **Community Facility:** Limited
 - **Residential:** NOT permitted
 - Higher performance standards than M3 (noise, vibration, emissions)
@@ -40,7 +40,7 @@ M1 districts are common transition zones between commercial/residential areas an
 ### M3 Districts
 Most restrictive, for heavy industry:
 - **Manufacturing:** Use Groups 16–18 (all industrial uses)
-- **Commercial:** Use Groups 6–14, 16 (supporting commercial only)
+- **Commercial:** Use Groups 6–10 and 12–14, 16 (supporting commercial only; Use Group 11 hotels not permitted)
 - **Community Facility:** Very limited
 - **Residential:** NOT permitted
 - Lowest performance standards (most industrial activities allowed)

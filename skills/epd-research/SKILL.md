@@ -130,8 +130,9 @@ Declared Unit: 1 m3 · System Boundary: Cradle-to-gate
 Program Operator: ASTM · Reg: EPD-00456 · Valid: 2023-11-01 to 2028-11-01
 LEED: Yes
 PDF: [link]
-Why: Close to site. Higher GWP than ECOPact but still below NRMCA
-industry average (~400 kg CO2e/m3 for 4000 PSI).
+Why: Close to site. Higher GWP than ECOPact but still below the NRMCA
+industry-wide average for 4000 PSI (~400 kg CO2e/m3, NRMCA Industry-Wide
+Member EPD v3.2, 2022).
 
 ### 3. ...
 
@@ -145,7 +146,7 @@ industry average (~400 kg CO2e/m3 for 4000 PSI).
 | 2 | ProPaving 4000 | CEMEX | Yonkers, NY | 298 | kg CO2e/m3 | 2028-11 | Yes |
 | 3 | ... | ... | ... | ... | ... | ... | ... |
 
-Industry average (NRMCA, 4000 PSI): ~400 kg CO2e/m3
+Industry average (NRMCA Industry-Wide Member EPD v3.2, 2022 — 4000 PSI): ~400 kg CO2e/m3
 
 Which ones should I save to your EPD library?
 ```
@@ -153,7 +154,7 @@ Which ones should I save to your EPD library?
 ### Presentation rules
 
 - **Sort by GWP (lowest first)** — environmental performance is the primary ranking criterion
-- **Include industry average** for the material category if known (NRMCA for concrete, AISC for steel, etc.)
+- **Include industry average** for the material category when a citable published baseline exists (NRMCA for concrete, AISC for steel, etc.) — always with named source and publication year, per the GWP Baseline Policy below
 - **Include "Why"** for each — explain why this EPD is relevant to the brief, flag any trade-offs
 - **Flag expired EPDs** — include them if relevant but clearly mark as expired
 - **Note system boundary differences** — if some are cradle-to-gate and others cradle-to-grave, call it out
@@ -194,6 +195,10 @@ The user may want to refine:
 - **"Compare #1 and #2"** — hand off to `/epd-compare`
 - **"Write spec language for #1's GWP as the max threshold"** — hand off to `/epd-to-spec`
 - **"Find the PDF for #3 so I can parse the full data"** — search for downloadable EPD document
+
+## GWP Baseline Policy
+
+This policy is shared by all four EPD skills (`epd-parser`, `epd-research`, `epd-compare`, `epd-to-spec`) and must read identically in each. Industry-average GWP baselines are allowed only when cited with a named source and publication year (e.g., "NRMCA Industry-Wide Member EPD v3.2, 2022" or "AISC Fabricated Hot-Rolled Structural Sections EPD, 2021"). Uncited baseline numbers recalled from memory or training data are banned. If no source-and-year citation is available, ask the user to provide a baseline EPD or find one with `/epd-research` — never guess a baseline.
 
 ## Conversation Style
 

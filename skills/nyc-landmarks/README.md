@@ -26,17 +26,17 @@ ln -s $(pwd)/skills-for-architects/skills/nyc-landmarks ~/.claude/skills/nyc-lan
 
 The skill:
 
-1. **Resolves the property** via PLUTO — gets BBL, BIN, and building metadata
-2. **Queries the LPC database** — checks for individual landmark designation by BIN, with BBL fallback
+1. **Resolves the property** via PLUTO — gets BBL and building metadata (BIN via Building Footprints when needed)
+2. **Queries the LPC database** — checks for individual landmark designation by BBL, with block+lot fallback
 3. **Cross-checks PLUTO** — the `histdist` field catches historic district membership even when the building isn't individually listed
-4. **Presents the result** — designation status, LP number, architect, style, historic district, and implications for permit work
+4. **Presents the result** — designation status, LP number, designation date, type, historic district, and implications for permit work
 
 ## Data Sources
 
 | Source | Dataset ID | What it provides |
 |--------|-----------|-----------------|
 | PLUTO | `64uk-42ks` | Address resolution, BBL/BIN, `histdist` field |
-| LPC Individual Landmark & Historic District Building Database | `7mgd-s57w` | Landmark name, LP number, designation date, type, style, architect, historic district |
+| LPC Individual Landmarks | `buis-pvji` | Landmark name, LP number, designation date, type, site description |
 
 ## Output
 

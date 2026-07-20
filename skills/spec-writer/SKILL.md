@@ -76,7 +76,7 @@ Ask: **"Does this mapping look correct? Any items to add or reassign?"**
 
 ### Step 2: Generate outline specifications
 
-For each section, write a three-part outline spec following CSI SectionFormat:
+For each section, write a three-part outline spec following CSI SectionFormat. A complete worked example is in [sample.md](sample.md) — a commercial office tenant improvement covering Division 09 finish sections and a Division 12 countertop section, with the full three-part structure, `[REVIEW REQUIRED]` flags, and the writing style below. Match its level of detail and formatting.
 
 #### Part 1 — General
 

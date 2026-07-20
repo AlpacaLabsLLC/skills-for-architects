@@ -26,7 +26,7 @@ ln -s $(pwd)/skills-for-architects/skills/nyc-bsa ~/.claude/skills/nyc-bsa
 
 The skill:
 
-1. **Resolves the property** via PLUTO — gets BBL, BIN, and building metadata
+1. **Resolves the property** via PLUTO — gets BBL and building metadata (BIN via Building Footprints when needed)
 2. **Queries BSA applications** by BBL, with address fallback
 3. **Presents results** — application number, type (variance/special permit), decision, date, and description
 

@@ -80,7 +80,7 @@ A sample deck demonstrating every type is at `sample.html` in this skill's direc
 - **Left-aligned by default.** Content is flush-left with generous left padding. Only statement slides center text.
 - **Massive whitespace.** Content should breathe. Never fill the slide — leave at least 40% empty.
 - **Eyebrow top-left.** Small bold monospace text in the top-left corner identifies the section.
-- **Brand mark bottom-right.** A small "ALPA" wordmark sits fixed in the bottom-right corner.
+- **Brand mark bottom-right.** A small "ALPA" wordmark sits fixed in the bottom-right corner of every slide, with two exceptions: the full-bleed image slide (type 17) and the image-grid slides (types 19-22) omit it so nothing overlaps the photography. The full-bleed + title slide (type 18) keeps it.
 - **No decorative boxes or cards.** Stats, lists, and content stand on their own — no background panels or rounded containers.
 
 ### Slide Types (background classes on `.slide` div)
@@ -115,7 +115,7 @@ The exact HTML markup for every component (eyebrow, heading + body/list/stats, s
   - Bad: "Huddle Room Analysis"
 - Subtitles and descriptions: lightweight, factual, no jargon
 - Stats: pick the most dramatic number, give it context with the label
-- Tables: 4-6 rows max. Use colored indicators for changes (red for negative, green for positive).
+- Tables: 4-6 rows max. Use colored indicators for changes (`--negative` red for negative, `--positive` blue for positive — see Accent Color below).
 - Lists: lead with the bold action/finding, follow with the detail after an em dash
 
 ## Accent Color
@@ -142,4 +142,4 @@ Ask the user if they want a specific accent color. If the topic suggests a brand
 
 ## Output
 
-Write the complete HTML file using the Write tool, built on the exact CSS/JS in [html-template.md](html-template.md). The first slide must have class `active`. Every slide must be a direct child `<div class="slide ...">` inside body, before the `<nav>`. Add `<div class="brand-mark">ALPA</div>` to every slide.
+Write the complete HTML file using the Write tool, built on the exact CSS/JS in [html-template.md](html-template.md). The first slide must have class `active`. Every slide must be a direct child `<div class="slide ...">` inside body, before the `<nav>`. Add `<div class="brand-mark">ALPA</div>` to every slide except full-bleed image (`.image-slide`) and image-grid (`.image-grid`) slides, which omit it (see Layout Philosophy).

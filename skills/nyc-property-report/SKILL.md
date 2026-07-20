@@ -32,49 +32,26 @@ If `PROJECT.md` exists in the working directory, read it before fetching — pri
 /nyc-property-report 1001389             (BIN)
 ```
 
-## Step 1: Parse Input
+## Steps 1–2: Parse Input & Resolve BBL/BIN
 
-Accept one of:
-- **Address + Borough/Zip** — "120 Broadway, Manhattan" or "120 Broadway 10271"
-- **BBL** — 10-digit number (boro 1 + block 5 + lot 4)
-- **BIN** — 7-digit Building Identification Number
+Read `pluto-resolution.md` (in this skill's directory) and follow it: parse the input (address, BBL, or BIN), resolve via PLUTO, and resolve BIN via Building Footprints.
 
-Borough codes: Manhattan=1/MN, Bronx=2/BX, Brooklyn=3/BK, Queens=4/QN, Staten Island=5/SI
-
-Strip apartment/unit/floor suffixes. Handle hyphenated Queens addresses.
-
-## Step 2: Resolve via PLUTO
-
-By BBL:
-```
-https://data.cityofnewyork.us/resource/64uk-42ks.json?bbl={BBL}
-```
-
-By address:
-```
-https://data.cityofnewyork.us/resource/64uk-42ks.json?$where=upper(address) LIKE '%{STREET}%'&borough='{BORO_CODE}'&$limit=5
-```
-
-**Address normalization:** Uppercase, strip unit/apt. Borough names to codes: Manhattan=MN, Bronx=BX, Brooklyn=BK, Queens=QN, Staten Island=SI. If multiple results, ask user to pick. If zero, try variations or suggest BBL.
-
-Store: `bbl`, `bin`/`bldgbin`, `address`, `borough`, `zipcode`, `cd`, `bldgclass`, `zonedist1`, `yearbuilt`, `ownername`, `numfloors`, `lotarea`, `bldgarea`, `unitstotal`, `histdist`, `latitude`, `longitude`.
-
-Parse BBL: boro (1 digit), block (5 digits zero-padded), lot (4 digits zero-padded).
+**This skill's extras:** in addition to the base PLUTO field set, store `zipcode`, `cd`, `bldgarea`, `unitstotal`, `histdist`, `numbldgs`.
 
 ## Step 3: Query All 6 Domains
 
 Query each domain in sequence. If any query fails, note the error and continue with the next domain.
 
-Read `socrata-reference.md` (in this skill's directory) for the full API reference with field names and SoQL patterns.
+Read `socrata-reference.md` (in this skill's directory) — it is the single source of truth for every dataset ID and field name below. If a query here ever disagrees with it, the reference wins.
 
 ### Domain 1: Landmarks
 
-By BIN: `https://data.cityofnewyork.us/resource/7mgd-s57w.json?bin_number={BIN}`
-Fallback by BBL: `https://data.cityofnewyork.us/resource/7mgd-s57w.json?bbl={BBL}`
+By BBL: `https://data.cityofnewyork.us/resource/buis-pvji.json?bbl={BBL}`
+Fallback by block + lot (NOT zero-padded): `https://data.cityofnewyork.us/resource/buis-pvji.json?$where=block='{BLOCK}' AND lot='{LOT}' AND borough='{BOROUGH}'`
 
 Also check PLUTO `histdist` field — if set, property is in a historic district.
 
-Key fields: `lpc_name`, `lpc_number`, `date_designated`, `building_type`, `style`, `architect`, `historic_district_name`, `status`
+Key fields: `lpc_name`, `lpc_lpnumb`, `desdate`, `landmarkty`, `lpc_sitede`, `lpc_sitest`, `lpc_altern`, `address`, `url_report`
 
 ### Domain 2: DOB Permits
 
@@ -90,7 +67,7 @@ Merge, sort by date DESC, group by job type (NB, A1, A2, A3, DM, Other).
 ### Domain 3: DOB Violations
 
 DOB violations: `https://data.cityofnewyork.us/resource/3h2n-5cm9.json?$where=bin='{BIN}'&$order=issue_date DESC&$limit=50`
-ECB violations: `https://data.cityofnewyork.us/resource/6bgk-3dad.json?$where=bin='{BIN}'&$order=violation_date DESC&$limit=50`
+ECB violations: `https://data.cityofnewyork.us/resource/6bgk-3dad.json?$where=bin='{BIN}'&$order=issue_date DESC&$limit=50`
 Active violations: `https://data.cityofnewyork.us/resource/sjhj-bc8q.json?$where=bin='{BIN}'`
 
 Flag open violations with ⚠. Show ECB penalties.
@@ -100,7 +77,7 @@ Flag open violations with ⚠. Show ECB penalties.
 **Requires BBL** (not BIN). Uses separate borough/block/lot fields.
 
 Step A — Legals: `https://data.cityofnewyork.us/resource/8h5j-fqxa.json?borough={boro}&block={block}&lot={lot}&$order=good_through_date DESC&$limit=20`
-Step B — Master: `https://data.cityofnewyork.us/resource/bnx9-e6tj.json?$where=document_id IN ('{id1}','{id2}',...)&$order=doc_date DESC`
+Step B — Master: `https://data.cityofnewyork.us/resource/bnx9-e6tj.json?$where=document_id IN ('{id1}','{id2}',...)&$order=document_date DESC` (fields: `document_date`, `document_amt`, `recorded_datetime`)
 Step C — Parties: `https://data.cityofnewyork.us/resource/636b-3b5g.json?$where=document_id IN ('{id1}','{id2}',...)`
 Step D — Doc codes: `https://data.cityofnewyork.us/resource/7isb-wh4c.json?$limit=200`
 
@@ -114,15 +91,16 @@ Join by document_id. Party type 1=Grantor, 2=Grantee. Group by doc type (Deeds, 
 
 Violations: `https://data.cityofnewyork.us/resource/wvxf-dwi5.json?$where=boroid='{boro}' AND block='{block}' AND lot='{lot}'&$order=inspectiondate DESC&$limit=50`
 Open violations: `https://data.cityofnewyork.us/resource/csn4-vhvf.json?$where=boroid='{boro}' AND block='{block}' AND lot='{lot}'`
-Complaints: `https://data.cityofnewyork.us/resource/ygpa-z7cr.json?$where=boroid='{boro}' AND block='{block}' AND lot='{lot}'&$order=receiveddate DESC&$limit=30`
+Complaints (uses `borough` as TEXT — "MANHATTAN", "BROOKLYN", … — not `boroid`): `https://data.cityofnewyork.us/resource/ygpa-z7cr.json?$where=borough='{BOROUGH_NAME}' AND block='{block}' AND lot='{lot}'&$order=received_date DESC&$limit=30`
 Registrations: `https://data.cityofnewyork.us/resource/tesw-yqqr.json?$where=boroid='{boro}' AND block='{block}' AND lot='{lot}'`
+Registration contacts (owner names — registrations dataset has none): `https://data.cityofnewyork.us/resource/feu5-w2e2.json?$where=registrationid='{registrationid}'`
 
 Flag Class C violations with ⚠ (immediately hazardous).
 
 ### Domain 6: BSA
 
-By BBL: `https://data.cityofnewyork.us/resource/yvxd-uipr.json?$where=bbl='{BBL}'&$order=calendar_date DESC`
-Address fallback: `https://data.cityofnewyork.us/resource/yvxd-uipr.json?$where=upper(premises_address) LIKE '%{STREET}%' AND borough='{BOROUGH}'&$order=calendar_date DESC`
+By BBL: `https://data.cityofnewyork.us/resource/yvxd-uipr.json?$where=bbl='{BBL}'&$order=date DESC`
+Address fallback: `https://data.cityofnewyork.us/resource/yvxd-uipr.json?$where=upper(street_name) LIKE '%{STREET}%' AND borough='{BOROUGH}'&$order=date DESC`
 
 ## Step 4: Write Report
 

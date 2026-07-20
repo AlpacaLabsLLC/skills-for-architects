@@ -35,7 +35,7 @@ The skill researches:
 - **Age & composition** — median age, cohort breakdown, racial/ethnic composition
 - **Housing market** — median home price, rental rates, housing stock
 
-All metrics are compared to metro and national benchmarks. Output is saved to `~/Documents/demographics-analysis-[location-slug].md`.
+All metrics are compared to metro and national benchmarks. Output is saved to `./demographics-analysis-[location-slug].md` in the current working directory.
 
 ## Data Sources
 

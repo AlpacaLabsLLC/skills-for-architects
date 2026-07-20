@@ -19,14 +19,14 @@ ln -s $(pwd)/skills-for-architects/skills/nyc-hpd ~/.claude/skills/nyc-hpd
 ## Usage
 
 ```
-/nyc-hpd 742 Evergreen Terrace, Springfield
-/nyc-hpd 3011650045          (BBL)
-/nyc-hpd 3388190             (BIN)
+/nyc-hpd 1055 Bergen Street, Brooklyn
+/nyc-hpd 3012120065          (BBL)
+/nyc-hpd 3030348             (BIN)
 ```
 
 The skill:
 
-1. **Resolves the property** via PLUTO — gets BBL, BIN, building class, and metadata
+1. **Resolves the property** via PLUTO — gets BBL, building class, and metadata (BIN via Building Footprints when needed)
 2. **Checks building class** — HPD only applies to residential classes. Non-residential buildings get an early exit with a note.
 3. **Queries four HPD datasets** — violations, open violations, complaints, and registrations
 4. **Flags hazardous violations** — Class C (immediately hazardous) violations are flagged prominently

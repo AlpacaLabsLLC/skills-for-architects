@@ -76,7 +76,7 @@ If a `program.json` file exists in the working directory (from `/workplace-progr
 | File | Purpose |
 |------|---------|
 | `SKILL.md` | Persona, domain expertise, conversation flow, formatting rules |
-| `data/occupancy-load-factors.json` | 39 IBC 2021 Table 1004.5 use types with load factors, gross/net designation, aliases, and NYC BC variant notes |
+| `data/occupancy-load-factors.json` | 40 IBC 2021 Table 1004.5 use types with load factors, gross/net designation, aliases, and NYC BC variant notes |
 | `data/use-groups.json` | 21 IBC use group classifications (A through U) with descriptions and examples |
 
 ## Customization

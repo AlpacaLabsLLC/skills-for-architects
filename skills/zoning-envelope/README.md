@@ -1,6 +1,6 @@
 # /zoning-envelope
 
-Interactive 3D zoning envelope viewer as a [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skill. Generates a self-contained HTML file with Three.js that renders the buildable envelope for any lot — exact lot polygon from GIS data, setback zones, extruded volumes, height caps, and interactive orbit controls.
+Interactive 3D zoning envelope viewer as a [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skill. Generates a single HTML file (Three.js loaded from a CDN) that renders the buildable envelope for any lot — exact lot polygon from GIS data, setback zones, extruded volumes, height caps, and interactive orbit controls.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../../../LICENSE)
 
@@ -77,7 +77,7 @@ The skill then:
 1. Parses the polygon and envelope parameters
 2. Computes inset polygons for setback zones and building volumes
 3. Triangulates the polygons (ear-clipping) for 3D extrusion
-4. Generates a self-contained HTML file with embedded Three.js
+4. Generates a single HTML file that loads Three.js from a CDN (internet required to view)
 5. Opens it in the browser
 
 ## Key features

@@ -94,7 +94,7 @@ These districts have TWO regulatory systems:
 | Parameter | R6 | R7 |
 |-----------|-----|-----|
 | Base FAR (no bonus) | 0.78–2.43 | 0.87–3.44 |
-| Max FAR (IH bonus) | 2.43 | 3.44 |
+| Max FAR (IH bonus) | 2.43 | 4.60 |
 | Max Height | None (sky exposure) | None (sky exposure) |
 | Sky Exposure Plane (wide st) | starts 60 ft, 2.7:1 | starts 60 ft, 5.6:1 |
 | Sky Exposure Plane (narrow st) | starts 60 ft, 1:1 | starts 60 ft, 2.7:1 |

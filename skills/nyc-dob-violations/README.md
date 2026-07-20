@@ -26,7 +26,7 @@ ln -s $(pwd)/skills-for-architects/skills/nyc-dob-violations ~/.claude/skills/ny
 
 The skill:
 
-1. **Resolves the property** via PLUTO — gets BBL, BIN, and building metadata
+1. **Resolves the property** via PLUTO — gets BBL and building metadata (BIN via Building Footprints when needed)
 2. **Queries three violation datasets** — DOB violations, ECB violations, and active/open violations
 3. **Flags open violations** with a warning indicator at the top of the report
 4. **Presents all violations** — with types, dates, dispositions, and ECB penalty amounts

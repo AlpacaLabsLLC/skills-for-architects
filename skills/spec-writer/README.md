@@ -52,7 +52,7 @@ TPO roof, porcelain tile in lobbies, carpet tile in offices, ACT ceilings throug
 2. Generates three-part outline specs (General / Products / Execution) for each section
 3. Includes reference standards (ASTM, ANSI), acceptable manufacturers, performance criteria
 4. Flags generic sections with `[REVIEW REQUIRED]` for senior specifier attention
-5. Writes a single organized `.md` file to `~/Documents/outline-specs-[project-slug].md`
+5. Writes a single organized `.md` file to `./outline-specs-[project-slug].md` in the current working directory
 
 ## Divisions Covered
 

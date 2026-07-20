@@ -15,39 +15,14 @@ Look up HPD (Housing Preservation & Development) violations, complaints, and bui
 ## Usage
 
 ```
-/nyc-hpd 742 Evergreen Terrace, Springfield
-/nyc-hpd 3011650045          (BBL)
-/nyc-hpd 3388190             (BIN)
+/nyc-hpd 1055 Bergen Street, Brooklyn
+/nyc-hpd 3012120065          (BBL)
+/nyc-hpd 3030348             (BIN)
 ```
 
-## Step 1: Parse Input
+## Steps 1–2: Parse Input & Resolve BBL
 
-Accept one of:
-- **Address + Borough/Zip** — "742 Evergreen Terrace, Springfield 62704"
-- **BBL** — 10-digit number (boro 1 + block 5 + lot 4)
-- **BIN** — 7-digit Building Identification Number
-
-Borough codes: Manhattan=1/MN, Bronx=2/BX, Brooklyn=3/BK, Queens=4/QN, Staten Island=5/SI
-
-## Step 2: Resolve via PLUTO
-
-Query PLUTO to get BBL, BIN, and building metadata. No API key needed.
-
-By BBL:
-```
-https://data.cityofnewyork.us/resource/64uk-42ks.json?bbl={BBL}
-```
-
-By address:
-```
-https://data.cityofnewyork.us/resource/64uk-42ks.json?$where=upper(address) LIKE '%{STREET}%'&borough='{BORO_CODE}'&$limit=5
-```
-
-**Address normalization:** Uppercase, strip unit/apt suffixes. Borough names to codes: Manhattan=MN, Bronx=BX, Brooklyn=BK, Queens=QN, Staten Island=SI. If multiple results, ask the user to pick. If zero, try variations or suggest providing a BBL.
-
-Store from PLUTO: `bbl`, `bin` (or `bldgbin`), `address`, `borough`, `bldgclass`, `zonedist1`, `yearbuilt`, `ownername`, `numfloors`, `lotarea`, `latitude`, `longitude`.
-
-Parse BBL into: boro (1 digit), block (5 digits zero-padded), lot (4 digits zero-padded).
+Read `../nyc-property-report/pluto-resolution.md` (shared by all 7 NYC due-diligence skills) and follow it: parse the input (address, BBL, or BIN — e.g. "1055 Bergen Street, Brooklyn") and resolve via PLUTO. HPD queries key on boro/block/lot, so BIN resolution is only needed when the user's input was a BIN.
 
 ### Check Building Class
 
@@ -60,13 +35,15 @@ And stop. Do not query HPD APIs.
 
 ## Step 3: Query HPD Datasets
 
-**IMPORTANT:** HPD uses `boroid` (not `borough`). And `block`/`lot` are separate fields — not a combined BBL.
+Dataset IDs and field names are canonical in `../nyc-property-report/socrata-reference.md` — on any disagreement, the reference wins.
+
+**IMPORTANT:** HPD violations/registrations use `boroid` (not `borough`). And `block`/`lot` are separate fields — not a combined BBL.
 
 ### HPD Violations
 ```
 https://data.cityofnewyork.us/resource/wvxf-dwi5.json?$where=boroid='{boro}' AND block='{block}' AND lot='{lot}'&$order=inspectiondate DESC&$limit=50
 ```
-Key fields: `violationid`, `violationclass`, `inspectiondate`, `approveddate`, `originalcertifybydate`, `novdescription`
+Key fields: `violationid`, `class` (violation class — NOT `violationclass`), `inspectiondate`, `approveddate`, `originalcertifybydate`, `novdescription`, `currentstatus`
 
 ### Open HPD Violations
 ```
@@ -87,7 +64,13 @@ Key fields: `complaint_id`, `received_date`, `complaint_status`, `complaint_stat
 ```
 https://data.cityofnewyork.us/resource/tesw-yqqr.json?$where=boroid='{boro}' AND block='{block}' AND lot='{lot}'
 ```
-Key fields: `registrationid`, `buildingid`, `registrationenddate`, `ownerfirstname`, `ownerlastname`
+Key fields: `registrationid`, `buildingid`, `bin`, `registrationenddate`, `lastregistrationdate`
+
+**Note:** The registrations dataset has NO owner-name fields. Get owner/agent names from Registration Contacts (`feu5-w2e2`), keyed by `registrationid`:
+```
+https://data.cityofnewyork.us/resource/feu5-w2e2.json?$where=registrationid='{registrationid}'
+```
+Key fields: `type` (CorporateOwner / Agent / HeadOfficer / IndividualOwner), `firstname`, `lastname`, `corporationname`
 
 ## Step 4: Print Results
 
@@ -98,7 +81,7 @@ Key fields: `registrationid`, `buildingid`, `registrationenddate`, `ownerfirstna
 | Field | Value |
 |-------|-------|
 | Registration ID | ... |
-| Owner | {ownerfirstname} {ownerlastname} |
+| Owner | {corporationname or firstname lastname, from registration contacts} |
 | Registration Expiry | YYYY-MM-DD |
 
 ### ⚠ Open Violations: {count}

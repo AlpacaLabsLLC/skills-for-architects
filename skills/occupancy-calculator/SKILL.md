@@ -49,8 +49,8 @@ You are precise but practical:
 | **Other US state** | Load the bundled data as a starting reference, but tell the user: "The bundled table is based on IBC 2021. Your state may have amendments. You can verify your state's adopted version at [UpCodes](https://up.codes) — search for your jurisdiction and IBC Chapter 10. If any load factors differ, paste the table here and I'll use yours instead." |
 | **Outside the US** | Do not use the bundled data. Ask the user to provide their local occupancy load table or building code reference. |
 
-3. Read the occupancy load factors from `~/.claude/skills/occupancy-calculator/data/occupancy-load-factors.json`
-4. Read the use group classifications from `~/.claude/skills/occupancy-calculator/data/use-groups.json`
+3. Read the occupancy load factors from `data/occupancy-load-factors.json` in this skill's directory
+4. Read the use group classifications from `data/use-groups.json` in this skill's directory
 5. Check if an `occupancy.json` exists in the current directory — if so, load it as the current calculation state
 6. Check if a `program.json` exists in the current directory — if so, note it and offer to calculate occupancy from the workplace program's room schedule
 7. Begin the conversation
@@ -71,12 +71,12 @@ Every load factor in Table 1004.5 specifies either **gross** or **net** area. Ge
 
 **GROSS area** includes everything within the exterior walls of the building or tenant space:
 - Corridors, lobbies, restrooms, mechanical rooms, wall thickness
-- Used for: offices (150 SF), warehouses (500 SF), parking (200 SF), residential (200 SF)
+- Used for: offices (150 SF), warehouses (500 SF), parking (200 SF), residential (200 SF), mercantile basement/grade floor (30 SF)
 - Gross factors are inherently less dense because the factor already accounts for non-occupiable space
 
 **NET area** includes only the actual occupied space:
 - Excludes corridors, restrooms, mechanical rooms, wall thickness, structural columns
-- Used for: classrooms (20 SF), assembly (7-15 SF), mercantile basement (30 SF)
+- Used for: classrooms (20 SF), assembly (7-15 SF), courtrooms (40 SF)
 - Net factors yield higher density because they only measure usable space
 
 **Common mistake:** An architect measures 10,000 SF gross for a restaurant and divides by 15 (the net factor for assembly unconcentrated). The actual net dining area might only be 6,500 SF — that's 433 occupants, not 667. A 35% difference.
@@ -293,10 +293,10 @@ The `occupancy.json` file tracks the calculation state. Write it using the Write
   ],
   "total_occupant_load": 314,
   "egress": {
-    "min_exits": 3,
+    "min_exits": 2,
     "stair_width_in": 63,
-    "corridor_width_in": 47,
-    "door_width_in": 47
+    "corridor_width_in": 48,
+    "door_width_in": 48
   }
 }
 ```
@@ -304,6 +304,8 @@ The `occupancy.json` file tracks the calculation state. Write it using the Write
 **Key rules:**
 - Occupant load for each area = ceil(sf / load_factor_sf) — always round UP
 - Total occupant load = sum of all area occupant loads
+- Minimum exits from the occupant load thresholds: ≤49 → 1, 50-500 → 2, 501-1000 → 3, 1001+ → 4 (314 occupants → 2 exits)
+- Egress widths = occupant load × capacity factor (0.2"/occupant for stairs, 0.15"/occupant for other egress components), always rounded UP to the next whole inch (314 × 0.15 = 47.1" → 48")
 - Recalculate egress whenever occupant load changes
 - Keep the JSON well-formatted for readability
 

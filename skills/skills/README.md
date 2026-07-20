@@ -8,7 +8,7 @@ Prints the full menu of available skills and agents, organized by task. A read-o
 /skills
 ```
 
-Shows all 36 skills and 7 agents with one-line descriptions, grouped by domain. No arguments needed.
+Shows every skill and agent with one-line descriptions, grouped by domain. No arguments needed.
 
 ## License
 

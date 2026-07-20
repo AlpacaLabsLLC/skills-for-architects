@@ -35,7 +35,7 @@ The skill researches:
 - **Roads & driving** — highways, arterials, airport access
 - **Pedestrian & cycling** — sidewalks, bike lanes, bike share stations
 
-Output is saved to `~/Documents/mobility-analysis-[location-slug].md`.
+Output is saved to `./mobility-analysis-[location-slug].md` in the current working directory.
 
 ## Data Sources
 

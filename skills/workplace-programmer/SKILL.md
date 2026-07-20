@@ -38,9 +38,9 @@ You are opinionated but transparent:
 
 ## On Startup
 
-1. Read the archetype benchmarks from `~/.claude/skills/workplace-programmer/data/archetypes.json`
-2. Read the space type catalog from `~/.claude/skills/workplace-programmer/data/space-types.json`
-3. Read research findings from `~/.claude/skills/workplace-programmer/data/findings.json`
+1. Read the archetype benchmarks from `data/archetypes.json` in this skill's directory
+2. Read the space type catalog from `data/space-types.json` in this skill's directory
+3. Read research findings from `data/findings.json` in this skill's directory
 4. Check if a `program.json` exists in the current directory — if so, load it as the current program state
 5. Begin the conversation
 
