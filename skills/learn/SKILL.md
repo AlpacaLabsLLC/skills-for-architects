@@ -76,7 +76,7 @@ The bar is 18 cells: 3 `█` per completed module, `░` for the rest. One glanc
 ## Setup (first run only)
 
 1. Ask where the practice studio should live. Default: a folder called `claude-code-101` in their home folder. Make taking the default effortless.
-2. Create the folder; copy the six files from `sandbox/art-museum/` (next to this SKILL.md) into the top of the practice folder — six messy files, no wrapper directory. Introduce the project in one sentence: a fictional Brooklyn art museum planning a rooftop expansion, with a leaky skylight, an impatient director, and a July gala.
+2. Create the folder; copy the six files from `sandbox/art-museum/` (next to this SKILL.md) into the top of the practice folder — six messy files, no wrapper directory. Introduce the project in one sentence: a fictional Brooklyn art museum planning a rooftop expansion — six files, from raw site notes to a half-scanned zoning memo.
 3. Create `PROGRESS.md` from the template below. **This is the markdown moment** — three sentences: `.md` means markdown, plain text with pencil conventions; no app owns it and it opens in anything, for decades; it lives right here in their folder, because everything this tool remembers is a file they can read. Nothing hidden.
 4. If launched from elsewhere, explain in one breath why the launch folder matters and continue with full paths — relaunching is never a blocker.
 
