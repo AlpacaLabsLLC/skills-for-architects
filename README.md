@@ -219,7 +219,7 @@ Two layers of persistent per-project state, as plain files in the project folder
 
 | Skill | Description |
 |-------|-------------|
-| [`/learn`](./skills/learn) | Guided course teaching architects Claude Code — 6 hands-on modules on a bundled sandbox project you pick from five types, resumable anytime. Module 6 gates real work behind a source-check drill — including what to do when the document is silent — and a work-on-a-copy rule. |
+| [`/learn`](./skills/learn) | Guided course teaching architects Claude Code — 6 hands-on modules on a bundled sandbox project you pick from five types, resumable anytime. Module 6 closes with a source-check drill — including what to do when the document is silent — and a work-on-a-copy habit before one real task. |
 
 ## Rules
 

@@ -150,10 +150,10 @@ In order. For each: signpost, teach conversationally, run the exercise with narr
 
 ### Module 6 — Get started (30–60 min · bring a real project)
 
-The graduation, in three movements — gate, pre-check, real work.
+The graduation: one last drill on the sandbox, a short professional checklist, then their real work. None of it is a requirement — it's the closing exercise of a course they can leave at any moment.
 
-- **The gate — verify like a professional.** Summarize the regulatory excerpt (`Scan_001`) faithfully, then hand them the question: *"show me where in the document it says that."* They pick two or three claims; answer each with the exact lines, honestly grading restatement vs. paraphrase vs. inference. Then prompt the absence question — a topic the excerpt is deliberately silent on (parking, for the loft). The only honest answer is "the document doesn't say"; land the lesson that silence and "no requirement" are different things, and the dangerous failure mode — for an AI or anyone on a deadline — is filling silence with a confident guess.
-- **The pre-check, before any real file:** (1) does their firm permit AI tools on client material — not knowing means finding out first, which *is* the professional answer; (2) pick something low-stakes, never financials or personnel; (3) **work on a copy** — fresh folder, files copied in, original untouched on the server. A permanent habit, not a training wheel.
+- **Verify like a professional — the drill.** Summarize the regulatory excerpt (`Scan_001`) faithfully, then hand them the question: *"show me where in the document it says that."* They pick two or three claims; answer each with the exact lines, honestly grading restatement vs. paraphrase vs. inference. Then prompt the absence question — a topic the excerpt is deliberately silent on (parking, for the loft). The only honest answer is "the document doesn't say"; land the lesson that silence and "no requirement" are different things, and the dangerous failure mode — for an AI or anyone on a deadline — is filling silence with a confident guess.
+- **The professional checklist — offered as a colleague would, never imposed:** (1) does their firm permit AI tools on client material — if they don't know, say finding out is worth doing, and leave the call with them; (2) something low-stakes beats the lawsuit project; (3) **work on a copy** — fresh folder, files copied in, original untouched on the server. Recommend it once, plainly; their project, their decision.
 - **The real task:** set up the copy, launch there, write a starter `CLAUDE.md`, run one real task end to end (their choice — a site-visit report from real notes, organizing real deliverables, extracting a real program), verification habits out loud.
 - **Off-ramp, once and not as a pitch:** the rest of Architecture Studio is already installed — site analysis, zoning, programming, specs, materials — entry point `/studio`; the whole harness is open source at `AlpacaLabsLLC/skills-for-architects`.
 - **Pass:** Claims traced to lines, absence question asked, and one real task completed on a copy. Mark the course complete; close by naming the distance traveled and the habits that stay: demand sources, check the original, follow the firm's policy, and their license — not the machine — signs the work.
@@ -187,12 +187,13 @@ Mark completed modules `✅`, fill recaps, keep `Next up:` current, and use `Not
 
 | Situation | Handling |
 |-----------|----------|
-| Learner asks to skip ahead | Allow it — mark `⏭`; Module 6's gate should never be skipped: if they jump to real work, run the gate first |
+| Learner asks to skip ahead | Allow it, no friction — mark `⏭` and go where they point |
 | Learner already knows some of this | Compress the teach beats to one line, keep the exercise; the exercises are the course |
 | `PROGRESS.md` from an earlier version (7 or 8 numbered rows, 0-indexed) | Map completed marks by content: old 0→1, old 1→2, old 2/“files are the interface”→4, old 3→3, old “Skills”→5, old “Trust”/“Bigger jobs”→noted inside 6 / the planned advanced track. Rewrite the table in the new shape on next update |
 | `PROGRESS.md` has no `Project:` entry | It's the Brooklyn loft — carry on and add the entry next update |
 | Practice folder or sandbox files missing | Offer to rebuild — recreate the chosen project's six files matching the module descriptions, same names, same planted flaws |
 | `templates/` missing | Recreate the starter binder from Module 3's description: units, area types, code citations, disclaimer, `← edit` markers |
 | Learner asks about plan mode, subagents, batches | A taste is fine, then be honest: that's the planned advanced track; the habit that matters now is "plan first," and they have it |
-| Learner starts doing real work mid-course | Help them — momentum beats curriculum; run Module 6's gate and pre-check first, note where to resume |
+| Learner starts doing real work mid-course | Help them — momentum beats curriculum. Mention the Module 6 checklist once (policy, low-stakes, copy) the way a colleague would, then get on with their work; note in PROGRESS.md where to resume |
+| Learner asks to quit — anytime, even mid-module | Stop immediately, zero persuasion. Update PROGRESS.md to the true state, print the return ritual, one warm goodbye. /learn comes back only when they ask |
 | Anxiety about breaking things | Point at the permission prompt and the fictional sandbox: nothing is written without their yes, and there is nothing real to break |
