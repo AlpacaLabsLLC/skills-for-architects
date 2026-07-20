@@ -6,6 +6,52 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-07-20
+
+### Breaking
+
+- **One plugin.** The 10-plugin marketplace (`00-due-diligence` … `09-project-dossier`) is consolidated into a single flat plugin, **`architecture-studio`** — one install now loads all 40 skills, all 7 agents, and both hooks. `marketplace.json` has a single entry with source `"./"`; the `plugins/` tree and all per-plugin manifests are gone. Existing per-plugin installs will not receive this or any future update — see Migration below.
+- **Skill renames** — `skills-menu` → `skills` (help menu, still invoked as `/skills`) and `history` → `site-history` (invoke as `/site-history`, formerly `/history`). All other skill names are unchanged; they simply live flat under `skills/`.
+- **`post-output-metadata` hook removed.** The Dispatcher's 3 hooks are now the plugin's 2: `post-write-disclaimer-check` and `pre-commit-spec-lint`, registered from the root `hooks/hooks.json`.
+
+### Migration
+
+Uninstall every old per-plugin install you have, refresh the marketplace, and install the single plugin:
+
+```bash
+# Uninstall the old per-plugin installs (skip any you never installed)
+for p in 00-due-diligence 01-site-planning 02-zoning-analysis 03-programming \
+         04-specifications 05-sustainability 06-materials-research \
+         07-presentations 08-dispatcher 09-project-dossier; do
+  claude plugin uninstall "$p@skills-for-architects"
+done
+
+# Refresh and install the one plugin
+claude plugin marketplace update skills-for-architects
+claude plugin install architecture-studio@skills-for-architects
+```
+
+Everything the ten plugins provided is included; no skill was dropped. **Community-marketplace maintainers:** listings that pin a pre-1.3.0 commit or reference `plugins/<name>` source paths no longer resolve — re-pin to the `v1.3.0` tag and replace the ten entries with the single `architecture-studio` entry (source `"./"`).
+
+### Added
+
+- **`/learn`** — a guided, resumable Claude Code course for architects: eight hands-on modules on a bundled sandbox project (a fictional Brooklyn loft conversion), a starter `CLAUDE.md` template distilled from the studio rules, and three example skills to study and modify. Progress persists in `PROGRESS.md`.
+
+### Fixed
+
+- **Socrata corrections** (`nyc-property-report` + the six NYC data skills `nyc-acris`, `nyc-bsa`, `nyc-dob-permits`, `nyc-dob-violations`, `nyc-hpd`, `nyc-landmarks`) — `socrata-reference.md` is now the single source of truth; dataset IDs and field names corrected and live-verified against NYC Open Data. New `pluto-resolution.md` documents address→BBL resolution for `nyc-property-report`.
+- **Hooks** — `pre-commit-spec-lint` now detects real `git commit` invocations (compound commands, `-C` flags) and exits 2 with the CSI message on stderr; `post-write-disclaimer-check` reads the written file from disk, handles both `Write` and `Edit` tool payloads, and emits proper `{"decision":"block"}` JSON; `hooks.json` drops an invalid `"if"` key and matches `Write|Edit` on PostToolUse. Both scripts are BSD-safe (grep boundaries, `printf` over `echo -e`).
+- **Skill-relative data paths** — `occupancy-calculator` reads its bundled `data/*.json` from the skill's own directory instead of a hardcoded `~/.claude/skills/...` path.
+- **EPD baseline policy** (`epd-compare`, `epd-to-spec`) — industry-average baselines must be citable (named source + publication year, labeled in the comparison table); uncitable baselines are omitted, never guessed.
+- **Zoning and occupancy content** — corrections across `zoning-analysis-nyc`'s zoning-rules references (contextual districts, manufacturing, commercial, residential) and `zoning-envelope`; `occupancy-calculator` gross/net guidance tightened. Smaller doc fixes in `workplace-programmer`, `mobility-analysis`, the EPD skills, and `slide-deck-generator`.
+
+### Changed
+
+- **Disclaimer pipeline wired end-to-end** — all 11 regulatory skills (`zoning-analysis-nyc`, `zoning-envelope`, `occupancy-calculator`, `epd-to-spec`, `nyc-property-report` and its six data skills) now end regulatory output with the canonical disclaimer block plus the `requires-disclaimer` marker the hook checks for; `zoning-envelope` carries an HTML-adapted variant for the 3D viewer. `rules/README.md` no longer claims rules auto-load.
+- **Skill descriptions rewritten with trigger + boundary phrasing** across 32 skills — the description is the only signal Claude uses to auto-select among 40 skills.
+- **`scripts/lint.sh` rewritten for the flat layout** — count consistency is derived from the tree (skills, agents, hooks, `/skills` menu, README, `marketplace.json`), plus regression checks pinning the 1.3.0 fixes; CI installs its own dependencies.
+- **README and `/skills` menu rebuilt for one plugin** — single-entry install, counts derived (40 skills, 7 agents), and the old 00–09 taxonomy kept as documentation-only groups.
+
 ## [1.2.1] - 2026-06-10
 
 ### Changed
@@ -91,7 +137,8 @@ First public release.
 - **3 hooks** — post-write disclaimer check, post-output metadata, pre-commit spec lint.
 - Marketplace install: `claude plugin marketplace add AlpacaLabsLLC/skills-for-architects`.
 
-[Unreleased]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.2.1...HEAD
+[Unreleased]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/AlpacaLabsLLC/skills-for-architects/releases/tag/v1.3.0
 [1.2.1]: https://github.com/AlpacaLabsLLC/skills-for-architects/releases/tag/v1.2.1
 [1.2.0]: https://github.com/AlpacaLabsLLC/skills-for-architects/releases/tag/v1.2.0
 [1.1.3]: https://github.com/AlpacaLabsLLC/skills-for-architects/releases/tag/v1.1.3
