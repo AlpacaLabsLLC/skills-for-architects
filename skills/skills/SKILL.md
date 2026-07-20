@@ -18,7 +18,7 @@ Print the following menu. Do not read any files — the menu is static.
 ```
 # Architecture Studio
 
-**40 skills, 7 agents** — type /studio [your task] to get routed, or call any skill directly.
+**41 skills, 7 agents** — type /studio [your task] to get routed, or call any skill directly.
 
 ## Agents — describe your task, they figure out the rest
 
@@ -88,6 +88,7 @@ Print the following menu. Do not read any files — the menu is static.
 ### Dispatcher
 /studio [task] — smart router: describe a task, get routed to the right agent or skill
 /skills — this menu
+/skill-maker — scaffold a new skill that follows the house conventions
 
 ### Project Dossier
 /project-dossier — create or update PROJECT.md, the project facts file

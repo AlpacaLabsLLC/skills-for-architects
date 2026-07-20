@@ -20,7 +20,7 @@
 
 **Architecture Studio** teaches Claude architecture-specific workflows — site analysis, zoning, space programming, specifications, materials research, sustainability, and presentations.
 
-**One plugin** — `architecture-studio` v1.3.0 — with **40 skills**, **7 agents**, **7 rules**, and **3 hooks**. Built by [ALPA](https://alpa.llc).
+**One plugin** — `architecture-studio` v1.3.0 — with **41 skills**, **7 agents**, **7 rules**, and **3 hooks**. Built by [ALPA](https://alpa.llc).
 
 ## What's New in 1.3
 
@@ -34,7 +34,7 @@ Full history in the [CHANGELOG](./CHANGELOG.md).
 
 ```
 Architecture Studio (one plugin: architecture-studio)
-├── skills/          40 skills — one directory each, flat
+├── skills/          41 skills — one directory each, flat
 │   ├── /studio      ← entry point: describe a task, get routed
 │   └── /skills      ← help menu
 ├── agents/           7 orchestration subagents
@@ -57,7 +57,7 @@ claude plugin marketplace add AlpacaLabsLLC/skills-for-architects
 claude plugin install architecture-studio@skills-for-architects
 ```
 
-That single install loads all 40 skills, all 7 agents, and the 3 hooks.
+That single install loads all 41 skills, all 7 agents, and the 3 hooks.
 
 ### Use
 
@@ -100,7 +100,7 @@ See the [agents index](./agents/README.md) for full workflows and handoff logic.
 
 ## Skill Groups
 
-All 40 skills live flat in [`skills/`](./skills) and install together. The groups below are documentation only — the former plugin taxonomy, kept because it maps to the project lifecycle from due diligence through delivery.
+All 41 skills live flat in [`skills/`](./skills) and install together. The groups below are documentation only — the former plugin taxonomy, kept because it maps to the project lifecycle from due diligence through delivery.
 
 | Group | Skills | Description |
 |-------|--------|-------------|
@@ -112,7 +112,7 @@ All 40 skills live flat in [`skills/`](./skills) and install together. The group
 | [Sustainability](#sustainability) | 4 | EPD parsing, research, comparison, and GWP thresholds. |
 | [Materials Research](#materials-research) | 12 | FF&E product research, spec extraction, cleanup, and image processing. Exports to SIF dealer formats and [Norma](https://norma.llc). |
 | [Presentations](#presentations) | 3 | Slide deck generation, color palettes, and image resizing for web, social, slides, and print. |
-| [Dispatcher](#dispatcher) | 2 | Studio router (`/studio`) and help menu (`/skills`). |
+| [Dispatcher](#dispatcher) | 3 | Studio router (`/studio`), help menu (`/skills`), and skill scaffolder (`/skill-maker`). |
 | [Project Dossier](#project-dossier) | 2 | Persistent project facts (`PROJECT.md`) and ADR-style decision records. |
 | [Learn](#learn) | 1 | Guided course teaching architects Claude Code itself — hands-on, resumable. |
 
@@ -205,6 +205,7 @@ Every skill reads from and writes back to one master Google Sheet — a shared 3
 |-------|-------------|
 | [`/studio`](./skills/studio) | Smart router — describe a task and get routed to the right agent or skill |
 | [`/skills`](./skills/skills) | Help menu listing all available skills and agents |
+| [`/skill-maker`](./skills/skill-maker) | Scaffold a new skill from the canonical template, apply the PATTERNS.md checklist, verify with the repo lint |
 
 ### Project Dossier
 

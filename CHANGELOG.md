@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- **`/skill-maker`** — scaffold a new skill in three steps, no interview: copy the canonical bundled template, apply the PATTERNS.md checklist (read at runtime, single source), verify with `scripts/lint.sh` inside the catalog or a portable checklist outside it. The catalog is 41 skills; the Dispatcher group is 3.
 - **Post-install welcome** — a `SessionStart` hook (`session-start-welcome`) fires once on the first session after install: confirms the plugin loaded (with a partial-install warning if skills are missing) and offers `/learn`. Hook count is now 3.
 - **`/learn` teaches three framing concepts** threaded through the course: work stays local (files never leave the machine except what's asked about), Architecture Studio is an open-source harness on Claude Code, and memory is plain markdown files — with an explicit markdown explainer at the first file creation.
 - **Terminal preflight** in the README — a hand-to-a-colleague page covering install → login → `/learn` for people who have never opened a terminal.

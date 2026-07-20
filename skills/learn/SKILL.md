@@ -134,6 +134,7 @@ In order. For each: signpost, teach conversationally, run the exercise with narr
 - **Teach:** A skill is a procedure card — name, description, steps — and this course is itself one; they've been inside a skill the whole time. One honest note of anatomy: the description is the *trigger*, not a label — it's how Claude knows when to reach for the card unasked.
 - **Exercise:** Build `/site-report`: their report format from Module 2, mined from the preferences they showed and their binder. Walk through what you're writing and why, create `.claude/skills/site-report/SKILL.md` in the practice folder, then test it on `IMG_4032`'s transcript (now renamed) — a second, worse set of walk notes.
 - **Pass:** The skill produced a report from the second source, in their format, without re-explaining it.
+- **The reveal, one beat:** what they just did by hand, the studio has a skill for — `/skill-maker` scaffolds a new skill from the same anatomy and checks it against the house conventions. They built one by hand once so they can review what the maker produces forever.
 - **Recap:** *A skill is a procedure card Claude follows. You built one; your office can share it like any file.*
 
 ### Module 6 — Get started (30–60 min · bring a real project)

@@ -19,10 +19,10 @@ if [ -n "$PLUGIN_ROOT" ] && [ -d "$PLUGIN_ROOT/skills" ]; then
   SKILL_COUNT=$(find "$PLUGIN_ROOT/skills" -mindepth 2 -maxdepth 2 -name "SKILL.md" 2>/dev/null | wc -l | tr -d ' ')
 fi
 
-if [ "$SKILL_COUNT" -ge 40 ]; then
+if [ "$SKILL_COUNT" -ge 41 ]; then
   STATUS="Architecture Studio installed successfully: $SKILL_COUNT skills, 7 agents, and its hooks are loaded."
 elif [ "$SKILL_COUNT" -gt 0 ]; then
-  STATUS="Architecture Studio loaded partially: only $SKILL_COUNT of 40 skills were found. Suggest the user run: claude plugin marketplace update skills-for-architects, then reinstall architecture-studio."
+  STATUS="Architecture Studio loaded partially: only $SKILL_COUNT of 41 skills were found. Suggest the user run: claude plugin marketplace update skills-for-architects, then reinstall architecture-studio."
 else
   STATUS="Architecture Studio's hooks are running but its skills directory was not found. Suggest the user reinstall: claude plugin install architecture-studio@skills-for-architects."
 fi
