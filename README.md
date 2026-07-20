@@ -20,7 +20,7 @@
 
 **Architecture Studio** teaches Claude architecture-specific workflows — site analysis, zoning, space programming, specifications, materials research, sustainability, and presentations.
 
-**One plugin** — `architecture-studio` v1.3.0 — with **40 skills**, **7 agents**, **7 rules**, and **2 hooks**. Built by [ALPA](https://alpa.llc).
+**One plugin** — `architecture-studio` v1.3.0 — with **40 skills**, **7 agents**, **7 rules**, and **3 hooks**. Built by [ALPA](https://alpa.llc).
 
 ## What's New in 1.3
 
@@ -38,7 +38,7 @@ Architecture Studio (one plugin: architecture-studio)
 │   ├── /studio      ← entry point: describe a task, get routed
 │   └── /skills      ← help menu
 ├── agents/           7 orchestration subagents
-├── hooks/            2 event-driven automations (auto-register)
+├── hooks/            3 event-driven automations (auto-register)
 ├── rules/            7 cross-cutting conventions (2 hook-enforced, 5 advisory)
 └── schema/           shared FF&E product schema (33 columns) + SIF crosswalk
 ```
@@ -57,7 +57,7 @@ claude plugin marketplace add AlpacaLabsLLC/skills-for-architects
 claude plugin install architecture-studio@skills-for-architects
 ```
 
-That single install loads all 40 skills, all 7 agents, and the 2 hooks.
+That single install loads all 40 skills, all 7 agents, and the 3 hooks.
 
 ### Use
 
@@ -71,6 +71,16 @@ Type `/studio` followed by what you need. The router reads your request and hand
 ```
 
 Type `/skills` for the full menu. Or call any skill directly by name (e.g. `/environmental-analysis 123 Main St`). New to Claude Code entirely? Start with `/learn`.
+
+### Never opened a terminal?
+
+The course starts *inside* Claude Code, so someone at your office has to get you there once. The whole preflight, suitable for handing to a colleague:
+
+1. **Open Terminal** — on a Mac: press `⌘-space`, type `terminal`, press Enter. On Windows: install [Claude Desktop](https://claude.ai/download) instead and use its built-in Code panel.
+2. **Install Claude Code** — paste `npm install -g @anthropic-ai/claude-code` (your IT or a colleague may need to install Node first), or download the desktop app.
+3. **Launch and log in** — type `claude`, follow the login prompt (uses your existing Claude subscription).
+4. **Install the plugin** — the two commands under Install above.
+5. **Type `/learn`** — the course takes it from there, including what a terminal even is.
 
 ## Agents
 
@@ -209,7 +219,7 @@ Two layers of persistent per-project state, as plain files in the project folder
 
 | Skill | Description |
 |-------|-------------|
-| [`/learn`](./skills/learn) | Guided course teaching architects Claude Code — 8 hands-on modules (~15–20 min each) on a bundled sandbox project you pick from five types, resumable anytime. Module 6 is a planted-error exercise in challenging AI output before you ever touch a real project. |
+| [`/learn`](./skills/learn) | Guided course teaching architects Claude Code — 7 hands-on modules (most ~15–20 min) on a bundled sandbox project you pick from five types, resumable anytime. Module 5 is a planted-error exercise in challenging AI output before you ever touch a real project. |
 
 ## Rules
 
@@ -231,6 +241,7 @@ Event-driven automations — they ship with the plugin and register automaticall
 
 | Hook | Event | What it does |
 |------|-------|-------------|
+| [session-start-welcome](./hooks/session-start-welcome.sh) | First session after install | Confirms the install succeeded and offers the `/learn` course |
 | [post-write-disclaimer-check](./hooks/post-write-disclaimer-check.sh) | After Write or Edit | Warns if regulatory output is missing the professional disclaimer |
 | [pre-commit-spec-lint](./hooks/pre-commit-spec-lint.sh) | Before git commit | Flags malformed CSI section numbers |
 

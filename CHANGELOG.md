@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- **Post-install welcome** — a `SessionStart` hook (`session-start-welcome`) fires once on the first session after install: confirms the plugin loaded (with a partial-install warning if skills are missing) and offers `/learn`. Hook count is now 3.
+- **`/learn` teaches three framing concepts** threaded through the course: work stays local (files never leave the machine except what's asked about), Architecture Studio is an open-source harness on Claude Code, and memory is plain markdown files — with an explicit markdown explainer at the first file creation.
+- **Terminal preflight** in the README — a hand-to-a-colleague page covering install → login → `/learn` for people who have never opened a terminal.
+
+### Changed
+
+- **`/learn` restructured to seven modules** for an honest ~90-minute core: the former Module 5 (plan mode, subagents) and the Module 4 precedent study moved to a planned advanced track; "plan first" remains taught in Module 2. Module 1's deliverable is now a site-visit report (not "minutes") with a source spot-check; Module 4 builds `/site-report`; Module 5 (Trust) adds a client-data/discretion beat; the capstone gains a mandatory pre-check (firm policy, low-stakes project, always work on a copy) and an honest 30–60 min label. Permission-prompt narration now covers the "stop asking" option. Existing 8-row PROGRESS.md files migrate by module name.
+- Starter binder template: "Sign documents off as" → "Document attribution block" (AI documents are never signed or sealed), plus phase names and date-format lines.
+
+### Fixed
+
+- Removed the Shift+Tab plan-mode instruction (Shift+Tab cycles permission modes and can land in auto-accept — the opposite of the course's safety promise); plan-first is taught as a prompt phrase.
+- Removed six stale duplicate sandbox files at the `sandbox/` root left over from the pre-selection layout.
+
 ## [1.3.0] - 2026-07-20
 
 ### Breaking

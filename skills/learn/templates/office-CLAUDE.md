@@ -10,8 +10,10 @@
 ## Identity
 
 - Firm: {name} ← edit
-- Sign documents off as: {name, address, line format} ← edit
+- Document attribution block: {firm name, address, line format} ← edit (this is a header/footer block — AI-generated documents are never signed or sealed)
 - Default project location / jurisdiction: {city} ← edit
+- Project phases: SD / DD / CD / CA ← edit if your office uses different phase names
+- Date format in filenames and documents: {e.g. 2026-07-20} ← edit
 
 ## Units & measurements
 
@@ -36,7 +38,7 @@
 
 - Descriptive filenames: `maple-st-zoning-summary.md`, never `output.md` or `doc1.md`
 - Tables for all comparative data; units in column headers, not in every cell
-- Meeting minutes format: {attendees, discussion, action items — in your order} ← edit
+- Site-visit report format: {header, observations, open items — in your order; "observed", never "inspected"} ← edit
 
 ## Disclaimer
 
