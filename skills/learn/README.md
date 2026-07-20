@@ -1,6 +1,6 @@
 # /learn
 
-A resumable, hands-on course teaching architects how to use Claude Code. Seven modules, most ~15–20 minutes, each built around an exercise on a bundled sandbox project the learner picks at setup — a Brooklyn loft conversion, a healthcare campus, a workplace fit-out, a restaurant, or a ground-up school (`sandbox/<project>/`, each with the same six deliberately messy files).
+A resumable, hands-on course teaching architects how to use Claude Code. Six modules, most ~15–20 minutes, each built around an exercise on a bundled sandbox project the learner picks at setup — a Brooklyn loft conversion, a healthcare campus, a workplace fit-out, a restaurant, or a ground-up school (`sandbox/<project>/`, each with the same six deliberately messy files).
 
 ## Usage
 
@@ -19,7 +19,7 @@ On the first session after installing the plugin, a welcome hook confirms the in
 - **The tutor never does the exercise for them** — it guides and reviews.
 - **Studio analogies throughout** — `CLAUDE.md` is the standards binder, skills are laminated procedures, markdown is plain paper.
 - **Three ideas thread the course**: work stays local (files never leave the machine except what's asked about), Architecture Studio is an open-source harness on Claude Code (fork it, make it your own), and memory is plain files you can read.
-- **Module 5 is the point** — a source-check drill — trace claims to their lines, then ask about what the document *doesn't* say — followed by a discretion beat (firm policy, client confidentiality) before the learner ever touches a real project. The capstone requires working on a copy.
+- **Module 6 gates real work** — a source-check drill (trace claims to their lines, then ask about what the document *doesn't* say), a data-governance pre-check, and always working on a copy — before one real task end to end. Data privacy is taught back in Module 2, where consent is taught.
 - The sandbox files are engineered: the CSV has a duplicate row, mixed units, and a TBD; `IMG_4032.txt` is a mislabeled voice memo; `Scan_001.txt` is a regulatory excerpt with enough specifics to make an invented claim plausible — and deliberate silences to plant it in.
 
 An advanced track — bigger jobs, plan mode, subagents, skill authorship in depth, running the office skill library — is planned as a follow-on course; the `examples/` skills below are its precedent material.
@@ -28,6 +28,6 @@ An advanced track — bigger jobs, plan mode, subagents, skill authorship in dep
 
 | Directory | Used in | Contents |
 |-----------|---------|----------|
-| `sandbox/` | Modules 0–5 | Five fictional projects (loft conversion, healthcare campus, workplace, restaurant, school), each six deliberately messy files with identical planted flaws |
+| `sandbox/` | Modules 1–6 | Five fictional projects (loft conversion, healthcare campus, workplace, restaurant, school), each six deliberately messy files with identical planted flaws |
 | `templates/` | Module 3 | `office-CLAUDE.md`, a starter standards binder distilled from the Architecture Studio rules |
 | `examples/` | Advanced track (planned) | Three finished skills to study and modify: `/ascii-name`, `/clean-downloads`, `/tasks` |
