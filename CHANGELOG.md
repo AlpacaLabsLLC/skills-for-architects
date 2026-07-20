@@ -14,7 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
-- **`/learn` restructured to seven modules** for an honest ~90-minute core: the former Module 5 (plan mode, subagents) and the Module 4 precedent study moved to a planned advanced track; "plan first" remains taught in Module 2. Module 1's deliverable is now a site-visit report (not "minutes") with a source spot-check; Module 4 builds `/site-report`; Module 5 (Trust) adds a client-data/discretion beat; the capstone gains a mandatory pre-check (firm policy, low-stakes project, always work on a copy) and an honest 30–60 min label. Permission-prompt narration now covers the "stop asking" option. Existing 8-row PROGRESS.md files migrate by module name.
+- **`/learn` restructured to seven modules** for an honest ~90-minute core: the former Module 5 (plan mode, subagents) and the Module 4 precedent study moved to a planned advanced track; "plan first" remains taught in Module 2. Module 1's deliverable is now a site-visit report (not "minutes") with a source spot-check; Module 4 builds `/site-report`; Module 5 (Trust) replaces the planted-error game with a source-check and absence drill on a faithful summary, plus a client-data/discretion beat; the capstone gains a mandatory pre-check (firm policy, low-stakes project, always work on a copy) and an honest 30–60 min label. Permission-prompt narration now covers the "stop asking" option. Existing 8-row PROGRESS.md files migrate by module name.
 - Starter binder template: "Sign documents off as" → "Document attribution block" (AI documents are never signed or sealed), plus phase names and date-format lines.
 
 ### Fixed

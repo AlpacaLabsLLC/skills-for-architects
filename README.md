@@ -219,7 +219,7 @@ Two layers of persistent per-project state, as plain files in the project folder
 
 | Skill | Description |
 |-------|-------------|
-| [`/learn`](./skills/learn) | Guided course teaching architects Claude Code — 7 hands-on modules (most ~15–20 min) on a bundled sandbox project you pick from five types, resumable anytime. Module 5 is a planted-error exercise in challenging AI output before you ever touch a real project. |
+| [`/learn`](./skills/learn) | Guided course teaching architects Claude Code — 7 hands-on modules (most ~15–20 min) on a bundled sandbox project you pick from five types, resumable anytime. Module 5 drills source-checking AI output — and what to do when the document is silent — before you ever touch a real project. |
 
 ## Rules
 

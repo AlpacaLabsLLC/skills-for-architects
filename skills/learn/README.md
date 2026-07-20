@@ -19,7 +19,7 @@ On the first session after installing the plugin, a welcome hook confirms the in
 - **The tutor never does the exercise for them** — it guides and reviews.
 - **Studio analogies throughout** — `CLAUDE.md` is the standards binder, skills are laminated procedures, markdown is plain paper.
 - **Three ideas thread the course**: work stays local (files never leave the machine except what's asked about), Architecture Studio is an open-source harness on Claude Code (fork it, make it your own), and memory is plain files you can read.
-- **Module 5 is the point** — a planted-error exercise that teaches challenging AI output, then a discretion beat (firm policy, client confidentiality) before the learner ever touches a real project. The capstone requires working on a copy.
+- **Module 5 is the point** — a source-check drill — trace claims to their lines, then ask about what the document *doesn't* say — followed by a discretion beat (firm policy, client confidentiality) before the learner ever touches a real project. The capstone requires working on a copy.
 - The sandbox files are engineered: the CSV has a duplicate row, mixed units, and a TBD; `IMG_4032.txt` is a mislabeled voice memo; `Scan_001.txt` is a regulatory excerpt with enough specifics to make an invented claim plausible — and deliberate silences to plant it in.
 
 An advanced track — bigger jobs, plan mode, subagents, skill authorship in depth, running the office skill library — is planned as a follow-on course; the `examples/` skills below are its precedent material.
