@@ -1,6 +1,6 @@
 ---
 name: product-enrich
-description: Auto-tag FF&E products with categories, colors, materials, and style tags using AI.
+description: Auto-tag FF&E products with categories, colors, materials, and style tags using AI. Use when the user asks to "enrich", "tag", or "categorize" products, or to fill in missing category, material, or style columns in the schedule.
 allowed-tools:
   - Read
   - Write

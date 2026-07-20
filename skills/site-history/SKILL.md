@@ -1,6 +1,6 @@
 ---
 name: history
-description: Neighborhood context and history — adjacent uses, architectural character, landmarks, commercial activity, and planned development from an address.
+description: Neighborhood context and history — adjacent uses, architectural character, landmarks, commercial activity, and planned development from an address. Use when the user asks about a site's history or surroundings, "what's around this site", neighborhood character, or nearby planned development.
 allowed-tools:
   - WebSearch
   - WebFetch

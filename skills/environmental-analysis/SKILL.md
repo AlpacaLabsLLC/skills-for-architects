@@ -1,6 +1,6 @@
 ---
 name: environmental-analysis
-description: Climate and environmental site analysis — temperature, precipitation, wind, sun angles, flood zones, seismic risk, soil, and topography from an address.
+description: Climate and environmental site analysis — temperature, precipitation, wind, sun angles, flood zones, seismic risk, soil, and topography from an address. Use when the user asks about site climate, sun path, flood or seismic risk, or says "run an environmental analysis" for an address.
 allowed-tools:
   - WebSearch
   - WebFetch

@@ -1,6 +1,6 @@
 ---
 name: resize-images
-description: Batch-resize images for web (WebP at 1920/1200/400px), social (center-cropped WebP at Instagram square/portrait, Twitter/X, LinkedIn), slides (center-cropped JPEG at 1024×768 and 1920×1080), and print (300 DPI JPEG at ARCH A 9×12, ARCH B 12×18, ARCH C 18×24). Asks user for source folder, outputs resized copies into subfolders within that folder.
+description: Batch-resize images for web (WebP at 1920/1200/400px), social (center-cropped for Instagram, Twitter/X, LinkedIn), slides (JPEG at 1024×768 and 1920×1080), and print (300 DPI JPEG at ARCH A/B/C). Use when the user asks to "resize images", prepare images for web, social, slides, or print, or batch-convert a folder of photos. Asks for the source folder, outputs resized copies into subfolders.
 allowed-tools:
   - Read
   - Write

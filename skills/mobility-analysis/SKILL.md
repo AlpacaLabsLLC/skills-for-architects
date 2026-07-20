@@ -1,6 +1,6 @@
 ---
 name: mobility-analysis
-description: Transit and mobility site analysis — subway, bus, bike, pedestrian infrastructure, walk scores, and airport access from an address.
+description: Transit and mobility site analysis — subway, bus, bike, pedestrian infrastructure, walk scores, and airport access from an address. Use when the user asks about transit access or walkability, "how do people get to this site", or says "run a mobility analysis" for an address.
 allowed-tools:
   - WebSearch
   - WebFetch

@@ -1,6 +1,6 @@
 ---
 name: csv-to-sif
-description: Convert a CSV or Excel FF&E product list to SIF (Standard Interchange Format) for dealer and procurement systems.
+description: Convert a CSV or Excel FF&E product list to SIF (Standard Interchange Format) for dealer and procurement systems. Use when the user asks to "convert to SIF", export a schedule for a dealer, or produce a .sif file from a spreadsheet. For the reverse direction use /sif-to-csv.
 allowed-tools:
   - Read
   - Write

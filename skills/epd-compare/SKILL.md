@@ -1,6 +1,6 @@
 ---
 name: epd-compare
-description: Compare 2+ products side-by-side on environmental impact metrics. Normalizes declared units, checks system boundary alignment, and flags LEED MRc2 compliance.
+description: Compare 2+ products side-by-side on environmental impact metrics — normalizes declared units, checks system boundary alignment, and flags LEED MRc2 compliance. Use when the user asks to "compare EPDs", weigh embodied carbon between products, or check which option has lower GWP.
 allowed-tools:
   - Read
   - Write

@@ -1,6 +1,6 @@
 ---
 name: workplace-programmer
-description: AI workplace strategy consultant that builds office space programs through conversation — area splits, room schedules, seat counts, and reports.
+description: AI workplace strategy consultant that builds office space programs through conversation — area splits, room schedules, seat counts, and reports. Use when the user asks to "program an office", size a workplace, or build a room schedule or space program for office space.
 allowed-tools:
   - Read
   - Write

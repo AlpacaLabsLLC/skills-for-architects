@@ -1,6 +1,6 @@
 ---
 name: sif-to-csv
-description: Convert a SIF (Standard Interchange Format) file to a clean, readable CSV or Google Sheet.
+description: Convert a SIF (Standard Interchange Format) file to a clean, readable CSV or Google Sheet. Use when the user shares a .sif file or asks to "convert SIF to CSV", open a dealer file, or make a SIF readable. For the reverse direction use /csv-to-sif.
 allowed-tools:
   - Read
   - Write

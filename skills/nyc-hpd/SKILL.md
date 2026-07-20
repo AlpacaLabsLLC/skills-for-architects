@@ -1,6 +1,6 @@
 ---
 name: nyc-hpd
-description: Look up HPD violations, complaints, and building registration for residential buildings.
+description: Look up HPD violations, complaints, and building registration for NYC residential buildings. Use when the user asks about housing-code violations, tenant complaints, or HPD registration at an address. NYC only; for DOB and ECB violations use /nyc-dob-violations.
 allowed-tools:
   - WebFetch
   - Write

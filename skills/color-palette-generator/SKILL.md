@@ -1,6 +1,6 @@
 ---
 name: color-palette-generator
-description: Color palette generator — creates harmonious color palettes from descriptions, moods, or images. Outputs a self-contained HTML file with swatches, hex/RGB/HSL codes, contrast ratios, and example pairings.
+description: Create harmonious color palettes from descriptions, moods, or images — outputs a self-contained HTML file with swatches, hex/RGB/HSL codes, contrast ratios, and example pairings. Use when the user asks for a color palette, color scheme, or brand colors ("generate a palette for...", "colors that match this image").
 allowed-tools:
   - Read
   - Write

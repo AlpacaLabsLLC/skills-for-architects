@@ -1,6 +1,6 @@
 ---
 name: epd-parser
-description: Parse EPD (Environmental Product Declaration) PDF documents to extract structured environmental impact data — GWP, life cycle stages, certifications, and compliance metrics.
+description: Parse EPD (Environmental Product Declaration) PDF documents into structured environmental impact data — GWP, life cycle stages, certifications, and compliance metrics. Use when the user shares an EPD document or asks to "parse this EPD", extract GWP, or pull impact data from a declaration.
 allowed-tools:
   - Read
   - Write

@@ -1,6 +1,6 @@
 ---
 name: product-data-cleanup
-description: Clean up an FF&E schedule — normalize casing, dimensions, units, language, materials, and formatting for consistency.
+description: Clean up an FF&E schedule — normalize casing, dimensions, units, language, materials, and formatting for consistency. Use when the user asks to "clean up the schedule", fix inconsistent product data, or standardize an FF&E sheet.
 allowed-tools:
   - Read
   - Write

@@ -1,6 +1,6 @@
 ---
 name: product-spec-bulk-fetch
-description: Fetch structured FF&E product specs from a list of URLs. Extracts name, brand, dimensions, materials, price, and images into a standardized schedule.
+description: Fetch structured FF&E product specs from a list of URLs — extracts name, brand, dimensions, materials, price, and images into a standardized schedule. Use when the user provides product URLs and asks to "pull specs", scrape product pages, or bulk-import items by link.
 allowed-tools:
   - Read
   - Write

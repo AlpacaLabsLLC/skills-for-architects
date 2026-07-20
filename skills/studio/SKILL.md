@@ -1,6 +1,6 @@
 ---
 name: studio
-description: Smart router — describe your task and get routed to the right agent or skill. Start here if you don't know which skill to use.
+description: Smart router — reads a task description and routes to the right agent or skill. Use when the user runs /studio, describes a task without naming a specific skill, or asks which skill to use.
 allowed-tools:
   - Read
   - Glob

@@ -1,6 +1,6 @@
 ---
 name: zoning-analysis-nyc
-description: Analyze zoning envelope rules for lots in New York City using PLUTO data and the NYC Zoning Resolution
+description: Analyze zoning envelope rules for lots in New York City using PLUTO data and the NYC Zoning Resolution. Use when the user asks "what can I build" on a NYC lot, requests a zoning analysis, or asks about FAR or height limits for an address. For variances and special permits use /nyc-bsa; to visualize the result use /zoning-envelope.
 allowed-tools:
   - Read
   - Write

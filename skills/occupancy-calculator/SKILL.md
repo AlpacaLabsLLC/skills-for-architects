@@ -1,6 +1,6 @@
 ---
 name: occupancy-calculator
-description: IBC occupancy load calculator — calculates maximum occupant loads per area from IBC Table 1004.5, with gross vs net area handling, use group classification, and exportable reports.
+description: IBC occupancy load calculator — calculates maximum occupant loads per area from IBC Table 1004.5, with gross vs net area handling, use group classification, and exportable reports. Use when the user asks to calculate occupant load, "how many people can this space hold", or needs IBC occupancy numbers for egress or code review.
 allowed-tools:
   - Read
   - Write

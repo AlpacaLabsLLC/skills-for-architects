@@ -1,6 +1,6 @@
 ---
 name: product-research
-description: FF&E product research — receives a brief from the designer, searches the web for matching products, and returns structured candidates to save to the master Google Sheet.
+description: FF&E product research — receives a brief from the designer, searches the web for matching products, and returns structured candidates to save to the master Google Sheet. Use when the user asks to "find products", "research options for...", or source FF&E candidates against a brief.
 allowed-tools:
   - Read
   - Write

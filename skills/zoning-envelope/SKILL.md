@@ -1,6 +1,6 @@
 ---
 name: zoning-envelope
-description: Generate interactive 3D zoning envelope viewers from zoning analysis reports. Requires a zoning analysis report as input.
+description: Generate interactive 3D zoning envelope viewers from zoning analysis reports. Use when the user asks to "visualize the zoning envelope" or see buildable massing in 3D, typically after /zoning-analysis-nyc. Requires a zoning analysis report as input.
 allowed-tools:
   - Read
   - Write

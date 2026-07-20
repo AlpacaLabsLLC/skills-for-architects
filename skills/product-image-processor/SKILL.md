@@ -1,6 +1,6 @@
 ---
 name: product-image-processor
-description: Download, resize, and remove backgrounds from product images at scale
+description: Download, resize, and remove backgrounds from product images at scale. Use when the user asks to "process product images", batch-download images from the schedule, strip backgrounds, or standardize product photos.
 allowed-tools:
   - Read
   - Write

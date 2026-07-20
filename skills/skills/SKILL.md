@@ -1,6 +1,6 @@
 ---
 name: skills
-description: Show all available skills, agents, and how to use them — organized by task.
+description: Show all available skills, agents, and how to use them — organized by task. Use when the user runs /skills, asks "what can you do" or "what skills are available", or wants a directory of commands.
 allowed-tools:
   - Read
 ---

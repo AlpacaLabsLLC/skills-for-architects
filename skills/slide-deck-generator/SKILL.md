@@ -1,6 +1,6 @@
 ---
 name: slide-deck-generator
-description: Generate a polished HTML slide deck from a topic, outline, or data. Outputs a self-contained .html file with keyboard/touch navigation, responsive typography, and the ALPA (Alpaca Labs) design system — Helvetica, editorial layout, clean white backgrounds.
+description: Generate a polished HTML slide deck from a topic, outline, or data — a self-contained .html file with keyboard/touch navigation, responsive typography, and the ALPA (Alpaca Labs) design system. Use when the user asks to "generate a slide deck", make a presentation, or turn an outline, report, or data into slides.
 allowed-tools:
   - Read
   - Write

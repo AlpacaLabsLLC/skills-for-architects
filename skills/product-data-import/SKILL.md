@@ -1,6 +1,6 @@
 ---
 name: product-data-import
-description: Generate a formatted FF&E specification schedule from raw product data — notes, CSV, or pasted lists. Outputs a structured schedule compatible with the 33-column master schema.
+description: Generate a formatted FF&E specification schedule from raw product data — notes, CSV, or pasted lists — compatible with the 33-column master schema. Use when the user pastes or uploads raw product data and asks to "import products", build a schedule, or get items into the master sheet.
 allowed-tools:
   - Read
   - Write

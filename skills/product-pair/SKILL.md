@@ -1,6 +1,6 @@
 ---
 name: product-pair
-description: Suggest complementary products that pair well with a given item — side tables for sofas, task lights for desks, etc.
+description: Suggest complementary products that pair well with a given item — side tables for sofas, task lights for desks, etc. Use when the user asks "what goes with" a product, wants coordinating pieces, or asks to complete a furniture grouping.
 allowed-tools:
   - Read
   - Write

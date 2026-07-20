@@ -1,6 +1,6 @@
 ---
 name: product-spec-pdf-parser
-description: Extract structured FF&E product specs from PDF files — price books, fact sheets, and spec sheets. Claude reads extracted text and structures products into a standardized schedule.
+description: Extract structured FF&E product specs from PDF files — price books, fact sheets, and spec sheets — into a standardized schedule. Use when the user shares a product PDF and asks to "parse this price book", extract specs, or import items from a spec sheet.
 allowed-tools:
   - Read
   - Write

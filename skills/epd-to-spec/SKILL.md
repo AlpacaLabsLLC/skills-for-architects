@@ -1,6 +1,6 @@
 ---
 name: epd-to-spec
-description: Generate CSI-formatted specification sections requiring EPDs and setting maximum GWP thresholds. References ISO 14025, ISO 21930, EN 15804.
+description: Generate CSI-formatted specification sections requiring EPDs and setting maximum GWP thresholds — references ISO 14025, ISO 21930, EN 15804. Use when the user asks to write EPD requirements into a spec, set GWP limits, or "add embodied carbon requirements" to a specification.
 allowed-tools:
   - Read
   - Write

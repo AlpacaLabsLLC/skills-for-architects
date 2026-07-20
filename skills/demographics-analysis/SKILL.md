@@ -1,6 +1,6 @@
 ---
 name: demographics-analysis
-description: Demographics and market site analysis — population, income, age, housing market, and employment data from an address.
+description: Demographics and market site analysis — population, income, age, housing market, and employment data from an address. Use when the user asks who lives near a site, requests census or market data, or says "run a demographics analysis" for an address.
 allowed-tools:
   - WebSearch
   - WebFetch

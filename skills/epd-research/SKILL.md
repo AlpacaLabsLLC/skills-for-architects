@@ -1,6 +1,6 @@
 ---
 name: epd-research
-description: Search for EPDs by product category, CSI division, or material type. Finds EPDs from EC3, program operator registries, and manufacturer sites.
+description: Search for EPDs by product category, CSI division, or material type — finds EPDs from EC3, program operator registries, and manufacturer sites. Use when the user asks to "find EPDs for...", locate declarations for a material, or source low-carbon product documentation.
 allowed-tools:
   - Read
   - Write

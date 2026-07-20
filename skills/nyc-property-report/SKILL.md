@@ -1,6 +1,6 @@
 ---
 name: nyc-property-report
-description: Combined NYC property report — landmarks, DOB permits, violations, ACRIS records, HPD, and BSA variances.
+description: Combined NYC property report — landmarks, DOB permits, violations, ACRIS records, HPD, and BSA variances in one document. Use when the user asks for a full property report, complete due diligence, or to "pull everything" on an NYC address. For a single dataset use the individual NYC skills.
 allowed-tools:
   - WebFetch
   - Write

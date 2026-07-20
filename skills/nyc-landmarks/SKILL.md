@@ -1,6 +1,6 @@
 ---
 name: nyc-landmarks
-description: Check if a NYC building is landmarked or in a historic district using LPC data.
+description: Check whether a NYC building is landmarked or in a historic district using LPC data. Use when the user asks "is this building landmarked", whether a site sits in a historic district, or whether LPC review applies. NYC only.
 allowed-tools:
   - WebFetch
   - Write
