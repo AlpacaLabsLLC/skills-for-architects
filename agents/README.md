@@ -2,19 +2,19 @@
 
 Agents are autonomous specialists that orchestrate multiple skills to complete a complex task. Unlike skills (single-purpose, invoked directly), agents assess the situation, choose a path, and exercise judgment.
 
-Each agent ships **inside the plugin it orchestrates** (under that plugin's `agents/` directory), so installing a plugin registers its agent as a native Claude Code subagent — Claude can delegate to it automatically, and `/studio` routes to it by name.
+All seven agents ship with the **architecture-studio** plugin (this `agents/` directory), so installing the plugin registers each one as a native Claude Code subagent — Claude can delegate to it automatically, and `/studio` routes to it by name.
 
 ## Available Agents
 
-| Agent | Plugin | Domain | Skills it orchestrates |
-|-------|--------|--------|----------------------|
-| [site-planner](../plugins/01-site-planning/agents/site-planner.md) | 01-site-planning | Site Planning | environmental-analysis, mobility-analysis, demographics-analysis, history |
-| [nyc-zoning-expert](../plugins/02-zoning-analysis/agents/nyc-zoning-expert.md) | 02-zoning-analysis | Due Diligence + Zoning | nyc-landmarks, nyc-dob-permits, nyc-dob-violations, nyc-acris, nyc-hpd, nyc-bsa, nyc-property-report, zoning-analysis-nyc, zoning-envelope |
-| [workplace-strategist](../plugins/03-programming/agents/workplace-strategist.md) | 03-programming | Programming | occupancy-calculator, workplace-programmer |
-| [sustainability-specialist](../plugins/05-sustainability/agents/sustainability-specialist.md) | 05-sustainability | Sustainability | epd-research, epd-compare, epd-parser, epd-to-spec |
-| [product-and-materials-researcher](../plugins/06-materials-research/agents/product-and-materials-researcher.md) | 06-materials-research | Materials Research | product-research, product-spec-bulk-fetch, product-spec-pdf-parser, product-match, product-enrich |
-| [ffe-designer](../plugins/06-materials-research/agents/ffe-designer.md) | 06-materials-research | FF&E Design | product-pair, product-data-cleanup, product-data-import, product-enrich, product-image-processor, csv-to-sif, sif-to-csv |
-| [brand-manager](../plugins/07-presentations/agents/brand-manager.md) | 07-presentations | Presentations | slide-deck-generator, color-palette-generator, resize-images |
+| Agent | Domain | Skills it orchestrates |
+|-------|--------|----------------------|
+| [site-planner](./site-planner.md) | Site Planning | environmental-analysis, mobility-analysis, demographics-analysis, site-history |
+| [nyc-zoning-expert](./nyc-zoning-expert.md) | Due Diligence + Zoning | nyc-landmarks, nyc-dob-permits, nyc-dob-violations, nyc-acris, nyc-hpd, nyc-bsa, nyc-property-report, zoning-analysis-nyc, zoning-envelope |
+| [workplace-strategist](./workplace-strategist.md) | Programming | occupancy-calculator, workplace-programmer |
+| [sustainability-specialist](./sustainability-specialist.md) | Sustainability | epd-research, epd-compare, epd-parser, epd-to-spec |
+| [product-and-materials-researcher](./product-and-materials-researcher.md) | Materials Research | product-research, product-spec-bulk-fetch, product-spec-pdf-parser, product-match, product-enrich |
+| [ffe-designer](./ffe-designer.md) | FF&E Design | product-pair, product-data-cleanup, product-data-import, product-enrich, product-image-processor, csv-to-sif, sif-to-csv |
+| [brand-manager](./brand-manager.md) | Presentations | slide-deck-generator, color-palette-generator, resize-images |
 
 ## How Agents Differ from Skills
 
