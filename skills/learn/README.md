@@ -1,6 +1,6 @@
 # /learn
 
-A resumable, hands-on course teaching architects how to use Claude Code. Six modules, most ~15–20 minutes, each built around an exercise on a bundled sandbox project the learner picks at setup — a Brooklyn loft conversion, a healthcare campus, a workplace fit-out, a restaurant, or a ground-up school (`sandbox/<project>/`, each with the same six deliberately messy files).
+A resumable, hands-on course teaching architects how to use Claude Code. Six modules, most ~15–20 minutes, each built around an exercise on the bundled sandbox project — a fictional Brooklyn art museum planning a rooftop expansion (`sandbox/art-museum/`, six deliberately messy files).
 
 ## Usage
 
@@ -28,6 +28,6 @@ An advanced track — bigger jobs, plan mode, subagents, skill authorship in dep
 
 | Directory | Used in | Contents |
 |-----------|---------|----------|
-| `sandbox/` | Modules 1–6 | Five fictional projects (loft conversion, healthcare campus, workplace, restaurant, school), each six deliberately messy files with identical planted flaws |
+| `sandbox/` | Modules 1–6 | The fictional Greenpoint Museum of Art — six deliberately messy files with engineered flaws |
 | `templates/` | Module 3 | `office-CLAUDE.md`, a starter standards binder distilled from the Architecture Studio rules |
 | `examples/` | Advanced track (planned) | Three finished skills to study and modify: `/ascii-name`, `/clean-downloads`, `/tasks` |
