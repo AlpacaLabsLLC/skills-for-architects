@@ -64,7 +64,7 @@ The dispatcher is named the same as the plugin (`canoa`, `studio`). Its `SKILL.m
 
 Reference implementations:
 - [`AlpacaLabsLLC/canoa/skills/canoa/SKILL.md`](https://github.com/AlpacaLabsLLC/canoa/blob/main/skills/canoa/SKILL.md)
-- [`AlpacaLabsLLC/skills-for-architects/plugins/08-dispatcher/skills/studio/SKILL.md`](https://github.com/AlpacaLabsLLC/skills-for-architects/blob/main/plugins/08-dispatcher/skills/studio/SKILL.md)
+- [`AlpacaLabsLLC/skills-for-architects/skills/studio/SKILL.md`](https://github.com/AlpacaLabsLLC/skills-for-architects/blob/main/skills/studio/SKILL.md)
 
 **Why:** users shouldn't have to memorize which sub-skill handles which intent. The dispatcher does the routing. New users can just type `/canoa` (or `/studio`) and describe what they need in plain English.
 
@@ -74,7 +74,7 @@ Rules are cross-cutting conventions that apply to multiple skills. Examples: voi
 
 - For multi-plugin marketplaces, put rules in a top-level `rules/` directory — referenced by per-plugin READMEs, enforced by hooks at marketplace level. See [`skills-for-architects/rules/`](./rules/).
 - For single-plugin marketplaces, rules live in the dispatcher skill body and are repeated in each sub-skill that touches them.
-- **Marker-driven hooks** — for enforceable rules, use HTML comment markers (e.g., `<!-- architecture-studio:requires-disclaimer -->`) that skills emit when they want the rule applied. Hooks check for the marker, not for keywords like "FAR" or "audit." See [`post-write-disclaimer-check.sh`](./plugins/08-dispatcher/hooks/post-write-disclaimer-check.sh).
+- **Marker-driven hooks** — for enforceable rules, use HTML comment markers (e.g., `<!-- architecture-studio:requires-disclaimer -->`) that skills emit when they want the rule applied. Hooks check for the marker, not for keywords like "FAR" or "audit." See [`post-write-disclaimer-check.sh`](./hooks/post-write-disclaimer-check.sh).
 - Hard rules in skills are stated explicitly in the body, with WHY they exist (often a past incident or strong invariant). E.g.: "Audit always re-parses. Reason: Eames bug where agent reported sheet value as verified when catalog had drifted to a newer price."
 
 **Why:** keyword-sniffing hooks misfire on docs that mention regulated terms in passing (READMEs, changelogs, meeting notes) AND miss terse regulatory replies that happen not to use those keywords. Marker-driven enforcement eliminates both. Documenting WHY the rule exists lets future maintainers judge edge cases instead of blindly following the rule.

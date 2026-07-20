@@ -16,55 +16,48 @@
 
 </div>
 
-> Agents, skills, and rules for architects, designers, and AEC professionals — use with [Claude Desktop](https://claude.ai) or [Claude Code](https://docs.anthropic.com/en/docs/claude-code).
+> One plugin of agents, skills, and rules for architects, designers, and AEC professionals — use with [Claude Desktop](https://claude.ai) or [Claude Code](https://docs.anthropic.com/en/docs/claude-code).
 
 **Architecture Studio** teaches Claude architecture-specific workflows — site analysis, zoning, space programming, specifications, materials research, sustainability, and presentations.
 
-**7 agents**, **40 skills**, **7 rules**, and **3 hooks** across **11 plugins**. Built by [ALPA](https://alpa.llc).
+**One plugin** — `architecture-studio` v1.3.0 — with **40 skills**, **7 agents**, **7 rules**, and **3 hooks**. Built by [ALPA](https://alpa.llc).
 
-## What's New in 1.2
+## What's New in 1.3
 
-- **Project dossier + decision records** — the new [Project Dossier plugin](./plugins/09-project-dossier) gives every project a persistent state: `/project-dossier` maintains `PROJECT.md` (sourced, dated facts — site, zoning, program, code), and `/decision` captures ADR-style decision records in `decisions/`. Analysis skills read the dossier before fetching, append their findings after, and propose `/decision` when an analysis forces a choice.
-- **Agents are native subagents** — each agent now ships inside the plugin it orchestrates; installing the plugin registers it with Claude Code, so Claude can delegate to it automatically.
-- **Hooks register themselves** — enable the [Dispatcher plugin](./plugins/08-dispatcher) and the three hooks are live. The manual settings merge is gone.
+- **One flat plugin.** The ten-plugin marketplace is now a single plugin: one install gets every skill, agent, and hook. The old per-plugin taxonomy (Due Diligence, Site Planning, Zoning, …) survives below as documentation groups — nothing to choose at install time.
+- **Renames:** `/history` is now `/site-history`; the help menu skill is `/skills` (formerly `skills-menu`).
+- **`/learn`** — a guided, resumable course teaching architects Claude Code itself, on a bundled sandbox project.
 
 Full history in the [CHANGELOG](./CHANGELOG.md).
 
 ## Architecture
 
 ```
-Architecture Studio
-├── /studio                              ← entry point (08-dispatcher)
-│
-├── plugins/
-│   ├── 00-due-diligence                 7 skills
-│   ├── 01-site-planning                 4 skills · agent: site-planner
-│   ├── 02-zoning-analysis               2 skills · agent: nyc-zoning-expert
-│   ├── 03-programming                   2 skills · agent: workplace-strategist
-│   ├── 04-specifications                1 skill
-│   ├── 05-sustainability                4 skills · agent: sustainability-specialist
-│   ├── 06-materials-research           12 skills · agents: researcher + ffe-designer
-│   ├── 07-presentations                 3 skills · agent: brand-manager
-│   ├── 08-dispatcher                    2 skills · hooks ship here
-│   ├── 09-project-dossier               2 skills · PROJECT.md + decisions/
-│   └── 10-learn                         1 skill  · /learn — guided course
-│
-└── rules/                               7 rules · 2 hook-enforced, 5 advisory
+Architecture Studio (one plugin: architecture-studio)
+├── skills/          40 skills — one directory each, flat
+│   ├── /studio      ← entry point: describe a task, get routed
+│   └── /skills      ← help menu
+├── agents/           7 orchestration subagents
+├── hooks/            3 event-driven automations (auto-register)
+├── rules/            7 cross-cutting conventions (2 hook-enforced, 5 advisory)
+└── schema/           shared FF&E product schema (33 columns) + SIF crosswalk
 ```
 
-**Agents** orchestrate skills across plugins — they assess your input, choose a path, and exercise judgment; each ships inside the plugin it orchestrates and registers as a native Claude Code subagent. **Skills** are single-purpose tools invoked with a slash command. **Rules** are cross-cutting conventions (two hook-enforced, five advisory). **Hooks** are event-driven automations that ship with the Dispatcher plugin and register automatically. Skills are grouped into **plugins** (installable bundles organized by project lifecycle).
+**Agents** orchestrate skills — they assess your input, choose a path, and exercise judgment; each registers as a native Claude Code subagent. **Skills** are single-purpose tools invoked with a slash command. **Rules** are cross-cutting conventions. **Hooks** are event-driven automations that register automatically when the plugin is enabled.
 
 ## Quick Start
 
 ### Install
 
-**Claude Desktop:** Open **Customize** → **Browse plugins** → **+** → **Add marketplace from GitHub** → enter `AlpacaLabsLLC/skills-for-architects`
+**Claude Desktop:** Open **Customize** → **Browse plugins** → **+** → **Add marketplace from GitHub** → enter `AlpacaLabsLLC/skills-for-architects` → install **Architecture Studio**
 
 **Claude Code:**
 ```bash
 claude plugin marketplace add AlpacaLabsLLC/skills-for-architects
-claude plugin install 01-site-planning@skills-for-architects
+claude plugin install architecture-studio@skills-for-architects
 ```
+
+That single install loads all 40 skills, all 7 agents, and the 3 hooks.
 
 ### Use
 
@@ -77,7 +70,7 @@ Type `/studio` followed by what you need. The router reads your request and hand
 /studio parse this EPD
 ```
 
-Type `/skills` for the full menu. Or call any skill directly by name (e.g. `/environmental-analysis 123 Main St`).
+Type `/skills` for the full menu. Or call any skill directly by name (e.g. `/environmental-analysis 123 Main St`). New to Claude Code entirely? Start with `/learn`.
 
 ## Agents
 
@@ -85,133 +78,138 @@ Agents are the orchestration layer. Describe your task — the agent decides whi
 
 | Agent | Domain | What it does |
 |-------|--------|-------------|
-| [site-planner](./plugins/01-site-planning/agents/site-planner.md) | Site Planning | Runs all site research in parallel, synthesizes a unified brief with opportunities and constraints |
-| [nyc-zoning-expert](./plugins/02-zoning-analysis/agents/nyc-zoning-expert.md) | Due Diligence + Zoning | Full NYC property and zoning analysis — due diligence, buildable envelope, 3D visualization |
-| [workplace-strategist](./plugins/03-programming/agents/workplace-strategist.md) | Programming | Translates headcount and work style into space programs — occupancy compliance, zone allocation, room schedules |
-| [product-and-materials-researcher](./plugins/06-materials-research/agents/product-and-materials-researcher.md) | Materials Research | Finds products from a brief, extracts specs from URLs/PDFs, tags and classifies, finds alternatives |
-| [ffe-designer](./plugins/06-materials-research/agents/ffe-designer.md) | FF&E Design | Builds clean schedules from messy inputs, composes room packages, runs QA, exports to dealer formats |
-| [sustainability-specialist](./plugins/05-sustainability/agents/sustainability-specialist.md) | Sustainability | Evaluates environmental impact — finds EPDs, compares GWP, checks LEED eligibility, writes spec thresholds |
-| [brand-manager](./plugins/07-presentations/agents/brand-manager.md) | Presentations | Owns visual identity — builds decks, creates palettes, QAs deliverables for presentation readiness |
+| [site-planner](./agents/site-planner.md) | Site Planning | Runs all site research in parallel, synthesizes a unified brief with opportunities and constraints |
+| [nyc-zoning-expert](./agents/nyc-zoning-expert.md) | Due Diligence + Zoning | Full NYC property and zoning analysis — due diligence, buildable envelope, 3D visualization |
+| [workplace-strategist](./agents/workplace-strategist.md) | Programming | Translates headcount and work style into space programs — occupancy compliance, zone allocation, room schedules |
+| [product-and-materials-researcher](./agents/product-and-materials-researcher.md) | Materials Research | Finds products from a brief, extracts specs from URLs/PDFs, tags and classifies, finds alternatives |
+| [ffe-designer](./agents/ffe-designer.md) | FF&E Design | Builds clean schedules from messy inputs, composes room packages, runs QA, exports to dealer formats |
+| [sustainability-specialist](./agents/sustainability-specialist.md) | Sustainability | Evaluates environmental impact — finds EPDs, compares GWP, checks LEED eligibility, writes spec thresholds |
+| [brand-manager](./agents/brand-manager.md) | Presentations | Owns visual identity — builds decks, creates palettes, QAs deliverables for presentation readiness |
 
 See the [agents index](./agents/README.md) for full workflows and handoff logic.
 
-## Plugins & Skills
+## Skill Groups
 
-Organized by project lifecycle — from due diligence through delivery.
+All 40 skills live flat in [`skills/`](./skills) and install together. The groups below are documentation only — the former plugin taxonomy, kept because it maps to the project lifecycle from due diligence through delivery.
 
-| # | Plugin | Skills | Description |
-|---|--------|--------|-------------|
-| 0 | [Due Diligence](./plugins/00-due-diligence) | 7 | NYC property data: landmarks, DOB permits, violations, ACRIS, HPD, BSA. |
-| 1 | [Site Planning](./plugins/01-site-planning) | 4 | Site research: environmental, mobility, demographics, history. |
-| 2 | [Zoning Analysis](./plugins/02-zoning-analysis) | 2 | Zoning envelope analysis and 3D visualization for NYC. |
-| 3 | [Programming](./plugins/03-programming) | 2 | Workplace strategy: space programs, occupancy loads, IBC compliance. |
-| 4 | [Specifications](./plugins/04-specifications) | 1 | CSI outline specifications from a materials list. |
-| 5 | [Sustainability](./plugins/05-sustainability) | 4 | EPD parsing, research, comparison, and GWP thresholds. |
-| 6 | [Materials Research](./plugins/06-materials-research) | 12 | FF&E product research, spec extraction, cleanup, and image processing. Exports to SIF dealer formats and [Norma](https://norma.llc). |
-| 7 | [Presentations](./plugins/07-presentations) | 3 | Slide deck generation, color palette creation, and image resizing for web, social, slides, and print. |
-| 8 | [Dispatcher](./plugins/08-dispatcher) | 2 | Studio router (`/studio`), help menu (`/skills`), and the three hooks. |
-| 9 | [Project Dossier](./plugins/09-project-dossier) | 2 | Persistent project facts (`PROJECT.md`) and ADR-style decision records. |
-| 10 | [Learn](./plugins/10-learn) | 1 | Guided course teaching architects Claude Code itself — hands-on, resumable. |
-
-<details>
-<summary><strong>All 40 skills</strong></summary>
+| Group | Skills | Description |
+|-------|--------|-------------|
+| [Due Diligence](#due-diligence) | 7 | NYC property data: landmarks, DOB permits, violations, ACRIS, HPD, BSA. NYC Open Data (Socrata) — no API key required. |
+| [Site Planning](#site-planning) | 4 | Site research: environmental, mobility, demographics, site history. |
+| [Zoning Analysis](#zoning-analysis) | 2 | Zoning envelope analysis and 3D visualization for NYC. |
+| [Programming](#programming) | 2 | Workplace strategy: space programs, occupancy loads, IBC compliance. |
+| [Specifications](#specifications) | 1 | CSI outline specifications from a materials list. |
+| [Sustainability](#sustainability) | 4 | EPD parsing, research, comparison, and GWP thresholds. |
+| [Materials Research](#materials-research) | 12 | FF&E product research, spec extraction, cleanup, and image processing. Exports to SIF dealer formats and [Norma](https://norma.llc). |
+| [Presentations](#presentations) | 3 | Slide deck generation, color palettes, and image resizing for web, social, slides, and print. |
+| [Dispatcher](#dispatcher) | 2 | Studio router (`/studio`) and help menu (`/skills`). |
+| [Project Dossier](#project-dossier) | 2 | Persistent project facts (`PROJECT.md`) and ADR-style decision records. |
+| [Learn](#learn) | 1 | Guided course teaching architects Claude Code itself — hands-on, resumable. |
 
 ### Due Diligence
 
+All lookups query the NYC Open Data Socrata API and resolve addresses via PLUTO — no authentication required. Each skill's own README documents the exact datasets it queries.
+
 | Skill | Description |
 |-------|-------------|
-| [`/nyc-landmarks`](./plugins/00-due-diligence/skills/nyc-landmarks) | LPC landmark and historic district check |
-| [`/nyc-dob-permits`](./plugins/00-due-diligence/skills/nyc-dob-permits) | DOB permit and filing history |
-| [`/nyc-dob-violations`](./plugins/00-due-diligence/skills/nyc-dob-violations) | DOB and ECB violations |
-| [`/nyc-acris`](./plugins/00-due-diligence/skills/nyc-acris) | ACRIS property transaction records |
-| [`/nyc-hpd`](./plugins/00-due-diligence/skills/nyc-hpd) | HPD violations, complaints, and registration |
-| [`/nyc-bsa`](./plugins/00-due-diligence/skills/nyc-bsa) | BSA variances and special permits |
-| [`/nyc-property-report`](./plugins/00-due-diligence/skills/nyc-property-report) | Combined NYC property report — all 6 above |
+| [`/nyc-landmarks`](./skills/nyc-landmarks) | LPC landmark and historic district check |
+| [`/nyc-dob-permits`](./skills/nyc-dob-permits) | DOB permit and filing history |
+| [`/nyc-dob-violations`](./skills/nyc-dob-violations) | DOB and ECB violations |
+| [`/nyc-acris`](./skills/nyc-acris) | ACRIS property transaction records |
+| [`/nyc-hpd`](./skills/nyc-hpd) | HPD violations, complaints, and registration |
+| [`/nyc-bsa`](./skills/nyc-bsa) | BSA variances and special permits |
+| [`/nyc-property-report`](./skills/nyc-property-report) | Combined NYC property report — all 6 above |
 
 ### Site Planning
 
+Each skill takes an address, researches authoritative public sources (NOAA, USGS, EPA, Census Bureau, BLS, MTA, DOT, LPC, National Register), and writes a structured markdown report with a Key Metrics table.
+
 | Skill | Description |
 |-------|-------------|
-| [`/environmental-analysis`](./plugins/01-site-planning/skills/environmental-analysis) | Climate, precipitation, wind, sun angles, flood zones, seismic risk, soil |
-| [`/mobility-analysis`](./plugins/01-site-planning/skills/mobility-analysis) | Transit, walk/bike/transit scores, pedestrian infrastructure |
-| [`/demographics-analysis`](./plugins/01-site-planning/skills/demographics-analysis) | Population, income, age, housing market, employment |
-| [`/history`](./plugins/01-site-planning/skills/history) | Neighborhood context, landmarks, commercial activity, planned development |
+| [`/environmental-analysis`](./skills/environmental-analysis) | Climate, precipitation, wind, sun angles, flood zones, seismic risk, soil |
+| [`/mobility-analysis`](./skills/mobility-analysis) | Transit, walk/bike/transit scores, pedestrian infrastructure |
+| [`/demographics-analysis`](./skills/demographics-analysis) | Population, income, age, housing market, employment |
+| [`/site-history`](./skills/site-history) | Neighborhood context, landmarks, commercial activity, planned development |
 
 ### Zoning Analysis
 
 | Skill | Description |
 |-------|-------------|
-| [`/zoning-analysis-nyc`](./plugins/02-zoning-analysis/skills/zoning-analysis-nyc) | NYC buildable envelope — FAR, height, setbacks, use groups from PLUTO |
-| [`/zoning-envelope`](./plugins/02-zoning-analysis/skills/zoning-envelope) | Interactive 3D zoning envelope viewer |
+| [`/zoning-analysis-nyc`](./skills/zoning-analysis-nyc) | NYC buildable envelope — FAR, height, setbacks, use groups from PLUTO and bundled Zoning Resolution rules |
+| [`/zoning-envelope`](./skills/zoning-envelope) | Interactive 3D zoning envelope viewer — self-contained HTML from any zoning analysis report |
 
 ### Programming
 
 | Skill | Description |
 |-------|-------------|
-| [`/workplace-programmer`](./plugins/03-programming/skills/workplace-programmer) | Space programs from headcount and work style |
-| [`/occupancy-calculator`](./plugins/03-programming/skills/occupancy-calculator) | IBC occupancy loads, egress, plumbing fixture counts |
+| [`/workplace-programmer`](./skills/workplace-programmer) | Space programs from headcount and work style — area splits, room schedules, seat counts backed by industry research |
+| [`/occupancy-calculator`](./skills/occupancy-calculator) | IBC occupancy loads (Table 1004.5), egress width, exit counts, plumbing fixtures |
 
 ### Specifications
 
 | Skill | Description |
 |-------|-------------|
-| [`/spec-writer`](./plugins/04-specifications/skills/spec-writer) | CSI outline specs — MasterFormat divisions, three-part sections |
+| [`/spec-writer`](./skills/spec-writer) | CSI outline specs — MasterFormat 2020 divisions, three-part sections, `[REVIEW REQUIRED]` flags |
 
 ### Sustainability
 
+The four skills form a natural pipeline — parse EPD PDFs → research registries → compare on GWP → generate spec language — but each works standalone. All share one EPD data schema covering impact indicators and LEED MRc2 eligibility.
+
 | Skill | Description |
 |-------|-------------|
-| [`/epd-parser`](./plugins/05-sustainability/skills/epd-parser) | Extract data from EPD PDFs — GWP, life cycle stages, certifications |
-| [`/epd-research`](./plugins/05-sustainability/skills/epd-research) | Search EC3, UL, Environdec for EPDs by material or category |
-| [`/epd-compare`](./plugins/05-sustainability/skills/epd-compare) | Side-by-side environmental impact comparison |
-| [`/epd-to-spec`](./plugins/05-sustainability/skills/epd-to-spec) | CSI specs with EPD requirements and GWP thresholds |
+| [`/epd-parser`](./skills/epd-parser) | Extract data from EPD PDFs — GWP, life cycle stages, certifications |
+| [`/epd-research`](./skills/epd-research) | Search EC3, UL, Environdec for EPDs by material or category |
+| [`/epd-compare`](./skills/epd-compare) | Side-by-side environmental impact comparison with LEED eligibility check |
+| [`/epd-to-spec`](./skills/epd-to-spec) | CSI specs with EPD requirements and GWP thresholds |
 
 ### Materials Research
 
+Every skill reads from and writes back to one master Google Sheet — a shared 33-column schema regardless of source. Column definitions, category vocabulary, sheet conventions, and the SIF dealer crosswalk live in [`schema/`](./schema): [product-schema.md](./schema/product-schema.md) · [sheet-conventions.md](./schema/sheet-conventions.md) · [sif-crosswalk.md](./schema/sif-crosswalk.md).
+
 | Skill | Description |
 |-------|-------------|
-| [`/product-research`](./plugins/06-materials-research/skills/product-research) | Find products from a design brief |
-| [`/product-spec-bulk-fetch`](./plugins/06-materials-research/skills/product-spec-bulk-fetch) | Extract specs from product URLs at scale |
-| [`/product-data-cleanup`](./plugins/06-materials-research/skills/product-data-cleanup) | Normalize messy FF&E schedules |
-| [`/product-spec-pdf-parser`](./plugins/06-materials-research/skills/product-spec-pdf-parser) | Extract specs from PDF catalogs |
-| [`/product-image-processor`](./plugins/06-materials-research/skills/product-image-processor) | Batch download, resize, remove backgrounds |
-| [`/product-data-import`](./plugins/06-materials-research/skills/product-data-import) | Import raw product data into the master schedule |
-| [`/master-schedule`](./plugins/06-materials-research/skills/master-schedule) | Connect a product library sheet to the project |
-| [`/product-enrich`](./plugins/06-materials-research/skills/product-enrich) | Auto-tag products with categories, colors, materials |
-| [`/product-match`](./plugins/06-materials-research/skills/product-match) | Find similar products |
-| [`/product-pair`](./plugins/06-materials-research/skills/product-pair) | Suggest complementary products |
-| [`/csv-to-sif`](./plugins/06-materials-research/skills/csv-to-sif) | Convert CSV to SIF for dealer systems |
-| [`/sif-to-csv`](./plugins/06-materials-research/skills/sif-to-csv) | Convert SIF to readable spreadsheets |
+| [`/master-schedule`](./skills/master-schedule) | Connect a product library sheet to the project (auto-runs before other skills) |
+| [`/product-research`](./skills/product-research) | Find products from a design brief |
+| [`/product-spec-bulk-fetch`](./skills/product-spec-bulk-fetch) | Extract specs from product URLs at scale |
+| [`/product-spec-pdf-parser`](./skills/product-spec-pdf-parser) | Extract specs from PDF catalogs, price books, and spec sheets |
+| [`/product-data-cleanup`](./skills/product-data-cleanup) | Normalize casing, categories, dimensions, materials, language |
+| [`/product-data-import`](./skills/product-data-import) | Turn raw product lists into formatted FF&E specification schedules |
+| [`/product-enrich`](./skills/product-enrich) | Auto-tag products with categories, colors, materials, and style tags |
+| [`/product-match`](./skills/product-match) | Find similar products from an image, name, or description |
+| [`/product-pair`](./skills/product-pair) | Suggest complementary products |
+| [`/product-image-processor`](./skills/product-image-processor) | Batch download, resize, remove backgrounds |
+| [`/csv-to-sif`](./skills/csv-to-sif) | Convert CSV to SIF for dealer systems |
+| [`/sif-to-csv`](./skills/sif-to-csv) | Convert SIF files into readable spreadsheets |
 
 ### Presentations
 
 | Skill | Description |
 |-------|-------------|
-| [`/slide-deck-generator`](./plugins/07-presentations/skills/slide-deck-generator) | HTML slide decks — editorial layout, 22 slide types |
-| [`/color-palette-generator`](./plugins/07-presentations/skills/color-palette-generator) | Color palettes from descriptions, images, or hex codes |
-| [`/resize-images`](./plugins/07-presentations/skills/resize-images) | Batch-resize photos for web, social, slides, and print |
+| [`/slide-deck-generator`](./skills/slide-deck-generator) | Self-contained HTML slide decks — editorial layout, 22 slide types |
+| [`/color-palette-generator`](./skills/color-palette-generator) | Color palettes from descriptions, images, or brand references, with WCAG contrast checks |
+| [`/resize-images`](./skills/resize-images) | Batch-resize photos for web (WebP), social, slides (4:3/16:9), and print (ARCH A/B/C at 300 DPI) |
 
 ### Dispatcher
 
 | Skill | Description |
 |-------|-------------|
-| [`/studio`](./plugins/08-dispatcher/skills/studio) | Smart router — describe a task and get routed to the right agent or skill |
-| [`/skills`](./plugins/08-dispatcher/skills/skills-menu) | Help menu listing all available skills and agents |
+| [`/studio`](./skills/studio) | Smart router — describe a task and get routed to the right agent or skill |
+| [`/skills`](./skills/skills) | Help menu listing all available skills and agents |
 
 ### Project Dossier
 
+Two layers of persistent per-project state, as plain files in the project folder: **facts** (`PROJECT.md` — what is, each entry sourced and dated) and **reasoning** (`decisions/` — why it is, ADR-style). Analysis skills check the dossier before fetching, append findings after, and propose `/decision` when an analysis forces a choice. Files, not a platform — shared however the project already is.
+
 | Skill | Description |
 |-------|-------------|
-| [`/project-dossier`](./plugins/09-project-dossier/skills/project-dossier) | Create or update `PROJECT.md` — sourced, dated project facts |
-| [`/decision`](./plugins/09-project-dossier/skills/decision) | ADR-style decision records — context, options, the call, consequences |
+| [`/project-dossier`](./skills/project-dossier) | Create or update `PROJECT.md` — sourced, dated project facts |
+| [`/decision`](./skills/decision) | ADR-style decision records — context, options, the call, consequences |
 
 ### Learn
 
 | Skill | Description |
 |-------|-------------|
-| [`/learn`](./plugins/10-learn/skills/learn) | Guided course teaching architects Claude Code — 8 modules, sandbox project, resumable |
-
-</details>
+| [`/learn`](./skills/learn) | Guided course teaching architects Claude Code — 8 hands-on modules (~15–20 min each) on a bundled sandbox project, resumable anytime. Module 6 is a planted-error exercise in challenging AI output before you ever touch a real project. |
 
 ## Rules
 
@@ -229,22 +227,22 @@ Cross-cutting conventions every skill is written against. Two are hook-enforced 
 
 ## Hooks
 
-Event-driven automations — they ship with the [Dispatcher plugin](./plugins/08-dispatcher) and register automatically when it's enabled. No settings merge needed.
+Event-driven automations — they ship with the plugin and register automatically when it's enabled. No settings merge needed.
 
 | Hook | Event | What it does |
 |------|-------|-------------|
-| [post-write-disclaimer-check](./plugins/08-dispatcher/hooks/post-write-disclaimer-check.sh) | After Write | Warns if regulatory output is missing the professional disclaimer |
-| [post-output-metadata](./plugins/08-dispatcher/hooks/post-output-metadata.sh) | After Write | Stamps markdown reports with YAML front matter |
-| [pre-commit-spec-lint](./plugins/08-dispatcher/hooks/pre-commit-spec-lint.sh) | Before git commit | Flags malformed CSI section numbers |
+| [post-write-disclaimer-check](./hooks/post-write-disclaimer-check.sh) | After Write | Warns if regulatory output is missing the professional disclaimer |
+| [post-output-metadata](./hooks/post-output-metadata.sh) | After Write | Stamps markdown reports with YAML front matter |
+| [pre-commit-spec-lint](./hooks/pre-commit-spec-lint.sh) | Before git commit | Flags malformed CSI section numbers |
 
-See the [hooks directory](./plugins/08-dispatcher/hooks) for details and customization.
+See the [hooks directory](./hooks) for details and customization.
 
 ## Contributing
 
 Want to add a skill for the built environment?
 
 1. **Fork** this repository
-2. Create your skill in the appropriate plugin folder (or propose a new plugin)
+2. Create your skill as a new directory under [`skills/`](./skills)
 3. Each skill needs a `SKILL.md` with instructions and domain knowledge, a `README.md`, and any supporting data files
 4. Open a **pull request** — describe what the skill does, how you tested it, and sample output
 

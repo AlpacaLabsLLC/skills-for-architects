@@ -34,11 +34,7 @@ Print the following menu. Do not read any files — the menu is static.
 
 ## Skills — call directly for a specific task
 
-### Site & Due Diligence
-/environmental-analysis [address] — climate, flood, seismic, soil
-/mobility-analysis [address] — transit, walk score, bike, pedestrian
-/demographics-analysis [address] — population, income, housing, employment
-/site-history [address] — neighborhood context, landmarks, commercial activity
+### Due Diligence
 /nyc-landmarks [address] — LPC landmark and historic district check
 /nyc-dob-permits [address] — DOB permit and filing history
 /nyc-dob-violations [address] — DOB and ECB violations
@@ -47,7 +43,13 @@ Print the following menu. Do not read any files — the menu is static.
 /nyc-bsa [address] — BSA variances and special permits
 /nyc-property-report [address] — combined NYC report (all 6 above)
 
-### Zoning
+### Site Planning
+/environmental-analysis [address] — climate, flood, seismic, soil
+/mobility-analysis [address] — transit, walk score, bike, pedestrian
+/demographics-analysis [address] — population, income, housing, employment
+/site-history [address] — neighborhood context, landmarks, commercial activity
+
+### Zoning Analysis
 /zoning-analysis-nyc [address] — NYC buildable envelope from PLUTO
 /zoning-envelope — interactive 3D zoning envelope viewer
 
@@ -64,7 +66,7 @@ Print the following menu. Do not read any files — the menu is static.
 /epd-compare — side-by-side environmental impact comparison
 /epd-to-spec — CSI specs with EPD requirements and GWP thresholds
 
-### Product & Materials Research
+### Materials Research
 /product-research — find products from a design brief
 /product-spec-bulk-fetch — extract specs from product URLs
 /product-spec-pdf-parser — extract specs from PDF catalogs
@@ -83,11 +85,15 @@ Print the following menu. Do not read any files — the menu is static.
 /color-palette-generator — color palettes from descriptions or images
 /resize-images — batch-resize photos for web, social, slides, and print
 
+### Dispatcher
+/studio [task] — smart router: describe a task, get routed to the right agent or skill
+/skills — this menu
+
 ### Project Dossier
 /project-dossier — create or update PROJECT.md, the project facts file
 /decision — record a project decision (ADR-style, numbered, statused)
 
-### New to Claude Code?
+### Learn — new to Claude Code?
 /learn — guided hands-on course for architects, resumable anytime
 ```
 
