@@ -1,6 +1,6 @@
 # /learn
 
-A resumable, hands-on course teaching architects how to use Claude Code. Eight modules, each ~15–20 minutes, each built around an exercise on the bundled sandbox project (`sandbox/` — a fictional Brooklyn loft conversion with deliberately messy files).
+A resumable, hands-on course teaching architects how to use Claude Code. Eight modules, each ~15–20 minutes, each built around an exercise on a bundled sandbox project the learner picks at setup — a Brooklyn loft conversion, a healthcare campus, a workplace fit-out, a restaurant, or a ground-up school (`sandbox/<project>/`, each with the same six deliberately messy files).
 
 ## Usage
 
@@ -23,6 +23,6 @@ Progress is tracked in `PROGRESS.md` in the practice folder (default `~/claude-c
 
 | Directory | Used in | Contents |
 |-----------|---------|----------|
-| `sandbox/` | Modules 0–6 | The fictional Maple Street project — six deliberately messy files |
+| `sandbox/` | Modules 0–6 | Five fictional projects (loft conversion, healthcare campus, workplace, restaurant, school), each six deliberately messy files with identical planted flaws |
 | `templates/` | Module 3 | `office-CLAUDE.md`, a starter standards binder distilled from the Architecture Studio rules |
 | `examples/` | Module 4 | Three finished skills to study, install, and modify: `/ascii-name`, `/clean-downloads`, `/tasks` |

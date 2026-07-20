@@ -35,7 +35,10 @@ Everything the ten plugins provided is included; no skill was dropped. **Communi
 
 ### Added
 
-- **`/learn`** — a guided, resumable Claude Code course for architects: eight hands-on modules on a bundled sandbox project (a fictional Brooklyn loft conversion), a starter `CLAUDE.md` template distilled from the studio rules, and three example skills to study and modify. Progress persists in `PROGRESS.md`.
+- **`/learn`** — a guided, resumable Claude Code course for architects: eight hands-on modules on a bundled sandbox project, a starter `CLAUDE.md` template distilled from the studio rules, and three example skills to study and modify. Progress persists in `PROGRESS.md`.
+- **`/learn` sandbox choice** — the course opens with a menu of five fictional practice projects (Brooklyn loft conversion, healthcare campus, workplace fit-out, restaurant, ground-up school), each with the same six deliberately messy files and identical planted flaws, so every module works on any of them. All characters are roles (the owner, the zoning consultant) — no invented names.
+- **`/learn` progress bar** — a 24-cell ASCII bar in the return check-in and after each completed module.
+- **`/studio` → `/learn`** — the router now sends users who are new to Claude Code to the course, and the fallback menu points at it.
 
 ### Fixed
 

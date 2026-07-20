@@ -46,6 +46,7 @@ Examples:
 | Project setup, project facts file, "remember this for the project" | `/project-dossier` | Skill |
 | Record a decision, decision log, "we're going with...", supersede a decision | `/decision` | Skill |
 | User names a specific skill (e.g., "run epd-parser", "check landmarks") | That skill directly | Skill |
+| New to Claude Code — asks how to use this tool, what a terminal/skill is, or seems lost at the basics | `/learn` | Skill |
 
 ## Routing Rules
 
@@ -100,6 +101,7 @@ I don't have a skill for that. Here's what I can help with:
 • Make a presentation → /studio [content or report]
 
 Or type /skills for the full list.
+New to Claude Code? → /learn (a guided hands-on course)
 ```
 
 ### Rule 6: No arguments — show the menu

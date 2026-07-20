@@ -1,0 +1,37 @@
+[SCANNED DOCUMENT - OCR TEXT - Code review excerpt, Water Street Code Consulting, draft 06/05]
+
+RE: Meridian Underwriting, 200 Water Street, Floors 12-13 — Preliminary Code
+Review (EXCERPT, pp. 3-4 of 11)
+
+The subject premises comprise the full 12th and 13th floors of a 31-story
+office tower constructed c. 1971. Construction classification is Type I-B
+(noncombustible, protected). The proposed occupancy is Group B (business).
+The building is fully sprinklered thronghout [sic]; the tenant floors were
+retrofitted under the base building program completed in 2018.
+
+Floor plates are approximately 19,200 gsf each. At the business occupancy
+factor of 1 occupant per 150 sf gross, the design occupant load is 128
+occupants per floor, 256 occupants for the two-floor premises. Note the
+client's stated headcount of 240 does not govern; the calculated load does.
+
+Each floor is served by two existing exit stairs. Nominal clear width is
+44 inches; Stair B was field-measured on the 12th floor landing at 43-1/2
+inches between handrails (site verification, 06/12). At the sprinklered
+egress capacity factor of 0.2 inches per occupant, the measured width yields
+a capacity of 217 occupants per stair, 434 per floor — well in excess of the
+128-occupant per-floor load. The existing stairs are adequate for the
+proposed occupancy without modification.
+
+INTERCONNECTING STAIR: The proposed new stair connecting the 12th and 13th
+floors requires a new opening in the 13th floor slab. Under the vertical
+opening provisions of the Building Code, a floor opening connecting not more
+than two stories within a single tenancy may be permitted without a shaft
+enclosure, subject to specific conditions on the extent of the opening and
+its separation from the exit access serving other portions of the floors.
+Whether the town hall configuration the client has described satisfies those
+conditions is not yet established. Separately, the landlord's alteration
+agreement requires structural review and consent for any slab penetration in
+this 1971 building. This item requires careful analysis before the client is
+advised that the stair is feasible.
+
+[remainder of page illegible - rescan requested]

@@ -26,7 +26,7 @@
 
 - **One flat plugin.** The ten-plugin marketplace is now a single plugin: one install gets every skill, agent, and hook. The old per-plugin taxonomy (Due Diligence, Site Planning, Zoning, …) survives below as documentation groups — nothing to choose at install time.
 - **Renames:** the site history skill is now `/site-history` (formerly `history`); the help menu skill is `/skills` (formerly `skills-menu`).
-- **`/learn`** — a guided, resumable course teaching architects Claude Code itself, on a bundled sandbox project.
+- **`/learn`** — a guided, resumable course teaching architects Claude Code itself, on a bundled sandbox project you pick (loft conversion, healthcare campus, workplace, restaurant, or ground-up school).
 
 Full history in the [CHANGELOG](./CHANGELOG.md).
 
@@ -209,7 +209,7 @@ Two layers of persistent per-project state, as plain files in the project folder
 
 | Skill | Description |
 |-------|-------------|
-| [`/learn`](./skills/learn) | Guided course teaching architects Claude Code — 8 hands-on modules (~15–20 min each) on a bundled sandbox project, resumable anytime. Module 6 is a planted-error exercise in challenging AI output before you ever touch a real project. |
+| [`/learn`](./skills/learn) | Guided course teaching architects Claude Code — 8 hands-on modules (~15–20 min each) on a bundled sandbox project you pick from five types, resumable anytime. Module 6 is a planted-error exercise in challenging AI output before you ever touch a real project. |
 
 ## Rules
 
