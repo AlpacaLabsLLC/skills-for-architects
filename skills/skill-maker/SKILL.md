@@ -66,7 +66,7 @@ Enforce these portable essentials regardless of target:
 3. No `~/` paths in the SKILL.md body — they break on every machine but the author's. Use project-relative paths, or `$HOME` in the rare case a home path is the point.
 4. `allowed-tools` is the minimum blast radius for the steps as written.
 5. If the skill produces code, zoning, or life-safety analysis, its steps must instruct ending every report with the canonical disclaimer block followed by the marker `<!-- architecture-studio:requires-disclaimer -->` — see how `skills/occupancy-calculator/SKILL.md` does it.
-6. If the skill is adapted from an ad-hoc script that was first proven on a specific client engagement, grep the source for that client's name, address, project number, and any hardcoded thresholds or schema/column names before scaffolding — parameterize or genericize them rather than carrying them into a skill other engagements will reuse. A skill is a portable, trusted tool; nobody re-reviews its internals on reuse, only at first authoring, so a leftover client-specific default silently reaches an unrelated client's deliverable otherwise.
+6. If the skill is adapted from work developed for a specific client or project, inspect the source for client names, addresses, project numbers, PII, confidential identifiers, internal paths, and engagement-specific assumptions. Remove PII and confidential identifiers, and convert client-, firm-, or project-specific values and assumptions into explicit inputs. Preserve externally defined technical thresholds and schema requirements, but document their source, jurisdiction, edition, or format. Do not carry unexplained client-specific defaults into a reusable skill.
 
 ## Step 3 — Verify
 
