@@ -34,7 +34,7 @@ validate_text() {
 
 validate_project_id() {
   local project_id=${1:-}
-  printf '%s\n' "$project_id" | grep -Eq '^[0-9]{4}-(0[1-9]|1[0-2])-[A-Z]{3}-[A-Z0-9]+(-[A-Z0-9]+)*$' ||
+  printf '%s\n' "$project_id" | grep -Eq '^([0-9]{4}-(0[1-9]|1[0-2])|[0-9]{6})-[A-Z]{3}-[A-Z0-9]+(-[A-Z0-9]+)*$' ||
     die "project id must use uppercase YYYY-MM-CCC-PROJECT-NAME format"
 }
 
@@ -69,7 +69,12 @@ validate_identity() {
   validate_client_code "$client_code"
   validate_text "client" "$client"
   validate_created_date "$created"
-  case "$project_id" in "${created%-*}-$client_code-"*) ;; *) die "project id month must match created date and client code" ;; esac
+  compact_created="${created:2:2}${created:5:2}${created:8:2}"
+  case "$project_id" in
+    "${created%-*}-$client_code-"*) ;;
+    "$compact_created-$client_code-"*) ;;
+    *) die "project id must match created date and client code" ;;
+  esac
   if [ "$project_type" = client ] && [ "$client" = — ]; then
     die "client projects require a client display name"
   fi

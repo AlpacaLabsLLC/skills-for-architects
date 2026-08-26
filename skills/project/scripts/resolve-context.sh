@@ -27,13 +27,18 @@ validate_project_identity() {
   project_status=$(trim_field "$file" "Status")
   client_code=$(trim_field "$file" "Client code")
   created=$(trim_field "$file" "Created")
-  printf '%s\n' "$project_id" | grep -Eq '^[0-9]{4}-(0[1-9]|1[0-2])-[A-Z]{3}-[A-Z0-9]+(-[A-Z0-9]+)*$' || die "PROJECT.md has an invalid Project ID"
+  printf '%s\n' "$project_id" | grep -Eq '^([0-9]{4}-(0[1-9]|1[0-2])|[0-9]{6})-[A-Z]{3}-[A-Z0-9]+(-[A-Z0-9]+)*$' || die "PROJECT.md has an invalid Project ID"
   [ "$(basename -- "$directory")" = "$project_id" ] || die "project directory does not equal its immutable Project ID"
   case "$project_type" in internal|client) ;; *) die "PROJECT.md has an invalid Type" ;; esac
   case "$project_status" in prospective|active|on-hold|lost|withdrawn|completed|archived) ;; *) die "PROJECT.md has an invalid Status" ;; esac
   printf '%s\n' "$client_code" | grep -Eq '^[A-Z]{3}$' || die "PROJECT.md has an invalid Client code"
   printf '%s\n' "$created" | grep -Eq '^[0-9]{4}-(0[1-9]|1[0-2])-[0-9]{2}$' || die "PROJECT.md has an invalid Created date"
-  case "$project_id" in "${created%-*}-$client_code-"*) ;; *) die "Project ID does not match Created month and Client code" ;; esac
+  compact_created="${created:2:2}${created:5:2}${created:8:2}"
+  case "$project_id" in
+    "${created%-*}-$client_code-"*) ;;
+    "$compact_created-$client_code-"*) ;;
+    *) die "Project ID does not match Created date and Client code" ;;
+  esac
 }
 read_registry() {
   awk -f "$REGISTRY_PARSER" "$1/STUDIO.md" > "$2" 2>/dev/null || die "STUDIO.md Projects table is invalid"
@@ -52,11 +57,17 @@ if [ -n "$project" ]; then
     [ ! -L "$studio" ] && [ ! -L "$studio/STUDIO.md" ] || die "studio boundary may not be symlinked"
     require_version "$studio/STUDIO.md"
     studio_physical=$(cd -P -- "$studio" && pwd)
-    projects_root=$(cd -P -- "$studio/projects" 2>/dev/null && pwd) || die "studio projects directory is missing"
-    [ "$projects_root" = "$studio_physical/projects" ] || die "studio projects directory may not be symlinked"
-    case "$project/" in "$projects_root"/*/) ;; *) die "project is inside a studio but outside its projects directory" ;; esac
+    work_root_found=0
+    for work_root in projects pursuits; do
+      [ -d "$studio/$work_root" ] || continue
+      resolved_root=$(cd -P -- "$studio/$work_root" && pwd)
+      [ "$resolved_root" = "$studio_physical/$work_root" ] || die "studio $work_root directory may not be symlinked"
+      case "$project/" in "$resolved_root"/*/) work_root_found=1; break ;; esac
+    done
+    [ -d "$studio_physical/projects" ] || die "studio projects directory is missing"
+    [ "$work_root_found" -eq 1 ] || die "project is inside a studio but outside its projects or pursuits directory"
     relative_path=${project#"$studio_physical/"}
-    [ "$relative_path" = "projects/$project_id" ] || die "registered project folder does not equal its Project ID"
+    [ "$(basename -- "$project")" = "$project_id" ] || die "project folder does not equal its Project ID"
     rows=$(mktemp)
     trap 'rm -f "$rows"' EXIT
     read_registry "$studio" "$rows"
@@ -112,16 +123,22 @@ if [ -n "$studio" ]; then
     path_count=$(awk -F'\t' -v value="$path" '$7==value {n++} END {print n+0}' "$rows")
     if [ "$id_count" -ne 1 ]; then append_invalid "$id" "$path" "Project ID is registered $id_count times"; continue; fi
     if [ "$path_count" -ne 1 ]; then append_invalid "$id" "$path" "project path is registered $path_count times"; continue; fi
-    if ! printf '%s\n' "$id" | grep -Eq '^[0-9]{4}-(0[1-9]|1[0-2])-[A-Z]{3}-[A-Z0-9]+(-[A-Z0-9]+)*$'; then append_invalid "$id" "$path" "studio registration has an invalid Project ID"; continue; fi
+    if ! printf '%s\n' "$id" | grep -Eq '^([0-9]{4}-(0[1-9]|1[0-2])|[0-9]{6})-[A-Z]{3}-[A-Z0-9]+(-[A-Z0-9]+)*$'; then append_invalid "$id" "$path" "studio registration has an invalid Project ID"; continue; fi
     if [ -z "$name" ]; then append_invalid "$id" "$path" "studio registration has an empty Project name"; continue; fi
     if [ -z "$client" ]; then append_invalid "$id" "$path" "studio registration has an empty Client"; continue; fi
     if ! printf '%s\n' "$code" | grep -Eq '^[A-Z]{3}$'; then append_invalid "$id" "$path" "studio registration has an invalid Code"; continue; fi
     case "$type" in internal|client) ;; *) append_invalid "$id" "$path" "studio registration has an invalid Type"; continue ;; esac
     case "$status" in prospective|active|on-hold|lost|withdrawn|completed|archived) ;; *) append_invalid "$id" "$path" "studio registration has an invalid Status"; continue ;; esac
     if ! printf '%s\n' "$opened" | grep -Eq '^[0-9]{4}-(0[1-9]|1[0-2])-[0-9]{2}$'; then append_invalid "$id" "$path" "studio registration has an invalid Opened date"; continue; fi
-    case "$id" in "${opened%-*}-$code-"*) ;; *) append_invalid "$id" "$path" "studio Project ID does not match Opened month and Code"; continue ;; esac
+    compact_opened="${opened:2:2}${opened:5:2}${opened:8:2}"
+    case "$id" in
+      "${opened%-*}-$code-"*) ;;
+      "$compact_opened-$code-"*) ;;
+      *) append_invalid "$id" "$path" "studio Project ID does not match Opened date and Code"; continue ;;
+    esac
     if [ "$type" = client ] && [ "$client" = — ]; then append_invalid "$id" "$path" "client project registration requires a Client"; continue; fi
-    if [ "$path" != "projects/$id" ]; then append_invalid "$id" "$path" "registered project folder does not equal its Project ID"; continue; fi
+    case "$path" in projects/*|pursuits/*) ;; *) append_invalid "$id" "$path" "registered project path must be under projects/ or pursuits/"; continue ;; esac
+    if [ "${path##*/}" != "$id" ]; then append_invalid "$id" "$path" "registered project folder does not equal its Project ID"; continue; fi
     candidate="$studio/$path"
     if [ ! -d "$candidate" ]; then append_invalid "$id" "$path" "registered project directory is missing"; continue; fi
     if [ -L "$candidate" ]; then append_invalid "$id" "$path" "registered project directory may not be symlinked"; continue; fi
