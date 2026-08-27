@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+
+- **Host-condition evaluation harness.** Added `evals/host-conditions/`, which measures how bundled skills behave on a host without shell execution or local file writing — the Claude Desktop condition. It classifies each run into a failure mode rather than pass/fail, because a skill that stops cleanly scores as a non-success while being the better outcome. Includes a deterministic fixture builder, a case list, and a grader whose three known false-positive patterns are guarded and documented.
+- **First evaluation report.** `docs/reports/2026-08-27-host-condition-eval.md` records a 27-run comparison against a candidate host-requirements patch. The patch proved inert — eight paired cases agreed on failure mode 8 of 8, with turn deltas netting to noise — and was not adopted. The run did surface a real pre-existing defect: `csv-to-sif` emitted a non-ASCII character into a SIF file in one run of three, which dealer importers commonly reject.
+
 ## [1.5.0] - 2026-08-28
 
 ### Breaking

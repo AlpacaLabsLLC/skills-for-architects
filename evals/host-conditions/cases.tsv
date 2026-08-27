@@ -1,0 +1,10 @@
+# case_id	condition	prompt
+csv-to-sif	both	Use the csv-to-sif skill to export this project's product library as a SIF file for Hedberg. Quantities are in the Notes column.
+sif-to-csv	shell	Use the sif-to-csv skill to parse import.sif and append the products into this project's library.
+nyc-landmarks	both	Use the nyc-landmarks skill: is 120 Broadway, Manhattan landmarked or in a historic district? Save the report to the project.
+nyc-hpd	both	Use the nyc-hpd skill to check HPD violations and registration for 250 West 57th Street, Manhattan. Save the report to the project.
+nyc-dob-violations	both	Use the nyc-dob-violations skill to check open DOB and ECB violations for 120 Broadway, Manhattan. Save the report to the project.
+nyc-dob-permits	both	Use the nyc-dob-permits skill to list recent DOB permits and job filings for 120 Broadway, Manhattan. Save the report to the project.
+nyc-bsa	both	Use the nyc-bsa skill to check for BSA variances or special permits at 120 Broadway, Manhattan. Save the report to the project.
+nyc-acris	both	Use the nyc-acris skill to look up recorded ownership and recent deeds for 120 Broadway, Manhattan. Save the report to the project.
+occupancy-calculator	both	Use the occupancy-calculator skill: a 4,200 sq ft open office plus a 900 sq ft assembly room with tables and chairs, NYC. What is the occupant load? Save the calculation state.
