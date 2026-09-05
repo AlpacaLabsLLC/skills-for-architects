@@ -30,6 +30,16 @@ This branch adds a read-only, source-backed architecture-knowledge skill for sha
 
 The workspace migration from format 2 to format 3 is breaking, not a compatible patch update. Version 1.5.0 gives universal projects durable identity and moves commercial records into their owning project; release remains gated on dogfood validation of migration and rollback behavior.
 
+## What’s new in 1.4.5
+
+A packaging fix for Claude Desktop installation. Teaching examples and the Skill Maker template now live outside the installable `skills/` tree, and the learning material points to the canonical `/as:tasklist` skill instead of bundling a second skill with the same name. Recursive checks prevent misplaced skill manifests and canonical/example name overlap from returning.
+
+Compatibility note: `ascii-name` and `clean-downloads` were documented as commands in 1.4.4 even though they were course examples stored inside the installable tree. They are source examples, not installed commands, in 1.4.5. If you used either command, copy its directory from `assets/learn-examples/` into your user-owned skills directory, rename `SKILL.example.md` to `SKILL.md`, and adapt it as a custom skill. No project or studio data migration is required.
+
+## What’s new in 1.4.4
+
+A maintenance hotfix for Claude Code hook enforcement. Missing JSON decoders and malformed hook payloads now fail open, so ordinary Bash, Write, and Edit operations continue; confirmed malformed CSI sections and missing required disclaimers still block. Upgrading from 1.4.3 requires nothing.
+
 ## What’s new in 1.4.3
 
 A maintenance patch. `scripts/audit-skill-context.sh` now reads skill descriptions with the YAML parser instead of reconstructing them, correcting six frontmatter forms that were measured wrong — most visibly a plain multi-line description, which reported zero characters. No bundled skill used an affected form, so every published measurement is unchanged and no skill, record format, or command behavior moves. Upgrading from 1.4.2 requires nothing.

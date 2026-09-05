@@ -9,6 +9,7 @@ expected_skill_count=50
 [ -f docs/agents.md ]
 [ "$(find agents -maxdepth 1 -type f -name '*.md' | wc -l | tr -d ' ')" = 7 ]
 [ "$(find skills -mindepth 2 -maxdepth 2 -type f -name SKILL.md | wc -l | tr -d ' ')" = "$expected_skill_count" ]
+[ "$(find skills -mindepth 2 -type f -name SKILL.md | wc -l | tr -d ' ')" = "$expected_skill_count" ]
 
 # Claude is not installed in every CI environment. When available, verify the
 # same inventory users receive from an isolated local marketplace install.

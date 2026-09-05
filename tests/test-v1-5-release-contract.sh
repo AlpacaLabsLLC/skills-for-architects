@@ -20,15 +20,18 @@ PY
 
 grep -q '^## \[Unreleased\]$' CHANGELOG.md
 grep -q '^## \[1\.5\.0\] - 2026-08-28$' CHANGELOG.md
-! grep -q '^## \[1\.4\.4\]' CHANGELOG.md
+grep -q '^## \[1\.4\.5\] - 2026-09-03$' CHANGELOG.md
+grep -q '^## \[1\.4\.4\] - 2026-08-25$' CHANGELOG.md
+grep -Fq 'Thanks to [@Namine4](https://github.com/Namine4) for the original report and [@grigor-p](https://github.com/grigor-p) for extending the diagnosis and confirming the workaround.' CHANGELOG.md
 grep -q '^## \[1\.4\.3\] - 2026-08-13$' CHANGELOG.md
 grep -q '^## \[1\.4\.2\] - 2026-08-10$' CHANGELOG.md
 grep -q '^## \[1\.4\.1\] - 2026-07-29$' CHANGELOG.md
 grep -q '^## \[1\.4\.0\] - 2026-07-26$' CHANGELOG.md
 grep -q 'sequential `major.minor.patch` release scheme' CHANGELOG.md
 grep -q '^\[Unreleased\]: .*compare/v1\.5\.0\.\.\.HEAD$' CHANGELOG.md
-grep -q '^\[1\.5\.0\]: .*compare/v1\.4\.3\.\.\.v1\.5\.0$' CHANGELOG.md
-! grep -q '^\[1\.4\.4\]:' CHANGELOG.md
+grep -q '^\[1\.5\.0\]: .*compare/v1\.4\.5\.\.\.v1\.5\.0$' CHANGELOG.md
+grep -q '^\[1\.4\.5\]: .*releases/tag/v1\.4\.5$' CHANGELOG.md
+grep -q '^\[1\.4\.4\]: .*releases/tag/v1\.4\.4$' CHANGELOG.md
 grep -q '^\[1\.4\.3\]: .*releases/tag/v1\.4\.3$' CHANGELOG.md
 grep -q '^\[1\.4\.2\]: .*releases/tag/v1\.4\.2$' CHANGELOG.md
 grep -q '^\[1\.4\.1\]: .*releases/tag/v1\.4\.1$' CHANGELOG.md
@@ -60,10 +63,12 @@ grep -Fq 'repository contains **5 hooks**' README.md
 grep -Fq 'Codex loads one ambient `SessionStart` hook' README.md
 grep -Fq '**One plugin**—`as` v1.5.0' README.md
 grep -q '^## What.s new in 1\.5\.0$' README.md
-! grep -q '^## What.s new in 1\.4\.4$' README.md
+grep -q '^## What.s new in 1\.4\.5$' README.md
+grep -q '^## What.s new in 1\.4\.4$' README.md
+grep -Fq 'rename `SKILL.example.md` to `SKILL.md`' README.md
 grep -qi 'format 2.*format 3.*breaking\|breaking.*format 2.*format 3' README.md
 grep -q 'Version 1\.5\.0' README.md
-! rg -n '1\.4\.4|v1\.4\.4' .claude-plugin .codex-plugin README.md CHANGELOG.md docs/firm-deployment.md
+! rg -n '1\.4\.[45]|v1\.4\.[45]' .claude-plugin .codex-plugin docs/firm-deployment.md
 
 python3 - <<'PY'
 import re

@@ -33,6 +33,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 - **CSI edition clarity.** The specification writer retains its limited MasterFormat 2020 compatibility mapping while shared terminology records current CSI edition context separately and requires project-edition verification for applied work.
 
+## [1.4.5] - 2026-09-03
+
+### Removed
+
+- `ascii-name` and `clean-downloads`, which 1.4.4 documented as commands even though they were course examples, are now non-installable source examples under `assets/learn-examples/`. Users who relied on either command can copy its example directory into their user-owned skills directory, rename `SKILL.example.md` to `SKILL.md`, and adapt it as a custom skill. This correction does not migrate or change project or studio data.
+
+### Fixed
+
+- Claude Desktop installation no longer rejects the plugin because of recursively discovered teaching and template manifests. The two distinct learning examples and the Skill Maker template now live under `assets/` with non-installable `SKILL.example.md` filenames; the course references the canonical `/as:tasklist` skill instead of bundling a second `tasklist`; and recursive lint coverage rejects misplaced installable manifests, malformed examples, duplicate example names, and canonical/example name overlap. Thanks to [@antonchitana](https://github.com/antonchitana) for the report, diagnosis, and verified workaround.
+
+## [1.4.4] - 2026-08-25
+
+### Fixed
+
+- Claude Code hook payload decoding now fails open when neither `jq` nor Python is available or when a payload is malformed. The pre-commit CSI lint and post-write disclaimer check no longer block ordinary Bash, Write, or Edit operations in those conditions; confirmed malformed CSI sections and missing required disclaimers still block. Thanks to [@Namine4](https://github.com/Namine4) for the original report and [@grigor-p](https://github.com/grigor-p) for extending the diagnosis and confirming the workaround.
+
 ## [1.4.3] - 2026-08-13
 
 ### Fixed
@@ -270,7 +286,9 @@ First public release.
 - Marketplace install: `claude plugin marketplace add AlpacaLabsLLC/skills-for-architects`.
 
 [Unreleased]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.0...HEAD
-[1.5.0]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.4.3...v1.5.0
+[1.5.0]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.4.5...v1.5.0
+[1.4.5]: https://github.com/AlpacaLabsLLC/skills-for-architects/releases/tag/v1.4.5
+[1.4.4]: https://github.com/AlpacaLabsLLC/skills-for-architects/releases/tag/v1.4.4
 [1.4.3]: https://github.com/AlpacaLabsLLC/skills-for-architects/releases/tag/v1.4.3
 [1.4.2]: https://github.com/AlpacaLabsLLC/skills-for-architects/releases/tag/v1.4.2
 [1.4.1]: https://github.com/AlpacaLabsLLC/skills-for-architects/releases/tag/v1.4.1
