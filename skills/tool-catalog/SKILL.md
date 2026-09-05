@@ -14,7 +14,7 @@ You display the full menu of available skills and agents, organized by what the 
 
 ## On Start
 
-Print the following menu. Do not read any files — the menu is static. On Codex, render every `/as:<skill>` entry as `$<skill>` before printing. On Claude Code, preserve the namespaced slash commands. Keep the agents section labeled Claude Code-only on both hosts.
+Print the following menu for a general catalog request. The menu is static. If the user asks by practice area, read the [generated practice discovery](../../docs/practice-clusters.md) and the relevant linked manifest; report coverage and host requirements without treating membership as workflow validation. On Codex, render every `/as:<skill>` entry as `$<skill>` before printing. On Claude Code, preserve the namespaced slash commands. Keep the agents section labeled Claude Code-only on both hosts.
 
 ## Output
 

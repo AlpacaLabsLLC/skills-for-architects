@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
-TEMPLATE_DIR="$SCRIPT_DIR/../templates"
+TEMPLATE_DIR="$SCRIPT_DIR/../../../studio/templates/studio"
 PROJECT_TEMPLATE_DIR="$SCRIPT_DIR/../../project/templates"
 TASK_TEMPLATE_DIR="$SCRIPT_DIR/../../tasklist/templates"
 PROJECT_SCRIPT="$SCRIPT_DIR/../../project/scripts/project-workspace.sh"

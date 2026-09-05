@@ -108,3 +108,7 @@ Persistent FF&E data uses project-local `product-library.csv`; optional EPD pers
 ## Individual skill documentation
 
 Each directory contains an authoritative `SKILL.md`, a human-facing `README.md`, and any scripts, references, templates, or data owned by that skill. Create studio or project procedures with `/as:skill-maker`; to contribute a built-in skill, read [CONTRIBUTING.md](../CONTRIBUTING.md).
+
+Practice discovery is generated from the [nine maintained cluster manifests](../docs/practice-clusters.md).
+See the [category authoring contract](../docs/category-authoring.md) for shared ownership;
+public skill names and invocation syntax remain unchanged.

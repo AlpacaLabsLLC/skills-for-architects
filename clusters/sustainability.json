@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "id": "cluster:sustainability",
+  "name": "Sustainability",
+  "maintainer": "Architecture Studio maintainers",
+  "scope": "EPD retrieval, parsing, comparison and specification procedures.",
+  "members": [
+    "skill:epd-research",
+    "skill:epd-parser",
+    "skill:epd-compare",
+    "skill:epd-to-spec",
+    "skill:environmental-analysis",
+    "studio:workspace-contract"
+  ],
+  "dependencies": [],
+  "coverage": {
+    "jurisdictions": [],
+    "limitations": "Procedures are available; no cluster-wide legal applicability or validated end-to-end workflow is claimed. NYC-specific skills remain NYC-only; other skills require their own source and jurisdiction checks.",
+    "sources_indexed": false,
+    "procedures_available": true,
+    "execution_implemented": false,
+    "workflow_validated": false
+  },
+  "host_requirements": [
+    "agent instruction following",
+    "read resources",
+    "skill-specific tools and authorized workspace access when required"
+  ],
+  "evaluations": [
+    {
+      "id": "sustainability-discovery",
+      "kind": "contract",
+      "path": "tests/test-category-contracts.sh",
+      "claim": "Manifest membership and portability only; not workflow acceptance"
+    }
+  ],
+  "reviewed_on": "2026-09-05"
+}

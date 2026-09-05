@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "cluster:project-management",
+  "name": "Project Management",
+  "maintainer": "Architecture Studio maintainers",
+  "scope": "Project identity, sourced records, plans, tasks and confirmed time.",
+  "members": [
+    "skill:project",
+    "skill:workplan",
+    "skill:tasklist",
+    "skill:timetracker",
+    "skill:meeting-minutes",
+    "skill:site-visit-report",
+    "skill:agreement",
+    "skill:architecture-knowledge",
+    "studio:workspace-contract",
+    "knowledge:us-professional-practice"
+  ],
+  "dependencies": [],
+  "coverage": {
+    "jurisdictions": [],
+    "limitations": "Procedures are available; no cluster-wide legal applicability or validated end-to-end workflow is claimed. NYC-specific skills remain NYC-only; other skills require their own source and jurisdiction checks.",
+    "sources_indexed": false,
+    "procedures_available": true,
+    "execution_implemented": false,
+    "workflow_validated": false
+  },
+  "host_requirements": [
+    "agent instruction following",
+    "read resources",
+    "skill-specific tools and authorized workspace access when required"
+  ],
+  "evaluations": [
+    {
+      "id": "project-management-discovery",
+      "kind": "contract",
+      "path": "tests/test-category-contracts.sh",
+      "claim": "Manifest membership and portability only; not workflow acceptance"
+    }
+  ],
+  "reviewed_on": "2026-09-05"
+}

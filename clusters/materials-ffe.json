@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "id": "cluster:materials-ffe",
+  "name": "Materials & FF&E",
+  "maintainer": "Architecture Studio maintainers",
+  "scope": "Existing product research, CSV library and interchange workflows; excludes deferred Norma additions.",
+  "members": [
+    "skill:master-schedule",
+    "skill:product-data-cleanup",
+    "skill:product-data-import",
+    "skill:product-enrich",
+    "skill:product-image-processor",
+    "skill:product-match",
+    "skill:product-pair",
+    "skill:product-research",
+    "skill:product-spec-bulk-fetch",
+    "skill:product-spec-pdf-parser",
+    "skill:csv-to-sif",
+    "skill:sif-to-csv",
+    "studio:workspace-contract"
+  ],
+  "dependencies": [],
+  "coverage": {
+    "jurisdictions": [],
+    "limitations": "Procedures are available; no cluster-wide legal applicability or validated end-to-end workflow is claimed. NYC-specific skills remain NYC-only; other skills require their own source and jurisdiction checks.",
+    "sources_indexed": false,
+    "procedures_available": true,
+    "execution_implemented": false,
+    "workflow_validated": false
+  },
+  "host_requirements": [
+    "agent instruction following",
+    "read resources",
+    "skill-specific tools and authorized workspace access when required"
+  ],
+  "evaluations": [
+    {
+      "id": "materials-ffe-discovery",
+      "kind": "contract",
+      "path": "tests/test-category-contracts.sh",
+      "claim": "Manifest membership and portability only; not workflow acceptance"
+    }
+  ],
+  "reviewed_on": "2026-09-05"
+}

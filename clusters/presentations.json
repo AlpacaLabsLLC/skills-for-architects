@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "id": "cluster:presentations",
+  "name": "Presentations",
+  "maintainer": "Architecture Studio maintainers",
+  "scope": "HTML presentations, palettes and image preparation.",
+  "members": [
+    "skill:slide-deck-generator",
+    "skill:color-palette-generator",
+    "skill:resize-images",
+    "skill:zoning-envelope",
+    "studio:workspace-contract"
+  ],
+  "dependencies": [],
+  "coverage": {
+    "jurisdictions": [],
+    "limitations": "Procedures are available; no cluster-wide legal applicability or validated end-to-end workflow is claimed. NYC-specific skills remain NYC-only; other skills require their own source and jurisdiction checks.",
+    "sources_indexed": false,
+    "procedures_available": true,
+    "execution_implemented": false,
+    "workflow_validated": false
+  },
+  "host_requirements": [
+    "agent instruction following",
+    "read resources",
+    "skill-specific tools and authorized workspace access when required"
+  ],
+  "evaluations": [
+    {
+      "id": "presentations-discovery",
+      "kind": "contract",
+      "path": "tests/test-category-contracts.sh",
+      "claim": "Manifest membership and portability only; not workflow acceptance"
+    }
+  ],
+  "reviewed_on": "2026-09-05"
+}
