@@ -22,7 +22,7 @@ validate_root() {
 validate_text() {
   [ -n "${2:-}" ] || die "$1 is required"
   case "$2" in
-    *'|'*|*'\'*) die "$1 contains a reserved character" ;;
+    *'|'*|*'\'*|*$'\n'*|*$'\r'*) die "$1 contains a reserved character" ;;
   esac
   if printf '%s' "$2" | LC_ALL=C grep -q '[[:cntrl:]]'; then
     die "$1 contains a control character"

@@ -42,6 +42,7 @@ reject_unchanged "$project/agreement/AGREEMENT.md" bash "$AGREEMENT" record-amen
 bash "$AGREEMENT" verify "$project" >/dev/null
 
 bash "$INVOICE" init "$project" 'Design Services' USD monthly 1000.00 10000.00 'synthetic fixture terms' 2026-09-04 >/dev/null
+reject_unchanged "$project/INVOICES.md" bash "$INVOICE" append "$project" $'INV-01\nInjected' 2026-09-01 2026-09-30 1000.00 0.00 1000.00 - - draft -
 bash "$INVOICE" append "$project" INV-01 2026-09-01 2026-09-30 1000.00 0.00 1000.00 - - draft - >/dev/null
 reject_unchanged "$project/INVOICES.md" bash "$INVOICE" append "$project" INV-01 2026-09-01 2026-09-30 1000.00 0.00 1000.00 - - draft -
 grep -Fq 'invoice number already recorded' "$ROOT/rejection.log"
