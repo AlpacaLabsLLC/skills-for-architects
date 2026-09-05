@@ -47,7 +47,7 @@ One row per product. Persistent FF&E data uses the project-local `product-librar
 |-----|-------|------|--------|-------|
 | U | List Price | Number | Decimal, no symbol | Manufacturer list price. No currency symbols or commas. |
 | V | Sale Price | Number | Decimal, no symbol | Discounted price if applicable. Blank otherwise. |
-| W | Currency | Text | ISO code | `USD`, `EUR`, `GBP`, `UYU`, etc. Default `USD`. |
+| W | Currency | Text | ISO code | `USD`, `EUR`, `GBP`, `UYU`, etc. Blank when unknown; no inferred default. |
 
 ### Logistics (X–AA)
 

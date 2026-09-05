@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **FF&E specification workflows.** Added product audit, cut-sheet and spec-book skills (53 public skills total), durable revisioned item/schedule records, explicit adoption and three-way reconciliation, native/CSV recovery contracts and source-linked discrepancy checks. Product facts retain uncertainty rather than being filled from model memory.
+- **Shared document design.** Central studio templates guide host-created cut sheets and spec books, with metric/imperial paper presets, explicit layout dependencies and output validation. AS supplies procedures and bounded checks; the host retains workbook and PDF production.
 - **Shared foundation.** Added canonical Knowledge, Tools and Studio-contract ownership, a validated component registry, nine maintained practice-cluster manifests and generated discovery while preserving all 50 public skills.
 - **Source and integration contracts.** Added three existing NYC source entries, explicit jurisdiction/authority relationships, a metadata-only shared-standard reference, and a bounded Node.js source-health checker. EC3 remains declaration-only; hosted binding and scheduling require separate MCP implementation.
 - **Portable delivery checks.** Added detached-package export validation, source/category CI checks, and a release runbook separating AS/OSS 1.5.0 from MCP service 0.1.0.

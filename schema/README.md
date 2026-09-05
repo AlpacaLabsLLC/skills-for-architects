@@ -17,3 +17,12 @@ Skills should link to these files instead of reproducing field definitions. A co
 The dependency-free `tools/validators/validate-categories.py` validates the schema
 vocabulary used here and cross-file ownership, references, cycles and discovery.
 It is not a general-purpose JSON Schema implementation.
+
+## FF&E project and output contracts
+
+- [Record revisions](ffe-record.schema.json): authoritative adopted items and schedules, separately from the reusable CSV library.
+- [Accepted intake](ffe-intake.schema.json): source hashes, corrections, selected scope and explicit adoption basis.
+- [Audit observations](ffe-audit.schema.json): supplied evidence comparison; the validator does not retrieve sources.
+- [Output contract](ffe-output.schema.json) and [template contract](ffe-output-template.schema.json): revision-pinned host production and completeness checks.
+
+See the [record workflow](../studio/ffe/README.md) and [shared product methods](../corpus/practice-methods/ffe/README.md). These contracts do not introduce an AS spreadsheet or PDF rendering engine.

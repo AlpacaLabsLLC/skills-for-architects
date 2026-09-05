@@ -34,6 +34,8 @@ The workspace migration from format 2 to format 3 is breaking, not a compatible 
 
 AS organizes shared content into five categories: Knowledge (`corpus/`), executable Tools (`tools/`), procedural Skills (`skills/`), Practice Clusters (`clusters/`) and distributed Studio contracts (`studio/`). Practice clusters assemble existing components; geographic manifests describe maintained source coverage independently. Actual firm and project records remain in the user's workspace.
 
+The FF&E expansion adds `product-audit`, `product-cut-sheet` and `spec-book`, bringing the candidate to 53 public skills. Adopted project specifications use immutable item and schedule revisions; workbooks are host-operated views with explicit reconciliation and recovery. Cut sheets and books use shared studio document templates with metric/imperial page sizes. The host produces and visually checks the actual files. These workflows remain subject to the candidate acceptance checks; a skill listing is not a completed customer delivery.
+
 The release targets are **AS/OSS 1.5.0** and an independently versioned **MCP service 0.1.0**, serving AS content 1.5.0. MCP delivery does not imply hosted execution of every skill or access to local files. The host remains responsible for available general tools and the conversation; shared team storage and independent Norma orchestration are outside this release. See [release delivery and acceptance](docs/release-delivery.md) for the separate publication and deployment gates. Candidate version labels are not evidence of a published release.
 
 ## What’s new in 1.4.5

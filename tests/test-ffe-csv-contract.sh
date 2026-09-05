@@ -19,10 +19,16 @@ for skill in "${skills[@]}"; do
 done
 owned+=("agents/ffe-designer.md")
 
-if rg -n -i 'mcp__google-sheets|google[[:space:]-]*sheet|spreadsheet|sheet id|sheet-conventions\.md|\.xlsx?\b|\.tsv\b|excel' "${owned[@]}"; then
-  echo "FF&E surface still advertises Google Sheets or XLS/XLSX" >&2
+# Host workbook operations are supported; retired AS connector bindings remain forbidden.
+if rg -n -i 'mcp__google-sheets|sheet-conventions\.md|spreadsheet ID|sheet ID' "${owned[@]}"; then
+  echo "FF&E surface advertises a retired connector contract" >&2
   exit 1
 fi
+for skill in product-data-import product-enrich product-data-cleanup product-spec-pdf-parser product-spec-bulk-fetch product-research; do
+  rg -q 'Adopted item/schedule records are authoritative' "skills/$skill/SKILL.md"
+  rg -q '/as:master-schedule' "skills/$skill/SKILL.md"
+  rg -q 'native backups' "skills/$skill/SKILL.md"
+done
 
 for skill in "${skills[@]}"; do
   file="skills/$skill/SKILL.md"

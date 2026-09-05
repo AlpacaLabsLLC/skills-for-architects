@@ -16,6 +16,17 @@ allowed-tools:
 <!-- architecture-studio:harness-compatibility -->
 > Harness note: use `/as:<skill>` on Claude Code and `$<skill>` on Codex. Resolve `<skill-root>` as the directory containing this loaded `SKILL.md` and `<plugin-root>` as the plugin root that contains `skills/`, and use equivalent native tools when host tool names differ.
 
+## Record authority and host handoff
+
+Before project writes, run `<plugin-root>/skills/project/scripts/resolve-context.sh` for the supplied path and use its validated project result; follow `<plugin-root>/skills/project/references/context-resolution.md` for other results. Read `<plugin-root>/corpus/practice-methods/ffe/README.md` and [FF&E record contract](../../studio/ffe/README.md).
+
+Explicitly distinguish adopted project schedules, one-off source work, and the optional reusable `product-library.csv`. Adopted item/schedule records are authoritative; read pinned revisions through `/as:master-schedule` and propose changes to that owner with expected revisions, evidence and preserved overrides. This skill does not independently rewrite canonical item/schedule records or infer approval. Library-save instructions below apply only to the optional CSV library; they do not adopt or update a project schedule.
+
+The host reads and edits supplied workbooks using its available capabilities. Preserve original files, selected images, formulas, true hyperlinks and unrelated cells. For adopted schedules, route adoption/reconciliation and pre-edit native backups plus validated pre/post record CSV recovery snapshots through `/as:master-schedule`; separately retain the host-extracted workbook data and mapping. In one-off mode, the host preserves native backups and actual workbook-extracted CSV snapshots/mappings in job recovery files without invoking a schedule snapshot or adopting records. Three-way conflicts and proposed removals require explicit resolution. Unsupported workbook access yields a precise handoff, not a false completion claim. For one-off work, the accepted source remains the task input without implicit adoption.
+
+Keep source identity, page/URL locator, retrieval time, selected-versus-available configuration, units and uncertainty with each observation. Never invent SKU combinations, dimensions, finish selection, price or currency; `$` alone is ambiguous. Preserve user choices until explicitly changed. Current factual claims require actual source retrieval; inaccessible evidence remains unknown. `/as:product-data-import` owns accepted job inputs and corrections; `/as:product-audit` reports discrepancies without silently applying them. `/as:product-cut-sheet` and `/as:spec-book` use the shared document templates and host rendering after inputs are resolved.
+
+
 Takes a messy FF&E schedule and normalizes everything: casing, dimensions, units, language, materials vocabulary, currency formatting, and duplicates. Outputs a clean, consistent, spec-ready schedule.
 
 Persistent cleanup operates on the nearest project's `product-library.csv`. Pasted tables may be previewed in Markdown but are not another persistent format.
@@ -125,7 +136,7 @@ Standardize common material terms:
 - Remove thousands separators (both `.` and `,` — detect locale: `1.234,56` is EU format, `1,234.56` is US)
 - Store as plain decimal number: `5695.00`
 - If price says "Contact", "Quote", "Trade", "A consultar", "Consultar" → set to empty
-- Currency detection: `$` alone defaults to `USD` unless context suggests otherwise (UY site → `UYU`, EU site → `EUR`)
+- Currency detection: `$` alone does not establish currency. Use explicit source or user-provided ISO currency; otherwise retain unknown. A site location alone is insufficient.
 - If a schedule mixes currencies, keep each row's original currency. Add a note at the top.
 
 ### 7. Duplicate Detection
@@ -182,7 +193,7 @@ Report:
 ```
 
 ### Step 6: Save
-Read `../../schema/product-schema.md` and `../../schema/csv-conventions.md`. For multiple changed rows, materialize the complete proposed 33-column CSV as a temporary or user-visible review file, validate that candidate, preview the whole change once, and use the single confirmation gate. After approval, invoke `python3 "<plugin-root>/skills/master-schedule/scripts/csv-library.py" import product --project <project-root> --source <review.csv>` exactly once for one atomic replacement; never loop `update`. A genuinely single-record edit may instead invoke the same plugin-root helper's `update` command once with one uniquely matching stable field. Never overwrite an arbitrary input or hand-edit `product-library.csv`.
+Read `../../schema/product-schema.md` and `../../schema/csv-conventions.md`. For multiple changed rows, materialize the complete proposed 33-column CSV as a temporary or user-visible review file, validate that candidate, preview the whole change once, and use the single confirmation gate. After approval, invoke `python3 "<plugin-root>/skills/master-schedule/scripts/csv-library.py" import product --project <project-root> --source <review.csv> --replace-existing` exactly once for one atomic replacement; never loop `update`. A genuinely single-record edit may instead invoke the same plugin-root helper's `update` command once with one uniquely matching stable field. Never overwrite an arbitrary input or hand-edit `product-library.csv`.
 
 ## Edge Cases
 

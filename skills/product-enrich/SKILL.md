@@ -16,6 +16,17 @@ allowed-tools:
 <!-- architecture-studio:harness-compatibility -->
 > Harness note: use `/as:<skill>` on Claude Code and `$<skill>` on Codex. Resolve `<skill-root>` as the directory containing this loaded `SKILL.md` and `<plugin-root>` as the plugin root that contains `skills/`, and use equivalent native tools when host tool names differ.
 
+## Record authority and host handoff
+
+Before project writes, run `<plugin-root>/skills/project/scripts/resolve-context.sh` for the supplied path and use its validated project result; follow `<plugin-root>/skills/project/references/context-resolution.md` for other results. Read `<plugin-root>/corpus/practice-methods/ffe/README.md` and [FF&E record contract](../../studio/ffe/README.md).
+
+Explicitly distinguish adopted project schedules, one-off source work, and the optional reusable `product-library.csv`. Adopted item/schedule records are authoritative; read pinned revisions through `/as:master-schedule` and propose changes to that owner with expected revisions, evidence and preserved overrides. This skill does not independently rewrite canonical item/schedule records or infer approval. Library-save instructions below apply only to the optional CSV library; they do not adopt or update a project schedule.
+
+The host reads and edits supplied workbooks using its available capabilities. Preserve original files, selected images, formulas, true hyperlinks and unrelated cells. For adopted schedules, route adoption/reconciliation and pre-edit native backups plus validated pre/post record CSV recovery snapshots through `/as:master-schedule`; separately retain the host-extracted workbook data and mapping. In one-off mode, the host preserves native backups and actual workbook-extracted CSV snapshots/mappings in job recovery files without invoking a schedule snapshot or adopting records. Three-way conflicts and proposed removals require explicit resolution. Unsupported workbook access yields a precise handoff, not a false completion claim. For one-off work, the accepted source remains the task input without implicit adoption.
+
+Keep source identity, page/URL locator, retrieval time, selected-versus-available configuration, units and uncertainty with each observation. Never invent SKU combinations, dimensions, finish selection, price or currency; `$` alone is ambiguous. Preserve user choices until explicitly changed. Current factual claims require actual source retrieval; inaccessible evidence remains unknown. `/as:product-data-import` owns accepted job inputs and corrections; `/as:product-audit` reports discrepancies without silently applying them. `/as:product-cut-sheet` and `/as:spec-book` use the shared document templates and host rendering after inputs are resolved.
+
+
 Takes product rows from the nearest project's `product-library.csv` or pasted data and proposes missing category, color, material, and style metadata.
 
 ## When to Use
@@ -45,7 +56,7 @@ Togo Sofa, Ligne Roset
 
 ## Step 2: Analyze Each Product
 
-For each product, infer the following fields:
+For each product, distinguish sourced specification fields from explicitly labeled tentative descriptive classifications:
 
 ### Category
 Map to the canonical vocabulary (22 terms) defined in `../../schema/product-schema.md`.
@@ -60,7 +71,7 @@ More specific classification within the category:
 - Desk → Writing Desk, Executive Desk, Standing Desk, Workstation
 
 ### Primary Color
-The dominant color of the product as typically sold:
+The color of the evidenced selected configuration; family availability does not establish selection:
 - Use standard color names: Black, White, Gray, Brown, Beige, Navy, Blue, Green, Red, Orange, Yellow, Pink, Purple, Natural, Walnut, Oak, Teak, Chrome, Brass, Copper, Multi
 
 ### Material
@@ -77,14 +88,14 @@ Primary materials, comma-separated:
 - Context: Residential, Contract, Hospitality, Healthcare, Education, Outdoor
 
 ### Image Analysis
-If product data includes the named `Image URL` field, use image analysis to verify and refine the enrichment. The image may reveal:
-- Actual color (not just what the name suggests)
-- Material details not in the product name
+If product data includes the named `Image URL` field, inspect it for tentative visual descriptions. An image alone cannot verify material composition or selected finish. The image may suggest:
+- Apparent color under the shown lighting
+- Apparent texture, explicitly labeled as inferred
 - Style characteristics
 
 ## Step 3: Present Preview
 
-Show a preview of the enrichment before applying:
+Show a preview with evidence status before applying. This illustrative table is not product evidence; do not copy its example finishes into real selections:
 
 ```
 ## Product Enrichment Preview
@@ -109,7 +120,7 @@ Flag any products where enrichment is uncertain:
 ### To the project library
 Read `../../schema/product-schema.md` and `../../schema/csv-conventions.md`. Map enrichment only to canonical named fields: `Category`, `Materials`, `Colors/Finishes`, and appended `Tags`; place noncanonical subcategory detail in `Notes`. Do not overwrite a populated field unless the preview explicitly calls that out.
 
-For multiple enriched rows, materialize the complete proposed 33-column CSV as a temporary or user-visible review file. Validate it, preview every material change and the target `product-library.csv` once, then use the single confirmation gate. After approval, invoke `python3 "<plugin-root>/skills/master-schedule/scripts/csv-library.py" import product --project <project-root> --source <review.csv>` exactly once for one atomic replacement; never loop `update`. A genuinely single-record enrichment may use the same plugin-root helper's `update` command once with a uniquely matching stable field.
+For multiple enriched rows, materialize the complete proposed 33-column CSV as a temporary or user-visible review file. Validate it, preview every material change and the target `product-library.csv` once, then use the single confirmation gate. After approval, invoke `python3 "<plugin-root>/skills/master-schedule/scripts/csv-library.py" import product --project <project-root> --source <review.csv> --replace-existing` exactly once for one atomic replacement; never loop `update`. A genuinely single-record enrichment may use the same plugin-root helper's `update` command once with a uniquely matching stable field.
 
 ### To conversation
 Output the enriched table in markdown.

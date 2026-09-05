@@ -16,7 +16,18 @@ allowed-tools:
 <!-- architecture-studio:harness-compatibility -->
 > Harness note: use `/as:<skill>` on Claude Code and `$<skill>` on Codex. Resolve `<skill-root>` as the directory containing this loaded `SKILL.md` and `<plugin-root>` as the plugin root that contains `skills/`, and use equivalent native tools when host tool names differ.
 
-Extract structured FF&E data from product PDF files — price books, fact sheets, configurator sheets, and spec sheets. Uses PyMuPDF for text extraction and Claude's reasoning to parse wildly varying PDF layouts into a standardized schedule.
+## Record authority and host handoff
+
+Before project writes, run `<plugin-root>/skills/project/scripts/resolve-context.sh` for the supplied path and use its validated project result; follow `<plugin-root>/skills/project/references/context-resolution.md` for other results. Read `<plugin-root>/corpus/practice-methods/ffe/README.md` and [FF&E record contract](../../studio/ffe/README.md).
+
+Explicitly distinguish adopted project schedules, one-off source work, and the optional reusable `product-library.csv`. Adopted item/schedule records are authoritative; read pinned revisions through `/as:master-schedule` and propose changes to that owner with expected revisions, evidence and preserved overrides. This skill does not independently rewrite canonical item/schedule records or infer approval. Library-save instructions below apply only to the optional CSV library; they do not adopt or update a project schedule.
+
+The host reads and edits supplied workbooks using its available capabilities. Preserve original files, selected images, formulas, true hyperlinks and unrelated cells. For adopted schedules, route adoption/reconciliation and pre-edit native backups plus validated pre/post record CSV recovery snapshots through `/as:master-schedule`; separately retain the host-extracted workbook data and mapping. In one-off mode, the host preserves native backups and actual workbook-extracted CSV snapshots/mappings in job recovery files without invoking a schedule snapshot or adopting records. Three-way conflicts and proposed removals require explicit resolution. Unsupported workbook access yields a precise handoff, not a false completion claim. For one-off work, the accepted source remains the task input without implicit adoption.
+
+Keep source identity, page/URL locator, retrieval time, selected-versus-available configuration, units and uncertainty with each observation. Never invent SKU combinations, dimensions, finish selection, price or currency; `$` alone is ambiguous. Preserve user choices until explicitly changed. Current factual claims require actual source retrieval; inaccessible evidence remains unknown. `/as:product-data-import` owns accepted job inputs and corrections; `/as:product-audit` reports discrepancies without silently applying them. `/as:product-cut-sheet` and `/as:spec-book` use the shared document templates and host rendering after inputs are resolved.
+
+
+Extract structured FF&E data from product PDF files — price books, fact sheets, configurator sheets, and spec sheets. Uses available host PDF extraction and reasoning to parse wildly varying PDF layouts into a standardized schedule.
 
 ## Input
 
@@ -53,12 +64,12 @@ Example Notes cell: `Variant: Diamond, Black | Origin: Sweden | Source: alphabet
 Different PDF types require different approaches:
 
 ### Fact sheets with SKUs (e.g., Alphabeta lamp)
-- **One row per SKU.** Each shade shape × color = one row.
+- **One row per explicitly documented SKU.** Do not manufacture combinations by multiplying shape and color options.
 - Product Name stays the same across rows. Variant describes the distinguishing attributes.
 - Example: "Alphabeta Floor Lamp" / Variant: "Diamond, Black" / SKU: "..."
 
 ### Fact sheets with upholstery/finish combos (e.g., Puffy lounge chair)
-- **One row per upholstery option.** Frame finish goes in Colors/Finishes.
+- **One row per explicitly documented option when expansion is requested.** Available options are not selected specifications; keep frame finish availability separate from a chosen finish.
 - Distinct products (chair + ottoman) each get their own set of rows.
 - Example: "Puffy Lounge Chair" / Variant: "Traffic Red" / Colors/Finishes: "Chrome frame"
 
@@ -85,7 +96,7 @@ Parse the user's input to identify PDF file(s) and output preferences.
 
 ### Step 2: Extract text from PDF
 
-Use PyMuPDF (fitz) to extract text from each PDF. Run this Python script via Bash:
+Use available host PDF capabilities, preserving page locators and file hashes. If PyMuPDF is available, this local extraction example can be used:
 
 ```python
 import fitz
@@ -105,9 +116,9 @@ print(json.dumps({"filename": pdf_path.split("/")[-1], "total_pages": len(pages)
 
 For each PDF, extract all pages and save the JSON output.
 
-### Step 3: Parse products with Claude
+### Step 3: Parse products with the host
 
-Read the extracted text and identify all products, variants, and specifications. This is the core intelligence step — Claude reasons over the text to structure it.
+Read the extracted text and identify all products, variants, and specifications. This is the core intelligence step — The host reasons over the text to structure it.
 
 **For small PDFs (≤20 pages):** Process all pages at once.
 
@@ -137,11 +148,11 @@ If persistence was requested, use this results table as the change preview and p
 
 ### Step 5: Write output
 
-Without persistence, leave the result as Markdown. After approval to persist, serialize all complete canonical rows as one JSON array and invoke `python3 "<plugin-root>/skills/master-schedule/scripts/csv-library.py" append product --project <project-root> --row-json <batch.json>` exactly once. The shared helper validates the complete batch and CSV before one atomic replacement; never loop per row. PDF-specific data stays in `Notes`; do not create extra columns or secondary structured exports.
+Without persistence, leave the result as Markdown. After approval to persist, serialize all complete canonical rows as one JSON array and invoke `python3 "<plugin-root>/skills/master-schedule/scripts/csv-library.py" append product --project <project-root> --row-json <batch.json>` exactly once. The shared helper validates the complete batch and CSV before one atomic replacement; never loop per row. PDF-specific data stays in `Notes`; do not add columns to the optional library. Full evidence and adopted records use the separate typed contracts through their owners.
 
 ## Edge Cases
 
-- **Scanned PDFs (image-only)**: PyMuPDF will return empty or garbage text. Detect this (very short text relative to page count) and tell the user: "This PDF appears to be scanned/image-based. Text extraction won't work — consider using an OCR tool first."
+- **Scanned PDFs (image-only)**: PyMuPDF will return empty or garbage text. Detect this (very short text relative to page count) and use available host OCR/visual inspection and verify ambiguous text against the page. If unavailable, identify affected pages as unparsed; never infer their contents.
 - **Multi-language PDFs**: Extract data as-is. Note the language. The cleanup skill handles translation.
 - **PDFs with tables as images**: Common in price books. If a section seems to have missing data despite being a spec-heavy document, note it and flag for manual review.
 - **Password-protected PDFs**: PyMuPDF will fail to open. Catch the error and tell the user.

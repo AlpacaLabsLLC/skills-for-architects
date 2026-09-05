@@ -512,29 +512,13 @@ else
   pass_check "no retired Google Sheets product workflow"
 fi
 
-PRODUCT_DIRS=(
-  skills/master-schedule
-  skills/product-data-cleanup
-  skills/product-data-import
-  skills/product-enrich
-  skills/product-image-processor
-  skills/product-match
-  skills/product-pair
-  skills/product-research
-  skills/product-spec-bulk-fetch
-  skills/product-spec-pdf-parser
-  skills/epd-compare
-  skills/epd-parser
-  skills/epd-research
-  skills/epd-to-spec
-)
-XLS_HITS=$(grep -RInEi '\.(xls|xlsx)\b|\b(xls|xlsx) (import|export|parser|support|sync)' \
-  "${PRODUCT_DIRS[@]}" --include='*.md' --include='*.json' --include='*.sh' 2>/dev/null || true)
-if [ -n "$XLS_HITS" ]; then
-  fail_check "XLS/XLSX support found in an active product workflow:"
-  echo "$XLS_HITS" | awk '{ print "      " $0 }'
+# XLS/XLSX is a host capability, not a forbidden input format. Keep executable
+# ownership explicit instead of rejecting ordinary workbook documentation.
+if grep -q 'Hosts may operate user-supplied XLS/XLSX workbooks' PATTERNS.md &&
+   grep -q 'AS does not provide a spreadsheet engine' PATTERNS.md; then
+  pass_check "host workbook boundary declared"
 else
-  pass_check "no XLS/XLSX product support"
+  fail_check "host workbook execution boundary is missing"
 fi
 
 # 13. Shellcheck every repository shell script, including nested helpers.

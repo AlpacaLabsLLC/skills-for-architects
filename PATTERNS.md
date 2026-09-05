@@ -160,10 +160,11 @@ not part of studio initialization.
 
 ## Local product-data boundary
 
-- `product-library.csv` is the only persistent FF&E library. Optional reusable EPD records use `epd-library.csv`; EPD parsing remains PDF-first and can hand results directly to comparison or specification workflows without saving a library.
+- `product-library.csv` is the optional reusable FF&E library; explicitly adopted project selections and schedule membership are authoritative typed records owned by `master-schedule` (see [FF&E record contract](studio/ffe/README.md)). Optional reusable EPD records use `epd-library.csv`; EPD parsing remains PDF-first and can hand results directly to comparison or specification workflows without saving a library.
 - Existing `master-schedule.json` and `canoa.json` files are legacy cloud-configuration evidence, not row data. Preserve them byte-for-byte and require a user-exported CSV before import; never imply that disconnected cloud rows were migrated.
-- XLS and XLSX product-library support and configured connectors are deferred. Do not add format adapters, provider setup, authentication, sheet identifiers, ranges, tabs, or formulas to active product workflows.
-- CSV-only persistence does not remove explicit SIF interchange. `/as:csv-to-sif` and `/as:sif-to-csv` remain bounded conversion commands; SIF is not a persistent schedule source.
+- Hosts may operate user-supplied XLS/XLSX workbooks as reconciled views or explicit one-off task sources. Preserve formulas, hyperlinks, images and user edits with native backups plus validated CSV recovery snapshots; reconcile against pinned record revisions before updates. One-off workbook tasks retain host-extracted recovery data in job records without implicit adoption; record-helper CSV snapshots are not a complete workbook extraction. AS does not provide a spreadsheet engine or connector lifecycle manager. Provider setup, authentication and retired cloud adapters remain outside these workflows.
+- Document design rules and reusable templates are centrally owned under `studio/standards/documents/` and `studio/templates/documents/`. Skills reference effective versioned assets; the host renders and visually verifies outputs. Bounded preparation/validation helpers do not replace the host renderer.
+- Optional CSV library persistence does not remove explicit SIF interchange. `/as:csv-to-sif` and `/as:sif-to-csv` remain bounded conversion commands; SIF is not a persistent schedule source.
 
 ## 9. Public over private
 
