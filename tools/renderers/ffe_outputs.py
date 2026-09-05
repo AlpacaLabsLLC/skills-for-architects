@@ -12,6 +12,9 @@ import subprocess
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from document_contracts import validate_resolved
+
 
 def require(ok, message):
     if not ok:
@@ -38,7 +41,8 @@ def read_json(path):
 
 
 def write_json(path, value):
-    path.write_bytes(json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False).encode() + b'\n')
+    with path.open('xb') as handle:
+        handle.write(json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False).encode() + b'\n')
 
 
 def safe_file(path):
@@ -59,8 +63,10 @@ def prepare(args):
     snapshot = read_json(args.input)
     contract = read_json(args.contract)
     template = safe_file(args.template)
+    design = validate_resolved(read_json(args.design))
     require(type(contract.get('schema_version')) is int and contract['schema_version'] == 1, 'unsupported contract version')
-    require(set(contract) <= {'schema_version', 'mode', 'audience', 'allowed_fields', 'template_accepted', 'layout_requirements', 'missing_image_policy', 'combined_pdf', 'outputs'}, 'unknown output contract keys')
+    require(set(contract) <= {'schema_version', 'mode', 'audience', 'allowed_fields', 'template_accepted', 'layout_requirements', 'missing_image_policy', 'combined_pdf', 'front_matter_pages', 'reference_overrides', 'outputs'}, 'unknown output contract keys')
+    require(isinstance(contract.get('reference_overrides', []), list) and all(isinstance(value, str) and value.strip() for value in contract.get('reference_overrides', [])), 'reference_overrides must name overridden rules')
     require(contract.get('mode') in ('adopted', 'one-off'), 'explicit adopted or one-off mode required')
     require(contract.get('audience') in ('client', 'internal'), 'explicit audience required')
     require(contract.get('template_accepted') is True, 'template must be inspected and accepted for this job')
@@ -69,8 +75,12 @@ def prepare(args):
     require(isinstance(fields, list) and fields and all(isinstance(v, str) and v for v in fields) and len(set(fields)) == len(fields), 'explicit unique allowed_fields required')
     require(contract.get('missing_image_policy') in ('block', 'labeled-placeholder'), 'missing image policy required')
     require(isinstance(contract.get('combined_pdf'), bool), 'combined_pdf must be explicit')
+    front_pages = contract.get('front_matter_pages', 0)
+    require(type(front_pages) is int and front_pages >= 0, 'invalid front_matter_pages')
+    require(not front_pages or (contract['combined_pdf'] and design['kind'] == 'spec-book'), 'front matter requires combined book')
     groups = contract.get('outputs')
     require(isinstance(groups, list) and groups, 'explicit ordered output grouping required')
+    require(not (contract['combined_pdf'] or len(groups) > 1) or design['kind'] == 'spec-book', 'package requires central book template')
     items = snapshot.get('items')
     require(isinstance(items, list) and items, 'items required')
     by_id = {}
@@ -127,13 +137,13 @@ def prepare(args):
                 row['image'] = {'status': 'missing', 'label': 'Product image unavailable'}
             rows.append(row)
         payload.append({'tag': tag, 'items': rows})
-        pinned.append({'fingerprint': digest(canonical({'rows': rows, 'source': snapshot['source'], 'schedule_id': snapshot.get('schedule_id'), 'evidence': [by_id[i].get('provenance', {}) for i in ids], 'group': group, 'template': digest(template.read_bytes()), 'audience': contract['audience'], 'fields': fields, 'layout': contract['layout_requirements']})), 'tag': tag, 'items': [{'item_id': i, 'revision': by_id[i]['revision']} for i in ids], 'expected_pages': group['expected_pages']})
+        pinned.append({'fingerprint': digest(canonical({'rows': rows, 'design': design['fingerprint'], 'source': snapshot['source'], 'schedule_id': snapshot.get('schedule_id'), 'evidence': [by_id[i].get('provenance', {}) for i in ids], 'group': group, 'template': digest(template.read_bytes()), 'audience': contract['audience'], 'fields': fields, 'layout': contract['layout_requirements']})), 'tag': tag, 'items': [{'item_id': i, 'revision': by_id[i]['revision']} for i in ids], 'expected_pages': group['expected_pages']})
     require(set(covered) == set(by_id), 'grouping must cover the explicit snapshot item scope exactly')
     require(len(covered) == len(set(covered)), 'item occurs in multiple groups; resolve finish/product grouping explicitly')
-    fingerprint = digest(canonical({'snapshot': snapshot, 'contract': contract, 'template_sha256': digest(template.read_bytes()), 'assets': sorted(assets)}))
+    fingerprint = digest(canonical({'snapshot': snapshot, 'contract': contract, 'design': design['fingerprint'], 'template_sha256': digest(template.read_bytes()), 'assets': sorted(assets)}))
     target = Path(args.output)
     require(not target.exists() and not target.is_symlink(), 'output exists; preserve prior revision, use a new job revision')
-    manifest = {'schema_version': 1, 'fingerprint': fingerprint, 'mode': contract['mode'], 'audience': contract['audience'], 'source_sha256': digest(canonical(snapshot)), 'schedule': {k: snapshot[k] for k in ('schedule_id', 'revision', 'hash') if k in snapshot}, 'template_sha256': digest(template.read_bytes()), 'contract': contract, 'outputs': pinned, 'denied_values': denied, 'status': 'prepared'}
+    manifest = {'schema_version': 1, 'fingerprint': fingerprint, 'mode': contract['mode'], 'audience': contract['audience'], 'design': design, 'source_sha256': digest(canonical(snapshot)), 'schedule': {k: snapshot[k] for k in ('schedule_id', 'revision', 'hash') if k in snapshot}, 'template_sha256': digest(template.read_bytes()), 'contract': contract, 'outputs': pinned, 'denied_values': denied, 'status': 'prepared'}
     target.mkdir(parents=True)
     for directory in ('internal', 'render', 'delivery'):
         (target / directory).mkdir()
@@ -147,18 +157,42 @@ def prepare(args):
     print(json.dumps({'status': 'prepared', 'fingerprint': fingerprint, 'manifest': str(target / 'internal/manifest.json'), 'workflowCompleted': False}))
 
 
-def run_pdf(tool, path):
+def run_pdf(tool, path, first_page=1):
     require(shutil.which(tool), 'missing host verification capability: ' + tool)
-    command = [tool, str(path)] if tool == 'pdfinfo' else [tool, '-layout', str(path), '-']
+    command = [tool, str(path)] if tool == 'pdfinfo' else [tool, '-f', str(first_page), '-layout', str(path), '-']
     result = subprocess.run(command, capture_output=True, text=True, timeout=30)
     require(result.returncode == 0, 'PDF parse failed: ' + path.name)
     return result.stdout
+
+
+def verify_page_boxes(path, declared):
+    try:
+        from pypdf import PdfReader
+    except ImportError as error:
+        raise ValueError('missing host PDF verification capability: pypdf in active Python') from error
+    try:
+        reader = PdfReader(str(path), strict=True)
+        require(not reader.is_encrypted, 'encrypted PDF cannot be verified')
+        boxes = []
+        for number, page in enumerate(reader.pages, 1):
+            require(page.rotation == 0 and float(page.get('/UserUnit', 1)) == 1, 'unsupported page rotation or UserUnit: ' + path.name)
+            expected = [0, 0, declared['width_pt'], declared['height_pt']]
+            for label, box in [('MediaBox', page.mediabox), ('CropBox', page.cropbox)]:
+                require(all(abs(float(actual)-target) <= 0.1 for actual,target in zip(box,expected)), 'physical ' + label + ' mismatch on page ' + str(number) + ': ' + path.name)
+            boxes.append({'page': number, 'width_pt': float(page.mediabox.width), 'height_pt': float(page.mediabox.height), 'rotation': 0, 'user_unit': 1})
+        return boxes
+    except ValueError:
+        raise
+    except Exception as error:
+        raise ValueError('PDF page-box parse failed: ' + path.name) from error
 
 
 def check(args):
     root = Path(args.job).resolve()
     manifest = read_json(root / 'internal/manifest.json')
     require(manifest.get('schema_version') == 1, 'unsupported manifest version')
+    current_design = validate_resolved(read_json(args.design))
+    require(current_design == manifest['design'], 'shared design/template dependency changed; prepare a new revision')
     require(digest(canonical(read_json(args.input))) == manifest['source_sha256'], 'source changed; prepare a new revision')
     require(read_json(args.contract) == manifest['contract'], 'contract changed; prepare a new revision')
     require(digest(safe_file(args.template).read_bytes()) == manifest['template_sha256'], 'template changed; prepare a new revision')
@@ -185,17 +219,19 @@ def check(args):
             path = safe_file(delivery / name)
             data = path.read_bytes()
             require(data.startswith(b'%PDF-') and b'%%EOF' in data[-2048:], 'not a complete PDF: ' + name)
+            boxes = verify_page_boxes(path, current_design['page'])
             info = run_pdf('pdfinfo', path)
             text = run_pdf('pdftotext', path)
             pages = re.search(r'^Pages:\s+(\d+)\s*$', info, re.M)
-            expected_pages = sum(o['expected_pages'] for o in manifest['outputs']) if name == 'combined.pdf' else next(o['expected_pages'] for o in manifest['outputs'] if o['tag'] + '.pdf' == name)
+            expected_pages = sum(o['expected_pages'] for o in manifest['outputs']) + contract.get('front_matter_pages', 0) if name == 'combined.pdf' else next(o['expected_pages'] for o in manifest['outputs'] if o['tag'] + '.pdf' == name)
             require(pages and int(pages[1]) == expected_pages, 'page count differs: ' + name)
             evidence = entries.get(name, {})
             require(evidence.get('sha256') == digest(data), 'missing/stale artifact inspection hash: ' + name)
-            for flag in ('rendered_pages_inspected', 'layout_matches', 'images_checked', 'links_checked', 'audience_checked'):
+            for flag in ('rendered_pages_inspected', 'layout_matches', 'images_checked', 'links_checked', 'audience_checked', 'page_geometry_checked', 'overflow_checked', 'image_resolution_checked'):
                 require(evidence.get(flag) is True, 'inspection missing ' + flag + ': ' + name)
             require(isinstance(evidence.get('evidence'), str) and evidence['evidence'].strip(), 'inspection evidence reference required: ' + name)
             require(evidence.get('template_sha256') == manifest['template_sha256'], 'template inspection mismatch')
+            require(evidence.get('design_fingerprint') == current_design['fingerprint'], 'shared design inspection mismatch')
             # Text and metadata are only an additional guard; host checks links, attachments,
             # hidden layers and images, which plain-text extraction cannot prove safe.
             haystack = ' '.join((text + '\n' + info).split())
@@ -211,15 +247,16 @@ def check(args):
                 if normalized not in visible_values and len(normalized) >= 4:
                     require(normalized not in haystack, 'non-allowlisted field value detected: ' + name)
             tags = [o['tag'] for o in manifest['outputs']] if name == 'combined.pdf' else [name[:-4]]
-            matches = [re.search(r'(?<![A-Za-z0-9._-])' + re.escape(tag) + r'(?![A-Za-z0-9._-])', text) for tag in tags]
+            tag_text = run_pdf('pdftotext', path, contract.get('front_matter_pages', 0) + 1) if name == 'combined.pdf' else text
+            matches = [re.search(r'(?<![A-Za-z0-9._-])' + re.escape(tag) + r'(?![A-Za-z0-9._-])', tag_text) for tag in tags]
             positions = [match.start() if match else -1 for match in matches]
             require(all(p >= 0 for p in positions), 'expected tag not found in PDF text: ' + name)
             if name == 'combined.pdf':
                 require(positions == sorted(positions), 'combined tag order differs')
-            verified.append({'file': name, 'sha256': digest(data), 'pages': int(pages[1])})
+            verified.append({'file': name, 'sha256': digest(data), 'pages': int(pages[1]), 'page_boxes': boxes})
         except (ValueError, OSError, subprocess.TimeoutExpired) as error:
             failures.append(str(error))
-    receipt = {'schema_version': 1, 'fingerprint': manifest['fingerprint'], 'schedule': manifest['schedule'], 'outputs': manifest['outputs'], 'template_sha256': manifest['template_sha256'], 'audience': manifest['audience'], 'verified_artifacts': verified, 'failures': failures, 'status': 'complete' if not failures else 'incomplete', 'workflowCompleted': not failures, 'verification': 'PDF parsing plus host-supplied hash-bound visual/link/audience evidence; not independent visual verification'}
+    receipt = {'schema_version': 1, 'fingerprint': manifest['fingerprint'], 'schedule': manifest['schedule'], 'design': {'fingerprint': current_design['fingerprint'], 'identities': current_design['identities'], 'page': current_design['page'], 'layout': current_design['layout']}, 'outputs': manifest['outputs'], 'template_sha256': manifest['template_sha256'], 'audience': manifest['audience'], 'verified_artifacts': verified, 'failures': failures, 'status': 'complete' if not failures else 'incomplete', 'workflowCompleted': not failures, 'verification': 'PDF parsing plus host-supplied hash-bound visual/link/audience evidence; not independent visual verification'}
     # Do not erase earlier receipts or use an output receipt to mutate item records.
     receipt_path = Path(args.receipt)
     require(not receipt_path.exists() and not receipt_path.is_symlink(), 'receipt exists; preserve previous evidence')
@@ -256,10 +293,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest='command', required=True)
     prep = sub.add_parser('prepare')
-    for name in ('input', 'contract', 'template', 'output'):
+    for name in ('input', 'contract', 'template', 'design', 'output'):
         prep.add_argument('--' + name, required=True)
     verify = sub.add_parser('check')
-    for name in ('job', 'inspection', 'receipt', 'input', 'contract', 'template'):
+    for name in ('job', 'inspection', 'receipt', 'input', 'contract', 'template', 'design'):
         verify.add_argument('--' + name, required=True)
     reuse = sub.add_parser('resume')
     for name in ('previous', 'job', 'receipt'):

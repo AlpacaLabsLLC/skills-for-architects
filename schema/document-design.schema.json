@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Resolved shared document design",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "kind",
+    "identities",
+    "assets",
+    "override_layers",
+    "page",
+    "layout",
+    "fingerprint"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "kind": {
+      "enum": [
+        "product-cut-sheet",
+        "spec-book"
+      ]
+    },
+    "identities": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "version",
+          "layer",
+          "manifest_sha256"
+        ]
+      }
+    },
+    "assets": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "required": [
+          "layer",
+          "path",
+          "sha256",
+          "text"
+        ],
+        "properties": {
+          "layer": {
+            "enum": [
+              "project",
+              "studio",
+              "bundled"
+            ]
+          },
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "override_layers": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "project",
+          "studio",
+          "bundled"
+        ]
+      }
+    },
+    "page": {
+      "type": "object",
+      "required": [
+        "preset",
+        "orientation",
+        "width_pt",
+        "height_pt",
+        "physical_units",
+        "measurement_units",
+        "margin_pt",
+        "content_width_pt",
+        "content_height_pt",
+        "rotation",
+        "user_unit"
+      ],
+      "properties": {
+        "preset": {
+          "type": "string"
+        },
+        "orientation": {
+          "enum": [
+            "portrait",
+            "landscape"
+          ]
+        },
+        "width_pt": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "height_pt": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "physical_units": {
+          "enum": [
+            "mm",
+            "in"
+          ]
+        },
+        "measurement_units": {
+          "enum": [
+            "metric",
+            "imperial"
+          ]
+        },
+        "margin_pt": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "content_width_pt": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "content_height_pt": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "rotation": {
+          "const": 0
+        },
+        "user_unit": {
+          "const": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "layout": {
+      "type": "object",
+      "required": [
+        "id",
+        "version",
+        "columns",
+        "body_pt",
+        "minimum_type_pt",
+        "gutter_pt"
+      ]
+    },
+    "fingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}
