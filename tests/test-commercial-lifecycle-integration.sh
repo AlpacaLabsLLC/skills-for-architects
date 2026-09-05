@@ -30,6 +30,8 @@ cp "$proposal" "$ROOT/issued-source.md"
 reject_unchanged "$project/agreement/AGREEMENT.md" bash "$AGREEMENT" promote "$project" proposals/2026-09-design-services-proposal-rev-01.md 2026-09-03
 printf '# SOW 01\n\nSynthetic approved additional study, effective 2026-09-04.\n' > "$project/agreement/sow/sow-01.md"
 reject_unchanged "$project/agreement/AGREEMENT.md" bash "$AGREEMENT" record-amendment "$project" sow-01.md 'Injected\nrow' 2026-09-04
+reject_unchanged "$project/agreement/AGREEMENT.md" bash "$AGREEMENT" record-amendment "$project" sow-01.md $'Injected\nrow' 2026-09-04
+reject_unchanged "$project/agreement/AGREEMENT.md" bash "$AGREEMENT" record-amendment "$project" sow-01.md $'Carriage\rreturn' 2026-09-04
 reject_unchanged "$project/agreement/AGREEMENT.md" bash "$AGREEMENT" record-amendment "$project" sow-01.md $'Tab\tcell' 2026-09-04
 printf '# Unsafe filename\n' > "$project/agreement/sow/sow\n01.md"
 reject_unchanged "$project/agreement/AGREEMENT.md" bash "$AGREEMENT" record-amendment "$project" 'sow\n01.md' 'Injected filename' 2026-09-04
