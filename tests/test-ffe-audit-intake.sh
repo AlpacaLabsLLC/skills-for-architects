@@ -21,6 +21,13 @@ x=copy.deepcopy(sample);x['items'].append(x['items'][0])
 try:audit(x)
 except ValueError:pass
 else:raise AssertionError('duplicate accepted')
+for patch in ({'schema_version':True}, {'started_at':'2099-01-01T00:00:00Z'}, {'started_at':'2026-09-05T10:00:00'}):
+    bad=copy.deepcopy(sample);bad.update(patch)
+    try:audit(bad)
+    except ValueError:pass
+    else:raise AssertionError('invalid audit version/time accepted')
+bad=copy.deepcopy(sample);bad['observations']=[]
+assert audit(bad)['status']=='findings' and audit(bad)['compared_fields']==0
 intake=module('tools/transformers/ffe_intake.py').manifest
 with tempfile.TemporaryDirectory() as folder:
     root=Path(folder);(root/'PROJECT.md').write_text('# Synthetic project\n');(root/'source.csv').write_text('Tag,Model\nAP-01,M1\n')
