@@ -264,6 +264,17 @@ append_row() {
     *) die "correction must be '-' or 'Corrects I#### — reason'" ;;
   esac
 
+  # An invoice number identifies one ledger entry, including historical/void rows.
+  if awk -F'|' -v number="$invoice_number" '
+    function trim(s){gsub(/^[ \t]+|[ \t]+$/, "", s); return s}
+    /<!-- invoices:start -->/ {inside=1; next}
+    /<!-- invoices:end -->/ {inside=0}
+    inside && /^\|/ && trim($3)==number {found=1}
+    END {exit found ? 0 : 1}
+  ' "$root/INVOICES.md"; then
+    die "invoice number already recorded: $invoice_number; inspect the existing row or use a distinct correction number"
+  fi
+
   id=$(next_id "$root")
   validate_correction_target "$root" "$id" "$correction"
   tmp=$(mktemp "$root/.invoice-ledger.XXXXXX")
