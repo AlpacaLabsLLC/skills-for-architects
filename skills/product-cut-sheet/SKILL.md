@@ -14,7 +14,7 @@ allowed-tools:
 <!-- architecture-studio:harness-compatibility -->
 > Harness note: use `/as:<skill>` on Claude Code and `$<skill>` on Codex. Resolve `<skill-root>` as the directory containing this loaded `SKILL.md` and `<plugin-root>` as the plugin root that contains `skills/`, and use equivalent native tools when host tool names differ.
 
-Produce one selected product sheet, or an explicitly agreed product/finish grouping. Input: pinned item revision(s) or a one-off source snapshot, accepted template, exact tag, audience and image evidence. Output: an actual requested-format artifact and hash-bound receipt. This skill owns individual sheet job manifests and receipts; `/as:spec-book` owns package receipts. Neither owns item specifications or project decisions.
+Produce one selected product sheet, or an explicitly agreed product/finish grouping. Input: pinned item revision(s) or a one-off source snapshot, accepted template, exact tag, audience and image evidence. Output: an actual requested-format artifact and hash-bound receipt. This skill owns derived individual-sheet preparation manifests and artifact receipts; `/as:product-data-import` owns the accepted job input manifest; `/as:spec-book` owns package receipts. Neither owns item specifications or project decisions.
 
 ## 1. Resolve context and inputs
 
@@ -23,6 +23,16 @@ Resolve the nearest valid `PROJECT.md` using `/as:project` context resolution. R
 Use existing task authorization. Ask once only for an unresolved material choice, covering exact target, audience and side effects in one gate; do not re-ask accepted scope/template choices. Read the supplied source before writing. Do not infer approval, price, availability or configuration from a generated sheet.
 
 For **adopted** schedules, read the exact schedule snapshot through `python3 "<plugin-root>/tools/workspace/ffe_records.py" read --project <project-root> --schedule <schedule-id>`. Pin schedule ID/revision/hash and item ID/revision. Select the requested item(s) without changing their identity. For **one-off** work, preserve a source-identified input snapshot with stable local item IDs and positive snapshot revisions; explicitly record that no schedule adoption occurred. Never convert a workbook into authoritative records implicitly. Workbook editing/reconciliation belongs to the host and `/as:master-schedule`, not this output skill.
+
+### Accepted input handoff and derived projection
+
+Consume `ffe/jobs/<job-id>/input-manifest.json` from `/as:product-data-import`, using [the intake schema](../../schema/ffe-intake.schema.json). If it is absent, hand off to that owner to record the supplied sources and scope under existing authorization; one-off mode records inputs without adopting a schedule. Verify its `input_hash`, source hashes/status, selected tags, accepted template and adopted `record_basis` when present. Reconcile explicit product/finish grouping with that selection. Corrections produce a superseding input job through the owner, never an output skill's rewrite of the accepted manifest.
+
+Preserve the untouched joined record read (or one-off source extraction) separately. Create a **derived output snapshot**, retaining schedule ID/revision/hash and item ID/revision while selecting only the accepted scope. Put accepted `input_hash`, source references/status, selected tags and the original record source in the snapshot's `source` object; an empty record source is not invented evidence. Record the raw-read hash and explicit field mapping separately in the preparation evidence. The output snapshot is a rendering projection, not a newly signed canonical record.
+
+Map structured values deliberately into the helper's scalar render fields. For a stored hyperlink `{label,url}`, retain separate display-label and true-URL fields and explicitly allowlist the intended fields; never replace the URL with its label. Preserve the raw structured value and mapping in private preparation evidence. Other nested values require an explicit lossless source-to-display mapping, not guessed flattening. The host must create and inspect actual PDF link annotations, not merely print URL-looking text. Never mutate adopted records to satisfy a renderer's input schema.
+
+Before verification or resume, reread current canonical data and accepted input evidence, then rebuild the same derived projection and mapping. Compare it with the prepared inputs; changed source/scope/mapping/revisions invalidate affected outputs. Keep all raw evidence and preparation controls outside client delivery.
 
 ## 2. Bind template, audience and images
 
