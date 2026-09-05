@@ -8,6 +8,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **Shared foundation.** Added canonical Knowledge, Tools and Studio-contract ownership, a validated component registry, nine maintained practice-cluster manifests and generated discovery while preserving all 50 public skills.
+- **Source and integration contracts.** Added three existing NYC source entries, explicit jurisdiction/authority relationships, a metadata-only shared-standard reference, and a bounded Node.js source-health checker. EC3 remains declaration-only; hosted binding and scheduling require separate MCP implementation.
+- **Portable delivery checks.** Added detached-package export validation, source/category CI checks, and a release runbook separating AS/OSS 1.5.0 from MCP service 0.1.0.
+
+### Fixed
+
+- **Commercial record integrity.** Reject duplicate amendment documents and invoice identities on retry, including whitespace-padded invoice IDs. Reject record-separator and AWK escape input before it can alter agreement/invoice tables. Synthetic lifecycle tests verify issued-term and ledger preservation.
+
+### Added
+
 - **Immutable folder identity.** New studio-managed roots, grouping folders, and registered project folders carry a minimal `.as-folder.json` with an opaque immutable Folder ID and kind. `STUDIO.md` keeps readable paths beside those IDs, so projects and managed roots remain resolvable after a human rename while status reports stale path text as drift. Legacy path-only format-3 rows remain readable during transition.
 - **Host-condition evaluation harness.** Added `evals/host-conditions/`, which measures how bundled skills behave on a host without shell execution or local file writing — the Claude Desktop condition. It classifies each run into a failure mode rather than pass/fail, because a skill that stops cleanly scores as a non-success while being the better outcome. Includes a deterministic fixture builder, a case list, and a grader whose three known false-positive patterns are guarded and documented.
 - **First evaluation report.** `docs/reports/2026-08-27-host-condition-eval.md` records a 27-run comparison against a candidate host-requirements patch. The patch proved inert — eight paired cases agreed on failure mode 8 of 8, with turn deltas netting to noise — and was not adopted. The run did surface a real pre-existing defect: `csv-to-sif` emitted a non-ASCII character into a SIF file in one run of three, which dealer importers commonly reject.
@@ -18,6 +28,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **Permissive Format 3 project naming.** New studios choose the AS convention, a firm-defined convention, or no convention. The AS suggestion now follows ALPA's `YYMMDD-CCC-PROJECT-NAME` pattern. Project ID, display name, client code, and registered folder are independent, existing firm hierarchies remain valid, and migrations preserve project directories. Naming mismatches are advisory; unsafe paths, duplicate identities, and collisions still fail closed.
 
 ## [1.5.0] - Unreleased
+
+Candidate status: not published. Set the actual release date and consolidate the Unreleased notes when publication is authorized.
 
 ### Breaking
 
