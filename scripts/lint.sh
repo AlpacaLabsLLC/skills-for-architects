@@ -491,6 +491,10 @@ echo "→ active product-data boundary"
 ACTIVE_PRODUCT_PATHS=(
   agents
   assets
+  corpus
+  tools
+  clusters
+  studio
   README.md
   PATTERNS.md
   schema
@@ -539,7 +543,7 @@ if command -v shellcheck >/dev/null 2>&1; then
   SHELL_FILES=()
   while IFS= read -r shell_file; do
     SHELL_FILES+=("$shell_file")
-  done < <(find hooks scripts skills tests -type f -name '*.sh' | sort)
+  done < <(find hooks scripts skills tests tools studio -type f -name '*.sh' | sort)
   # Warning-and-error findings are release blockers. Test-contract scripts use
   # literal shell-looking fixture text and deliberate negative pipelines, which
   # produce informational findings without identifying executable defects.
@@ -550,6 +554,20 @@ if command -v shellcheck >/dev/null 2>&1; then
   fi
 else
   skip_or_fail "shellcheck"
+fi
+
+# 14. Shared component ownership, maintained coverage and source contracts.
+echo "→ foundation category contracts"
+if ! python3 tools/validators/validate-categories.py --root . --check-guide; then
+  FAIL=1
+fi
+echo "→ source and integration contracts"
+if command -v node >/dev/null 2>&1; then
+  if ! node tools/integrations/source-health.mjs --validate; then
+    FAIL=1
+  fi
+else
+  skip_or_fail "Node.js >=18 (source contract validator)"
 fi
 
 echo

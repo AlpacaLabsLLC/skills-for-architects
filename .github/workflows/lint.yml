@@ -17,6 +17,10 @@ jobs:
         with:
           python-version: "3.12"
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24.20.0"
+
       # lint.sh hard-fails in CI when shellcheck or jq is missing (it only
       # skips them locally), so install them explicitly instead of trusting
       # the runner image to keep shipping them (ALPA-366).

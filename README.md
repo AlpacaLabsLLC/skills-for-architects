@@ -30,6 +30,12 @@ This branch adds a read-only, source-backed architecture-knowledge skill for sha
 
 The workspace migration from format 2 to format 3 is breaking, not a compatible patch update. Version 1.5.0 gives universal projects durable identity and moves commercial records into their owning project; release remains gated on dogfood validation of migration and rollback behavior.
 
+### Foundation organization and delivery
+
+AS organizes shared content into five categories: Knowledge (`corpus/`), executable Tools (`tools/`), procedural Skills (`skills/`), Practice Clusters (`clusters/`) and distributed Studio contracts (`studio/`). Practice clusters assemble existing components; geographic manifests describe maintained source coverage independently. Actual firm and project records remain in the user's workspace.
+
+The release targets are **AS/OSS 1.5.0** and an independently versioned **MCP service 0.1.0**, serving AS content 1.5.0. MCP delivery does not imply hosted execution of every skill or access to local files. The host remains responsible for available general tools and the conversation; shared team storage and independent Norma orchestration are outside this release. See [release delivery and acceptance](docs/release-delivery.md) for the separate publication and deployment gates. Candidate version labels are not evidence of a published release.
+
 ## What’s new in 1.4.5
 
 A packaging fix for Claude Desktop installation. Teaching examples and the Skill Maker template now live outside the installable `skills/` tree, and the learning material points to the canonical `/as:tasklist` skill instead of bundling a second skill with the same name. Recursive checks prevent misplaced skill manifests and canonical/example name overlap from returning.

@@ -17,7 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **User-selected human folder taxonomy.** Studio setup now asks for the folder taxonomy separately from Project ID naming. The AS standard uses human-readable `Projects/{Client Account or Internal}/{YYYYMM} {Project Name}` with parallel `Operations`, `Standards`, and `References` roots; firms may record their own convention and roots. Confirmed casing is preserved instead of being normalized to lowercase kebab-case.
 - **Permissive Format 3 project naming.** New studios choose the AS convention, a firm-defined convention, or no convention. The AS suggestion now follows ALPA's `YYMMDD-CCC-PROJECT-NAME` pattern. Project ID, display name, client code, and registered folder are independent, existing firm hierarchies remain valid, and migrations preserve project directories. Naming mismatches are advisory; unsafe paths, duplicate identities, and collisions still fail closed.
 
-## [1.5.0] - 2026-08-28
+## [1.5.0] - Unreleased
 
 ### Breaking
 

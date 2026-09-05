@@ -12,6 +12,7 @@ Private firm and project skills belong in the user-owned studio workspace and do
 |---|---|---|
 | `python3` with `pyyaml` (`pip install pyyaml`) | SKILL.md frontmatter validation in `scripts/lint.sh`; `scripts/audit-skill-context.sh` | Frontmatter, JSON, count, and link checks skip; the audit script exits with an install hint |
 | `jq` | JSON manifest checks | Manifest validation skips |
+| Node.js >=18 (CI uses 24.20.0) | Source/integration contract validation and explicit source-health checks | Source validation requires installation; CI enforces it |
 | `shellcheck` | Shell-script analysis | Skipped locally with a notice; CI enforces it |
 
 A run that reports `all checks passed` with skip notices above it has not verified everything. Read the notices.
@@ -22,7 +23,7 @@ A run that reports `all checks passed` with skip notices above it has not verifi
 2. Add or update the directory under `skills/`.
 3. Keep `SKILL.md` authoritative for harness behavior and `README.md` focused on human-facing purpose, inputs, outputs, and examples.
 4. Add the skill once to [`skills/README.md`](./skills/README.md).
-5. Update shared rules or schemas only when behavior genuinely changes for multiple consumers.
+5. Register public skills and shared components in `corpus/components.json` and reference their IDs from the appropriate `clusters/` manifests. Update shared rules or schemas only when behavior genuinely changes for multiple consumers.
 6. Add focused contract coverage and run `./scripts/lint.sh` plus the relevant tests.
 7. Open a pull request describing the behavior, verification, and representative output.
 
@@ -43,3 +44,11 @@ Do not include client data, firm secrets, credentials, or proprietary procedures
 - `docs/`: cross-cutting product architecture and durable plans
 
 Avoid copying authoritative instructions into multiple places. Link to the owning document instead.
+
+## Shared ownership and distribution
+
+Keep callable procedures flat under `skills/`. Shared knowledge has one canonical owner under `corpus/`, executable implementations under `tools/`, cluster manifests under `clusters/`, and distributed Studio contracts under `studio/`. These package directories never contain a user's actual studio records. Skill-private assets can remain with their skill; forwarding compatibility files must resolve the canonical content rather than maintain copied implementations.
+
+A new practice area composes registered components and declared coverage. A new geography contributes maintained sources, authority relationships, necessary adapters and evaluation cases. Directory ancestry does not establish legal applicability. A source URL or skill instruction is not evidence of an executable tool or validated workflow.
+
+Run the foundation validators and all affected contracts before proposing a change. Structural changes must be checked in an exported package outside the Git checkout. Notify the MCP maintainer of new resource roots, moved canonical paths and changed script contracts; the hosted package must be rebuilt from the reviewed AS source. See [release delivery](docs/release-delivery.md).

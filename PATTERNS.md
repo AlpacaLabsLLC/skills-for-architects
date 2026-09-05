@@ -48,16 +48,16 @@ User-facing slash invocation:
 
 **Why:** the slash UX should immediately tell the user which product family they're invoking. `/canoa-find` and `/canoa-audit` are obviously a family. `/start` and `/audit` are anonymous.
 
-## 4. A single orchestrator (dispatcher)
+## 4. A single entry-point dispatcher
 
 Every plugin has ONE entry-point skill (the dispatcher) that:
 
 1. Reads the user's intent (everything after the slash command).
 2. Classifies against a routing table.
 3. Hands off to the right sub-skill.
-4. Falls back to working mode (relay through MCP / agent persona) for ambiguous freeform messages.
+4. Resolves the relevant studio/project context or asks a focused question when an ambiguous request cannot be routed safely. The user’s host retains the conversation and execution loop.
 
-The dispatcher is named the same as the plugin (`canoa`, `studio`). Its `SKILL.md` includes:
+Architecture Studio uses `studio` as its setup, context-selection and routing skill. This procedure is not an independently running orchestrator agent; optional Norma orchestration is outside AS 1.5. Its `SKILL.md` includes:
 
 - A routing table (what intent → which sub-skill)
 - A working-mode fallback section (how to handle ambiguous requests)
@@ -118,6 +118,8 @@ Run the full suite before tagging. The two tests above encode the release contra
 **Why:** Cowork and Claude Code pin to `plugin.json` `version` for plugin updates — without a bump, `/plugin marketplace update` reports "already up to date" even when new commits exist (canoa 2026-05-08: three commits, no bump, Cowork served `0.1.0` indefinitely). The marketplace `metadata.version` is more of a documentation pin than a functional one (`/plugin marketplace update` re-fetches regardless), but bumping it gives every shipped change a clear version trail in CHANGELOG. Git tags + GitHub releases give the same change a discoverable surface for humans — release URLs link from PRs, CHANGELOGs, and external docs; tags let `git checkout` against a known release point. We hit the gap three times on 2026-05-08: canoa shipped without a plugin.json bump; skills-for-architects shipped PATTERNS.md without a marketplace bump; both repos accumulated commits without git tags or GitHub releases. Bump discipline = every push leaves a trail across all three artifacts.
 
 If you ever need auto-publish on every commit (during very heavy iteration), drop the `version` field entirely — Cowork/Code falls through to commit SHAs for plugin updates, and you can also skip per-commit tags. But default is the pin + bump + tag + release.
+
+The hosted Architecture Studio MCP service has an independent version. The initial target is **MCP 0.1.0 serving AS content 1.5.0**. Service status and release receipts identify both versions, the AS source commit/digest and the service build identity. Service-only changes need not bump AS content. H1/H2/H3 identify planning milestones, not service versions. See [release delivery](docs/release-delivery.md).
 
 ## 7. Layout pattern selection
 

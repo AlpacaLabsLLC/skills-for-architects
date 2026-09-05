@@ -19,7 +19,7 @@ assert marketplace['plugins'][0]['description'].startswith('Architecture Studio 
 PY
 
 grep -q '^## \[Unreleased\]$' CHANGELOG.md
-grep -q '^## \[1\.5\.0\] - 2026-08-28$' CHANGELOG.md
+grep -Eq '^## \[1\.5\.0\] - (Unreleased|[0-9]{4}-[0-9]{2}-[0-9]{2})$' CHANGELOG.md
 grep -q '^## \[1\.4\.5\] - 2026-09-03$' CHANGELOG.md
 grep -q '^## \[1\.4\.4\] - 2026-08-25$' CHANGELOG.md
 grep -Fq 'Thanks to [@Namine4](https://github.com/Namine4) for the original report and [@grigor-p](https://github.com/grigor-p) for extending the diagnosis and confirming the workaround.' CHANGELOG.md
@@ -145,7 +145,7 @@ python3 - <<'PY'
 from pathlib import Path
 
 text = Path("CHANGELOG.md").read_text()
-release = text.split("## [1.5.0] - 2026-08-28", 1)[1].split("## [1.4.3]", 1)[0]
+release = text.split("## [1.5.0] - ", 1)[1].split("## [1.4.5]", 1)[0]
 assert "### Breaking" in release
 assert "Architecture knowledge" in release
 assert "Universal project and commercial records" in release
