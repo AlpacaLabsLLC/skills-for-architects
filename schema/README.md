@@ -26,3 +26,5 @@ It is not a general-purpose JSON Schema implementation.
 - [Output contract](ffe-output.schema.json) and [template contract](ffe-output-template.schema.json): revision-pinned host production and completeness checks.
 
 See the [record workflow](../studio/ffe/README.md) and [shared product methods](../corpus/practice-methods/ffe/README.md). These contracts do not introduce an AS spreadsheet or PDF rendering engine.
+
+- [Resolved document design](document-design.schema.json): pinned central assets, override layers, physical page dimensions and size-aware layout parameters.

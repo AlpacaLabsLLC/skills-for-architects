@@ -4,10 +4,10 @@ Measured with `scripts/audit-skill-context.sh`. Characters, words, and lines are
 
 | Measure | Baseline | Final | Delta |
 |---|---:|---:|---:|
-| Skills discovered | 46 | 50 | +4 |
-| Description characters | 12,990 | 12,081 | -909 (-7.0%) |
-| Description estimated tokens | 3,266 | 3,041 | -225 (-6.9%) |
-| Skill-body characters | 387,881 | 451,371 | +63,490 (+16.4%) |
+| Skills discovered | 46 | 53 | +7 (+15.2%) |
+| Description characters | 12,990 | 12,791 | -199 (-1.5%) |
+| Description estimated tokens | 3,266 | 3,219 | -47 (-1.4%) |
+| Skill-body characters | 387,881 | 494,351 | +106,470 (+27.4%) |
 
 The standing-description reduction preserves distinguishing positive and negative routes in high-risk pairs: workplace programming versus code occupancy, EPD write versus parse/find/compare, product research versus image matching/pairing, and NYC base zoning versus BSA relief/3D visualization.
 
@@ -16,3 +16,5 @@ Progressive disclosure in this pass extracted the 120-line inline image processo
 The final column is the integrated checkout measurement, including correctness, interface, and cross-harness compatibility changes merged after the initial optimization lane, the three commercial-records skills (proposal, agreement, invoice), and the read-only architecture-knowledge skill added afterwards. The body increase has three causes: the concise Codex/Claude invocation and path-resolution contract added to every bundled skill, the three commercial-record skill bodies, and the architecture-knowledge instruction surface; its detailed source corpus stays in on-demand reference files. `tests/test-context-audit.sh` reconciles these retained totals with a fresh local audit so later changes cannot silently make the evidence stale.
 
 Foundation integration refresh (2026-09-05, code commit `2957b91`): skill-body bytes increased by 770 from the preceding candidate measurement (450,601), reflecting commercial duplicate/record-separator guidance and category-discovery links. Skill count and description totals are unchanged. This table intentionally tracks the integrated checkout; the prior measurement is retained here as history.
+
+FF&E integration refresh (2026-09-05): the expanded candidate has 53 skills. Added audit/cut-sheet/book entry points and shared record, source-evidence and host-workbook boundaries increase context intentionally. The preceding foundation measurement was 50 skills, 12,081 description characters, 3,041 estimated description tokens and 451,371 body characters. Shared layout rules remain in centralized studio assets rather than copied into each skill.
