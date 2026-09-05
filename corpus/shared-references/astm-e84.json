@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "standard:astm-e84",
+  "title": "ASTM E84",
+  "publisher": "ASTM International",
+  "url": "https://www.astm.org/",
+  "edition": null,
+  "effective_date": null,
+  "rights": "reference-metadata-only",
+  "access": "publisher-access-conditions",
+  "coverage": "identifier-only; no test text, adoption claim or licensed content bundled"
+}
