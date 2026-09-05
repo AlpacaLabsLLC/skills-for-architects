@@ -120,6 +120,8 @@ def prepare(args):
                 name = image_hash + asset.suffix.lower()
                 assets[name] = asset
                 row['image'] = {'path': 'assets/' + name, 'sha256': image_hash, 'status': image['status'], 'source': image['source']}
+                if image['status'] == 'representative':
+                    row['image']['label'] = 'Representative product image'
             else:
                 require(contract['missing_image_policy'] == 'labeled-placeholder', 'missing image blocks output: ' + tag)
                 row['image'] = {'status': 'missing', 'label': 'Product image unavailable'}
@@ -198,6 +200,11 @@ def check(args):
             # hidden layers and images, which plain-text extraction cannot prove safe.
             haystack = ' '.join((text + '\n' + info).split())
             projected = read_json(root / 'render/data.json')
+            selected_groups = projected['outputs'] if name == 'combined.pdf' else [group for group in projected['outputs'] if group['tag'] + '.pdf' == name]
+            for group in selected_groups:
+                for row in group['items']:
+                    label = row['image'].get('label')
+                    require(not label or label in ' '.join(text.split()), 'required image disclosure missing: ' + name)
             visible_values = {' '.join(str(v).split()) for group in projected['outputs'] for row in group['items'] for v in row['fields'].values()}
             for value in manifest['denied_values']:
                 normalized = ' '.join(value.split())

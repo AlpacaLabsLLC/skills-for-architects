@@ -69,7 +69,7 @@ class Outputs(unittest.TestCase):
         job = self.root/name
         for n in range(1,14):
             pdf(job/'delivery'/f'AP-{n:02}.pdf', [f'AP-{n:02} Appliance {n} Product image unavailable'])
-        pdf(job/'delivery/combined.pdf', [f'AP-{n:02} Appliance {n}' for n in range(1,14)])
+        pdf(job/'delivery/combined.pdf', [f'AP-{n:02} Appliance {n} Product image unavailable' for n in range(1,14)])
         self.inspect(name)
 
     def inspect(self, name='job'):
@@ -121,7 +121,7 @@ class Outputs(unittest.TestCase):
         self.assertEqual(len(result['verified_artifacts']),14)
         (self.root/'job/delivery/AP-13.pdf').unlink()
         self.assertFalse(self.check(receipt='missing.json',ok=False)['workflowCompleted'])
-        pdf(self.root/'job/delivery/AP-13.pdf',['AP-13 CONFIDENTIAL-TRADE-PRICE'])
+        pdf(self.root/'job/delivery/AP-13.pdf',['AP-13 CONFIDENTIAL-TRADE-PRICE Product image unavailable'])
         self.inspect()
         result=self.check(receipt='leak.json',ok=False)
         self.assertTrue(any('non-allowlisted' in v for v in result['failures']))
@@ -159,14 +159,18 @@ class Outputs(unittest.TestCase):
         body['artifacts']['AP-05.pdf']['rendered_pages_inspected']=False
         inspection.write_text(json.dumps(body))
         self.check(receipt='uninspected.json',ok=False)
-        pdf(self.root/'job/delivery/combined.pdf',[f'AP-{n:02}' for n in range(13,0,-1)])
+        pdf(self.root/'job/delivery/combined.pdf',[f'AP-{n:02} Product image unavailable' for n in range(13,0,-1)])
         self.inspect()
         result=self.check(receipt='order.json',ok=False)
         self.assertTrue(any('order differs' in v for v in result['failures']))
-        pdf(self.root/'job/delivery/AP-01.pdf',['AP-010 Wrong tag'])
+        pdf(self.root/'job/delivery/AP-01.pdf',['AP-010 Wrong tag Product image unavailable'])
         self.inspect()
         result=self.check(receipt='wrongtag.json',ok=False)
         self.assertTrue(any('expected tag not found' in v for v in result['failures']))
+        pdf(self.root/'job/delivery/AP-01.pdf',['AP-01 No image disclosure'])
+        self.inspect()
+        result=self.check(receipt='imagelabel.json',ok=False)
+        self.assertTrue(any('image disclosure missing' in v for v in result['failures']))
 
 
 if __name__ == '__main__':
