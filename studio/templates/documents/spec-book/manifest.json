@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "id": "as.spec-book-template",
+  "version": "1.0.0",
+  "design_system": {
+    "id": "as.document-design-system",
+    "version": "1.0.0"
+  },
+  "assets": {
+    "template.md": "c4c2efd70e0edf1620b7be71d49b32abedcf06e6d860482ab6ba17d5d0585943"
+  },
+  "supported_presets": [
+    "letter",
+    "legal",
+    "tabloid",
+    "ansi-c",
+    "ansi-d",
+    "ansi-e",
+    "arch-a",
+    "arch-b",
+    "arch-c",
+    "arch-d",
+    "arch-e",
+    "arch-e1",
+    "a4",
+    "a3",
+    "a2",
+    "a1",
+    "a0",
+    "custom"
+  ],
+  "orientations": [
+    "portrait",
+    "landscape"
+  ],
+  "dependencies": [
+    "product-cut-sheet"
+  ]
+}

@@ -26,6 +26,11 @@ For **adopted** schedules, read the exact schedule snapshot through `python3 "<p
 
 ## 2. Bind template, audience and images
 
+Resolve the centrally owned [document design system](../../studio/standards/documents/design-system.md) and [cut-sheet template](../../studio/templates/documents/product-cut-sheet/template.md). Layout/type rules live there, not in this skill. Use `document_contracts.py resolve` from the shared [output contracts](../../tools/renderers/README.md): explicitly selected project/job assets first, configured studio assets next, bundled assets last. A supplied accepted reference takes precedence for its declared rules; record `reference_overrides` and its hash rather than silently replacing it. Missing assets or incompatible dependencies block the affected output.
+
+Resolve the requested physical preset/custom dimensions, portrait/landscape and displayed measurement units separately. Pin design/template IDs, versions, asset hashes, page dimensions, margins, content area and layout version in `resolved-design.json`. Pass it as `--design` to preparation and verification. Re-resolve current dependencies before verification; retain earlier resolved bytes. The host follows size-aware grid/type/overflow rules and inspects every actual page, image resolution and 100% print geometry. Do not scale a Letter layout to a board, substitute a nearby paper size, or imply product images have drawing scale. Unsupported combinations are explicit blockers.
+
+
 Inspect the supplied template using the host's PDF/document capability. Record its hash and concrete page size, field order, typography, spacing, image placement and footer requirements. Preserve the accepted design; use a default only if no template was supplied and the task permits it. A template with an image placeholder is layout evidence, not proof of image completion.
 
 Use [output contracts](../../tools/renderers/README.md) and [template contract](../../schema/ffe-output-template.schema.json). Set an explicit audience field allowlist; never feed excluded net prices, internal notes or full source records to a client renderer. Client output also requires inspection of metadata, attachments, hidden text, links and embedded images. An allowlist of fields alone cannot make an unsafe template safe.
@@ -39,7 +44,7 @@ Preserve exact requested tags. Unsafe filenames require a resolved naming choice
 Create the explicit single-output contract and input snapshot, then run:
 
 ```bash
-python3 "<plugin-root>/tools/renderers/ffe_outputs.py" prepare --input <snapshot.json> --contract <contract.json> --template <accepted-template.pdf> --output <new-job-revision>
+python3 "<plugin-root>/tools/renderers/ffe_outputs.py" prepare --input <snapshot.json> --contract <contract.json> --template <accepted-reference-or-template> --design <resolved-design.json> --output <new-job-revision>
 ```
 
 The helper writes private controls under `internal/`, allowlisted data under `render/`, and an empty `delivery/`. It does not generate a PDF. Keep controls outside deliverables; use only projected data in the host renderer. Never copy the whole job folder into an external package.
@@ -48,6 +53,6 @@ Use the host's document/PDF skill and renderer to create `delivery/<exact-tag>.p
 
 ## 4. Verify and return
 
-Read back current item/source, template, audience and image revisions; changes require a new prepared revision. Write the hash-bound host inspection evidence described in the output contract, including actual layout/image/link/audience inspection. Run the helper's `check` command with the current input, contract and template. It checks actual PDF bytes, parseability, page counts, tags, denied-field leakage, hashes and evidence references. It cannot independently judge layout or hidden objects; the host must actually inspect those.
+Read back current item/source, template, audience and image revisions; changes require a new prepared revision. Write the hash-bound host inspection evidence described in the output contract, including actual layout/image/link/audience, physical page size, clipping/overflow and image-resolution inspection. Run the helper's `check` command with the current input, contract and template. It checks actual PDF bytes, parseability, page counts, tags, denied-field leakage, hashes and evidence references. It cannot independently judge layout or hidden objects; the host must actually inspect those.
 
 Preserve failed outputs and earlier receipts. Report `complete` only if the requested artifact exists, has been reopened/inspected, and all required checks pass. Otherwise report the affected item and precise blocker. Return a usable local artifact link, source/template/item revision references, image status and receipt; no external sending/upload without authorization. Corrections route to `/as:product-audit` or record owner, then produce a new output revision. A restored artifact never rolls back authoritative records.
