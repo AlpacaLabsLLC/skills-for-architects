@@ -3,11 +3,15 @@ set -euo pipefail
 
 SCRIPT_DIR=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
 TEMPLATE_DIR="$SCRIPT_DIR/../templates"
+FOLDER_IDENTITY_SCRIPT="$SCRIPT_DIR/folder-identity.sh"
 
 die() {
   printf 'project-workspace: %s\n' "$*" >&2
   exit 1
 }
+
+# shellcheck source=folder-identity.sh
+. "$FOLDER_IDENTITY_SCRIPT"
 
 validate_safe_path() {
   case "${1:-}" in
@@ -22,7 +26,20 @@ validate_new_target() {
   local base
   validate_safe_path "$1"
   base=$(basename -- "$1")
-  validate_project_id "$base"
+  case "$base" in
+    ''|.|..) die "project directory name is invalid" ;;
+    *$'\n'*|*$'\r'*|*$'\t'*) die "project directory name contains control characters" ;;
+  esac
+  [ ! -L "$1" ] || die "project target may not be a symlink: $1"
+}
+
+reject_nested_target() {
+  local nested_cursor
+  nested_cursor=$(dirname -- "$1")
+  while [ "$nested_cursor" != / ] && [ "$nested_cursor" != . ]; do
+    [ ! -f "$nested_cursor/PROJECT.md" ] || die "cannot create a nested project below $nested_cursor"
+    nested_cursor=$(dirname -- "$nested_cursor")
+  done
 }
 
 validate_text() {
@@ -34,8 +51,9 @@ validate_text() {
 
 validate_project_id() {
   local project_id=${1:-}
-  printf '%s\n' "$project_id" | grep -Eq '^([0-9]{4}-(0[1-9]|1[0-2])|[0-9]{6})-[A-Z]{3}-[A-Z0-9]+(-[A-Z0-9]+)*$' ||
-    die "project id must use uppercase YYYY-MM-CCC-PROJECT-NAME format"
+  validate_text "project id" "$project_id"
+  case "$project_id" in .|..|' '*|*' '|\#|---|:---|---:|:---:) die "project id is reserved or has surrounding spaces" ;; esac
+  [ "${#project_id}" -le 160 ] || die "project id must be 160 characters or fewer"
 }
 
 validate_project_type() {
@@ -49,7 +67,9 @@ validate_project_status() {
 }
 
 validate_client_code() {
-  printf '%s\n' "${1:-}" | grep -Eq '^[A-Z]{3}$' || die "client code must be three uppercase letters"
+  local client_code=${1:-}
+  validate_text "client code" "$client_code"
+  [ "${#client_code}" -le 80 ] || die "client code must be 80 characters or fewer"
 }
 
 validate_created_date() {
@@ -69,12 +89,6 @@ validate_identity() {
   validate_client_code "$client_code"
   validate_text "client" "$client"
   validate_created_date "$created"
-  compact_created="${created:2:2}${created:5:2}${created:8:2}"
-  case "$project_id" in
-    "${created%-*}-$client_code-"*) ;;
-    "$compact_created-$client_code-"*) ;;
-    *) die "project id must match created date and client code" ;;
-  esac
   if [ "$project_type" = client ] && [ "$client" = — ]; then
     die "client projects require a client display name"
   fi
@@ -124,6 +138,7 @@ init_project() {
   client=$7
   task_mode=${8:-project}
   validate_new_target "$target"
+  reject_nested_target "$target"
   validate_text "project name" "$name"
   created=$(date +%Y-%m-%d)
   validate_identity "$project_id" "$project_type" "$project_status" "$client_code" "$client" "$created"
@@ -131,8 +146,6 @@ init_project() {
     project|portfolio) ;;
     *) die "task mode must be project or portfolio" ;;
   esac
-  [ "$(basename -- "$target")" = "$project_id" ] || die "project directory must equal Project ID exactly"
-
   if [ -e "$target" ] && [ ! -d "$target" ]; then
     die "target exists and is not a directory: $target"
   fi
@@ -141,6 +154,7 @@ init_project() {
   fi
 
   mkdir -p "$target/decisions" "$target/meetings" "$target/site-reports" "$target/docs/plans" "$target/.claude/skills" "$target/.agents/skills"
+  folder_identity_ensure "$target" project >/dev/null
   tasks_record="resolved by the tasklist skill from this project and the studio skill that owns it"
   render_project "$TEMPLATE_DIR/PROJECT.md" "$target/PROJECT.md" "$name" "$project_id" "$created" "$project_type" "$project_status" "$client_code" "$client" "$tasks_record"
   render_project "$TEMPLATE_DIR/CLAUDE.md" "$target/CLAUDE.md" "$name" "$project_id" "$created" "$project_type" "$project_status" "$client_code" "$client"
@@ -354,8 +368,7 @@ migrate_project() {
   [ -f "$root/PROJECT.md" ] && [ ! -L "$root/PROJECT.md" ] || die "PROJECT.md is missing or symlinked at $root"
   [ "$mode" = preview ] || [ "$mode" = --apply ] || die "migration mode must be preview or --apply"
   parent=$(dirname -- "$root")
-  target="$parent/$project_id"
-  validate_new_target "$target"
+  validate_new_target "$root"
   format_version=$(project_field "$root/PROJECT.md" "Format version")
   case "$format_version" in
     ''|1|2)
@@ -367,27 +380,27 @@ migrate_project() {
   esac
   if [ "$mode" != --apply ]; then
     migrate_project_record "$root" "$project_id" "$name" "$project_type" "$project_status" "$client_code" "$client" "$created" preview
+    if [ ! -e "$root/$FOLDER_IDENTITY_FILE" ]; then
+      printf '%s: create immutable project-folder identity\n' "$FOLDER_IDENTITY_FILE"
+    fi
     if [ "$claude_state" = generated-v2 ]; then
       printf 'CLAUDE.md: replace recognized generated version-2 instructions with @AGENTS.md import\n'
     fi
-    [ "$root" = "$target" ] || printf 'rename: %s -> %s\n' "$root" "$target"
     return 0
   fi
-  [ "$root" = "$target" ] || [ ! -e "$target" ] || die "migration target already exists: $target"
   transaction=$(mktemp -d "$parent/.project-v3-transaction.XXXXXX")
   cp "$root/PROJECT.md" "$transaction/PROJECT.md"
+  had_folder_identity=0
+  if [ -f "$root/$FOLDER_IDENTITY_FILE" ]; then
+    cp "$root/$FOLDER_IDENTITY_FILE" "$transaction/$FOLDER_IDENTITY_FILE"
+    had_folder_identity=1
+  fi
   had_claude=0
   if [ -f "$root/CLAUDE.md" ]; then cp "$root/CLAUDE.md" "$transaction/CLAUDE.md"; had_claude=1; fi
-  moved=0
   committed=0
   rollback_failed_step=''
   rollback_project_migration() {
     [ "$committed" -eq 0 ] || return 0
-    if [ "$moved" -eq 1 ] && [ -d "$target" ] && [ ! -e "$root" ]; then
-      rollback_failed_step='restore project directory with mv'
-      [ "${ARCH_PROJECT_ROLLBACK_FAIL_AT:-}" != restore-project-directory ] || return 1
-      mv "$target" "$root" || return 1
-    fi
     if [ ! -d "$root" ]; then
       rollback_failed_step='locate original project directory'
       return 1
@@ -402,6 +415,13 @@ migrate_project() {
     else
       rollback_failed_step='remove generated CLAUDE.md'
       rm -f "$root/CLAUDE.md" || return 1
+    fi
+    if [ "$had_folder_identity" -eq 1 ]; then
+      rollback_failed_step='restore folder identity with cp'
+      cp "$transaction/$FOLDER_IDENTITY_FILE" "$root/$FOLDER_IDENTITY_FILE" || return 1
+    else
+      rollback_failed_step='remove generated folder identity'
+      rm -f "$root/$FOLDER_IDENTITY_FILE" || return 1
     fi
     rollback_failed_step=''
     return 0
@@ -425,21 +445,22 @@ migrate_project() {
   }
   trap 'finalize_project_migration' EXIT
   migrate_project_record "$root" "$project_id" "$name" "$project_type" "$project_status" "$client_code" "$client" "$created" --apply
+  folder_identity_ensure "$root" project >/dev/null
   if [ "$claude_state" = generated-v2 ]; then
     cp "$TEMPLATE_DIR/CLAUDE.md" "$root/CLAUDE.md"
     cmp -s "$root/CLAUDE.md" "$TEMPLATE_DIR/CLAUDE.md" || die "migrated CLAUDE.md failed @AGENTS.md import verification"
   fi
-  if [ "$root" != "$target" ]; then mv "$root" "$target"; moved=1; fi
-  [ "${ARCH_PROJECT_FAIL_AT:-}" != after-rename ] || die "injected failure after project directory rename"
-  project_record_matches "$target/PROJECT.md" "$project_id" "$name" "$project_type" "$project_status" "$client_code" "$client" "$created" || die "migrated project failed verification"
-  if [ "$claude_state" = generated-v2 ]; then cmp -s "$target/CLAUDE.md" "$TEMPLATE_DIR/CLAUDE.md" || die "migrated CLAUDE.md failed final verification"; fi
+  [ "${ARCH_PROJECT_FAIL_AT:-}" != after-rename ] || die "injected failure after preserved-directory migration"
+  project_record_matches "$root/PROJECT.md" "$project_id" "$name" "$project_type" "$project_status" "$client_code" "$client" "$created" || die "migrated project failed verification"
+  folder_identity_require "$root" project >/dev/null
+  if [ "$claude_state" = generated-v2 ]; then cmp -s "$root/CLAUDE.md" "$TEMPLATE_DIR/CLAUDE.md" || die "migrated CLAUDE.md failed final verification"; fi
   committed=1
   if ! cleanup_project_migration; then
     trap - EXIT
     die "migration committed but transaction cleanup failed; recovery snapshot may remain at $transaction"
   fi
   trap - EXIT
-  printf 'migrated project: %s\n' "$target"
+  printf 'migrated project: %s\n' "$root"
 }
 
 case "${1:-}" in

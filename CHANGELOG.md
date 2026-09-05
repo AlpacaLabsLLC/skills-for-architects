@@ -8,8 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **Immutable folder identity.** New studio-managed roots, grouping folders, and registered project folders carry a minimal `.as-folder.json` with an opaque immutable Folder ID and kind. `STUDIO.md` keeps readable paths beside those IDs, so projects and managed roots remain resolvable after a human rename while status reports stale path text as drift. Legacy path-only format-3 rows remain readable during transition.
 - **Host-condition evaluation harness.** Added `evals/host-conditions/`, which measures how bundled skills behave on a host without shell execution or local file writing — the Claude Desktop condition. It classifies each run into a failure mode rather than pass/fail, because a skill that stops cleanly scores as a non-success while being the better outcome. Includes a deterministic fixture builder, a case list, and a grader whose three known false-positive patterns are guarded and documented.
 - **First evaluation report.** `docs/reports/2026-08-27-host-condition-eval.md` records a 27-run comparison against a candidate host-requirements patch. The patch proved inert — eight paired cases agreed on failure mode 8 of 8, with turn deltas netting to noise — and was not adopted. The run did surface a real pre-existing defect: `csv-to-sif` emitted a non-ASCII character into a SIF file in one run of three, which dealer importers commonly reject.
+
+### Changed
+
+- **User-selected human folder taxonomy.** Studio setup now asks for the folder taxonomy separately from Project ID naming. The AS standard uses human-readable `Projects/{Client Account or Internal}/{YYYYMM} {Project Name}` with parallel `Operations`, `Standards`, and `References` roots; firms may record their own convention and roots. Confirmed casing is preserved instead of being normalized to lowercase kebab-case.
+- **Permissive Format 3 project naming.** New studios choose the AS convention, a firm-defined convention, or no convention. The AS suggestion now follows ALPA's `YYMMDD-CCC-PROJECT-NAME` pattern. Project ID, display name, client code, and registered folder are independent, existing firm hierarchies remain valid, and migrations preserve project directories. Naming mismatches are advisory; unsafe paths, duplicate identities, and collisions still fail closed.
 
 ## [1.5.0] - 2026-08-28
 

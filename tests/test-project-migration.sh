@@ -49,8 +49,16 @@ cmp -s "$EMPTY/STUDIO.md" "$ROOT/empty-studio-before.md"
 EMPTY_APPLY=$("$SCRIPT" migrate "$EMPTY" "$EMPTY_MANIFEST" --apply)
 printf '%s\n' "$EMPTY_APPLY" | grep -Fq $'migration-verification\tprojects=0\tregistry=0\ttasks=absent\tproposals=0\tpreserved-files=0'
 grep -Fq '| Format version | 3 |' "$EMPTY/STUDIO.md"
-grep -Fq '| Project ID | Project | Client | Code | Type | Status | Folder | Opened |' "$EMPTY/STUDIO.md"
+grep -Fq '| Project ID | Project | Client | Code | Type | Status | Folder | Opened | Folder ID |' "$EMPTY/STUDIO.md"
 [ "$(find "$EMPTY/projects" -mindepth 1 -maxdepth 1 -print | wc -l | tr -d ' ')" -eq 0 ]
+
+FIRM_EMPTY="$ROOT/firm-empty-legacy-studio"
+FIRM_EMPTY_MANIFEST="$ROOT/firm-empty-migration.tsv"
+make_empty_v2_studio "$FIRM_EMPTY"
+write_empty_manifest "$FIRM_EMPTY_MANIFEST"
+"$SCRIPT" migrate "$FIRM_EMPTY" "$FIRM_EMPTY_MANIFEST" --apply firm 'Use the Deltek project number' >/dev/null
+grep -Fq '| Project naming | firm |' "$FIRM_EMPTY/STUDIO.md"
+grep -Fq '| Project ID convention | Use the Deltek project number |' "$FIRM_EMPTY/STUDIO.md"
 
 # Migration preview and apply reject studio-owned files that resolve through
 # symlinks outside the workspace.
@@ -87,8 +95,8 @@ meeting_before=$(shasum "$STUDIO/projects/2401-museum-expansion/meetings/2026-07
 PREVIEW=$("$SCRIPT" migrate "$STUDIO" "$MANIFEST")
 printf '%s\n' "$PREVIEW" | grep -Fq 'migration ready: studio/project format 2 -> 3'
 printf '%s\n' "$PREVIEW" | grep -Fq '2401 -> 2026-07-SMI-MUSEUM-EXPANSION'
-printf '%s\n' "$PREVIEW" | grep -Fq 'TS-0001 -> projects/2026-07-SMI-MUSEUM-EXPANSION/proposals/2026-07-design-services-proposal-rev-01.md'
-printf '%s\n' "$PREVIEW" | grep -Fq 'TS-0002 -> projects/2026-07-SMI-MUSEUM-EXPANSION/proposals/2026-07-additional-services-proposal-rev-01.md'
+printf '%s\n' "$PREVIEW" | grep -Fq 'TS-0001 -> projects/2401-museum-expansion/proposals/2026-07-design-services-proposal-rev-01.md'
+printf '%s\n' "$PREVIEW" | grep -Fq 'TS-0002 -> projects/2401-museum-expansion/proposals/2026-07-additional-services-proposal-rev-01.md'
 cmp -s "$STUDIO/STUDIO.md" "$ROOT/studio-before.md"
 cmp -s "$STUDIO/TASKS.md" "$ROOT/tasks-before.md"
 cmp -s "$STUDIO/PROPOSALS.md" "$ROOT/proposals-before.md"
@@ -97,19 +105,35 @@ cmp -s "$STUDIO/PROPOSALS.md" "$ROOT/proposals-before.md"
 MIGRATION_OUTPUT=$("$SCRIPT" migrate "$STUDIO" "$MANIFEST" --apply)
 printf '%s\n' "$MIGRATION_OUTPUT" | grep -Fq $'migration-verification\tprojects=2\tregistry=2\ttasks=verified\tproposals=2\tpreserved-files=2'
 grep -Fq '| Format version | 3 |' "$STUDIO/STUDIO.md"
-grep -Fq '| Project ID | Project | Client | Code | Type | Status | Folder | Opened |' "$STUDIO/STUDIO.md"
-grep -Fq '| 2026-07-SMI-MUSEUM-EXPANSION | Museum Expansion | Smith Institution | SMI | client | completed | projects/2026-07-SMI-MUSEUM-EXPANSION | 2026-07-03 |' "$STUDIO/STUDIO.md"
-[ -d "$STUDIO/projects/2026-07-SMI-MUSEUM-EXPANSION" ]
-[ ! -e "$STUDIO/projects/2401-museum-expansion" ]
-grep -Fq '| Format version | 3 |' "$STUDIO/projects/2026-07-SMI-MUSEUM-EXPANSION/PROJECT.md"
-grep -Fq '| Project ID | 2026-07-SMI-MUSEUM-EXPANSION |' "$STUDIO/projects/2026-07-SMI-MUSEUM-EXPANSION/PROJECT.md"
-grep -Fq '| Project | Museum Expansion |' "$STUDIO/projects/2026-07-SMI-MUSEUM-EXPANSION/PROJECT.md"
-grep -Fq '| Client | Smith Institution |' "$STUDIO/projects/2026-07-SMI-MUSEUM-EXPANSION/PROJECT.md"
-grep -Fq '| Client code | SMI |' "$STUDIO/projects/2026-07-SMI-MUSEUM-EXPANSION/PROJECT.md"
-grep -Fq '| Type | client |' "$STUDIO/projects/2026-07-SMI-MUSEUM-EXPANSION/PROJECT.md"
-grep -Fq '| Status | completed |' "$STUDIO/projects/2026-07-SMI-MUSEUM-EXPANSION/PROJECT.md"
-grep -Fq '| Created | 2026-07-03 |' "$STUDIO/projects/2026-07-SMI-MUSEUM-EXPANSION/PROJECT.md"
-grep -Fq 'Keep the AEC section.' "$STUDIO/projects/2026-07-SMI-MUSEUM-EXPANSION/PROJECT.md"
+grep -Fq '| Project ID | Project | Client | Code | Type | Status | Folder | Opened | Folder ID |' "$STUDIO/STUDIO.md"
+grep -Fq '| Project naming | as |' "$STUDIO/STUDIO.md"
+grep -Fq '| Project ID convention | YYMMDD-CCC-PROJECT-NAME |' "$STUDIO/STUDIO.md"
+grep -Fq '| 2026-07-SMI-MUSEUM-EXPANSION | Museum Expansion | Smith Institution | SMI | client | completed | projects/2401-museum-expansion | 2026-07-03 |' "$STUDIO/STUDIO.md"
+for project_path in projects/2401-museum-expansion projects/internal-tools; do
+  node -e 'const fs=require("fs");const v=JSON.parse(fs.readFileSync(process.argv[1],"utf8"));if(v.format!==1||v.kind!=="project"||!/^asf_[0-9a-f-]+$/.test(v.folder_id))process.exit(1)' "$STUDIO/$project_path/.as-folder.json"
+done
+awk -F'|' '
+  function trim(s){gsub(/^[ \t]+|[ \t]+$/, "", s); return s}
+  /<!-- projects:start -->/ {inside=1; next}
+  /<!-- projects:end -->/ {inside=0}
+  inside && /^\|/ && trim($2)!="Project ID" && trim($2)!="---" {
+    folder_id=trim($10)
+    if (folder_id !~ /^asf_[0-9a-f-]+$/) exit 1
+    count++
+  }
+  END {if (count!=2) exit 1}
+' "$STUDIO/STUDIO.md"
+[ -d "$STUDIO/projects/2401-museum-expansion" ]
+[ ! -e "$STUDIO/projects/2026-07-SMI-MUSEUM-EXPANSION" ]
+grep -Fq '| Format version | 3 |' "$STUDIO/projects/2401-museum-expansion/PROJECT.md"
+grep -Fq '| Project ID | 2026-07-SMI-MUSEUM-EXPANSION |' "$STUDIO/projects/2401-museum-expansion/PROJECT.md"
+grep -Fq '| Project | Museum Expansion |' "$STUDIO/projects/2401-museum-expansion/PROJECT.md"
+grep -Fq '| Client | Smith Institution |' "$STUDIO/projects/2401-museum-expansion/PROJECT.md"
+grep -Fq '| Client code | SMI |' "$STUDIO/projects/2401-museum-expansion/PROJECT.md"
+grep -Fq '| Type | client |' "$STUDIO/projects/2401-museum-expansion/PROJECT.md"
+grep -Fq '| Status | completed |' "$STUDIO/projects/2401-museum-expansion/PROJECT.md"
+grep -Fq '| Created | 2026-07-03 |' "$STUDIO/projects/2401-museum-expansion/PROJECT.md"
+grep -Fq 'Keep the AEC section.' "$STUDIO/projects/2401-museum-expansion/PROJECT.md"
 grep -Fq '| Keep the text 2401 unchanged | 2026-07-SMI-MUSEUM-EXPANSION | T0001 |' "$STUDIO/TASKS.md"
 if awk -F'|' '
   function trim(s){gsub(/^[ \t]+|[ \t]+$/, "", s); return s}
@@ -122,12 +146,12 @@ if awk -F'|' '
   exit 1
 fi
 [ ! -e "$STUDIO/PROPOSALS.md" ]
-migrated_proposal="$STUDIO/projects/2026-07-SMI-MUSEUM-EXPANSION/proposals/2026-07-design-services-proposal-rev-01.md"
-migrated_replacement="$STUDIO/projects/2026-07-SMI-MUSEUM-EXPANSION/proposals/2026-07-additional-services-proposal-rev-01.md"
+migrated_proposal="$STUDIO/projects/2401-museum-expansion/proposals/2026-07-design-services-proposal-rev-01.md"
+migrated_replacement="$STUDIO/projects/2401-museum-expansion/proposals/2026-07-additional-services-proposal-rev-01.md"
 [ -f "$migrated_proposal" ]
 [ -f "$migrated_replacement" ]
-[ ! -e "$STUDIO/projects/2026-07-SMI-MUSEUM-EXPANSION/proposals/TS-0001-design-services.md" ]
-[ ! -e "$STUDIO/projects/2026-07-SMI-MUSEUM-EXPANSION/proposals/TS-0002-additional-services.md" ]
+[ ! -e "$STUDIO/projects/2401-museum-expansion/proposals/TS-0001-design-services.md" ]
+[ ! -e "$STUDIO/projects/2401-museum-expansion/proposals/TS-0002-additional-services.md" ]
 grep -Fq '| Legacy number | TS-0001 |' "$migrated_proposal"
 grep -Fq '| Project ID | 2026-07-SMI-MUSEUM-EXPANSION |' "$migrated_proposal"
 grep -Fq '| Title | Design Services |' "$migrated_proposal"
@@ -141,13 +165,13 @@ grep -Fq '| accepted | — | legacy migration | legacy number TS-0002 | — |' "
 grep -Fq 'Replacement proposal terms remain intact.' "$migrated_replacement"
 migrated_checksum=$(awk -F'|' '/^\| Issued terms SHA-256 / {gsub(/^[ \t]+|[ \t]+$/, "", $3); print $3}' "$migrated_proposal")
 printf '%s\n' "$migrated_checksum" | grep -Eq '^[0-9a-f]{64}$'
-skills/proposal/scripts/proposal-workspace.sh verify "$STUDIO/projects/2026-07-SMI-MUSEUM-EXPANSION" >/dev/null
-decision_after=$(shasum "$STUDIO/projects/2026-07-SMI-MUSEUM-EXPANSION/decisions/0001-keep-history.md" | awk '{print $1}')
+skills/proposal/scripts/proposal-workspace.sh verify "$STUDIO/projects/2401-museum-expansion" >/dev/null
+decision_after=$(shasum "$STUDIO/projects/2401-museum-expansion/decisions/0001-keep-history.md" | awk '{print $1}')
 [ "$decision_before" = "$decision_after" ]
-meeting_after=$(shasum "$STUDIO/projects/2026-07-SMI-MUSEUM-EXPANSION/meetings/2026-07-03-kickoff.md" | awk '{print $1}')
+meeting_after=$(shasum "$STUDIO/projects/2401-museum-expansion/meetings/2026-07-03-kickoff.md" | awk '{print $1}')
 [ "$meeting_before" = "$meeting_after" ]
 
-# A legacy project may already occupy its canonical target folder.
+# A legacy project may already use an AS-style folder; migration still preserves it.
 SAME_PATH="$ROOT/same-path-studio"
 SAME_PATH_MANIFEST="$ROOT/same-path-migration.tsv"
 make_v2_studio "$SAME_PATH"
@@ -204,9 +228,9 @@ cmp -s "$DUPLICATE/PROPOSALS.md" "$ROOT/duplicate-supersession-proposals-before.
 [ -d "$DUPLICATE/projects/2401-museum-expansion" ]
 [ ! -e "$DUPLICATE/projects/2026-07-SMI-MUSEUM-EXPANSION" ]
 
-# Every distinct migration checkpoint restores all bytes and topology and
+# Every distinct migration checkpoint restores all bytes and preserved topology and
 # removes its transaction only after rollback verification succeeds.
-for checkpoint in migration-after-first-rename migration-after-commercial migration-after-manifest migration-corrupt-project-client; do
+for checkpoint in migration-after-first-project migration-after-commercial migration-after-manifest migration-corrupt-project-client; do
   FAILED="$ROOT/failed-$checkpoint-studio"
   FAILED_MANIFEST="$ROOT/failed-$checkpoint-migration.tsv"
   FAILED_BEFORE="$ROOT/failed-$checkpoint-before"
@@ -224,7 +248,7 @@ for checkpoint in migration-after-first-rename migration-after-commercial migrat
   fi
 done
 
-# A TERM after the first rename is recovered from the pre-mutation journal.
+# A TERM after the first project upgrade is recovered from the transaction snapshots.
 SIGNALLED="$ROOT/signalled-migration-studio"
 SIGNALLED_MANIFEST="$ROOT/signalled-migration.tsv"
 SIGNALLED_BEFORE="$ROOT/signalled-migration-before"
@@ -232,7 +256,7 @@ make_v2_studio "$SIGNALLED"
 write_manifest "$SIGNALLED_MANIFEST"
 cp -R "$SIGNALLED" "$SIGNALLED_BEFORE"
 set +e
-ARCH_STUDIO_FAIL_AT=migration-signal-after-first-rename "$SCRIPT" migrate "$SIGNALLED" "$SIGNALLED_MANIFEST" --apply >/dev/null 2>&1
+ARCH_STUDIO_FAIL_AT=migration-signal-after-first-project "$SCRIPT" migrate "$SIGNALLED" "$SIGNALLED_MANIFEST" --apply >/dev/null 2>&1
 signal_rc=$?
 set -e
 [ "$signal_rc" -eq 143 ] || { echo "migration TERM recovery returned $signal_rc instead of 143" >&2; exit 1; }
@@ -242,23 +266,22 @@ if find "$SIGNALLED" -mindepth 1 -maxdepth 1 -type d -name '.v3-migration-transa
   exit 1
 fi
 
-# If a rename cannot be restored, report the exact operation and preserve the
-# journal and snapshots for manual recovery.
+# If a project record cannot be restored, report the exact operation and preserve
+# the snapshots for manual recovery.
 RECOVERY="$ROOT/failed-restore-studio"
 RECOVERY_MANIFEST="$ROOT/failed-restore-migration.tsv"
 make_v2_studio "$RECOVERY"
 write_manifest "$RECOVERY_MANIFEST"
 set +e
-recovery_output=$(ARCH_STUDIO_FAIL_AT=migration-after-first-rename ARCH_STUDIO_FAIL_RESTORE_AT=migration-rename "$SCRIPT" migrate "$RECOVERY" "$RECOVERY_MANIFEST" --apply 2>&1)
+recovery_output=$(ARCH_STUDIO_FAIL_AT=migration-after-commercial ARCH_STUDIO_FAIL_RESTORE_AT=migration-project "$SCRIPT" migrate "$RECOVERY" "$RECOVERY_MANIFEST" --apply 2>&1)
 recovery_rc=$?
 set -e
 [ "$recovery_rc" -ne 0 ] || { echo "injected migration restore failure unexpectedly succeeded" >&2; exit 1; }
-printf '%s\n' "$recovery_output" | grep -Fq 'rollback restore failed: migration-rename'
+printf '%s\n' "$recovery_output" | grep -Fq 'rollback restore failed: migration-project'
 printf '%s\n' "$recovery_output" | grep -Fq 'rollback incomplete; transaction preserved:'
 recovery_transaction=$(find "$RECOVERY" -mindepth 1 -maxdepth 1 -type d -name '.v3-migration-transaction.*' -print)
 [ "$(printf '%s\n' "$recovery_transaction" | sed '/^$/d' | wc -l | tr -d ' ')" -eq 1 ]
-grep -Fq $'1\tprojects/2401-museum-expansion\tprojects/2026-07-SMI-MUSEUM-EXPANSION' "$recovery_transaction/rename-journal.tsv"
-grep -Fq $'migration-rename\t' "$recovery_transaction/ROLLBACK-FAILURES.tsv"
+grep -Fq $'migration-project\t' "$recovery_transaction/ROLLBACK-FAILURES.tsv"
 [ -f "$recovery_transaction/STUDIO.md" ]
 [ -f "$recovery_transaction/PROJECT.000001.md" ]
 [ -f "$recovery_transaction/manifest-rows.tsv" ]
@@ -292,7 +315,7 @@ cp -R "$STANDALONE_PREVIEW" "$ROOT/legacy-standalone-preview-before"
 STANDALONE_PREVIEW_OUTPUT=$(run_standalone_migration "$STANDALONE_PREVIEW")
 printf '%s\n' "$STANDALONE_PREVIEW_OUTPUT" | grep -Fq 'migration ready: project format 2 -> 3 (2026-07-SMI-LEGACY-STANDALONE)'
 printf '%s\n' "$STANDALONE_PREVIEW_OUTPUT" | grep -Fq 'CLAUDE.md: replace recognized generated version-2 instructions with @AGENTS.md import'
-printf '%s\n' "$STANDALONE_PREVIEW_OUTPUT" | grep -Fq "rename: $STANDALONE_PREVIEW -> $ROOT/2026-07-SMI-LEGACY-STANDALONE"
+! printf '%s\n' "$STANDALONE_PREVIEW_OUTPUT" | grep -Fq 'rename:'
 assert_unchanged_tree "$STANDALONE_PREVIEW" "$ROOT/legacy-standalone-preview-before"
 [ ! -e "$ROOT/2026-07-SMI-LEGACY-STANDALONE" ]
 
@@ -302,8 +325,7 @@ make_v2_standalone "$STANDALONE_APPLY"
 standalone_decision_before=$(shasum "$STANDALONE_APPLY/decisions/0001-preserve-migration-evidence.md" | awk '{print $1}')
 standalone_meeting_before=$(shasum "$STANDALONE_APPLY/meetings/2026-07-03-kickoff.md" | awk '{print $1}')
 run_standalone_migration "$STANDALONE_APPLY" --apply >/dev/null
-STANDALONE_TARGET="$ROOT/2026-07-SMI-LEGACY-STANDALONE"
-[ ! -e "$STANDALONE_APPLY" ]
+STANDALONE_TARGET="$STANDALONE_APPLY"
 [ -d "$STANDALONE_TARGET" ]
 grep -Fq '| Format version | 3 |' "$STANDALONE_TARGET/PROJECT.md"
 cmp -s "$STANDALONE_TARGET/CLAUDE.md" skills/project/templates/CLAUDE.md
@@ -311,7 +333,6 @@ cmp -s "$STANDALONE_TARGET/CLAUDE.md" skills/project/templates/CLAUDE.md
 [ "$standalone_meeting_before" = "$(shasum "$STANDALONE_TARGET/meetings/2026-07-03-kickoff.md" | awk '{print $1}')" ]
 
 # Both injected standalone checkpoints restore every byte and the original directory topology.
-rm -rf "$STANDALONE_TARGET"
 for checkpoint in after-record after-rename; do
   FAILED_STANDALONE="$ROOT/legacy-standalone-$checkpoint"
   make_v2_standalone "$FAILED_STANDALONE"
@@ -321,7 +342,6 @@ for checkpoint in after-record after-rename; do
     exit 1
   fi
   [ -d "$FAILED_STANDALONE" ]
-  [ ! -e "$STANDALONE_TARGET" ]
   assert_unchanged_tree "$FAILED_STANDALONE" "$ROOT/legacy-standalone-$checkpoint-before"
 done
 # A generated-looking file with custom content requires separate confirmation and stays unchanged.

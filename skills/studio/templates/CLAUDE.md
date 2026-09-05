@@ -5,9 +5,12 @@ This folder is the studio worksurface.
 - Read `STUDIO.md` to find registered projects.
 - Use the working-unit and default-jurisdiction settings in `STUDIO.md` unless a project records an explicit override.
 - Firm-created Claude Code skills live in `.claude/skills/`; Codex skills use the parallel `.agents/skills/` root.
-- Firm-wide standards and reusable templates live in `standards/`.
-- External references, including code references, live in `references/`.
-- Project work and project outputs stay inside `projects/`.
+- Ongoing studio operations and administrative records live in `{{OPERATIONS_ROOT}}/`.
+- Firm-wide standards and reusable templates live in `{{STANDARDS_ROOT}}/`.
+- External references, including code references, live in `{{REFERENCES_ROOT}}/`.
+- Project work and project outputs stay inside each registered project directory; `{{PROJECTS_ROOT}}/` is the default location.
+- The recorded project-folder convention is `{{PROJECT_FOLDER_CONVENTION}}`.
+- `.as-folder.json` carries immutable IDs for AS-managed folders; names and paths remain human-facing and may change through a confirmed studio operation.
 - Project facts live in each project’s `PROJECT.md`.
 - Decision rationale lives in each project’s `decisions/` directory.
 - Never treat the installed Architecture Studio plugin cache as a project or private-skill destination.

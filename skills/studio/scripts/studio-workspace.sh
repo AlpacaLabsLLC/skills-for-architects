@@ -8,11 +8,15 @@ TASK_TEMPLATE_DIR="$SCRIPT_DIR/../../tasklist/templates"
 PROJECT_SCRIPT="$SCRIPT_DIR/../../project/scripts/project-workspace.sh"
 PROPOSAL_SCRIPT="$SCRIPT_DIR/../../proposal/scripts/proposal-workspace.sh"
 REGISTRY_PARSER="$SCRIPT_DIR/../../project/scripts/project-registry.awk"
+FOLDER_IDENTITY_SCRIPT="$SCRIPT_DIR/../../project/scripts/folder-identity.sh"
 
 die() {
   printf 'studio-workspace: %s\n' "$*" >&2
   exit 1
 }
+
+# shellcheck source=../../project/scripts/folder-identity.sh
+. "$FOLDER_IDENTITY_SCRIPT"
 
 validate_root() {
   case "${1:-}" in
@@ -22,9 +26,14 @@ validate_root() {
     *$'\n'*|*$'\r'*|*$'\t'*) die "studio target contains control characters" ;;
   esac
   [ ! -L "$1" ] || die "studio target may not be a symlink: $1"
+}
+
+validate_new_studio_target() {
+  validate_root "$1"
   base=$(basename -- "$1")
   case "$base" in
-    ''|*[!a-z0-9-]*|-*|*-) die "studio directory must be lowercase kebab-case" ;;
+    ''|.|..|.*) die "studio directory name is invalid" ;;
+    *$'\n'*|*$'\r'*|*$'\t'*) die "studio directory name contains control characters" ;;
   esac
 }
 
@@ -59,12 +68,42 @@ render() {
   country=$(escape_sed "$5")
   state_region=$(escape_sed "$6")
   city=$(escape_sed "$7")
+  naming_policy=$(escape_sed "${8:-as}")
+  project_id_convention=$(escape_sed "${9:-YYMMDD-CCC-PROJECT-NAME}")
+  folder_taxonomy=$(escape_sed "${10:-as}")
+  project_folder_convention=${11:-}
+  if [ -z "$project_folder_convention" ]; then
+    project_folder_convention='Projects/{Client Account or Internal}/{YYYYMM} {Project Name}'
+  fi
+  project_folder_convention=$(escape_sed "$project_folder_convention")
+  projects_root=$(escape_sed "${12:-Projects}")
+  operations_root=$(escape_sed "${13:-Operations}")
+  standards_root=$(escape_sed "${14:-Standards}")
+  references_root=$(escape_sed "${15:-References}")
+  studio_folder_id=$(escape_sed "${16:-}")
+  projects_folder_id=$(escape_sed "${17:-}")
+  operations_folder_id=$(escape_sed "${18:-}")
+  standards_folder_id=$(escape_sed "${19:-}")
+  references_folder_id=$(escape_sed "${20:-}")
   sed \
     -e "s|{{STUDIO_NAME}}|$studio_name|g" \
     -e "s|{{WORKING_UNITS}}|$working_units|g" \
     -e "s|{{COUNTRY}}|$country|g" \
     -e "s|{{STATE_REGION}}|$state_region|g" \
     -e "s|{{CITY}}|$city|g" \
+    -e "s|{{NAMING_POLICY}}|$naming_policy|g" \
+    -e "s|{{PROJECT_ID_CONVENTION}}|$project_id_convention|g" \
+    -e "s|{{FOLDER_TAXONOMY}}|$folder_taxonomy|g" \
+    -e "s|{{PROJECT_FOLDER_CONVENTION}}|$project_folder_convention|g" \
+    -e "s|{{PROJECTS_ROOT}}|$projects_root|g" \
+    -e "s|{{OPERATIONS_ROOT}}|$operations_root|g" \
+    -e "s|{{STANDARDS_ROOT}}|$standards_root|g" \
+    -e "s|{{REFERENCES_ROOT}}|$references_root|g" \
+    -e "s|{{STUDIO_FOLDER_ID}}|$studio_folder_id|g" \
+    -e "s|{{PROJECTS_FOLDER_ID}}|$projects_folder_id|g" \
+    -e "s|{{OPERATIONS_FOLDER_ID}}|$operations_folder_id|g" \
+    -e "s|{{STANDARDS_FOLDER_ID}}|$standards_folder_id|g" \
+    -e "s|{{REFERENCES_FOLDER_ID}}|$references_folder_id|g" \
     "$source_file" > "$target_file"
 }
 
@@ -80,8 +119,10 @@ project_field() {
 }
 
 validate_project_id() {
-  printf '%s\n' "${1:-}" | grep -Eq '^[0-9]{4}-(0[1-9]|1[0-2])-[A-Z]{3}-[A-Z0-9]+(-[A-Z0-9]+)*$' ||
-    die "project id must use uppercase YYYY-MM-CCC-PROJECT-NAME format"
+  local project_id=${1:-}
+  validate_text "project id" "$project_id"
+  case "$project_id" in .|..|' '*|*' '|\#|---|:---|---:|:---:) die "project id is reserved or has surrounding spaces" ;; esac
+  [ "${#project_id}" -le 160 ] || die "project id must be 160 characters or fewer"
 }
 
 validate_project_type() {
@@ -95,7 +136,114 @@ validate_project_status() {
 }
 
 validate_client_code() {
-  printf '%s\n' "${1:-}" | grep -Eq '^[A-Z]{3}$' || die "client code must be three uppercase letters"
+  local client_code=${1:-}
+  validate_text "client code" "$client_code"
+  [ "${#client_code}" -le 80 ] || die "client code must be 80 characters or fewer"
+}
+
+validate_naming_policy() {
+  case "${1:-}" in as|firm|none) ;; *) die "project naming policy must be as, firm, or none" ;; esac
+}
+
+validate_folder_taxonomy() {
+  case "${1:-}" in as|firm) ;; *) die "folder taxonomy must be as or firm" ;; esac
+}
+
+safe_relative_path() {
+  local path=${1:-}
+  case "$path" in ''|/*|.|..|*/) return 1 ;; esac
+  case "/$path/" in */../*|*/./*|*//* ) return 1 ;; esac
+  case "$path" in *$'\n'*|*$'\r'*|*$'\t'*) return 1 ;; esac
+  case "$path" in
+    .git|.git/*|.agents|.agents/*|.claude|.claude/*|.studio-*|.project-*|.v3-*|.task-*|.as-*) return 1 ;;
+  esac
+  return 0
+}
+
+validate_managed_roots() {
+  local root
+  for root in "$@"; do
+    safe_relative_path "$root" || die "managed root must be a safe relative path: ${root:-<empty>}"
+  done
+  [ "$1" != "$2" ] && [ "$1" != "$3" ] && [ "$1" != "$4" ] &&
+    [ "$2" != "$3" ] && [ "$2" != "$4" ] && [ "$3" != "$4" ] ||
+    die "managed roots must be distinct"
+}
+
+project_path_is_reserved() {
+  local studio=$1
+  local path=$2
+  local projects_root operations_root standards_root references_root reserved
+  local projects_folder_id operations_folder_id standards_folder_id references_folder_id
+  projects_root=$(project_field "$studio/STUDIO.md" "Projects root")
+  operations_root=$(project_field "$studio/STUDIO.md" "Operations root")
+  standards_root=$(project_field "$studio/STUDIO.md" "Standards root")
+  references_root=$(project_field "$studio/STUDIO.md" "References root")
+  projects_folder_id=$(project_field "$studio/STUDIO.md" "Projects folder ID")
+  operations_folder_id=$(project_field "$studio/STUDIO.md" "Operations folder ID")
+  standards_folder_id=$(project_field "$studio/STUDIO.md" "Standards folder ID")
+  references_folder_id=$(project_field "$studio/STUDIO.md" "References folder ID")
+  if [ -n "$projects_folder_id" ]; then projects_root=$(folder_identity_resolve "$studio" "$projects_folder_id" projects); fi
+  if [ -n "$operations_folder_id" ]; then operations_root=$(folder_identity_resolve "$studio" "$operations_folder_id" operations); fi
+  if [ -n "$standards_folder_id" ]; then standards_root=$(folder_identity_resolve "$studio" "$standards_folder_id" standards); fi
+  if [ -n "$references_folder_id" ]; then references_root=$(folder_identity_resolve "$studio" "$references_folder_id" references); fi
+  if [ -n "$projects_root" ] && [ "$path" = "$projects_root" ]; then return 0; fi
+  for reserved in "${operations_root:-operations}" "${standards_root:-standards}" "${references_root:-references}"; do
+    case "$path" in "$reserved"|"$reserved"/*) return 0 ;; esac
+  done
+  return 1
+}
+
+resolve_registered_project_path() {
+  local studio=$1
+  local cached_path=$2
+  local folder_id=${3:-}
+  if [ -z "$folder_id" ]; then
+    printf '%s\n' "$cached_path"
+    return 0
+  fi
+  actual=$(folder_identity_resolve "$studio" "$folder_id" project)
+  [ "$actual" != . ] || die "project folder identity resolves to the studio root"
+  printf '%s\n' "$actual"
+}
+
+project_ancestor() {
+  local ancestor_studio=$1
+  local ancestor_path
+  ancestor_path=$(dirname -- "$2")
+  while [ "$ancestor_path" != . ]; do
+    if [ -f "$ancestor_studio/$ancestor_path/PROJECT.md" ]; then
+      printf '%s\n' "$ancestor_path"
+      return 0
+    fi
+    ancestor_path=$(dirname -- "$ancestor_path")
+  done
+  return 1
+}
+
+ensure_group_ancestor_configs() {
+  local studio=$1
+  local relative_path=$2
+  local cursor directory
+  cursor=$(dirname -- "$relative_path")
+  while [ "$cursor" != . ]; do
+    directory="$studio/$cursor"
+    [ -d "$directory" ] && [ ! -L "$directory" ] || die "project ancestor is missing or symlinked: $cursor"
+    if [ -e "$directory/$FOLDER_IDENTITY_FILE" ] || [ -L "$directory/$FOLDER_IDENTITY_FILE" ]; then
+      folder_identity_require "$directory" >/dev/null
+    else
+      folder_identity_ensure "$directory" group >/dev/null
+    fi
+    cursor=$(dirname -- "$cursor")
+  done
+}
+
+ensure_registered_folder_chain() {
+  local studio=$1
+  local relative_path=$2
+  folder_identity_ensure "$studio" studio >/dev/null
+  ensure_group_ancestor_configs "$studio" "$relative_path"
+  folder_identity_ensure "$studio/$relative_path" project
 }
 
 validate_opened_date() {
@@ -114,11 +262,11 @@ write_registry() {
   awk -v rows_file="$rows" '
     /<!-- projects:start -->/ {
       print
-      print "| Project ID | Project | Client | Code | Type | Status | Folder | Opened |"
-      print "|---|---|---|---|---|---|---|---|"
+      print "| Project ID | Project | Client | Code | Type | Status | Folder | Opened | Folder ID |"
+      print "|---|---|---|---|---|---|---|---|---|"
       while ((getline row < rows_file) > 0) {
         split(row, value, "\t")
-        print "| " value[1] " | " value[2] " | " value[3] " | " value[4] " | " value[5] " | " value[6] " | " value[7] " | " value[8] " |"
+        print "| " value[1] " | " value[2] " | " value[3] " | " value[4] " | " value[5] " | " value[6] " | " value[7] " | " value[8] " | " value[9] " |"
       }
       close(rows_file)
       inside=1
@@ -130,14 +278,40 @@ write_registry() {
 }
 
 require_studio() {
+  local folder_taxonomy projects_root operations_root standards_root references_root
+  local studio_folder_id projects_folder_id operations_folder_id standards_folder_id references_folder_id
   validate_root "$1"
   [ -d "$1" ] || die "studio root is not a directory: $1"
   [ -f "$1/STUDIO.md" ] && [ ! -L "$1/STUDIO.md" ] || die "STUDIO.md is missing or symlinked at $1"
-  [ -d "$1/projects" ] && [ ! -L "$1/projects" ] || die "studio projects directory is missing or symlinked"
-  physical_studio=$(cd -P -- "$1" && pwd)
-  physical_projects=$(cd -P -- "$1/projects" && pwd)
-  [ "$physical_projects" = "$physical_studio/projects" ] || die "studio projects directory may not be symlinked"
   require_format "$1/STUDIO.md" "Studio"
+  folder_taxonomy=$(project_field "$1/STUDIO.md" "Folder taxonomy")
+  if [ -n "$folder_taxonomy" ]; then
+    validate_folder_taxonomy "$folder_taxonomy"
+    projects_root=$(project_field "$1/STUDIO.md" "Projects root")
+    operations_root=$(project_field "$1/STUDIO.md" "Operations root")
+    standards_root=$(project_field "$1/STUDIO.md" "Standards root")
+    references_root=$(project_field "$1/STUDIO.md" "References root")
+    validate_managed_roots "$projects_root" "$operations_root" "$standards_root" "$references_root"
+    studio_folder_id=$(project_field "$1/STUDIO.md" "Studio folder ID")
+    projects_folder_id=$(project_field "$1/STUDIO.md" "Projects folder ID")
+    operations_folder_id=$(project_field "$1/STUDIO.md" "Operations folder ID")
+    standards_folder_id=$(project_field "$1/STUDIO.md" "Standards folder ID")
+    references_folder_id=$(project_field "$1/STUDIO.md" "References folder ID")
+    folder_identity_require "$1" studio "$studio_folder_id" >/dev/null
+    projects_root=$(folder_identity_resolve "$1" "$projects_folder_id" projects)
+    operations_root=$(folder_identity_resolve "$1" "$operations_folder_id" operations)
+    standards_root=$(folder_identity_resolve "$1" "$standards_folder_id" standards)
+    references_root=$(folder_identity_resolve "$1" "$references_folder_id" references)
+    folder_identity_require "$1/$projects_root" projects "$projects_folder_id" >/dev/null
+    folder_identity_require "$1/$operations_root" operations "$operations_folder_id" >/dev/null
+    folder_identity_require "$1/$standards_root" standards "$standards_folder_id" >/dev/null
+    folder_identity_require "$1/$references_root" references "$references_folder_id" >/dev/null
+  elif [ -e "$1/projects" ] || [ -L "$1/projects" ]; then
+    [ -d "$1/projects" ] && [ ! -L "$1/projects" ] || die "legacy studio projects directory is invalid or symlinked"
+    physical_studio=$(cd -P -- "$1" && pwd)
+    physical_projects=$(cd -P -- "$1/projects" && pwd)
+    [ "$physical_projects" = "$physical_studio/projects" ] || die "legacy studio projects directory may not be symlinked"
+  fi
 }
 
 require_owned_studio_file() {
@@ -158,20 +332,21 @@ require_owned_studio_file() {
 require_safe_project() {
   local studio=$1
   local relative_path=$2
-  local project physical_studio physical_projects physical_project
+  local expected_folder_id=${3:-}
+  local project physical_studio physical_project
   local project_id project_name project_type project_status client_code client created
-  case "$relative_path" in projects/*) ;; *) die "unsafe registered project path: $relative_path" ;; esac
-  case "/$relative_path/" in */../*|*/./*|*//* ) die "unsafe registered project path: $relative_path" ;; esac
+  safe_relative_path "$relative_path" || die "unsafe registered project path: $relative_path"
+  project_path_is_reserved "$studio" "$relative_path" && die "registered project path uses a reserved studio resource folder: $relative_path"
   project="$studio/$relative_path"
   [ ! -L "$project" ] || die "registered project may not be a symlink: $relative_path"
   [ -f "$project/PROJECT.md" ] || die "PROJECT.md not found at $relative_path"
   [ ! -L "$project/PROJECT.md" ] || die "PROJECT.md may not be a symlink: $relative_path"
   require_format "$project/PROJECT.md" "Project"
   physical_studio=$(cd -P -- "$studio" && pwd)
-  physical_projects=$(cd -P -- "$studio/projects" && pwd)
   physical_project=$(cd -P -- "$project" && pwd)
-  [ "$physical_projects" = "$physical_studio/projects" ] || die "studio projects directory may not be a symlink"
-  case "$physical_project/" in "$physical_projects"/*/) ;; *) die "project resolves outside studio projects/: $relative_path" ;; esac
+  case "$physical_project/" in "$physical_studio"/*/) ;; *) die "project resolves outside its studio: $relative_path" ;; esac
+  [ "$physical_project" = "$physical_studio/$relative_path" ] || die "registered project path may not contain symlinks: $relative_path"
+  if ancestor=$(project_ancestor "$studio" "$relative_path"); then die "registered project is nested inside another project: $ancestor"; fi
   project_id=$(project_field "$project/PROJECT.md" "Project ID")
   project_name=$(project_field "$project/PROJECT.md" "Project")
   project_type=$(project_field "$project/PROJECT.md" "Type")
@@ -186,11 +361,14 @@ require_safe_project() {
   validate_client_code "$client_code"
   validate_text "client" "$client"
   validate_opened_date "$created"
-  [ "$relative_path" = "projects/$project_id" ] || die "project folder must equal immutable Project ID: $relative_path"
-  case "$project_id" in "${created%-*}-$client_code-"*) ;; *) die "project identity month/code does not match its Created and Client code fields" ;; esac
   if [ "$project_type" = client ] && [ "$client" = — ]; then die "client project requires a client display name"; fi
   if [ -e "$project/TASKS.md" ] && [ -L "$project/TASKS.md" ]; then
     die "TASKS.md may not be a symlink: $relative_path"
+  fi
+  if [ -n "$expected_folder_id" ]; then
+    folder_identity_require "$project" project "$expected_folder_id" >/dev/null
+  elif [ -e "$project/$FOLDER_IDENTITY_FILE" ] || [ -L "$project/$FOLDER_IDENTITY_FILE" ]; then
+    folder_identity_require "$project" project >/dev/null
   fi
 }
 
@@ -201,12 +379,53 @@ init_studio() {
   country=$4
   state_region=$5
   city=$6
-  validate_root "$target"
+  naming_policy=${7:-as}
+  project_id_convention=${8:-}
+  folder_taxonomy=${9:-as}
+  project_folder_convention=${10:-}
+  projects_root=${11:-}
+  operations_root=${12:-}
+  standards_root=${13:-}
+  references_root=${14:-}
+  if [ -z "$project_id_convention" ]; then
+    case "$naming_policy" in
+      as) project_id_convention=YYMMDD-CCC-PROJECT-NAME ;;
+      none) project_id_convention='No convention' ;;
+      firm) die "firm project naming requires a convention" ;;
+    esac
+  fi
+  case "$folder_taxonomy" in
+    as)
+      [ -z "$project_folder_convention" ] || [ "$project_folder_convention" = 'Projects/{Client Account or Internal}/{YYYYMM} {Project Name}' ] ||
+        die "AS folder taxonomy uses the standard project-folder convention"
+      [ -z "$projects_root" ] || [ "$projects_root" = Projects ] || die "AS folder taxonomy uses Projects as its project root"
+      [ -z "$operations_root" ] || [ "$operations_root" = Operations ] || die "AS folder taxonomy uses Operations as its operations root"
+      [ -z "$standards_root" ] || [ "$standards_root" = Standards ] || die "AS folder taxonomy uses Standards as its standards root"
+      [ -z "$references_root" ] || [ "$references_root" = References ] || die "AS folder taxonomy uses References as its references root"
+      project_folder_convention='Projects/{Client Account or Internal}/{YYYYMM} {Project Name}'
+      projects_root=Projects
+      operations_root=Operations
+      standards_root=Standards
+      references_root=References
+      ;;
+    firm)
+      [ -n "$project_folder_convention" ] || die "firm folder taxonomy requires a project-folder convention"
+      [ -n "$projects_root" ] && [ -n "$operations_root" ] && [ -n "$standards_root" ] && [ -n "$references_root" ] ||
+        die "firm folder taxonomy requires projects, operations, standards, and references roots"
+      ;;
+    *) die "folder taxonomy must be as or firm" ;;
+  esac
+  validate_new_studio_target "$target"
   validate_text "studio name" "$name"
   validate_text "working units" "$working_units"
   validate_text "country" "$country"
   validate_text "state or region" "$state_region"
   validate_text "city" "$city"
+  validate_naming_policy "$naming_policy"
+  validate_text "project id convention" "$project_id_convention"
+  validate_folder_taxonomy "$folder_taxonomy"
+  validate_text "project folder convention" "$project_folder_convention"
+  validate_managed_roots "$projects_root" "$operations_root" "$standards_root" "$references_root"
 
   if [ -e "$target" ] && [ ! -d "$target" ]; then
     die "target exists and is not a directory: $target"
@@ -215,12 +434,34 @@ init_studio() {
     die "target directory is not empty: $target"
   fi
 
-  mkdir -p "$target/.claude/skills" "$target/.agents/skills" "$target/standards" "$target/references" "$target/projects"
-  render "$TEMPLATE_DIR/STUDIO.md" "$target/STUDIO.md" "$name" "$working_units" "$country" "$state_region" "$city"
-  render "$TEMPLATE_DIR/CLAUDE.md" "$target/CLAUDE.md" "$name" "$working_units" "$country" "$state_region" "$city"
-  render "$TEMPLATE_DIR/AGENTS.md" "$target/AGENTS.md" "$name" "$working_units" "$country" "$state_region" "$city"
-  cp "$TEMPLATE_DIR/standards-README.md" "$target/standards/README.md"
-  cp "$TEMPLATE_DIR/references-README.md" "$target/references/README.md"
+  mkdir -p "$target/.claude/skills" "$target/.agents/skills" \
+    "$target/$projects_root" "$target/$operations_root" "$target/$standards_root" "$target/$references_root"
+  studio_folder_id=$(folder_identity_ensure "$target" studio)
+  ensure_group_ancestor_configs "$target" "$projects_root"
+  ensure_group_ancestor_configs "$target" "$operations_root"
+  ensure_group_ancestor_configs "$target" "$standards_root"
+  ensure_group_ancestor_configs "$target" "$references_root"
+  projects_folder_id=$(folder_identity_ensure "$target/$projects_root" projects)
+  operations_folder_id=$(folder_identity_ensure "$target/$operations_root" operations)
+  standards_folder_id=$(folder_identity_ensure "$target/$standards_root" standards)
+  references_folder_id=$(folder_identity_ensure "$target/$references_root" references)
+  if [ "$folder_taxonomy" = as ]; then
+    mkdir -p "$target/$projects_root/Internal"
+    folder_identity_ensure "$target/$projects_root/Internal" internal >/dev/null
+  fi
+  render "$TEMPLATE_DIR/STUDIO.md" "$target/STUDIO.md" "$name" "$working_units" "$country" "$state_region" "$city" \
+    "$naming_policy" "$project_id_convention" "$folder_taxonomy" "$project_folder_convention" \
+    "$projects_root" "$operations_root" "$standards_root" "$references_root" \
+    "$studio_folder_id" "$projects_folder_id" "$operations_folder_id" "$standards_folder_id" "$references_folder_id"
+  render "$TEMPLATE_DIR/CLAUDE.md" "$target/CLAUDE.md" "$name" "$working_units" "$country" "$state_region" "$city" \
+    "$naming_policy" "$project_id_convention" "$folder_taxonomy" "$project_folder_convention" \
+    "$projects_root" "$operations_root" "$standards_root" "$references_root"
+  render "$TEMPLATE_DIR/AGENTS.md" "$target/AGENTS.md" "$name" "$working_units" "$country" "$state_region" "$city" \
+    "$naming_policy" "$project_id_convention" "$folder_taxonomy" "$project_folder_convention" \
+    "$projects_root" "$operations_root" "$standards_root" "$references_root"
+  cp "$TEMPLATE_DIR/operations-README.md" "$target/$operations_root/README.md"
+  cp "$TEMPLATE_DIR/standards-README.md" "$target/$standards_root/README.md"
+  cp "$TEMPLATE_DIR/references-README.md" "$target/$references_root/README.md"
   cp "$TEMPLATE_DIR/.mcp.json" "$target/.mcp.json"
   printf 'created studio: %s\n' "$target"
 }
@@ -234,13 +475,7 @@ register_project() {
   validate_text "project id" "$project_id"
   validate_text "project name" "$project_name"
   validate_text "project path" "$relative_path"
-  case "$relative_path" in
-    projects/*) ;;
-    *) die "project path must be below projects/" ;;
-  esac
-  case "/$relative_path/" in
-    */../*|*/./*) die "project path may not contain dot segments" ;;
-  esac
+  safe_relative_path "$relative_path" || die "project path must be a safe relative descendant of the studio"
   require_safe_project "$studio" "$relative_path"
 
   file_id=$(project_field "$studio/$relative_path/PROJECT.md" "Project ID")
@@ -255,12 +490,19 @@ register_project() {
 
   rows=$(mktemp "$studio/.studio-register-rows.XXXXXX")
   registry_rows "$studio" "$rows"
-  if awk -F'\t' -v id="$project_id" -v path="$relative_path" '$1==id || $7==path {found=1} END {exit found ? 0 : 1}' "$rows"; then
+  if awk -F'\t' -v id="$project_id" -v path="$relative_path" \
+    '$1==id || $7==path {found=1} END {exit found ? 0 : 1}' "$rows"; then
     rm -f "$rows"
     die "project id or path is already registered"
   fi
+  folder_id=$(ensure_registered_folder_chain "$studio" "$relative_path")
+  require_safe_project "$studio" "$relative_path" "$folder_id"
+  if awk -F'\t' -v folder_id="$folder_id" '$9!="" && $9==folder_id {found=1} END {exit found ? 0 : 1}' "$rows"; then
+    rm -f "$rows"
+    die "folder identity is already registered"
+  fi
 
-  printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' "$project_id" "$project_name" "$client" "$client_code" "$project_type" "$project_status" "$relative_path" "$opened" >> "$rows"
+  printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' "$project_id" "$project_name" "$client" "$client_code" "$project_type" "$project_status" "$relative_path" "$opened" "$folder_id" >> "$rows"
   tmp=$(mktemp "$studio/.studio-manifest.XXXXXX")
   write_registry "$studio" "$rows" "$tmp"
   rm -f "$rows"
@@ -283,8 +525,14 @@ set_project_status() {
     rm -f "$rows"
     die "project id is not registered: $project_id"
   fi
-  relative_path=$(awk -F'\t' -v id="$project_id" '$1==id {print $7; exit}' "$rows")
-  require_safe_project "$studio" "$relative_path"
+  cached_path=$(awk -F'\t' -v id="$project_id" '$1==id {print $7; exit}' "$rows")
+  folder_id=$(awk -F'\t' -v id="$project_id" '$1==id {print $9; exit}' "$rows")
+  relative_path=$(resolve_registered_project_path "$studio" "$cached_path" "$folder_id")
+  require_safe_project "$studio" "$relative_path" "$folder_id"
+  [ "$(project_field "$studio/$relative_path/PROJECT.md" "Project ID")" = "$project_id" ] || {
+    rm -f "$rows"
+    die "registered Project ID does not match PROJECT.md"
+  }
   transaction=$(mktemp -d "$studio/.project-status-transaction.XXXXXX")
   cp "$studio/STUDIO.md" "$transaction/STUDIO.md"
   cp "$studio/$relative_path/PROJECT.md" "$transaction/PROJECT.md"
@@ -364,9 +612,63 @@ set_project_status() {
   printf 'project status: %s -> %s\n' "$project_id" "$requested_status"
 }
 
+set_project_naming() {
+  studio=$1
+  naming_policy=$2
+  project_id_convention=$3
+  require_studio "$studio"
+  validate_naming_policy "$naming_policy"
+  validate_text "project id convention" "$project_id_convention"
+  policy_count=$(awk -F'|' 'function trim(s){gsub(/^[ \t]+|[ \t]+$/, "", s); return s} /^\|/ && trim($2)=="Project naming" {n++} END {print n+0}' "$studio/STUDIO.md")
+  convention_count=$(awk -F'|' 'function trim(s){gsub(/^[ \t]+|[ \t]+$/, "", s); return s} /^\|/ && trim($2)=="Project ID convention" {n++} END {print n+0}' "$studio/STUDIO.md")
+  [ "$policy_count" -le 1 ] && [ "$convention_count" -le 1 ] || die "STUDIO.md contains duplicate project naming settings"
+  current_policy=$(project_field "$studio/STUDIO.md" "Project naming")
+  current_convention=$(project_field "$studio/STUDIO.md" "Project ID convention")
+  if [ "$current_policy" = "$naming_policy" ] && [ "$current_convention" = "$project_id_convention" ]; then
+    printf 'project naming unchanged: %s (%s)\n' "$naming_policy" "$project_id_convention"
+    return 0
+  fi
+  tmp=$(mktemp "$studio/.studio-naming.XXXXXX")
+  awk -F'|' -v policy="$naming_policy" -v convention="$project_id_convention" -v has_policy="$policy_count" -v has_convention="$convention_count" '
+    function trim(s){gsub(/^[ \t]+|[ \t]+$/, "", s); return s}
+    /^\|/ && trim($2)=="Project naming" {print "| Project naming | " policy " |"; next}
+    /^\|/ && trim($2)=="Project ID convention" {print "| Project ID convention | " convention " |"; next}
+    /^\|/ && trim($2)=="Task register" {
+      print
+      if (!has_policy) print "| Project naming | " policy " |"
+      if (!has_convention) print "| Project ID convention | " convention " |"
+      next
+    }
+    {print}
+  ' "$studio/STUDIO.md" > "$tmp"
+  mv "$tmp" "$studio/STUDIO.md"
+  [ "$(project_field "$studio/STUDIO.md" "Project naming")" = "$naming_policy" ] || die "project naming policy verification failed"
+  [ "$(project_field "$studio/STUDIO.md" "Project ID convention")" = "$project_id_convention" ] || die "project ID convention verification failed"
+  printf 'project naming: %s (%s)\n' "$naming_policy" "$project_id_convention"
+}
+
 status_studio() {
   studio=$1
   require_studio "$studio"
+  naming_policy=$(project_field "$studio/STUDIO.md" "Project naming")
+  project_id_convention=$(project_field "$studio/STUDIO.md" "Project ID convention")
+  case "$naming_policy" in
+    as|firm|none) naming_state="$naming_policy (${project_id_convention:-missing convention})" ;;
+    '') naming_state="unknown (choose as, firm, or none before creating another project)" ;;
+    *) naming_state="invalid ($naming_policy)" ;;
+  esac
+  printf 'naming: %s\n' "$naming_state"
+  folder_taxonomy=$(project_field "$studio/STUDIO.md" "Folder taxonomy")
+  project_folder_convention=$(project_field "$studio/STUDIO.md" "Project folder convention")
+  operations_root=$(project_field "$studio/STUDIO.md" "Operations root")
+  standards_root=$(project_field "$studio/STUDIO.md" "Standards root")
+  references_root=$(project_field "$studio/STUDIO.md" "References root")
+  case "$folder_taxonomy" in
+    as|firm) taxonomy_state="$folder_taxonomy (${project_folder_convention:-missing convention})" ;;
+    '') taxonomy_state="unknown (choose AS standard or a firm-defined taxonomy before creating another project)" ;;
+    *) taxonomy_state="invalid ($folder_taxonomy)" ;;
+  esac
+  printf 'taxonomy: %s\n' "$taxonomy_state"
   task_mode=$(awk -F'|' '
     function trim(s){gsub(/^[ \t]+|[ \t]+$/, "", s); return s}
     /^\|/ && trim($2)=="Task register" {print trim($3); exit}
@@ -408,6 +710,37 @@ status_studio() {
   findings=$(mktemp "$studio/.studio-status-findings.XXXXXX")
   trap 'rm -f "$rows" "$findings"' EXIT
   registry_rows "$studio" "$rows"
+  if [ -n "$folder_taxonomy" ]; then
+    projects_root=$(project_field "$studio/STUDIO.md" "Projects root")
+    projects_folder_id=$(project_field "$studio/STUDIO.md" "Projects folder ID")
+    operations_folder_id=$(project_field "$studio/STUDIO.md" "Operations folder ID")
+    standards_folder_id=$(project_field "$studio/STUDIO.md" "Standards folder ID")
+    references_folder_id=$(project_field "$studio/STUDIO.md" "References folder ID")
+    actual_projects_root=$(folder_identity_resolve "$studio" "$projects_folder_id" projects)
+    actual_operations_root=$(folder_identity_resolve "$studio" "$operations_folder_id" operations)
+    actual_standards_root=$(folder_identity_resolve "$studio" "$standards_folder_id" standards)
+    actual_references_root=$(folder_identity_resolve "$studio" "$references_folder_id" references)
+    if [ "$projects_root" != "$actual_projects_root" ]; then
+      printf 'folder path mismatch: %s folder-id=%s current=%s\n' "$projects_root" "$projects_folder_id" "$actual_projects_root"
+      printf 'drift\n' >> "$findings"
+    fi
+    if [ "$operations_root" != "$actual_operations_root" ]; then
+      printf 'folder path mismatch: %s folder-id=%s current=%s\n' "$operations_root" "$operations_folder_id" "$actual_operations_root"
+      printf 'drift\n' >> "$findings"
+    fi
+    if [ "$standards_root" != "$actual_standards_root" ]; then
+      printf 'folder path mismatch: %s folder-id=%s current=%s\n' "$standards_root" "$standards_folder_id" "$actual_standards_root"
+      printf 'drift\n' >> "$findings"
+    fi
+    if [ "$references_root" != "$actual_references_root" ]; then
+      printf 'folder path mismatch: %s folder-id=%s current=%s\n' "$references_root" "$references_folder_id" "$actual_references_root"
+      printf 'drift\n' >> "$findings"
+    fi
+    projects_root=$actual_projects_root
+    operations_root=$actual_operations_root
+    standards_root=$actual_standards_root
+    references_root=$actual_references_root
+  fi
   report_identity_drift() {
     drift_path=$1
     drift_field=$2
@@ -418,33 +751,82 @@ status_studio() {
     printf 'drift\n' >> "$findings"
   }
 
-  awk -F'\t' '{ids[$1]++; paths[$7]++} END {for (i in ids) if (ids[i]>1) print "duplicate id: " i; for (p in paths) if (paths[p]>1) print "duplicate path: " p}' "$rows"
+  managed_folder_count=$(awk -F'\t' '$9!="" {n++} END {print n+0}' "$rows")
+  legacy_folder_count=$(awk -F'\t' '$9=="" {n++} END {print n+0}' "$rows")
+  printf 'folder-identities: managed=%s legacy=%s\n' "$managed_folder_count" "$legacy_folder_count"
+  awk -F'\t' '
+    {ids[$1]++; paths[$7]++; if ($9!="") folders[$9]++}
+    END {
+      for (i in ids) if (ids[i]>1) print "duplicate id: " i
+      for (p in paths) if (paths[p]>1) print "duplicate path: " p
+      for (f in folders) if (folders[f]>1) print "duplicate folder id: " f
+    }
+  ' "$rows"
 
-  while IFS=$'\t' read -r project_id project_name client client_code project_type project_status relative_path opened; do
+  while IFS=$'\t' read -r project_id project_name client client_code project_type project_status relative_path opened folder_id; do
     [ -n "$relative_path" ] || continue
+    cached_path=$relative_path
+    if [ -n "$folder_id" ]; then
+      if ! folder_identity_valid_id "$folder_id"; then
+        printf 'project invalid: %s reason=registry Folder ID is invalid\n' "$cached_path"
+        printf 'invalid\n' >> "$findings"
+        continue
+      fi
+      folder_matches=$(folder_identity_find "$studio" "$folder_id" || true)
+      folder_match_count=$(printf '%s\n' "$folder_matches" | sed '/^$/d' | wc -l | tr -d ' ')
+      if [ "$folder_match_count" -ne 1 ]; then
+        printf 'project invalid: %s reason=folder identity %s resolves to %s managed folders\n' "$cached_path" "$folder_id" "$folder_match_count"
+        printf 'invalid\n' >> "$findings"
+        continue
+      fi
+      IFS=$'\t' read -r relative_path folder_kind <<< "$folder_matches"
+      if [ "$folder_kind" != project ]; then
+        printf 'project invalid: %s reason=folder identity %s has kind %s\n' "$cached_path" "$folder_id" "$folder_kind"
+        printf 'invalid\n' >> "$findings"
+        continue
+      fi
+      if [ "$cached_path" != "$relative_path" ]; then
+        printf 'folder path mismatch: %s folder-id=%s current=%s\n' "$cached_path" "$folder_id" "$relative_path"
+        printf 'drift\n' >> "$findings"
+      fi
+    fi
     project="$studio/$relative_path"
     audit_reason=
-    case "$relative_path" in projects/*) ;; *) audit_reason="unsafe registry path" ;; esac
-    case "/$relative_path/" in */../*|*/./*|*//*) audit_reason="unsafe registry path" ;; esac
+    safe_relative_path "$relative_path" || audit_reason="unsafe registry path"
+    if [ -z "$audit_reason" ] && project_path_is_reserved "$studio" "$relative_path"; then audit_reason="project uses a reserved studio resource folder"; fi
     if [ -z "$audit_reason" ] && { [ ! -d "$project" ] || [ -L "$project" ]; }; then audit_reason="project directory is missing or symlinked"; fi
     if [ -z "$audit_reason" ] && { [ ! -f "$project/PROJECT.md" ] || [ -L "$project/PROJECT.md" ]; }; then audit_reason="PROJECT.md is missing or symlinked"; fi
+    if [ -z "$audit_reason" ] && [ -n "$folder_id" ]; then
+      parsed_folder=$(folder_identity_parse "$project") || audit_reason="$FOLDER_IDENTITY_FILE is missing or invalid"
+      if [ -z "$audit_reason" ]; then
+        IFS=$'\t' read -r parsed_folder_id parsed_folder_kind <<< "$parsed_folder"
+        [ "$parsed_folder_id" = "$folder_id" ] || audit_reason="folder identity does not match the registry"
+        [ "$parsed_folder_kind" = project ] || audit_reason="folder identity kind is not project"
+      fi
+    fi
+    if [ -z "$audit_reason" ] && audit_ancestor=$(project_ancestor "$studio" "$relative_path"); then
+      audit_reason="project is nested inside $audit_ancestor"
+    fi
     if [ -z "$audit_reason" ]; then
-      audit_physical_projects=$(cd -P -- "$studio/projects" && pwd)
       if audit_physical_project=$(cd -P -- "$project" 2>/dev/null && pwd); then
-        case "$audit_physical_project/" in "$audit_physical_projects"/*/) ;; *) audit_reason="project resolves outside studio projects/" ;; esac
+        audit_physical_studio=$(cd -P -- "$studio" && pwd)
+        case "$audit_physical_project/" in "$audit_physical_studio"/*/) ;; *) audit_reason="project resolves outside its studio" ;; esac
+        if [ -z "$audit_reason" ] && [ "$audit_physical_project" != "$audit_physical_studio/$relative_path" ]; then
+          audit_reason="project path contains a symlink"
+        fi
       else
         audit_reason="project path cannot be resolved"
       fi
     fi
     if [ -n "$audit_reason" ]; then
-      printf 'project invalid: %s reason=%s\n' "$relative_path" "$audit_reason"
+      printf 'project invalid: %s reason=%s\n' "$cached_path" "$audit_reason"
       printf 'invalid\n' >> "$findings"
       continue
     fi
 
     file_version=$(project_field "$project/PROJECT.md" "Format version")
     if [ "$file_version" != 3 ]; then
-      printf 'project invalid: %s reason=format-version-%s\n' "$relative_path" "${file_version:-absent}"
+      printf 'project invalid: %s reason=format-version-%s\n' "$cached_path" "${file_version:-absent}"
       printf 'invalid\n' >> "$findings"
     fi
     file_id=$(project_field "$project/PROJECT.md" "Project ID")
@@ -454,24 +836,33 @@ status_studio() {
     file_type=$(project_field "$project/PROJECT.md" "Type")
     file_status=$(project_field "$project/PROJECT.md" "Status")
     file_opened=$(project_field "$project/PROJECT.md" "Created")
-    report_identity_drift "$relative_path" "Project ID" "$project_id" "$file_id"
-    report_identity_drift "$relative_path" Project "$project_name" "$file_name"
-    report_identity_drift "$relative_path" Client "$client" "$file_client"
-    report_identity_drift "$relative_path" Code "$client_code" "$file_code"
-    report_identity_drift "$relative_path" Type "$project_type" "$file_type"
-    report_identity_drift "$relative_path" Status "$project_status" "$file_status"
-    report_identity_drift "$relative_path" Folder "$relative_path" "projects/$file_id"
-    report_identity_drift "$relative_path" Opened "$opened" "$file_opened"
+    report_identity_drift "$cached_path" "Project ID" "$project_id" "$file_id"
+    report_identity_drift "$cached_path" Project "$project_name" "$file_name"
+    report_identity_drift "$cached_path" Client "$client" "$file_client"
+    report_identity_drift "$cached_path" Code "$client_code" "$file_code"
+    report_identity_drift "$cached_path" Type "$project_type" "$file_type"
+    report_identity_drift "$cached_path" Status "$project_status" "$file_status"
+    report_identity_drift "$cached_path" Opened "$opened" "$file_opened"
   done < "$rows"
 
   while IFS= read -r project_file; do
     project_dir=${project_file%/PROJECT.md}
     relative_path=${project_dir#"$studio/"}
-    if ! awk -F'\t' -v path="$relative_path" '$7==path {found=1} END {exit found ? 0 : 1}' "$rows"; then
+    project_folder_id=
+    if parsed_folder=$(folder_identity_parse "$project_dir"); then
+      IFS=$'\t' read -r candidate_folder_id candidate_folder_kind <<< "$parsed_folder"
+      if [ "$candidate_folder_kind" = project ]; then project_folder_id=$candidate_folder_id; fi
+    fi
+    if ! awk -F'\t' -v path="$relative_path" -v folder_id="$project_folder_id" \
+      '$7==path || (folder_id!="" && $9==folder_id) {found=1} END {exit found ? 0 : 1}' "$rows"; then
       printf 'unregistered: %s\n' "$relative_path"
       printf 'unregistered\n' >> "$findings"
     fi
-  done < <(find "$studio/projects" -mindepth 2 -maxdepth 2 -name PROJECT.md -type f 2>/dev/null)
+  done < <(find "$studio" \
+    \( -path "$studio/.git" -o -path "$studio/.agents" -o -path "$studio/.claude" \
+       -o -path "$studio/${operations_root:-operations}" -o -path "$studio/${standards_root:-standards}" -o -path "$studio/${references_root:-references}" \
+       -o -name node_modules -o -name .next -o -name '.project-status-transaction.*' -o -name '.v3-migration-transaction.*' -o -name '.task-mode-transaction.*' \) -prune -o \
+    -mindepth 2 -name PROJECT.md -type f -print 2>/dev/null)
 
   registered_count=$(wc -l < "$rows" | tr -d ' ')
   drift_count=$(awk '$0=="drift" {n++} END {print n+0}' "$findings")
@@ -592,7 +983,8 @@ legacy_proposal_rows() {
     month=${issued%-??}
     series_count=$(awk -F'\t' -v id="$new_id" -v month="$month" -v slug="$slug" '$5==id && $10==month && $11==slug {n++} END {print n+0}' "$output")
     revision=$(printf 'rev-%02d' $((series_count + 1)))
-    new_path="projects/$new_id/proposals/$month-$slug-proposal-$revision.md"
+    new_folder=$(awk -F'\t' -v id="$old_id" '$1==id {print $2; exit}' "$manifest_rows")
+    new_path="$new_folder/proposals/$month-$slug-proposal-$revision.md"
     if awk -F'\t' -v path="$new_path" '$9==path {found=1} END {exit found ? 0 : 1}' "$output"; then rm -f "$raw"; die "proposal migration target collides: $new_path"; fi
     printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
       "$number" "$old_id" "$client" "$title" "$new_id" "$issued" "$status" "$old_path" "$new_path" "$month" "$slug" "$revision" >> "$output"
@@ -617,7 +1009,8 @@ legacy_proposal_rows() {
           die "legacy proposal supersession crosses project boundaries: $number -> $related_number"
         fi
         related_target=$(awk -F'\t' -v number="$related_number" '$1==number {print $9; exit}' "$output")
-        related_prefix="projects/$new_id/"
+        related_folder=$(awk -F'\t' -v id="$old_id" '$1==id {print $2; exit}' "$manifest_rows")
+        related_prefix="$related_folder/"
         case "$related_target" in
           "$related_prefix"proposals/*.md) related=${related_target#"$related_prefix"} ;;
           *)
@@ -637,13 +1030,31 @@ write_v3_registry_from_migration() {
   local studio=$1
   local manifest_rows=$2
   local target=$3
-  local projected versioned
+  local naming_policy=${4:-as}
+  local project_id_convention=${5:-YYMMDD-CCC-PROJECT-NAME}
+  local projected versioned folder_id
   projected=$(mktemp "$studio/.v3-registry-rows.XXXXXX")
   versioned=$(mktemp "$studio/.v3-studio-version.XXXXXX")
-  awk -F'\t' -v OFS='\t' '{print $3, $4, $5, $6, $7, $8, "projects/" $3, $9}' "$manifest_rows" > "$projected"
-  awk -F'|' '
+  : > "$projected"
+  while IFS=$'\t' read -r _old_id old_folder new_id name client code project_type project_status opened; do
+    [ -n "$old_folder" ] || continue
+    folder_id=
+    if [ -e "$studio/$old_folder/$FOLDER_IDENTITY_FILE" ] || [ -L "$studio/$old_folder/$FOLDER_IDENTITY_FILE" ]; then
+      folder_id=$(folder_identity_require "$studio/$old_folder" project)
+    fi
+    printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+      "$new_id" "$name" "$client" "$code" "$project_type" "$project_status" "$old_folder" "$opened" "$folder_id" >> "$projected"
+  done < "$manifest_rows"
+  awk -F'|' -v naming_policy="$naming_policy" -v project_id_convention="$project_id_convention" '
     function trim(s){gsub(/^[ \t]+|[ \t]+$/, "", s); return s}
     /^\|/ && trim($2)=="Format version" {print "| Format version | 3 |"; next}
+    /^\|/ && (trim($2)=="Project naming" || trim($2)=="Project ID convention") {next}
+    /^\|/ && trim($2)=="Task register" {
+      print
+      print "| Project naming | " naming_policy " |"
+      print "| Project ID convention | " project_id_convention " |"
+      next
+    }
     {print}
   ' "$studio/STUDIO.md" > "$versioned"
   write_registry "$studio" "$projected" "$target" "$versioned"
@@ -685,15 +1096,25 @@ migrate_studio() {
   studio=$1
   manifest=$2
   mode=${3:-preview}
+  naming_policy=${4:-as}
+  project_id_convention=${5:-}
+  if [ -z "$project_id_convention" ]; then
+    case "$naming_policy" in
+      as) project_id_convention=YYMMDD-CCC-PROJECT-NAME ;;
+      none) project_id_convention='No convention' ;;
+      firm) die "firm project naming requires a convention" ;;
+    esac
+  fi
   validate_root "$studio"
   [ -d "$studio" ] || die "studio root is not a directory: $studio"
   require_owned_studio_file "$studio" STUDIO.md required
   require_owned_studio_file "$studio" TASKS.md optional
   [ -f "$manifest" ] && [ ! -L "$manifest" ] || die "migration manifest must be a regular file"
   [ "$mode" = preview ] || [ "$mode" = --apply ] || die "migration mode must be preview or --apply"
+  validate_naming_policy "$naming_policy"
+  validate_text "project id convention" "$project_id_convention"
   version=$(project_field "$studio/STUDIO.md" "Format version")
   [ "$version" = 2 ] || die "studio migration requires format version 2; found ${version:-absent}"
-  [ -d "$studio/projects" ] && [ ! -L "$studio/projects" ] || die "studio projects directory is missing or symlinked"
 
   manifest_rows=$(mktemp "$studio/.v3-manifest-rows.XXXXXX")
   legacy_rows=$(mktemp "$studio/.v2-registry-rows.XXXXXX")
@@ -703,8 +1124,6 @@ migrate_studio() {
   awk -F'\t' '{old_ids[$1]++; old_paths[$2]++; new_ids[$3]++} END {for (x in old_ids) if(old_ids[x]!=1) exit 1; for(x in old_paths) if(old_paths[x]!=1) exit 1; for(x in new_ids) if(new_ids[x]!=1) exit 1}' "$manifest_rows" || { rm -f "$manifest_rows" "$legacy_rows"; die "migration manifest contains duplicate identities or folders"; }
 
   physical_studio=$(cd -P -- "$studio" && pwd)
-  physical_projects=$(cd -P -- "$studio/projects" && pwd)
-  [ "$physical_projects" = "$physical_studio/projects" ] || { rm -f "$manifest_rows" "$legacy_rows"; die "studio projects directory may not be a symlink"; }
   while IFS=$'\t' read -r old_id old_folder new_id name client code project_type project_status opened; do
     validate_text "old project id" "$old_id"
     validate_text "old project folder" "$old_folder"
@@ -715,20 +1134,18 @@ migrate_studio() {
     validate_project_type "$project_type"
     validate_project_status "$project_status"
     validate_opened_date "$opened"
-    case "$new_id" in "${opened%-*}-$code-"*) ;; *) rm -f "$manifest_rows" "$legacy_rows"; die "new Project ID month/code does not match manifest for $old_id" ;; esac
-    case "$old_folder" in projects/*) ;; *) rm -f "$manifest_rows" "$legacy_rows"; die "unsafe legacy project path: $old_folder" ;; esac
-    case "/$old_folder/" in */../*|*/./*|*//*) rm -f "$manifest_rows" "$legacy_rows"; die "unsafe legacy project path: $old_folder" ;; esac
+    safe_relative_path "$old_folder" || { rm -f "$manifest_rows" "$legacy_rows"; die "unsafe legacy project path: $old_folder"; }
     legacy_match=$(awk -F'\t' -v id="$old_id" -v path="$old_folder" '$1==id && $3==path {n++} END {print n+0}' "$legacy_rows")
     [ "$legacy_match" -eq 1 ] || { rm -f "$manifest_rows" "$legacy_rows"; die "manifest row does not uniquely match version 2 registry: $old_id"; }
     old_root="$studio/$old_folder"
     [ -d "$old_root" ] && [ ! -L "$old_root" ] && [ -f "$old_root/PROJECT.md" ] && [ ! -L "$old_root/PROJECT.md" ] || { rm -f "$manifest_rows" "$legacy_rows"; die "legacy project is missing or symlinked: $old_folder"; }
-    case "$(cd -P -- "$old_root" && pwd)/" in "$physical_projects"/*/) ;; *) rm -f "$manifest_rows" "$legacy_rows"; die "legacy project resolves outside projects/: $old_folder" ;; esac
+    physical_old_root=$(cd -P -- "$old_root" && pwd)
+    case "$physical_old_root/" in "$physical_studio"/*/) ;; *) rm -f "$manifest_rows" "$legacy_rows"; die "legacy project resolves outside its studio: $old_folder" ;; esac
+    [ "$physical_old_root" = "$physical_studio/$old_folder" ] || { rm -f "$manifest_rows" "$legacy_rows"; die "legacy project path may not contain symlinks: $old_folder"; }
     old_version=$(project_field "$old_root/PROJECT.md" "Format version")
     [ "$old_version" = 2 ] || { rm -f "$manifest_rows" "$legacy_rows"; die "legacy project format is not version 2: $old_folder"; }
     file_old_id=$(project_field "$old_root/PROJECT.md" "Project ID")
     [ -z "$file_old_id" ] || [ "$file_old_id" = "$old_id" ] || { rm -f "$manifest_rows" "$legacy_rows"; die "legacy Project ID mismatch: $old_folder"; }
-    new_root="$studio/projects/$new_id"
-    [ "$new_root" = "$old_root" ] || [ ! -e "$new_root" ] || { rm -f "$manifest_rows" "$legacy_rows"; die "migration target already exists: projects/$new_id"; }
     if [ "$project_type" = client ] && [ "$client" = — ]; then rm -f "$manifest_rows" "$legacy_rows"; die "client project requires a client display name: $old_id"; fi
   done < "$manifest_rows"
   proposal_rows=$(mktemp "$studio/.v2-proposal-rows.XXXXXX")
@@ -756,16 +1173,24 @@ migrate_studio() {
   if [ -f "$studio/PROPOSALS.md" ]; then cp "$studio/PROPOSALS.md" "$transaction/PROPOSALS.md"; had_proposals=1; fi
   cp "$manifest_rows" "$transaction/manifest-rows.tsv"
   cp "$proposal_rows" "$transaction/proposal-rows.tsv"
-  write_v3_registry_from_migration "$studio" "$manifest_rows" "$transaction/STUDIO.expected.md"
   if [ "$had_tasks" -eq 1 ]; then
     rewrite_portfolio_project_ids "$transaction/TASKS.md" "$manifest_rows" "$transaction/TASKS.expected.md"
   fi
   preserved_inventory="$transaction/preserved-files.tsv"
+  folder_config_inventory="$transaction/folder-configs.tsv"
   : > "$preserved_inventory"
+  : > "$folder_config_inventory"
   snapshot_index=0
   while IFS=$'\t' read -r _old_id old_folder _rest; do
     snapshot_index=$((snapshot_index + 1))
     cp "$studio/$old_folder/PROJECT.md" "$transaction/PROJECT.$(printf '%06d' "$snapshot_index").md"
+    if [ -e "$studio/$old_folder/$FOLDER_IDENTITY_FILE" ] || [ -L "$studio/$old_folder/$FOLDER_IDENTITY_FILE" ]; then
+      folder_identity_require "$studio/$old_folder" project >/dev/null
+      cp "$studio/$old_folder/$FOLDER_IDENTITY_FILE" "$transaction/FOLDER.$(printf '%06d' "$snapshot_index").json"
+      printf '%s\tpresent\n' "$snapshot_index" >> "$folder_config_inventory"
+    else
+      printf '%s\tabsent\n' "$snapshot_index" >> "$folder_config_inventory"
+    fi
     while IFS= read -r -d '' preserved_source; do
       preserved_relative=${preserved_source#"$studio/$old_folder/"}
       case "$preserved_relative" in PROJECT.md|proposals/*.md) continue ;; esac
@@ -779,8 +1204,6 @@ migrate_studio() {
     proposal_snapshot_index=$((proposal_snapshot_index + 1))
     cp "$studio/$old_path" "$transaction/PROPOSAL.$(printf '%06d' "$proposal_snapshot_index").md"
   done < "$proposal_rows"
-  rename_journal="$transaction/rename-journal.tsv"
-  : > "$rename_journal"
   committed=0
   rollback_migration_failure() {
     rollback_migration_label=$1
@@ -819,29 +1242,6 @@ migrate_studio() {
     [ "$committed" -eq 0 ] || return 0
     rollback_migration_failed=0
     : > "$transaction/ROLLBACK-FAILURES.tsv"
-    reverse_journal="$transaction/rename-journal.reverse.tsv"
-    if sort -r -n -k1,1 "$rename_journal" > "$reverse_journal"; then
-      while IFS=$'\t' read -r _index old_folder new_folder; do
-        [ -n "$old_folder" ] || continue
-        old_location="$studio/$old_folder"
-        new_location="$studio/$new_folder"
-        if [ "${ARCH_STUDIO_FAIL_RESTORE_AT:-}" = migration-rename ]; then
-          rollback_migration_failure migration-rename "$new_location -> $old_location" "injected restore failure"
-        elif [ -d "$new_location" ] && [ ! -e "$old_location" ]; then
-          if ! mv "$new_location" "$old_location"; then
-            rollback_migration_failure migration-rename "$new_location -> $old_location" "rename failed"
-          elif [ ! -d "$old_location" ] || [ -e "$new_location" ]; then
-            rollback_migration_failure migration-rename "$new_location -> $old_location" "verification failed"
-          fi
-        elif [ -d "$old_location" ] && [ ! -e "$new_location" ]; then
-          :
-        else
-          rollback_migration_failure migration-rename "$new_location -> $old_location" "ambiguous topology"
-        fi
-      done < "$reverse_journal"
-    else
-      rollback_migration_failure migration-journal "$rename_journal" "journal sort failed"
-    fi
     restore_migration_snapshot migration-studio "$transaction/STUDIO.md" "$studio/STUDIO.md"
     if [ "$had_tasks" -eq 1 ]; then
       restore_migration_snapshot migration-tasks "$transaction/TASKS.md" "$studio/TASKS.md"
@@ -853,6 +1253,12 @@ migrate_studio() {
       snapshot_index=$((snapshot_index + 1))
       if [ -d "$studio/$old_folder" ]; then
         restore_migration_snapshot migration-project "$transaction/PROJECT.$(printf '%06d' "$snapshot_index").md" "$studio/$old_folder/PROJECT.md"
+        folder_config_state=$(awk -F'\t' -v index="$snapshot_index" '$1==index {print $2; exit}' "$transaction/folder-configs.tsv")
+        if [ "$folder_config_state" = present ]; then
+          restore_migration_snapshot migration-folder-config "$transaction/FOLDER.$(printf '%06d' "$snapshot_index").json" "$studio/$old_folder/$FOLDER_IDENTITY_FILE"
+        else
+          remove_migration_path migration-folder-config "$studio/$old_folder/$FOLDER_IDENTITY_FILE"
+        fi
       else
         rollback_migration_failure migration-project "$studio/$old_folder/PROJECT.md" "project directory missing after rename rollback"
       fi
@@ -897,24 +1303,25 @@ migrate_studio() {
   trap 'finalize_v3_migration 130' INT
   trap 'finalize_v3_migration 143' TERM
 
-  move_index=0
+  project_index=0
   while IFS=$'\t' read -r old_id old_folder new_id name client code project_type project_status opened; do
-    move_index=$((move_index + 1))
+    project_index=$((project_index + 1))
     "$PROJECT_SCRIPT" migrate-record "$studio/$old_folder" "$new_id" "$name" "$project_type" "$project_status" "$code" "$client" "$opened" --apply >/dev/null
-    new_folder="projects/$new_id"
-    if [ "$old_folder" != "$new_folder" ]; then
-      printf '%s\t%s\t%s\n' "$move_index" "$old_folder" "$new_folder" >> "$rename_journal"
-      mv "$studio/$old_folder" "$studio/$new_folder"
+    folder_identity_ensure "$studio/$old_folder" project >/dev/null
+    if [ "$project_index" -eq 1 ]; then
+      case "${ARCH_STUDIO_FAIL_AT:-}" in migration-signal-after-first-project|migration-signal-after-first-rename) kill -TERM "$$" ;; esac
+      case "${ARCH_STUDIO_FAIL_AT:-}" in migration-after-first-project|migration-after-first-rename) die "injected failure after first project upgrade" ;; esac
     fi
-    if [ "$move_index" -eq 1 ] && [ "${ARCH_STUDIO_FAIL_AT:-}" = migration-signal-after-first-rename ]; then kill -TERM "$$"; fi
-    if [ "$move_index" -eq 1 ] && [ "${ARCH_STUDIO_FAIL_AT:-}" = migration-after-first-rename ]; then die "injected failure after first project rename"; fi
   done < "$manifest_rows"
+
+  write_v3_registry_from_migration "$studio" "$manifest_rows" "$transaction/STUDIO.expected.md" "$naming_policy" "$project_id_convention"
 
   while IFS=$'\t' read -r number _old_id client title new_id issued status old_path _new_path _month slug revision related; do
     [ -n "$number" ] || continue
     old_name=$(basename -- "$old_path")
-    legacy_file="$studio/projects/$new_id/proposals/$old_name"
-    "$PROPOSAL_SCRIPT" migrate-legacy "$legacy_file" "$studio/projects/$new_id" "$number" "$client" "$title" "$issued" "$status" "$slug" "$revision" --related "$related" --apply >/dev/null
+    project_folder=$(awk -F'\t' -v id="$new_id" '$3==id {print $2; exit}' "$manifest_rows")
+    legacy_file="$studio/$project_folder/proposals/$old_name"
+    "$PROPOSAL_SCRIPT" migrate-legacy "$legacy_file" "$studio/$project_folder" "$number" "$client" "$title" "$issued" "$status" "$slug" "$revision" --related "$related" --apply >/dev/null
   done < "$proposal_rows"
   [ ! -f "$studio/PROPOSALS.md" ] || rm "$studio/PROPOSALS.md"
   [ "${ARCH_STUDIO_FAIL_AT:-}" != migration-after-commercial ] || die "injected failure after commercial-record migration"
@@ -925,19 +1332,19 @@ migrate_studio() {
     mv "$tasks_tmp" "$studio/TASKS.md"
   fi
   studio_tmp=$(mktemp "$studio/.v3-studio.XXXXXX")
-  write_v3_registry_from_migration "$studio" "$manifest_rows" "$studio_tmp"
+  write_v3_registry_from_migration "$studio" "$manifest_rows" "$studio_tmp" "$naming_policy" "$project_id_convention"
   mv "$studio_tmp" "$studio/STUDIO.md"
   [ "${ARCH_STUDIO_FAIL_AT:-}" != migration-after-manifest ] || die "injected failure after v3 manifest replacement"
 
   if [ "${ARCH_STUDIO_FAIL_AT:-}" = migration-corrupt-project-client ]; then
-    corrupt_project=$(awk -F'\t' 'NR==1 {print $3; exit}' "$manifest_rows")
-    corrupt_tmp=$(mktemp "$studio/projects/$corrupt_project/.migration-corrupt.XXXXXX")
+    corrupt_project=$(awk -F'\t' 'NR==1 {print $2; exit}' "$manifest_rows")
+    corrupt_tmp=$(mktemp "$studio/$corrupt_project/.migration-corrupt.XXXXXX")
     awk -F'|' '
       function trim(s){gsub(/^[ \t]+|[ \t]+$/, "", s); return s}
       /^\|/ && trim($2)=="Client" {print "| Client | CORRUPTED CLIENT | injected verification fault | 2026-01-01 |"; next}
       {print}
-    ' "$studio/projects/$corrupt_project/PROJECT.md" > "$corrupt_tmp"
-    mv "$corrupt_tmp" "$studio/projects/$corrupt_project/PROJECT.md"
+    ' "$studio/$corrupt_project/PROJECT.md" > "$corrupt_tmp"
+    mv "$corrupt_tmp" "$studio/$corrupt_project/PROJECT.md"
   fi
 
   verify_rows="$transaction/registry-verify.tsv"
@@ -950,10 +1357,8 @@ migrate_studio() {
   project_verify_index=0
   while IFS=$'\t' read -r old_id old_folder new_id name client code project_type project_status opened; do
     project_verify_index=$((project_verify_index + 1))
-    project_root="$studio/projects/$new_id"
+    project_root="$studio/$old_folder"
     [ -d "$project_root" ] && [ ! -L "$project_root" ] || die "migrated project directory is missing or symlinked: $new_id"
-    [ "$(basename -- "$project_root")" = "$new_id" ] || die "migrated project folder verification failed: $new_id"
-    [ "$old_folder" = "projects/$new_id" ] || [ ! -e "$studio/$old_folder" ] || die "legacy project directory remains after migration: $old_folder"
     [ "$(project_field "$project_root/PROJECT.md" "Format version")" = 3 ] || die "migrated project version verification failed: $new_id"
     [ "$(project_field "$project_root/PROJECT.md" "Project ID")" = "$new_id" ] || die "migrated project identity verification failed: $new_id"
     [ "$(project_field "$project_root/PROJECT.md" "Project")" = "$name" ] || die "migrated project name verification failed: $new_id"
@@ -962,7 +1367,7 @@ migrate_studio() {
     [ "$(project_field "$project_root/PROJECT.md" "Type")" = "$project_type" ] || die "migrated project type verification failed: $new_id"
     [ "$(project_field "$project_root/PROJECT.md" "Status")" = "$project_status" ] || die "migrated project status verification failed: $new_id"
     [ "$(project_field "$project_root/PROJECT.md" "Created")" = "$opened" ] || die "migrated project opened-date verification failed: $new_id"
-    awk -F'\t' -v id="$new_id" -v name="$name" -v client="$client" -v code="$code" -v type="$project_type" -v status="$project_status" -v path="projects/$new_id" -v opened="$opened" '
+    awk -F'\t' -v id="$new_id" -v name="$name" -v client="$client" -v code="$code" -v type="$project_type" -v status="$project_status" -v path="$old_folder" -v opened="$opened" '
       $1==id && $2==name && $3==client && $4==code && $5==type && $6==status && $7==path && $8==opened {found++}
       END {exit found==1 ? 0 : 1}
     ' "$verify_rows" || die "migrated registry row verification failed: $new_id"
@@ -996,7 +1401,7 @@ migrate_studio() {
     [ -n "$new_path" ] || continue
     proposal_verify_index=$((proposal_verify_index + 1))
     proposal_file="$studio/$new_path"
-    [ ! -e "$studio/projects/$new_id/proposals/$(basename -- "$old_path")" ] || die "legacy proposal remains after migration: $old_path"
+    [ ! -e "$studio/$(dirname -- "$new_path")/$(basename -- "$old_path")" ] || die "legacy proposal remains after migration: $old_path"
     "$PROPOSAL_SCRIPT" status "$studio/$new_path" >/dev/null || die "migrated proposal verification failed: $new_path"
     [ "$(project_field "$proposal_file" "Project ID")" = "$new_id" ] || die "migrated proposal Project ID verification failed: $new_path"
     [ "$(project_field "$proposal_file" "Title")" = "$title" ] || die "migrated proposal title verification failed: $new_path"
@@ -1029,10 +1434,10 @@ migrate_studio() {
   while IFS=$'\t' read -r inventory_index preserved_relative expected_hash; do
     [ -n "$preserved_relative" ] || continue
     preserved_count=$((preserved_count + 1))
-    preserved_project=$(awk -F'\t' -v row="$inventory_index" 'NR==row {print $3; exit}' "$manifest_rows")
-    preserved_target="$studio/projects/$preserved_project/$preserved_relative"
-    [ -f "$preserved_target" ] && [ ! -L "$preserved_target" ] || die "preserved project content is missing or symlinked: projects/$preserved_project/$preserved_relative"
-    [ "$(file_sha256 "$preserved_target")" = "$expected_hash" ] || die "preserved project content changed: projects/$preserved_project/$preserved_relative"
+    preserved_project=$(awk -F'\t' -v row="$inventory_index" 'NR==row {print $2; exit}' "$manifest_rows")
+    preserved_target="$studio/$preserved_project/$preserved_relative"
+    [ -f "$preserved_target" ] && [ ! -L "$preserved_target" ] || die "preserved project content is missing or symlinked: $preserved_project/$preserved_relative"
+    [ "$(file_sha256 "$preserved_target")" = "$expected_hash" ] || die "preserved project content changed: $preserved_project/$preserved_relative"
   done < "$preserved_inventory"
   [ ! -e "$studio/PROPOSALS.md" ] || die "legacy proposal register remains after migration"
   proposal_count=$(wc -l < "$proposal_rows" | tr -d ' ')
@@ -1064,24 +1469,23 @@ task_mode_studio() {
   rows=$(mktemp "$studio/.studio-task-mode-rows.XXXXXX")
   all_rows=$(mktemp "$studio/.studio-task-mode-all.XXXXXX")
   registry_rows "$studio" "$all_rows"
-  awk -F'\t' '{print $1 "\t" $7}' "$all_rows" > "$rows"
+  : > "$rows"
+  while IFS=$'\t' read -r project_id _project_name _client _code _type _status cached_path _opened folder_id; do
+    [ -n "$cached_path" ] || continue
+    relative_path=$(resolve_registered_project_path "$studio" "$cached_path" "$folder_id")
+    printf '%s\t%s\t%s\n' "$project_id" "$relative_path" "$folder_id" >> "$rows"
+  done < "$all_rows"
   rm -f "$all_rows"
 
-  if awk -F'\t' '{ids[$1]++; paths[$2]++} END {for (i in ids) if (ids[i]>1) exit 1; for (p in paths) if (paths[p]>1) exit 1}' "$rows"; then
+  if awk -F'\t' '{ids[$1]++; paths[$2]++; if ($3!="") folders[$3]++} END {for (i in ids) if (ids[i]>1) exit 1; for (p in paths) if (paths[p]>1) exit 1; for (f in folders) if (folders[f]>1) exit 1}' "$rows"; then
     :
   else
     die "task mode requires unique project ids and paths"
   fi
-  while IFS=$'\t' read -r _ relative_path; do
+  while IFS=$'\t' read -r _ relative_path folder_id; do
     [ -n "$relative_path" ] || continue
-    case "$relative_path" in
-      projects/*) ;;
-      *) die "unsafe registered project path: $relative_path" ;;
-    esac
-    case "/$relative_path/" in
-      */../*|*/./*|*//* ) die "unsafe registered project path: $relative_path" ;;
-    esac
-    require_safe_project "$studio" "$relative_path"
+    safe_relative_path "$relative_path" || die "unsafe registered project path: $relative_path"
+    require_safe_project "$studio" "$relative_path" "$folder_id"
   done < "$rows"
 
   # Snapshot every touched file. The EXIT trap restores the snapshot unless the
@@ -1090,7 +1494,7 @@ task_mode_studio() {
   cp "$studio/STUDIO.md" "$transaction/STUDIO.md"
   [ ! -f "$studio/TASKS.md" ] || cp "$studio/TASKS.md" "$transaction/studio.TASKS.md"
   snapshot_index=0
-  while IFS=$'\t' read -r _ relative_path; do
+  while IFS=$'\t' read -r _ relative_path _folder_id; do
     [ -n "$relative_path" ] || continue
     snapshot_index=$((snapshot_index + 1))
     snapshot=$(printf 'project-%06d.TASKS.md' "$snapshot_index")
@@ -1102,7 +1506,7 @@ task_mode_studio() {
     cp "$transaction/STUDIO.md" "$studio/STUDIO.md" 2>/dev/null || true
     if [ -f "$transaction/studio.TASKS.md" ]; then cp "$transaction/studio.TASKS.md" "$studio/TASKS.md"; else rm -f "$studio/TASKS.md"; fi
     snapshot_index=0
-    while IFS=$'\t' read -r _ relative_path; do
+    while IFS=$'\t' read -r _ relative_path _folder_id; do
       [ -n "$relative_path" ] || continue
       snapshot_index=$((snapshot_index + 1))
       snapshot=$(printf 'project-%06d.TASKS.md' "$snapshot_index")
@@ -1124,7 +1528,7 @@ task_mode_studio() {
 
   if [ "$requested" = portfolio ]; then
     [ ! -e "$studio/TASKS.md" ] || die "studio TASKS.md already exists"
-    while IFS=$'\t' read -r project_id relative_path; do
+    while IFS=$'\t' read -r project_id relative_path _folder_id; do
       [ -n "$relative_path" ] || continue
       register="$studio/$relative_path/TASKS.md"
       if [ -f "$register" ] && grep -Eq '^\| T[0-9]{4} \|' "$register"; then
@@ -1134,7 +1538,7 @@ task_mode_studio() {
     cp "$TASK_TEMPLATE_DIR/portfolio-tasks.md" "$transaction/studio.TASKS.new"
     [ "${ARCH_STUDIO_FAIL_AT:-}" != after-stage ] || die "injected failure after staging task mode"
     mv "$transaction/studio.TASKS.new" "$studio/TASKS.md"
-    while IFS=$'\t' read -r _ relative_path; do
+    while IFS=$'\t' read -r _ relative_path _folder_id; do
       [ -n "$relative_path" ] || continue
       [ ! -f "$studio/$relative_path/TASKS.md" ] || rm "$studio/$relative_path/TASKS.md"
     done < "$rows"
@@ -1143,7 +1547,7 @@ task_mode_studio() {
     if grep -Eq '^\| T[0-9]{4} \|' "$studio/TASKS.md"; then
       die "portfolio register has task rows; split migration is required"
     fi
-    while IFS=$'\t' read -r _ relative_path; do
+    while IFS=$'\t' read -r _ relative_path _folder_id; do
       [ -n "$relative_path" ] || continue
       [ -f "$studio/$relative_path/PROJECT.md" ] || continue
       [ -e "$studio/$relative_path/TASKS.md" ] || cp "$PROJECT_TEMPLATE_DIR/TASKS.md" "$studio/$relative_path/TASKS.md"
@@ -1169,12 +1573,13 @@ task_mode_studio() {
 }
 
 case "${1:-}" in
-  init) [ "$#" -eq 7 ] || die "usage: $0 init <target> <studio-name> <working-units> <country> <state-region> <city>"; init_studio "$2" "$3" "$4" "$5" "$6" "$7" ;;
+  init) [ "$#" -ge 7 ] && [ "$#" -le 15 ] || die "usage: $0 init <target> <studio-name> <working-units> <country> <state-region> <city> [as|firm|none] [project-id-convention] [as|firm folder-taxonomy] [project-folder-convention] [projects-root] [operations-root] [standards-root] [references-root]"; init_studio "$2" "$3" "$4" "$5" "$6" "$7" "${8:-as}" "${9:-}" "${10:-as}" "${11:-}" "${12:-}" "${13:-}" "${14:-}" "${15:-}" ;;
   register) [ "$#" -eq 5 ] || die "usage: $0 register <studio-root> <project-id> <project-name> <relative-path>"; register_project "$2" "$3" "$4" "$5" ;;
   set-status) [ "$#" -eq 4 ] || die "usage: $0 set-status <studio-root> <project-id> <prospective|active|on-hold|lost|withdrawn|completed|archived>"; set_project_status "$2" "$3" "$4" ;;
+  set-naming) [ "$#" -eq 4 ] || die "usage: $0 set-naming <studio-root> <as|firm|none> <project-id-convention>"; set_project_naming "$2" "$3" "$4" ;;
   archive) [ "$#" -eq 3 ] || die "usage: $0 archive <studio-root> <project-id>"; set_project_status "$2" "$3" archived ;;
-  migrate) [ "$#" -ge 3 ] && [ "$#" -le 4 ] || die "usage: $0 migrate <studio-root> <confirmed-manifest.tsv> [--apply]"; migrate_studio "$2" "$3" "${4:-preview}" ;;
+  migrate) [ "$#" -ge 3 ] && [ "$#" -le 6 ] || die "usage: $0 migrate <studio-root> <confirmed-manifest.tsv> [--apply] [as|firm|none] [project-id-convention]"; migrate_studio "$2" "$3" "${4:-preview}" "${5:-as}" "${6:-}" ;;
   status) [ "$#" -eq 2 ] || die "usage: $0 status <studio-root>"; status_studio "$2" ;;
   task-mode) [ "$#" -eq 3 ] || die "usage: $0 task-mode <studio-root> <project|portfolio>"; task_mode_studio "$2" "$3" ;;
-  *) die "usage: $0 {init|register|set-status|archive|migrate|status|task-mode} ..." ;;
+  *) die "usage: $0 {init|register|set-status|set-naming|archive|migrate|status|task-mode} ..." ;;
 esac

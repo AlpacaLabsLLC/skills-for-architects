@@ -34,7 +34,8 @@ success_root="$success_parent/legacy"
 mkdir -p "$success_parent"
 make_v2_standalone "$success_root"
 run_migration "$success_root" >/dev/null
-[ -d "$success_parent/2026-07-SMI-LEGACY-STANDALONE" ] || fail "successful migration target missing"
+[ -d "$success_root" ] || fail "successful migration did not preserve its directory"
+grep -Fq '| Project ID | 2026-07-SMI-LEGACY-STANDALONE |' "$success_root/PROJECT.md" || fail "successful migration did not update identity"
 [ -z "$(transaction_for "$success_parent")" ] || fail "successful migration left transaction material"
 
 # Ordinary rollback restores bytes/topology and then removes its snapshot.
@@ -48,7 +49,6 @@ for checkpoint in after-record after-rename; do
     fail "injected $checkpoint failure unexpectedly succeeded"
   fi
   diff -qr "$rollback_parent/before" "$rollback_root" >/dev/null || fail "$checkpoint rollback changed bytes or topology"
-  [ ! -e "$rollback_parent/2026-07-SMI-LEGACY-STANDALONE" ] || fail "$checkpoint rollback left renamed target"
   [ -z "$(transaction_for "$rollback_parent")" ] || fail "$checkpoint rollback left transaction material"
 done
 
@@ -68,22 +68,20 @@ cmp -s "$record_transaction/PROJECT.md" "$record_parent/before/PROJECT.md" || fa
 cmp -s "$record_transaction/CLAUDE.md" "$record_parent/before/CLAUDE.md" || fail "CLAUDE.md recovery snapshot changed"
 [ -d "$record_root" ] || fail "record-restore failure lost original directory"
 
-# A failed directory restore reports the mv step and preserves both target and snapshot.
-directory_parent="$ROOT/restore-directory-failure"
-directory_root="$directory_parent/legacy"
-directory_target="$directory_parent/2026-07-SMI-LEGACY-STANDALONE"
-mkdir -p "$directory_parent"
-make_v2_standalone "$directory_root"
-cp -R "$directory_root" "$directory_parent/before"
-if directory_output=$(ARCH_PROJECT_FAIL_AT=after-rename ARCH_PROJECT_ROLLBACK_FAIL_AT=restore-project-directory run_migration "$directory_root" 2>&1); then
-  fail "injected directory restore failure unexpectedly succeeded"
+# A failed CLAUDE.md restore reports the cp step and preserves the original folder plus snapshots.
+claude_parent="$ROOT/restore-claude-failure"
+claude_root="$claude_parent/legacy"
+mkdir -p "$claude_parent"
+make_v2_standalone "$claude_root"
+cp -R "$claude_root" "$claude_parent/before"
+if claude_output=$(ARCH_PROJECT_FAIL_AT=after-rename ARCH_PROJECT_ROLLBACK_FAIL_AT=restore-claude-record run_migration "$claude_root" 2>&1); then
+  fail "injected CLAUDE.md restore failure unexpectedly succeeded"
 fi
-printf '%s\n' "$directory_output" | grep -Fq 'rollback failed at restore project directory with mv; recovery snapshot preserved at ' || fail "missing directory restore failure report"
-directory_transaction=$(printf '%s\n' "$directory_output" | sed -n 's/^project-workspace: rollback failed at restore project directory with mv; recovery snapshot preserved at //p' | tail -1)
-[ -d "$directory_transaction" ] || fail "directory recovery transaction was deleted"
-cmp -s "$directory_transaction/PROJECT.md" "$directory_parent/before/PROJECT.md" || fail "directory recovery PROJECT.md snapshot changed"
-cmp -s "$directory_transaction/CLAUDE.md" "$directory_parent/before/CLAUDE.md" || fail "directory recovery CLAUDE.md snapshot changed"
-[ ! -e "$directory_root" ] || fail "directory restore injection unexpectedly moved target back"
-[ -d "$directory_target" ] || fail "directory restore failure lost renamed target"
+printf '%s\n' "$claude_output" | grep -Fq 'rollback failed at restore CLAUDE.md with cp; recovery snapshot preserved at ' || fail "missing CLAUDE.md restore failure report"
+claude_transaction=$(printf '%s\n' "$claude_output" | sed -n 's/^project-workspace: rollback failed at restore CLAUDE.md with cp; recovery snapshot preserved at //p' | tail -1)
+[ -d "$claude_transaction" ] || fail "CLAUDE.md recovery transaction was deleted"
+cmp -s "$claude_transaction/PROJECT.md" "$claude_parent/before/PROJECT.md" || fail "CLAUDE.md recovery PROJECT.md snapshot changed"
+cmp -s "$claude_transaction/CLAUDE.md" "$claude_parent/before/CLAUDE.md" || fail "CLAUDE.md recovery snapshot changed"
+[ -d "$claude_root" ] || fail "CLAUDE.md restore failure lost the preserved project directory"
 
-echo "✓ standalone rollback preserves and reports recovery snapshots when cp or mv restoration fails"
+echo "✓ standalone rollback preserves folders and reports record recovery failures"

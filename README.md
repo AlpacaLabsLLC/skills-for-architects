@@ -59,11 +59,13 @@ skills-for-architects/                       studio/
 ├── hooks/          CLAUDE AUTOMATION        ├── .agents/skills/
 ├── skills/         SHARED TOOLING           ├── .claude/skills/
 ├── agents/         CLAUDE ORCHESTRATION     │       FIRM EXTENSIONS
-│                                            ├── standards/
-│                                            ├── references/
+│                                            ├── Operations/
+│                                            ├── Standards/
+│                                            ├── References/
 │                                            ├── TASKS.md (optional portfolio mode)
-└── schema/         DATA CONTRACTS           └── projects/
-                                                 └── project/
+└── schema/         DATA CONTRACTS           └── Projects/
+                                                 └── Client/202609 Project/
+                                                     ├── .as-folder.json
                                                      ├── PROJECT.md
                                                      ├── decisions/
                                                      ├── meetings/
@@ -90,7 +92,7 @@ Architecture Studio separates maintained plugin capabilities from the procedures
 |-------|----------|---------|
 | Bundled reference skills | Installed plugin | Working AEC tools, examples, and reusable patterns maintained upstream |
 | Studio skills | `studio/.agents/skills/` (Codex) or `studio/.claude/skills/` (Claude Code) | Firm standards, internal procedures, shared templates, and practice-specific workflows |
-| Project skills | `projects/<project>/.agents/skills/` or `.claude/skills/` | Client-, jurisdiction-, delivery-, or project-specific procedures |
+| Project skills | `<registered-project>/.agents/skills/` or `.claude/skills/` | Client-, jurisdiction-, delivery-, or project-specific procedures |
 | Upstream contributions | This repository | General-purpose capabilities proposed for the open-source project |
 
 `/as:skill-maker` helps turn a firm procedure into a structured skill at the correct ownership level. It follows Architecture Studio’s governance, provenance, and testing patterns without writing into the installed plugin cache.

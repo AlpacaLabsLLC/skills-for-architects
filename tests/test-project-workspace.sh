@@ -9,8 +9,8 @@ SCRIPT="skills/project/scripts/project-workspace.sh"
 ROOT=$(mktemp -d)
 trap 'rm -rf "$ROOT"' EXIT
 
-PROJECT="$ROOT/2026-08-SMI-MUSEUM-EXPANSION"
-"$SCRIPT" init "$PROJECT" "Museum Expansion" 2026-08-SMI-MUSEUM-EXPANSION client active SMI "Smith Institution"
+PROJECT="$ROOT/260901-SMI-MUSEUM-EXPANSION"
+"$SCRIPT" init "$PROJECT" "Museum Expansion" 260901-SMI-MUSEUM-EXPANSION client active SMI "Smith Institution"
 
 for file in PROJECT.md CLAUDE.md AGENTS.md TASKS.md TIMELOG.md; do
   [ -f "$PROJECT/$file" ] || { echo "missing project file: $file" >&2; exit 1; }
@@ -20,7 +20,7 @@ for dir in decisions meetings site-reports docs/plans .claude/skills .agents/ski
 done
 grep -q 'decisions/' "$PROJECT/PROJECT.md"
 grep -Fq '| Format version | 3 |' "$PROJECT/PROJECT.md"
-grep -Fq '| Project ID | 2026-08-SMI-MUSEUM-EXPANSION |' "$PROJECT/PROJECT.md"
+grep -Fq '| Project ID | 260901-SMI-MUSEUM-EXPANSION |' "$PROJECT/PROJECT.md"
 grep -Fq '| Project | Museum Expansion |' "$PROJECT/PROJECT.md"
 grep -Fq '| Type | client |' "$PROJECT/PROJECT.md"
 grep -Fq '| Status | active |' "$PROJECT/PROJECT.md"
@@ -44,37 +44,51 @@ if grep -Fq 'Read `PROJECT.md` before project work' "$PROJECT/CLAUDE.md"; then
   exit 1
 fi
 
-INTERNAL_PROJECT="$ROOT/2026-08-ALP-ARCHITECTURE-STUDIO"
-"$SCRIPT" init "$INTERNAL_PROJECT" "Architecture Studio" 2026-08-ALP-ARCHITECTURE-STUDIO internal active ALP —
+INTERNAL_PROJECT="$ROOT/260901-ALP-ARCHITECTURE-STUDIO"
+"$SCRIPT" init "$INTERNAL_PROJECT" "Architecture Studio" 260901-ALP-ARCHITECTURE-STUDIO internal active ALP —
 grep -Fq '| Type | internal |' "$INTERNAL_PROJECT/PROJECT.md"
 grep -Fq '| Client code | ALP |' "$INTERNAL_PROJECT/PROJECT.md"
 grep -Fq '| Client | — |' "$INTERNAL_PROJECT/PROJECT.md"
 ! grep -q '^## \(Site\|Zoning\|Program\|Code\)$' "$INTERNAL_PROJECT/PROJECT.md"
 
-if "$SCRIPT" init "$ROOT/2026-08-A1P-INTERNAL" Internal 2026-08-A1P-INTERNAL internal active A1P —; then
-  echo "internal project unexpectedly accepted a non-letter code" >&2
-  exit 1
-fi
+FIRM_PROJECT="$ROOT/Client Work/Museum Expansion"
+"$SCRIPT" init "$FIRM_PROJECT" "Museum Expansion — Phase 2" firm-042 client active A1P "Smith Institution"
+grep -Fq '| Project ID | firm-042 |' "$FIRM_PROJECT/PROJECT.md"
+grep -Fq '| Project | Museum Expansion — Phase 2 |' "$FIRM_PROJECT/PROJECT.md"
+grep -Fq '| Client code | A1P |' "$FIRM_PROJECT/PROJECT.md"
 
-PORTFOLIO_PROJECT="$ROOT/2026-08-NYC-LIBRARY"
-"$SCRIPT" init "$PORTFOLIO_PROJECT" "Library" 2026-08-NYC-LIBRARY client prospective NYC "New York City" portfolio
+PORTFOLIO_PROJECT="$ROOT/260901-NYC-LIBRARY"
+"$SCRIPT" init "$PORTFOLIO_PROJECT" "Library" 260901-NYC-LIBRARY client prospective NYC "New York City" portfolio
 [ ! -f "$PORTFOLIO_PROJECT/TASKS.md" ]
 grep -Fq 'resolved by the tasklist skill from this project and the studio skill that owns it' "$PORTFOLIO_PROJECT/PROJECT.md"
 grep -Fq 'resolved by the tasklist skill from this project and the studio skill that owns it' "$PROJECT/PROJECT.md"
 
-if "$SCRIPT" init "$PROJECT" "Museum Expansion" 2026-08-SMI-MUSEUM-EXPANSION client active SMI "Smith Institution"; then
+if "$SCRIPT" init "$PROJECT" "Museum Expansion" 260901-SMI-MUSEUM-EXPANSION client active SMI "Smith Institution"; then
   echo "project overwrite unexpectedly succeeded" >&2
   exit 1
 fi
 
-if "$SCRIPT" init "$ROOT/2026-08-smi-INVALID" Invalid 2026-08-smi-INVALID client active SMI "Smith Institution"; then
-  echo "lowercase project identity unexpectedly accepted" >&2
+if "$SCRIPT" init "$PROJECT/nested-project" "Nested Project" nested-001 internal active INT —; then
+  echo "nested project unexpectedly succeeded" >&2
   exit 1
 fi
 
-if "$SCRIPT" init "$ROOT/2026-08-SMI-WRONG-FOLDER" Invalid 2026-08-SMI-RIGHT-ID client active SMI "Smith Institution"; then
-  echo "project directory different from Project ID unexpectedly accepted" >&2
+SYMLINK_TARGET="$ROOT/symlink-target"
+SYMLINK_PROJECT="$ROOT/symlink-project"
+mkdir -p "$SYMLINK_TARGET"
+ln -s "$SYMLINK_TARGET" "$SYMLINK_PROJECT"
+if "$SCRIPT" init "$SYMLINK_PROJECT" "Symlink Project" link-001 internal active INT —; then
+  echo "symlinked project target unexpectedly succeeded" >&2
   exit 1
 fi
 
-echo "✓ project helper creates universal v3 project bundles with immutable uppercase identities"
+if "$SCRIPT" init "$ROOT/unsafe-id" Invalid 'bad|id' client active SMI "Smith Institution"; then
+  echo "project identity containing a reserved table character unexpectedly accepted" >&2
+  exit 1
+fi
+
+DIFFERENT_FOLDER="$ROOT/user-selected-folder"
+"$SCRIPT" init "$DIFFERENT_FOLDER" "Different Folder" 260901-SMI-RIGHT-ID client active SMI "Smith Institution"
+grep -Fq '| Project ID | 260901-SMI-RIGHT-ID |' "$DIFFERENT_FOLDER/PROJECT.md"
+
+echo "✓ project helper creates universal v3 bundles without coupling identity, name, code, and directory"

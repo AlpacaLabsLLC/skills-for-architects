@@ -27,10 +27,12 @@ grep -q 'create and verify the replacement first' "$SKILL"
 grep -q 'Migration removes the legacy Decisions table only when it is lossless' "$SKILL"
 grep -q 'PROJECT.md` is the only implicit project boundary' "$SKILL"
 grep -q 'exact created path plus the `.agents/skills/`.*`.claude/skills/`' "$SKILL"
-grep -q 'YYYY-MM-CCC-PROJECT-NAME' "$SKILL"
+grep -q 'YYMMDD-CCC-PROJECT-NAME' "$SKILL"
 grep -q 'immutable' "$SKILL"
-grep -q 'Do not prefix the project display name or project-name slug with the client name' "$SKILL"
-grep -q 'internal.*three-letter.*code\|three-letter.*code.*internal' "$SKILL"
+grep -q 'Project, Client, code, Project ID, and Folder distinct' "$SKILL"
+grep -q 'three-letter uppercase code' "$SKILL"
+grep -q 'firm convention, or no convention' "$SKILL"
+grep -q 'localization.*tokens\|tokens.*localization' "$SKILL"
 grep -q 'internal.*client' "$SKILL"
 grep -q 'status.*advisory\|advisory.*status' "$SKILL"
 grep -q 'known structured references' "$SKILL"
@@ -55,8 +57,9 @@ grep -q '`/as:proposal` owns project-local `proposals/`' skills/project/SKILL.md
 
 grep -q 'type and status' skills/project/references/context-resolution.md
 grep -q 'never block' skills/project/references/context-resolution.md
-grep -q '`standards/` contains firm-wide standards and reusable templates' skills/project/references/context-resolution.md
-grep -q '`references/` contains external source material such as code references' skills/project/references/context-resolution.md
+grep -q 'configured Standards and References roots' skills/project/references/context-resolution.md
+grep -q 'Resolve a configured root by its Folder ID' skills/project/references/context-resolution.md
+grep -q 'project-root `.as-folder.json`' "$SKILL"
 grep -q 'Canonical singleton records use uppercase names' docs/workspace-model.md
 grep -q 'Directories and individual repeatable records use lowercase kebab-case' docs/workspace-model.md
 grep -q 'YYYY-MM-short-title-proposal-rev-NN.md' docs/workspace-model.md

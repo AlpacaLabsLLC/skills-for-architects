@@ -76,6 +76,7 @@ $studio status
 $studio projects
 $studio create-project
 $studio register-project <project folder>
+$studio set-project-naming as|firm|none <convention>
 $studio set-project-status <project id> <status>
 $studio archive-project <project id>
 $studio migrate <confirmed manifest>
@@ -91,6 +92,7 @@ $studio <describe an architecture task>
 /as:studio projects
 /as:studio create-project
 /as:studio register-project <project folder>
+/as:studio set-project-naming as|firm|none <convention>
 /as:studio set-project-status <project id> <status>
 /as:studio archive-project <project id>
 /as:studio migrate <confirmed manifest>
@@ -109,17 +111,18 @@ $studio <describe an architecture task>
 4. The installed Architecture Studio plugin cache is never a studio, project, or private-skill destination.
 5. Never create a studio or project merely because the plugin was installed. Setup requires an exact-path preview and affirmative confirmation.
 6. Never create a nested project inside a directory already containing `PROJECT.md`.
-7. Registry paths are relative descendants below `projects/`; never persist arbitrary absolute project paths.
-8. Every project directory equals its immutable uppercase `YYYY-MM-CCC-PROJECT-NAME` ID. The normal-case display name remains separate.
+7. Registry paths are safe relative descendants of the studio; never persist arbitrary absolute project paths. New studios use the user-confirmed folder taxonomy; existing firm hierarchies and user-selected descendants remain valid.
+8. Project ID, display name, client code, registered folder, and Folder ID are separate values. Project IDs and generated Folder IDs are immutable after creation; names and folders never have to equal them.
 9. The Projects table is parsed only between `<!-- projects:start -->` and `<!-- projects:end -->` and every column is addressed by its header, never by a fixed position.
-10. Firm-wide standards and reusable templates live in `standards/`; external material such as code references lives in `references/`. Project work and outputs remain in the owning directory under `projects/`.
+10. `.as-folder.json` is the small identity record for an AS-managed folder. It contains only `format`, immutable `folder_id`, and `kind`; never add the human name or path. Create it at the studio root, configured taxonomy roots and grouping folders, and every registered project root—not in ordinary content folders that no AS index references.
+11. Firm-wide standards, operations, and external references live in the roots recorded in `STUDIO.md`. Project work and outputs remain in the registered owning project directory.
 
 ## Resolve the studio and project boundaries
 
 - Search upward for the nearest `STUDIO.md`; its parent is the studio root.
 - Separately search upward for the nearest `PROJECT.md`; its parent is the current project root.
 - A `STUDIO.md` is never a project marker and a `PROJECT.md` is never the studio manifest.
-- If the current path is inside an existing project, `/as:studio init` must not initialize there and `create-project` must target the studio’s `projects/` directory.
+- If the current path is inside an existing project, `/as:studio init` must not initialize there and `create-project` must target the studio’s recorded project hierarchy.
 - If multiple plausible boundaries genuinely conflict, show the candidates and ask one target question.
 
 ## Studio setup
@@ -127,21 +130,25 @@ $studio <describe an architecture task>
 ### `/as:studio init`
 
 1. If a `STUDIO.md` is already resolved, show status instead of overwriting it.
-2. Determine whether the user wants to create a new studio through one gate only. Infer known answers, then use one compact structured question for the studio name, location, working units (`imperial`, `metric`, or `project-specific / mixed`), and default jurisdiction (country, state/region, city). Permit `No default` for any jurisdiction level; never invent one from the machine location. Do not first ask for these values in prose.
+2. Determine whether the user wants to create a new studio through one gate only. Infer known answers, then use one compact structured question for the studio name, location, working units (`imperial`, `metric`, or `project-specific / mixed`), default jurisdiction (country, state/region, city), project-naming policy, and folder taxonomy. Permit `No default` for any jurisdiction level; never invent one from the machine location. Treat naming and taxonomy as separate choices:
+   - Project naming offers exactly three outcomes: `as` uses the suggested `YYMMDD-CCC-PROJECT-NAME` convention; `firm` records the user's existing convention in plain language; `none` imposes no pattern. Warn that `none` can make localization less reliable when names or folders are ambiguous, causing unnecessary context loading and token use.
+   - Folder taxonomy offers `as` or `firm`. The AS standard is human-readable: `Projects/{Client Account or Internal}/{YYYYMM} {Project Name}`, with parallel `Operations/`, `Standards/`, and `References/` roots. A firm taxonomy records the user's plain-language project-folder convention and the four safe relative managed roots. Never infer a firm's convention from whichever folders happen to exist.
+   Do not first ask for these values in prose.
 3. Explain the data boundary before confirmation: this local version stores studio and project records in the chosen local workspace; Architecture Studio does not send them to or store them with ALPA; content the user provides to the configured LLM is handled under that provider account and its data terms; future cloud-based versions may require an account and differ. Then branch on the active host:
    - **Claude Code:** background update checking is **disabled by default**. If no update preference exists, ask exactly, “Would you like this to automatically check for updates?” with `Yes, automatically check` / `Not now` choices in the setup gate. Enabling permits at most one bare request per 24 hours to ALPA's Cloudflare endpoint; it sends no project content or Architecture Studio identifier, though Cloudflare processes ordinary request metadata such as IP address, headers, and timestamps. Ask the user to acknowledge this note as part of setup confirmation.
    - **Codex:** background update checking is unavailable because this package does not install the Claude Code lifecycle hook. Do not ask for an update preference, resolve the update state directory, run `update-preference.sh`, or create an enablement marker.
-4. Normalize the directory name to lowercase kebab-case. Reject empty names, `.`/`..`, absolute names supplied as names, separators inside names, control characters, reserved ambiguous names, existing files, and non-empty target directories.
-5. Preview the display name, exact absolute target, units, jurisdiction, files created, and data-governance note. Explain that `standards/` is for firm-wide standards and reusable templates, `references/` is for external source material such as code references, and project work stays under `projects/`. State that setup does not initialize git, create an ALPA account, or configure cloud storage.
+4. Preserve the user-confirmed human-readable directory name and casing. Reject empty names, `.`/`..`, unsafe absolute targets, control characters, reserved hidden names, existing files, and non-empty target directories; do not normalize a confirmed name to lowercase kebab-case.
+5. Preview the display name, exact absolute target, units, jurisdiction, naming policy and convention, taxonomy policy and roots, files created, and data-governance note. Explain what belongs in the confirmed Operations, Standards, References, and Projects roots. State that setup does not initialize git, create an ALPA account, or configure cloud storage.
 6. Open one confirmation gate covering the target, defaults, and data note. Do not ask for confirmation in prose before opening it and do not reconfirm after it returns.
-7. Run `<skill-root>/scripts/studio-workspace.sh init <target> <studio-name> <working-units> <country> <state-region> <city>` with safely quoted arguments. Use the literal value `No default` for omitted jurisdiction levels. On Claude Code only, when the user selected enablement, run `<skill-root>/scripts/update-preference.sh enable`; `Not now` runs no preference command and does not disable a preference previously enabled elsewhere. On Codex, never run the preference helper or create the enablement marker.
-8. Verify `STUDIO.md`, `AGENTS.md`, `CLAUDE.md`, `.mcp.json`, `.agents/skills/`, `.claude/skills/`, `standards/`, `references/`, and `projects/`, including the rendered units, jurisdiction, studio-resource links, data-governance statement, and the exact empty connector shape `{ "mcpServers": {} }`. This reserves a studio-only integration boundary; do not add a provider, URL, command, arguments, OAuth flow, or credentials. Finish by reporting the exact absolute studio path and both skill roots. If a new firm skill is not visible, restart the active harness from the studio root; invoke it as `$skill-name` on Codex or `/{skill-name}` on Claude Code.
+7. Run `<skill-root>/scripts/studio-workspace.sh init <target> <studio-name> <working-units> <country> <state-region> <city> <as|firm|none> <project-id-convention> <as|firm folder-taxonomy> <project-folder-convention> <projects-root> <operations-root> <standards-root> <references-root>` with safely quoted arguments. Pass the exact confirmed policies and conventions. For the AS taxonomy, pass `Projects/{Client Account or Internal}/{YYYYMM} {Project Name}`, `Projects`, `Operations`, `Standards`, and `References`. Use the literal value `No default` for omitted jurisdiction levels. On Claude Code only, when the user selected enablement, run `<skill-root>/scripts/update-preference.sh enable`; `Not now` runs no preference command and does not disable a preference previously enabled elsewhere. On Codex, never run the preference helper or create the enablement marker.
+8. Verify `STUDIO.md`, `AGENTS.md`, `CLAUDE.md`, `.mcp.json`, `.agents/skills/`, `.claude/skills/`, the four configured roots, and every expected `.as-folder.json`, including the rendered units, jurisdiction, naming policy, naming convention, taxonomy policy, folder convention, root paths and Folder IDs, studio-resource links, data-governance statement, and the exact empty connector shape `{ "mcpServers": {} }`. Each config must have format `1`, the expected kind, and a unique `asf_` UUID; the ID written into `STUDIO.md` must match. This reserves a studio-only integration boundary; do not add a provider, URL, command, arguments, OAuth flow, or credentials. Finish by reporting the exact absolute studio path and both skill roots. If a new firm skill is not visible, restart the active harness from the studio root; invoke it as `$skill-name` on Codex or `/{skill-name}` on Claude Code.
 9. Offer `/as:studio create-project`.
 
 The created structure is:
 
 ```text
 studio-root/
+├── .as-folder.json          immutable studio-folder identity
 ├── STUDIO.md
 ├── AGENTS.md
 ├── CLAUDE.md
@@ -150,11 +157,19 @@ studio-root/
 │   └── skills/
 ├── .claude/
 │   └── skills/
-├── standards/
+├── Operations/
+│   ├── .as-folder.json
 │   └── README.md
-├── references/
+├── Standards/
+│   ├── .as-folder.json
 │   └── README.md
-└── projects/
+├── References/
+│   ├── .as-folder.json
+│   └── README.md
+└── Projects/
+    ├── .as-folder.json
+    └── Internal/
+        └── .as-folder.json
 ```
 
 ### `/as:studio status` and `/as:studio projects`
@@ -166,6 +181,8 @@ Read the nearest `STUDIO.md`, then inspect its relative registered paths. Report
 - descendant folders containing `PROJECT.md` but absent from the manifest;
 - duplicate project IDs or paths; and
 - mismatches between manifest ID/name and `PROJECT.md` identity.
+- project naming policy and convention, or `unknown` for an earlier format-3 studio that has not selected one.
+- folder-taxonomy policy and convention, configured-root identity, registered-project Folder ID coverage, duplicate Folder IDs, and readable path drift after a managed folder is moved or renamed.
 - connector manifest state: `missing`, `empty-reserved`, `configured`, or `invalid`.
 - task register mode: `project`, `portfolio`, or `invalid`, including whether the canonical register expected by that mode exists.
 
@@ -196,22 +213,26 @@ Never enable checking from installation, ordinary `/as:studio status`, or inferr
 
 `/as:tasklist` owns task rows and task operations. `/as:studio` owns only this storage-mode setting and the guarded empty-register transition.
 
+### `/as:studio set-project-naming as|firm|none <convention>`
+
+`STUDIO.md` owns the advisory naming policy. Preview the policy and convention, including the localization/token-use warning for `none`, then use one confirmation gate. Run `<skill-root>/scripts/studio-workspace.sh set-naming <studio-root> <as|firm|none> <project-id-convention>` and verify both settings. This changes suggestions for future projects only; it never renames folders, rewrites existing IDs, or makes a current project invalid.
+
 ### `/as:studio create-project`
 
 1. Require a resolved studio. If none exists, offer `/as:studio init` or standalone `/as:project init`.
 2. Refuse to run from a path that would create a project inside an existing project.
-3. Gather the normal-case display name, project type (`internal` or `client`), status, and a confirmed three-letter uppercase code. Client work uses its client code. Internal work uses the studio's own code or another user-confirmed internal code and may use `—` for Client; never substitute a reserved code. Keep the Project and Client fields distinct: when the user gives “client SOM, project Strategy consulting,” the project display name is `Strategy consulting`. Do not prefix the project display name or project-name slug with the client name merely because Client is recorded separately. These are the identity facts this flow persists; do not gather facts that this creation flow does not persist, including unrelated AEC or commercial details.
-4. Generate the permanent ID as `YYYY-MM-CCC-PROJECT-NAME` from the current creation month, confirmed code, and uppercase ASCII kebab slug. The folder basename equals that ID exactly. Preview a meaningful user-confirmed disambiguator on collision; never overwrite, silently suffix, or reuse an identity.
-5. Preview the exact folder, universal `PROJECT.md` identity, complete project bundle, and exact eight-column `STUDIO.md` row. Wait for one affirmative confirmation covering both operations.
+3. Gather the normal-case display name, project type (`internal` or `client`), status, and a user-confirmed client or internal code. Under the `as` naming policy, client work uses its three-letter uppercase client code and internal work suggests `INT`; under `firm` or `none`, preserve the firm's value rather than translating it into AS syntax, using `—` when the firm has no code. Internal work may use `—` for Client; client work requires a client display name. Keep Project, Client, code, Project ID, and Folder distinct. Do not prefix the project display name or project-name slug with the client name merely because Client is recorded separately. These are the identity facts this flow persists; do not gather facts that this creation flow does not persist, including unrelated AEC or commercial details.
+4. Read both policy pairs from `STUDIO.md`: `Project naming` / `Project ID convention`, and `Folder taxonomy` / `Project folder convention`. For AS naming, suggest the permanent ID `YYMMDD-CCC-PROJECT-NAME`. For AS taxonomy, suggest `Projects/{Client Account}/{YYYYMM} {Project Name}` for client work and `Projects/Internal/{YYYYMM} {Project Name}` for internal work. For a firm policy, follow the recorded convention without translating it into AS syntax. For no naming convention, ask for a stable ID without imposing a pattern and repeat the localization/token-use warning. Missing policy fields in an earlier format-3 workspace are unknown, not implicitly AS: ask once which choice the user wants, and do not reorganize existing folders implicitly. In every policy, convention compliance is advisory; reject only unsafe text, unsafe paths, duplicate IDs or Folder IDs, and filesystem collisions. Never overwrite, silently suffix, or reuse an identity.
+5. Preview the exact folder, universal `PROJECT.md` identity, complete project bundle, the project-root `.as-folder.json`, and exact nine-column `STUDIO.md` row. Wait for one affirmative confirmation covering both operations.
 6. Read the studio's `Task register` setting and require `project` or `portfolio`. Run the project-owned helper at `<plugin-root>/skills/project/scripts/project-workspace.sh init <target> <name> <project-id> <internal|client> <status> <client-code> <client> <task-mode>`. In portfolio mode the project helper must not create a competing project-local `TASKS.md`. Do not slash-invoke `/as:project init`; that would route back here.
 7. Re-read the created `PROJECT.md` and verify the bundle.
-8. Run `<skill-root>/scripts/studio-workspace.sh register <studio-root> <id> <name> <relative-path>`. The helper reads Client, Code, Type, Status, and Opened from the verified project record and writes the bounded registry in canonical header order.
+8. Run `<skill-root>/scripts/studio-workspace.sh register <studio-root> <id> <name> <relative-path>`. The helper reads Client, Code, Type, Status, and Opened from the verified project record, ensures immutable configs along the AS-managed folder chain, and writes the bounded registry in canonical header order with readable `Folder` and immutable `Folder ID`.
 9. Re-read `STUDIO.md` and the project bundle. If registration fails after project creation, keep the project intact, report the partial state, and offer registration of that exact folder. Never create another folder as recovery.
 10. On success, report the exact absolute project path plus its `.agents/skills/` and `.claude/skills/` paths. Tell the user that project-only skills are discovered from project scope; if a new skill does not appear, restart the active harness from that project root and invoke it as `$skill-name` on Codex or `/{skill-name}` on Claude Code. Offer the project skill as the next step for adding sourced project facts.
 
 ### `/as:studio register-project <folder>`
 
-Accept only a direct child of the resolved studio’s `projects/` directory whose uppercase basename exactly equals the format-version-3 Project ID in `PROJECT.md`. Read its universal identity, detect duplicate ID/path rows inside the bounded Projects section, preview all eight fields, confirm, register, and verify. Never relocate or copy client files.
+Accept a safe relative descendant of the resolved studio, including an existing firm hierarchy. The folder basename does not have to equal the format-version-3 Project ID in `PROJECT.md`. Read its universal identity, detect duplicate Project ID, readable path, or Folder ID rows inside the bounded Projects section, preview all nine fields, confirm, register, and verify. Registration creates `.as-folder.json` only at previously unmanaged folders in the referenced chain. Never relocate, rename, or copy client files.
 
 ### `/as:studio archive-project <id>`
 
@@ -225,11 +246,11 @@ Preview changing the Status field in both the registry row and `PROJECT.md`, con
 
 Format-version-2 workspaces require an explicit, recoverable migration before version-3 writers may change them.
 
-1. Inventory every bounded registry row and ask the user to confirm its display name, creation date/month, client, three-letter code, type, and status. Never infer missing identity facts from activity.
+1. Inventory every bounded registry row and ask the user to confirm its display name, creation date, client, client/internal code, type, status, and permanent Project ID. Ask which naming policy should be recorded for the migrated studio. Never infer missing identity facts from activity.
 2. Build one tab-separated manifest with the headers `Old Project ID`, `Old Folder`, `Project ID`, `Project`, `Client`, `Code`, `Type`, `Status`, and `Opened`. It must cover each registered project exactly once and preview every old-to-new ID/folder mapping.
 3. Report structured references that will change: the bounded studio registry, each project identity table, Project ID cells in a portfolio `TASKS.md`, and any version-2 studio-wide proposal rows. Preview each old proposal number/path and its project-local `YYYY-MM-short-title-proposal-rev-NN.md` destination. Former numbers become read-only `Legacy number` metadata; existing proposal content and lifecycle status are preserved, and issued records receive a checksum.
-4. After one confirmation, run `<skill-root>/scripts/studio-workspace.sh migrate <studio-root> <confirmed-manifest.tsv> --apply`. The helper snapshots affected files, journals every rename intent before mutation, preserves record directories through the rename, removes the obsolete studio-wide proposal register after converting every registered file, and restores the version-2 registry, proposal register/files, project records, task register, and directory names if mutation or verification fails. A verified rollback removes its transaction; an incomplete rollback reports each failed restore and preserves `.v3-migration-transaction.*` with its snapshots, rename journal, and `ROLLBACK-FAILURES.tsv` for recovery.
-5. Require the machine-readable `migration-verification` summary, then re-read the v3 registry, every renamed `PROJECT.md`, every converted proposal, and the known structured references. Confirm all eight registry/project identity fields, exact ID/directory equality, complete structured task-ID rewrites, proposal metadata and lifecycle transformations, and checksums for every preserved project file. Report possible old IDs or paths in ordinary prose for manual review; do not rewrite prose speculatively.
+4. After one confirmation, run `<skill-root>/scripts/studio-workspace.sh migrate <studio-root> <confirmed-manifest.tsv> --apply <as|firm|none> <project-id-convention>`. Pass `YYMMDD-CCC-PROJECT-NAME` for `as`, the confirmed firm rule for `firm`, or `No convention` for `none`. The helper snapshots affected files, preserves every registered directory path, adds an immutable project Folder ID, removes the obsolete studio-wide proposal register after converting every registered file, and restores the version-2 registry, folder configs, proposal register/files, project records, and task register if mutation or verification fails. A verified rollback removes its transaction; an incomplete rollback reports each failed restore and preserves `.v3-migration-transaction.*` with its snapshots and `ROLLBACK-FAILURES.tsv` for recovery.
+5. Require the machine-readable `migration-verification` summary, then re-read the v3 registry, every project `.as-folder.json`, every upgraded `PROJECT.md`, every converted proposal, and the known structured references. Confirm all nine registry fields, matching immutable Folder IDs, preserved registered folders, complete structured task-ID rewrites, proposal metadata and lifecycle transformations, and checksums for every preserved project file. Report possible old IDs or paths in ordinary prose for manual review; do not rewrite prose speculatively.
 
 ## Task routing
 
