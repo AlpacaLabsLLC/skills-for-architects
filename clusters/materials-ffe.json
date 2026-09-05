@@ -22,7 +22,7 @@
   "dependencies": [],
   "coverage": {
     "jurisdictions": [],
-    "limitations": "Procedures are available; no cluster-wide legal applicability or validated end-to-end workflow is claimed. NYC-specific skills remain NYC-only; other skills require their own source and jurisdiction checks.",
+    "limitations": "Existing product research, CSV maintenance, image preparation and SIF interchange retain their skill-specific helpers and host requirements. No Norma-derived expansion, new product database or cluster-wide execution/workflow validation is claimed.",
     "sources_indexed": false,
     "procedures_available": true,
     "execution_implemented": false,
@@ -39,6 +39,12 @@
       "kind": "contract",
       "path": "tests/test-category-contracts.sh",
       "claim": "Manifest membership and portability only; not workflow acceptance"
+    },
+    {
+      "id": "materials-ffe-source-membership",
+      "kind": "contract",
+      "path": "tests/test-category-source-integration.sh",
+      "claim": "Shared source dependencies and truthful cluster declarations only; not workflow validation"
     }
   ],
   "reviewed_on": "2026-09-05"

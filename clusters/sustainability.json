@@ -15,7 +15,7 @@
   "dependencies": [],
   "coverage": {
     "jurisdictions": [],
-    "limitations": "Procedures are available; no cluster-wide legal applicability or validated end-to-end workflow is claimed. NYC-specific skills remain NYC-only; other skills require their own source and jurisdiction checks.",
+    "limitations": "Existing EPD research, parsing, comparison and specification procedures remain available with their own source and normalization requirements. No new EC3 adapter, authenticated connection or cluster-wide execution/workflow validation is claimed.",
     "sources_indexed": false,
     "procedures_available": true,
     "execution_implemented": false,
@@ -32,6 +32,12 @@
       "kind": "contract",
       "path": "tests/test-category-contracts.sh",
       "claim": "Manifest membership and portability only; not workflow acceptance"
+    },
+    {
+      "id": "sustainability-source-membership",
+      "kind": "contract",
+      "path": "tests/test-category-source-integration.sh",
+      "claim": "Shared source dependencies and truthful cluster declarations only; not workflow validation"
     }
   ],
   "reviewed_on": "2026-09-05"
