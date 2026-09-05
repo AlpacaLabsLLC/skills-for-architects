@@ -3,7 +3,7 @@
   "id": "cluster:materials-ffe",
   "name": "Materials & FF&E",
   "maintainer": "Architecture Studio maintainers",
-  "scope": "Existing product research, CSV library and interchange workflows; excludes deferred Norma additions.",
+  "scope": "Product sourcing, evidence review, adopted item/schedule records, host-operated views and cut-sheet/spec-book delivery; optional CSV library and SIF interchange.",
   "members": [
     "skill:master-schedule",
     "skill:product-data-cleanup",
@@ -17,12 +17,25 @@
     "skill:product-spec-pdf-parser",
     "skill:csv-to-sif",
     "skill:sif-to-csv",
-    "studio:workspace-contract"
+    "studio:workspace-contract",
+    "skill:product-audit",
+    "skill:product-cut-sheet",
+    "skill:spec-book",
+    "knowledge:ffe-evidence",
+    "studio:ffe-record-contract",
+    "studio:document-design-system",
+    "studio:product-cut-sheet-template",
+    "studio:spec-book-template",
+    "tool:ffe-records",
+    "tool:ffe-intake",
+    "tool:ffe-audit",
+    "tool:document-contracts",
+    "tool:ffe-outputs"
   ],
   "dependencies": [],
   "coverage": {
     "jurisdictions": [],
-    "limitations": "Existing product research, CSV maintenance, image preparation and SIF interchange retain their skill-specific helpers and host requirements. No Norma-derived expansion, new product database or cluster-wide execution/workflow validation is claimed.",
+    "limitations": "Local deterministic helpers validate records, input evidence and output contracts. Hosts supply source/workbook access, rendering and visual inspection. Shared schemas and procedures do not establish full host/client acceptance; no independent Norma agent, database, remote execution, or general workbook engine is shipped.",
     "sources_indexed": false,
     "procedures_available": true,
     "execution_implemented": false,
@@ -31,7 +44,9 @@
   "host_requirements": [
     "agent instruction following",
     "read resources",
-    "skill-specific tools and authorized workspace access when required"
+    "skill-specific tools and authorized workspace access when required",
+    "host spreadsheet capability for workbook edits",
+    "host document production and rendered inspection for requested output formats"
   ],
   "evaluations": [
     {
@@ -45,6 +60,12 @@
       "kind": "contract",
       "path": "tests/test-category-source-integration.sh",
       "claim": "Shared source dependencies and truthful cluster declarations only; not workflow validation"
+    },
+    {
+      "id": "ffe-record-recovery",
+      "kind": "contract",
+      "path": "tests/test-ffe-records.sh",
+      "claim": "Synthetic record/reconciliation/recovery contract evidence; not full customer workflow acceptance"
     }
   ],
   "reviewed_on": "2026-09-05"

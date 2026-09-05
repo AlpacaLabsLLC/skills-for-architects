@@ -3,7 +3,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-expected_skill_count=50
+expected_skill_count=53
 
 [ ! -e agents/README.md ]
 [ -f docs/agents.md ]

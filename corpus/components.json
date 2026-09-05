@@ -110,7 +110,9 @@
       "path": "skills/master-schedule/SKILL.md",
       "owner": "Architecture Studio maintainers",
       "execution": "instructions",
-      "dependencies": []
+      "dependencies": [
+        "tool:ffe-records"
+      ]
     },
     {
       "id": "skill:meeting-minutes",
@@ -201,7 +203,11 @@
       "path": "skills/product-data-cleanup/SKILL.md",
       "owner": "Architecture Studio maintainers",
       "execution": "instructions",
-      "dependencies": []
+      "dependencies": [
+        "knowledge:ffe-evidence",
+        "studio:ffe-record-contract",
+        "tool:ffe-intake"
+      ]
     },
     {
       "id": "skill:product-data-import",
@@ -209,7 +215,11 @@
       "path": "skills/product-data-import/SKILL.md",
       "owner": "Architecture Studio maintainers",
       "execution": "instructions",
-      "dependencies": []
+      "dependencies": [
+        "knowledge:ffe-evidence",
+        "studio:ffe-record-contract",
+        "tool:ffe-intake"
+      ]
     },
     {
       "id": "skill:product-enrich",
@@ -217,7 +227,11 @@
       "path": "skills/product-enrich/SKILL.md",
       "owner": "Architecture Studio maintainers",
       "execution": "instructions",
-      "dependencies": []
+      "dependencies": [
+        "knowledge:ffe-evidence",
+        "studio:ffe-record-contract",
+        "tool:ffe-intake"
+      ]
     },
     {
       "id": "skill:product-image-processor",
@@ -257,7 +271,11 @@
       "path": "skills/product-spec-bulk-fetch/SKILL.md",
       "owner": "Architecture Studio maintainers",
       "execution": "instructions",
-      "dependencies": []
+      "dependencies": [
+        "knowledge:ffe-evidence",
+        "studio:ffe-record-contract",
+        "tool:ffe-intake"
+      ]
     },
     {
       "id": "skill:product-spec-pdf-parser",
@@ -265,7 +283,11 @@
       "path": "skills/product-spec-pdf-parser/SKILL.md",
       "owner": "Architecture Studio maintainers",
       "execution": "instructions",
-      "dependencies": []
+      "dependencies": [
+        "knowledge:ffe-evidence",
+        "studio:ffe-record-contract",
+        "tool:ffe-intake"
+      ]
     },
     {
       "id": "skill:project",
@@ -512,6 +534,143 @@
         "knowledge:nyc-sources",
         "knowledge:jurisdictions",
         "knowledge:astm-e84-reference"
+      ]
+    },
+    {
+      "id": "knowledge:ffe-evidence",
+      "category": "knowledge",
+      "path": "corpus/practice-methods/ffe/README.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "reference",
+      "dependencies": []
+    },
+    {
+      "id": "studio:ffe-record-contract",
+      "category": "studio",
+      "path": "studio/ffe/README.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "reference",
+      "dependencies": [
+        "studio:workspace-contract"
+      ]
+    },
+    {
+      "id": "studio:document-design-system",
+      "category": "studio",
+      "path": "studio/standards/documents/design-system.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "reference",
+      "dependencies": []
+    },
+    {
+      "id": "studio:product-cut-sheet-template",
+      "category": "studio",
+      "path": "studio/templates/documents/product-cut-sheet/template.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "reference",
+      "dependencies": [
+        "studio:document-design-system"
+      ]
+    },
+    {
+      "id": "studio:spec-book-template",
+      "category": "studio",
+      "path": "studio/templates/documents/spec-book/template.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "reference",
+      "dependencies": [
+        "studio:document-design-system",
+        "studio:product-cut-sheet-template"
+      ]
+    },
+    {
+      "id": "tool:ffe-records",
+      "category": "tools",
+      "path": "tools/workspace/ffe_records.py",
+      "owner": "Architecture Studio maintainers",
+      "execution": "local-python",
+      "dependencies": [
+        "studio:ffe-record-contract"
+      ]
+    },
+    {
+      "id": "tool:ffe-intake",
+      "category": "tools",
+      "path": "tools/transformers/ffe_intake.py",
+      "owner": "Architecture Studio maintainers",
+      "execution": "local-python",
+      "dependencies": [
+        "tool:ffe-records",
+        "knowledge:ffe-evidence"
+      ]
+    },
+    {
+      "id": "tool:ffe-audit",
+      "category": "tools",
+      "path": "tools/validators/ffe_audit.py",
+      "owner": "Architecture Studio maintainers",
+      "execution": "local-python",
+      "dependencies": [
+        "knowledge:ffe-evidence"
+      ]
+    },
+    {
+      "id": "tool:document-contracts",
+      "category": "tools",
+      "path": "tools/renderers/document_contracts.py",
+      "owner": "Architecture Studio maintainers",
+      "execution": "local-python",
+      "dependencies": [
+        "studio:document-design-system",
+        "studio:product-cut-sheet-template",
+        "studio:spec-book-template"
+      ]
+    },
+    {
+      "id": "tool:ffe-outputs",
+      "category": "tools",
+      "path": "tools/renderers/ffe_outputs.py",
+      "owner": "Architecture Studio maintainers",
+      "execution": "local-python",
+      "dependencies": [
+        "tool:ffe-records",
+        "tool:document-contracts"
+      ]
+    },
+    {
+      "id": "skill:product-audit",
+      "category": "skills",
+      "path": "skills/product-audit/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "tool:ffe-audit",
+        "tool:ffe-records",
+        "knowledge:ffe-evidence"
+      ]
+    },
+    {
+      "id": "skill:product-cut-sheet",
+      "category": "skills",
+      "path": "skills/product-cut-sheet/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "tool:ffe-outputs",
+        "studio:product-cut-sheet-template",
+        "tool:ffe-intake"
+      ]
+    },
+    {
+      "id": "skill:spec-book",
+      "category": "skills",
+      "path": "skills/spec-book/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "skill:product-cut-sheet",
+        "tool:ffe-outputs",
+        "studio:spec-book-template"
       ]
     }
   ]
