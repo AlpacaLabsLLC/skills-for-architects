@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "id": "cluster:firm-operations",
+  "name": "Firm Operations",
+  "maintainer": "Architecture Studio maintainers",
+  "scope": "Studio setup, commercial administration and contribution workflows.",
+  "members": [
+    "skill:studio",
+    "skill:studio-feedback",
+    "skill:proposal",
+    "skill:agreement",
+    "skill:invoice",
+    "skill:skill-maker",
+    "skill:learn",
+    "skill:tool-catalog",
+    "studio:workspace-contract",
+    "studio:studio-template",
+    "tool:plugin-namespace",
+    "tool:category-validation"
+  ],
+  "dependencies": [],
+  "coverage": {
+    "jurisdictions": [],
+    "limitations": "Procedures are available; no cluster-wide legal applicability or validated end-to-end workflow is claimed. NYC-specific skills remain NYC-only; other skills require their own source and jurisdiction checks.",
+    "sources_indexed": false,
+    "procedures_available": true,
+    "execution_implemented": false,
+    "workflow_validated": false
+  },
+  "host_requirements": [
+    "agent instruction following",
+    "read resources",
+    "skill-specific tools and authorized workspace access when required"
+  ],
+  "evaluations": [
+    {
+      "id": "firm-operations-discovery",
+      "kind": "contract",
+      "path": "tests/test-category-contracts.sh",
+      "claim": "Manifest membership and portability only; not workflow acceptance"
+    }
+  ],
+  "reviewed_on": "2026-09-05"
+}

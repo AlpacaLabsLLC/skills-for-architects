@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "name",
+    "maintainer",
+    "scope",
+    "members",
+    "dependencies",
+    "coverage",
+    "host_requirements",
+    "evaluations",
+    "reviewed_on"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^cluster:[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "maintainer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "members": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "dependencies": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "jurisdictions",
+        "limitations",
+        "sources_indexed",
+        "procedures_available",
+        "execution_implemented",
+        "workflow_validated"
+      ],
+      "properties": {
+        "jurisdictions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^jurisdiction:[a-z0-9-]+$"
+          }
+        },
+        "limitations": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sources_indexed": {
+          "type": "boolean"
+        },
+        "procedures_available": {
+          "type": "boolean"
+        },
+        "execution_implemented": {
+          "type": "boolean"
+        },
+        "workflow_validated": {
+          "type": "boolean"
+        }
+      }
+    },
+    "host_requirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "evaluations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "path",
+          "claim"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "type": "string",
+            "minLength": 1
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "claim": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "reviewed_on": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    }
+  }
+}

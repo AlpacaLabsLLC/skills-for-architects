@@ -10,3 +10,10 @@ This directory owns the portable schemas shared by Architecture Studio skills. T
 | [sif-crosswalk.md](./sif-crosswalk.md) | Mapping between the product CSV and SIF dealer interchange |
 
 Skills should link to these files instead of reproducing field definitions. A contract change must update every affected producer, consumer, fixture, and validation test together.
+
+- [Component schema](components.schema.json) defines stable IDs and canonical owners.
+- [Cluster schema](clusters.schema.json) defines membership, coverage and evaluation evidence.
+
+The dependency-free `tools/validators/validate-categories.py` validates the schema
+vocabulary used here and cross-file ownership, references, cycles and discovery.
+It is not a general-purpose JSON Schema implementation.

@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "id": "cluster:specifications",
+  "name": "Specifications",
+  "maintainer": "Architecture Studio maintainers",
+  "scope": "Outline specification procedures and professional terminology.",
+  "members": [
+    "skill:spec-writer",
+    "skill:epd-to-spec",
+    "skill:architecture-knowledge",
+    "studio:workspace-contract",
+    "knowledge:us-professional-practice"
+  ],
+  "dependencies": [],
+  "coverage": {
+    "jurisdictions": [],
+    "limitations": "Procedures are available; no cluster-wide legal applicability or validated end-to-end workflow is claimed. NYC-specific skills remain NYC-only; other skills require their own source and jurisdiction checks.",
+    "sources_indexed": false,
+    "procedures_available": true,
+    "execution_implemented": false,
+    "workflow_validated": false
+  },
+  "host_requirements": [
+    "agent instruction following",
+    "read resources",
+    "skill-specific tools and authorized workspace access when required"
+  ],
+  "evaluations": [
+    {
+      "id": "specifications-discovery",
+      "kind": "contract",
+      "path": "tests/test-category-contracts.sh",
+      "claim": "Manifest membership and portability only; not workflow acceptance"
+    }
+  ],
+  "reviewed_on": "2026-09-05"
+}

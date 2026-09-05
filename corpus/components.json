@@ -1,0 +1,472 @@
+{
+  "schema_version": 1,
+  "components": [
+    {
+      "id": "skill:agreement",
+      "category": "skills",
+      "path": "skills/agreement/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:us-professional-practice",
+        "studio:workspace-contract"
+      ]
+    },
+    {
+      "id": "skill:architecture-knowledge",
+      "category": "skills",
+      "path": "skills/architecture-knowledge/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:us-professional-practice"
+      ]
+    },
+    {
+      "id": "skill:color-palette-generator",
+      "category": "skills",
+      "path": "skills/color-palette-generator/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:csv-to-sif",
+      "category": "skills",
+      "path": "skills/csv-to-sif/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:demographics-analysis",
+      "category": "skills",
+      "path": "skills/demographics-analysis/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:environmental-analysis",
+      "category": "skills",
+      "path": "skills/environmental-analysis/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:epd-compare",
+      "category": "skills",
+      "path": "skills/epd-compare/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:epd-parser",
+      "category": "skills",
+      "path": "skills/epd-parser/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:epd-research",
+      "category": "skills",
+      "path": "skills/epd-research/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:epd-to-spec",
+      "category": "skills",
+      "path": "skills/epd-to-spec/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:us-professional-practice"
+      ]
+    },
+    {
+      "id": "skill:invoice",
+      "category": "skills",
+      "path": "skills/invoice/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:learn",
+      "category": "skills",
+      "path": "skills/learn/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:master-schedule",
+      "category": "skills",
+      "path": "skills/master-schedule/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:meeting-minutes",
+      "category": "skills",
+      "path": "skills/meeting-minutes/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:mobility-analysis",
+      "category": "skills",
+      "path": "skills/mobility-analysis/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:nyc-acris",
+      "category": "skills",
+      "path": "skills/nyc-acris/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:nyc-bsa",
+      "category": "skills",
+      "path": "skills/nyc-bsa/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:nyc-dob-permits",
+      "category": "skills",
+      "path": "skills/nyc-dob-permits/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:nyc-dob-violations",
+      "category": "skills",
+      "path": "skills/nyc-dob-violations/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:nyc-hpd",
+      "category": "skills",
+      "path": "skills/nyc-hpd/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:nyc-landmarks",
+      "category": "skills",
+      "path": "skills/nyc-landmarks/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:nyc-property-report",
+      "category": "skills",
+      "path": "skills/nyc-property-report/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:occupancy-calculator",
+      "category": "skills",
+      "path": "skills/occupancy-calculator/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:product-data-cleanup",
+      "category": "skills",
+      "path": "skills/product-data-cleanup/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:product-data-import",
+      "category": "skills",
+      "path": "skills/product-data-import/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:product-enrich",
+      "category": "skills",
+      "path": "skills/product-enrich/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:product-image-processor",
+      "category": "skills",
+      "path": "skills/product-image-processor/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:product-match",
+      "category": "skills",
+      "path": "skills/product-match/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:product-pair",
+      "category": "skills",
+      "path": "skills/product-pair/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:product-research",
+      "category": "skills",
+      "path": "skills/product-research/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:product-spec-bulk-fetch",
+      "category": "skills",
+      "path": "skills/product-spec-bulk-fetch/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:product-spec-pdf-parser",
+      "category": "skills",
+      "path": "skills/product-spec-pdf-parser/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:project",
+      "category": "skills",
+      "path": "skills/project/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:proposal",
+      "category": "skills",
+      "path": "skills/proposal/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:resize-images",
+      "category": "skills",
+      "path": "skills/resize-images/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:sif-to-csv",
+      "category": "skills",
+      "path": "skills/sif-to-csv/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:site-history",
+      "category": "skills",
+      "path": "skills/site-history/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:site-visit-report",
+      "category": "skills",
+      "path": "skills/site-visit-report/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:skill-maker",
+      "category": "skills",
+      "path": "skills/skill-maker/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:slide-deck-generator",
+      "category": "skills",
+      "path": "skills/slide-deck-generator/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:spec-writer",
+      "category": "skills",
+      "path": "skills/spec-writer/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:us-professional-practice"
+      ]
+    },
+    {
+      "id": "skill:studio",
+      "category": "skills",
+      "path": "skills/studio/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "studio:workspace-contract",
+        "studio:studio-template"
+      ]
+    },
+    {
+      "id": "skill:studio-feedback",
+      "category": "skills",
+      "path": "skills/studio-feedback/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:tasklist",
+      "category": "skills",
+      "path": "skills/tasklist/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:timetracker",
+      "category": "skills",
+      "path": "skills/timetracker/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:tool-catalog",
+      "category": "skills",
+      "path": "skills/tool-catalog/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:workplace-programmer",
+      "category": "skills",
+      "path": "skills/workplace-programmer/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:workplan",
+      "category": "skills",
+      "path": "skills/workplan/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:us-professional-practice",
+        "studio:workspace-contract"
+      ]
+    },
+    {
+      "id": "skill:zoning-analysis-nyc",
+      "category": "skills",
+      "path": "skills/zoning-analysis-nyc/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "skill:zoning-envelope",
+      "category": "skills",
+      "path": "skills/zoning-envelope/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": []
+    },
+    {
+      "id": "knowledge:us-professional-practice",
+      "category": "knowledge",
+      "path": "corpus/practice-methods/us-professional-practice/README.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "reference",
+      "dependencies": []
+    },
+    {
+      "id": "knowledge:concept-index",
+      "category": "knowledge",
+      "path": "corpus/concepts/README.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "reference",
+      "dependencies": [
+        "knowledge:us-professional-practice"
+      ]
+    },
+    {
+      "id": "tool:plugin-namespace",
+      "category": "tools",
+      "path": "tools/validators/check-plugin-namespace.py",
+      "owner": "Architecture Studio maintainers",
+      "execution": "local-python",
+      "dependencies": []
+    },
+    {
+      "id": "tool:category-validation",
+      "category": "tools",
+      "path": "tools/validators/validate-categories.py",
+      "owner": "Architecture Studio maintainers",
+      "execution": "local-python",
+      "dependencies": []
+    },
+    {
+      "id": "studio:workspace-contract",
+      "category": "studio",
+      "path": "studio/README.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "reference",
+      "dependencies": []
+    },
+    {
+      "id": "studio:studio-template",
+      "category": "studio",
+      "path": "studio/templates/studio/STUDIO.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "reference",
+      "dependencies": [
+        "studio:workspace-contract"
+      ]
+    }
+  ]
+}

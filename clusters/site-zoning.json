@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "id": "cluster:site-zoning",
+  "name": "Site & Zoning",
+  "maintainer": "Architecture Studio maintainers",
+  "scope": "Existing NYC zoning and general site investigation procedures.",
+  "members": [
+    "skill:zoning-analysis-nyc",
+    "skill:zoning-envelope",
+    "skill:environmental-analysis",
+    "skill:mobility-analysis",
+    "skill:demographics-analysis",
+    "skill:site-history",
+    "studio:workspace-contract"
+  ],
+  "dependencies": [],
+  "coverage": {
+    "jurisdictions": [],
+    "limitations": "Procedures are available; no cluster-wide legal applicability or validated end-to-end workflow is claimed. NYC-specific skills remain NYC-only; other skills require their own source and jurisdiction checks.",
+    "sources_indexed": false,
+    "procedures_available": true,
+    "execution_implemented": false,
+    "workflow_validated": false
+  },
+  "host_requirements": [
+    "agent instruction following",
+    "read resources",
+    "skill-specific tools and authorized workspace access when required"
+  ],
+  "evaluations": [
+    {
+      "id": "site-zoning-discovery",
+      "kind": "contract",
+      "path": "tests/test-category-contracts.sh",
+      "claim": "Manifest membership and portability only; not workflow acceptance"
+    }
+  ],
+  "reviewed_on": "2026-09-05"
+}

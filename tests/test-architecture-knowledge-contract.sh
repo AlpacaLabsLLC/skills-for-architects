@@ -10,7 +10,7 @@ import re
 import tempfile
 from pathlib import Path
 
-ROOT = Path("skills/architecture-knowledge/references")
+ROOT = Path("corpus/practice-methods/us-professional-practice")
 SKILL = Path("skills/architecture-knowledge/SKILL.md")
 SKILL_README = Path("skills/architecture-knowledge/README.md")
 RECORD = re.compile(r"^## (SRC-[A-Z0-9-]+)\s*$", re.M)
