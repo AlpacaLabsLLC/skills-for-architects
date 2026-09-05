@@ -29,6 +29,10 @@ bash "$AGREEMENT" promote "$project" proposals/2026-09-design-services-proposal-
 cp "$proposal" "$ROOT/issued-source.md"
 reject_unchanged "$project/agreement/AGREEMENT.md" bash "$AGREEMENT" promote "$project" proposals/2026-09-design-services-proposal-rev-01.md 2026-09-03
 printf '# SOW 01\n\nSynthetic approved additional study, effective 2026-09-04.\n' > "$project/agreement/sow/sow-01.md"
+reject_unchanged "$project/agreement/AGREEMENT.md" bash "$AGREEMENT" record-amendment "$project" sow-01.md 'Injected\nrow' 2026-09-04
+reject_unchanged "$project/agreement/AGREEMENT.md" bash "$AGREEMENT" record-amendment "$project" sow-01.md $'Tab\tcell' 2026-09-04
+printf '# Unsafe filename\n' > "$project/agreement/sow/sow\n01.md"
+reject_unchanged "$project/agreement/AGREEMENT.md" bash "$AGREEMENT" record-amendment "$project" 'sow\n01.md' 'Injected filename' 2026-09-04
 bash "$AGREEMENT" record-amendment "$project" sow-01.md 'Additional study' 2026-09-04 >/dev/null
 reject_unchanged "$project/agreement/AGREEMENT.md" bash "$AGREEMENT" record-amendment "$project" sow-01.md 'Additional study' 2026-09-04
 grep -Fq 'amendment document already recorded' "$ROOT/rejection.log"
@@ -39,6 +43,7 @@ bash "$INVOICE" init "$project" 'Design Services' USD monthly 1000.00 10000.00 '
 bash "$INVOICE" append "$project" INV-01 2026-09-01 2026-09-30 1000.00 0.00 1000.00 - - draft - >/dev/null
 reject_unchanged "$project/INVOICES.md" bash "$INVOICE" append "$project" INV-01 2026-09-01 2026-09-30 1000.00 0.00 1000.00 - - draft -
 grep -Fq 'invoice number already recorded' "$ROOT/rejection.log"
+reject_unchanged "$project/INVOICES.md" bash "$INVOICE" append "$project" ' INV-01 ' 2026-09-01 2026-09-30 1000.00 0.00 1000.00 - - draft -
 bash "$INVOICE" set-lifecycle "$project" I0001 sent 2026-10-01 >/dev/null
 bash "$INVOICE" status "$project" | grep -Fq 'outstanding=1000.00'
 bash "$INVOICE" set-lifecycle "$project" I0001 paid 2026-10-02 >/dev/null

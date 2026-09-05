@@ -6,7 +6,7 @@ Date: 2026-09-05. Workstream: implementation plan W2–W3 and deterministic OSS 
 
 The existing studio, project, commercial and migration implementations passed all 39 baseline shell contracts. Review found two retry defects: recording the same SOW allocated another amendment row, and appending the same invoice number allocated another ledger row. Both now reject the duplicate before creating a temporary output or mutating canonical records.
 
-Invoice uniqueness includes void and corrected history. A correction uses a distinct revision number and cites the original permanent row ID. Amendment identity is the document already referenced in the Amendments table; a new amendment needs a distinct document. These are sequential, single-writer protections, not concurrency guarantees.
+Invoice uniqueness includes void and corrected history. A correction uses a distinct revision number and cites the original permanent row ID. Amendment identity is the document already referenced in the Amendments table; a new amendment needs a distinct document. These are sequential, single-writer protections, not concurrency guarantees. Adversarial follow-up checks also reject AWK escape/control injection in amendment fields and compare invoice identities after trimming table-cell padding, preventing a whitespace-only duplicate bypass. The four affected executable/contract tests passed again after this hardening.
 
 ## Fresh verification
 
