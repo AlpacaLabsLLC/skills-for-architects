@@ -7,7 +7,7 @@ Measured with `scripts/audit-skill-context.sh`. Characters, words, and lines are
 | Skills discovered | 46 | 53 | +7 (+15.2%) |
 | Description characters | 12,990 | 12,791 | -199 (-1.5%) |
 | Description estimated tokens | 3,266 | 3,219 | -47 (-1.4%) |
-| Skill-body characters | 387,881 | 494,351 | +106,470 (+27.4%) |
+| Skill-body characters | 387,881 | 498,892 | +111,011 (+28.6%) |
 
 The standing-description reduction preserves distinguishing positive and negative routes in high-risk pairs: workplace programming versus code occupancy, EPD write versus parse/find/compare, product research versus image matching/pairing, and NYC base zoning versus BSA relief/3D visualization.
 

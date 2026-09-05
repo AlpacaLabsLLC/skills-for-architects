@@ -27,8 +27,8 @@ jobs:
       - name: Install lint dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y shellcheck jq ripgrep
-          pip install pyyaml
+          sudo apt-get install -y shellcheck jq ripgrep poppler-utils
+          pip install pyyaml pypdf==6.12.1
 
       - name: Run lint
         run: ./scripts/lint.sh
@@ -39,6 +39,6 @@ jobs:
         run: |
           for test_file in tests/test-*.sh; do
             echo "::group::$test_file"
-            "$test_file"
+            bash "$test_file"
             echo "::endgroup::"
           done
