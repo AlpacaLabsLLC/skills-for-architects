@@ -1,0 +1,228 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "source-catalog",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "authorities",
+    "sources",
+    "relationships"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "authorities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "jurisdiction"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^authority:[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "jurisdiction": {
+            "type": "string",
+            "pattern": "^jurisdiction:[a-z0-9]+(?:-[a-z0-9]+)*$"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "url",
+          "document_kind",
+          "authority",
+          "jurisdiction",
+          "edition",
+          "effective_date",
+          "checked_at",
+          "rights",
+          "access",
+          "adapter",
+          "identity",
+          "existing_skills"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^source:[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "url": {
+            "type": "string",
+            "format": "https-url"
+          },
+          "document_kind": {
+            "enum": [
+              "code-index",
+              "legal-publication",
+              "dataset",
+              "local-law",
+              "agency-rule",
+              "guidance",
+              "standard"
+            ]
+          },
+          "authority": {
+            "type": "string",
+            "pattern": "^authority:[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "jurisdiction": {
+            "type": "string",
+            "pattern": "^jurisdiction:[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "edition": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          },
+          "effective_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date"
+          },
+          "checked_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "rights": {
+            "type": "string",
+            "minLength": 1
+          },
+          "access": {
+            "enum": [
+              "public",
+              "authenticated",
+              "restricted"
+            ]
+          },
+          "adapter": {
+            "type": "string",
+            "pattern": "^integration:[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "identity": {
+            "type": "object",
+            "required": [
+              "contains_all",
+              "allowed_content_types",
+              "max_bytes"
+            ],
+            "properties": {
+              "contains_all": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "allowed_content_types": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "max_bytes": {
+                "type": "integer",
+                "minimum": 1024,
+                "maximum": 1048576
+              }
+            },
+            "additionalProperties": false
+          },
+          "existing_skills": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "from",
+          "type",
+          "to",
+          "edition",
+          "effective_date",
+          "evidence"
+        ],
+        "properties": {
+          "from": {
+            "type": "string",
+            "minLength": 1
+          },
+          "type": {
+            "enum": [
+              "published-by",
+              "adopts",
+              "amends",
+              "incorporates",
+              "references",
+              "interprets",
+              "supersedes"
+            ]
+          },
+          "to": {
+            "type": "string",
+            "minLength": 1
+          },
+          "edition": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          },
+          "effective_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date"
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "authorities": [
+    {
+      "id": "authority:nyc-dob",
+      "name": "NYC Department of Buildings",
+      "jurisdiction": "jurisdiction:us-ny-nyc"
+    },
+    {
+      "id": "authority:nyc-dcp",
+      "name": "NYC Department of City Planning",
+      "jurisdiction": "jurisdiction:us-ny-nyc"
+    }
+  ],
+  "sources": [
+    {
+      "id": "source:nyc-construction-codes",
+      "title": "NYC Construction Codes",
+      "url": "https://www.nyc.gov/site/buildings/codes/codes.page",
+      "document_kind": "code-index",
+      "authority": "authority:nyc-dob",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "checked_at": null,
+      "rights": "verify-reuse-conditions-at-source",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "construction codes"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 262144
+      },
+      "existing_skills": [
+        "occupancy-calculator"
+      ]
+    },
+    {
+      "id": "source:nyc-zoning-resolution",
+      "title": "NYC Zoning Resolution",
+      "url": "https://zr.planning.nyc.gov/",
+      "document_kind": "legal-publication",
+      "authority": "authority:nyc-dcp",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "checked_at": null,
+      "rights": "verify-reuse-conditions-at-source",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "zoning resolution"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 262144
+      },
+      "existing_skills": [
+        "zoning-analysis-nyc"
+      ]
+    },
+    {
+      "id": "source:nyc-pluto",
+      "title": "NYC PLUTO dataset",
+      "url": "https://data.cityofnewyork.us/resource/64uk-42ks.json?$limit=1",
+      "document_kind": "dataset",
+      "authority": "authority:nyc-dcp",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "checked_at": null,
+      "rights": "verify-reuse-conditions-at-source",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "bbl"
+        ],
+        "allowed_content_types": [
+          "application/json"
+        ],
+        "max_bytes": 262144
+      },
+      "existing_skills": [
+        "zoning-analysis-nyc"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": "source:nyc-zoning-resolution",
+      "type": "published-by",
+      "to": "authority:nyc-dcp",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "skills/zoning-analysis-nyc/zoning-rules/overview.md"
+    },
+    {
+      "from": "source:nyc-pluto",
+      "type": "published-by",
+      "to": "authority:nyc-dcp",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "skills/zoning-analysis-nyc/README.md"
+    }
+  ]
+}

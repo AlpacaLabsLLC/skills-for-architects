@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "jurisdictions": [
+    {
+      "id": "jurisdiction:us",
+      "name": "United States",
+      "parent": null,
+      "coverage": "routing-only"
+    },
+    {
+      "id": "jurisdiction:us-ny",
+      "name": "New York State",
+      "parent": "jurisdiction:us",
+      "coverage": "routing-only"
+    },
+    {
+      "id": "jurisdiction:us-ny-nyc",
+      "name": "New York City",
+      "parent": "jurisdiction:us-ny",
+      "coverage": "selected-existing-procedures"
+    }
+  ]
+}
