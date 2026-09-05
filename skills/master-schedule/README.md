@@ -1,6 +1,6 @@
 # /as:master-schedule
 
-Initializes and inspects the current Architecture Studio project's local FF&E library at `product-library.csv`.
+Owns adopted FF&E item/schedule records and the optional `product-library.csv`. Explicit adoption creates immutable Markdown revisions; host-operated workbooks remain pinned views. See [record contract](../../studio/ffe/README.md) for revision, reconciliation and recovery commands. The existing 33-column library workflow remains compatible.
 
 ## Usage
 

@@ -1,6 +1,6 @@
 ---
 name: master-schedule
-description: Initialize, validate, inspect, or import the current project's local FF&E product library. Use when a product workflow needs product-library.csv, when the user invokes /as:master-schedule, or when legacy master-schedule.json or canoa.json configuration is present.
+description: Adopt, inspect, reconcile, or revise project FF&E schedules and item records, or initialize, validate, and import the optional local product library. Use when a product workflow needs product-library.csv, when the user invokes /as:master-schedule, or when legacy master-schedule.json or canoa.json configuration is present.
 allowed-tools:
   - Read
   - Write
@@ -8,12 +8,26 @@ allowed-tools:
   - AskUserQuestion
 ---
 
-# /as:master-schedule — Local product library
+# /as:master-schedule — FF&E records and local product library
 
 <!-- architecture-studio:harness-compatibility -->
 > Harness note: use `/as:<skill>` on Claude Code and `$<skill>` on Codex. Resolve `<skill-root>` as the directory containing this loaded `SKILL.md` and `<plugin-root>` as the plugin root that contains `skills/`, and use equivalent native tools when host tool names differ.
 
-Manage the current project's `product-library.csv`. This workflow is local-only: do not use a network service, connector, account, spreadsheet identifier, or MCP tool.
+Resolve the nearest `PROJECT.md` using the project context resolver and read project instructions before durable work. This skill owns adopted FF&E item/schedule records and the optional `product-library.csv`. First distinguish explicit adoption/record revision, a one-off workbook task, and optional library maintenance. Do not adopt implicitly or force a supplied workbook into the library schema.
+
+## Adopted schedules and host-operated views
+
+Read plugin-relative `studio/ffe/README.md` and `<plugin-root>/schema/ffe-record.schema.json`. Use `tools/workspace/ffe_records.py` for canonical record operations. It assigns immutable item/schedule IDs, publishes Markdown revisions with pinned membership, records actor/reason/provenance, and refuses stale revisions and unacknowledged removals. Only explicit approval evidence establishes an approved revision. Other skills propose changes; this owner applies them. Decision rationale links to `project`-owned decision records.
+
+Resolve the exact project and source, preview adoption or the reviewed change/removal/conflict set, and use one confirmation gate only when current authorization does not already cover it. Read before writing; never guess field mappings. Malformed records mean unknown, not absent: stop and preserve them. Do not repair from an index or artifact implicitly.
+
+After adoption, canonical item and schedule records own specifications; workbooks are revision-pinned editing/presentation views. The host may operate a supplied workbook using available spreadsheet capabilities. Read true hyperlink targets, formulas, selected images, and exact headers. Preserve a native backup/recoverable revision and mapped extraction before edits, then reconcile base/current/incoming values. No conflict can silently overwrite records or workbook edits. Write through the host, read back actual changes and preserve a post-edit snapshot. A CSV snapshot alone cannot preserve workbook structure. Do not claim a record-export CSV is a complete workbook extraction.
+
+Recovery creates a new artifact from checked snapshots or canonical records and never rolls back specifications. Keep issued outputs and previous snapshots; record source/field mapping, gaps and revision hashes. Missing host capabilities block the affected operation specifically, not fabricated completion. No AS-owned workbook engine, connector setup or remote storage is provided.
+
+## Optional CSV library
+
+The following helper remains local-only; library operations do not contact any connector, account, spreadsheet identifier or MCP service. Existing SIF and EPD boundaries remain unchanged.
 
 Use the deterministic helper instead of constructing or changing CSV with ad hoc shell or prompt logic:
 
