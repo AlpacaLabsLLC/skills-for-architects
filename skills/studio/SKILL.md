@@ -271,6 +271,9 @@ If the input is not a studio-management command, classify and route it. Prefer t
 | Actual work or submission plan, sequence, coordination, or delivery plan | `$workplan` on Codex or `/as:workplan` on Claude Code |
 | Bug report, broken skill, or feature request for Architecture Studio | `$studio-feedback` on Codex or `/as:studio-feedback` on Claude Code |
 | Outline specification or CSI specification writing without a sustainability focus | `$spec-writer` on Codex or `/as:spec-writer` on Claude Code |
+| Product evidence audit, discrepancies, or missing product facts | `$product-audit` on Codex or `/as:product-audit` on Claude Code |
+| One product cut sheet or specification sheet | `$product-cut-sheet` on Codex or `/as:product-cut-sheet` on Claude Code |
+| Complete FF&E specification book or cut-sheet package | `$spec-book` on Codex or `/as:spec-book` on Claude Code |
 | Regulatory conclusion | the existing regulatory skill appropriate to the stated jurisdiction (for example, `$zoning-analysis-nyc` on Codex or `/as:zoning-analysis-nyc` on Claude Code) |
 
 ### Claude Code native-agent routes
@@ -297,7 +300,7 @@ Codex does not package those native agents. For `$studio <request>`, run the ins
 | NYC zoning | `$nyc-property-report` → `$zoning-analysis-nyc` → `$zoning-envelope` when the user requests a massing visualization | Join property due diligence and zoning capacity by address, BBL, and source date; call out conflicts and professional-review items before linking the optional envelope artifact. |
 | Programming | `$workplace-programmer` → `$occupancy-calculator` when a jurisdiction-aware code occupant load is needed | Keep planned seats distinct from code occupant load, reconcile the room schedule and area totals, and surface jurisdiction assumptions. |
 | Specifications | `$spec-writer`; for embodied-carbon requirements, use the sustainability lane and finish with `$epd-to-spec` | Assemble the applicable CSI sections, preserve review flags and source boundaries, and distinguish product selections from enforceable requirements. |
-| Materials and FF&E | For sourcing, `$product-research` → `$product-match` for requested alternates → `$product-pair` for requested groupings. For a schedule, `$master-schedule` → `$product-data-import` → `$product-data-cleanup` → `$product-enrich`. | Produce one sourced candidate comparison or one reconciled schedule summary, state which rows were saved, and keep unknown commercial or performance data explicit. |
+| Materials and FF&E | For sourcing, `$product-research` → `$product-match` for requested alternates → `$product-pair` for requested groupings. For a schedule, `$master-schedule` → `$product-data-import` → `$product-data-cleanup` → `$product-enrich`; use `$product-audit` for evidence review, `$product-cut-sheet` for one sheet, and `$spec-book` for a complete package. | Report the exact adopted revisions or one-off source, actual saved artifacts and incomplete items; keep unknown commercial/performance data explicit. Shared design/template assets guide host production.  |
 | Sustainability | `$epd-research` → `$epd-parser` → `$epd-compare` → `$epd-to-spec` when specification language is requested | Normalize declared units and system boundaries before comparing GWP, then separate sourced eligibility evidence from recommendations and optional spec language. |
 | Presentations | `$color-palette-generator` when a palette is needed → `$resize-images` when source images need preparation → `$slide-deck-generator` | Carry the approved narrative, palette, and prepared asset paths into the deck; report generated files and any missing visual inputs. |
 
@@ -319,3 +322,7 @@ The README dispatcher examples are executable routing contracts: `$studio 123 Ma
 - It does not initialize git, create accounts, upload files, or configure cloud storage.
 - It does not select or configure connectors, authenticate services, or place `.mcp.json` in projects.
 - It does not create compatibility aliases for retired commands.
+
+### FF&E authority and output boundary
+
+Resolve the project before durable FF&E work. Explicit adoption makes `master-schedule`-owned item/schedule revisions authoritative; a one-off task does not adopt implicitly. Optional CSV library persistence is separate. Workbook operations require real host capabilities, mapped read-before-write, native backup plus validated CSV recovery, conflict review and actual readback. Record changes preserve immutable IDs, explicit approval evidence and issued history. Product audit does not repair records. Cut sheets/books pin record, source and shared template/design dependencies; the host produces and inspects requested formats. Missing capabilities or failed items must never be reported as completed outputs. Central document design assets live in plugin-relative `studio/standards/documents/` and `studio/templates/documents/`; skills do not duplicate layout definitions.

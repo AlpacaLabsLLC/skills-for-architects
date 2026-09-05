@@ -26,7 +26,7 @@ The user has unstructured product data that needs to become a schedule.
 1. **Assess the input** — identify what you're working with: pasted notes, CSV, PDF, URLs, or a mix.
 2. **Clean and normalize** — invoke `/as:product-data-cleanup` to standardize casing, dimensions, units, materials, and deduplicate.
 3. **Fill gaps** — if products are missing categories or tags, invoke `/as:product-enrich` to auto-classify.
-4. **Build the schedule** — invoke `/as:product-data-import` to format everything into the 33-column master schema.
+4. **Build the schedule** — invoke `/as:product-data-import` for reviewable data; `/as:master-schedule` owns explicit adoption and canonical revisions. The 33-column schema applies only to the optional CSV library.
 5. **QA check** — run the quality review (see below) before presenting.
 6. **Present** — return the schedule with a QA summary.
 
@@ -44,7 +44,8 @@ The user has products and wants help composing room packages or palettes.
 
 The user has a schedule and wants it reviewed.
 
-1. **Read the schedule** — use the nearest project's `product-library.csv`; Markdown or pasted tables are preview inputs only.
+1. **Read the schedule** — resolve the project and explicit mode: adopted item/schedule revisions, one-off supplied inputs, or optional `product-library.csv`. Never infer adoption.
+2. **Audit evidence** — invoke `/as:product-audit`; distinguish fresh source checks from saved comparisons and route reviewed repairs to the record owner.
 2. **Run the full QA checklist** (see below).
 3. **Present findings** — return issues ranked by severity with specific fix instructions.
 
@@ -55,7 +56,7 @@ The user needs the schedule in a dealer-ready format.
 1. **Validate the schedule** — run QA first. Don't export garbage.
 2. **Process images** — invoke `/as:product-image-processor` to download, resize, and remove backgrounds for submittal sheets.
 3. **Convert format** — invoke `/as:csv-to-sif` for dealer systems or `/as:sif-to-csv` if converting inbound dealer data.
-4. **Package** — return the export with a manifest of what's included.
+4. **Package** — return the export with a manifest of what's included. For cut sheets use `/as:product-cut-sheet`; for a complete book use `/as:spec-book`. Both consume centralized design/template assets and require actual host-produced outputs, pinned dependencies and honest partial receipts.
 
 ## Quality Review Checklist
 
@@ -88,7 +89,7 @@ Run this on every schedule before presenting to the user:
 
 ## Output Format
 
-Persistent schedules follow `schema/product-schema.md` and `schema/csv-conventions.md` in the project-local `product-library.csv`. Mutating skills preview changes, use one confirmation gate, and delegate validation and atomic writes to `/as:master-schedule`'s `csv-library.py`. At minimum, every row must have:
+Adopted schedules follow `studio/ffe/README.md`: immutable item revisions and pinned membership, separate from workbooks and outputs. The optional reusable `product-library.csv` follows `schema/product-schema.md` and `schema/csv-conventions.md`. Mutating skills preview changes, use one confirmation gate, and delegate validation and atomic writes to `/as:master-schedule`'s `csv-library.py`. At minimum, every row must have:
 
 | Field | Required |
 |-------|----------|
@@ -108,7 +109,7 @@ Persistent schedules follow `schema/product-schema.md` and `schema/csv-conventio
 ## Judgment Calls
 
 - If the input is truly garbage (unreadable, no product names, just random text), say so. Don't fabricate structure.
-- If quantities are missing, default to 1 and flag it — don't guess room counts.
+- If quantities are missing, leave them unknown or propose a clearly labeled assumption; do not persist an invented quantity.
 - If a product appears in multiple rooms, list it once per room with room-specific quantities.
 - Prefer the user's existing naming conventions over imposing new ones.
 - If the schedule has more than 50 items, present a summary table first (by category and room) before the full detail.
@@ -118,3 +119,7 @@ Persistent schedules follow `schema/product-schema.md` and `schema/csv-conventio
 - You don't research new products — hand off to the **Product & Materials Researcher** agent.
 - You don't evaluate sustainability — hand off to the **Sustainability Specialist** agent.
 - You don't make design decisions — you organize and QA. The designer chooses the products.
+
+## Record and host governance
+
+`master-schedule` owns canonical records; audit and output workflows consume pinned revisions and propose changes only. Preserve selected fields/images, revision evidence and decision links. Host-operated workbooks require mapped read-before-write, native backup and CSV recovery, three-way reconciliation and actual readback. Missing access blocks that operation. Do not infer approvals, overwrite conflicts, change an issued artifact or claim that HTML is a requested PDF. Source/template corrections invalidate affected outputs while prior versions remain retained.

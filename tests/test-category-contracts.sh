@@ -13,7 +13,7 @@ spec = importlib.util.spec_from_file_location('categories', root/'tools/validato
 m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
 components, clusters = m.validate(root)
 assert len(clusters) == 9
-assert len([x for x in components if x.startswith('skill:')]) == 50
+assert len([x for x in components if x.startswith('skill:')]) == 53
 assert m.render(components, clusters) == (root/'docs/practice-clusters.md').read_text()
 with tempfile.TemporaryDirectory(prefix='as-package-') as directory:
     dest = Path(directory)/'package'

@@ -80,11 +80,11 @@ Project records form a linked graph of plain files. `/as:project` is the setup a
 
 ### FF&E and materials
 
-Persistent FF&E data uses project-local `product-library.csv`; optional EPD persistence uses `epd-library.csv`. Their canonical contracts live in [`schema/`](../schema).
+Explicitly adopted FF&E schedules use immutable item/schedule records; workbooks are pinned views. The optional reusable library remains `product-library.csv`; optional EPD persistence uses `epd-library.csv`. See [record ownership](../studio/ffe/README.md) and [`schema/`](../schema).
 
 | Skill | Description |
 |-------|-------------|
-| [`/as:master-schedule`](./master-schedule) | Initialize or inspect the project-local product library |
+| [`/as:master-schedule`](./master-schedule) | Adopt/revise/reconcile schedules or manage the optional product library |
 | [`/as:product-research`](./product-research) | Find products from a design brief |
 | [`/as:product-spec-bulk-fetch`](./product-spec-bulk-fetch) | Extract specifications from product URLs at scale |
 | [`/as:product-spec-pdf-parser`](./product-spec-pdf-parser) | Extract specifications from catalogs, price books, and sheets |
@@ -94,6 +94,9 @@ Persistent FF&E data uses project-local `product-library.csv`; optional EPD pers
 | [`/as:product-match`](./product-match) | Find similar products from an image, name, or description |
 | [`/as:product-pair`](./product-pair) | Suggest complementary products |
 | [`/as:product-image-processor`](./product-image-processor) | Download, resize, and remove product-image backgrounds |
+| [`/as:product-audit`](./product-audit) | Review fresh or saved product evidence, discrepancies and unknowns |
+| [`/as:product-cut-sheet`](./product-cut-sheet) | Prepare one revision-pinned cut sheet using shared templates and host production |
+| [`/as:spec-book`](./spec-book) | Assemble a complete ordered specification package with itemized receipts |
 | [`/as:csv-to-sif`](./csv-to-sif) | Convert canonical product CSV to SIF |
 | [`/as:sif-to-csv`](./sif-to-csv) | Convert SIF into the canonical product CSV schema |
 

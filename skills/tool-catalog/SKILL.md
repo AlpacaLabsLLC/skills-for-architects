@@ -79,7 +79,10 @@ Print the following menu for a general catalog request. The menu is static. If t
 /as:product-pair — suggest complementary products
 /as:product-image-processor — download, resize, remove backgrounds
 /as:product-data-import — import raw product data into product-library.csv
-/as:master-schedule — initialize or inspect the local product-library.csv
+/as:master-schedule — adopt/revise/reconcile item schedules or manage optional product-library.csv
+/as:product-audit — review product evidence with explicit fresh-versus-snapshot status
+/as:product-cut-sheet — produce one revision-pinned sheet using a shared template and host tools
+/as:spec-book — assemble complete ordered sheets with verified package receipts
 /as:csv-to-sif — convert CSV to dealer format
 /as:sif-to-csv — convert dealer format to CSV
 
