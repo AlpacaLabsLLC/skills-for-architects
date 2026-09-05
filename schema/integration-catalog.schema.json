@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "integration-catalog",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "integrations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "integrations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "execution_routes",
+          "operation",
+          "implementation",
+          "input_contract",
+          "output_contract",
+          "required_scopes",
+          "credential_reference",
+          "data_recipient",
+          "storage",
+          "hosted_binding",
+          "runtime"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^integration:[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "status": {
+            "enum": [
+              "implemented",
+              "declaration-only"
+            ]
+          },
+          "execution_routes": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "oss-local",
+                "host-connected",
+                "as-server-library"
+              ]
+            }
+          },
+          "operation": {
+            "type": "string",
+            "minLength": 1
+          },
+          "implementation": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          },
+          "input_contract": {
+            "type": "string",
+            "minLength": 1
+          },
+          "output_contract": {
+            "type": "string",
+            "minLength": 1
+          },
+          "required_scopes": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "credential_reference": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "required": [
+              "kind",
+              "name"
+            ],
+            "properties": {
+              "kind": {
+                "enum": [
+                  "secure-host-store-or-environment",
+                  "secure-host-store",
+                  "environment"
+                ]
+              },
+              "name": {
+                "type": "string",
+                "pattern": "^[A-Z][A-Z0-9_]{0,63}$"
+              }
+            },
+            "additionalProperties": false
+          },
+          "data_recipient": {
+            "type": "string",
+            "minLength": 1
+          },
+          "storage": {
+            "type": "string",
+            "minLength": 1
+          },
+          "hosted_binding": {
+            "const": "not-implemented"
+          },
+          "runtime": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

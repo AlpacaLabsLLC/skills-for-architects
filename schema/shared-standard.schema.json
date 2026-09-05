@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "shared-standard",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "title",
+    "publisher",
+    "url",
+    "edition",
+    "effective_date",
+    "rights",
+    "access",
+    "coverage"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^standard:[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "publisher": {
+      "type": "string",
+      "minLength": 1
+    },
+    "url": {
+      "type": "string",
+      "format": "https-url"
+    },
+    "edition": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "effective_date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "rights": {
+      "const": "reference-metadata-only"
+    },
+    "access": {
+      "type": "string",
+      "minLength": 1
+    },
+    "coverage": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": false
+}
