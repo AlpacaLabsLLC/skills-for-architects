@@ -82,3 +82,10 @@ test('early responses cancel bodies without waiting on an uncooperative cancel h
   const result = await check(async () => new Response(new ReadableStream({ cancel() { cancelled = true; return new Promise(() => {}); } }), { status: 503 }));
   assert.equal(result.reason, 'http-error'); assert.equal(cancelled, true);
 });
+test('timeout remains active while a successful response body stalls', async () => {
+  const result = (await checkSources([sourceID], { timeoutMs: 20, fetchImpl: async (_url, { signal }) => new Response(new ReadableStream({
+    start(controller) { signal.addEventListener('abort', () => controller.error(new Error('SECRET'))); },
+  }), { headers: { 'content-type': 'text/html' } }) }))[0];
+  assert.equal(result.reason, 'timeout'); assert.equal(result.identity, 'unknown');
+  assert.ok(!JSON.stringify(result).includes('SECRET'));
+});
