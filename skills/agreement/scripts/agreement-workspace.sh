@@ -187,6 +187,17 @@ record_amendment() {
   target="agreement/sow/$file_name"
   [ -f "$project_root/$target" ] || die "amendment document not found: $target (place the file first; recording never creates content)"
 
+  # The document is the amendment identity; retries must not allocate another row.
+  if awk -F'|' -v document="[$file_name](sow/$file_name)" '
+    function trim(s){gsub(/^[ \t]+|[ \t]+$/, "", s); return s}
+    /<!-- amendments:start -->/ {inside=1; next}
+    /<!-- amendments:end -->/ {inside=0}
+    inside && /^\|/ && trim($4)==document {found=1}
+    END {exit found ? 0 : 1}
+  ' "$project_root/agreement/AGREEMENT.md"; then
+    die "amendment document already recorded: $target; inspect the existing row"
+  fi
+
   next=$(awk -F'|' '
     function trim(s){gsub(/^[ \t]+|[ \t]+$/, "", s); return s}
     /^\|/ {

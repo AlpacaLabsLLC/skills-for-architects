@@ -31,6 +31,8 @@ allowed-tools:
 
 ## Hard rules
 
+- **Retries preserve invoice identity.** An invoice number may appear only once, including void and corrected history. Inspect the existing row on retry; use a distinct revision number for a correction. Never silently append the same invoice again.
+
 1. **Every amount comes from the agreement or the user.** No amount, hour count, billing status, or completeness is ever derived from activity signals — not from `TIMELOG.md`, tasks, commits, artifact counts, or meeting records. Amounts come from `agreement/AGREEMENT.md` terms or explicit user input.
 2. **Amounts are immutable.** A recorded amount is never edited; a mistake is corrected by a new row whose Correction column reads `Corrects I#### — reason`. Corrected rows are excluded from totals by the script; both rows stay in the ledger.
 3. **Lifecycle is mutable, history is kept.** Sent, Paid, and Status update in place through the script, and every change appends a `## History` bullet.
