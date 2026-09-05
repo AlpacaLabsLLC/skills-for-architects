@@ -1,0 +1,31 @@
+{
+  "source": "AS 1.5 implementation plan R15 physical dimensions; independent acceptance expectations",
+  "point_tolerance": 0.05,
+  "presets": {
+    "letter": [8.5, 11, "in"],
+    "legal": [8.5, 14, "in"],
+    "tabloid": [11, 17, "in"],
+    "ansi-c": [17, 22, "in"],
+    "ansi-d": [22, 34, "in"],
+    "ansi-e": [34, 44, "in"],
+    "arch-a": [9, 12, "in"],
+    "arch-b": [12, 18, "in"],
+    "arch-c": [18, 24, "in"],
+    "arch-d": [24, 36, "in"],
+    "arch-e": [36, 48, "in"],
+    "arch-e1": [30, 42, "in"],
+    "a4": [210, 297, "mm"],
+    "a3": [297, 420, "mm"],
+    "a2": [420, 594, "mm"],
+    "a1": [594, 841, "mm"],
+    "a0": [841, 1189, "mm"]
+  },
+  "host_render_cases": [
+    ["letter", "portrait"],
+    ["tabloid", "landscape"],
+    ["arch-d", "landscape"],
+    ["a4", "portrait"],
+    ["a1", "portrait"]
+  ],
+  "custom_cases": [[250, 350, "mm"], [13, 19, "in"]]
+}

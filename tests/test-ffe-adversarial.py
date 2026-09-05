@@ -22,6 +22,7 @@ def load(name, path):
     return module
 
 records = load('records', Path(os.environ.get('AS_TEST_RECORDS_ROOT', ROOT)) / 'tools/workspace/ffe_records.py')
+sys.path.insert(0,str(Path(os.environ.get('AS_TEST_OUTPUTS_ROOT', ROOT)) / 'tools/renderers'))
 outputs = load('outputs', Path(os.environ.get('AS_TEST_OUTPUTS_ROOT', ROOT)) / 'tools/renderers/ffe_outputs.py')
 
 class RecordAdversarial(unittest.TestCase):
@@ -94,12 +95,14 @@ class OutputAdversarial(unittest.TestCase):
         self.snapshot={'source':{'file':'source.csv','revision':1},'items':[{'item_id':'item-1','revision':1,'fields':{'name':'Synthetic Product','trade_cost':'PRIVATE_SENTINEL_92842'}}]}
         self.contract={'schema_version':1,'mode':'one-off','audience':'client','template_accepted':True,'layout_requirements':['Single page'],'allowed_fields':['name'],'missing_image_policy':'labeled-placeholder','combined_pdf':False,'outputs':[{'tag':'AP-01','item_ids':['item-1'],'expected_pages':1}]}
         self.template=self.root/'template.txt';self.template.write_text('Synthetic reference')
+        self.design=self.root/'design.json'
+        subprocess.run([sys.executable,str(Path(outputs.__file__).with_name('document_contracts.py')),'resolve','--kind','product-cut-sheet','--page','letter','--orientation','portrait','--measurement-units','metric','--output',str(self.design)],check=True,stdout=subprocess.DEVNULL)
     def tearDown(self):self.temp.cleanup()
     def prepare(self, name='job'):
         inp=self.root/'input.json';inp.write_text(json.dumps(self.snapshot))
         con=self.root/'contract.json';con.write_text(json.dumps(self.contract))
         with contextlib.redirect_stdout(io.StringIO()):
-            outputs.prepare(argparse.Namespace(input=inp,contract=con,template=self.template,output=self.root/name))
+            outputs.prepare(argparse.Namespace(input=inp,contract=con,template=self.template,output=self.root/name,design=self.design))
         return self.root/name
     def test_client_render_data_does_not_contain_private_field(self):
         job=self.prepare()
