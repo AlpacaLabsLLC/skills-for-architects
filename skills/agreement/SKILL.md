@@ -71,7 +71,7 @@ Read-only. Slice the three scope sections, classify the described work, and answ
 
 1. Gather the amendment: what changes, effective date, and the document drafted from `templates/amendment.md` or supplied by the user. Place it in `agreement/sow/` only after preview and confirmation.
 2. Preview the Amendments row and any sourced Terms/Scope updates. One gate.
-3. Run `record-amendment <project-root> <file-name> <summary> <date>`, apply the confirmed fact edits, re-read, and report. Preserve prior source citations. A document already listed in Amendments cannot be recorded again; inspect the existing row on retry and use a distinct document for a new amendment.
+3. Run `record-amendment <project-root> <file-name> <summary> <date>`, apply the confirmed fact edits, re-read, and report. Preserve prior source citations. Amendment filenames and summaries reject backslash escapes, table separators and control characters so they cannot inject ledger rows. A document already listed in Amendments cannot be recorded again; inspect the existing row on retry and use a distinct document for a new amendment.
 
 ## `/as:agreement status`
 

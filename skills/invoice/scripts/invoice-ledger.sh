@@ -269,7 +269,7 @@ append_row() {
     function trim(s){gsub(/^[ \t]+|[ \t]+$/, "", s); return s}
     /<!-- invoices:start -->/ {inside=1; next}
     /<!-- invoices:end -->/ {inside=0}
-    inside && /^\|/ && trim($3)==number {found=1}
+    inside && /^\|/ && trim($3)==trim(number) {found=1}
     END {exit found ? 0 : 1}
   ' "$root/INVOICES.md"; then
     die "invoice number already recorded: $invoice_number; inspect the existing row or use a distinct correction number"
