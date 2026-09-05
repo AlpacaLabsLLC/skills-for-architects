@@ -52,6 +52,13 @@ with tempfile.TemporaryDirectory(prefix='as-ffe-intake-') as temporary:
     refuses(other,lambda:intake.manifest(other,base))
     correction=copy.deepcopy(base);correction.update(job_id='correction',supersedes='accepted',reason='Explicit scope correction')
     assert intake.manifest(project,correction)['path']=='ffe/jobs/correction/input-manifest.json'
+    prior=project/'ffe/jobs/accepted/input-manifest.json'
+    saved=prior.read_bytes()
+    for corrupt in [b'not JSON', saved.replace(b'Accepted source',b'Tampered source')]:
+        prior.write_bytes(corrupt)
+        broken=copy.deepcopy(correction);broken['job_id']='corrupt-lineage'
+        refuses(project,lambda:intake.manifest(project,broken))
+    prior.write_bytes(saved)
     oneoff=copy.deepcopy(base);oneoff.update(mode='one-off',record_basis=None,job_id='one-off')
     assert intake.manifest(project,oneoff)['adoption_performed'] is False
 print('PASS adopted intake dynamic import, canonical hash/tag binding, foreign/symlink refusal, immutable corrections, one-off isolation')
