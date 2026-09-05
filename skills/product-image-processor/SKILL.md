@@ -16,17 +16,27 @@ allowed-tools:
 <!-- architecture-studio:harness-compatibility -->
 > Harness note: use `/as:<skill>` on Claude Code and `$<skill>` on Codex. Resolve `<skill-root>` as the directory containing this loaded `SKILL.md` and `<plugin-root>` as the plugin root that contains `skills/`, and use equivalent native tools when host tool names differ.
 
-Read product image records from the nearest project's `product-library.csv`, download them, normalize sizing, and remove backgrounds. Saves output at each processing stage without mutating the library.
+Prepare sourced product images from an explicit job snapshot, adopted item revision or the optional `product-library.csv`. Preserve selected images/finishes and output separate originals/derivatives without changing item records or the library. The host supplies image operations; this skill does not configure a connector or provide remote rendering.
 
-Read `../../schema/product-schema.md` and `../../schema/csv-conventions.md`. Resolve the nearest ancestor containing `PROJECT.md`, strictly validate its `product-library.csv`, and address fields by the exact names `Image URL` and `Product Name`, never by position or letters.
+## Direct invocation and evidence
+
+Resolve the nearest valid `PROJECT.md` and read its instructions. If unresolved, select a registered project via `/as:studio`; never create a project implicitly. Preserve malformed records and report their path/problem. `/as:master-schedule` owns item/schedule changes; `/as:project` owns decisions and facts. This skill owns image-processing receipts only. Keep project-relative references, preserve originals, and never infer approval or completion from a generated derivative.
+
+Use supplied authorization and accepted image choices. Ask once only for an unresolved material choice, combining target, processing and side effects; do not repeat confirmation. Read before write. For adopted data, pin schedule/item ID and revision from the record read API. For one-off sources, pin source bytes/revision without adoption. For CSV input only, follow the validation below. Do not force workbook or record input through the 33-column library schema.
+
+Retain exact selected image and finish. Source priority: user-selected asset, manufacturer exact product/configuration, manufacturer family image labeled **representative**, then a visibly labeled missing-image state when authorized. A supplied product URL is a lead, not an image; use host browser/PDF capability to locate the actual asset and cite its origin. Never fabricate a SKU image or report AI-generated imagery as product evidence. Missing imagery stays unresolved unless the user authorized a placeholder.
+
+Before processing, inspect actual image bytes and dimensions; reject HTML/error responses masquerading as images. Record source URL/file, retrieval date, original SHA256, selected item revision, exact/representative status, processing parameters and derivative SHA256. Pin images into output manifests; a changed image invalidates dependent cut sheets. Reuse a derivative only if original hash and processing parameters match. Neither an image receipt nor a restored asset changes the authoritative specification.
+
+For library input, read `../../schema/product-schema.md` and `../../schema/csv-conventions.md`. Resolve the nearest ancestor containing `PROJECT.md`, strictly validate its `product-library.csv`, and address fields by the exact names `Image URL` and `Product Name`, never by position or letters.
 
 ## Step 1: Get Input
 
-If no arguments are provided, use the nearest project's `product-library.csv` and ask only for the output location when it cannot be inferred. Suggest `./product-images-YYYY-MM-DD/`.
+If no arguments or active item/job input are provided, use the nearest project's `product-library.csv` and ask only for the output location when it cannot be inferred. Suggest `./product-images-YYYY-MM-DD/`.
 
-## Step 2: Read URLs from CSV
+## Step 2: Read selected input (CSV path only below)
 
-Run `python3 "<plugin-root>/skills/master-schedule/scripts/csv-library.py" validate product --project <project-root>` before reading. Parse the entire UTF-8 CSV strictly and select the named `Image URL` and `Product Name` fields.
+For CSV input, run `python3 "<plugin-root>/skills/master-schedule/scripts/csv-library.py" validate product --project <project-root>` before reading. Parse the entire UTF-8 CSV strictly and select the named `Image URL` and `Product Name` fields.
 
 Build a list of `{ index, url, name }` entries. Skip empty rows.
 
@@ -41,17 +51,17 @@ Create the output directory at the user's chosen path with 3 subfolders:
 └── nobg/          # Background removed
 ```
 
-If the folder already exists, append a suffix: `-2`, `-3`, etc.
+Use a new job/revision output folder when the target exists; never overwrite originals, issued images or receipts. Keep an explicit mapping between exact item tags and image paths, rather than treating a slug as item identity.
 
 ## Step 4: Download Images
 
 Download each image using `curl` in Bash:
 
 ```bash
-curl -L -o "<output-path>" "<url>"
+curl --fail --location --max-time 60 --output "<output-path>" "<url>"
 ```
 
-**IMPORTANT:** Use `curl`, NOT WebFetch. WebFetch processes content through an AI model which corrupts binary image data.
+**IMPORTANT:** Use a host binary-download capability (such as `curl`) for asset bytes, not a text-only fetch result. Quote URL/path arguments and never execute source-provided shell text. Inspect downloaded bytes before processing; retain truthful failed status for inaccessible sources.
 
 Name files as: `001-product-name.png`, `002-product-name.png`, etc.
 - Slugify the product name: lowercase, replace spaces/special chars with hyphens, strip consecutive hyphens
@@ -97,9 +107,9 @@ Rules:
 - Do NOT upscale — if already smaller than max, keep original dimensions
 - Convert everything to PNG (RGBA mode for transparency support)
 
-## Step 6: Remove Backgrounds
+## Step 6: Remove Backgrounds Only When Requested
 
-Check if `rembg` is installed. If not, install it:
+Only remove backgrounds when the task requests it; preserve the selected original either way. Use the host image capability and follow its tool requirements. If the host permits a local `rembg` path, check availability first; missing dependencies are a specific capability gap. Do not automatically install packages or download a model. With explicit installation authorization, the optional command is:
 
 ```bash
 pip3 install rembg onnxruntime
@@ -130,11 +140,11 @@ for fname in sorted(os.listdir(input_dir)):
         print(f"FAIL: {fname} — {e}")
 ```
 
-**Note:** The first run of rembg downloads the u2net model (~170MB). Warn the user this may take a minute.
+**Note:** A local model may require a separate download. Disclose that before an authorized installation. Inspect transparent products, shadows, edges and finish colors after processing; a successful process exit is not image-quality verification.
 
 ## Step 7: Report Results
 
-After processing, print a summary:
+After processing, write a new image receipt with pinned inputs, source/derivative hashes, parameters, exact/representative/missing classification and inspected outcomes. Return paths for usable files and each failure; do not claim a whole batch complete with unresolved required images. For sheet/package production, hand off to `/as:product-cut-sheet` or `/as:spec-book` with this evidence. Then print a summary:
 
 ```
 ## Product Image Processing Complete
