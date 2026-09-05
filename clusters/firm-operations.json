@@ -21,7 +21,7 @@
   "dependencies": [],
   "coverage": {
     "jurisdictions": [],
-    "limitations": "Procedures are available; no cluster-wide legal applicability or validated end-to-end workflow is claimed. NYC-specific skills remain NYC-only; other skills require their own source and jurisdiction checks.",
+    "limitations": "Studio and commercial procedures are available. Local namespace/category validators execute with Python 3; this is not cluster-wide workflow validation or a hosted binding. Firm conventions and authorized user records remain host-owned.",
     "sources_indexed": false,
     "procedures_available": true,
     "execution_implemented": false,
@@ -30,7 +30,8 @@
   "host_requirements": [
     "agent instruction following",
     "read resources",
-    "skill-specific tools and authorized workspace access when required"
+    "skill-specific tools and authorized workspace access when required",
+    "Python 3 for shared namespace/category validators"
   ],
   "evaluations": [
     {
@@ -38,6 +39,12 @@
       "kind": "contract",
       "path": "tests/test-category-contracts.sh",
       "claim": "Manifest membership and portability only; not workflow acceptance"
+    },
+    {
+      "id": "firm-operations-source-membership",
+      "kind": "contract",
+      "path": "tests/test-category-source-integration.sh",
+      "claim": "Shared source dependencies and truthful cluster declarations only; not workflow validation"
     }
   ],
   "reviewed_on": "2026-09-05"

@@ -11,9 +11,9 @@ A listed procedure is not proof of executable tooling, legal coverage or a valid
 | [Firm Operations](../clusters/firm-operations.json) | `studio`, `studio-feedback`, `proposal`, `agreement`, `invoice`, `skill-maker`, `learn`, `tool-catalog` | No cluster-wide coverage; inspect individual skill |
 | [Materials & FF&E](../clusters/materials-ffe.json) | `master-schedule`, `product-data-cleanup`, `product-data-import`, `product-enrich`, `product-image-processor`, `product-match`, `product-pair`, `product-research`, `product-spec-bulk-fetch`, `product-spec-pdf-parser`, `csv-to-sif`, `sif-to-csv` | No cluster-wide coverage; inspect individual skill |
 | [Presentations](../clusters/presentations.json) | `slide-deck-generator`, `color-palette-generator`, `resize-images`, `zoning-envelope` | No cluster-wide coverage; inspect individual skill |
-| [Programming](../clusters/programming.json) | `workplace-programmer`, `occupancy-calculator` | No cluster-wide coverage; inspect individual skill |
+| [Programming](../clusters/programming.json) | `workplace-programmer`, `occupancy-calculator` | jurisdiction:us-ny-nyc |
 | [Project Management](../clusters/project-management.json) | `project`, `workplan`, `tasklist`, `timetracker`, `meeting-minutes`, `site-visit-report`, `agreement`, `architecture-knowledge` | No cluster-wide coverage; inspect individual skill |
-| [Site & Zoning](../clusters/site-zoning.json) | `zoning-analysis-nyc`, `zoning-envelope`, `environmental-analysis`, `mobility-analysis`, `demographics-analysis`, `site-history` | No cluster-wide coverage; inspect individual skill |
+| [Site & Zoning](../clusters/site-zoning.json) | `zoning-analysis-nyc`, `zoning-envelope`, `environmental-analysis`, `mobility-analysis`, `demographics-analysis`, `site-history` | jurisdiction:us-ny-nyc |
 | [Specifications](../clusters/specifications.json) | `spec-writer`, `epd-to-spec`, `architecture-knowledge` | No cluster-wide coverage; inspect individual skill |
 | [Sustainability](../clusters/sustainability.json) | `epd-research`, `epd-parser`, `epd-compare`, `epd-to-spec`, `environmental-analysis` | No cluster-wide coverage; inspect individual skill |
 

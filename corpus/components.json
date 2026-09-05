@@ -190,7 +190,10 @@
       "path": "skills/occupancy-calculator/SKILL.md",
       "owner": "Architecture Studio maintainers",
       "execution": "instructions",
-      "dependencies": []
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:jurisdictions"
+      ]
     },
     {
       "id": "skill:product-data-cleanup",
@@ -406,7 +409,10 @@
       "path": "skills/zoning-analysis-nyc/SKILL.md",
       "owner": "Architecture Studio maintainers",
       "execution": "instructions",
-      "dependencies": []
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:jurisdictions"
+      ]
     },
     {
       "id": "skill:zoning-envelope",
@@ -414,7 +420,9 @@
       "path": "skills/zoning-envelope/SKILL.md",
       "owner": "Architecture Studio maintainers",
       "execution": "instructions",
-      "dependencies": []
+      "dependencies": [
+        "skill:zoning-analysis-nyc"
+      ]
     },
     {
       "id": "knowledge:us-professional-practice",
@@ -466,6 +474,44 @@
       "execution": "reference",
       "dependencies": [
         "studio:workspace-contract"
+      ]
+    },
+    {
+      "id": "knowledge:nyc-sources",
+      "category": "knowledge",
+      "path": "corpus/sources/catalog.json",
+      "owner": "Architecture Studio maintainers",
+      "execution": "reference",
+      "dependencies": [
+        "knowledge:jurisdictions"
+      ]
+    },
+    {
+      "id": "knowledge:jurisdictions",
+      "category": "knowledge",
+      "path": "corpus/jurisdictions/catalog.json",
+      "owner": "Architecture Studio maintainers",
+      "execution": "reference",
+      "dependencies": []
+    },
+    {
+      "id": "knowledge:astm-e84-reference",
+      "category": "knowledge",
+      "path": "corpus/shared-references/astm-e84.json",
+      "owner": "Architecture Studio maintainers",
+      "execution": "reference",
+      "dependencies": []
+    },
+    {
+      "id": "tool:source-health",
+      "category": "tools",
+      "path": "tools/integrations/source-health.mjs",
+      "owner": "Architecture Studio maintainers",
+      "execution": "local-node",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:jurisdictions",
+        "knowledge:astm-e84-reference"
       ]
     }
   ]

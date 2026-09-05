@@ -9,13 +9,14 @@
     "skill:epd-to-spec",
     "skill:architecture-knowledge",
     "studio:workspace-contract",
-    "knowledge:us-professional-practice"
+    "knowledge:us-professional-practice",
+    "knowledge:astm-e84-reference"
   ],
   "dependencies": [],
   "coverage": {
     "jurisdictions": [],
-    "limitations": "Procedures are available; no cluster-wide legal applicability or validated end-to-end workflow is claimed. NYC-specific skills remain NYC-only; other skills require their own source and jurisdiction checks.",
-    "sources_indexed": false,
+    "limitations": "Existing specification procedures and original US practice guidance are available. The shared ASTM E84 entry is metadata only, with no licensed text, automatic adoption or product compliance conclusion. No cluster-wide execution or workflow validation is claimed.",
+    "sources_indexed": true,
     "procedures_available": true,
     "execution_implemented": false,
     "workflow_validated": false
@@ -31,6 +32,12 @@
       "kind": "contract",
       "path": "tests/test-category-contracts.sh",
       "claim": "Manifest membership and portability only; not workflow acceptance"
+    },
+    {
+      "id": "specifications-source-membership",
+      "kind": "contract",
+      "path": "tests/test-category-source-integration.sh",
+      "claim": "Shared source dependencies and truthful cluster declarations only; not workflow validation"
     }
   ],
   "reviewed_on": "2026-09-05"

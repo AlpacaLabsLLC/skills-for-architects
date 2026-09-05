@@ -19,7 +19,7 @@
   "dependencies": [],
   "coverage": {
     "jurisdictions": [],
-    "limitations": "Procedures are available; no cluster-wide legal applicability or validated end-to-end workflow is claimed. NYC-specific skills remain NYC-only; other skills require their own source and jurisdiction checks.",
+    "limitations": "Record procedures require an authorized workspace and their skill-specific helpers. US professional terminology is reference guidance; it does not confirm facts, scope or decisions. No cluster-wide execution or end-to-end validation claim.",
     "sources_indexed": false,
     "procedures_available": true,
     "execution_implemented": false,
@@ -36,6 +36,12 @@
       "kind": "contract",
       "path": "tests/test-category-contracts.sh",
       "claim": "Manifest membership and portability only; not workflow acceptance"
+    },
+    {
+      "id": "project-management-source-membership",
+      "kind": "contract",
+      "path": "tests/test-category-source-integration.sh",
+      "claim": "Shared source dependencies and truthful cluster declarations only; not workflow validation"
     }
   ],
   "reviewed_on": "2026-09-05"
