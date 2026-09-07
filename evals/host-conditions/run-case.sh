@@ -21,7 +21,8 @@ version=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["versi
 stem="${version}__${condition}__${case_id}__${trial}"
 
 mkdir -p "$out_dir/results" "$out_dir/runs"
-work="$out_dir/runs/$stem"
+run_dir=$(mktemp -d "$out_dir/runs/run.XXXXXX")
+work="$run_dir/fixture"
 "$(dirname "$0")/make-fixture.sh" "$work" "$plugin_root" >/dev/null
 
 # Snapshot the fixture before the run so the grader can tell a modified file

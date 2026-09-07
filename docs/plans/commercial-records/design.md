@@ -51,30 +51,36 @@ The diagram describes a common path, not an enforced transition graph. Status is
 
 ## Project identity and naming
 
-The project ID and directory name use one permanent, uppercase, filesystem-safe format:
+Project identity and project location are independent. A studio records one advisory policy:
+
+- `as` suggests ALPA's day-resolution convention;
+- `firm` records the firm's existing convention in plain language; or
+- `none` imposes no convention and warns that ambiguous names and folders can weaken context localization and waste tokens.
+
+The AS suggestion is:
 
 ```text
-YYYY-MM-CCC-PROJECT-NAME
+YYMMDD-CCC-PROJECT-NAME
 ```
 
 Example:
 
 ```text
-2026-08-TGS-SECONDARY-SCHOOL
+260819-TGS-SECONDARY-SCHOOL
 ```
 
 Rules:
 
-1. `YYYY-MM` is the month in which the studio first creates the project record. It is not the agreement date and never changes.
-2. `CCC` is a studio-assigned, three-letter uppercase client code. Internal work uses the studio's own code, such as `ALP`.
+1. `YYMMDD` is the date on which the studio first creates the project record. It is not the agreement date and never changes.
+2. `CCC` is a studio-assigned, three-letter uppercase client code. Internal work uses `INT`, matching the ALPA convention.
 3. `PROJECT-NAME` is an uppercase kebab-case slug derived from the user-facing project name.
-4. Only ASCII letters, digits, and hyphens are allowed in the ID.
+4. Only ASCII letters, digits, and hyphens appear in an AS-suggested ID.
 5. The full ID is immutable even if the client or display name later changes.
 6. A collision must be resolved during the creation preview with a meaningful disambiguator; the skill never silently overwrites or reuses an ID.
 
-The display name in `PROJECT.md` keeps normal capitalization. The uppercase format applies to the permanent ID and directory, not to prose.
+The display name in `PROJECT.md` is free-form. The uppercase format applies only to the AS-suggested permanent ID, not to prose or the registered directory. Firm and no-convention policies may use other safe identifiers.
 
-Date-first naming makes ordinary filesystem sorting chronological. Client grouping remains available from `STUDIO.md` and project search.
+Date-first IDs sort chronologically when a firm chooses the AS convention. Client grouping and filesystem hierarchy remain firm decisions.
 
 ## File and directory casing
 
@@ -136,7 +142,7 @@ site-reports/2026-09-03-foundation-inspection.md
 studio-root/
 ├── STUDIO.md
 └── projects/
-    └── 2026-08-TGS-SECONDARY-SCHOOL/
+    └── 260819-TGS-SECONDARY-SCHOOL/
         ├── PROJECT.md
         ├── TASKS.md
         ├── TIMELOG.md
@@ -164,11 +170,11 @@ Directories and records are created only when relevant. An internal project does
 ```markdown
 | Project ID | Project | Client | Code | Type | Status | Folder | Opened |
 |---|---|---|---|---|---|---|---|
-| 2026-08-TGS-SECONDARY-SCHOOL | TGS Secondary School | The Garzón School | TGS | client | active | projects/2026-08-TGS-SECONDARY-SCHOOL | 2026-08-19 |
-| 2026-08-ALP-ARCHITECTURE-STUDIO | Architecture Studio | — | ALP | internal | active | projects/2026-08-ALP-ARCHITECTURE-STUDIO | 2026-08-19 |
+| 260819-TGS-SECONDARY-SCHOOL | TGS Secondary School | The Garzón School | TGS | client | active | projects/260819-TGS-SECONDARY-SCHOOL | 2026-08-19 |
+| office-tools | Architecture Studio | — | INTERNAL | internal | active | 10-PROJECTS/INTERNAL/architecture-studio | 2026-08-19 |
 ```
 
-`/as:studio` remains the only writer. It creates projects, validates the naming convention, updates status, and preserves closed rows. The registry is the source for client, type, status, and chronological views; it is not a second copy of project content.
+`/as:studio` remains the only writer. It creates projects, reports advisory naming mismatches, updates status, and preserves closed rows. Project ID, display name, code, and Folder are independent values. The registry is the source for client, type, status, and chronological views; it is not a second copy of project content.
 
 `STUDIO.md` and `PROJECT.md` move to format version 3. Existing version-2 skills already reject unknown versions; the explicit bump makes an older installation stop clearly rather than interpret the redesigned columns as the old schema.
 
@@ -243,12 +249,12 @@ Accepting a proposal does not automatically change project status, create agreem
 
 This is workspace format version 3 and must fail loudly against version-2 skills.
 
-1. Build and preview an old-to-new manifest for every project ID, folder rename, structured reference, registry change, and record change before mutation.
-2. Ask the user to confirm the client code, display name, and creation month for each existing project; never infer missing identity facts from activity.
-3. Back up only the files and directories named in the confirmed manifest, then rename each project directory and set `Project ID` to the same immutable `YYYY-MM-CCC-PROJECT-NAME` value.
+1. Build and preview an old-to-new manifest for every project ID, structured reference, registry change, and record change before mutation.
+2. Ask the user to confirm the client code, display name, creation date, naming policy, and permanent ID for each existing project; never infer missing identity facts from activity.
+3. Back up only the files and directories named in the confirmed manifest, upgrade the identity records, and preserve every registered project folder.
 4. Classify each existing project as `internal` or `client` and confirm its status.
 5. Rewrite known structured references owned by Architecture Studio, including registry paths, project IDs in portfolio tasks, and commercial-record paths. Report possible references in ordinary prose for the user to handle; never rewrite prose speculatively.
-6. Preserve task, time, decision, meeting, site-report, and plan records in place during the directory rename.
+6. Preserve task, time, decision, meeting, site-report, plan, and directory records in place.
 7. Replace any studio-wide proposal register with project-local proposal metadata, preserving every proposal document, former number as legacy metadata, and lifecycle history.
 8. Re-read and verify the studio registry, every project, and every known structured reference. If any required mutation or verification fails, restore the confirmed backup rather than leaving a partially migrated workspace.
 
@@ -260,7 +266,7 @@ There is no entity conversion migration. Internal work, opportunities, and commi
 |---|---|
 | Shared resolver | Resolve every valid registered project regardless of status; return type/status as advisory context; add coverage for every status |
 | `/as:studio` | Header-keyed registry parser; new naming validation; create and update universal projects; preserve user-directed status and closed project history |
-| `/as:project` | Format version 3; universal identity fields; optional AEC sections; recoverable migration; project ID equals directory name |
+| `/as:project` | Format version 3; universal identity fields; optional AEC sections; recoverable migration; independent ID, display name, code, and directory |
 | `/as:proposal` | Remove studio-wide register and numbering; generate flexible collision-safe local filenames; seal issued terms; keep lifecycle metadata in each proposal |
 | `/as:agreement` | Optionally promote from the same project's accepted proposal; cite its path and checksum rather than copy it; offer optional status handoff |
 | `/as:invoice` | Remains project-local; initialize only when requested; retain deterministic ledger calculations |
@@ -284,7 +290,7 @@ The current commercial-records branch is useful source work but does not yet mat
 
 - A studio can represent internal, prospective, active, lost, withdrawn, completed, and archived work without any entity other than a project.
 - A project receives one permanent ID when first tracked and keeps it through every lifecycle change.
-- Project directories sort chronologically and comply with the uppercase naming contract.
+- The AS convention suggests chronologically sortable uppercase IDs; firm and no-convention work remains fully resolvable.
 - Commercial records never leave their owning project and require no studio-wide proposal index.
 - Winning or losing work requires no folder move, second ID, or entity conversion.
 - Internal projects do not require irrelevant client, site, zoning, agreement, or invoice data.
@@ -299,7 +305,7 @@ The current commercial-records branch is useful source work but does not yet mat
 - Separate initiative and pursuit entities, registries, directories, and IDs.
 - Pursuit-to-project conversion or folder movement.
 - Firm-wide numbering for proposals or other project outputs.
-- Client folder tiers or a new client entity.
+- A required client-folder tier or a new client entity. Existing firm folder tiers remain valid.
 - Automatic billability classification or invoice generation from activity.
 - External-source alias resolution, private-git policy, and large-file hooks from the prior v3 exploration; these may be considered separately if real use justifies them.
 - A per-time-entry billable field; it remains a separate future decision.
@@ -309,7 +315,7 @@ The current commercial-records branch is useful source work but does not yet mat
 - **One universal project entity.** Internal work and pursuits are project classifications, not separate entities.
 - **Commercial records live inside projects.** No studio-wide proposal register or number sequence.
 - **One permanent project identity.** Winning work changes status, not identity or location.
-- **Date-first project naming.** `YYYY-MM-CCC-PROJECT-NAME`, uppercase and immutable.
+- **Advisory project naming.** AS suggests `YYMMDD-CCC-PROJECT-NAME`; firms may record their own convention or choose none. Project ID and folder are independent.
 - **Tiered file casing.** Canonical singleton records are uppercase; directories and individual records use lowercase kebab case.
 - **User responsibility over workflow enforcement.** Skills surface context, warnings, and optional handoffs; they do not require a proposal/agreement/invoice sequence or police project status.
 - **Integrity remains enforced.** Format boundaries, collision prevention, recoverable migration, and sealed accepted terms protect records without making business decisions.

@@ -172,6 +172,23 @@ cp "$root/voided-correction/INVOICES.md" "$root/voided-correction-before.md"
 expect_die bash "$SCRIPT" append "$root/voided-correction" "INV-C1R2" "2026-08-01" "2026-08-31" "11000.00" "0.00" "11000.00" - - draft "Corrects I0001 — second correction"
 cmp -s "$root/voided-correction/INVOICES.md" "$root/voided-correction-before.md" || fail "historically corrected target changed ledger bytes"
 
+# Active descendants suppress all ancestors, even through a void intermediate.
+chain="$root/correction-chain"
+mkdir "$chain"
+bash "$SCRIPT" init "$chain" "Chain" USD monthly 100.00 none input 2026-08-06 >/dev/null
+for item in '100.00|-' '90.00|Corrects I0001 — rate correction' '80.00|Corrects I0002 — final correction'; do
+  amount=${item%%|*}; correction=${item#*|}
+  bash "$SCRIPT" append "$chain" "INV-$amount" 2026-08-01 2026-08-31 "$amount" 0.00 "$amount" - - draft "$correction" >/dev/null
+done
+bash "$SCRIPT" set-lifecycle "$chain" I0003 sent 2026-09-01 >/dev/null
+bash "$SCRIPT" set-lifecycle "$chain" I0002 void 2026-09-01 >/dev/null
+out=$(bash "$SCRIPT" status "$chain")
+echo "$out" | grep -qx 'total=80.00' || fail "void intermediate resurrected original"
+echo "$out" | grep -qx 'outstanding=80.00' || fail "correction chain outstanding"
+bash "$SCRIPT" set-lifecycle "$chain" I0003 void 2026-09-02 >/dev/null
+out=$(bash "$SCRIPT" status "$chain")
+echo "$out" | grep -qx 'total=100.00' || fail "void chain did not restore original"
+
 # a missing insertion marker blocks append and preserves the ledger byte-for-byte
 mkdir -p "$root/missing-marker"
 bash "$SCRIPT" init "$root/missing-marker" "Missing Marker" "USD" "monthly" "1000.00" "none" "user input" "2026-08-06" >/dev/null

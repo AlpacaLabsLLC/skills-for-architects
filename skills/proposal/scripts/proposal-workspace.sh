@@ -79,8 +79,9 @@ require_project() {
   project_version=$(trim_field "$project_root/PROJECT.md" "Format version")
   [ "$project_version" = 3 ] || die "PROJECT.md format version is ${project_version:-absent}; version 3 is required"
   project_id=$(trim_field "$project_root/PROJECT.md" "Project ID")
-  printf '%s\n' "$project_id" | grep -Eq '^[0-9]{4}-(0[1-9]|1[0-2])-[A-Z]{3}-[A-Z0-9]+(-[A-Z0-9]+)*$' || die "PROJECT.md has an invalid Project ID"
-  [ "$(basename -- "$project_root")" = "$project_id" ] || die "project directory must equal its immutable Project ID"
+  validate_text "project id" "$project_id"
+  case "$project_id" in .|..|' '*|*' '|\#|---|:---|---:|:---:) die "PROJECT.md has an invalid Project ID" ;; esac
+  [ "${#project_id}" -le 160 ] || die "PROJECT.md has an invalid Project ID"
 }
 
 require_owned_proposals_directory() {
@@ -403,10 +404,10 @@ write_lifecycle_event() {
   fi
 
   tmp=$(mktemp "$(dirname -- "$file")/.proposal-update.XXXXXX")
-  if ! awk -F'|' \
+  if ! AS_PROPOSAL_ACTOR="$actor" AS_PROPOSAL_EVIDENCE="$evidence" AS_PROPOSAL_RELATED="$related" awk -F'|' \
     -v status="$new_status" -v checksum="$new_checksum" -v frozen="$new_frozen_on" \
-    -v event="$new_status" -v event_date="$event_date" -v actor="$actor" \
-    -v evidence="$evidence" -v related="$related" '
+    -v event="$new_status" -v event_date="$event_date" '
+    BEGIN {actor=ENVIRON["AS_PROPOSAL_ACTOR"]; evidence=ENVIRON["AS_PROPOSAL_EVIDENCE"]; related=ENVIRON["AS_PROPOSAL_RELATED"]}
     function trim(s){gsub(/^[ \t]+|[ \t]+$/, "", s); return s}
     /^## Record$/ {in_record=1; print; next}
     /^## / && in_record {in_record=0}

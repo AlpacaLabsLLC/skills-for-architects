@@ -6,8 +6,12 @@ set -euo pipefail
 target=${1:?usage: make-fixture.sh <target-dir> <plugin-root>}
 plugin_root=${2:?usage: make-fixture.sh <target-dir> <plugin-root>}
 
-rm -rf "$target"
-mkdir -p "$target"
+[ -f "$plugin_root/skills/master-schedule/scripts/csv-library.py" ] || {
+  echo "invalid plugin root: $plugin_root" >&2; exit 1;
+}
+# mkdir without -p claims only a new directory and rejects existing targets,
+# including symlinks. Never delete caller-owned data to prepare an evaluation.
+mkdir -- "$target" || { echo "fixture target must be new: $target" >&2; exit 1; }
 
 cat > "$target/PROJECT.md" <<'PROJECT'
 # Eval Fixture Project

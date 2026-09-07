@@ -36,8 +36,9 @@ require_project() {
   project_version=$(trim_field "$1/PROJECT.md" "Format version")
   [ "$project_version" = 3 ] || die "PROJECT.md format version is ${project_version:-absent}; version 3 is required"
   project_id=$(trim_field "$1/PROJECT.md" "Project ID")
-  printf '%s\n' "$project_id" | grep -Eq '^[0-9]{4}-(0[1-9]|1[0-2])-[A-Z]{3}-[A-Z0-9]+(-[A-Z0-9]+)*$' || die "PROJECT.md has an invalid Project ID"
-  [ "$(basename -- "$1")" = "$project_id" ] || die "project directory must equal its immutable Project ID"
+  validate_text "project id" "$project_id"
+  case "$project_id" in .|..|' '*|*' '|\#|---|:---|---:|:---:) die "PROJECT.md has an invalid Project ID" ;; esac
+  [ "${#project_id}" -le 160 ] || die "PROJECT.md has an invalid Project ID"
   project_name=$(trim_field "$1/PROJECT.md" "Project")
   validate_text "project name" "$project_name"
 }

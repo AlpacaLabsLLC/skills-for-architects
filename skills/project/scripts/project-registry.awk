@@ -60,7 +60,8 @@ inside && /^\|/ {
         trim($(column["Type"])),
         trim($(column["Status"])),
         trim($(column["Folder"])),
-        trim($(column["Opened"]))
+        trim($(column["Opened"])),
+        (("Folder ID" in column) ? trim($(column["Folder ID"])) : "")
   rows++
   next
 }

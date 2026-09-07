@@ -112,8 +112,8 @@ sed -i.bak 's/| Format version | 2 |/| Format version | 1 |/' "$project/agreemen
 expect_die bash "$AGREEMENT" record-amendment "$project" "sow-2.md" "again" "2026-11-01"
 
 # A direct engagement can initialize agreement context without a proposal.
-direct_project="$root/2026-08-DIR-DIRECT-ENGAGEMENT"
-skills/project/scripts/project-workspace.sh init "$direct_project" "Direct Engagement" 2026-08-DIR-DIRECT-ENGAGEMENT client active DIR "Direct Client" >/dev/null
+direct_project="$root/Direct Engagement Records"
+skills/project/scripts/project-workspace.sh init "$direct_project" "Direct Engagement" firm-direct-17 client active D17 "Direct Client" >/dev/null
 bash "$AGREEMENT" init "$direct_project" "2026-08-09" >/dev/null
 [ -f "$direct_project/agreement/AGREEMENT.md" ] || fail "direct AGREEMENT.md missing"
 [ -d "$direct_project/agreement/sow" ] || fail "direct sow dir missing"

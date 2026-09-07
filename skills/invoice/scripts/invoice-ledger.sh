@@ -346,10 +346,20 @@ status_ledger() {
       totals[rows] = trim($8) + 0
       statuses[rows] = trim($11)
       corr = trim($12)
-      if (statuses[rows] != "void" && corr ~ /^Corrects I[0-9][0-9][0-9][0-9]/) corrected[substr(corr, 10, 5)] = 1
+      if (corr ~ /^Corrects I[0-9][0-9][0-9][0-9]/) parent[id] = substr(corr, 10, 5)
     }
     END {
       total = 0; outstanding = 0; periods = 0
+      # Active corrections replace their entire ancestry, including void links.
+      # A void leaf suppresses nothing, restoring the nearest active predecessor.
+      for (i = 1; i <= rows; i++) {
+        if (statuses[i] == "void") continue
+        ancestor = parent[ids[i]]
+        while (ancestor != "" && !(ancestor in corrected)) {
+          corrected[ancestor] = 1
+          ancestor = parent[ancestor]
+        }
+      }
       for (i = 1; i <= rows; i++) {
         if (statuses[i] == "void" || (ids[i] in corrected)) continue
         total += totals[i]

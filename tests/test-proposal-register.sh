@@ -6,9 +6,9 @@ SCRIPT="$PWD/skills/proposal/scripts/proposal-workspace.sh"
 
 root=$(mktemp -d)
 trap 'rm -rf "$root"' EXIT
-project="$root/2026-08-ACM-DESIGN-SERVICES"
+project="$root/Client Records"
 mkdir -p "$project"
-printf '# Project — Design Services\n\n## Identity\n\n| Field | Value | Source | Date |\n|---|---|---|---|\n| Format version | 3 | setup | 2026-08-06 |\n| Project ID | 2026-08-ACM-DESIGN-SERVICES | setup | 2026-08-06 |\n| Project | Design Services | setup | 2026-08-06 |\n| Type | client | setup | 2026-08-06 |\n| Status | prospective | setup | 2026-08-06 |\n| Created | 2026-08-06 | setup | 2026-08-06 |\n| Client code | ACM | setup | 2026-08-06 |\n| Client | Acme Corp | setup | 2026-08-06 |\n' > "$project/PROJECT.md"
+printf '# Project — Design Services\n\n## Identity\n\n| Field | Value | Source | Date |\n|---|---|---|---|\n| Format version | 3 | setup | 2026-08-06 |\n| Project ID | firm-ACM-042 | setup | 2026-08-06 |\n| Project | Design Services | setup | 2026-08-06 |\n| Type | client | setup | 2026-08-06 |\n| Status | prospective | setup | 2026-08-06 |\n| Created | 2026-08-06 | setup | 2026-08-06 |\n| Client code | A1P | setup | 2026-08-06 |\n| Client | Acme Corp | setup | 2026-08-06 |\n' > "$project/PROJECT.md"
 
 fail() { echo "FAIL: $*"; exit 1; }
 expect_die() { if "$@" >/dev/null 2>&1; then fail "expected failure: $*"; fi; }
@@ -20,7 +20,7 @@ proposal="$project/proposals/2026-08-design-services-proposal-rev-01.md"
 [ ! -e "$project/PROPOSALS.md" ] || fail "project-wide proposal register must not exist"
 [ ! -e "$root/PROPOSALS.md" ] || fail "studio-wide proposal register must not exist"
 grep -Fq '# Proposal — Design Services' "$proposal" || fail "title not rendered"
-grep -Fq '| Project ID | 2026-08-ACM-DESIGN-SERVICES |' "$proposal" || fail "project identity missing"
+grep -Fq '| Project ID | firm-ACM-042 |' "$proposal" || fail "project identity missing"
 grep -Fq '| Short title | design-services |' "$proposal" || fail "short title missing"
 grep -Fq '| Revision | Rev. 01 |' "$proposal" || fail "revision missing"
 grep -Fq '<!-- issued-terms:start -->' "$proposal" || fail "issued terms start marker missing"
@@ -74,6 +74,13 @@ bash "$SCRIPT" send "$protected" "2026-08-07" "Federico" "email" >/dev/null
 protected_before=$(shasum "$protected" | awk '{print $1}')
 expect_die env ARCH_PROPOSAL_FAIL_AT=lifecycle-invalid-temp bash "$SCRIPT" set-status "$protected" accepted "2026-08-08" "Acme Corp" "signed PDF"
 [ "$protected_before" = "$(shasum "$protected" | awk '{print $1}')" ] || fail "failed lifecycle validation changed canonical proposal"
+
+# Lifecycle free text preserves literal backslashes instead of AWK escapes.
+bash "$SCRIPT" create "$project" "Acme Corp" "Literal Paths" "literal-paths" "2026-08-06" rev-01 >/dev/null
+literal="$project/proposals/2026-08-literal-paths-proposal-rev-01.md"
+bash "$SCRIPT" send "$literal" 2026-08-07 'firm\name' 'C:\new\receipt.pdf' >/dev/null
+grep -Fxq '| sent | 2026-08-07 | firm\name | C:\new\receipt.pdf | — |' "$literal" || fail "lifecycle escaped literal text"
+bash "$SCRIPT" verify "$project" >/dev/null
 
 # Sending freezes the issued terms but leaves lifecycle metadata editable.
 bash "$SCRIPT" send "$proposal" "2026-08-07" "Federico" "email" >/dev/null
@@ -138,7 +145,7 @@ cmp -s "$same_path" "$root/same-path-before.md" || fail "failed same-path migrat
 symlink_project="$root/2026-08-ACM-SYMLINKED-PROPOSALS"
 external_proposals="$root/external-proposals"
 mkdir -p "$symlink_project" "$external_proposals"
-sed 's/2026-08-ACM-DESIGN-SERVICES/2026-08-ACM-SYMLINKED-PROPOSALS/g; s/Design Services/Symlinked Proposals/g' "$project/PROJECT.md" > "$symlink_project/PROJECT.md"
+sed 's/firm-ACM-042/2026-08-ACM-SYMLINKED-PROPOSALS/g; s/Design Services/Symlinked Proposals/g' "$project/PROJECT.md" > "$symlink_project/PROJECT.md"
 ln -s "$external_proposals" "$symlink_project/proposals"
 symlink_legacy="$external_proposals/TS-0100-linked.md"
 printf '# Legacy linked proposal\n\nOnly source terms.\n' > "$symlink_legacy"
