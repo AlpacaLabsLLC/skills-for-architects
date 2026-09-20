@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "cluster:site-zoning",
+  "name": "Site & Zoning",
+  "maintainer": "Arch Studio maintainers",
+  "scope": "Existing NYC zoning and general site investigation procedures.",
+  "members": [
+    "skill:zoning-analysis-nyc",
+    "skill:zoning-envelope",
+    "skill:environmental-analysis",
+    "skill:mobility-analysis",
+    "skill:demographics-analysis",
+    "skill:site-history",
+    "studio:workspace-contract",
+    "knowledge:sources",
+    "knowledge:jurisdictions",
+    "tool:source-health"
+  ],
+  "dependencies": [],
+  "coverage": {
+    "jurisdictions": [
+      "jurisdiction:us-ny-nyc"
+    ],
+    "limitations": "Indexed NYC Zoning Resolution, PLUTO and selected site sources support navigation for existing procedures; original retrieval is required for current applicable provisions. General site research requires location-specific sources. Source reachability checks use available authorized host facilities and do not establish legal applicability. Retained source-health tools are maintainer/historical inventory; no cluster-wide workflow validation is claimed.",
+    "sources_indexed": true,
+    "procedures_available": true,
+    "execution_implemented": false,
+    "workflow_validated": false
+  },
+  "host_requirements": [
+    "agent instruction following",
+    "read resources",
+    "skill-specific tools and authorized workspace access when required",
+    "Available authorized source-retrieval capability for requested reachability checks; no Arch Studio runner requirement"
+  ],
+  "evaluations": [
+    {
+      "id": "site-zoning-discovery",
+      "kind": "contract",
+      "path": "tests/test-category-contracts.sh",
+      "claim": "Manifest membership and portability only; not workflow acceptance"
+    },
+    {
+      "id": "site-zoning-source-membership",
+      "kind": "contract",
+      "path": "tests/test-category-source-integration.sh",
+      "claim": "Shared source dependencies and truthful cluster declarations only; not workflow validation"
+    }
+  ],
+  "reviewed_on": "2026-09-13"
+}

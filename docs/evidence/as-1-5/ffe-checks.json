@@ -1,0 +1,232 @@
+{
+  "date": "2026-09-05",
+  "implementation_commit": "15b22c7cdfc509cc1b96f0add493460016961d8d",
+  "full_suite_commit": "91353f1",
+  "runtime": {
+    "python": "3.9.6",
+    "node": "24.20.0",
+    "pypdf": "6.12.1"
+  },
+  "public_skills": 53,
+  "components": 73,
+  "clusters": 9,
+  "checks": [
+    {
+      "test": "test-agreement-contract.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-agreement-workspace.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-architecture-knowledge-contract.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-architecture-knowledge-integration.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-category-contracts.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-category-source-integration.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-codex-compatibility.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-commercial-lifecycle-integration.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-context-audit-description-styles.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-context-audit.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-csv-library.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-document-page-boxes.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-document-presets-adversarial.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-epd-csv-contract.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-ffe-adversarial.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-ffe-audit-intake.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-ffe-csv-contract.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-ffe-intake-integration.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-ffe-outputs-contract.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-ffe-records.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-foundation-export.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-hook-enforcement.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-invoice-contract.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-invoice-ledger.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-learn-host-compatibility.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-lint-untracked.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-master-schedule-csv.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-meeting-minutes-contract.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-plugin-component-inventory.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-plugin-namespace.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-project-context-resolution.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-project-contract.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-project-migration.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-project-records-integration.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-project-rollback-failure.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-project-workspace.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-proposal-contract.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-proposal-register.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-session-start-welcome.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-site-visit-report-contract.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-skill-correctness-contract.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-skill-maker-targets.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-source-contracts.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-studio-feedback-contract.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-studio-project-boundaries.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-studio-workspace.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-tasklist-contract.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-timetracker-contract.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-v1-5-release-contract.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-version-check.sh",
+      "exit": 0
+    },
+    {
+      "test": "test-workplan-contract.sh",
+      "exit": 0
+    }
+  ],
+  "followup_checks": [
+    "CI-mode lint",
+    "context audit",
+    "detached export",
+    "Codex compatibility",
+    "git diff --check"
+  ],
+  "followup_scope": "Accepted intake/projection guidance, context measurement and CI dependency/launcher configuration; no runtime helper changes after the full suite.",
+  "host_rendering": "Seven synthetic rendered cases independently inspected; private evidence retained in owning project.",
+  "publication": false,
+  "deployment": false,
+  "historical_customer_delivery_accepted": false,
+  "hosted_execution_accepted": false
+}

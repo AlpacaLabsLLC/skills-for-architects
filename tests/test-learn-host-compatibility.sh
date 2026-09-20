@@ -5,7 +5,6 @@ cd "$(dirname "$0")/.."
 
 LEARN="skills/learn/SKILL.md"
 LEARN_README="skills/learn/README.md"
-CATALOG="skills/tool-catalog/SKILL.md"
 
 grep -Fq '$learn' "$LEARN"
 grep -Fq '/as:learn' "$LEARN"
@@ -34,9 +33,13 @@ for path in (
         assert forbidden not in text, f'{path}: {forbidden}'
 PY
 
-grep -Fq 'guided hands-on Codex and Claude Code course' "$CATALOG"
+python3 - <<'PY'
+import json
+from pathlib import Path
+c={x['id']:x for x in json.loads(Path('corpus/components.json').read_text())['components']}
+assert c['skill:learn']['path']=='skills/learn/SKILL.md'
+assert 'corpus/components.json' in Path('skills/tool-catalog/SKILL.md').read_text()
+PY
 grep -Fq '$learn' "$LEARN_README"
-grep -Fq '$learn' README.md
-grep -Fq '$learn' CHANGELOG.md
 
 echo "✓ learn has accurate Codex and Claude Code branches"

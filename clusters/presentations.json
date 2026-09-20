@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "id": "cluster:presentations",
+  "name": "Presentations",
+  "maintainer": "Arch Studio maintainers",
+  "scope": "HTML presentations, palettes and image preparation.",
+  "members": [
+    "skill:slide-deck-generator",
+    "skill:color-palette-generator",
+    "skill:resize-images",
+    "skill:zoning-envelope",
+    "studio:workspace-contract"
+  ],
+  "dependencies": [],
+  "coverage": {
+    "jurisdictions": [],
+    "limitations": "Existing HTML presentation, palette and image procedures are available. Rendering and image operations require host capabilities. Zoning-envelope use inherits NYC zoning context. No cluster-wide execution or rendered-workflow validation is claimed.",
+    "sources_indexed": false,
+    "procedures_available": true,
+    "execution_implemented": false,
+    "workflow_validated": false
+  },
+  "host_requirements": [
+    "agent instruction following",
+    "read resources",
+    "skill-specific tools and authorized workspace access when required"
+  ],
+  "evaluations": [
+    {
+      "id": "presentations-discovery",
+      "kind": "contract",
+      "path": "tests/test-category-contracts.sh",
+      "claim": "Manifest membership and portability only; not workflow acceptance"
+    },
+    {
+      "id": "presentations-source-membership",
+      "kind": "contract",
+      "path": "tests/test-category-source-integration.sh",
+      "claim": "Shared source dependencies and truthful cluster declarations only; not workflow validation"
+    }
+  ],
+  "reviewed_on": "2026-09-05"
+}

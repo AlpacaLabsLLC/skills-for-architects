@@ -10,12 +10,9 @@ These conventions apply to all skill outputs.
 
 ## Area
 
-- Always specify which area type you are reporting:
-  - **GSF** — Gross Square Feet (measured to exterior wall face)
-  - **USF** — Usable Square Feet (assignable area within tenant boundaries)
-  - **RSF** — Rentable Square Feet (USF + pro-rata share of common areas)
-  - **NSF** — Net Square Feet (functional area inside a room)
-- When converting between types, state the loss factor used (e.g., "15% gross-to-net loss")
+- Label the reported area type explicitly: **GSF** (Gross Square Feet), **USF** (Usable Square Feet), **RSF** (Rentable Square Feet), or **NSF** (Net Square Feet), when those labels match the task's source.
+- Area labels do not establish measurement boundaries or a conversion formula. Retrieve the applicable original measurement standard and edition, or state the user's explicit project method, before calculating. Preserve its inclusions, exclusions and boundary; do not infer these from an abbreviation.
+- When converting between area types, state the actual source method and factor. Treat an unsourced factor as an explicit design assumption, never a standard requirement.
 - Abbreviate after first use: "Usable Square Feet (USF)" → then "USF" throughout
 
 ## Dimensions

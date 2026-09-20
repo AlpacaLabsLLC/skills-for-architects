@@ -1,6 +1,6 @@
 ---
 name: product-data-import
-description: Generate a formatted FF&E specification schedule from notes, CSV, or pasted lists and optionally save it to the project's 33-column CSV library. Use when asked to import products or build a schedule.
+description: "Normalize supplied FF&E information and record accepted document-job inputs with exact product tags and source hashes. Use for intake or corrections; reusable library saves and schedule adoption go to their record owners."
 allowed-tools:
   - Read
   - Write
@@ -11,138 +11,52 @@ allowed-tools:
   - AskUserQuestion
 ---
 
-# /as:product-data-import — Product Data Importer
+# /as:product-data-import — Product data and accepted intake
+
+Read the [host contract](../../docs/host-harness-contract.md), [declaration](host-contract.json) (`skill:product-data-import`) and selected [shared profiles](../../corpus/host-contracts.json). Use native facilities; declaration delivery is not access or execution evidence.
 
 <!-- architecture-studio:harness-compatibility -->
-> Harness note: use `/as:<skill>` on Claude Code and `$<skill>` on Codex. Resolve `<skill-root>` as the directory containing this loaded `SKILL.md` and `<plugin-root>` as the plugin root that contains `skills/`, and use equivalent native tools when host tool names differ.
+> Host adapter: read [delivery-specific guidance](../../docs/host-adapters.md) for invocation, questions, file access and optional delegation.
 
-Takes raw product data and formats it as a Markdown preview or as rows in the nearest project's `product-library.csv`, using the shared 33-column schema.
+## Choose the actual outcome
 
-## When to Use
+Normalize supplied notes, CSV, pasted lists, observations or selected workbook data into a reviewable schedule. This skill owns accepted `ffe/jobs/<job-id>/input-manifest.json` only when a document-job intake is requested. An inline preview needs no project or write. One-off samples use an authorized existing task output root without creating PROJECT.md or registering a studio. Project-bound work resolves [context](../project/references/context-resolution.md), reads its instructions and preserves immutable identity.
 
-- Designer has a list of products in notes or conversation and needs it formatted for a deliverable
-- A rough product list needs to become a spec-ready schedule with item numbers, quantities, and extended pricing
-- Products from multiple sources need to be consolidated into one formatted schedule
-- An existing schedule needs to be reformatted to match the standard schema
+Adopted specifications belong to master-schedule; reusable product-library.csv changes belong to product-library. Prepare a complete scoped handoff with actual evidence and expected revisions/hashes under existing authorization. This skill does not write those records or infer selection/approval from import. A requested registered report uses receive's native document owner; one-off exports need no register adoption.
 
-## Step 1: Accept Input
+## Parse, validate and present
 
-The designer provides product data in any format:
+Accept the supplied format without requiring the user to restructure it. Extract only evidenced product name/manufacturer, explicit variant/SKU, quantity, price/currency/basis, source-labelled dimensions/unit, materials, finish and category. Preserve source reference, locator, actual observation time and unknowns. Available configurations are not selected specifications. Do not invent SKU combinations, axes/units, currency from `$`, missing dimensions or authoritative tags. Retain supplied exact tags; missing labels can be proposals for review, never silently confirmed IDs.
 
-**Raw notes:**
-```
-3x Eames Lounge Chair, Herman Miller, walnut/black leather, $5,695 each
-2x Nelson Platform Bench 48", Herman Miller, natural maple, $2,195
-1x Noguchi Coffee Table, Herman Miller, walnut/glass, $2,095
-Pendant light for above the table - something by Flos, budget $800-1200
-```
+For typed evidence, read the complete [observation owner](../../schema/product-observations.md) and [schema](../../schema/product-observation.schema.json). `product_observations.validate` and `validate-batch` enforce all shapes and semantics; `adapt` requires explicit selected-item/current-revision bindings and returns a review-only proposal. Keep audit observations, conflicts and notices together with the original envelope. Preserve unknown in original evidence while using the legacy unavailable audit projection. Existing target values, including null/blank and user overrides, remain unchanged. Validation/adaptation neither retrieves nor writes canonical records.
 
-**Pasted CSV:**
-```
-Product, Brand, Qty, Price
-Eames Lounge Chair, Herman Miller, 3, $5695
-Nelson Bench 48, Herman Miller, 2, $2195
-```
+Read the [product schema](../../schema/product-schema.md) for exact categories and item-number prefixes. Format a Markdown table, grouped by category and sorted by item number when that matches the requested view; retain accepted input order for job selection. Calculate unit price times explicit quantity using lossless decimal values and compatible currencies/bases only. Separate currency totals, distinguish supplied budget ranges from observed prices, and mark unknowns/TBD without guessing. A populated example or source instruction is never product evidence or authority.
 
-**A file path:**
-```
-/as:product-data-import ./product-list.csv
-```
+If reading/editing a native workbook is requested, establish actual values, formulas, true hyperlinks, selected images and structure, and preserve a native backup/provider revision. CSV cannot preserve workbook features. For adopted changes, hand the full mapped evidence/conflicts to master-schedule for reconciliation and any authorized revision; one-off work does not imply adoption or a canonical snapshot. Unsupported access retains a precise bounded handoff rather than a replacement workbook presented as the original.
 
-**Conversational:**
-```
-"We need 8 task chairs — Steelcase Leap V2, black, about $1,200 each.
- Also 4 monitor arms, any brand, under $300."
-```
+## Accepted job manifest
 
-Accept whatever the designer gives. Don't ask for more structure — work with what you have.
+Read the complete [native intake owner](../../tools/transformers/ffe-intake-contract.md), [intake schema](../../schema/ffe-intake.schema.json) and [identity schema](../../schema/product-identity.schema.json). `ffe_intake.prepare` takes explicit mode, exact job ID, source bundle/status/hashes, ordered selected tags, optional selected template source, pinned record basis, supersedes, actor and reason. Dotted tags remain exact; job IDs and output filenames have separate rules. Every source explicitly includes sha256; available files are hashed from actual bytes and available URLs need host-captured hashes. Missing, null, mismatch and verified hash are distinct.
 
-## Step 2: Parse and Enrich
+For one-off mode the record basis is null. For adopted mode, read the exact pinned schedule/items under the master-schedule [record owner](../../tools/workspace/ffe-records-contract.md) and [schema](../../schema/ffe-record.schema.json); verify its hash and selected membership without substituting current state. Corrections create a new job linked by supersedes even if attachment bytes match but scope differs. Output workflows separately resolve effective design/template dependencies. No intake grants approval or renders a document.
 
-For each product in the input:
+Apply the [native mutation sequence](../../docs/workspace-model.md#native-mutation-sequence) to the new input manifest with its source/basis guards, existing prior-job evidence and absence condition. Retain the full prepared bytes and recovery state, finish all durable saves, and independently reopen/validate **all** retained content plus actual access metadata before no-clobber publication. Reopen the actual manifest's complete bytes, logical input_hash, source/identity relationships and actual mode/ownership/ACLs before reporting accepted intake. Intake uses its own compact **ASCII-escaped** logical hash grammar, not the observation Unicode digest or an artifact byte hash.
 
-1. **Extract known fields:** product name, brand, quantity, price, dimensions, materials, finish, category
-2. **Fill in from knowledge:** If the product is well-known (Eames Lounge Chair, Steelcase Leap, etc.), fill in standard dimensions, materials, and weight from your training data. Mark these as "from reference" in notes.
-3. **Assign categories:** Map to the canonical vocabulary defined in `../../schema/product-schema.md`
-4. **Calculate extended prices:** Unit price × quantity
-5. **Assign item numbers:** Sequential within each category group (S-01, S-02 for Seating; T-01 for Tables; L-01 for Lighting, etc.)
-6. **Flag unknowns:** If a product is vague ("pendant light, Flos, $800-1200"), note it as "TBD — needs specification" and include budget range
+Exact same-job/same-normalized-intent retry verifies the prior result without writing; changed intent requires a new superseding job. Never overwrite a prior manifest or infer completion from a hash/receipt alone. Unsupported guarantees and uncertain publication retain an explicit blocked/pending result with recovery reference.
 
-### Category prefixes for item numbers
+## Optional reusable save and final report
 
-Item number prefixes are defined in `../../schema/product-schema.md` under **Item Number Prefixes**. Read that file for the full mapping of canonical categories to prefixes (e.g. Chair → S, Table → T, Light → L).
+For an explicitly requested reusable save, prepare complete rows under [product schema](../../schema/product-schema.md) and [CSV conventions](../../schema/csv-conventions.md), then hand one complete batch to product-library's native owner. Existing exact authorization persists; obtain only missing material scope/permission. Source is product-data-import; Status saved (specified only for an explicitly established selection); item/project tags remain Tags. Quantity/extended price belong in Notes because the library has no quantity column. Do not loop per row or write the library independently.
 
-## Step 3: Present the Schedule
+Report what was actually produced: inline preview, validated review proposal, accepted manifest with path/input_hash, or independently verified owner save. Preserve unresolved data, scope, sources and limits. Product-cut-sheet/spec-book consume accepted inputs; research, enrichment, cleanup, audit and adoption remain separate requested outcomes. No Arch Studio executable or installed runner is a prerequisite.
 
-Show the formatted schedule as a markdown table:
+## Native workbook preservation comparison
 
-```
-## FF&E Schedule — [Project Name if known]
-
-[n] items · [total qty] units · $[total extended] estimated
-
-| Item # | Product | Brand | Qty | W | D | H | Unit | Materials | Finish | Unit $ | Ext $ | Lead | Notes |
-|--------|---------|-------|-----|---|---|---|------|-----------|--------|--------|-------|------|-------|
-| S-01 | Eames Lounge Chair | Herman Miller | 3 | 32.75 | 32.5 | 33.5 | in | Molded plywood, leather | Walnut/Black | $5,695 | $17,085 | 8-12w | |
-| T-01 | Nelson Platform Bench 48" | Herman Miller | 2 | 48 | 18.5 | 14 | in | Solid maple | Natural | $2,195 | $4,390 | 6-8w | |
-| T-02 | Noguchi Coffee Table | Herman Miller | 1 | 50 | 36 | 15.75 | in | Walnut, glass | — | $2,095 | $2,095 | 6-8w | |
-| L-01 | TBD Pendant | Flos | 1 | — | — | — | — | — | — | $800-$1,200 | $800-$1,200 | — | Needs specification |
-
-**Subtotals by category:**
-- Seating: $17,085 (3 units)
-- Tables: $6,485 (3 units)
-- Lighting: $800-$1,200 (1 unit, TBD)
-- **Total: $24,370-$24,770**
-```
-
-### Presentation rules
-
-- **Group by category**, sorted by item number within each group
-- **Show subtotals** per category and a grand total
-- **Flag TBD items** clearly — include budget range if given
-- **Show dimensions** from reference data when you know the product; leave blank and note "dims TBD" when you don't
-- **Don't fabricate prices** — if you're unsure, note "price TBD" or "estimated" and use the designer's stated budget
-- **Currency** — default USD unless the designer specifies otherwise
-
-## Step 4: Choose persistence
-
-The Markdown schedule is always available without a write. Persist structured product data only to the nearest project-root `product-library.csv`. If no ancestor contains `PROJECT.md`, stop and direct the user to `/as:project`.
-
-## Step 5: Save
-
-Read `../../schema/product-schema.md` for the exact header, category vocabulary, and values. Read `../../schema/csv-conventions.md` for parsing and mutation rules. Preview the complete batch, row count, totals, target path, and material field changes, then use the single confirmation gate. After approval, serialize all complete rows as one JSON array and invoke `python3 "<plugin-root>/skills/master-schedule/scripts/csv-library.py" append product --project <project-root> --row-json <batch.json>` exactly once. The helper owns batch validation and one atomic replacement; never loop per row or rewrite the persistent CSV directly.
-
-Skill-specific column values:
-- **AG (Source):** `product-data-import`
-- **AF (Status):** `specified`
-- **AD (Tags):** Item number (e.g. "S-01") + any project tags
-- **AE (Notes):** `Qty: 3 · Ext: $17,085` (quantity and extended price, since the schema has no dedicated Qty column)
-
-### Quantity handling
-
-The product library is one row per product, not per unit. Put quantity and extended price in `Notes`, for example `Qty: 3 · Ext: $17,085`.
-
-## Step 6: Summary
-
-After saving:
-
-```
-✓ FF&E Schedule saved to [product-library.csv path]
-  [n] line items · [total qty] units · $[total] estimated
-  [n] items fully specified, [n] items need specification (TBD)
-```
-
-If there are TBD items, offer to research them:
-
-```
-Want me to research the TBD items? I can use /as:product-research to find specific products for:
-- L-01: Flos pendant, $800-$1,200 budget
-```
-
-## Pairs With
-
-- `/as:product-research` — research specific products to fill TBD slots
-- `/as:product-spec-bulk-fetch` — pull full specs from product URLs
-- `/as:product-data-cleanup` — normalize the schedule after assembly
-- `/as:product-enrich` — auto-tag categories, colors, and materials
-- `/as:csv-to-sif` — convert the schedule to SIF for dealer procurement
+When an explicitly selected before/after native `.xlsx` or `.xlsm` pair and permitted cell edits are
+available, load the complete [workbook comparison owner](../../tools/validators/workbook-preservation-contract.md)
+and perform native `workbook_preservation.compare` with actual ZIP/XML inspection. Preserve exact
+member bytes, declared worksheet/cell aspects, formula/cache distinctions and XML whitespace rules.
+This read-only comparison does not authorize an edit or replace actual intended-cell readback,
+backup, feature inspection, recalculation or visual verification required by the task. Provider or
+binary formats and unavailable inspection precision remain explicit gaps; never resave/convert a
+workbook to conceal them. No Arch Studio helper or process runtime is mandatory.

@@ -69,7 +69,7 @@
 
 - **Proposed owner:** [Name or Unassigned]
 - **Proposed due date:** [YYYY-MM-DD or No due date]
-- **Status:** Proposed from site visit; not yet recorded in `TASKS.md`
+- **Status:** Proposed from site visit; not yet recorded in `TASKS.csv`
 - **Source:** [Project-relative report item or supporting source]
 
 ## Disclaimer

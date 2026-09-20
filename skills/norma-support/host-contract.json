@@ -1,0 +1,32 @@
+{
+  "path": "skills/norma-support/SKILL.md",
+  "responsibility": "Help users connect Arch Studio, understand its access and memory, choose a first workflow, and troubleshoot from reported evidence. General architecture and project execution stays with its owning skill.",
+  "inputs": "Current support question, channel, actual exposed capabilities, scoped supplied evidence and authenticated case context when available. Generic support requires no project or account.",
+  "owned_records": [],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests",
+    "as_support/cases",
+    "as_support/messages"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "answer"
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "skills/norma-support/SKILL.md",
+    "operations": []
+  }
+}

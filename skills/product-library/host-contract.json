@@ -1,0 +1,64 @@
+{
+  "path": "skills/product-library/SKILL.md",
+  "responsibility": "Initialize, inspect, import, append or update the reusable project product-library.csv through guarded transactions. Use for explicit FF&E library saves or corrections; adopted selections and workbook reconciliation belong to master-schedule.",
+  "inputs": "Explicit library operation, resolved project, selected evidence/rows, bound preview hash and stable request ID for writes; native method and readback evidence.",
+  "owned_records": [
+    "product-library.csv",
+    "ffe/library/"
+  ],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "record-read",
+      "required": [
+        "file.read"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    },
+    {
+      "mode": "record-write",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    },
+    {
+      "mode": "delegate"
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "tools/workspace/product-library-contract.md",
+    "operations": [
+      "context.resolve",
+      "product_library.status",
+      "product_library.validate",
+      "product_library.preview",
+      "product_library.init",
+      "product_library.import",
+      "product_library.append",
+      "product_library.update",
+      "product_library.recover",
+      "documents.resolve",
+      "documents.register",
+      "documents.query"
+    ]
+  }
+}

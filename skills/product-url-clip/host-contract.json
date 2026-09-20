@@ -1,0 +1,68 @@
+{
+  "path": "skills/product-url-clip/SKILL.md",
+  "responsibility": "Persist one supplied product URL capture and provide read-only local history; host retrieval and all product/adopted-record writes remain outside this owner.",
+  "inputs": "One explicit URL, optional explicit configuration, stable request ID, exact authorized project or one-off destination, and host-supplied extraction signals.",
+  "owned_records": [
+    "ffe/clips/"
+  ],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/items-and-schedules",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "record-read",
+      "required": [
+        "file.read"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    },
+    {
+      "mode": "record-write",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    },
+    {
+      "mode": "file-output",
+      "when": "Only for an explicitly requested one-off derived report at an authorized destination; capture custody uses record-write and history inspection needs no write.",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": []
+    },
+    {
+      "mode": "research",
+      "when": "Only when the host is authorized to retrieve the exact supplied URL; history inspection needs no web capability."
+    },
+    {
+      "mode": "delegate",
+      "when": "Only for a requested owner handoff: reusable CSV changes to product-library, accepted inputs to product-data-import, adopted records to master-schedule and registered reports to receive; preserve exact authorization, targets, evidence and current revisions."
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "tools/workspace/clip-log-contract.md",
+    "operations": [
+      "clip_log.start",
+      "clip_log.finish",
+      "clip_log.recover",
+      "clip_log.history",
+      "product_observations.validate",
+      "product_observations.validate-batch",
+      "context.resolve"
+    ]
+  }
+}

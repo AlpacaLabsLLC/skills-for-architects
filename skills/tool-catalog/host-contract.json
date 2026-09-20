@@ -1,0 +1,30 @@
+{
+  "path": "skills/tool-catalog/SKILL.md",
+  "responsibility": "Show Arch Studio help, available skills, agents and host-specific commands. Use for help, how do I use Arch Studio, what is Norma, or a capability directory.",
+  "inputs": "Supplied question and relevant bundled references/catalog; no project, workspace, account or application requirement.",
+  "owned_records": [],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "not-applicable",
+  "modes": [
+    {
+      "mode": "answer"
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "skills/tool-catalog/SKILL.md",
+    "operations": []
+  }
+}

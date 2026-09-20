@@ -44,10 +44,9 @@ This is a **utility** that normalizes data regardless of source:
 
 ### Casing
 
-```
-eames lounge chair    →  Eames Lounge Chair
-HERMAN MILLER         →  Herman Miller
-HAY                   →  HAY  (preserved — known abbreviation)
+```text
+Synthetic formatting input only:
+Example Product A | Example Manufacturer | quantity 2 | supplied specification pending
 ```
 
 ### Categories

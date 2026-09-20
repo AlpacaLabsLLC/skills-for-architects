@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "id": "cluster:sustainability",
+  "name": "Sustainability",
+  "maintainer": "Arch Studio maintainers",
+  "scope": "EPD retrieval, parsing, comparison and specification procedures.",
+  "members": [
+    "skill:epd-research",
+    "skill:epd-parser",
+    "skill:epd-compare",
+    "skill:epd-to-spec",
+    "skill:environmental-analysis",
+    "studio:workspace-contract"
+  ],
+  "dependencies": [],
+  "coverage": {
+    "jurisdictions": [],
+    "limitations": "Existing EPD research, parsing, comparison and specification procedures remain available with their own source and normalization requirements. No new EC3 adapter, authenticated connection or cluster-wide execution/workflow validation is claimed.",
+    "sources_indexed": false,
+    "procedures_available": true,
+    "execution_implemented": false,
+    "workflow_validated": false
+  },
+  "host_requirements": [
+    "agent instruction following",
+    "read resources",
+    "skill-specific tools and authorized workspace access when required"
+  ],
+  "evaluations": [
+    {
+      "id": "sustainability-discovery",
+      "kind": "contract",
+      "path": "tests/test-category-contracts.sh",
+      "claim": "Manifest membership and portability only; not workflow acceptance"
+    },
+    {
+      "id": "sustainability-source-membership",
+      "kind": "contract",
+      "path": "tests/test-category-source-integration.sh",
+      "claim": "Shared source dependencies and truthful cluster declarations only; not workflow validation"
+    }
+  ],
+  "reviewed_on": "2026-09-05"
+}

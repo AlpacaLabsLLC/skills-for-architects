@@ -36,16 +36,16 @@ write_cache() {
 }
 
 valid_version() {
-  [[ $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
+  [[ $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+(\.[0-9]+)?$ ]]
 }
 
 version_gt() {
   valid_version "$1" && valid_version "$2" || return 1
-  IFS=. read -r a1 a2 a3 <<< "$1"
-  IFS=. read -r b1 b2 b3 <<< "$2"
-  a1=$((10#$a1)); a2=$((10#$a2)); a3=$((10#$a3))
-  b1=$((10#$b1)); b2=$((10#$b2)); b3=$((10#$b3))
-  (( a1 > b1 )) || { (( a1 == b1 && a2 > b2 )) || { (( a1 == b1 && a2 == b2 && a3 > b3 )); }; }
+  IFS=. read -r a1 a2 a3 a4 <<< "$1"
+  IFS=. read -r b1 b2 b3 b4 <<< "$2"
+  a1=$((10#$a1)); a2=$((10#$a2)); a3=$((10#$a3)); a4=$((10#${a4:-0}))
+  b1=$((10#$b1)); b2=$((10#$b2)); b3=$((10#$b3)); b4=$((10#${b4:-0}))
+  (( a1 > b1 )) || { (( a1 == b1 && a2 > b2 )) || { (( a1 == b1 && a2 == b2 && a3 > b3 )) || { (( a1 == b1 && a2 == b2 && a3 == b3 && a4 > b4 )); }; }; }
 }
 
 parse_remote() {
@@ -99,7 +99,7 @@ valid_version "$local" || exit 0
 version_gt "$remote" "$local" || exit 0
 [ "$nudged_for" != "$remote" ] || exit 0
 
-message="Architecture Studio $remote is available (you have $local). Update through /plugin → skills-for-architects → update. Disable checks with /as:studio updates disable."
+message="Arch Studio $remote is available (you have $local). Update through /plugin → skills-for-architects → update. Disable checks with /as:studio updates disable."
 context="[architecture-studio update] Installed version: $local. Available version: $remote. The user has already received the update notice; do not bring this up unprompted."
 
 if command -v jq >/dev/null 2>&1; then

@@ -1,0 +1,62 @@
+{
+  "path": "skills/norma/SKILL.md",
+  "responsibility": "Use Norma to coordinate architecture, buildings, projects, clients, proposals, schedules, specifications, sites, zoning, FF&E and firm work through the relevant Arch Studio owners. Direct skill requests stay with their owner.",
+  "inputs": "User intent, requested extent, actual host capability inventory, scoped sources and current authorization. Resolve project context only when necessary.",
+  "owned_records": [
+    "Arch Studio-default-preference-owned-block"
+  ],
+  "non_owned_records": [
+    "STUDIO.md",
+    "PROJECT.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "decisions/",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "answer"
+    },
+    {
+      "mode": "delegate"
+    },
+    {
+      "mode": "record-read",
+      "when": "When project-bound work needs current governed context; use the shared resolver.",
+      "required": [
+        "file.read"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    },
+    {
+      "mode": "record-write",
+      "when": "Only apply the exact approved default-preference plan at the selected verified host instruction target using native exact-diff, stale-source, owned-block, recovery and readback safeguards; otherwise session guidance only.",
+      "target": "One explicit host-supported instruction file and its single Arch Studio preference block, bound to current bytes and reviewed plan digest.",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "skills/norma/SKILL.md",
+    "operations": [
+      "context.resolve",
+      "assistant_preference.preview",
+      "assistant_preference.apply"
+    ]
+  }
+}

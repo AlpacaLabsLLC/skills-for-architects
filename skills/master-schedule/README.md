@@ -1,24 +1,5 @@
-# /as:master-schedule
+# Master schedule
 
-Initializes and inspects the current Architecture Studio project's local FF&E library at `product-library.csv`.
+Own adopted FF&E item and schedule revisions; workbooks remain pinned views. Use the current [skill](SKILL.md), [record contract](../../studio/ffe/README.md) and its native operation contracts, performed with the host's available tools; no runner is required. Product-library owns reusable project-root product-library.csv; library maintenance does not adopt project selections.
 
-## Usage
-
-```text
-/as:master-schedule
-```
-
-The skill finds the nearest `PROJECT.md`, validates the complete 33-column CSV, and reports its status. With confirmation, it can create an empty library or import a user-exported CSV. Writes use deterministic RFC 4180 quoting, UTF-8 without BOM, CRLF record endings, and atomic replacement.
-
-Legacy `master-schedule.json` and `canoa.json` files are preserved as evidence. They are not treated as product rows and are never contacted or migrated automatically.
-
-## Files
-
-| File | Purpose |
-|---|---|
-| `SKILL.md` | Local setup, status, import, and safety workflow |
-| `scripts/csv-library.py` | Exact-schema validation and atomic CSV mutation |
-
-## License
-
-MIT
+Resolve the project for durable record work. Preserve explicit identities, current revisions and scope; preview material changes and use existing exact authorization. Current schedule views use the document model's resolved SCHEDULE.csv. No historical configuration converter or helper alias is provided.

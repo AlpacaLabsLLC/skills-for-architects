@@ -1,0 +1,59 @@
+{
+  "path": "skills/product-audit/SKILL.md",
+  "responsibility": "Audit a product, selection or FF&E schedule against sourced evidence and flag discrepancies, unknowns and stale specifications. Use to check product data; not to repair records, certify compliance or generate cut sheets.",
+  "inputs": "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records.",
+  "owned_records": [
+    "ffe/audit-reports"
+  ],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "answer"
+    },
+    {
+      "mode": "research"
+    },
+    {
+      "mode": "file-read"
+    },
+    {
+      "mode": "workbook-read"
+    },
+    {
+      "mode": "file-output",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": []
+    },
+    {
+      "mode": "delegate"
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "tools/validators/ffe-audit-contract.md",
+    "operations": [
+      "ffe_audit.assess",
+      "product_observations.validate",
+      "product_observations.validate-batch",
+      "product_observations.adapt",
+      "context.resolve",
+      "workbook_preservation.compare"
+    ]
+  }
+}

@@ -55,7 +55,7 @@
 
 - **Proposed owner:** [Name or Unassigned]
 - **Proposed due date:** [YYYY-MM-DD or No due date]
-- **Status:** Proposed in meeting; not yet recorded in `TASKS.md`
+- **Status:** Proposed in meeting; not yet recorded in `TASKS.csv`
 - **Source:** [Project-relative source link or current conversation]
 
 ## Open Questions

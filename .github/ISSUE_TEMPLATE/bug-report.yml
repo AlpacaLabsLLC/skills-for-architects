@@ -1,12 +1,12 @@
 name: Bug report
-description: Report a reproducible Architecture Studio problem
+description: Report a reproducible Arch Studio problem
 title: "[bug] "
 labels: [bug]
 body:
   - type: input
     id: version
     attributes:
-      label: Architecture Studio version
+      label: Arch Studio version
     validations:
       required: true
   - type: input

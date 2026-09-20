@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FF&E product identity and filename policy",
+  "description": "Exact product IDs are distinct from job IDs and filenames. product_identity.py consumes these patterns and additionally rejects reserved filenames, trailing-dot stems and case-insensitive output collisions. No silent identity normalization.",
+  "$ref": "#/$defs/tag",
+  "$defs": {
+    "tag": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,79}(?![\\s\\S])"
+    },
+    "filename": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,79}\\.pdf(?![\\s\\S])"
+    }
+  }
+}

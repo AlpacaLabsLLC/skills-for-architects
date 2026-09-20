@@ -1,0 +1,68 @@
+{
+  "path": "skills/product-spec-pdf-parser/SKILL.md",
+  "responsibility": "Extract structured FF&E specs from PDF price books, fact sheets, or spec sheets into a schedule. Use for product PDFs; not web URLs or EPDs.",
+  "inputs": "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records.",
+  "owned_records": [],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "file-read",
+      "when": "Read exact supplied PDF bytes, full page/annotation evidence and selected native semantic/schema resources; process access is optional for the chosen native method.",
+      "required": [
+        "file.read",
+        "pdf.read"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    },
+    {
+      "mode": "file-output",
+      "when": "Only when a standalone derived CSV/JSON/report is explicitly requested; inline extraction and validation require no write.",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": []
+    },
+    {
+      "mode": "delegate",
+      "when": "Only for a requested owner handoff: reusable CSV changes to product-library, accepted inputs to product-data-import, adopted records to master-schedule and registered reports to receive; preserve exact authorization, targets, evidence and current revisions."
+    },
+    {
+      "mode": "workbook-read",
+      "when": "Only when the requested evidence handoff needs actual native workbook values, formulas, links, images and structure."
+    },
+    {
+      "mode": "workbook-edit",
+      "when": "Only for an explicitly requested native workbook edit with suitable backup/provider revision, mapped extraction and preserved features; adopted reconciliation and canonical changes remain master-schedule-owned."
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "tools/transformers/evidence-contracts.md",
+    "operations": [
+      "pdf_evidence.extract",
+      "pdf_evidence.bind",
+      "dimension_values.normalize",
+      "product_observations.validate",
+      "product_observations.validate-batch",
+      "product_observations.adapt",
+      "context.resolve",
+      "workbook_preservation.compare"
+    ]
+  }
+}

@@ -1,0 +1,500 @@
+{
+  "schema_version": 1,
+  "operations": {
+    "delivery_coverage.assess": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "drawing_quantities.summarize": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "lighting_report.build": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "schedule_reconcile.compare": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "dimension_values.normalize": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "ffe_audit.assess": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "product_observations.validate": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "product_observations.validate-batch": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "product_observations.adapt": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "pdf_evidence.extract": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "pdf_evidence.bind": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "ffe_intake.prepare": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "document_contracts.resolve": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "ffe_outputs.prepare": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "ffe_outputs.check": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "ffe_outputs.resume": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "assistant_preference.preview": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "assistant_preference.apply": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "clip_log.start": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "clip_log.finish": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "clip_log.recover": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "clip_log.history": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "ffe_records.adopt": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "ffe_records.read": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "ffe_records.revise": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "ffe_records.reconcile": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "ffe_records.snapshot": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "ffe_records.recover": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "ffe_records.export": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "product_library.init": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "product_library.status": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "product_library.validate": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "product_library.import": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "product_library.append": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "product_library.update": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "product_library.preview": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "product_library.recover": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "resize_images.resize": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "skill_scaffold.validate": {
+      "behavior_tests": [
+        "tests/test-local-runner.py"
+      ]
+    },
+    "workbook_preservation.compare": {
+      "behavior_tests": [
+        "tests/test-local-runner.py"
+      ]
+    },
+    "update_preference.status": {
+      "behavior_tests": [
+        "tests/test-local-runner.py"
+      ]
+    },
+    "update_preference.enable": {
+      "behavior_tests": [
+        "tests/test-local-runner.py"
+      ]
+    },
+    "update_preference.disable": {
+      "behavior_tests": [
+        "tests/test-local-runner.py"
+      ]
+    },
+    "capabilities.validate": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "capabilities.write": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "capabilities.check": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "categories.validate": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "categories.write-guide": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "categories.check-guide": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "namespace.validate": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "geographic_applicability.validate": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "geographic_applicability.assess": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "host_contracts.validate": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "host_contracts.assess": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "source_health.validate": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "source_health.check": {
+      "behavior_tests": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    "delivery_coverage.verify-links": {
+      "behavior_tests": [
+        "tests/test-local-runner.py"
+      ]
+    },
+    "documents.resolve": {
+      "behavior_tests": [
+        "tests/test-documents.py"
+      ]
+    },
+    "documents.hash": {
+      "behavior_tests": [
+        "tests/test-documents.py"
+      ]
+    },
+    "documents.register": {
+      "behavior_tests": [
+        "tests/test-documents.py"
+      ]
+    },
+    "documents.move": {
+      "behavior_tests": [
+        "tests/test-documents.py"
+      ]
+    },
+    "documents.update": {
+      "behavior_tests": [
+        "tests/test-documents.py"
+      ]
+    },
+    "documents.verify": {
+      "behavior_tests": [
+        "tests/test-documents.py"
+      ]
+    },
+    "documents.query": {
+      "behavior_tests": [
+        "tests/test-documents.py"
+      ]
+    },
+    "documents.recover": {
+      "behavior_tests": [
+        "tests/test-documents.py"
+      ]
+    },
+    "project.init": {
+      "behavior_tests": [
+        "tests/test-documents.py"
+      ]
+    },
+    "project.status": {
+      "behavior_tests": [
+        "tests/test-documents.py"
+      ]
+    },
+    "project.vocab": {
+      "behavior_tests": [
+        "tests/test-documents.py"
+      ]
+    },
+    "context.resolve": {
+      "behavior_tests": [
+        "tests/test-documents.py"
+      ]
+    },
+    "studio.init": {
+      "behavior_tests": [
+        "tests/test-documents.py"
+      ]
+    },
+    "studio.status": {
+      "behavior_tests": [
+        "tests/test-documents.py"
+      ]
+    },
+    "studio.register": {
+      "behavior_tests": [
+        "tests/test-documents.py"
+      ]
+    },
+    "studio.set-status": {
+      "behavior_tests": [
+        "tests/test-documents.py"
+      ]
+    },
+    "studio.archive": {
+      "behavior_tests": [
+        "tests/test-documents.py"
+      ]
+    },
+    "studio.set-naming": {
+      "behavior_tests": [
+        "tests/test-documents.py"
+      ]
+    },
+    "studio.task-mode": {
+      "behavior_tests": [
+        "tests/test-documents.py"
+      ]
+    },
+    "tasks.list": {
+      "behavior_tests": [
+        "tests/test-document-records.py"
+      ]
+    },
+    "tasks.add": {
+      "behavior_tests": [
+        "tests/test-document-records.py"
+      ]
+    },
+    "tasks.update": {
+      "behavior_tests": [
+        "tests/test-document-records.py"
+      ]
+    },
+    "tasks.complete": {
+      "behavior_tests": [
+        "tests/test-document-records.py"
+      ]
+    },
+    "tasks.cancel": {
+      "behavior_tests": [
+        "tests/test-document-records.py"
+      ]
+    },
+    "tasks.reopen": {
+      "behavior_tests": [
+        "tests/test-document-records.py"
+      ]
+    },
+    "time.list": {
+      "behavior_tests": [
+        "tests/test-document-records.py"
+      ]
+    },
+    "time.append": {
+      "behavior_tests": [
+        "tests/test-document-records.py"
+      ]
+    },
+    "invoice.init": {
+      "behavior_tests": [
+        "tests/test-document-records.py"
+      ]
+    },
+    "invoice.allocate": {
+      "behavior_tests": [
+        "tests/test-document-records.py"
+      ]
+    },
+    "invoice.status": {
+      "behavior_tests": [
+        "tests/test-document-records.py"
+      ]
+    },
+    "invoice.append": {
+      "behavior_tests": [
+        "tests/test-document-records.py"
+      ]
+    },
+    "invoice.set-lifecycle": {
+      "behavior_tests": [
+        "tests/test-document-records.py"
+      ]
+    },
+    "proposal.create": {
+      "behavior_tests": [
+        "tests/test-document-records.py"
+      ]
+    },
+    "proposal.list": {
+      "behavior_tests": [
+        "tests/test-document-records.py"
+      ]
+    },
+    "proposal.verify": {
+      "behavior_tests": [
+        "tests/test-document-records.py"
+      ]
+    },
+    "proposal.status": {
+      "behavior_tests": [
+        "tests/test-document-records.py"
+      ]
+    },
+    "proposal.send": {
+      "behavior_tests": [
+        "tests/test-document-records.py"
+      ]
+    },
+    "proposal.set-status": {
+      "behavior_tests": [
+        "tests/test-document-records.py"
+      ]
+    },
+    "agreement.verify": {
+      "behavior_tests": [
+        "tests/test-document-records.py"
+      ]
+    },
+    "agreement.init": {
+      "behavior_tests": [
+        "tests/test-document-records.py"
+      ]
+    },
+    "agreement.promote": {
+      "behavior_tests": [
+        "tests/test-document-records.py"
+      ]
+    },
+    "agreement.record-amendment": {
+      "behavior_tests": [
+        "tests/test-document-records.py"
+      ]
+    }
+  }
+}

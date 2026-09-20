@@ -1,0 +1,266 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Immutable product URL capture",
+  "$defs": {
+    "url": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "url",
+        "redacted_components"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https?://[^\\s]+$"
+        },
+        "redacted_components": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^(userinfo|fragment|path-secret|query:.+)$"
+          }
+        }
+      }
+    },
+    "product": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manufacturer",
+        "model",
+        "manufacturer_sku",
+        "vendor_item_id",
+        "storefront_id"
+      ],
+      "properties": {
+        "manufacturer": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "model": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "manufacturer_sku": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vendor_item_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "storefront_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "json": {
+      "oneOf": [
+        {
+          "type": [
+            "string",
+            "number",
+            "boolean",
+            "null"
+          ]
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/json"
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/json"
+          }
+        }
+      ]
+    },
+    "request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "submitted_url",
+        "configuration",
+        "fingerprint"
+      ],
+      "properties": {
+        "submitted_url": {
+          "$ref": "#/$defs/url"
+        },
+        "configuration": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/json"
+          }
+        },
+        "fingerprint": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "capture_id",
+    "request_id",
+    "created_at",
+    "outcome",
+    "request",
+    "urls",
+    "observation",
+    "observation_sha256",
+    "product",
+    "provenance",
+    "adoption_performed",
+    "retrieval_performed_by_helper"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "capture_id": {
+      "type": "string",
+      "format": "uuid",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "request_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?Z$"
+    },
+    "outcome": {
+      "enum": [
+        "success",
+        "partial",
+        "blocked",
+        "login-required",
+        "not-product",
+        "file-reference",
+        "unavailable",
+        "failed"
+      ]
+    },
+    "request": {
+      "$ref": "#/$defs/request"
+    },
+    "urls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "resolved_url",
+        "canonical_url"
+      ],
+      "properties": {
+        "resolved_url": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/url"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "canonical_url": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/url"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "observation": {
+      "oneOf": [
+        {
+          "$ref": "product-observation.schema.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "observation_sha256": {
+      "oneOf": [
+        {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "product": {
+      "$ref": "#/$defs/product"
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "as_version",
+        "as_digest",
+        "extractor_version"
+      ],
+      "properties": {
+        "as_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "as_digest": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "extractor_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "adoption_performed": {
+      "const": false
+    },
+    "retrieval_performed_by_helper": {
+      "const": false
+    }
+  }
+}

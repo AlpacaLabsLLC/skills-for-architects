@@ -1,6 +1,6 @@
 # Firm deployment guide
 
-Architecture Studio v1.4.5 is a local-first, one-writer pilot framework for Codex and Claude Code, not a hosted governance platform. A firm should assign a technology owner before distributing it and keep its studio workspace in firm-controlled storage.
+Arch Studio v1.5.0 supplies governed workflows through plugin and hosted instruction delivery. Project records remain local. Assign a technology owner before firm distribution and keep the studio workspace in firm-controlled storage. The [release guide](release-delivery.md) separates candidate, host acceptance and publication.
 
 ## Pilot ownership
 
@@ -12,7 +12,7 @@ Architecture Studio v1.4.5 is a local-first, one-writer pilot framework for Code
 ## Records and collaboration
 
 - Treat `STUDIO.md`, each `PROJECT.md`, and canonical task or time registers as one-writer records. Do not have two agent sessions edit the same canonical record concurrently.
-- Network and synchronized folders inherit their provider's conflict, sharing, retention, and recovery behavior. Architecture Studio does not provide locking or conflict resolution.
+- Document operations check expected local revisions and preserve recoverable write state for cooperating writers. Network and synchronized folders retain their provider's conflict, sharing, retention and recovery behavior; these checks are not distributed locking or automatic conflict resolution.
 - Back up the studio before structural changes. Recovery means restoring user-owned files through the firm's backup or source-control process; plugin reinstall does not restore records.
 - Restrict filesystem access to the people and systems authorized for the underlying projects.
 
@@ -25,6 +25,6 @@ Architecture Studio v1.4.5 is a local-first, one-writer pilot framework for Code
 
 ## Distribution, rollback, and support
 
-Distribute the public plugin through the documented marketplace installation. Distribute private firm skills through firm-controlled source control or deployment tooling into `.agents/skills/` for Codex or `.claude/skills/` for Claude Code. Pin and record the tested plugin version. To roll back, reinstall the previously approved plugin version and restore user-owned records only from a reviewed backup; never replace a studio workspace with plugin files.
+Distribute approved plugin releases through the documented marketplace. Hosted MCP workflows are harness-native: the connected host performs them with its own tools and needs no local Arch Studio package, runner or installer. The [managed package installer](../tools/runner/README.md) applies only to the OSS plugin's retained local operations; a pilot that uses it records the package digest and tested host route. Distribute private firm skills through firm-controlled tooling into the relevant host skill root. R4 uses fresh new-model setup; there is no historical register converter. Retain user-file backups independently of package versions; selecting another package never restores or downgrades records.
 
-Architecture Studio issues belong in `$studio-feedback` on Codex or `/as:studio-feedback` on Claude Code after the outbound fields are reviewed. Account, billing, model, and retention questions belong with OpenAI or Anthropic and the firm's host administrator. Storage, sync, access, and backup incidents belong with the firm's provider and internal owners.
+Arch Studio issues belong in `$studio-feedback` on Codex or `/as:studio-feedback` on Claude Code after the outbound fields are reviewed. Account, billing, model, and retention questions belong with OpenAI or Anthropic and the firm's host administrator. Storage, sync, access, and backup incidents belong with the firm's provider and internal owners.

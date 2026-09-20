@@ -1,0 +1,71 @@
+{
+  "path": "skills/epd-compare/SKILL.md",
+  "responsibility": "Compare EPD products on normalized GWP and other impacts while checking declared units, system boundaries, and LEED eligibility. Use for side-by-side EPD comparison.",
+  "inputs": "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records.",
+  "owned_records": [],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "answer"
+    },
+    {
+      "mode": "file-read",
+      "when": "When reading selected source documents or authorized supplied evidence.",
+      "required": [
+        "file.read"
+      ],
+      "optional": [
+        "pdf.read"
+      ]
+    },
+    {
+      "mode": "file-output",
+      "when": "Only for requested rows, reports or specification files at an authorized destination; inline work needs no write.",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    },
+    {
+      "mode": "delegate",
+      "when": "Only for requested extraction/research owner coordination or project facts/decisions and registered documents; inherit exact targets, source evidence and existing authorization."
+    },
+    {
+      "mode": "research",
+      "when": "Only when requested substantive findings require applicable original source/standard documents beyond authorized supplied evidence; metadata-only listing needs no retrieval."
+    },
+    {
+      "mode": "record-read",
+      "when": "Only when consuming an existing selected project-root EPD library; native validation changes no records. Standalone supplied CSV inspection uses file-read and the EPD schema without project adoption.",
+      "required": [
+        "file.read"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "tools/workspace/epd-library-contract.md",
+    "operations": [
+      "product_library.validate"
+    ]
+  }
+}

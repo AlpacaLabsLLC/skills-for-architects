@@ -1,0 +1,49 @@
+{
+  "path": "skills/nyc-dob-violations/SKILL.md",
+  "responsibility": "Look up open and resolved DOB and ECB violations for any NYC building, with class, status, and penalty detail. Use when the user asks whether a building has violations, stop-work orders, or outstanding ECB penalties. NYC only; for housing-code violations use /as:nyc-hpd.",
+  "inputs": "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records.",
+  "owned_records": [],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "research",
+      "when": "When substantive research needs applicable original sources; source-directory-only requests use catalog metadata without source-content retrieval, and authorized supplied evidence remains usable."
+    },
+    {
+      "mode": "file-read"
+    },
+    {
+      "mode": "file-output",
+      "when": "For the requested report/evidence files under the authorized task root; inline source-directory lookup needs no write.",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    },
+    {
+      "mode": "delegate",
+      "when": "Only for requested project facts/decisions or durable document placement/registration; inherit exact scope, source evidence and existing authorization."
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "skills/nyc-dob-violations/SKILL.md",
+    "operations": []
+  }
+}

@@ -4,7 +4,7 @@
      every session in this folder and follows it without being asked.
      Everything below is a sensible default — edit each ← line to match how
      YOUR office actually works, and delete anything you don't care about.
-     Derived from the Architecture Studio rules:
+     Derived from the Arch Studio rules:
      https://github.com/AlpacaLabsLLC/skills-for-architects/tree/main/rules -->
 
 ## Identity
@@ -29,7 +29,7 @@
 
 ## Codes & sources
 
-- Cite codes with edition year and section: `IBC 2021 §1004.5`, never "the building code"
+- Cite codes with edition year and section: `{verified code} {edition} §{section}` (format placeholder only), never "the building code"
 - Note that codes are adopted and amended locally: "(check local amendments)"
 - Say "appears consistent with [section]" — never "complies with code"
 - Every data point from an external source gets a citation

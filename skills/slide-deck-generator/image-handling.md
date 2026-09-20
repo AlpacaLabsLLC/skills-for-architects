@@ -4,16 +4,7 @@ The deck must be self-contained — local images must be embedded as base64 data
 
 ## Encoding local images
 
-For every local image path the user provides, run this Python snippet via Bash to get the base64 data URI:
-
-```python
-import base64, sys, mimetypes
-path = sys.argv[1]
-mime = mimetypes.guess_type(path)[0] or "image/jpeg"
-with open(path, "rb") as f:
-    data = base64.b64encode(f.read()).decode()
-print(f"data:{mime};base64,{data}")
-```
+Use the host's authorized file/image capabilities to read the provided local image, preserve its actual MIME type and encode its bytes as a base64 data URI. Do not reconstruct an installed executable from instructions. If the host cannot read or encode the file, retain an explicit missing-image state.
 
 Then use the output as the `src` value:
 

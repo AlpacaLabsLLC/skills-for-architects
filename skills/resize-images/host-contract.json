@@ -1,0 +1,41 @@
+{
+  "path": "skills/resize-images/SKILL.md",
+  "responsibility": "Batch-resize or convert a folder of images for web, social media, slides, or ARCH-size print output while preserving originals. Use for image resizing, format presets, or photo batches; not for product-image background removal.",
+  "inputs": "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records.",
+  "owned_records": [],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "not-applicable",
+  "modes": [
+    {
+      "mode": "image-transform",
+      "required": [
+        "file.read",
+        "file.write",
+        "image.read",
+        "image.transform"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "tools/transformers/resize-images-contract.md",
+    "operations": [
+      "resize_images.resize"
+    ]
+  }
+}

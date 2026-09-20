@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Reported lighting observations, version 1",
+  "description": "Host-extracted observations, not PDF input. The native evidence contract additionally requires finite numbers, unique IDs, identity evidence and grouping. No automatic legacy conversion or source verification.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "inventory_observations", "calculation_results"],
+  "properties": {
+    "schema_version": {"type": "integer", "const": 1},
+    "inventory_observations": {"type": "array", "items": {"$ref": "#/$defs/inventory"}},
+    "calculation_results": {"type": "array", "items": {"$ref": "#/$defs/result"}}
+  },
+  "anyOf": [
+    {"properties": {"inventory_observations": {"minItems": 1}}},
+    {"properties": {"calculation_results": {"minItems": 1}}}
+  ],
+  "$defs": {
+    "text": {"type": "string", "pattern": "\\S"},
+    "nullable_text": {"type": ["string", "null"], "pattern": "\\S"},
+    "source": {
+      "type": "object", "additionalProperties": false,
+      "required": ["document_sha256", "physical_page", "printed_page", "locator"],
+      "properties": {
+        "document_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "physical_page": {"type": "integer", "minimum": 1},
+        "printed_page": {"$ref": "#/$defs/nullable_text"},
+        "locator": {"$ref": "#/$defs/text"}
+      }
+    },
+    "scope": {
+      "type": "object", "additionalProperties": false, "required": ["kind", "id"],
+      "properties": {
+        "kind": {"enum": ["room", "scene", "report", "custom"]},
+        "id": {"$ref": "#/$defs/text"}
+      }
+    },
+    "scene": {
+      "type": "object", "additionalProperties": false, "required": ["status", "name"],
+      "properties": {
+        "status": {"enum": ["reported", "not-reported", "not-applicable"]},
+        "name": {"$ref": "#/$defs/nullable_text"}
+      },
+      "if": {"properties": {"status": {"const": "reported"}}},
+      "then": {"properties": {"name": {"$ref": "#/$defs/text"}}},
+      "else": {"properties": {"name": {"type": "null"}}}
+    },
+    "identity_evidence": {
+      "type": "object", "additionalProperties": false, "required": ["source", "basis"],
+      "properties": {
+        "source": {"$ref": "#/$defs/source"},
+        "basis": {"$ref": "#/$defs/text"}
+      }
+    },
+    "inventory": {
+      "type": "object", "additionalProperties": false,
+      "required": ["observation_id", "inventory_id", "identity_evidence", "scope", "room", "scene", "surface", "tag", "variant", "quantity", "raw_quantity", "unit", "source"],
+      "properties": {
+        "observation_id": {"$ref": "#/$defs/text"},
+        "inventory_id": {"$ref": "#/$defs/nullable_text"},
+        "identity_evidence": {"anyOf": [{"$ref": "#/$defs/identity_evidence"}, {"type": "null"}]},
+        "scope": {"$ref": "#/$defs/scope"},
+        "room": {"$ref": "#/$defs/nullable_text"},
+        "scene": {"$ref": "#/$defs/scene"},
+        "surface": {"$ref": "#/$defs/nullable_text"},
+        "tag": {"$ref": "#/$defs/text"},
+        "variant": {"$ref": "#/$defs/nullable_text"},
+        "quantity": {"type": ["number", "null"], "minimum": 0},
+        "raw_quantity": {"$ref": "#/$defs/nullable_text"},
+        "unit": {"$ref": "#/$defs/text"},
+        "source": {"$ref": "#/$defs/source"}
+      },
+      "if": {"properties": {"inventory_id": {"type": "null"}}},
+      "then": {"properties": {"identity_evidence": {"type": "null"}}},
+      "else": {
+        "properties": {"identity_evidence": {"$ref": "#/$defs/identity_evidence"}},
+        "allOf": [
+          {"if": {"properties": {"scope": {"properties": {"kind": {"const": "room"}}}}},
+           "then": {"properties": {"room": {"$ref": "#/$defs/text"}}}},
+          {"if": {"properties": {"scope": {"properties": {"kind": {"const": "scene"}}}}},
+           "then": {"properties": {"scene": {"properties": {"status": {"const": "reported"}}}}}}
+        ]
+      }
+    },
+    "result": {
+      "type": "object", "additionalProperties": false,
+      "required": ["result_id", "scope", "room", "scene", "surface", "metric", "value", "raw_value", "unit", "condition", "source"],
+      "properties": {
+        "result_id": {"$ref": "#/$defs/text"},
+        "scope": {"$ref": "#/$defs/scope"},
+        "room": {"$ref": "#/$defs/nullable_text"},
+        "scene": {"$ref": "#/$defs/scene"},
+        "surface": {"$ref": "#/$defs/nullable_text"},
+        "metric": {"$ref": "#/$defs/text"},
+        "value": {"type": ["number", "null"]},
+        "raw_value": {"$ref": "#/$defs/nullable_text"},
+        "unit": {"$ref": "#/$defs/nullable_text"},
+        "condition": {"$ref": "#/$defs/nullable_text"},
+        "source": {"$ref": "#/$defs/source"}
+      }
+    }
+  }
+}

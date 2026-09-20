@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "id": "cluster:specifications",
+  "name": "Specifications",
+  "maintainer": "Arch Studio maintainers",
+  "scope": "Outline specification procedures and professional terminology.",
+  "members": [
+    "skill:spec-writer",
+    "skill:epd-to-spec",
+    "skill:architecture-knowledge",
+    "studio:workspace-contract",
+    "knowledge:sources"
+  ],
+  "dependencies": [],
+  "coverage": {
+    "jurisdictions": [],
+    "limitations": "Specification procedures route to original-source metadata, including ASTM and professional-practice sources. No local reference summaries, automatic adoption or product compliance conclusions are supplied. No cluster-wide execution or workflow validation is claimed.",
+    "sources_indexed": true,
+    "procedures_available": true,
+    "execution_implemented": false,
+    "workflow_validated": false
+  },
+  "host_requirements": [
+    "agent instruction following",
+    "read resources",
+    "skill-specific tools and authorized workspace access when required"
+  ],
+  "evaluations": [
+    {
+      "id": "specifications-discovery",
+      "kind": "contract",
+      "path": "tests/test-category-contracts.sh",
+      "claim": "Manifest membership and portability only; not workflow acceptance"
+    },
+    {
+      "id": "specifications-source-membership",
+      "kind": "contract",
+      "path": "tests/test-category-source-integration.sh",
+      "claim": "Shared source dependencies and truthful cluster declarations only; not workflow validation"
+    }
+  ],
+  "reviewed_on": "2026-09-13"
+}

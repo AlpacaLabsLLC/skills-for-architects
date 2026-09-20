@@ -1,0 +1,60 @@
+{
+  "path": "skills/product-research/SKILL.md",
+  "responsibility": "Find and compare current FF&E candidates from a design brief, with sourced purchasing facts and optional CSV-library save. Use to research or source products; not to match from an image or pair coordinating items.",
+  "inputs": "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records.",
+  "owned_records": [],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "research"
+    },
+    {
+      "mode": "file-read"
+    },
+    {
+      "mode": "delegate",
+      "when": "Only for explicitly requested owner work: product-library saves, master-schedule adoption/revision, product-data-import accepted inputs or receive registered reports. Preserve authorization, target identity, source evidence and current revisions."
+    },
+    {
+      "mode": "file-output",
+      "when": "Only for an explicitly requested derived Markdown report at an authorized destination; canonical storage remains owner-delegated.",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": []
+    },
+    {
+      "mode": "workbook-read",
+      "when": "Only for a requested workbook evidence handoff; inspect actual values, formulas, true links, images and structure."
+    },
+    {
+      "mode": "workbook-edit",
+      "when": "Only for explicitly authorized workbook edits with suitable native backup/provider revision, mapping and feature preservation; adopted changes retain master-schedule ownership."
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "schema/product-observations.md",
+    "operations": [
+      "product_observations.validate",
+      "product_observations.validate-batch",
+      "product_observations.adapt",
+      "context.resolve",
+      "workbook_preservation.compare"
+    ]
+  }
+}

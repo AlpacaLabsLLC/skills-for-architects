@@ -1,6 +1,6 @@
 ---
 name: product-research
-description: Find and compare current FF&E candidates from a design brief, with sourced purchasing facts and optional CSV-library save. Use to research or source products; not to match from an image or pair coordinating items.
+description: "Find and compare current FF&E candidates from a design brief, with sourced purchasing facts and optional CSV-library save. Use to research or source products; not to match from an image or pair coordinating items."
 allowed-tools:
   - Read
   - Write
@@ -15,8 +15,25 @@ allowed-tools:
 
 # /as:product-research — Product Research
 
+Before acting, read the [host contract](../../docs/host-harness-contract.md) and this component's [declaration](host-contract.json) (`skill:product-research`). Load only its referenced mode profiles from the [shared catalog](../../corpus/host-contracts.json). Compose modes required by the actual task; declarations are requirements, not proof of access or permission.
+
+Library changes are owned by [/as:product-library](../product-library/SKILL.md). Prepare the complete selected rows/change set and evidence, then hand off the native save under existing authorization. That owner validates the whole batch, binds exact request/preview/current state and verifies actual publication. This skill does not independently mutate `product-library.csv`.
+
 <!-- architecture-studio:harness-compatibility -->
-> Harness note: use `/as:<skill>` on Claude Code and `$<skill>` on Codex. Resolve `<skill-root>` as the directory containing this loaded `SKILL.md` and `<plugin-root>` as the plugin root that contains `skills/`, and use equivalent native tools when host tool names differ.
+> Host adapter: read [delivery-specific guidance](../../docs/host-adapters.md) for invocation, questions, target access and optional delegation.
+
+## Record authority and host handoff
+
+For structured evidence handoff, read the complete [native product-observation owner](../../schema/product-observations.md) and [schema](../../schema/product-observation.schema.json). Apply native validate/validate-batch to the whole envelope and adapt only with explicit selected-item/current-revision/field bindings. Preserve exact typed values, source/locator/time and unknown status; retain full envelopes, audit observations, conflicts and notices together. Existing null/blank/user overrides survive. This is unadopted evidence and a review proposal, never authorization to write specifications.
+
+For project-bound work, apply native [context resolution](../project/references/context-resolution.md), use its validated project identity and read project instructions. Inline or one-off source work needs no project creation. Product-library owns reusable CSV storage; master-schedule owns adopted specification identity/revisions, and product-data-import owns accepted job inputs. Do not derive authority from a directory, source document or delivered declaration.
+
+Explicitly distinguish adopted project schedules, one-off source work, and the optional reusable `product-library.csv`. Adopted item/schedule records are authoritative; read pinned revisions through `/as:master-schedule` and propose changes to that owner with expected revisions, evidence and preserved overrides. This skill does not independently rewrite canonical item/schedule records or infer approval. Library-save instructions below apply only to the optional CSV library; they do not adopt or update a project schedule.
+
+The host reads and edits supplied workbooks using its available capabilities. Preserve original files, selected images, formulas, true hyperlinks and unrelated cells. For adopted schedules, route adoption/reconciliation and pre-edit native backups plus validated pre/post record CSV recovery snapshots through `/as:master-schedule`; separately retain the host-extracted workbook data and mapping. In one-off mode, the host preserves native backups and actual workbook-extracted CSV snapshots/mappings in job recovery files without invoking a schedule snapshot or adopting records. Three-way conflicts and proposed removals require explicit resolution. Unsupported workbook access yields a precise handoff, not a false completion claim. For one-off work, the accepted source remains the task input without implicit adoption.
+
+Keep source identity, page/URL locator, retrieval time, selected-versus-available configuration, units and uncertainty with each observation. Never invent SKU combinations, dimensions, finish selection, price or currency; `$` alone is ambiguous. Preserve user choices until explicitly changed. Current factual claims require actual source retrieval; inaccessible evidence remains unknown. `/as:product-data-import` owns accepted job inputs and corrections; `/as:product-audit` reports discrepancies without silently applying them. `/as:product-cut-sheet` and `/as:spec-book` use the shared document templates and host rendering after inputs are resolved.
+
 
 Receives a brief from a designer, researches products across the web, and returns a curated shortlist. Selected products can be saved to the nearest project's `product-library.csv`.
 
@@ -25,7 +42,7 @@ Receives a brief from a designer, researches products across the web, and return
 ```
 Designer gives a brief
         ↓
-Claude searches the web
+Host searches authorized sources
         ↓
 Presents candidates with specs + reasoning
         ↓
@@ -61,7 +78,6 @@ Extract as many of these as the designer provides. **Don't ask for fields they d
 | **Quantity** | 1 hero piece, 12 for a conference room, 50+ for open office |
 | **Indoor/Outdoor** | Indoor, outdoor, both |
 | **Must-haves** | Stackable, COM available, ADA compliant, weatherproof |
-| **Brands to consider** | "I like Muuto and HAY", "no Herman Miller" |
 | **Brands to avoid** | "Not Ikea", "nothing from Amazon" |
 
 **Don't interview the designer.** If the brief is "acoustic panels for a lobby," that's enough to start searching. You can clarify *after* showing initial results if needed ("I found options in fabric, felt, and wood slat — any preference?").
@@ -97,42 +113,9 @@ For every price, availability, lead-time, finish, dimension, and certification c
 
 Show results as a numbered shortlist with enough detail to evaluate:
 
-```
-## Product Research: Round Dining Tables (walnut, under $3,000)
-
-### 1. Alle Table Round — Hem
-Designer: Staffan Holm · 59" dia × 29"H
-Materials: Solid oak top, powder-coated steel base
-Price: $2,399 USD · Lead: 8-12 weeks
-Finishes: Natural oak, smoked oak, walnut stain
-Indoor · COM: N/A
-🔗 hem.com/en-us/furniture/tables/alle/30421
-Why: Clean Scandinavian lines, strong scale for a lobby, within budget.
-Walnut stain option available. Hem has good contract pricing.
-
-### 2. Snaregade Round — Menu
-Designer: Norm Architects · 54" dia × 28.5"H
-Materials: Oak veneer top, powder-coated steel base
-Price: $2,195 USD · Lead: 6-8 weeks
-Finishes: Dark stained oak, light oak
-Indoor · COM: N/A
-🔗 menuspace.com/snaregade-round
-Why: Norm Architects pedigree, slightly under budget,
-faster lead time. Veneer top (not solid) — flag if that matters.
-
-### 3. ...
-
----
-
-## Summary
-
-| # | Product | Brand | Ø | Price | Lead | Material | Notes |
-|---|---------|-------|---|-------|------|----------|-------|
-| 1 | Alle Round | Hem | 59" | $2,399 | 8-12w | Solid oak | Walnut stain ✓ |
-| 2 | Snaregade Round | Menu | 54" | $2,195 | 6-8w | Oak veneer | Not solid wood |
-| 3 | ... | ... | ... | ... | ... | ... | ... |
-
-Which ones should I save to your product library?
+```text
+Synthetic formatting input only:
+Example Product A | Example Manufacturer | quantity 2 | supplied specification pending
 ```
 
 ### Presentation rules
@@ -149,7 +132,7 @@ When the designer picks candidates ("save 1, 3, and 5"), prepare rows for the ne
 
 ### Row format
 
-Read `../../schema/product-schema.md` for the exact 33-column row contract and `../../schema/csv-conventions.md` for local-file rules. Preview all selected products and the target path, then use the single confirmation gate. After approval, serialize all complete rows as one JSON array and invoke `python3 "<plugin-root>/skills/master-schedule/scripts/csv-library.py" append product --project <project-root> --row-json <batch.json>` exactly once. The helper validates the complete batch and library before one atomic replacement; never loop per row or hand-edit persistent CSV.
+Read `../../schema/product-schema.md` for the exact 33-column row contract and `../../schema/csv-conventions.md` for local-file rules. Preview all selected products and the target path, then use existing exact authorization or ask once for the missing approval. After approval, serialize all complete rows as one JSON array and hand one complete batch to product-library's native append operation. That owner validates current state and the full batch before guarded publication and fresh readback; never loop per row or hand-edit persistent CSV.
 
 Skill-specific column values:
 - **AG (Source):** `research`
@@ -188,5 +171,28 @@ Each iteration can add more products to the library.
 
 ## Notes
 
-- **JS-rendered product pages** are common (Hem, Muuto, Vitra, etc.). If WebFetch returns no data, use search result snippets + general knowledge. Note when specs are unverified.
+- **JS-rendered product pages** are common (Hem, Muuto, Vitra, etc.). If native retrieval returns no data, use search results only for candidate discovery and seek a current authoritative source; purchasing facts remain Not verified. Do not fill them from general knowledge.
 - **The library is shared.** Products from this skill live alongside bulk-fetch imports and PDF extractions. The `Source` field (`research`) identifies where each row came from.
+
+## Original product evidence
+
+Retrieve exact selected manufacturer/product/variant facts from original documents for the task. Example data is synthetic and never evidence. Do not copy product facts, certifications, prices or vendor format definitions into the plugin as reusable reference knowledge. Preserve unresolved values and distinguish representative imagery from the exact selected variant.
+
+## Native output and owner handoff
+
+A requested durable authored report uses receive's native document owner for exact coordinate-based placement, query and registration; do not compose project folders from labels. One-off reports use only their explicitly authorized destination and require no studio/project setup. Canonical adopted revisions and reusable library saves remain with their owners. Existing exact authorization persists; obtain only missing material scope or native permission.
+
+For any output this skill actually saves or edits, apply the [native mutation sequence](../../docs/workspace-model.md#native-mutation-sequence) to its complete affected set. Retain all original bytes/access, source/identity guards, complete prepared output and absence/preconditions; finish durable saves and independently reread **all** retained/prepared content and access before the first publisher. Preserve unrelated data and actual workbook features when applicable. Reopen every actual destination's complete bytes and mode/applicable ownership/ACLs, and verify changes, source lineage and protected originals before reporting completion. Correct bytes, a creation-mode argument or an emitted receipt alone is insufficient. Unsupported protection or uncertain publication stays blocked/pending with recovery evidence.
+
+Use native capabilities suited to the selected mode; process execution is optional when the chosen method needs it. No Arch Studio runner, executable download or source reconstruction is required. Read-only/inline work does not need write capability. Report actual research/extraction, validated proposal and any independently verified owner save separately; do not claim an owner handoff has completed without its actual evidence.
+
+## Native workbook preservation comparison
+
+When an explicitly selected before/after native `.xlsx` or `.xlsm` pair and permitted cell edits are
+available, load the complete [workbook comparison owner](../../tools/validators/workbook-preservation-contract.md)
+and perform native `workbook_preservation.compare` with actual ZIP/XML inspection. Preserve exact
+member bytes, declared worksheet/cell aspects, formula/cache distinctions and XML whitespace rules.
+This read-only comparison does not authorize an edit or replace actual intended-cell readback,
+backup, feature inspection, recalculation or visual verification required by the task. Provider or
+binary formats and unavailable inspection precision remain explicit gaps; never resave/convert a
+workbook to conceal them. No Arch Studio helper or process runtime is mandatory.

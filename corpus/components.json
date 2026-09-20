@@ -1,0 +1,4444 @@
+{
+  "schema_version": 1,
+  "components": [
+    {
+      "id": "skill:agreement",
+      "category": "skills",
+      "path": "skills/agreement/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:sources",
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Maintain sourced agreement context and scope in PROJECT.md, cite registered contracts/proposals, and record amendments without imposing a commercial workflow.",
+        "hostContract": "skills/agreement/host-contract.json",
+        "executionOwner": "host",
+        "triggers": [
+          "record sourced agreement context",
+          "promote an accepted proposal",
+          "record an agreement amendment"
+        ],
+        "exclusions": [
+          "unrequested record promotion or external action",
+          "implicit legacy workspace conversion"
+        ],
+        "inputs": [
+          "Selected authorized request, applicable source evidence and exact record context when persistence is needed"
+        ],
+        "outputs": [
+          "Requested sourced output or verified bounded native record change; explicit no-op, limitation or pending recovery when applicable"
+        ],
+        "handoffs": [],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "skills/agreement/host-contract.json",
+          "docs/workspace-model.md",
+          "skills/project/references/context-resolution.md",
+          "docs/completion-reporting.md",
+          "schema/documents.schema.json"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/agreement/templates/AGREEMENT.md",
+            "when": "When the requested operation uses this owning template; resolve all placeholders from confirmed inputs."
+          },
+          {
+            "path": "skills/agreement/templates/amendment.md",
+            "when": "When the requested operation uses this owning template; resolve all placeholders from confirmed inputs."
+          }
+        ]
+      }
+    },
+    {
+      "id": "skill:architecture-knowledge",
+      "category": "skills",
+      "path": "skills/architecture-knowledge/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts",
+        "knowledge:sources"
+      ],
+      "capability": {
+        "description": "Explain US architecture professional-practice terms, phases, deliverables, roles, delivery methods, AIA contract families, CSI documentation systems, or NCS at a high level. Use for questions such as “what is a CD set?” or “what does 50% CDs mean?”; do not use for code/jurisdiction, outline-spec, agreement-scope, or work-plan work.",
+        "triggers": [
+          "explain this architecture practice term",
+          "list original professional practice sources"
+        ],
+        "exclusions": [
+          "choose or interpret a legal agreement",
+          "calculate code or jurisdiction requirements",
+          "create project records"
+        ],
+        "inputs": [
+          "Terminology question, jurisdiction/topic scope and applicable original or authorized supplied publications"
+        ],
+        "outputs": [
+          "Concise sourced explanation or scoped source directory with unresolved applicability explicit"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/completion-reporting.md",
+          "skills/architecture-knowledge/host-contract.json",
+          "skills/architecture-knowledge/SKILL.md",
+          "docs/source-integration-contracts.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "corpus/sources/catalog.json",
+            "when": "When discovering or listing registered sources by geography/topic; supplied original documents may already establish the selected source."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:agreement",
+            "when": "When the user requests actual agreement scope work."
+          },
+          {
+            "target": "skill:spec-writer",
+            "when": "When actual specification writing is requested."
+          },
+          {
+            "target": "skill:workplan",
+            "when": "When a project work plan is requested."
+          }
+        ],
+        "hostContract": "skills/architecture-knowledge/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:color-palette-generator",
+      "category": "skills",
+      "path": "skills/color-palette-generator/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts",
+        "knowledge:sources"
+      ],
+      "capability": {
+        "description": "Create an HTML color palette from a mood, description, or image, with swatches, color codes, pairings, and contrast checks. Use for color schemes or brand colors.",
+        "hostContract": "skills/color-palette-generator/host-contract.json",
+        "executionOwner": "host",
+        "triggers": [
+          "Create an HTML color palette from a mood, description, or image, with swatches, color codes, pairings, and contrast checks. Use for color schemes or brand colors."
+        ],
+        "exclusions": [
+          "No executable acquisition or unrequested canonical mutation"
+        ],
+        "inputs": [
+          "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records."
+        ],
+        "outputs": [
+          "Verified requested artifact, preserved source evidence and explicit incomplete checks"
+        ],
+        "references": [
+          "skills/color-palette-generator/SKILL.md",
+          "skills/color-palette-generator/sample.html",
+          "corpus/sources/catalog.json",
+          "docs/workspace-model.md",
+          "docs/completion-reporting.md",
+          "skills/color-palette-generator/host-contract.json",
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json"
+        ],
+        "conditionalReferences": [],
+        "handoffs": []
+      }
+    },
+    {
+      "id": "skill:csv-to-sif",
+      "category": "skills",
+      "path": "skills/csv-to-sif/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Export a project's FF&E product-library CSV as dealer-system SIF. Use to produce a .sif schedule; use sif-to-csv for the reverse direction.",
+        "triggers": [
+          "export selected product rows to verified dealer SIF"
+        ],
+        "exclusions": [
+          "infer a vendor field dictionary or manufacturer codes",
+          "adopt or mutate library/schedule records directly",
+          "claim target importer compatibility without actual verification"
+        ],
+        "inputs": [
+          "Supplied selected rows/file and exact original vendor system/version/mapping evidence; authorized destination for requested output"
+        ],
+        "outputs": [
+          "Mapped converted file or inline preview with exact membership, source provenance and explicit losses/unknowns"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/completion-reporting.md",
+          "docs/workspace-model.md",
+          "skills/csv-to-sif/host-contract.json",
+          "schema/sif-crosswalk.md",
+          "schema/product-schema.md",
+          "schema/csv-conventions.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "Only when project-bound conversion or a project owner handoff is requested; one-off stays standalone."
+          },
+          {
+            "path": "tools/workspace/product-library-contract.md",
+            "when": "Only for preparing a requested selected library save for its owner."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:product-library",
+            "when": "Only for a requested reusable CSV library save as one exact selected batch."
+          },
+          {
+            "target": "skill:master-schedule",
+            "when": "Only for separately authorized canonical specification adoption/revision."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested registered project document placement."
+          },
+          {
+            "target": "skill:project",
+            "when": "Only for proposed typed project facts/decisions."
+          }
+        ],
+        "hostContract": "skills/csv-to-sif/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:demographics-analysis",
+      "category": "skills",
+      "path": "skills/demographics-analysis/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts",
+        "knowledge:sources"
+      ],
+      "capability": {
+        "description": "Research population, income, age, housing, and employment around a site. Use for census, demographic, or local-market questions tied to a location.",
+        "triggers": [
+          "research demographic and market evidence",
+          "prepare a sourced demographic and market report"
+        ],
+        "exclusions": [
+          "infer jurisdiction or current source field definitions",
+          "treat unavailable or truncated results as zero or complete",
+          "adopt project facts/decisions or register documents without their owner"
+        ],
+        "inputs": [
+          "Explicit site/property/geography and selected period/domain scope; applicable original sources or authorized supplied evidence"
+        ],
+        "outputs": [
+          "Requested sourced findings/report with exact scope, counts, preserved unknowns, actual checks and material limitations"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/workspace-model.md",
+          "docs/completion-reporting.md",
+          "docs/geographic-applicability.md",
+          "corpus/geographic-applicability.json",
+          "corpus/sources/catalog.json",
+          "skills/demographics-analysis/SKILL.md",
+          "skills/demographics-analysis/host-contract.json"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "Only for project-bound work or a requested typed record/document owner handoff; standalone research needs no project."
+          },
+          {
+            "path": "rules/professional-disclaimer.md",
+            "when": "When regulatory/life-safety or other professionally governed output requires its exact disclaimer/marker; preserve every owner-required end block."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:project",
+            "when": "Only for proposed sourced project facts/decisions; preserve existing authorization and no silent fact adoption."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested durable document placement or registration with explicit coordinates/kind and actual source evidence."
+          }
+        ],
+        "hostContract": "skills/demographics-analysis/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:environmental-analysis",
+      "category": "skills",
+      "path": "skills/environmental-analysis/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts",
+        "knowledge:sources"
+      ],
+      "capability": {
+        "description": "Research climate, sun, flood, seismic, soil, contamination, and topography for a site. Use for environmental site analysis or hazard questions tied to a location.",
+        "triggers": [
+          "research climate and environmental evidence",
+          "prepare a sourced climate and environmental report"
+        ],
+        "exclusions": [
+          "infer jurisdiction or current source field definitions",
+          "treat unavailable or truncated results as zero or complete",
+          "adopt project facts/decisions or register documents without their owner"
+        ],
+        "inputs": [
+          "Explicit site/property/geography and selected period/domain scope; applicable original sources or authorized supplied evidence"
+        ],
+        "outputs": [
+          "Requested sourced findings/report with exact scope, counts, preserved unknowns, actual checks and material limitations"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/workspace-model.md",
+          "docs/completion-reporting.md",
+          "docs/geographic-applicability.md",
+          "corpus/geographic-applicability.json",
+          "corpus/sources/catalog.json",
+          "skills/environmental-analysis/SKILL.md",
+          "skills/environmental-analysis/host-contract.json"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "Only for project-bound work or a requested typed record/document owner handoff; standalone research needs no project."
+          },
+          {
+            "path": "rules/professional-disclaimer.md",
+            "when": "When regulatory/life-safety or other professionally governed output requires its exact disclaimer/marker; preserve every owner-required end block."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:project",
+            "when": "Only for proposed sourced project facts/decisions; preserve existing authorization and no silent fact adoption."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested durable document placement or registration with explicit coordinates/kind and actual source evidence."
+          }
+        ],
+        "hostContract": "skills/environmental-analysis/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:epd-compare",
+      "category": "skills",
+      "path": "skills/epd-compare/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts",
+        "knowledge:sources"
+      ],
+      "capability": {
+        "description": "Compare EPD products on normalized GWP and other impacts while checking declared units, system boundaries, and LEED eligibility. Use for side-by-side EPD comparison.",
+        "triggers": [
+          "compare the selected EPD products"
+        ],
+        "exclusions": [
+          "infer source values, methodological equivalence or program eligibility",
+          "implicitly initialize, deduplicate or adopt an EPD library",
+          "treat EPD rows as product-library rows or adopted FF&E records"
+        ],
+        "inputs": [
+          "Selected original declarations or source-bound records, product/variant scope and requested interpretation; exact authorized destination only for a requested saved output"
+        ],
+        "outputs": [
+          "Comparable impact groups, justified calculations and explicit exclusions/unknowns; requested saved comparison report"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/workspace-model.md",
+          "docs/completion-reporting.md",
+          "docs/geographic-applicability.md",
+          "corpus/geographic-applicability.json",
+          "corpus/sources/catalog.json",
+          "skills/epd-compare/SKILL.md",
+          "skills/epd-compare/host-contract.json",
+          "schema/epd-schema.md",
+          "tools/workspace/epd-library-contract.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "schema/csv-conventions.md",
+            "when": "When consuming or producing an EPD CSV; preserve exact 42-column identity and string values."
+          },
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "Only for project-bound work or a requested record/document handoff; standalone research and supplied evidence need no project."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:epd-parser",
+            "when": "Only for the requested complementary EPD workflow; inherit exact selected declaration/product scope, source evidence and existing authorization."
+          },
+          {
+            "target": "skill:epd-research",
+            "when": "Only for the requested complementary EPD workflow; inherit exact selected declaration/product scope, source evidence and existing authorization."
+          },
+          {
+            "target": "skill:epd-to-spec",
+            "when": "Only for the requested complementary EPD workflow; inherit exact selected declaration/product scope, source evidence and existing authorization."
+          },
+          {
+            "target": "skill:project",
+            "when": "Only for proposed sourced project facts/decisions; no silent adoption."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested document placement/registration with exact source and destination evidence."
+          }
+        ],
+        "hostContract": "skills/epd-compare/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:epd-parser",
+      "category": "skills",
+      "path": "skills/epd-parser/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts",
+        "knowledge:sources"
+      ],
+      "capability": {
+        "description": "Extract GWP, life-cycle stages, certifications, and impact metrics from an EPD PDF. Use when given a declaration to parse; not to find or compare EPDs.",
+        "triggers": [
+          "extract the supplied EPD declaration"
+        ],
+        "exclusions": [
+          "infer source values, methodological equivalence or program eligibility",
+          "implicitly initialize, deduplicate or adopt an EPD library",
+          "treat EPD rows as product-library rows or adopted FF&E records"
+        ],
+        "inputs": [
+          "Selected original declarations or source-bound records, product/variant scope and requested interpretation; exact authorized destination only for a requested saved output"
+        ],
+        "outputs": [
+          "Source-bound EPD rows, exact page/table evidence and parsing gaps; selected library save only when expressly requested"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/workspace-model.md",
+          "docs/completion-reporting.md",
+          "docs/geographic-applicability.md",
+          "corpus/geographic-applicability.json",
+          "corpus/sources/catalog.json",
+          "skills/epd-parser/SKILL.md",
+          "skills/epd-parser/host-contract.json",
+          "schema/epd-schema.md",
+          "tools/workspace/epd-library-contract.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "schema/csv-conventions.md",
+            "when": "When consuming or producing an EPD CSV; preserve exact 42-column identity and string values."
+          },
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "Only for project-bound work or a requested record/document handoff; standalone research and supplied evidence need no project."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:epd-research",
+            "when": "Only for the requested complementary EPD workflow; inherit exact selected declaration/product scope, source evidence and existing authorization."
+          },
+          {
+            "target": "skill:epd-compare",
+            "when": "Only for the requested complementary EPD workflow; inherit exact selected declaration/product scope, source evidence and existing authorization."
+          },
+          {
+            "target": "skill:project",
+            "when": "Only for proposed sourced project facts/decisions; no silent adoption."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested document placement/registration with exact source and destination evidence."
+          }
+        ],
+        "hostContract": "skills/epd-parser/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:epd-research",
+      "category": "skills",
+      "path": "skills/epd-research/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts",
+        "knowledge:sources"
+      ],
+      "capability": {
+        "description": "Search for EPDs by product category, CSI division, or material type — finds EPDs from EC3, program operator registries, and manufacturer sites. Use when the user asks to \"find EPDs for...\", locate declarations for a material, or source low-carbon product documentation.",
+        "triggers": [
+          "find source-verified EPD declarations"
+        ],
+        "exclusions": [
+          "infer source values, methodological equivalence or program eligibility",
+          "implicitly initialize, deduplicate or adopt an EPD library",
+          "treat EPD rows as product-library rows or adopted FF&E records"
+        ],
+        "inputs": [
+          "Selected original declarations or source-bound records, product/variant scope and requested interpretation; exact authorized destination only for a requested saved output"
+        ],
+        "outputs": [
+          "Applicable original declarations and source-bound EPD rows with retrieval gaps; selected library save only when expressly requested"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/workspace-model.md",
+          "docs/completion-reporting.md",
+          "docs/geographic-applicability.md",
+          "corpus/geographic-applicability.json",
+          "corpus/sources/catalog.json",
+          "skills/epd-research/SKILL.md",
+          "skills/epd-research/host-contract.json",
+          "schema/epd-schema.md",
+          "tools/workspace/epd-library-contract.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "schema/csv-conventions.md",
+            "when": "When consuming or producing an EPD CSV; preserve exact 42-column identity and string values."
+          },
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "Only for project-bound work or a requested record/document handoff; standalone research and supplied evidence need no project."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:epd-parser",
+            "when": "Only for the requested complementary EPD workflow; inherit exact selected declaration/product scope, source evidence and existing authorization."
+          },
+          {
+            "target": "skill:epd-compare",
+            "when": "Only for the requested complementary EPD workflow; inherit exact selected declaration/product scope, source evidence and existing authorization."
+          },
+          {
+            "target": "skill:project",
+            "when": "Only for proposed sourced project facts/decisions; no silent adoption."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested document placement/registration with exact source and destination evidence."
+          }
+        ],
+        "hostContract": "skills/epd-research/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:epd-to-spec",
+      "category": "skills",
+      "path": "skills/epd-to-spec/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts",
+        "knowledge:sources"
+      ],
+      "capability": {
+        "description": "Write CSI specification language for EPD submittals and sourced GWP limits. Use to add embodied-carbon or EPD requirements to specs; not to parse, find, or compare EPDs.",
+        "triggers": [
+          "draft source-verified EPD specification language"
+        ],
+        "exclusions": [
+          "infer source values, methodological equivalence or program eligibility",
+          "implicitly initialize, deduplicate or adopt an EPD library",
+          "treat EPD rows as product-library rows or adopted FF&E records"
+        ],
+        "inputs": [
+          "Selected original declarations or source-bound records, product/variant scope and requested interpretation; exact authorized destination only for a requested saved output"
+        ],
+        "outputs": [
+          "Requested specification language with exact declaration references, substantiated thresholds and unresolved applicability"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/workspace-model.md",
+          "docs/completion-reporting.md",
+          "docs/geographic-applicability.md",
+          "corpus/geographic-applicability.json",
+          "corpus/sources/catalog.json",
+          "skills/epd-to-spec/SKILL.md",
+          "skills/epd-to-spec/host-contract.json",
+          "schema/epd-schema.md",
+          "tools/workspace/epd-library-contract.md",
+          "rules/csi-formatting.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "schema/csv-conventions.md",
+            "when": "When consuming or producing an EPD CSV; preserve exact 42-column identity and string values."
+          },
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "Only for project-bound work or a requested record/document handoff; standalone research and supplied evidence need no project."
+          },
+          {
+            "path": "rules/professional-disclaimer.md",
+            "when": "When the actual regulatory or life-safety output requires the exact canonical disclaimer and marker; metadata-only directories do not."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:epd-parser",
+            "when": "Only for the requested complementary EPD workflow; inherit exact selected declaration/product scope, source evidence and existing authorization."
+          },
+          {
+            "target": "skill:epd-research",
+            "when": "Only for the requested complementary EPD workflow; inherit exact selected declaration/product scope, source evidence and existing authorization."
+          },
+          {
+            "target": "skill:epd-compare",
+            "when": "Only for the requested complementary EPD workflow; inherit exact selected declaration/product scope, source evidence and existing authorization."
+          },
+          {
+            "target": "skill:project",
+            "when": "Only for proposed sourced project facts/decisions; no silent adoption."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested document placement/registration with exact source and destination evidence."
+          }
+        ],
+        "hostContract": "skills/epd-to-spec/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:invoice",
+      "category": "skills",
+      "path": "skills/invoice/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Maintain an append-only project INVOICES.csv ledger from explicit billing facts and recorded lifecycle evidence; never infer charges or payment from activity or time logs.",
+        "hostContract": "skills/invoice/host-contract.json",
+        "executionOwner": "host",
+        "triggers": [
+          "record an invoice",
+          "record invoice lifecycle evidence",
+          "inspect invoice totals"
+        ],
+        "exclusions": [
+          "unrequested record promotion or external action",
+          "implicit legacy workspace conversion"
+        ],
+        "inputs": [
+          "Selected authorized request, applicable source evidence and exact record context when persistence is needed"
+        ],
+        "outputs": [
+          "Requested sourced output or verified bounded native record change; explicit no-op, limitation or pending recovery when applicable"
+        ],
+        "handoffs": [],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "skills/invoice/host-contract.json",
+          "docs/workspace-model.md",
+          "skills/project/references/context-resolution.md",
+          "docs/completion-reporting.md",
+          "schema/documents.schema.json"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/invoice/templates/INVOICES.csv",
+            "when": "When the requested operation uses this owning template; resolve all placeholders from confirmed inputs."
+          }
+        ]
+      }
+    },
+    {
+      "id": "skill:learn",
+      "category": "skills",
+      "path": "skills/learn/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Guided, hands-on course teaching architects how to use Codex or Claude Code — six short modules, each built around an exercise on a bundled sandbox project (a fictional Brooklyn art museum expansion). Resumable across sessions via PROGRESS.md. Use when the user runs $learn or /as:learn, says they're new to AI-assisted project work, or asks how to learn it.",
+        "hostContract": "skills/learn/host-contract.json",
+        "executionOwner": "host",
+        "triggers": [
+          "Guided, hands-on course teaching architects how to use Codex or Claude Code — six short modules, each built around an exercise on a bundled sandbox project (a fictional Brooklyn art museum expansion). Resumable across sessions via PROGRESS.md. Use when the user runs $learn or /as:learn, says they're new to AI-assisted project work, or asks how to learn it."
+        ],
+        "exclusions": [
+          "No Arch Studio executable acquisition or unrequested record ownership"
+        ],
+        "inputs": [
+          "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records."
+        ],
+        "outputs": [
+          "Requested verified native result with actual source evidence and unresolved limitations"
+        ],
+        "references": [
+          "skills/learn/SKILL.md",
+          "skills/learn/host-contract.json",
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "docs/completion-reporting.md",
+          "corpus/host-contracts.json",
+          "docs/workspace-model.md",
+          "skills/learn/sandbox/art-museum/IMG_4032.txt",
+          "skills/learn/sandbox/art-museum/RE_ RE_ RE_ quick question.txt",
+          "skills/learn/sandbox/art-museum/Scan_001.txt",
+          "skills/learn/sandbox/art-museum/notes final FINAL (2).txt",
+          "skills/learn/sandbox/art-museum/program_v2_FINAL_final.csv",
+          "skills/learn/sandbox/art-museum/site-visit-jun12.txt",
+          "skills/learn/templates/office-CLAUDE.md"
+        ],
+        "conditionalReferences": [],
+        "handoffs": []
+      }
+    },
+    {
+      "id": "skill:master-schedule",
+      "category": "skills",
+      "path": "skills/master-schedule/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts",
+        "studio:workspace-contract",
+        "skill:product-library"
+      ],
+      "capability": {
+        "description": "Adopt, read, reconcile or revise project FF&E item and schedule records with permanent identities and exact revision pins; preserve native workbook views and recover new artifacts.",
+        "hostContract": "skills/master-schedule/host-contract.json",
+        "executionOwner": "host",
+        "triggers": [
+          "adopt these project selections",
+          "revise this adopted schedule",
+          "reconcile a workbook with its schedule revision",
+          "recover an FF&E snapshot"
+        ],
+        "exclusions": [
+          "implicit adoption of research or library rows",
+          "inferred approval or silent overwrite of stale records",
+          "reuse of CSV as full workbook preservation"
+        ],
+        "inputs": [
+          "Explicit selected operation, current project and source evidence, exact membership/identity/revision and authority when writing"
+        ],
+        "outputs": [
+          "Verified pinned schedule/items or read-only comparison, recoverable new artifact, precise conflict or capability limitation"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/workspace-model.md",
+          "skills/project/references/context-resolution.md",
+          "docs/completion-reporting.md",
+          "skills/master-schedule/host-contract.json",
+          "tools/workspace/ffe-records-contract.md",
+          "schema/ffe-record.schema.json"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "schema/documents.schema.json",
+            "when": "When a separate durable authored report or scoped schedule view is registered through receive."
+          },
+          {
+            "path": "tools/validators/workbook-preservation-contract.md",
+            "when": "When an explicitly selected before/after native OOXML pair and permitted cell aspects are available for preservation comparison; actual editing and complete workbook verification remain separate."
+          }
+        ],
+        "handoffs": [
+          {
+            "target": "skill:product-library",
+            "when": "When maintaining the reusable library rather than adopted selections."
+          },
+          {
+            "target": "skill:receive",
+            "when": "When a separately requested durable report requires document registration; preserve authorization."
+          }
+        ]
+      }
+    },
+    {
+      "id": "skill:meeting-minutes",
+      "category": "skills",
+      "path": "skills/meeting-minutes/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Turn supplied meeting notes or transcripts into sourced minutes, keeping discussion, statements, confirmed/proposed decisions and proposed actions distinct.",
+        "hostContract": "skills/meeting-minutes/host-contract.json",
+        "executionOwner": "host",
+        "triggers": [
+          "prepare sourced meeting minutes"
+        ],
+        "exclusions": [
+          "unrequested record promotion or external action",
+          "implicit legacy workspace conversion"
+        ],
+        "inputs": [
+          "Selected authorized request, applicable source evidence and exact record context when persistence is needed"
+        ],
+        "outputs": [
+          "Requested sourced output or verified bounded native record change; explicit no-op, limitation or pending recovery when applicable"
+        ],
+        "handoffs": [],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "skills/meeting-minutes/host-contract.json",
+          "docs/workspace-model.md",
+          "skills/project/references/context-resolution.md",
+          "docs/completion-reporting.md",
+          "schema/documents.schema.json"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/meeting-minutes/templates/meeting-minutes.md",
+            "when": "When the requested operation uses this owning template; resolve all placeholders from confirmed inputs."
+          }
+        ]
+      }
+    },
+    {
+      "id": "skill:mobility-analysis",
+      "category": "skills",
+      "path": "skills/mobility-analysis/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts",
+        "knowledge:sources"
+      ],
+      "capability": {
+        "description": "Research transit, walking, cycling, pedestrian infrastructure, and airport access for a site. Use for mobility, accessibility, or walkability questions tied to a location.",
+        "triggers": [
+          "research mobility and access evidence",
+          "prepare a sourced mobility and access report"
+        ],
+        "exclusions": [
+          "infer jurisdiction or current source field definitions",
+          "treat unavailable or truncated results as zero or complete",
+          "adopt project facts/decisions or register documents without their owner"
+        ],
+        "inputs": [
+          "Explicit site/property/geography and selected period/domain scope; applicable original sources or authorized supplied evidence"
+        ],
+        "outputs": [
+          "Requested sourced findings/report with exact scope, counts, preserved unknowns, actual checks and material limitations"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/workspace-model.md",
+          "docs/completion-reporting.md",
+          "docs/geographic-applicability.md",
+          "corpus/geographic-applicability.json",
+          "corpus/sources/catalog.json",
+          "skills/mobility-analysis/SKILL.md",
+          "skills/mobility-analysis/host-contract.json"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "Only for project-bound work or a requested typed record/document owner handoff; standalone research needs no project."
+          },
+          {
+            "path": "rules/professional-disclaimer.md",
+            "when": "When regulatory/life-safety or other professionally governed output requires its exact disclaimer/marker; preserve every owner-required end block."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:project",
+            "when": "Only for proposed sourced project facts/decisions; preserve existing authorization and no silent fact adoption."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested durable document placement or registration with explicit coordinates/kind and actual source evidence."
+          }
+        ],
+        "hostContract": "skills/mobility-analysis/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:nyc-acris",
+      "category": "skills",
+      "path": "skills/nyc-acris/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts",
+        "knowledge:sources"
+      ],
+      "capability": {
+        "description": "Look up NYC ACRIS deeds, mortgages, liens, sales, and ownership history. Use for property transactions or recorded ownership; not permits or violations.",
+        "triggers": [
+          "research NYC recorded-property documents evidence",
+          "prepare a sourced NYC recorded-property documents report"
+        ],
+        "exclusions": [
+          "infer jurisdiction or current source field definitions",
+          "treat unavailable or truncated results as zero or complete",
+          "adopt project facts/decisions or register documents without their owner"
+        ],
+        "inputs": [
+          "Explicit site/property/geography and selected period/domain scope; applicable original sources or authorized supplied evidence"
+        ],
+        "outputs": [
+          "Requested sourced findings/report with exact scope, counts, preserved unknowns, actual checks and material limitations"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/workspace-model.md",
+          "docs/completion-reporting.md",
+          "docs/geographic-applicability.md",
+          "corpus/geographic-applicability.json",
+          "corpus/sources/catalog.json",
+          "skills/nyc-acris/SKILL.md",
+          "skills/nyc-acris/host-contract.json",
+          "skills/nyc-property-report/pluto-resolution.md",
+          "skills/nyc-property-report/socrata-reference.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "Only for project-bound work or a requested typed record/document owner handoff; standalone research needs no project."
+          },
+          {
+            "path": "rules/professional-disclaimer.md",
+            "when": "When regulatory/life-safety or other professionally governed output requires its exact disclaimer/marker; preserve every owner-required end block."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:project",
+            "when": "Only for proposed sourced project facts/decisions; preserve existing authorization and no silent fact adoption."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested durable document placement or registration with explicit coordinates/kind and actual source evidence."
+          }
+        ],
+        "hostContract": "skills/nyc-acris/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:nyc-bsa",
+      "category": "skills",
+      "path": "skills/nyc-bsa/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts",
+        "knowledge:sources"
+      ],
+      "capability": {
+        "description": "Look up NYC BSA variances, special permits, and appeals that modify as-of-right zoning. Use for zoning relief; use zoning-analysis-nyc for base controls.",
+        "triggers": [
+          "research NYC BSA decisions evidence",
+          "prepare a sourced NYC BSA decisions report"
+        ],
+        "exclusions": [
+          "infer jurisdiction or current source field definitions",
+          "treat unavailable or truncated results as zero or complete",
+          "adopt project facts/decisions or register documents without their owner"
+        ],
+        "inputs": [
+          "Explicit site/property/geography and selected period/domain scope; applicable original sources or authorized supplied evidence"
+        ],
+        "outputs": [
+          "Requested sourced findings/report with exact scope, counts, preserved unknowns, actual checks and material limitations"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/workspace-model.md",
+          "docs/completion-reporting.md",
+          "docs/geographic-applicability.md",
+          "corpus/geographic-applicability.json",
+          "corpus/sources/catalog.json",
+          "skills/nyc-bsa/SKILL.md",
+          "skills/nyc-bsa/host-contract.json",
+          "skills/nyc-property-report/pluto-resolution.md",
+          "skills/nyc-property-report/socrata-reference.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "Only for project-bound work or a requested typed record/document owner handoff; standalone research needs no project."
+          },
+          {
+            "path": "rules/professional-disclaimer.md",
+            "when": "When regulatory/life-safety or other professionally governed output requires its exact disclaimer/marker; preserve every owner-required end block."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:project",
+            "when": "Only for proposed sourced project facts/decisions; preserve existing authorization and no silent fact adoption."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested durable document placement or registration with explicit coordinates/kind and actual source evidence."
+          }
+        ],
+        "hostContract": "skills/nyc-bsa/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:nyc-dob-permits",
+      "category": "skills",
+      "path": "skills/nyc-dob-permits/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts",
+        "knowledge:sources"
+      ],
+      "capability": {
+        "description": "Look up NYC DOB permits and new-building, alteration, or demolition job filings. Use for filed or permitted work and renovation history; use nyc-dob-violations for violations.",
+        "triggers": [
+          "research NYC building permit evidence",
+          "prepare a sourced NYC building permit report"
+        ],
+        "exclusions": [
+          "infer jurisdiction or current source field definitions",
+          "treat unavailable or truncated results as zero or complete",
+          "adopt project facts/decisions or register documents without their owner"
+        ],
+        "inputs": [
+          "Explicit site/property/geography and selected period/domain scope; applicable original sources or authorized supplied evidence"
+        ],
+        "outputs": [
+          "Requested sourced findings/report with exact scope, counts, preserved unknowns, actual checks and material limitations"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/workspace-model.md",
+          "docs/completion-reporting.md",
+          "docs/geographic-applicability.md",
+          "corpus/geographic-applicability.json",
+          "corpus/sources/catalog.json",
+          "skills/nyc-dob-permits/SKILL.md",
+          "skills/nyc-dob-permits/host-contract.json",
+          "skills/nyc-property-report/pluto-resolution.md",
+          "skills/nyc-property-report/socrata-reference.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "Only for project-bound work or a requested typed record/document owner handoff; standalone research needs no project."
+          },
+          {
+            "path": "rules/professional-disclaimer.md",
+            "when": "When regulatory/life-safety or other professionally governed output requires its exact disclaimer/marker; preserve every owner-required end block."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:project",
+            "when": "Only for proposed sourced project facts/decisions; preserve existing authorization and no silent fact adoption."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested durable document placement or registration with explicit coordinates/kind and actual source evidence."
+          }
+        ],
+        "hostContract": "skills/nyc-dob-permits/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:nyc-dob-violations",
+      "category": "skills",
+      "path": "skills/nyc-dob-violations/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts",
+        "knowledge:sources"
+      ],
+      "capability": {
+        "description": "Look up open and resolved DOB and ECB violations for any NYC building, with class, status, and penalty detail. Use when the user asks whether a building has violations, stop-work orders, or outstanding ECB penalties. NYC only; for housing-code violations use /as:nyc-hpd.",
+        "triggers": [
+          "research NYC DOB violations evidence",
+          "prepare a sourced NYC DOB violations report"
+        ],
+        "exclusions": [
+          "infer jurisdiction or current source field definitions",
+          "treat unavailable or truncated results as zero or complete",
+          "adopt project facts/decisions or register documents without their owner"
+        ],
+        "inputs": [
+          "Explicit site/property/geography and selected period/domain scope; applicable original sources or authorized supplied evidence"
+        ],
+        "outputs": [
+          "Requested sourced findings/report with exact scope, counts, preserved unknowns, actual checks and material limitations"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/workspace-model.md",
+          "docs/completion-reporting.md",
+          "docs/geographic-applicability.md",
+          "corpus/geographic-applicability.json",
+          "corpus/sources/catalog.json",
+          "skills/nyc-dob-violations/SKILL.md",
+          "skills/nyc-dob-violations/host-contract.json",
+          "skills/nyc-property-report/pluto-resolution.md",
+          "skills/nyc-property-report/socrata-reference.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "Only for project-bound work or a requested typed record/document owner handoff; standalone research needs no project."
+          },
+          {
+            "path": "rules/professional-disclaimer.md",
+            "when": "When regulatory/life-safety or other professionally governed output requires its exact disclaimer/marker; preserve every owner-required end block."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:project",
+            "when": "Only for proposed sourced project facts/decisions; preserve existing authorization and no silent fact adoption."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested durable document placement or registration with explicit coordinates/kind and actual source evidence."
+          }
+        ],
+        "hostContract": "skills/nyc-dob-violations/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:nyc-hpd",
+      "category": "skills",
+      "path": "skills/nyc-hpd/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts",
+        "knowledge:sources"
+      ],
+      "capability": {
+        "description": "Look up HPD violations, complaints, and building registration for NYC residential buildings. Use when the user asks about housing-code violations, tenant complaints, or HPD registration at an address. NYC only; for DOB and ECB violations use /as:nyc-dob-violations.",
+        "triggers": [
+          "research NYC HPD housing evidence",
+          "prepare a sourced NYC HPD housing report"
+        ],
+        "exclusions": [
+          "infer jurisdiction or current source field definitions",
+          "treat unavailable or truncated results as zero or complete",
+          "adopt project facts/decisions or register documents without their owner"
+        ],
+        "inputs": [
+          "Explicit site/property/geography and selected period/domain scope; applicable original sources or authorized supplied evidence"
+        ],
+        "outputs": [
+          "Requested sourced findings/report with exact scope, counts, preserved unknowns, actual checks and material limitations"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/workspace-model.md",
+          "docs/completion-reporting.md",
+          "docs/geographic-applicability.md",
+          "corpus/geographic-applicability.json",
+          "corpus/sources/catalog.json",
+          "skills/nyc-hpd/SKILL.md",
+          "skills/nyc-hpd/host-contract.json",
+          "skills/nyc-property-report/pluto-resolution.md",
+          "skills/nyc-property-report/socrata-reference.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "Only for project-bound work or a requested typed record/document owner handoff; standalone research needs no project."
+          },
+          {
+            "path": "rules/professional-disclaimer.md",
+            "when": "When regulatory/life-safety or other professionally governed output requires its exact disclaimer/marker; preserve every owner-required end block."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:project",
+            "when": "Only for proposed sourced project facts/decisions; preserve existing authorization and no silent fact adoption."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested durable document placement or registration with explicit coordinates/kind and actual source evidence."
+          }
+        ],
+        "hostContract": "skills/nyc-hpd/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:nyc-landmarks",
+      "category": "skills",
+      "path": "skills/nyc-landmarks/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts",
+        "knowledge:sources"
+      ],
+      "capability": {
+        "description": "Check whether a NYC building is landmarked or in a historic district using LPC data. Use when the user asks \"is this building landmarked\", whether a site sits in a historic district, or whether LPC review applies. NYC only.",
+        "triggers": [
+          "research NYC landmark evidence",
+          "prepare a sourced NYC landmark report"
+        ],
+        "exclusions": [
+          "infer jurisdiction or current source field definitions",
+          "treat unavailable or truncated results as zero or complete",
+          "adopt project facts/decisions or register documents without their owner"
+        ],
+        "inputs": [
+          "Explicit site/property/geography and selected period/domain scope; applicable original sources or authorized supplied evidence"
+        ],
+        "outputs": [
+          "Requested sourced findings/report with exact scope, counts, preserved unknowns, actual checks and material limitations"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/workspace-model.md",
+          "docs/completion-reporting.md",
+          "docs/geographic-applicability.md",
+          "corpus/geographic-applicability.json",
+          "corpus/sources/catalog.json",
+          "skills/nyc-landmarks/SKILL.md",
+          "skills/nyc-landmarks/host-contract.json",
+          "skills/nyc-property-report/pluto-resolution.md",
+          "skills/nyc-property-report/socrata-reference.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "Only for project-bound work or a requested typed record/document owner handoff; standalone research needs no project."
+          },
+          {
+            "path": "rules/professional-disclaimer.md",
+            "when": "When regulatory/life-safety or other professionally governed output requires its exact disclaimer/marker; preserve every owner-required end block."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:project",
+            "when": "Only for proposed sourced project facts/decisions; preserve existing authorization and no silent fact adoption."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested durable document placement or registration with explicit coordinates/kind and actual source evidence."
+          }
+        ],
+        "hostContract": "skills/nyc-landmarks/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:nyc-property-report",
+      "category": "skills",
+      "path": "skills/nyc-property-report/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts",
+        "knowledge:sources"
+      ],
+      "capability": {
+        "description": "Compile NYC landmarks, DOB, ACRIS, HPD, and BSA findings into one property due-diligence report. Use for a full report; use individual NYC skills for one dataset.",
+        "triggers": [
+          "research combined NYC property evidence",
+          "prepare a sourced combined NYC property report"
+        ],
+        "exclusions": [
+          "infer jurisdiction or current source field definitions",
+          "treat unavailable or truncated results as zero or complete",
+          "adopt project facts/decisions or register documents without their owner"
+        ],
+        "inputs": [
+          "Explicit site/property/geography and selected period/domain scope; applicable original sources or authorized supplied evidence"
+        ],
+        "outputs": [
+          "Requested sourced findings/report with exact scope, counts, preserved unknowns, actual checks and material limitations"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/workspace-model.md",
+          "docs/completion-reporting.md",
+          "docs/geographic-applicability.md",
+          "corpus/geographic-applicability.json",
+          "corpus/sources/catalog.json",
+          "skills/nyc-property-report/SKILL.md",
+          "skills/nyc-property-report/host-contract.json",
+          "skills/nyc-property-report/pluto-resolution.md",
+          "skills/nyc-property-report/socrata-reference.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "Only for project-bound work or a requested typed record/document owner handoff; standalone research needs no project."
+          },
+          {
+            "path": "rules/professional-disclaimer.md",
+            "when": "When regulatory/life-safety or other professionally governed output requires its exact disclaimer/marker; preserve every owner-required end block."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:project",
+            "when": "Only for proposed sourced project facts/decisions; preserve existing authorization and no silent fact adoption."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested durable document placement or registration with explicit coordinates/kind and actual source evidence."
+          },
+          {
+            "target": "skill:nyc-acris",
+            "when": "Only for the requested domain scope after one verified property/building identity; preserve identity, period, source evidence and actual per-domain outcome."
+          },
+          {
+            "target": "skill:nyc-dob-permits",
+            "when": "Only for the requested domain scope after one verified property/building identity; preserve identity, period, source evidence and actual per-domain outcome."
+          },
+          {
+            "target": "skill:nyc-dob-violations",
+            "when": "Only for the requested domain scope after one verified property/building identity; preserve identity, period, source evidence and actual per-domain outcome."
+          },
+          {
+            "target": "skill:nyc-hpd",
+            "when": "Only for the requested domain scope after one verified property/building identity; preserve identity, period, source evidence and actual per-domain outcome."
+          },
+          {
+            "target": "skill:nyc-landmarks",
+            "when": "Only for the requested domain scope after one verified property/building identity; preserve identity, period, source evidence and actual per-domain outcome."
+          },
+          {
+            "target": "skill:nyc-bsa",
+            "when": "Only for the requested domain scope after one verified property/building identity; preserve identity, period, source evidence and actual per-domain outcome."
+          }
+        ],
+        "hostContract": "skills/nyc-property-report/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:occupancy-calculator",
+      "category": "skills",
+      "path": "skills/occupancy-calculator/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:sources",
+        "knowledge:jurisdictions",
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Calculate code occupant loads by area with gross/net factors and jurisdiction checks. Use for \"how many people can this space hold,\" IBC Table 1004.5, egress inputs, or occupancy-load reports; not for workplace headcount planning.",
+        "hostContract": "skills/occupancy-calculator/host-contract.json",
+        "executionOwner": "host",
+        "triggers": [
+          "Calculate code occupant loads by area with gross/net factors and jurisdiction checks. Use for \"how many people can this space hold,\" IBC Table 1004.5, egress inputs, or occupancy-load reports; not for workplace headcount planning."
+        ],
+        "exclusions": [
+          "No Arch Studio executable acquisition or unrequested record ownership"
+        ],
+        "inputs": [
+          "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records."
+        ],
+        "outputs": [
+          "Requested verified native result with actual source evidence and unresolved limitations"
+        ],
+        "references": [
+          "skills/occupancy-calculator/SKILL.md",
+          "skills/occupancy-calculator/host-contract.json",
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "docs/completion-reporting.md",
+          "corpus/host-contracts.json",
+          "docs/workspace-model.md",
+          "corpus/sources/catalog.json"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "Existing governed project context is required."
+          },
+          {
+            "path": "rules/professional-disclaimer.md",
+            "when": "The requested result contains regulatory or life-safety analysis."
+          }
+        ],
+        "handoffs": []
+      }
+    },
+    {
+      "id": "skill:product-data-cleanup",
+      "category": "skills",
+      "path": "skills/product-data-cleanup/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Clean a local FF&E CSV schedule by normalizing casing, dimensions, units, language, materials, and formatting. Use when asked to clean, fix, or standardize product data.",
+        "triggers": [
+          "clean this FF&E CSV",
+          "normalize these dimensions and units"
+        ],
+        "exclusions": [
+          "write a reusable library without its owner",
+          "adopt or revise canonical specifications directly",
+          "treat missing source evidence as verified facts"
+        ],
+        "inputs": [
+          "User-selected source scope, evidence and explicit current-item bindings when adapting observations"
+        ],
+        "outputs": [
+          "Sourced review proposal with validated observation envelopes, conflicts and notices; owner handoffs only when requested"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/completion-reporting.md",
+          "skills/product-data-cleanup/host-contract.json",
+          "schema/product-observations.md",
+          "schema/product-observation.schema.json",
+          "schema/product-schema.md",
+          "schema/csv-conventions.md",
+          "docs/workspace-model.md",
+          "tools/transformers/evidence-contracts.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "When work is project-bound; one-off research or inline normalization needs no project creation."
+          },
+          {
+            "path": "tools/validators/workbook-preservation-contract.md",
+            "when": "When an explicitly selected before/after native OOXML pair and permitted cell aspects are available for preservation comparison; actual editing and complete workbook verification remain separate."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:product-library",
+            "when": "Only for an explicitly requested reusable CSV library save; preserve exact batch and authorization."
+          },
+          {
+            "target": "skill:master-schedule",
+            "when": "Only for adopted specification read, adoption or revision; preserve pinned identities, expected revisions and selected fields."
+          },
+          {
+            "target": "skill:product-data-import",
+            "when": "Only for explicitly accepted document-job inputs."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested durable project report placement and registration."
+          }
+        ],
+        "hostContract": "skills/product-data-cleanup/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:product-data-import",
+      "category": "skills",
+      "path": "skills/product-data-import/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Normalize supplied FF&E information and record accepted document-job inputs with exact product tags and source hashes. Use for intake or corrections; reusable library saves and schedule adoption go to their record owners.",
+        "triggers": [
+          "import these product sources",
+          "prepare accepted inputs for specification sheets",
+          "correct the selected product scope"
+        ],
+        "exclusions": [
+          "silently adopt a schedule",
+          "write a reusable product library directly",
+          "render the final PDF"
+        ],
+        "inputs": [
+          "Supplied product data, selected scope, source status and any pinned record basis"
+        ],
+        "outputs": [
+          "Reviewable normalized product data and immutable intake manifest when a document job is requested"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/completion-reporting.md",
+          "skills/product-data-import/host-contract.json",
+          "tools/transformers/ffe-intake-contract.md",
+          "schema/ffe-intake.schema.json",
+          "schema/product-identity.schema.json",
+          "schema/product-observations.md",
+          "schema/product-observation.schema.json"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "docs/workspace-model.md",
+            "when": "When a job manifest or other authorized derived output is saved, or work is project-bound."
+          },
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "When work is project-bound; inline normalization does not need project setup."
+          },
+          {
+            "path": "schema/ffe-record.schema.json",
+            "when": "When consuming a selected pinned adopted-record basis."
+          },
+          {
+            "path": "schema/product-schema.md",
+            "when": "When presenting selected normalized data in the existing33-field library shape; actual library saves remain owned by product-library."
+          },
+          {
+            "path": "tools/workspace/ffe-records-contract.md",
+            "when": "When consuming an explicitly selected pinned adopted schedule/item basis; normalization and observation adaptation alone do not adopt records."
+          },
+          {
+            "path": "schema/csv-conventions.md",
+            "when": "When preparing the existing reusable product CSV row shape for a requested handoff to product-library; this skill does not mutate that library."
+          },
+          {
+            "path": "tools/validators/workbook-preservation-contract.md",
+            "when": "When an explicitly selected before/after native OOXML pair and permitted cell aspects are available for preservation comparison; actual editing and complete workbook verification remain separate."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:product-cut-sheet",
+            "when": "When one accepted product or explicit group needs a specification sheet"
+          },
+          {
+            "target": "skill:spec-book",
+            "when": "When the accepted ordered scope needs a complete specification package"
+          },
+          {
+            "target": "skill:product-library",
+            "when": "Only for an explicitly requested reusable library save"
+          },
+          {
+            "target": "skill:master-schedule",
+            "when": "Only for explicitly requested adoption or reconciliation"
+          }
+        ],
+        "hostContract": "skills/product-data-import/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:product-enrich",
+      "category": "skills",
+      "path": "skills/product-enrich/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Enrich FF&E schedule rows with categories, colors, materials, and style tags. Use to tag, categorize, or fill those missing fields; not to research new products.",
+        "triggers": [
+          "tag these product rows",
+          "fill missing categories, colors and materials"
+        ],
+        "exclusions": [
+          "write a reusable library without its owner",
+          "adopt or revise canonical specifications directly",
+          "treat missing source evidence as verified facts"
+        ],
+        "inputs": [
+          "User-selected source scope, evidence and explicit current-item bindings when adapting observations"
+        ],
+        "outputs": [
+          "Sourced review proposal with validated observation envelopes, conflicts and notices; owner handoffs only when requested"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/completion-reporting.md",
+          "skills/product-enrich/host-contract.json",
+          "schema/product-observations.md",
+          "schema/product-observation.schema.json",
+          "schema/product-schema.md",
+          "schema/csv-conventions.md",
+          "docs/workspace-model.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "When work is project-bound; one-off research or inline normalization needs no project creation."
+          },
+          {
+            "path": "tools/validators/workbook-preservation-contract.md",
+            "when": "When an explicitly selected before/after native OOXML pair and permitted cell aspects are available for preservation comparison; actual editing and complete workbook verification remain separate."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:product-library",
+            "when": "Only for an explicitly requested reusable CSV library save; preserve exact batch and authorization."
+          },
+          {
+            "target": "skill:master-schedule",
+            "when": "Only for adopted specification read, adoption or revision; preserve pinned identities, expected revisions and selected fields."
+          },
+          {
+            "target": "skill:product-data-import",
+            "when": "Only for explicitly accepted document-job inputs."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested durable project report placement and registration."
+          }
+        ],
+        "hostContract": "skills/product-enrich/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:product-image-processor",
+      "category": "skills",
+      "path": "skills/product-image-processor/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts",
+        "skill:product-library"
+      ],
+      "capability": {
+        "description": "Download, resize, and remove backgrounds from product images at scale. Use when the user asks to \"process product images\", batch-download images from the schedule, strip backgrounds, or standardize product photos.",
+        "hostContract": "skills/product-image-processor/host-contract.json",
+        "executionOwner": "host",
+        "triggers": [
+          "Download, resize, and remove backgrounds from product images at scale. Use when the user asks to \"process product images\", batch-download images from the schedule, strip backgrounds, or standardize product photos."
+        ],
+        "exclusions": [
+          "No executable acquisition or unrequested canonical mutation"
+        ],
+        "inputs": [
+          "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records."
+        ],
+        "outputs": [
+          "Verified requested artifact, preserved source evidence and explicit incomplete checks"
+        ],
+        "references": [
+          "skills/product-image-processor/SKILL.md",
+          "docs/workspace-model.md",
+          "docs/completion-reporting.md",
+          "skills/product-image-processor/host-contract.json",
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "Selected input uses adopted records, governed project context or the canonical product-library CSV; read its complete owner and schema."
+          },
+          {
+            "path": "tools/workspace/product-library-contract.md",
+            "when": "Selected input uses adopted records, governed project context or the canonical product-library CSV; read its complete owner and schema."
+          },
+          {
+            "path": "schema/product-schema.md",
+            "when": "Selected input uses adopted records, governed project context or the canonical product-library CSV; read its complete owner and schema."
+          },
+          {
+            "path": "schema/csv-conventions.md",
+            "when": "Selected input uses adopted records, governed project context or the canonical product-library CSV; read its complete owner and schema."
+          },
+          {
+            "path": "tools/workspace/ffe-records-contract.md",
+            "when": "Selected input uses adopted records, governed project context or the canonical product-library CSV; read its complete owner and schema."
+          },
+          {
+            "path": "schema/ffe-record.schema.json",
+            "when": "Selected input uses adopted records, governed project context or the canonical product-library CSV; read its complete owner and schema."
+          }
+        ],
+        "handoffs": []
+      }
+    },
+    {
+      "id": "skill:product-match",
+      "category": "skills",
+      "path": "skills/product-match/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Find visually or functionally similar products from an image, name, or description. Use when the user asks to \"find something like this\", match a product from a photo, or source alternates to a given item.",
+        "triggers": [
+          "find similar alternatives to this product",
+          "compare product matches"
+        ],
+        "exclusions": [
+          "write a reusable library without its owner",
+          "adopt or revise canonical specifications directly",
+          "treat missing source evidence as verified facts"
+        ],
+        "inputs": [
+          "Selected source product by name, image or description; comparison or pairing scope and optional exact save selection"
+        ],
+        "outputs": [
+          "Sourced ranked alternatives with explicit judgments and unresolved facts; optional owner-controlled selected batch save"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/completion-reporting.md",
+          "skills/product-match/host-contract.json",
+          "schema/product-observations.md",
+          "schema/product-observation.schema.json",
+          "schema/product-schema.md",
+          "schema/csv-conventions.md",
+          "docs/workspace-model.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "When work is project-bound; one-off research or inline normalization needs no project creation."
+          },
+          {
+            "path": "tools/workspace/product-library-contract.md",
+            "when": "Only when preparing an explicitly requested reusable CSV library save for its owner."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:product-library",
+            "when": "Only for an explicitly requested reusable CSV library save; preserve exact batch and authorization."
+          },
+          {
+            "target": "skill:master-schedule",
+            "when": "Only for adopted specification read, adoption or revision; preserve pinned identities, expected revisions and selected fields."
+          },
+          {
+            "target": "skill:product-data-import",
+            "when": "Only for explicitly accepted document-job inputs."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested durable project report placement and registration."
+          },
+          {
+            "target": "skill:project",
+            "when": "Only for requested typed project fact or decision proposals; recommendation is not approval."
+          }
+        ],
+        "hostContract": "skills/product-match/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:product-pair",
+      "category": "skills",
+      "path": "skills/product-pair/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Suggest complementary products that pair well with a given item — side tables for sofas, task lights for desks, etc. Use when the user asks \"what goes with\" a product, wants coordinating pieces, or asks to complete a furniture grouping.",
+        "triggers": [
+          "find complementary products for this anchor",
+          "pair coordinating items"
+        ],
+        "exclusions": [
+          "write a reusable library without its owner",
+          "adopt or revise canonical specifications directly",
+          "treat missing source evidence as verified facts"
+        ],
+        "inputs": [
+          "Selected source product by name, image or description; comparison or pairing scope and optional exact save selection"
+        ],
+        "outputs": [
+          "Sourced complementary candidates across categories with design reasoning and unresolved facts; optional owner-controlled selected batch save"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/completion-reporting.md",
+          "skills/product-pair/host-contract.json",
+          "schema/product-observations.md",
+          "schema/product-observation.schema.json",
+          "schema/product-schema.md",
+          "schema/csv-conventions.md",
+          "docs/workspace-model.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "When work is project-bound; one-off research or inline normalization needs no project creation."
+          },
+          {
+            "path": "tools/workspace/product-library-contract.md",
+            "when": "Only when preparing an explicitly requested reusable CSV library save for its owner."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:product-library",
+            "when": "Only for an explicitly requested reusable CSV library save; preserve exact batch and authorization."
+          },
+          {
+            "target": "skill:master-schedule",
+            "when": "Only for adopted specification read, adoption or revision; preserve pinned identities, expected revisions and selected fields."
+          },
+          {
+            "target": "skill:product-data-import",
+            "when": "Only for explicitly accepted document-job inputs."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested durable project report placement and registration."
+          },
+          {
+            "target": "skill:project",
+            "when": "Only for requested typed project fact or decision proposals; recommendation is not approval."
+          }
+        ],
+        "hostContract": "skills/product-pair/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:product-research",
+      "category": "skills",
+      "path": "skills/product-research/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Find and compare current FF&E candidates from a design brief, with sourced purchasing facts and optional CSV-library save. Use to research or source products; not to match from an image or pair coordinating items.",
+        "triggers": [
+          "find products for this brief",
+          "compare sourced furniture candidates"
+        ],
+        "exclusions": [
+          "write a reusable library without its owner",
+          "adopt or revise canonical specifications directly",
+          "treat missing source evidence as verified facts"
+        ],
+        "inputs": [
+          "User-selected source scope, evidence and explicit current-item bindings when adapting observations"
+        ],
+        "outputs": [
+          "Sourced review proposal with validated observation envelopes, conflicts and notices; owner handoffs only when requested"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/completion-reporting.md",
+          "skills/product-research/host-contract.json",
+          "schema/product-observations.md",
+          "schema/product-observation.schema.json",
+          "schema/product-schema.md",
+          "schema/csv-conventions.md",
+          "docs/workspace-model.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "When work is project-bound; one-off research or inline normalization needs no project creation."
+          },
+          {
+            "path": "tools/validators/workbook-preservation-contract.md",
+            "when": "When an explicitly selected before/after native OOXML pair and permitted cell aspects are available for preservation comparison; actual editing and complete workbook verification remain separate."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:product-library",
+            "when": "Only for an explicitly requested reusable CSV library save; preserve exact batch and authorization."
+          },
+          {
+            "target": "skill:master-schedule",
+            "when": "Only for adopted specification read, adoption or revision; preserve pinned identities, expected revisions and selected fields."
+          },
+          {
+            "target": "skill:product-data-import",
+            "when": "Only for explicitly accepted document-job inputs."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested durable project report placement and registration."
+          }
+        ],
+        "hostContract": "skills/product-research/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:product-spec-bulk-fetch",
+      "category": "skills",
+      "path": "skills/product-spec-bulk-fetch/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Extract structured FF&E specs from a list of product URLs into a schedule. Use to pull or bulk-import product-page data; not for PDF catalogs.",
+        "triggers": [
+          "extract specs from these product URLs",
+          "bulk import these product pages"
+        ],
+        "exclusions": [
+          "write a reusable library without its owner",
+          "adopt or revise canonical specifications directly",
+          "treat missing source evidence as verified facts"
+        ],
+        "inputs": [
+          "User-selected source scope, evidence and explicit current-item bindings when adapting observations"
+        ],
+        "outputs": [
+          "Sourced review proposal with validated observation envelopes, conflicts and notices; owner handoffs only when requested"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/completion-reporting.md",
+          "skills/product-spec-bulk-fetch/host-contract.json",
+          "schema/product-observations.md",
+          "schema/product-observation.schema.json",
+          "schema/product-schema.md",
+          "schema/csv-conventions.md",
+          "docs/workspace-model.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "When work is project-bound; one-off research or inline normalization needs no project creation."
+          },
+          {
+            "path": "tools/validators/workbook-preservation-contract.md",
+            "when": "When an explicitly selected before/after native OOXML pair and permitted cell aspects are available for preservation comparison; actual editing and complete workbook verification remain separate."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:product-library",
+            "when": "Only for an explicitly requested reusable CSV library save; preserve exact batch and authorization."
+          },
+          {
+            "target": "skill:master-schedule",
+            "when": "Only for adopted specification read, adoption or revision; preserve pinned identities, expected revisions and selected fields."
+          },
+          {
+            "target": "skill:product-data-import",
+            "when": "Only for explicitly accepted document-job inputs."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested durable project report placement and registration."
+          }
+        ],
+        "hostContract": "skills/product-spec-bulk-fetch/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:product-spec-pdf-parser",
+      "category": "skills",
+      "path": "skills/product-spec-pdf-parser/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Extract sourced FF&E specifications from supplied product PDFs into reviewable structured data. Use for fact sheets, spec sheets and price books; not web-page capture, EPD extraction or automatic schedule adoption.",
+        "triggers": [
+          "extract product specifications from these PDFs",
+          "read this product fact sheet",
+          "parse a manufacturer price book"
+        ],
+        "exclusions": [
+          "capture a website URL",
+          "extract an EPD",
+          "invent a selected configuration or silently adopt records"
+        ],
+        "inputs": [
+          "Supplied PDFs and explicit product, variant and source scope"
+        ],
+        "outputs": [
+          "Source-located product observations, uncertainty and proposed structured fields"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/completion-reporting.md",
+          "skills/product-spec-pdf-parser/host-contract.json",
+          "tools/transformers/evidence-contracts.md",
+          "schema/product-observations.md",
+          "schema/product-observation.schema.json"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "docs/workspace-model.md",
+            "when": "When any authorized derived observation output/report is saved or work is project-bound."
+          },
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "When work is project-bound or a registered report is requested."
+          },
+          {
+            "path": "schema/product-schema.md",
+            "when": "When the requested view uses existing33-field product columns; no implicit library save."
+          },
+          {
+            "path": "schema/csv-conventions.md",
+            "when": "When preparing the existing reusable product CSV row shape for a requested handoff to product-library; this skill does not mutate that library."
+          },
+          {
+            "path": "tools/validators/workbook-preservation-contract.md",
+            "when": "When an explicitly selected before/after native OOXML pair and permitted cell aspects are available for preservation comparison; actual editing and complete workbook verification remain separate."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:product-data-import",
+            "when": "When observations become accepted document-job inputs"
+          },
+          {
+            "target": "skill:product-library",
+            "when": "Only for an explicitly requested reusable library save"
+          },
+          {
+            "target": "skill:master-schedule",
+            "when": "Only for explicitly requested adoption or record correction"
+          }
+        ],
+        "hostContract": "skills/product-spec-pdf-parser/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:project",
+      "category": "skills",
+      "path": "skills/project/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Initialize or inspect a project, maintain sourced current facts and record durable decisions. Use for project context or remember-this requests; other record types retain their owners.",
+        "triggers": [
+          "open this project context",
+          "remember this project fact",
+          "record this decision",
+          "inspect project status"
+        ],
+        "exclusions": [
+          "write tasks or invoices through project facts",
+          "infer a decision from unconfirmed conversation",
+          "silently rename immutable project identity"
+        ],
+        "inputs": [
+          "Resolved project or explicit initialization request and sourced facts or decisions"
+        ],
+        "outputs": [
+          "Project status, sourced dossier update or durable decision with readback"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "skills/project/host-contract.json",
+          "docs/workspace-model.md",
+          "skills/project/references/context-resolution.md",
+          "docs/completion-reporting.md",
+          "schema/documents.schema.json"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/templates/AGENTS.md",
+            "when": "When the requested operation uses this owning template; resolve all placeholders from confirmed inputs."
+          },
+          {
+            "path": "skills/project/templates/CHANGES.csv",
+            "when": "When the requested operation uses this owning template; resolve all placeholders from confirmed inputs."
+          },
+          {
+            "path": "skills/project/templates/CLAUDE.md",
+            "when": "When the requested operation uses this owning template; resolve all placeholders from confirmed inputs."
+          },
+          {
+            "path": "skills/project/templates/DOCUMENTS.csv",
+            "when": "When the requested operation uses this owning template; resolve all placeholders from confirmed inputs."
+          },
+          {
+            "path": "skills/project/templates/INVOICES.csv",
+            "when": "When the requested operation uses this owning template; resolve all placeholders from confirmed inputs."
+          },
+          {
+            "path": "skills/project/templates/PROJECT.md",
+            "when": "When the requested operation uses this owning template; resolve all placeholders from confirmed inputs."
+          },
+          {
+            "path": "skills/project/templates/TASKS.csv",
+            "when": "When the requested operation uses this owning template; resolve all placeholders from confirmed inputs."
+          },
+          {
+            "path": "skills/project/templates/TIME.csv",
+            "when": "When the requested operation uses this owning template; resolve all placeholders from confirmed inputs."
+          },
+          {
+            "path": "skills/project/templates/decision.md",
+            "when": "When the requested operation uses this owning template; resolve all placeholders from confirmed inputs."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:studio",
+            "when": "When a new project must be registered within a studio"
+          },
+          {
+            "target": "skill:workplan",
+            "when": "When a requested implementation plan needs the resolved context"
+          }
+        ],
+        "hostContract": "skills/project/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:proposal",
+      "category": "skills",
+      "path": "skills/proposal/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Draft and register project proposals, protect issued terms, and record explicitly evidenced commercial lifecycle changes. Sending messages is separate authorization.",
+        "hostContract": "skills/proposal/host-contract.json",
+        "executionOwner": "host",
+        "triggers": [
+          "draft a project proposal",
+          "record proposal sending evidence",
+          "record a proposal outcome"
+        ],
+        "exclusions": [
+          "unrequested record promotion or external action",
+          "implicit legacy workspace conversion"
+        ],
+        "inputs": [
+          "Selected authorized request, applicable source evidence and exact record context when persistence is needed"
+        ],
+        "outputs": [
+          "Requested sourced output or verified bounded native record change; explicit no-op, limitation or pending recovery when applicable"
+        ],
+        "handoffs": [],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "skills/proposal/host-contract.json",
+          "docs/workspace-model.md",
+          "skills/project/references/context-resolution.md",
+          "docs/completion-reporting.md",
+          "schema/documents.schema.json"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/proposal/templates/proposal-letter.html",
+            "when": "When the requested operation uses this owning template; resolve all placeholders from confirmed inputs."
+          },
+          {
+            "path": "skills/proposal/templates/proposal.md",
+            "when": "When the requested operation uses this owning template; resolve all placeholders from confirmed inputs."
+          }
+        ]
+      }
+    },
+    {
+      "id": "skill:resize-images",
+      "category": "skills",
+      "path": "skills/resize-images/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Batch-resize or convert a folder of images for web, social media, slides, or ARCH-size print output while preserving originals. Use for image resizing, format presets, or photo batches; not for product-image background removal.",
+        "hostContract": "skills/resize-images/host-contract.json",
+        "executionOwner": "host",
+        "triggers": [
+          "Resize image batches using web, social, slide or print presets"
+        ],
+        "exclusions": [
+          "No product record adoption, background removal or Arch Studio executable acquisition"
+        ],
+        "inputs": [
+          "Authorized folder of source images and selected nonempty preset modes"
+        ],
+        "outputs": [
+          "Verified derivative images and truthful per-source outcomes with preserved originals"
+        ],
+        "references": [
+          "skills/resize-images/SKILL.md",
+          "skills/resize-images/host-contract.json",
+          "tools/transformers/resize-images-contract.md",
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "docs/workspace-model.md",
+          "docs/completion-reporting.md",
+          "corpus/host-contracts.json"
+        ],
+        "conditionalReferences": [],
+        "handoffs": []
+      }
+    },
+    {
+      "id": "skill:sif-to-csv",
+      "category": "skills",
+      "path": "skills/sif-to-csv/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Parse a SIF (Standard Interchange Format) input into a readable preview and optionally append canonical product rows to the project's CSV library. Use when asked to convert or inspect SIF dealer data. For the reverse direction use /as:csv-to-sif.",
+        "triggers": [
+          "inspect or convert supplied SIF dealer data"
+        ],
+        "exclusions": [
+          "infer a vendor field dictionary or manufacturer codes",
+          "adopt or mutate library/schedule records directly",
+          "claim target importer compatibility without actual verification"
+        ],
+        "inputs": [
+          "Supplied selected rows/file and exact original vendor system/version/mapping evidence; authorized destination for requested output"
+        ],
+        "outputs": [
+          "Mapped converted file or inline preview with exact membership, source provenance and explicit losses/unknowns"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/completion-reporting.md",
+          "docs/workspace-model.md",
+          "skills/sif-to-csv/host-contract.json",
+          "schema/sif-crosswalk.md",
+          "schema/product-schema.md",
+          "schema/csv-conventions.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "Only when project-bound conversion or a project owner handoff is requested; one-off stays standalone."
+          },
+          {
+            "path": "tools/workspace/product-library-contract.md",
+            "when": "Only for preparing a requested selected library save for its owner."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:product-library",
+            "when": "Only for a requested reusable CSV library save as one exact selected batch."
+          },
+          {
+            "target": "skill:master-schedule",
+            "when": "Only for separately authorized canonical specification adoption/revision."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested registered project document placement."
+          },
+          {
+            "target": "skill:project",
+            "when": "Only for proposed typed project facts/decisions."
+          }
+        ],
+        "hostContract": "skills/sif-to-csv/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:site-history",
+      "category": "skills",
+      "path": "skills/site-history/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts",
+        "knowledge:sources"
+      ],
+      "capability": {
+        "description": "Neighborhood context and history — adjacent uses, architectural character, landmarks, commercial activity, and planned development from an address. Use when the user asks about a site's history or surroundings, \"what's around this site\", neighborhood character, or nearby planned development.",
+        "triggers": [
+          "research neighborhood history and context evidence",
+          "prepare a sourced neighborhood history and context report"
+        ],
+        "exclusions": [
+          "infer jurisdiction or current source field definitions",
+          "treat unavailable or truncated results as zero or complete",
+          "adopt project facts/decisions or register documents without their owner"
+        ],
+        "inputs": [
+          "Explicit site/property/geography and selected period/domain scope; applicable original sources or authorized supplied evidence"
+        ],
+        "outputs": [
+          "Requested sourced findings/report with exact scope, counts, preserved unknowns, actual checks and material limitations"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/workspace-model.md",
+          "docs/completion-reporting.md",
+          "docs/geographic-applicability.md",
+          "corpus/geographic-applicability.json",
+          "corpus/sources/catalog.json",
+          "skills/site-history/SKILL.md",
+          "skills/site-history/host-contract.json"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "Only for project-bound work or a requested typed record/document owner handoff; standalone research needs no project."
+          },
+          {
+            "path": "rules/professional-disclaimer.md",
+            "when": "When regulatory/life-safety or other professionally governed output requires its exact disclaimer/marker; preserve every owner-required end block."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:project",
+            "when": "Only for proposed sourced project facts/decisions; preserve existing authorization and no silent fact adoption."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested durable document placement or registration with explicit coordinates/kind and actual source evidence."
+          }
+        ],
+        "hostContract": "skills/site-history/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:site-visit-report",
+      "category": "skills",
+      "path": "skills/site-visit-report/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Prepare a sourced site-visit record separating direct observations, participant reports, interpretations, limitations and proposed follow-ups.",
+        "hostContract": "skills/site-visit-report/host-contract.json",
+        "executionOwner": "host",
+        "triggers": [
+          "prepare a sourced site visit report"
+        ],
+        "exclusions": [
+          "unrequested record promotion or external action",
+          "implicit legacy workspace conversion"
+        ],
+        "inputs": [
+          "Selected authorized request, applicable source evidence and exact record context when persistence is needed"
+        ],
+        "outputs": [
+          "Requested sourced output or verified bounded native record change; explicit no-op, limitation or pending recovery when applicable"
+        ],
+        "handoffs": [],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "skills/site-visit-report/host-contract.json",
+          "docs/workspace-model.md",
+          "skills/project/references/context-resolution.md",
+          "docs/completion-reporting.md",
+          "schema/documents.schema.json"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/site-visit-report/templates/site-visit-report.md",
+            "when": "When the requested operation uses this owning template; resolve all placeholders from confirmed inputs."
+          },
+          {
+            "path": "rules/professional-disclaimer.md",
+            "when": "For client/authority-facing or regulated-conclusion reports when the disclaimer procedure applies."
+          }
+        ]
+      }
+    },
+    {
+      "id": "skill:skill-maker",
+      "category": "skills",
+      "path": "skills/skill-maker/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Scaffold a new Arch Studio skill for Codex or Claude Code following this repo's conventions — copy a canonical template, apply the PATTERNS.md checklist, and verify it. Use when the user invokes skill-maker, asks to create or package a new skill, or wants to turn a procedure into a reusable command.",
+        "hostContract": "skills/skill-maker/host-contract.json",
+        "executionOwner": "host",
+        "triggers": [
+          "Scaffold a new Arch Studio skill for Codex or Claude Code following this repo's conventions — copy a canonical template, apply the PATTERNS.md checklist, and verify it. Use when the user invokes skill-maker, asks to create or package a new skill, or wants to turn a procedure into a reusable command."
+        ],
+        "exclusions": [
+          "No Arch Studio executable acquisition or unrequested record ownership"
+        ],
+        "inputs": [
+          "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records."
+        ],
+        "outputs": [
+          "Requested verified native result with actual source evidence and unresolved limitations"
+        ],
+        "references": [
+          "skills/skill-maker/SKILL.md",
+          "skills/skill-maker/host-contract.json",
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "docs/completion-reporting.md",
+          "corpus/host-contracts.json",
+          "docs/workspace-model.md",
+          "PATTERNS.md",
+          "assets/skill-maker-template/SKILL.example.md",
+          "assets/skill-maker-template/README.md"
+        ],
+        "conditionalReferences": [],
+        "handoffs": []
+      }
+    },
+    {
+      "id": "skill:slide-deck-generator",
+      "category": "skills",
+      "path": "skills/slide-deck-generator/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Generate a self-contained HTML slide deck from a topic, outline, report, or data. Use for presentations and slide decks; not for editing PowerPoint files.",
+        "hostContract": "skills/slide-deck-generator/host-contract.json",
+        "executionOwner": "host",
+        "triggers": [
+          "Generate a self-contained HTML slide deck from a topic, outline, report, or data. Use for presentations and slide decks; not for editing PowerPoint files."
+        ],
+        "exclusions": [
+          "No executable acquisition or unrequested canonical mutation"
+        ],
+        "inputs": [
+          "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records."
+        ],
+        "outputs": [
+          "Verified requested artifact, preserved source evidence and explicit incomplete checks"
+        ],
+        "references": [
+          "skills/slide-deck-generator/SKILL.md",
+          "skills/slide-deck-generator/slide-types.md",
+          "skills/slide-deck-generator/html-template.md",
+          "docs/workspace-model.md",
+          "docs/completion-reporting.md",
+          "skills/slide-deck-generator/host-contract.json",
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/slide-deck-generator/image-handling.md",
+            "when": "Selected source images require native reading/embedding."
+          }
+        ],
+        "handoffs": []
+      }
+    },
+    {
+      "id": "skill:spec-writer",
+      "category": "skills",
+      "path": "skills/spec-writer/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts",
+        "knowledge:sources"
+      ],
+      "capability": {
+        "description": "Turn a material or product list into CSI MasterFormat outline specifications with three-part sections and review flags. Use to write specs; use epd-to-spec for embodied-carbon requirements.",
+        "triggers": [
+          "draft the requested material specifications",
+          "write sourced outline specifications"
+        ],
+        "exclusions": [
+          "invent CSI section identities or controlling editions",
+          "adopt proposed requirements as project facts",
+          "silently register or send the document"
+        ],
+        "inputs": [
+          "Selected materials/applications, accepted requirements, verified source editions and any required client template; destination only for a requested saved output"
+        ],
+        "outputs": [
+          "All requested specification sections with verified identities, source locators and review gaps; saved output only after full preparation and actual readback"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/workspace-model.md",
+          "docs/completion-reporting.md",
+          "corpus/sources/catalog.json",
+          "docs/geographic-applicability.md",
+          "corpus/geographic-applicability.json",
+          "rules/csi-formatting.md",
+          "skills/spec-writer/SKILL.md",
+          "skills/spec-writer/host-contract.json"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "Only for project-bound requirements or a requested project/document owner handoff; standalone drafts need no project."
+          },
+          {
+            "path": "rules/professional-disclaimer.md",
+            "when": "For regulatory/life-safety or other professionally governed output requiring the exact canonical end block and marker."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:epd-to-spec",
+            "when": "Only for requested sourced EPD/embodied-carbon clauses; preserve selected product and standard scope."
+          },
+          {
+            "target": "skill:project",
+            "when": "Only for proposed sourced project facts/decisions; do not silently adopt design requirements."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested document placement/registration with exact destination, kind and source evidence."
+          }
+        ],
+        "hostContract": "skills/spec-writer/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:studio",
+      "category": "skills",
+      "path": "skills/studio/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Open, inspect or configure an Arch Studio workspace and register projects. Use for studio administration; direct domain skills and tools-only use remain available.",
+        "triggers": [
+          "open my studio",
+          "set up Arch Studio",
+          "register a project",
+          "route this architecture task"
+        ],
+        "exclusions": [
+          "perform specialist product or analysis work itself",
+          "create a studio for an unrelated one-off request",
+          "install hidden persistent preferences"
+        ],
+        "inputs": [
+          "Requested studio action and an explicit or reliably resolved workspace"
+        ],
+        "outputs": [
+          "Studio status or an authorized workspace/registration change with readback"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "skills/studio/host-contract.json",
+          "docs/workspace-model.md",
+          "skills/project/references/context-resolution.md",
+          "docs/completion-reporting.md",
+          "rules/moments.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "studio/templates/studio/STUDIO.md",
+            "when": "When explicitly initializing a studio."
+          },
+          {
+            "path": "studio/templates/studio/AGENTS.md",
+            "when": "When explicitly initializing a studio."
+          },
+          {
+            "path": "studio/templates/studio/.mcp.json",
+            "when": "When explicitly initializing a studio."
+          },
+          {
+            "path": "skills/norma/references/assistant-preference.md",
+            "when": "When optional default-assistant preference setup, update or removal is selected."
+          },
+          {
+            "path": "skills/project/templates/AGENTS.md",
+            "when": "When creating a fresh registered project."
+          },
+          {
+            "path": "skills/project/templates/CLAUDE.md",
+            "when": "When creating a fresh registered project."
+          },
+          {
+            "path": "skills/project/templates/PROJECT.md",
+            "when": "When creating a fresh registered project."
+          },
+          {
+            "path": "skills/project/templates/TASKS.csv",
+            "when": "When creating a fresh registered project."
+          },
+          {
+            "path": "skills/project/templates/TIME.csv",
+            "when": "When creating a fresh registered project."
+          },
+          {
+            "path": "skills/project/templates/decision.md",
+            "when": "When creating a fresh registered project."
+          },
+          {
+            "path": "skills/tasklist/templates/PORTFOLIO-TASKS.csv",
+            "when": "When scaffolding the studio operations task register"
+          },
+          {
+            "path": "skills/tasklist/templates/TASKS.csv",
+            "when": "When scaffolding the studio operations task register"
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:project",
+            "when": "For project-owned facts, identity or decisions"
+          },
+          {
+            "target": "skill:norma",
+            "when": "A general architecture or project-work request needs a domain owner; forward once, excluding studio administration."
+          }
+        ],
+        "hostContract": "skills/studio/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:studio-feedback",
+      "category": "skills",
+      "path": "skills/studio-feedback/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Prepare a user-reviewed Arch Studio bug report or feature request for GitHub. Use when the user runs /as:studio-feedback, says \"report a bug\", \"this skill broke\", \"send feedback\", or requests a feature. Do not use for Claude Code's native /feedback command.",
+        "triggers": [
+          "prepare an Arch Studio bug report",
+          "draft a feature request"
+        ],
+        "exclusions": [
+          "submit a GitHub issue or post a comment",
+          "send diagnostics automatically",
+          "open a URL before the exact outbound preview and informed confirmation"
+        ],
+        "inputs": [
+          "User-described behavior or feature request and minimal known release/host metadata"
+        ],
+        "outputs": [
+          "Reviewed redacted draft and, only after the informed gate, an observed prefilled GitHub page or an explicitly unopened URL"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/completion-reporting.md",
+          "skills/studio-feedback/host-contract.json",
+          "skills/studio-feedback/SKILL.md"
+        ],
+        "conditionalReferences": [],
+        "executionOwner": "host",
+        "handoffs": [],
+        "hostContract": "skills/studio-feedback/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:tasklist",
+      "category": "skills",
+      "path": "skills/tasklist/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Maintain the canonical TASKS.csv with permanent IDs, provenance and lifecycle history; list, add, update, complete, cancel or import selected actions.",
+        "triggers": [
+          "list project tasks",
+          "add or update a task",
+          "complete, cancel or reopen a task",
+          "import selected actions into the task register"
+        ],
+        "exclusions": [
+          "change task topology or migrate a legacy register",
+          "infer task completion from activity"
+        ],
+        "inputs": [
+          "Selected project or studio context and authorized task request",
+          "Current supported task register and exact provenance for new tasks"
+        ],
+        "outputs": [
+          "Requested task view or verified bounded task-register changes with preserved identity and history"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "skills/tasklist/host-contract.json",
+          "docs/workspace-model.md",
+          "skills/project/references/context-resolution.md",
+          "docs/completion-reporting.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/tasklist/templates/PORTFOLIO-TASKS.csv",
+            "when": "When the requested operation uses this owning template; resolve all placeholders from confirmed inputs."
+          },
+          {
+            "path": "skills/tasklist/templates/TASKS.csv",
+            "when": "When the requested operation uses this owning template; resolve all placeholders from confirmed inputs."
+          }
+        ],
+        "hostContract": "skills/tasklist/host-contract.json",
+        "executionOwner": "host",
+        "handoffs": []
+      }
+    },
+    {
+      "id": "skill:timetracker",
+      "category": "skills",
+      "path": "skills/timetracker/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Reconstruct evidence-based work descriptions and append user-confirmed durations to TIME.csv. Use for time logging and corrections; never infer hours or billing from activity.",
+        "hostContract": "skills/timetracker/host-contract.json",
+        "executionOwner": "host",
+        "triggers": [
+          "log explicitly supplied time",
+          "inspect the time register"
+        ],
+        "exclusions": [
+          "unrequested record promotion or external action",
+          "implicit legacy workspace conversion"
+        ],
+        "inputs": [
+          "Selected authorized request, applicable source evidence and exact record context when persistence is needed"
+        ],
+        "outputs": [
+          "Requested sourced output or verified bounded native record change; explicit no-op, limitation or pending recovery when applicable"
+        ],
+        "handoffs": [],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "skills/timetracker/host-contract.json",
+          "docs/workspace-model.md",
+          "skills/project/references/context-resolution.md",
+          "docs/completion-reporting.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/timetracker/templates/TIME.csv",
+            "when": "When the requested operation uses this owning template; resolve all placeholders from confirmed inputs."
+          }
+        ]
+      }
+    },
+    {
+      "id": "skill:tool-catalog",
+      "category": "skills",
+      "path": "skills/tool-catalog/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Show Arch Studio help, available skills, agents and host-specific commands. Use for help, how do I use Arch Studio, what is Norma, or a capability directory.",
+        "triggers": [
+          "show Arch Studio help",
+          "what skills and agents are available"
+        ],
+        "exclusions": [
+          "activate workflows from a directory listing",
+          "infer installed tools or file access",
+          "perform setup or record changes to answer help"
+        ],
+        "inputs": [
+          "Requested capability scope and actual host-discovered entry points"
+        ],
+        "outputs": [
+          "Focused directory and useful next actions with actual capability limits"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/completion-reporting.md",
+          "skills/tool-catalog/host-contract.json",
+          "skills/tool-catalog/SKILL.md",
+          "corpus/components.json",
+          "docs/practice-clusters.md",
+          "rules/moments.md",
+          "docs/source-integration-contracts.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "corpus/sources/catalog.json",
+            "when": "Only when listing external-source directories by geography/topic."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:norma-support",
+            "when": "For requested onboarding or troubleshooting beyond a directory answer; no automatic service activation."
+          }
+        ],
+        "hostContract": "skills/tool-catalog/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:workplace-programmer",
+      "category": "skills",
+      "path": "skills/workplace-programmer/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Build office space programs through guided workplace strategy: area splits, room schedules, and planned seat counts. Use to program or size a workplace; not for code occupant-load calculations.",
+        "hostContract": "skills/workplace-programmer/host-contract.json",
+        "executionOwner": "host",
+        "triggers": [
+          "Build office space programs through guided workplace strategy: area splits, room schedules, and planned seat counts. Use to program or size a workplace; not for code occupant-load calculations."
+        ],
+        "exclusions": [
+          "No Arch Studio executable acquisition or unrequested record ownership"
+        ],
+        "inputs": [
+          "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records."
+        ],
+        "outputs": [
+          "Requested verified native result with actual source evidence and unresolved limitations"
+        ],
+        "references": [
+          "skills/workplace-programmer/SKILL.md",
+          "skills/workplace-programmer/host-contract.json",
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "docs/completion-reporting.md",
+          "corpus/host-contracts.json",
+          "docs/workspace-model.md",
+          "corpus/sources/catalog.json"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "Existing governed project context is required."
+          },
+          {
+            "path": "rules/professional-disclaimer.md",
+            "when": "The requested result contains regulatory or life-safety analysis."
+          }
+        ],
+        "handoffs": []
+      }
+    },
+    {
+      "id": "skill:workplan",
+      "category": "skills",
+      "path": "skills/workplan/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:sources",
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Prepare a proportionate work plan with outcomes, steps, dependencies and acceptance evidence. Use to plan substantial work or coordinate an approved team; a plan-only request does not authorize implementation.",
+        "triggers": [
+          "plan this implementation",
+          "scope and sequence this work",
+          "prepare a delivery work plan"
+        ],
+        "exclusions": [
+          "draw a floor or site plan",
+          "perform the implementation",
+          "make a zoning or code determination"
+        ],
+        "inputs": [
+          "Requested outcome, source context, constraints and known decisions"
+        ],
+        "outputs": [
+          "A reviewable work plan with dependencies, responsibilities, acceptance checks and unresolved questions"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "skills/workplan/host-contract.json",
+          "docs/workspace-model.md",
+          "skills/project/references/context-resolution.md",
+          "docs/completion-reporting.md",
+          "schema/documents.schema.json"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/workplan/templates/plan.md",
+            "when": "When the requested operation uses this owning template; resolve all placeholders from confirmed inputs."
+          },
+          {
+            "path": "rules/professional-disclaimer.md",
+            "when": "Prepare a plan for a client or authority, or include regulated findings."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:project",
+            "when": "When sourced project facts or decisions require their own record update"
+          },
+          {
+            "target": "skill:tasklist",
+            "when": "Only when the user requests task-register changes from the plan"
+          }
+        ],
+        "hostContract": "skills/workplan/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:zoning-analysis-nyc",
+      "category": "skills",
+      "path": "skills/zoning-analysis-nyc/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:sources",
+        "knowledge:jurisdictions",
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Analyze NYC lot zoning, FAR, height, setbacks, uses, and buildable envelope from PLUTO and the Zoning Resolution. Use for \"what can I build\"; use nyc-bsa for relief and zoning-envelope for 3D visualization.",
+        "hostContract": "skills/zoning-analysis-nyc/host-contract.json",
+        "executionOwner": "host",
+        "triggers": [
+          "Analyze NYC lot zoning, FAR, height, setbacks, uses, and buildable envelope from PLUTO and the Zoning Resolution. Use for \"what can I build\"; use nyc-bsa for relief and zoning-envelope for 3D visualization."
+        ],
+        "exclusions": [
+          "No Arch Studio executable acquisition or unrequested record ownership"
+        ],
+        "inputs": [
+          "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records."
+        ],
+        "outputs": [
+          "Requested verified native result with actual source evidence and unresolved limitations"
+        ],
+        "references": [
+          "skills/zoning-analysis-nyc/SKILL.md",
+          "skills/zoning-analysis-nyc/host-contract.json",
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "docs/completion-reporting.md",
+          "corpus/host-contracts.json",
+          "docs/workspace-model.md",
+          "corpus/sources/catalog.json"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "Existing governed project context is required."
+          },
+          {
+            "path": "rules/professional-disclaimer.md",
+            "when": "The requested result contains regulatory or life-safety analysis."
+          }
+        ],
+        "handoffs": []
+      }
+    },
+    {
+      "id": "skill:zoning-envelope",
+      "category": "skills",
+      "path": "skills/zoning-envelope/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "skill:zoning-analysis-nyc",
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Generate interactive 3D zoning envelope viewers from zoning analysis reports. Use when the user asks to \"visualize the zoning envelope\" or see buildable massing in 3D, typically after /as:zoning-analysis-nyc. Requires a zoning analysis report as input.",
+        "hostContract": "skills/zoning-envelope/host-contract.json",
+        "executionOwner": "host",
+        "triggers": [
+          "Generate interactive 3D zoning envelope viewers from zoning analysis reports. Use when the user asks to \"visualize the zoning envelope\" or see buildable massing in 3D, typically after /as:zoning-analysis-nyc. Requires a zoning analysis report as input."
+        ],
+        "exclusions": [
+          "No executable acquisition or unrequested canonical mutation"
+        ],
+        "inputs": [
+          "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records."
+        ],
+        "outputs": [
+          "Verified requested artifact, preserved source evidence and explicit incomplete checks"
+        ],
+        "references": [
+          "skills/zoning-envelope/SKILL.md",
+          "docs/geographic-applicability.md",
+          "corpus/geographic-applicability.json",
+          "rules/professional-disclaimer.md",
+          "docs/workspace-model.md",
+          "docs/completion-reporting.md",
+          "skills/zoning-envelope/host-contract.json",
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json"
+        ],
+        "conditionalReferences": [],
+        "handoffs": []
+      }
+    },
+    {
+      "id": "tool:plugin-namespace",
+      "category": "tools",
+      "path": "tools/validators/check-plugin-namespace.py",
+      "owner": "Arch Studio maintainers",
+      "execution": "local-python",
+      "dependencies": []
+    },
+    {
+      "id": "tool:category-validation",
+      "category": "tools",
+      "path": "tools/validators/validate-categories.py",
+      "owner": "Arch Studio maintainers",
+      "execution": "local-python",
+      "dependencies": []
+    },
+    {
+      "id": "studio:workspace-contract",
+      "category": "studio",
+      "path": "studio/README.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "reference",
+      "dependencies": []
+    },
+    {
+      "id": "studio:studio-template",
+      "category": "studio",
+      "path": "studio/templates/studio/STUDIO.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "reference",
+      "dependencies": [
+        "studio:workspace-contract"
+      ]
+    },
+    {
+      "id": "knowledge:sources",
+      "category": "knowledge",
+      "path": "corpus/sources/catalog.json",
+      "owner": "Arch Studio maintainers",
+      "execution": "reference",
+      "dependencies": [
+        "knowledge:jurisdictions"
+      ]
+    },
+    {
+      "id": "knowledge:jurisdictions",
+      "category": "knowledge",
+      "path": "corpus/jurisdictions/catalog.json",
+      "owner": "Arch Studio maintainers",
+      "execution": "reference",
+      "dependencies": []
+    },
+    {
+      "id": "tool:source-health",
+      "category": "tools",
+      "path": "tools/integrations/source-health.mjs",
+      "owner": "Arch Studio maintainers",
+      "execution": "local-node",
+      "dependencies": [
+        "knowledge:sources",
+        "knowledge:jurisdictions"
+      ]
+    },
+    {
+      "id": "knowledge:ffe-evidence",
+      "category": "knowledge",
+      "path": "corpus/practice-methods/ffe/README.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "reference",
+      "dependencies": []
+    },
+    {
+      "id": "studio:ffe-record-contract",
+      "category": "studio",
+      "path": "studio/ffe/README.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "reference",
+      "dependencies": [
+        "studio:workspace-contract"
+      ]
+    },
+    {
+      "id": "studio:document-design-system",
+      "category": "studio",
+      "path": "studio/standards/documents/design-system.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "reference",
+      "dependencies": []
+    },
+    {
+      "id": "studio:product-cut-sheet-template",
+      "category": "studio",
+      "path": "studio/templates/documents/product-cut-sheet/template.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "reference",
+      "dependencies": [
+        "studio:document-design-system"
+      ]
+    },
+    {
+      "id": "studio:spec-book-template",
+      "category": "studio",
+      "path": "studio/templates/documents/spec-book/template.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "reference",
+      "dependencies": [
+        "studio:document-design-system",
+        "studio:product-cut-sheet-template"
+      ]
+    },
+    {
+      "id": "tool:ffe-records",
+      "category": "tools",
+      "path": "tools/workspace/ffe_records.py",
+      "owner": "Arch Studio maintainers",
+      "execution": "local-python",
+      "dependencies": [
+        "studio:ffe-record-contract"
+      ]
+    },
+    {
+      "id": "tool:ffe-intake",
+      "category": "tools",
+      "path": "tools/transformers/ffe_intake.py",
+      "owner": "Arch Studio maintainers",
+      "execution": "local-python",
+      "dependencies": [
+        "tool:product-identity",
+        "tool:ffe-records",
+        "knowledge:ffe-evidence"
+      ]
+    },
+    {
+      "id": "tool:ffe-audit",
+      "category": "tools",
+      "path": "tools/validators/ffe_audit.py",
+      "owner": "Arch Studio maintainers",
+      "execution": "local-python",
+      "dependencies": [
+        "knowledge:ffe-evidence"
+      ]
+    },
+    {
+      "id": "tool:document-contracts",
+      "category": "tools",
+      "path": "tools/renderers/document_contracts.py",
+      "owner": "Arch Studio maintainers",
+      "execution": "local-python",
+      "dependencies": [
+        "studio:document-design-system",
+        "studio:product-cut-sheet-template",
+        "studio:spec-book-template"
+      ]
+    },
+    {
+      "id": "tool:ffe-outputs",
+      "category": "tools",
+      "path": "tools/renderers/ffe_outputs.py",
+      "owner": "Arch Studio maintainers",
+      "execution": "local-python",
+      "dependencies": [
+        "tool:product-identity",
+        "tool:ffe-records",
+        "tool:document-contracts"
+      ]
+    },
+    {
+      "id": "skill:product-audit",
+      "category": "skills",
+      "path": "skills/product-audit/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Audit a product, selection or FF&E schedule against sourced evidence and flag discrepancies, unknowns and stale specifications. Use to check product data; not to repair records, certify compliance or generate cut sheets.",
+        "triggers": [
+          "audit these product specifications",
+          "compare this selected schedule with source observations"
+        ],
+        "exclusions": [
+          "repair records without reconciliation",
+          "certify legal compliance",
+          "claim snapshot evidence is fresh retrieval"
+        ],
+        "inputs": [
+          "Exact selected item snapshot and sourced observations, with explicit live or snapshot mode"
+        ],
+        "outputs": [
+          "Ordered assessment findings, source uncertainty and immutable report when requested"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/completion-reporting.md",
+          "skills/product-audit/host-contract.json",
+          "docs/workspace-model.md",
+          "tools/validators/ffe-audit-contract.md",
+          "schema/ffe-audit.schema.json",
+          "schema/product-observations.md",
+          "schema/product-observation.schema.json"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "When reading or writing project records; a one-off comparison needs no project creation."
+          },
+          {
+            "path": "tools/workspace/ffe-records-contract.md",
+            "when": "When consuming an explicitly selected pinned adopted item/schedule basis."
+          },
+          {
+            "path": "schema/ffe-record.schema.json",
+            "when": "When validating an explicitly selected pinned adopted item/schedule basis."
+          },
+          {
+            "path": "schema/csv-conventions.md",
+            "when": "When reading a selected one-off product-library CSV snapshot."
+          },
+          {
+            "path": "schema/product-schema.md",
+            "when": "When validating the exact existing33-column product-library header and row shape."
+          },
+          {
+            "path": "tools/validators/workbook-preservation-contract.md",
+            "when": "Only for an explicitly requested before/after native OOXML preservation comparison with selected permitted cell aspects; this does not authorize a workbook edit."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:master-schedule",
+            "when": "Only for selected adopted-record reads or explicit reconciliation of proposed corrections."
+          },
+          {
+            "target": "skill:product-research",
+            "when": "When new candidate sourcing is requested."
+          },
+          {
+            "target": "skill:product-spec-pdf-parser",
+            "when": "When extraction from a supplied PDF is required."
+          },
+          {
+            "target": "skill:product-url-clip",
+            "when": "When capturing a selected product URL is requested."
+          },
+          {
+            "target": "skill:project",
+            "when": "Only for explicit selection rationale or approval records."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested registered report placement and registration."
+          },
+          {
+            "target": "skill:product-cut-sheet",
+            "when": "When a specification sheet of the exact selected revisions is requested."
+          },
+          {
+            "target": "skill:spec-book",
+            "when": "When a specification package of the exact selected revisions is requested."
+          }
+        ],
+        "hostContract": "skills/product-audit/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:product-cut-sheet",
+      "category": "skills",
+      "path": "skills/product-cut-sheet/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Produce one specification sheet from selected FF&E inputs using an accepted template, exact identity and inspected source imagery. Use for one product or explicit group; use spec-book for a complete package.",
+        "triggers": [
+          "prepare one specification sheet",
+          "make a product cut sheet",
+          "render this selected product"
+        ],
+        "exclusions": [
+          "produce an entire book without selecting spec-book",
+          "invent a product variant or image",
+          "treat an export as schedule adoption"
+        ],
+        "inputs": [
+          "Accepted intake, pinned or one-off snapshot, exact grouping, template and audience"
+        ],
+        "outputs": [
+          "One host-rendered specification artifact with hash-bound checks or an explicit incomplete result"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/completion-reporting.md",
+          "docs/workspace-model.md",
+          "tools/renderers/ffe-output-contract.md",
+          "tools/renderers/document-design-contract.md",
+          "schema/ffe-output-template.schema.json",
+          "schema/ffe-output.schema.json",
+          "schema/document-design.schema.json",
+          "schema/product-identity.schema.json",
+          "schema/ffe-intake.schema.json",
+          "tools/transformers/ffe-intake-contract.md",
+          "tools/transformers/evidence-contracts.md",
+          "schema/product-observations.md",
+          "schema/product-observation.schema.json",
+          "studio/standards/documents/design-system.json",
+          "studio/standards/documents/design-system.md",
+          "studio/templates/documents/product-cut-sheet/manifest.json",
+          "studio/templates/documents/product-cut-sheet/template.md",
+          "skills/product-cut-sheet/host-contract.json"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "Only when output is project-bound or selected project/studio assets require context."
+          },
+          {
+            "path": "tools/workspace/ffe-records-contract.md",
+            "when": "When reading exact adopted item/schedule revisions; one-off snapshots do not adopt records."
+          },
+          {
+            "path": "schema/ffe-record.schema.json",
+            "when": "When validating exact adopted item/schedule envelopes and historical/current pins."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:product-data-import",
+            "when": "When accepted input scope or source evidence is missing or corrected"
+          },
+          {
+            "target": "skill:spec-book",
+            "when": "When the user requests an ordered package of sheets"
+          },
+          {
+            "target": "skill:product-image-processor",
+            "when": "Only when requested selected-image preparation is needed; preserve exact/representative/missing provenance."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested durable project placement/registration; no automatic external delivery."
+          },
+          {
+            "target": "skill:master-schedule",
+            "when": "Only for selected adopted-record reads or explicitly requested reconciliation; output generation does not change records."
+          }
+        ],
+        "hostContract": "skills/product-cut-sheet/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:spec-book",
+      "category": "skills",
+      "path": "skills/spec-book/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Build an ordered specification package with every selected product accounted for, using accepted templates and exact product identities. Use for grouped cut sheets or a combined book; not for implicit scope reduction or adoption.",
+        "triggers": [
+          "prepare these specification sheets",
+          "make a complete specification book",
+          "combine the selected product sheets"
+        ],
+        "exclusions": [
+          "silently omit failed products",
+          "adopt exported data",
+          "change the accepted template without approval"
+        ],
+        "inputs": [
+          "Accepted ordered scope, grouping, snapshots, templates, audience and source evidence"
+        ],
+        "outputs": [
+          "Requested individual and combined host-rendered artifacts with complete or explicitly partial coverage"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/completion-reporting.md",
+          "docs/workspace-model.md",
+          "tools/renderers/ffe-output-contract.md",
+          "tools/renderers/document-design-contract.md",
+          "schema/ffe-output-template.schema.json",
+          "schema/ffe-output.schema.json",
+          "schema/document-design.schema.json",
+          "schema/product-identity.schema.json",
+          "schema/ffe-intake.schema.json",
+          "tools/transformers/ffe-intake-contract.md",
+          "tools/transformers/evidence-contracts.md",
+          "schema/product-observations.md",
+          "schema/product-observation.schema.json",
+          "studio/standards/documents/design-system.json",
+          "studio/standards/documents/design-system.md",
+          "studio/templates/documents/product-cut-sheet/manifest.json",
+          "studio/templates/documents/product-cut-sheet/template.md",
+          "skills/spec-book/host-contract.json",
+          "skills/product-cut-sheet/SKILL.md",
+          "skills/product-cut-sheet/host-contract.json",
+          "studio/templates/documents/spec-book/manifest.json",
+          "studio/templates/documents/spec-book/template.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "Only when output is project-bound or selected project/studio assets require context."
+          },
+          {
+            "path": "tools/workspace/ffe-records-contract.md",
+            "when": "When reading exact adopted item/schedule revisions; one-off snapshots do not adopt records."
+          },
+          {
+            "path": "schema/ffe-record.schema.json",
+            "when": "When validating exact adopted item/schedule envelopes and historical/current pins."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:product-cut-sheet",
+            "when": "For each already authorized sheet within the accepted package"
+          },
+          {
+            "target": "skill:product-data-import",
+            "when": "When source corrections require a superseding intake"
+          },
+          {
+            "target": "skill:product-image-processor",
+            "when": "Only when requested selected-image preparation is needed; preserve exact/representative/missing provenance."
+          },
+          {
+            "target": "skill:receive",
+            "when": "Only for requested durable project placement/registration; no automatic external delivery."
+          },
+          {
+            "target": "skill:master-schedule",
+            "when": "Only for selected adopted-record reads or explicitly requested reconciliation; output generation does not change records."
+          }
+        ],
+        "hostContract": "skills/spec-book/host-contract.json"
+      }
+    },
+    {
+      "id": "knowledge:host-contracts",
+      "category": "knowledge",
+      "path": "corpus/host-contracts.json",
+      "owner": "Arch Studio maintainers",
+      "execution": "reference",
+      "dependencies": []
+    },
+    {
+      "id": "tool:host-contract-validator",
+      "category": "tools",
+      "path": "tools/validators/host_contracts.py",
+      "owner": "Arch Studio maintainers",
+      "execution": "local-python",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ]
+    },
+    {
+      "id": "tool:product-library",
+      "category": "tools",
+      "path": "tools/workspace/product_library.py",
+      "owner": "Arch Studio maintainers",
+      "execution": "local-python",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ]
+    },
+    {
+      "id": "skill:product-library",
+      "category": "skills",
+      "path": "skills/product-library/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts",
+        "studio:workspace-contract"
+      ],
+      "capability": {
+        "description": "Inspect or save reusable FF&E library products through reviewed, guarded transactions. Use for explicit library imports, corrections or recovery; adopted selections and workbook reconciliation belong to master-schedule.",
+        "triggers": [
+          "save these products to the library",
+          "correct the reusable product library",
+          "recover a library transaction"
+        ],
+        "exclusions": [
+          "adopt project schedule items",
+          "silently save ordinary research",
+          "manage a workbook connection"
+        ],
+        "inputs": [
+          "Resolved project, requested reusable library operation, selected rows and evidence"
+        ],
+        "outputs": [
+          "Read-only preview or verified native product CSV update, exact retry, preserved conflict or explicit pending recovery"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/workspace-model.md",
+          "skills/project/references/context-resolution.md",
+          "docs/completion-reporting.md",
+          "skills/product-library/host-contract.json",
+          "tools/workspace/product-library-contract.md",
+          "schema/product-schema.md",
+          "schema/csv-conventions.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "schema/epd-schema.md",
+            "when": "When distinguishing an explicit EPD request before handing it to its separate owner; no EPD mutation by product-library."
+          },
+          {
+            "path": "schema/documents.schema.json",
+            "when": "When an explicitly requested durable report is registered through receive."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:master-schedule",
+            "when": "When the request concerns adopted project selections or workbook reconciliation"
+          }
+        ],
+        "hostContract": "skills/product-library/host-contract.json"
+      }
+    },
+    {
+      "id": "tool:product-observations",
+      "category": "tools",
+      "path": "tools/transformers/product_observations.py",
+      "owner": "Arch Studio maintainers",
+      "execution": "local-python",
+      "dependencies": [
+        "knowledge:ffe-evidence"
+      ]
+    },
+    {
+      "id": "knowledge:geographic-applicability",
+      "category": "knowledge",
+      "path": "corpus/geographic-applicability.json",
+      "owner": "Arch Studio maintainers",
+      "execution": "reference",
+      "dependencies": []
+    },
+    {
+      "id": "tool:geographic-applicability",
+      "category": "tools",
+      "path": "tools/validators/geographic_applicability.py",
+      "owner": "Arch Studio maintainers",
+      "execution": "local-python",
+      "dependencies": [
+        "knowledge:geographic-applicability"
+      ]
+    },
+    {
+      "id": "tool:product-url-clip",
+      "category": "tools",
+      "path": "tools/workspace/clip_log.py",
+      "owner": "Arch Studio maintainers",
+      "execution": "local-python",
+      "dependencies": [
+        "tool:product-observations",
+        "knowledge:host-contracts"
+      ]
+    },
+    {
+      "id": "skill:product-url-clip",
+      "category": "skills",
+      "path": "skills/product-url-clip/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Capture one supplied product URL as auditable, unadopted FF&E evidence and inspect its retained history. Use to clip a page or review prior captures; not to save a library product or adopt a schedule item.",
+        "triggers": [
+          "clip this product URL",
+          "retain this product page evidence",
+          "show prior captures of this URL"
+        ],
+        "exclusions": [
+          "search for replacement products without request",
+          "save to the reusable library",
+          "adopt a schedule item"
+        ],
+        "inputs": [
+          "One exact supplied URL, explicit configuration if known and an authorized capture destination"
+        ],
+        "outputs": [
+          "Hash-bound capture or failure history, sourced observations and explicit persistence status"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/completion-reporting.md",
+          "skills/product-url-clip/host-contract.json",
+          "tools/workspace/clip-log-contract.md",
+          "schema/product-observations.md",
+          "schema/product-observation.schema.json",
+          "schema/clip-event.schema.json",
+          "schema/clip-capture.schema.json",
+          "docs/workspace-model.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "When the authorized capture destination is project-bound; never initialize a project implicitly."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:product-data-import",
+            "when": "When captured evidence is selected for a document job"
+          },
+          {
+            "target": "skill:product-library",
+            "when": "Only when the user requests a reviewed reusable library save"
+          }
+        ],
+        "hostContract": "skills/product-url-clip/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:drawing-quantity-extract",
+      "category": "skills",
+      "path": "skills/drawing-quantity-extract/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Extract countable FF&E or luminaire instances from supplied drawings with position-level evidence. Use for plan quantities or symbol counts; not area takeoffs, product specs or cross-source reconciliation.",
+        "triggers": [
+          "count furniture symbols in this drawing",
+          "extract scoped drawing quantities"
+        ],
+        "exclusions": [
+          "calculate area takeoffs",
+          "adopt schedule quantities"
+        ],
+        "inputs": [
+          "Exact supplied drawing revisions and selected page/tag/building/floor scope"
+        ],
+        "outputs": [
+          "Source-positioned instance ledger, scoped counts, unresolved and excluded evidence"
+        ],
+        "handoffs": [
+          {
+            "target": "skill:schedule-quantity-reconcile",
+            "when": "When comparison with another scoped quantity source is requested"
+          },
+          {
+            "target": "skill:master-schedule",
+            "when": "Only when explicitly selected adopted-record changes are requested"
+          }
+        ],
+        "hostContract": "skills/drawing-quantity-extract/host-contract.json",
+        "executionOwner": "host",
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "skills/drawing-quantity-extract/host-contract.json",
+          "tools/transformers/evidence-contracts.md",
+          "docs/completion-reporting.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "When work is bound to a project or a registered report is requested"
+          },
+          {
+            "path": "docs/workspace-model.md",
+            "when": "When work is bound to a project, any derived output is saved, or a registered report is requested"
+          },
+          {
+            "path": "schema/documents.schema.json",
+            "when": "When a registered project report is requested"
+          }
+        ]
+      }
+    },
+    {
+      "id": "skill:schedule-quantity-reconcile",
+      "category": "skills",
+      "path": "skills/schedule-quantity-reconcile/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Compare scoped quantity snapshots and explain matches, missing rows and conflicts. Use to reconcile drawing, report or schedule counts; not to extract source documents or update adopted records.",
+        "triggers": [
+          "reconcile these counts",
+          "compare drawing and schedule quantities",
+          "explain quantity differences"
+        ],
+        "exclusions": [
+          "extract a drawing or PDF",
+          "silently aggregate inventories",
+          "change an adopted schedule"
+        ],
+        "inputs": [
+          "Two source-identified snapshots and an explicitly matching comparison scope"
+        ],
+        "outputs": [
+          "Read-only matches, unknowns, missing rows and conflicts with source locators"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "skills/schedule-quantity-reconcile/host-contract.json",
+          "tools/transformers/evidence-contracts.md",
+          "docs/completion-reporting.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "When work is bound to a project or a registered report is requested"
+          },
+          {
+            "path": "docs/workspace-model.md",
+            "when": "When work is bound to a project, any derived output is saved, or a registered report is requested"
+          },
+          {
+            "path": "schema/documents.schema.json",
+            "when": "When a registered project report is requested"
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:lighting-report-extract",
+            "when": "When lighting inventories and calculation surfaces first need separate extraction"
+          },
+          {
+            "target": "skill:master-schedule",
+            "when": "Only when the user requests selected adopted changes with resolved conflicts"
+          }
+        ],
+        "hostContract": "skills/schedule-quantity-reconcile/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:lighting-report-extract",
+      "category": "skills",
+      "path": "skills/lighting-report-extract/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Check reported lighting quantities and results in supplied simulation PDFs without adding repeated calculation surfaces. Use for scoped luminaire inventories and illuminance results; not simulation or compliance.",
+        "triggers": [
+          "check these lighting quantities",
+          "extract DIALux room results",
+          "compare repeated calculation surfaces"
+        ],
+        "exclusions": [
+          "run a lighting simulation",
+          "certify code compliance",
+          "parse product specifications"
+        ],
+        "inputs": [
+          "Supplied lighting report PDFs and requested room, scene, surface or quantity scope"
+        ],
+        "outputs": [
+          "Source-located inventory observations, separate calculation results and unresolved coverage"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "skills/lighting-report-extract/host-contract.json",
+          "tools/transformers/evidence-contracts.md",
+          "docs/completion-reporting.md",
+          "schema/lighting-report.schema.json"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "When work is bound to a project or a registered report is requested"
+          },
+          {
+            "path": "docs/workspace-model.md",
+            "when": "When work is bound to a project, any derived output is saved, or a registered report is requested"
+          },
+          {
+            "path": "schema/documents.schema.json",
+            "when": "When a registered project report is requested"
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:schedule-quantity-reconcile",
+            "when": "When the user requests comparison with another scoped quantity source"
+          }
+        ],
+        "hostContract": "skills/lighting-report-extract/host-contract.json"
+      }
+    },
+    {
+      "id": "tool:pdf-evidence",
+      "category": "tools",
+      "path": "tools/transformers/pdf_evidence.py",
+      "owner": "Arch Studio maintainers",
+      "execution": "local-python",
+      "dependencies": [
+        "knowledge:ffe-evidence"
+      ]
+    },
+    {
+      "id": "tool:dimension-values",
+      "category": "tools",
+      "path": "tools/transformers/dimension_values.py",
+      "owner": "Arch Studio maintainers",
+      "execution": "local-python",
+      "dependencies": [
+        "knowledge:ffe-evidence"
+      ]
+    },
+    {
+      "id": "tool:drawing-quantities",
+      "category": "tools",
+      "path": "tools/transformers/drawing_quantities.py",
+      "owner": "Arch Studio maintainers",
+      "execution": "local-python",
+      "dependencies": [
+        "knowledge:ffe-evidence"
+      ]
+    },
+    {
+      "id": "tool:schedule-reconcile",
+      "category": "tools",
+      "path": "tools/transformers/schedule_reconcile.py",
+      "owner": "Arch Studio maintainers",
+      "execution": "local-python",
+      "dependencies": [
+        "knowledge:ffe-evidence"
+      ]
+    },
+    {
+      "id": "tool:delivery-coverage",
+      "category": "tools",
+      "path": "tools/transformers/delivery_coverage.py",
+      "owner": "Arch Studio maintainers",
+      "execution": "local-python",
+      "dependencies": [
+        "knowledge:ffe-evidence"
+      ]
+    },
+    {
+      "id": "tool:lighting-report",
+      "category": "tools",
+      "path": "tools/transformers/lighting_report.py",
+      "owner": "Arch Studio maintainers",
+      "execution": "local-python",
+      "dependencies": [
+        "knowledge:ffe-evidence"
+      ]
+    },
+    {
+      "id": "tool:product-identity",
+      "category": "tools",
+      "path": "tools/transformers/product_identity.py",
+      "owner": "Arch Studio maintainers",
+      "execution": "local-python",
+      "dependencies": []
+    },
+    {
+      "id": "tool:capability-metadata",
+      "category": "tools",
+      "path": "tools/validators/capabilities.py",
+      "owner": "Arch Studio maintainers",
+      "execution": "local-python",
+      "dependencies": [
+        "tool:category-validation"
+      ]
+    },
+    {
+      "id": "skill:norma",
+      "category": "skills",
+      "path": "skills/norma/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Use Norma to coordinate architecture, buildings, projects, clients, proposals, schedules, specifications, sites, zoning, FF&E and firm work through the relevant Arch Studio owners. Direct skill requests stay with their owner.",
+        "triggers": [
+          "Architecture or project task without a named skill owner",
+          "Coordinate requested outputs across existing skills",
+          "Explicitly set up, update or remove the Arch Studio default preference"
+        ],
+        "exclusions": [
+          "Directly named skill work stays with that owner",
+          "Unrelated requests remain with the host",
+          "No independent hosted agent, model, memory or email service"
+        ],
+        "inputs": [
+          "User request and extent, supplied sources and corrections",
+          "Known project/studio or explicit standalone scope",
+          "Actual host capabilities and current authorization"
+        ],
+        "outputs": [
+          "Selected owner with preserved scope, evidence and validation handoff",
+          "Coherent result of the authorized work or precise incomplete status",
+          "Only if requested and approved: one removable Arch Studio preference block"
+        ],
+        "references": [
+          "skills/norma/host-contract.json",
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "corpus/components.json",
+          "corpus/capabilities.json",
+          "skills/README.md",
+          "rules/moments.md",
+          "docs/completion-reporting.md",
+          "skills/norma/SKILL.md",
+          "docs/workspace-model.md",
+          "skills/norma/references/assistant-preference.md",
+          "skills/project/references/context-resolution.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "docs/agents.md",
+            "when": "An available authorized host specialist profile may help the requested work."
+          },
+          {
+            "path": "skills/studio/SKILL.md",
+            "when": "Opening, configuring or registering a studio/project; do not bounce the administration request back to Norma."
+          },
+          {
+            "path": "skills/norma-support/SKILL.md",
+            "when": "Arch Studio onboarding, installation, access, memory or troubleshooting support."
+          }
+        ],
+        "hostContract": "skills/norma/host-contract.json",
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:agreement",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:architecture-knowledge",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:color-palette-generator",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:csv-to-sif",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:demographics-analysis",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:drawing-quantity-extract",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:environmental-analysis",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:epd-compare",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:epd-parser",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:epd-research",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:epd-to-spec",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:invoice",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:learn",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:lighting-report-extract",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:master-schedule",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:meeting-minutes",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:mobility-analysis",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:nyc-acris",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:nyc-bsa",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:nyc-dob-permits",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:nyc-dob-violations",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:nyc-hpd",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:nyc-landmarks",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:nyc-property-report",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:occupancy-calculator",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:product-audit",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:product-cut-sheet",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:product-data-cleanup",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:product-data-import",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:product-enrich",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:product-image-processor",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:product-library",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:product-match",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:product-pair",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:product-research",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:product-spec-bulk-fetch",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:product-spec-pdf-parser",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:product-url-clip",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:project",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:proposal",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:resize-images",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:schedule-quantity-reconcile",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:sif-to-csv",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:site-history",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:site-visit-report",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:skill-maker",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:slide-deck-generator",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:spec-book",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:spec-writer",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:studio",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:studio-feedback",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:tasklist",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:timetracker",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:workplace-programmer",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:workplan",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:zoning-analysis-nyc",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:zoning-envelope",
+            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
+          },
+          {
+            "target": "skill:norma-support",
+            "when": "Arch Studio onboarding, installation, access, memory or troubleshooting support; general Norma remains the front door."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tool:assistant-preference",
+      "category": "tools",
+      "path": "tools/transformers/assistant_preference.py",
+      "owner": "Arch Studio maintainers",
+      "execution": "local-python",
+      "dependencies": []
+    },
+    {
+      "id": "skill:receive",
+      "category": "skills",
+      "path": "skills/receive/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Register received or authored project documents by confirmed coordinates, preserve their filenames and provenance, and find or verify registered documents. Use for filing a supplied file/package or locating documents by kind, date, source or revision.",
+        "triggers": [
+          "file a received document",
+          "find registered documents"
+        ],
+        "exclusions": [
+          "unrequested project adoption"
+        ],
+        "inputs": [
+          "Selected project, explicit document coordinates and supplied file or query"
+        ],
+        "outputs": [
+          "Registered documents or sourced register query with actual write/verification state"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "skills/receive/host-contract.json",
+          "docs/workspace-model.md",
+          "skills/project/references/context-resolution.md",
+          "docs/completion-reporting.md",
+          "schema/documents.schema.json"
+        ],
+        "conditionalReferences": [],
+        "hostContract": "skills/receive/host-contract.json",
+        "executionOwner": "host",
+        "handoffs": []
+      }
+    },
+    {
+      "id": "tool:local-runner",
+      "category": "tools",
+      "path": "tools/runner/run.py",
+      "owner": "Arch Studio maintainers",
+      "execution": "local-python",
+      "dependencies": []
+    },
+    {
+      "id": "tool:workbook-preservation",
+      "category": "tools",
+      "path": "tools/validators/workbook_preservation.py",
+      "owner": "Arch Studio maintainers",
+      "execution": "local-python",
+      "dependencies": []
+    },
+    {
+      "id": "skill:norma-support",
+      "category": "skills",
+      "path": "skills/norma-support/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Help users connect Arch Studio, understand its access and memory, choose a first workflow, and troubleshoot from reported evidence. General architecture and project execution stays with its owning skill.",
+        "triggers": [
+          "Install or authenticate Arch Studio",
+          "Understand a reported Arch Studio or connector failure",
+          "Explain Norma support access, memory or an authorized case handoff"
+        ],
+        "exclusions": [
+          "General architecture or production project execution",
+          "Automatic email or conversation synchronization",
+          "Unverified account or firm access",
+          "File processing, diagnostics and external execution through support"
+        ],
+        "inputs": [
+          "User question and confirmed context with provenance",
+          "Actual channel, capabilities, release identity and scoped evidence"
+        ],
+        "outputs": [
+          "Evidence-bound answer and one useful next action",
+          "Text-based troubleshooting guidance and explicit evidence limitations",
+          "Authorized support handoff summary; stored or sent only with a receipt"
+        ],
+        "references": [
+          "skills/norma-support/host-contract.json",
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "docs/completion-reporting.md",
+          "corpus/host-contracts.json",
+          "skills/norma-support/references/conversation-knowledge.md",
+          "skills/norma-support/SKILL.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/norma-support/references/access-and-installation.md",
+            "when": "Connection, runner, release acquisition or memory questions."
+          },
+          {
+            "path": "skills/norma-support/references/capability-observations.md",
+            "when": "Google, Miro or Figma capability questions."
+          },
+          {
+            "path": "skills/norma-support/references/case-handoff.md",
+            "when": "Protected email case context or a channel handoff."
+          }
+        ],
+        "hostContract": "skills/norma-support/host-contract.json",
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:norma",
+            "when": "General architecture or project work in the native host; preserve scope and authorization."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "path": "skills/product-image-processor/SKILL.md",
+  "responsibility": "Download, resize, and remove backgrounds from product images at scale. Use when the user asks to \"process product images\", batch-download images from the schedule, strip backgrounds, or standardize product photos.",
+  "inputs": "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records.",
+  "owned_records": [],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "file-read"
+    },
+    {
+      "mode": "research"
+    },
+    {
+      "mode": "image-transform",
+      "required": [
+        "file.read",
+        "file.write",
+        "image.read",
+        "image.transform"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    },
+    {
+      "mode": "delegate",
+      "when": "Only for requested native product-library save, master-schedule adoption/revision, project facts/decisions or receive placement/registration; preserve source identity, existing authorization and exact scope."
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "skills/product-image-processor/SKILL.md",
+    "operations": [
+      "context.resolve",
+      "product_library.validate",
+      "ffe_records.read"
+    ]
+  }
+}

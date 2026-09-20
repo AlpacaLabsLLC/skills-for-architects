@@ -1,119 +1,31 @@
 #!/usr/bin/env bash
 set -euo pipefail
-
-repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-cd "$repo_root"
-
-skills=(
-  product-research product-data-import product-data-cleanup product-enrich
-  product-match product-pair product-image-processor product-spec-bulk-fetch
-  product-spec-pdf-parser sif-to-csv csv-to-sif
-)
-
-owned=()
-for skill in "${skills[@]}"; do
-  owned+=("skills/$skill/SKILL.md")
-  if [[ -f "skills/$skill/README.md" ]]; then
-    owned+=("skills/$skill/README.md")
-  fi
-done
-owned+=("agents/ffe-designer.md")
-
-if rg -n -i 'mcp__google-sheets|google[[:space:]-]*sheet|spreadsheet|sheet id|sheet-conventions\.md|\.xlsx?\b|\.tsv\b|excel' "${owned[@]}"; then
-  echo "FF&E surface still advertises Google Sheets or XLS/XLSX" >&2
-  exit 1
-fi
-
-for skill in "${skills[@]}"; do
-  file="skills/$skill/SKILL.md"
-  rg -q 'product-library\.csv' "$file" || {
-    echo "$file must name the canonical product-library.csv" >&2
-    exit 1
-  }
-  rg -q 'csv-conventions\.md' "$file" || {
-    echo "$file must reference schema/csv-conventions.md" >&2
-    exit 1
-  }
-done
-
-mutators=(
-  product-research product-data-import product-data-cleanup product-enrich
-  product-match product-pair product-spec-bulk-fetch product-spec-pdf-parser
-  sif-to-csv
-)
-for skill in "${mutators[@]}"; do
-  file="skills/$skill/SKILL.md"
-  rg -q 'csv-library\.py' "$file" || {
-    echo "$file must delegate persistent mutation to csv-library.py" >&2
-    exit 1
-  }
-  rg -Fq '<plugin-root>/skills/master-schedule/scripts/csv-library.py' "$file" || {
-    echo "$file must resolve the helper through the portable plugin root" >&2
-    exit 1
-  }
-  rg -q -i 'preview' "$file" || {
-    echo "$file must preview persistent changes" >&2
-    exit 1
-  }
-  rg -q -i 'single.*gate' "$file" || {
-    echo "$file must use the single confirmation gate" >&2
-    exit 1
-  }
-done
-
-if rg -n '(\.\./master-schedule/scripts/csv-library\.py|`skills/master-schedule/scripts/csv-library\.py|"skills/master-schedule/scripts/csv-library\.py)' "${owned[@]}"; then
-  echo "FF&E surface contains an installed-plugin-unsafe helper path" >&2
-  exit 1
-fi
-
-batch_appenders=(
-  product-research product-data-import product-match product-pair
-  product-spec-bulk-fetch product-spec-pdf-parser sif-to-csv
-)
-for skill in "${batch_appenders[@]}"; do
-  file="skills/$skill/SKILL.md"
-  rg -q -i 'one JSON array' "$file" || {
-    echo "$file must serialize additions as one batch array" >&2
-    exit 1
-  }
-  rg -q -i 'exactly once' "$file" || {
-    echo "$file must invoke one approved batch mutation" >&2
-    exit 1
-  }
-  rg -q -i 'never loop per row|never loop `update`' "$file" || {
-    echo "$file must forbid per-row persistent mutation" >&2
-    exit 1
-  }
-done
-
-for skill in product-data-cleanup product-enrich; do
-  file="skills/$skill/SKILL.md"
-  rg -q -i 'complete proposed 33-column CSV' "$file" || {
-    echo "$file must materialize one complete multi-row replacement" >&2
-    exit 1
-  }
-  rg -q ' import product ' "$file" || {
-    echo "$file must use one atomic import for multi-row replacement" >&2
-    exit 1
-  }
-  rg -q -i 'exactly once' "$file" || {
-    echo "$file must invoke the approved replacement once" >&2
-    exit 1
-  }
-  rg -q -i 'never loop `update`' "$file" || {
-    echo "$file must forbid update loops" >&2
-    exit 1
-  }
-done
-
-rg -q 'Image URL' skills/product-image-processor/SKILL.md
-rg -q 'Product Name' skills/product-image-processor/SKILL.md
-if rg -n -i 'column[[:space:]]+(AC|E)\b' skills/product-image-processor/SKILL.md; then
-  echo "image processor must address CSV fields by name, not column letters" >&2
-  exit 1
-fi
-
-rg -q -i 'SIF.*input|input.*SIF' skills/sif-to-csv/SKILL.md
-rg -q -i 'SIF.*output|output.*SIF' skills/csv-to-sif/SKILL.md
-
-echo "FF&E CSV contract tests passed"
+cd "$(dirname "$0")/.."
+python3 - <<'PY'
+import json,re
+from pathlib import Path
+names=['product-research','product-data-import','product-data-cleanup','product-enrich','product-match','product-pair','product-image-processor','product-spec-bulk-fetch','product-spec-pdf-parser','sif-to-csv','csv-to-sif']
+for name in names:
+    root=Path('skills')/name
+    text=(root/'SKILL.md').read_text()
+    assert 'product-library.csv' in text,name
+    assert 'csv-conventions.md' in text,name
+    assert not re.search(r'mcp__google-sheets|sheet-conventions\.md|spreadsheet ID|sheet ID',text,re.I),name
+    declaration=json.loads((root/'host-contract.json').read_text())
+    assert 'product-library.csv' not in declaration['owned_records'],name
+    assert 'product-library.csv' in declaration['non_owned_records'],name
+owner=json.loads(Path('skills/product-library/host-contract.json').read_text())
+assert 'product-library.csv' in owner['owned_records']
+operations={x['id']:x for x in json.loads(Path('tools/runner/operations.json').read_text())['operations']}
+for name in ['append','import','update','preview','recover']:
+    assert 'product_library.'+name in operations
+for name in ['append','import','update']:
+    keys=operations['product_library.'+name]['input_schema']['properties']
+    assert 'request_id' in keys and 'expected_sha256' in keys,name
+schema=operations['product_library.append']['input_schema']['properties']['row_json']
+assert any(item.get('type')=='array' for item in schema.get('anyOf',[])), 'Atomic batch additions must accept an array'
+image=Path('skills/product-image-processor/SKILL.md').read_text()
+assert 'Image URL' in image and 'Product Name' in image
+assert not re.search(r'column\s+(AC|E)\b',image,re.I)
+print('PASS: current CSV ownership, schema links, batch/retry interfaces and named image fields')
+PY

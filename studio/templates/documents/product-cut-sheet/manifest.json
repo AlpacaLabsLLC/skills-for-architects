@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "id": "as.product-cut-sheet-template",
+  "version": "1.0.0",
+  "design_system": {
+    "id": "as.document-design-system",
+    "version": "1.0.0"
+  },
+  "assets": {
+    "template.md": "6f6f1db1203581407d51dab5bb74839d17d94343d1df677d441f8799b531be02"
+  },
+  "supported_presets": [
+    "letter",
+    "legal",
+    "tabloid",
+    "ansi-c",
+    "ansi-d",
+    "ansi-e",
+    "arch-a",
+    "arch-b",
+    "arch-c",
+    "arch-d",
+    "arch-e",
+    "arch-e1",
+    "a4",
+    "a3",
+    "a2",
+    "a1",
+    "a0",
+    "custom"
+  ],
+  "orientations": [
+    "portrait",
+    "landscape"
+  ],
+  "dependencies": []
+}

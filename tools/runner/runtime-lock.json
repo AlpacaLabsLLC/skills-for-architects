@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "python": "3.13.7",
+  "uv": "0.12.13",
+  "node": "24.14.1",
+  "python_dependencies": {
+    "mcp": "2.2.0",
+    "pypdf": "6.18.1",
+    "PyMuPDF": "1.28.2",
+    "Pillow": "12.3.0",
+    "PyYAML": "6.0.3"
+  },
+  "dependency_lock": "tools/runner/uv.lock",
+  "uv_downloads": {
+    "darwin-arm64": {
+      "url": "https://github.com/astral-sh/uv/releases/download/0.12.13/uv-aarch64-apple-darwin.tar.gz",
+      "sha256": "7e6ddb9316acc00f2296c82ff4d99977870ee34b2f0ddcae9444d714db9364ed"
+    },
+    "darwin-x64": {
+      "url": "https://github.com/astral-sh/uv/releases/download/0.12.13/uv-x86_64-apple-darwin.tar.gz",
+      "sha256": "5e287ef61cb6a9b61b3a83fef124fd143e400468a7dac794230147a810e17119"
+    },
+    "win32-arm64": {
+      "url": "https://github.com/astral-sh/uv/releases/download/0.12.13/uv-aarch64-pc-windows-msvc.zip",
+      "sha256": "1efb2654b06e7063d4ac1fc9d49a9bda9a6704d82f035b589a2751a592f14151"
+    },
+    "win32-x64": {
+      "url": "https://github.com/astral-sh/uv/releases/download/0.12.13/uv-x86_64-pc-windows-msvc.zip",
+      "sha256": "a86c9dc7bad9b03f388583b7187c05fe9951c2e0d392217e8fd43d97787f6ec2"
+    }
+  },
+  "node_downloads": {
+    "darwin-arm64": {
+      "url": "https://nodejs.org/dist/v24.14.1/node-v24.14.1-darwin-arm64.tar.gz",
+      "sha256": "25495ff85bd89e2d8a24d88566d7e2f827c6b0d3d872b2cebf75371f93fcb1fe"
+    },
+    "darwin-x64": {
+      "url": "https://nodejs.org/dist/v24.14.1/node-v24.14.1-darwin-x64.tar.gz",
+      "sha256": "2526230ad7d922be82d4fdb1e7ee1e84303e133e3b4b0ec4c2897ab31de0253d"
+    },
+    "win32-arm64": {
+      "url": "https://nodejs.org/dist/v24.14.1/node-v24.14.1-win-arm64.zip",
+      "sha256": "a7b7c68490e4a8cde1921fe5a0cfb3001d53f9c839e416903e4f28e727b62f60"
+    },
+    "win32-x64": {
+      "url": "https://nodejs.org/dist/v24.14.1/node-v24.14.1-win-x64.zip",
+      "sha256": "6e50ce5498c0cebc20fd39ab3ff5df836ed2f8a31aa093cecad8497cff126d70"
+    }
+  }
+}

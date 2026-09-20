@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "skillId": "skill:norma-support",
+  "mode": "conversation-only",
+  "files": [
+    {
+      "path": "skills/norma-support/references/conversation-knowledge.md",
+      "sha256": "39146c3f68d1210cdf3c01dc6ea49717fca8b13024c0a6a95905a314c459dc80"
+    },
+    {
+      "path": "skills/norma-support/references/access-and-installation.md",
+      "sha256": "9693fc7b4c10ffa607d000232ab74467fc6fd7c159754bee52d2f70ed68f0639"
+    },
+    {
+      "path": "skills/norma-support/references/capability-observations.md",
+      "sha256": "b5de135a7c8629ed5a5e3c3f16d0f44f9304e1fafcb8d166d6830d804b46f703"
+    },
+    {
+      "path": "skills/norma-support/references/case-handoff.md",
+      "sha256": "c55b40a41ca1da343925ff8fb2d1e3a71e43c11d1d1361fbe283561ebc6ceed4"
+    }
+  ]
+}

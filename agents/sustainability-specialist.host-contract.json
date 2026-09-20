@@ -1,0 +1,37 @@
+{
+  "path": "agents/sustainability-specialist.md",
+  "responsibility": "Research and compare environmental declarations, embodied-carbon evidence and requested specification or certification requirements.",
+  "inputs": "Original task, selected sources, exact targets, permissions and result evidence; delegates inherit these constraints.",
+  "owned_records": [],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "answer"
+    },
+    {
+      "mode": "research"
+    },
+    {
+      "mode": "file-read"
+    },
+    {
+      "mode": "file-output"
+    },
+    {
+      "mode": "delegate"
+    }
+  ]
+}

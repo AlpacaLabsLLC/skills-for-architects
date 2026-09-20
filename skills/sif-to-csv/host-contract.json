@@ -1,0 +1,53 @@
+{
+  "path": "skills/sif-to-csv/SKILL.md",
+  "responsibility": "Parse a SIF (Standard Interchange Format) input into a readable preview and optionally append canonical product rows to the project's CSV library. Use when asked to convert or inspect SIF dealer data. For the reverse direction use /as:csv-to-sif.",
+  "inputs": "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records.",
+  "owned_records": [],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "answer",
+      "when": "Inline conversion explanation or preview; no persistence implied."
+    },
+    {
+      "mode": "file-read"
+    },
+    {
+      "mode": "research",
+      "when": "Only when missing original vendor specification/version must be retrieved through an available authorized source."
+    },
+    {
+      "mode": "file-output",
+      "when": "Only for an explicitly requested derived converted file or loss report; inline previews need no write.",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    },
+    {
+      "mode": "delegate",
+      "when": "Only for requested selected library saves, adopted specification changes or registered project documents; preserve exact scope, evidence and existing authorization."
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "schema/sif-crosswalk.md",
+    "operations": []
+  }
+}

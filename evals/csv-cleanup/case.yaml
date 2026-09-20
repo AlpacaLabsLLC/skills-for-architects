@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: csv-cleanup
+context:
+  scaffold_script: scaffold.sh

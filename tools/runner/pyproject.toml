@@ -1,0 +1,14 @@
+[project]
+name = "as-local-operations"
+version = "1.5.0"
+requires-python = "==3.13.*"
+dependencies = [
+  "mcp==2.2.0",
+  "pypdf==6.18.1",
+  "PyMuPDF==1.28.2",
+  "Pillow==12.3.0",
+  "PyYAML==6.0.3",
+]
+
+[tool.uv]
+package = false

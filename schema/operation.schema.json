@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Arch Studio local operation request",
+  "type": "object",
+  "required": ["schema_version", "operation", "release_digest", "input"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": 1},
+    "operation": {"type": "string", "minLength": 1},
+    "release_digest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "input": {"type": "object"}
+  },
+  "$comment": "The verified package operation registry supplies the closed per-operation input schema. Results state operation success separately from workflow completion."
+}

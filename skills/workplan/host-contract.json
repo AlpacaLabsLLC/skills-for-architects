@@ -1,0 +1,64 @@
+{
+  "path": "skills/workplan/SKILL.md",
+  "responsibility": "Prepare a proportionate work plan with outcomes, steps, dependencies and acceptance evidence. Use to plan substantial work or coordinate an approved team; a plan-only request does not authorize implementation.",
+  "inputs": "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records.",
+  "owned_records": [
+    "DOCUMENTS.csv (kind=plan)"
+  ],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "DOCUMENTS.csv (kind=proposal)",
+    "PROJECT.md#agreement and registered agreement/contract documents",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "answer"
+    },
+    {
+      "mode": "file-read"
+    },
+    {
+      "mode": "record-write",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    },
+    {
+      "mode": "delegate"
+    },
+    {
+      "mode": "record-read",
+      "when": "When reading project-bound planning context, resolve the actual context with native reads; compose with file-read for source files.",
+      "required": [
+        "file.read"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "docs/workspace-model.md",
+    "operations": [
+      "workplan.prepare",
+      "context.resolve",
+      "documents.resolve",
+      "documents.register",
+      "documents.query"
+    ]
+  }
+}

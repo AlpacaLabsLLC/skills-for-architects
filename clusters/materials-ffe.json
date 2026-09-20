@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "id": "cluster:materials-ffe",
+  "name": "Materials & FF&E",
+  "maintainer": "Arch Studio maintainers",
+  "scope": "Product sourcing, evidence review, adopted item/schedule records, host-operated views and cut-sheet/spec-book delivery; optional CSV library and SIF interchange.",
+  "members": [
+    "skill:master-schedule",
+    "skill:product-data-cleanup",
+    "skill:product-data-import",
+    "skill:product-enrich",
+    "skill:product-image-processor",
+    "skill:product-match",
+    "skill:product-pair",
+    "skill:product-research",
+    "skill:product-spec-bulk-fetch",
+    "skill:product-spec-pdf-parser",
+    "skill:csv-to-sif",
+    "skill:sif-to-csv",
+    "studio:workspace-contract",
+    "skill:product-audit",
+    "skill:product-cut-sheet",
+    "skill:spec-book",
+    "knowledge:ffe-evidence",
+    "studio:ffe-record-contract",
+    "studio:document-design-system",
+    "studio:product-cut-sheet-template",
+    "studio:spec-book-template",
+    "tool:ffe-records",
+    "tool:ffe-intake",
+    "tool:ffe-audit",
+    "tool:document-contracts",
+    "tool:ffe-outputs",
+    "skill:product-library",
+    "tool:product-library",
+    "skill:product-url-clip",
+    "tool:product-url-clip",
+    "tool:product-observations",
+    "skill:drawing-quantity-extract",
+    "skill:schedule-quantity-reconcile",
+    "skill:lighting-report-extract",
+    "tool:pdf-evidence",
+    "tool:dimension-values",
+    "tool:drawing-quantities",
+    "tool:schedule-reconcile",
+    "tool:delivery-coverage"
+  ],
+  "dependencies": [],
+  "coverage": {
+    "jurisdictions": [],
+    "limitations": "Native semantic owners specify record, input-evidence and output-contract checks; the host performs and verifies them. Hosts supply source/workbook access, rendering and visual inspection. Shared schemas and procedures do not establish full host/client acceptance; no independent Norma agent, database, remote execution, or general workbook engine is shipped.",
+    "sources_indexed": false,
+    "procedures_available": true,
+    "execution_implemented": false,
+    "workflow_validated": false
+  },
+  "host_requirements": [
+    "agent instruction following",
+    "read resources",
+    "skill-specific tools and authorized workspace access when required",
+    "host spreadsheet capability for workbook edits",
+    "host document production and rendered inspection for requested output formats"
+  ],
+  "evaluations": [
+    {
+      "id": "materials-ffe-discovery",
+      "kind": "contract",
+      "path": "tests/test-category-contracts.sh",
+      "claim": "Manifest membership and portability only; not workflow acceptance"
+    },
+    {
+      "id": "materials-ffe-source-membership",
+      "kind": "contract",
+      "path": "tests/test-category-source-integration.sh",
+      "claim": "Shared source dependencies and truthful cluster declarations only; not workflow validation"
+    },
+    {
+      "id": "ffe-record-recovery",
+      "kind": "contract",
+      "path": "tests/test-ffe-records.sh",
+      "claim": "Synthetic record/reconciliation/recovery contract evidence; not full customer workflow acceptance"
+    }
+  ],
+  "reviewed_on": "2026-09-07"
+}

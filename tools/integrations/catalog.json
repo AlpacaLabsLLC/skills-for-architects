@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "integrations": [
+    {
+      "id": "integration:public-source-health",
+      "status": "implemented",
+      "execution_routes": [
+        "oss-local",
+        "as-server-library"
+      ],
+      "operation": "check_sources",
+      "implementation": "tools/integrations/source-health.mjs",
+      "input_contract": "registered source IDs, timeout milliseconds, concurrency; no arbitrary URLs or request headers",
+      "output_contract": "per-source reachability, identity, checked_at, http_status; legal_applicability always unknown",
+      "required_scopes": [],
+      "credential_reference": null,
+      "data_recipient": "registered official publisher",
+      "storage": "results returned; no persistent cache or studio writes",
+      "hosted_binding": "not-implemented",
+      "runtime": "node>=18"
+    },
+    {
+      "id": "integration:ec3",
+      "status": "declaration-only",
+      "execution_routes": [
+        "host-connected"
+      ],
+      "operation": "EPD search (requires separately implemented and authenticated provider connection)",
+      "implementation": null,
+      "input_contract": "provider-defined; unknown until adapter implementation",
+      "output_contract": "provider-defined; unknown until adapter implementation",
+      "required_scopes": null,
+      "credential_reference": {
+        "kind": "secure-host-store-or-environment",
+        "name": "AS_EC3_API_TOKEN"
+      },
+      "data_recipient": "Building Transparency; review provider terms at connection setup",
+      "storage": "host/provider policy; not implemented by Arch Studio",
+      "hosted_binding": "not-implemented",
+      "runtime": null
+    }
+  ]
+}

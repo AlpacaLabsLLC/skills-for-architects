@@ -1,0 +1,266 @@
+{
+  "schema_version": 1,
+  "policy": "docs/host-harness-contract.md",
+  "profiles": {
+    "record-read": {
+      "mode": "record-read",
+      "when": "When inspecting existing governed records.",
+      "target": "Resolved project/studio and canonical record paths/revisions.",
+      "required": [
+        "file.read"
+      ],
+      "optional": [
+        "process.run"
+      ],
+      "effects": [
+        "none"
+      ],
+      "permission": "read-within-scope",
+      "completion": "source-evidence"
+    },
+    "record-write": {
+      "mode": "record-write",
+      "when": "Only when this skill's owned record operation is requested or already authorized.",
+      "target": "Resolved owner root and owned record paths/expected revisions.",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": [
+        "process.run"
+      ],
+      "effects": [
+        "canonical-write"
+      ],
+      "permission": "write-within-scope",
+      "completion": "file-readback"
+    },
+    "delegate": {
+      "mode": "delegate",
+      "when": "When the required operation belongs to another owner; use only an actually available route.",
+      "target": "Named owner, original scope, target, pinned inputs and expected result.",
+      "required": [],
+      "optional": [],
+      "effects": [
+        "none"
+      ],
+      "permission": "read-within-scope",
+      "completion": "delegate-evidence"
+    },
+    "answer": {
+      "mode": "answer",
+      "when": "When answering from supplied content or explaining the workflow.",
+      "target": "Supplied conversation and applicable original-source evidence; no workspace required.",
+      "required": [],
+      "optional": [],
+      "effects": [
+        "none"
+      ],
+      "permission": "read-within-scope",
+      "completion": "answer-evidence"
+    },
+    "file-read": {
+      "mode": "file-read",
+      "when": "When the selected input is a local file or folder.",
+      "target": "Exact supplied file, folder or saved evidence path.",
+      "required": [
+        "file.read"
+      ],
+      "optional": [
+        "process.run"
+      ],
+      "effects": [
+        "none"
+      ],
+      "permission": "read-within-scope",
+      "completion": "source-evidence"
+    },
+    "render": {
+      "mode": "render",
+      "when": "When creating and inspecting requested visual artifacts.",
+      "target": "Exact artifact set, accepted template, selected source scope and audience.",
+      "required": [
+        "file.write",
+        "document.render",
+        "document.inspect"
+      ],
+      "optional": [
+        "file.read",
+        "process.run"
+      ],
+      "effects": [
+        "artifact-write"
+      ],
+      "permission": "write-within-scope",
+      "completion": "artifact-inspection"
+    },
+    "file-output": {
+      "mode": "file-output",
+      "when": "When a derived report/export is requested or is the specified deliverable.",
+      "target": "Exact authorized derived output path; no automatic adoption.",
+      "required": [
+        "file.write"
+      ],
+      "optional": [
+        "file.read"
+      ],
+      "effects": [
+        "artifact-write"
+      ],
+      "permission": "write-within-scope",
+      "completion": "file-readback"
+    },
+    "research": {
+      "mode": "research",
+      "when": "When current facts require external retrieval; do not silently use cached evidence.",
+      "target": "Exact supplied/resolved source URL and locator for current facts.",
+      "required": [
+        "web.read"
+      ],
+      "optional": [
+        "pdf.read"
+      ],
+      "effects": [
+        "none"
+      ],
+      "permission": "read-within-scope",
+      "completion": "source-evidence"
+    },
+    "workbook-read": {
+      "mode": "workbook-read",
+      "when": "When input is a host-operated spreadsheet, including local XLSX or Google Sheets.",
+      "target": "Exact provider/account/spreadsheet ID/tab/range or local workbook path.",
+      "required": [
+        "spreadsheet.read",
+        "spreadsheet.features"
+      ],
+      "optional": [],
+      "effects": [
+        "none"
+      ],
+      "permission": "read-within-scope",
+      "completion": "source-evidence"
+    },
+    "workbook-edit": {
+      "mode": "workbook-edit",
+      "when": "Only when edits to the supplied workbook are authorized; adopted specifications reconcile through master-schedule.",
+      "target": "Exact provider/account/spreadsheet ID/tab/range or local workbook path.",
+      "required": [
+        "spreadsheet.read",
+        "spreadsheet.edit",
+        "spreadsheet.features",
+        "spreadsheet.backup"
+      ],
+      "optional": [],
+      "effects": [
+        "document-edit"
+      ],
+      "permission": "write-within-scope",
+      "completion": "provider-or-native-readback"
+    },
+    "image-transform": {
+      "mode": "image-transform",
+      "when": "When transforming selected images; originals remain retained.",
+      "target": "Exact original image set and distinct requested output destinations.",
+      "required": [
+        "file.read",
+        "file.write",
+        "image.read",
+        "image.transform"
+      ],
+      "optional": [
+        "process.run"
+      ],
+      "effects": [
+        "artifact-write"
+      ],
+      "permission": "write-within-scope",
+      "completion": "artifact-inspection"
+    },
+    "external-open": {
+      "mode": "external-open",
+      "when": "Only after the exact outbound fields and destination are authorized.",
+      "target": "Exact reviewed external URL and outbound query fields.",
+      "required": [
+        "browser.open"
+      ],
+      "optional": [],
+      "effects": [
+        "external-open"
+      ],
+      "permission": "explicit-outbound",
+      "completion": "source-evidence"
+    }
+  },
+  "components": {
+    "skill:agreement": "skills/agreement/host-contract.json",
+    "skill:architecture-knowledge": "skills/architecture-knowledge/host-contract.json",
+    "skill:color-palette-generator": "skills/color-palette-generator/host-contract.json",
+    "skill:csv-to-sif": "skills/csv-to-sif/host-contract.json",
+    "skill:demographics-analysis": "skills/demographics-analysis/host-contract.json",
+    "skill:environmental-analysis": "skills/environmental-analysis/host-contract.json",
+    "skill:epd-compare": "skills/epd-compare/host-contract.json",
+    "skill:epd-parser": "skills/epd-parser/host-contract.json",
+    "skill:epd-research": "skills/epd-research/host-contract.json",
+    "skill:epd-to-spec": "skills/epd-to-spec/host-contract.json",
+    "skill:invoice": "skills/invoice/host-contract.json",
+    "skill:learn": "skills/learn/host-contract.json",
+    "skill:master-schedule": "skills/master-schedule/host-contract.json",
+    "skill:meeting-minutes": "skills/meeting-minutes/host-contract.json",
+    "skill:mobility-analysis": "skills/mobility-analysis/host-contract.json",
+    "skill:nyc-acris": "skills/nyc-acris/host-contract.json",
+    "skill:nyc-bsa": "skills/nyc-bsa/host-contract.json",
+    "skill:nyc-dob-permits": "skills/nyc-dob-permits/host-contract.json",
+    "skill:nyc-dob-violations": "skills/nyc-dob-violations/host-contract.json",
+    "skill:nyc-hpd": "skills/nyc-hpd/host-contract.json",
+    "skill:nyc-landmarks": "skills/nyc-landmarks/host-contract.json",
+    "skill:nyc-property-report": "skills/nyc-property-report/host-contract.json",
+    "skill:occupancy-calculator": "skills/occupancy-calculator/host-contract.json",
+    "skill:product-audit": "skills/product-audit/host-contract.json",
+    "skill:product-cut-sheet": "skills/product-cut-sheet/host-contract.json",
+    "skill:product-data-cleanup": "skills/product-data-cleanup/host-contract.json",
+    "skill:product-data-import": "skills/product-data-import/host-contract.json",
+    "skill:product-enrich": "skills/product-enrich/host-contract.json",
+    "skill:product-image-processor": "skills/product-image-processor/host-contract.json",
+    "skill:product-match": "skills/product-match/host-contract.json",
+    "skill:product-pair": "skills/product-pair/host-contract.json",
+    "skill:product-research": "skills/product-research/host-contract.json",
+    "skill:product-spec-bulk-fetch": "skills/product-spec-bulk-fetch/host-contract.json",
+    "skill:product-spec-pdf-parser": "skills/product-spec-pdf-parser/host-contract.json",
+    "skill:project": "skills/project/host-contract.json",
+    "skill:proposal": "skills/proposal/host-contract.json",
+    "skill:resize-images": "skills/resize-images/host-contract.json",
+    "skill:sif-to-csv": "skills/sif-to-csv/host-contract.json",
+    "skill:site-history": "skills/site-history/host-contract.json",
+    "skill:site-visit-report": "skills/site-visit-report/host-contract.json",
+    "skill:skill-maker": "skills/skill-maker/host-contract.json",
+    "skill:slide-deck-generator": "skills/slide-deck-generator/host-contract.json",
+    "skill:spec-book": "skills/spec-book/host-contract.json",
+    "skill:spec-writer": "skills/spec-writer/host-contract.json",
+    "skill:studio": "skills/studio/host-contract.json",
+    "skill:studio-feedback": "skills/studio-feedback/host-contract.json",
+    "skill:tasklist": "skills/tasklist/host-contract.json",
+    "skill:timetracker": "skills/timetracker/host-contract.json",
+    "skill:tool-catalog": "skills/tool-catalog/host-contract.json",
+    "skill:workplace-programmer": "skills/workplace-programmer/host-contract.json",
+    "skill:workplan": "skills/workplan/host-contract.json",
+    "skill:zoning-analysis-nyc": "skills/zoning-analysis-nyc/host-contract.json",
+    "skill:zoning-envelope": "skills/zoning-envelope/host-contract.json",
+    "agent:brand-manager": "agents/brand-manager.host-contract.json",
+    "agent:ffe-designer": "agents/ffe-designer.host-contract.json",
+    "agent:nyc-zoning-expert": "agents/nyc-zoning-expert.host-contract.json",
+    "agent:product-and-materials-researcher": "agents/product-and-materials-researcher.host-contract.json",
+    "agent:site-planner": "agents/site-planner.host-contract.json",
+    "agent:sustainability-specialist": "agents/sustainability-specialist.host-contract.json",
+    "agent:workplace-strategist": "agents/workplace-strategist.host-contract.json",
+    "skill:product-library": "skills/product-library/host-contract.json",
+    "skill:product-url-clip": "skills/product-url-clip/host-contract.json",
+    "skill:drawing-quantity-extract": "skills/drawing-quantity-extract/host-contract.json",
+    "skill:schedule-quantity-reconcile": "skills/schedule-quantity-reconcile/host-contract.json",
+    "skill:lighting-report-extract": "skills/lighting-report-extract/host-contract.json",
+    "skill:norma": "skills/norma/host-contract.json",
+    "skill:receive": "skills/receive/host-contract.json",
+    "agent:norma": "agents/norma.host-contract.json",
+    "skill:norma-support": "skills/norma-support/host-contract.json"
+  }
+}

@@ -82,7 +82,7 @@ if [ -n "$PROBLEMS" ]; then
   elif command -v python3 >/dev/null 2>&1; then
     PROBLEMS="$PROBLEMS" python3 -c 'import json,os; print(json.dumps({"decision":"block","reason":os.environ["PROBLEMS"]}))'
   else
-    printf '{"decision":"block","reason":"Architecture Studio disclaimer check failed; restore the canonical block from %s/rules/professional-disclaimer.md."}\n' "${CLAUDE_PLUGIN_ROOT:-<plugin-root>}"
+    printf '{"decision":"block","reason":"Arch Studio disclaimer check failed; restore the canonical block from %s/rules/professional-disclaimer.md."}\n' "${CLAUDE_PLUGIN_ROOT:-<plugin-root>}"
   fi
 fi
 

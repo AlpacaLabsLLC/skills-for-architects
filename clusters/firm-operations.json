@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "id": "cluster:firm-operations",
+  "name": "Firm Operations",
+  "maintainer": "Arch Studio maintainers",
+  "scope": "Studio setup, commercial administration and contribution workflows.",
+  "members": [
+    "skill:studio",
+    "skill:studio-feedback",
+    "skill:proposal",
+    "skill:agreement",
+    "skill:invoice",
+    "skill:skill-maker",
+    "skill:learn",
+    "skill:tool-catalog",
+    "studio:workspace-contract",
+    "studio:studio-template",
+    "tool:plugin-namespace",
+    "tool:category-validation",
+    "skill:norma",
+    "skill:norma-support"
+  ],
+  "dependencies": [],
+  "coverage": {
+    "jurisdictions": [],
+    "limitations": "Studio and commercial procedures are available. Retained namespace/category validators are repository-maintainer facilities, not customer execution requirements; this is not cluster-wide workflow validation. Firm conventions and authorized user records remain host-owned.",
+    "sources_indexed": false,
+    "procedures_available": true,
+    "execution_implemented": false,
+    "workflow_validated": false
+  },
+  "host_requirements": [
+    "agent instruction following",
+    "read resources",
+    "skill-specific tools and authorized workspace access when required",
+    "Native host capabilities required by each selected workflow; maintainer validators are separate"
+  ],
+  "evaluations": [
+    {
+      "id": "firm-operations-discovery",
+      "kind": "contract",
+      "path": "tests/test-category-contracts.sh",
+      "claim": "Manifest membership and portability only; not workflow acceptance"
+    },
+    {
+      "id": "firm-operations-source-membership",
+      "kind": "contract",
+      "path": "tests/test-category-source-integration.sh",
+      "claim": "Shared source dependencies and truthful cluster declarations only; not workflow validation"
+    }
+  ],
+  "reviewed_on": "2026-09-05"
+}

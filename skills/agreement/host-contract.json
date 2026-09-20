@@ -1,0 +1,56 @@
+{
+  "path": "skills/agreement/SKILL.md",
+  "responsibility": "Maintain sourced agreement context and scope in PROJECT.md, cite registered contracts/proposals, and record amendments without imposing a commercial workflow.",
+  "inputs": "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records.",
+  "owned_records": [
+    "PROJECT.md#agreement and registered agreement/contract documents"
+  ],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "DOCUMENTS.csv (kind=proposal)",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "record-read",
+      "required": [
+        "file.read"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    },
+    {
+      "mode": "record-write",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    },
+    {
+      "mode": "delegate"
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "docs/workspace-model.md",
+    "operations": [
+      "context.resolve",
+      "agreement.verify",
+      "agreement.init",
+      "agreement.promote",
+      "agreement.record-amendment"
+    ]
+  }
+}

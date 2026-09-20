@@ -3,7 +3,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-HELPER="skills/master-schedule/scripts/csv-library.py"
+HELPER="skills/product-library/scripts/csv-library.py"
 [ -x "$HELPER" ] || { echo "missing executable CSV helper" >&2; exit 1; }
 
 ROOT=$(mktemp -d)
@@ -34,7 +34,7 @@ for name, count in expected.items():
     assert len(rows[0]) == count, (name, len(rows[0]))
 
 repo = pathlib.Path.cwd()
-spec = importlib.util.spec_from_file_location("csv_library", repo / "skills/master-schedule/scripts/csv-library.py")
+spec = importlib.util.spec_from_file_location("csv_library", repo / "skills/product-library/scripts/csv-library.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 for schema, header in (("product-schema.md", module.PRODUCT_HEADER), ("epd-schema.md", module.EPD_HEADER)):
@@ -89,7 +89,7 @@ import pathlib
 import sys
 
 repo = pathlib.Path.cwd()
-spec = importlib.util.spec_from_file_location("csv_library", repo / "skills/master-schedule/scripts/csv-library.py")
+spec = importlib.util.spec_from_file_location("csv_library", repo / "skills/product-library/scripts/csv-library.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 target = pathlib.Path(sys.argv[1]) / "appeared.csv"
@@ -175,7 +175,7 @@ import pathlib
 import sys
 
 repo = pathlib.Path.cwd()
-spec = importlib.util.spec_from_file_location("csv_library", repo / "skills/master-schedule/scripts/csv-library.py")
+spec = importlib.util.spec_from_file_location("csv_library", repo / "skills/product-library/scripts/csv-library.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 target = pathlib.Path(sys.argv[1]) / "changed-existing.csv"

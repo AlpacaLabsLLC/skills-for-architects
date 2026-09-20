@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Architecture Studio repo lint — flat single-plugin layout.
+# Arch Studio repo lint — flat single-plugin layout.
 #
 # Layout assumptions (flat-plugin structure):
 #   skills/<name>/SKILL.md + README.md   — all skills, flat, one dir each
@@ -66,6 +66,7 @@ if command -v jq >/dev/null 2>&1; then
   JSON_TOTAL=0
   while IFS= read -r f; do
     [ -z "$f" ] && continue
+    [ -f "$f" ] || continue
     JSON_TOTAL=$((JSON_TOTAL + 1))
     if ! jq empty "$f" >/dev/null 2>&1; then
       fail_check "invalid JSON: $f"
@@ -210,12 +211,6 @@ else:
     for d in sorted(set(x for x in linked if linked.count(x) > 1)):
         errors.append(f"skills/{d} appears {linked.count(d)} times in skills/README.md")
 
-# Tool catalog headline. Catalog membership is checked above; do not maintain
-# an aggregate skill count in prose.
-menu = pathlib.Path('skills/tool-catalog/SKILL.md').read_text(encoding='utf-8')
-if '**Architecture Studio skills for Codex and Claude Code**' not in menu:
-    errors.append("skills/tool-catalog/SKILL.md missing cross-harness Architecture Studio headline")
-
 # Root plugin.json + single-entry marketplace.json.
 plugin = json.loads(pathlib.Path('.claude-plugin/plugin.json').read_text(encoding='utf-8'))
 mp = json.loads(pathlib.Path('.claude-plugin/marketplace.json').read_text(encoding='utf-8'))
@@ -271,7 +266,7 @@ for f in md_files:
             continue
         if f == 'skills/project/templates/PROJECT.md' and target in {
             'decisions/', 'meetings/', 'site-reports/', 'docs/plans/',
-            'TASKS.md', 'TIMELOG.md'
+            'TASKS.csv', 'TIME.csv', 'INVOICES.csv', 'DOCUMENTS.csv', 'CHANGES.csv'
         }:
             # These links are relative to the rendered project root, not the
             # bundled template's source directory.
@@ -491,13 +486,19 @@ echo "→ active product-data boundary"
 ACTIVE_PRODUCT_PATHS=(
   agents
   assets
+  corpus
+  tools
+  clusters
+  studio
   README.md
   PATTERNS.md
   schema
   skills
 )
+# Target identifiers are legitimate host handoff inputs. Reject retired Arch Studio-owned
+# integration wiring, not the vocabulary needed to identify a user's workbook.
 GOOGLE_PRODUCT_HITS=$(grep -RInE \
-  'mcp__google-sheets|sheet-conventions\.md|Google Sheets? (destination|setup|template|tab|range)|Google (Sheet|spreadsheet) ID|spreadsheet ID|sheet ID' \
+  'mcp__google-sheets|sheet-conventions\.md|Google Sheets? (destination|setup|template|tab|range)' \
   "${ACTIVE_PRODUCT_PATHS[@]}" \
   --include='*.md' --include='*.json' --include='*.sh' \
   --exclude-dir=learn --exclude-dir=sandbox 2>/dev/null || true)
@@ -508,29 +509,13 @@ else
   pass_check "no retired Google Sheets product workflow"
 fi
 
-PRODUCT_DIRS=(
-  skills/master-schedule
-  skills/product-data-cleanup
-  skills/product-data-import
-  skills/product-enrich
-  skills/product-image-processor
-  skills/product-match
-  skills/product-pair
-  skills/product-research
-  skills/product-spec-bulk-fetch
-  skills/product-spec-pdf-parser
-  skills/epd-compare
-  skills/epd-parser
-  skills/epd-research
-  skills/epd-to-spec
-)
-XLS_HITS=$(grep -RInEi '\.(xls|xlsx)\b|\b(xls|xlsx) (import|export|parser|support|sync)' \
-  "${PRODUCT_DIRS[@]}" --include='*.md' --include='*.json' --include='*.sh' 2>/dev/null || true)
-if [ -n "$XLS_HITS" ]; then
-  fail_check "XLS/XLSX support found in an active product workflow:"
-  echo "$XLS_HITS" | awk '{ print "      " $0 }'
+# XLS/XLSX is a host capability, not a forbidden input format. Keep executable
+# ownership explicit instead of rejecting ordinary workbook documentation.
+if grep -q 'formulas, links, images' docs/host-harness-contract.md &&
+   grep -q 'Host-harness contract' PATTERNS.md; then
+  pass_check "host workbook boundary declared"
 else
-  pass_check "no XLS/XLSX product support"
+  fail_check "host workbook execution boundary is missing"
 fi
 
 # 13. Shellcheck every repository shell script, including nested helpers.
@@ -539,7 +524,7 @@ if command -v shellcheck >/dev/null 2>&1; then
   SHELL_FILES=()
   while IFS= read -r shell_file; do
     SHELL_FILES+=("$shell_file")
-  done < <(find hooks scripts skills tests -type f -name '*.sh' | sort)
+  done < <(find hooks scripts skills tests tools studio -type f -name '*.sh' | sort)
   # Warning-and-error findings are release blockers. Test-contract scripts use
   # literal shell-looking fixture text and deliberate negative pipelines, which
   # produce informational findings without identifying executable defects.
@@ -550,6 +535,43 @@ if command -v shellcheck >/dev/null 2>&1; then
   fi
 else
   skip_or_fail "shellcheck"
+fi
+
+# 14. Shared component ownership, maintained coverage and source contracts.
+echo "→ host capability and ownership declarations"
+if ! python3 tools/validators/host_contracts.py --root .; then
+  FAIL=1
+fi
+echo "→ foundation category contracts"
+if ! python3 tools/validators/validate-categories.py --root . --check-guide; then
+  FAIL=1
+fi
+echo "→ shared capability discovery metadata"
+if ! python3 tools/validators/capabilities.py --root . --check; then
+  FAIL=1
+fi
+echo "→ geographic applicability declarations"
+if ! python3 tools/validators/geographic_applicability.py --root .; then
+  FAIL=1
+fi
+echo "→ source and integration contracts"
+if command -v node >/dev/null 2>&1; then
+  if ! node tools/integrations/source-health.mjs --validate; then
+    FAIL=1
+  fi
+else
+  skip_or_fail "Node.js >=18 (source contract validator)"
+fi
+
+# 13. Product name. Prose says "Arch Studio"; "Architecture Studio" and bare "AS"
+#     are retired outside identifiers and the license (rules/terminology.md).
+echo "→ product name"
+BRAND_HITS=$(git ls-files | grep -vE '^(LICENSE|rules/terminology.md|scripts/lint.sh)$|\.(png|jpg|jpeg|gif|pdf|ico)$' | xargs grep -nE 'Architecture Studio|\bAS\b' 2>/dev/null | grep -vE 'AS IS' || true)
+if [ -n "$BRAND_HITS" ]; then
+  fail_check "retired product name found (use Arch Studio):"
+  echo "$BRAND_HITS" | awk '{ print "      " $0 }' | head -40
+else
+  pass_check "product name is Arch Studio everywhere in prose"
 fi
 
 echo

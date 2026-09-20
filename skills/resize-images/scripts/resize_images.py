@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Resize supported images into Architecture Studio web/social/slide/print sets."""
+"""Resize supported images into Arch Studio web/social/slide/print sets."""
 
 from __future__ import annotations
 
 import argparse
+import json
 from pathlib import Path
 
 try:
@@ -45,6 +46,14 @@ def main() -> int:
     if not images:
         print(f"No supported images found in {folder}")
         return 1
+    stems = [source.stem.casefold() for source in images]
+    if len(stems) != len(set(stems)):
+        parser.error("Output-name collision: source images must have distinct stems")
+    for source in images:
+        for mode in set(args.modes):
+            if list((folder / f"resized-{mode}").glob(source.stem + "-*")):
+                parser.error("Output already exists; select a fresh destination")
+    results = []
     for mode in set(args.modes):
         (folder / f"resized-{mode}").mkdir(exist_ok=True)
     failures = 0
@@ -70,10 +79,12 @@ def main() -> int:
                     output = image.copy()
                     output.thumbnail(size, Image.Resampling.LANCZOS)
                     save(output, folder / "resized-print" / f"{source.stem}-{label}.jpg", "JPEG", quality=95, dpi=(300, 300))
+            results.append({"source": str(source), "status": "resized"})
         except Exception as exc:  # continue the batch while reporting each bad input
             failures += 1
+            results.append({"source": str(source), "status": "failed", "error": str(exc)})
             print(f"ERROR: {source.name} - {exc}")
-    print(f"Done: {len(images) - failures} succeeded, {failures} failed")
+    print(json.dumps({"results": results, "succeeded": len(images) - failures, "failed": failures, "workflow_completed": False}))
     return 1 if failures else 0
 
 

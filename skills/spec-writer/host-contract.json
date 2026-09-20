@@ -1,0 +1,52 @@
+{
+  "path": "skills/spec-writer/SKILL.md",
+  "responsibility": "Turn a material or product list into CSI MasterFormat outline specifications with three-part sections and review flags. Use to write specs; use epd-to-spec for embodied-carbon requirements.",
+  "inputs": "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records.",
+  "owned_records": [],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "answer"
+    },
+    {
+      "mode": "research",
+      "when": "When substantive requirements or section identities need applicable originals beyond verified supplied task evidence; metadata-only source directories need no content retrieval."
+    },
+    {
+      "mode": "file-read"
+    },
+    {
+      "mode": "file-output",
+      "when": "Only for requested specification/report files at an authorized destination; inline output requires no write.",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    },
+    {
+      "mode": "delegate",
+      "when": "Only for a requested complementary domain owner or project facts/decisions and document placement/registration; preserve exact source, scope, permissions and authorization."
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "skills/spec-writer/SKILL.md",
+    "operations": []
+  }
+}

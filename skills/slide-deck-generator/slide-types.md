@@ -1,5 +1,7 @@
 # Slide Type Components
 
+Example quantities below are synthetic layout fixtures, not workforce findings or benchmarks.
+
 Markup for every slide component in the ALPA design system. Use these structures verbatim when composing slides — only the text/data content changes.
 
 **Eyebrow** — small bold label directly above the heading:
@@ -36,9 +38,9 @@ Always placed inside `.content`, immediately before the `<h2>`.
     <h2>Who do we build for?</h2>
     <p>Context paragraph explaining what the numbers mean.</p>
     <div class="stat-list">
-        <div class="stat-line">8,211 employees</div>
-        <div class="stat-line">3,313 contingent workers</div>
-        <div class="stat-line bold">11,524 total workforce</div>
+        <div class="stat-line">120 example participants</div>
+        <div class="stat-line">30 example guests</div>
+        <div class="stat-line bold">150 example attendees</div>
     </div>
 </div>
 ```
@@ -47,14 +49,14 @@ Always placed inside `.content`, immediately before the `<h2>`.
 ```html
 <div class="stat-row">
     <div class="stat-col">
-        <div class="stat-title">Bay Area</div>
+        <div class="stat-title">Group A</div>
         <div class="stat-value">50%</div>
-        <div class="stat-label">Share of workforce</div>
+        <div class="stat-label">Illustrative share</div>
     </div>
     <div class="stat-col">
-        <div class="stat-title">Americas</div>
+        <div class="stat-title">Group B</div>
         <div class="stat-value">13%</div>
-        <div class="stat-label">Share of workforce</div>
+        <div class="stat-label">Illustrative share</div>
     </div>
 </div>
 ```
@@ -63,17 +65,17 @@ Always placed inside `.content`, immediately before the `<h2>`.
 ```html
 <div class="stat-row">
     <div class="stat-col">
-        <div class="stat-title">Bay Area</div>
+        <div class="stat-title">Group A</div>
         <div class="stat-value muted">50%</div>
-        <div class="stat-label">Share of workforce</div>
+        <div class="stat-label">Illustrative share</div>
         <div class="stat-arrow">&#8595;</div>
         <div class="stat-value">32%</div>
         <div class="stat-change negative">-26% &#9660;</div>
     </div>
     <div class="stat-col">
-        <div class="stat-title">Americas</div>
+        <div class="stat-title">Group B</div>
         <div class="stat-value muted">13%</div>
-        <div class="stat-label">Share of workforce</div>
+        <div class="stat-label">Illustrative share</div>
         <div class="stat-arrow">&#8595;</div>
         <div class="stat-value">26%</div>
         <div class="stat-change positive">+115% &#9650;</div>
@@ -121,12 +123,12 @@ The `.slide.centered .content h2` rule tightens the heading's bottom margin so t
 **Data Table** — clean table with dotted borders:
 ```html
 <div class="content">
-    <h2>Bay Area: Workforce & Footprint Shifts ('20 - '25)</h2>
+    <h2>Illustrative scenario comparison</h2>
     <table class="data-table">
-        <thead><tr><th>Cities</th><th>Workforce Today</th><th>Change</th><th>Ratio</th></tr></thead>
+        <thead><tr><th>Scenario</th><th>Example quantity</th><th>Change</th><th>Ratio</th></tr></thead>
         <tbody>
-            <tr><td>San Francisco</td><td>2,330</td><td class="negative">-26% &#9660;</td><td>1 : 108</td></tr>
-            <tr class="total-row"><td></td><td><strong>2,330</strong></td><td class="negative">-26% &#9660;</td><td><strong>1 : 108</strong></td></tr>
+            <tr><td>Scenario A</td><td>120</td><td class="negative">-26% &#9660;</td><td>1 : 3</td></tr>
+            <tr class="total-row"><td></td><td><strong>120</strong></td><td class="negative">-26% &#9660;</td><td><strong>1 : 3</strong></td></tr>
         </tbody>
     </table>
 </div>

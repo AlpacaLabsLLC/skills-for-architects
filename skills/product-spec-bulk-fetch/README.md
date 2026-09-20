@@ -12,12 +12,9 @@ Bulk FF&E product spec extractor for Claude Code. Feed it product-page URLs and 
 
 Then provide URLs inline, point to a text/CSV/Markdown file, or use links already stored in the project library.
 
-```
-/as:product-spec-bulk-fetch
-
-https://www.hermanmiller.com/products/seating/lounge-seating/eames-lounge-chair-and-ottoman/
-https://www.steelcase.com/products/collaborative-chairs/gesture/
-https://www.ikea.pr/puertorico/es/pd/vardagen-vaso-art-70313106
+```text
+Synthetic formatting input only:
+Example Product A | Example Manufacturer | quantity 2 | supplied specification pending
 ```
 
 ### Input formats
@@ -46,8 +43,6 @@ This is a **utility** — it can be called standalone or as part of a larger wor
 
 | Field | Example |
 |-------|---------|
-| Product Name | Eames Lounge Chair |
-| Brand | Herman Miller |
 | Category | Chair |
 | W × D × H | 32.75 × 32.5 × 33.5 in |
 | Materials | Molded plywood, leather |

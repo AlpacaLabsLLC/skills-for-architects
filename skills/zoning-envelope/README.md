@@ -53,18 +53,19 @@ Or auto-detect the most recent report:
 
 The skill reads the `## Envelope Data` JSON block from a zoning analysis report. This block contains:
 
+The following invented geometry illustrates the interface only; it is not a zoning rule or site analysis.
+
 ```json
 {
-  "lot_poly": [[155.8, 171.8], [144.6, 85.7], ...],
+  "lot_poly": [[0, 0], [90, 0], [90, 70], [0, 70]],
   "unit": "ft",
-  "setbacks": { "front": 0, "rear": 20, "lateral1": 0, "lateral2": 0 },
+  "setbacks": { "front": 4, "rear": 6, "lateral1": 2, "lateral2": 2 },
   "volumes": [
-    { "type": "base", "inset": 20, "h_bottom": 0, "h_top": 85, "label": "base" },
-    { "type": "tower", "inset": 10, "h_bottom": 85, "h_top": 290, "label": "tower" }
+    { "type": "base", "inset": 6, "h_bottom": 0, "h_top": 36, "label": "synthetic volume" }
   ],
-  "height_cap": 290,
-  "info": { "title": "250 Hudson Street", "zone": "C6-4A", ... },
-  "stats": { "Commercial FAR": "10.0", ... }
+  "height_cap": 36,
+  "info": { "title": "Synthetic geometry fixture", "zone": "unverified" },
+  "stats": {}
 }
 ```
 

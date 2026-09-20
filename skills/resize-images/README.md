@@ -1,40 +1,7 @@
-# /as:resize-images
+# Resize images
 
-Batch-resizes project photos and renders for web, social, slides, and print — for Claude Code. Asks for a source folder, outputs resized copies into clearly named subfolders. Originals are never modified.
+Create requested resized copies while preserving originals, following the skill's native resize contract with the host's available image capabilities. Reuse supplied inputs; ask only for missing folder or output choices. No project setup is needed for a one-off batch.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../LICENSE)
+The bundled web, social, slides and print modes are Arch Studio output presets, not claims about current external platform specifications. Report the actual selected dimensions/crop behavior and unavailable alternatives. The workflow rejects output-name collisions before writing and reports individual failures.
 
-## Install
-
-```bash
-# Via plugin system
-claude plugin marketplace add AlpacaLabsLLC/skills-for-architects
-claude plugin install as@skills-for-architects
-```
-
-Requires [Pillow](https://pillow.readthedocs.io): `pip install Pillow`
-
-## Usage
-
-```
-/as:resize-images
-```
-
-The skill asks which folder to use, then which outputs you need:
-
-- **Web** — WebP at 1920px (hero), 1200px (standard), 400px (thumb)
-- **Social** — center-cropped WebP: Instagram square (1080×1080), portrait (1080×1350), Twitter/X (1200×675), LinkedIn (1200×627)
-- **Slides** — center-cropped JPEG: standard 4:3 (1024×768), widescreen 16:9 (1920×1080)
-- **Print** — 300 DPI JPEG at ARCH A (9×12), ARCH B (12×18), ARCH C (18×24)
-
-Output lands in `resized-web/`, `resized-social/`, `resized-slides/`, and `resized-print/` subfolders inside the source folder.
-
-## What's Included
-
-| File | Purpose |
-|------|---------|
-| `SKILL.md` | Workflow, Python resize script, size presets, edge case handling |
-
-## License
-
-MIT
+See [the skill](SKILL.md) for the complete preset, crop, precision and recovery contract. No Arch Studio runner, package or global dependency installation is required; if the host lacks a needed image capability, the skill reports that limitation.

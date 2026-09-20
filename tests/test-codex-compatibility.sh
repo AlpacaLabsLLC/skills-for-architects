@@ -5,6 +5,8 @@ cd "$(dirname "$0")/.."
 
 python3 - <<'PY'
 import json
+import re
+import subprocess
 from pathlib import Path
 
 claude = json.loads(Path('.claude-plugin/plugin.json').read_text(encoding='utf-8'))
@@ -15,7 +17,37 @@ codex_marketplace = json.loads(Path('.agents/plugins/marketplace.json').read_tex
 assert codex['name'] == claude['name'] == 'as'
 assert codex['version'] == claude['version'] == claude_marketplace['metadata']['version']
 assert codex['skills'] == './skills/'
+assert codex['hooks'] == './hooks/codex-hooks.json'
 assert codex['repository'] == 'https://github.com/AlpacaLabsLLC/skills-for-architects'
+
+codex_hooks = json.loads(Path('hooks/codex-hooks.json').read_text(encoding='utf-8'))['hooks']
+assert set(codex_hooks) == {'SessionStart'}
+session_start = codex_hooks['SessionStart']
+assert len(session_start) == 1
+assert set(session_start[0]['matcher'].split('|')) == {'startup', 'resume', 'clear', 'compact'}
+handlers = session_start[0]['hooks']
+assert handlers == [{
+    'type': 'command',
+    'command': '/bin/sh "${PLUGIN_ROOT}/hooks/session-start-ambient.sh"',
+    'timeout': 2,
+}]
+
+expected_ambient_context = re.search(r'<!-- AS_SESSION_LINE: (.+) -->', Path('rules/moments.md').read_text()).group(1)
+ambient = subprocess.run(
+    ['/bin/sh', 'hooks/session-start-ambient.sh'],
+    input='{"hook_event_name":"SessionStart","source":"startup"}',
+    text=True,
+    capture_output=True,
+    check=True,
+)
+ambient_output = json.loads(ambient.stdout)
+assert ambient_output == {
+    'hookSpecificOutput': {
+        'hookEventName': 'SessionStart',
+        'additionalContext': expected_ambient_context,
+    },
+}
+assert ambient.stderr == ''
 
 interface = codex['interface']
 for field in ('displayName', 'shortDescription', 'longDescription', 'developerName', 'category', 'capabilities', 'websiteURL', 'defaultPrompt'):
@@ -29,22 +61,8 @@ assert entry['source'] == {'source': 'local', 'path': './'}
 assert entry['policy'] == {'installation': 'AVAILABLE', 'authentication': 'ON_INSTALL'}
 assert entry['category'] == interface['category']
 
-expected_harness_note = (
-    '> Harness note: use `/as:<skill>` on Claude Code and `$<skill>` on Codex. '
-    'Resolve `<skill-root>` as the directory containing this loaded `SKILL.md` and '
-    '`<plugin-root>` as the plugin root that contains `skills/`, and use equivalent '
-    'native tools when host tool names differ.'
-)
-skill_files = sorted(Path('skills').glob('*/SKILL.md'))
-assert skill_files, 'no bundled skills found'
-for skill_file in skill_files:
-    skill_text = skill_file.read_text(encoding='utf-8')
-    assert 'architecture-studio:harness-compatibility' in skill_text, (
-        f'missing harness compatibility contract: {skill_file}'
-    )
-    assert expected_harness_note in skill_text.splitlines(), (
-        f'incorrect portable root contract: {skill_file}'
-    )
+# Delivery policy is owned once; components may link it using their own concise prose.
+subprocess.run(['python3', 'tools/validators/host_contracts.py'], check=True)
 
 forbidden_roots = ('${CLAUDE_PLUGIN_ROOT}', '${CLAUDE_SKILL_DIR}')
 violations = []
@@ -69,10 +87,8 @@ assert not violations, (
 )
 PY
 
-grep -q 'mkdir -p.*\.agents/skills' skills/studio/scripts/studio-workspace.sh
-grep -q 'mkdir -p.*\.agents/skills' skills/project/scripts/project-workspace.sh
-grep -q 'AGENTS.md' skills/studio/scripts/studio-workspace.sh
-grep -q 'AGENTS.md' skills/project/scripts/project-workspace.sh
+# Fresh workspace scaffolds and instruction files are exercised by current document-model tests.
+# Retired Bash setup helpers are not a supported local-runtime requirement.
 
 grep -q 'codex plugin marketplace add AlpacaLabsLLC/skills-for-architects' README.md
 grep -q 'codex plugin add as@skills-for-architects' README.md

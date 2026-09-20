@@ -1,0 +1,403 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Arch Studio component host declarations (not execution grants)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "policy",
+    "components",
+    "profiles"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "policy": {
+      "const": "docs/host-harness-contract.md"
+    },
+    "components": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "string",
+            "minLength": 1
+          },
+          {
+            "$ref": "#/$defs/component"
+          }
+        ]
+      }
+    },
+    "profiles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "record-read",
+        "record-write",
+        "delegate",
+        "answer",
+        "file-read",
+        "render",
+        "file-output",
+        "research",
+        "workbook-read",
+        "workbook-edit",
+        "image-transform",
+        "external-open"
+      ],
+      "properties": {
+        "record-read": {
+          "$ref": "#/$defs/mode"
+        },
+        "record-write": {
+          "$ref": "#/$defs/mode"
+        },
+        "delegate": {
+          "$ref": "#/$defs/mode"
+        },
+        "answer": {
+          "$ref": "#/$defs/mode"
+        },
+        "file-read": {
+          "$ref": "#/$defs/mode"
+        },
+        "render": {
+          "$ref": "#/$defs/mode"
+        },
+        "file-output": {
+          "$ref": "#/$defs/mode"
+        },
+        "research": {
+          "$ref": "#/$defs/mode"
+        },
+        "workbook-read": {
+          "$ref": "#/$defs/mode"
+        },
+        "workbook-edit": {
+          "$ref": "#/$defs/mode"
+        },
+        "image-transform": {
+          "$ref": "#/$defs/mode"
+        },
+        "external-open": {
+          "$ref": "#/$defs/mode"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "responsibility",
+        "inputs",
+        "owned_records",
+        "non_owned_records",
+        "delegation",
+        "modes"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "responsibility": {
+          "type": "string",
+          "minLength": 1
+        },
+        "inputs": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owned_records": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "non_owned_records": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "delegation": {
+          "enum": [
+            "inherit-scope-target-permissions-and-evidence",
+            "not-applicable"
+          ]
+        },
+        "modes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/selection"
+          }
+        },
+        "execution": {
+          "$ref": "#/$defs/execution"
+        }
+      }
+    },
+    "mode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "when",
+        "target",
+        "required",
+        "optional",
+        "effects",
+        "permission",
+        "completion"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "answer",
+            "research",
+            "file-read",
+            "file-output",
+            "record-read",
+            "record-write",
+            "workbook-read",
+            "workbook-edit",
+            "render",
+            "image-transform",
+            "external-open",
+            "delegate"
+          ]
+        },
+        "when": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "file.read",
+              "file.write",
+              "process.run",
+              "web.read",
+              "browser.open",
+              "pdf.read",
+              "document.render",
+              "document.inspect",
+              "image.read",
+              "image.transform",
+              "spreadsheet.read",
+              "spreadsheet.edit",
+              "spreadsheet.features",
+              "spreadsheet.backup",
+              "email.read"
+            ]
+          }
+        },
+        "optional": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "file.read",
+              "file.write",
+              "process.run",
+              "web.read",
+              "browser.open",
+              "pdf.read",
+              "document.render",
+              "document.inspect",
+              "image.read",
+              "image.transform",
+              "spreadsheet.read",
+              "spreadsheet.edit",
+              "spreadsheet.features",
+              "spreadsheet.backup",
+              "email.read"
+            ]
+          }
+        },
+        "effects": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "none",
+              "artifact-write",
+              "canonical-write",
+              "document-edit",
+              "external-open"
+            ]
+          }
+        },
+        "permission": {
+          "enum": [
+            "read-within-scope",
+            "write-within-scope",
+            "explicit-outbound"
+          ]
+        },
+        "completion": {
+          "enum": [
+            "answer-evidence",
+            "source-evidence",
+            "file-readback",
+            "artifact-inspection",
+            "provider-or-native-readback",
+            "delegate-evidence"
+          ]
+        }
+      }
+    },
+    "selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "answer",
+            "research",
+            "file-read",
+            "file-output",
+            "record-read",
+            "record-write",
+            "workbook-read",
+            "workbook-edit",
+            "render",
+            "image-transform",
+            "external-open",
+            "delegate"
+          ]
+        },
+        "when": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "file.read",
+              "file.write",
+              "process.run",
+              "web.read",
+              "browser.open",
+              "pdf.read",
+              "document.render",
+              "document.inspect",
+              "image.read",
+              "image.transform",
+              "spreadsheet.read",
+              "spreadsheet.edit",
+              "spreadsheet.features",
+              "spreadsheet.backup",
+              "email.read"
+            ]
+          }
+        },
+        "optional": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "file.read",
+              "file.write",
+              "process.run",
+              "web.read",
+              "browser.open",
+              "pdf.read",
+              "document.render",
+              "document.inspect",
+              "image.read",
+              "image.transform",
+              "spreadsheet.read",
+              "spreadsheet.edit",
+              "spreadsheet.features",
+              "spreadsheet.backup",
+              "email.read"
+            ]
+          }
+        },
+        "effects": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "none",
+              "artifact-write",
+              "canonical-write",
+              "document-edit",
+              "external-open"
+            ]
+          }
+        },
+        "permission": {
+          "enum": [
+            "read-within-scope",
+            "write-within-scope",
+            "explicit-outbound"
+          ]
+        },
+        "completion": {
+          "enum": [
+            "answer-evidence",
+            "source-evidence",
+            "file-readback",
+            "artifact-inspection",
+            "provider-or-native-readback",
+            "delegate-evidence"
+          ]
+        }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model",
+        "contract",
+        "operations"
+      ],
+      "properties": {
+        "model": {
+          "const": "harness-native"
+        },
+        "contract": {
+          "type": "string",
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)[A-Za-z0-9_./-]+\\.md$"
+        },
+        "operations": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*(?:\\.[a-z][a-z0-9_-]*)+$"
+          }
+        }
+      }
+    }
+  }
+}

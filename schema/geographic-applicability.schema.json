@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Arch Studio supplied-context geographic routing; not legal verification",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "policy", "components", "references"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "policy": {"const": "docs/geographic-applicability.md"},
+    "components": {
+      "type": "object", "minProperties": 1,
+      "additionalProperties": {"enum": ["portable", "site-research", "nyc-records", "nyc-zoning", "jurisdiction-calculation", "input-report", "us-explanation", "source-health"]}
+    },
+    "references": {
+      "type": "array", "minItems": 1, "maxItems": 128,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["path", "authority", "jurisdiction", "spatial_coverage", "edition", "effective_date", "limitation"],
+        "properties": {
+          "path": {"$ref": "#/$defs/text"},
+          "authority": {"type": ["string", "null"], "minLength": 1},
+          "jurisdiction": {"type": ["string", "null"], "pattern": "^jurisdiction:[a-z0-9]+(?:-[a-z0-9]+)*$"},
+          "spatial_coverage": {"$ref": "#/$defs/text"},
+          "edition": {"type": ["string", "null"], "minLength": 1},
+          "effective_date": {"type": ["string", "null"], "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+          "limitation": {"$ref": "#/$defs/text"}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "text": {"type": "string", "minLength": 1, "maxLength": 4096},
+    "date": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+    "request": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "component", "locations"],
+      "properties": {
+        "schema_version": {"const": 1},
+        "component": {"type": "string", "pattern": "^(skill|tool):[a-z0-9]+(?:-[a-z0-9]+)*$"},
+        "locations": {
+          "type": "array", "maxItems": 8,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["jurisdiction", "target", "origin", "status", "evidence"],
+            "properties": {
+              "jurisdiction": {"type": "string", "pattern": "^jurisdiction:[a-z0-9]+(?:-[a-z0-9]+)*$"},
+              "target": {"$ref": "#/$defs/text"},
+              "origin": {"enum": ["request", "project", "studio-default", "input-report"]},
+              "status": {"enum": ["resolved", "ambiguous"]},
+              "evidence": {"$ref": "#/$defs/text"}
+            }
+          }
+        },
+        "identifier": {"$ref": "#/$defs/text"},
+        "as_of": {"$ref": "#/$defs/date"},
+        "use": {"$ref": "#/$defs/text"},
+        "work_scope": {"$ref": "#/$defs/text"},
+        "material_fields": {"type": "array", "uniqueItems": true, "items": {"enum": ["as_of", "use", "work_scope"]}},
+        "local_rule_reference": {"$ref": "#/$defs/text"},
+        "input_report": {
+          "type": "object", "additionalProperties": false,
+          "required": ["locator", "as_of", "limitations"],
+          "properties": {
+            "locator": {"$ref": "#/$defs/text"},
+            "as_of": {"type": ["string", "null"], "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+            "limitations": {"type": "array", "minItems": 1, "maxItems": 32, "items": {"$ref": "#/$defs/text"}}
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "name": "skills-for-architects",
   "interface": {
-    "displayName": "Architecture Studio"
+    "displayName": "Arch Studio"
   },
   "plugins": [
     {

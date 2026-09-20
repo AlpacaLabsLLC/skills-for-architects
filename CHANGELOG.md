@@ -1,10 +1,30 @@
 # Changelog
 
-All notable changes to **Architecture Studio** (`AlpacaLabsLLC/skills-for-architects`) are documented in this file.
+All notable changes to **Arch Studio** (`AlpacaLabsLLC/skills-for-architects`) are documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Architecture Studio uses a sequential `major.minor.patch` release scheme, marks breaking migrations explicitly, and reserves patch releases for compatible corrections.
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Arch Studio uses a sequential `major.minor.patch` release scheme, marks breaking migrations explicitly, and reserves patch releases for compatible corrections. A fourth segment (`major.minor.patch.n`) is reserved for content-only patches that change skill text without changing code or packaging; the first is planned as 1.5.0.1.
 
 ## [Unreleased]
+
+## [1.5.0] - 2026-09-20
+
+### Breaking
+
+- **CSV registers replace the Markdown task and time registers.** New studios and projects keep `STUDIO.md` / `PROJECT.md` plus `DOCUMENTS.csv`, `CHANGES.csv`, `SCHEDULE.csv`, `TASKS.csv`, `TIME.csv` and `INVOICES.csv` with firm-defined vocabulary and document paths. `/as:tasklist` writes `TASKS.csv`; `/as:timetracker` writes `TIME.csv`. This release is forward-only: 1.4.x workspaces with `TASKS.md` and `TIMELOG.md` are not converted and no converter is shipped. Keep an existing workspace on 1.4.5 until it is set up again with 1.5.
+
+### Changed
+
+- **Harness-native execution.** Skills no longer invoke bundled scripts. Each workflow is a complete specification of outcomes, schemas, formulas, preservation and evidence that the host performs with its own tools (Claude Code or Codex); no runner, installer or bridge is required, and no skill step points at a `.py` or `.sh` file. Helper modules under `tools/` and `skills/*/scripts/` remain as maintainer tooling exercised by the test suite. Workflows that previously called a script now run a native inspect-prepare-verify-apply sequence and take more turns for the same output (in the release evaluation, `csv-to-sif` used three to four times the turns of 1.4.5 for an identical file; other cases were unchanged or faster).
+- **Agents carry host contracts.** Each bundled agent ships a `*.host-contract.json` sidecar declaring the host tools it needs; the Markdown bodies shrink to the agent's judgement and hand off shared policy to its owner document.
+- **Rules and hooks.** `rules/moments.md` states when the studio and project records are consulted; `hooks/codex-hooks.json` registers the Codex ambient hook; the update check accepts four-segment content-patch versions.
+- **Records are project-owned, hosted delivery is optional.** The same content is delivered as a hosted MCP service under its own version. Install the plugin or connect the MCP, not both; the MCP does not execute skills or reach local files, and this plugin ships no MCP server entry.
+
+### Added
+
+- **Fifteen skills.** FF&E and specification: `product-library` (record owner), `product-audit`, `product-cut-sheet`, `product-url-clip`, `spec-book`, `drawing-quantity-extract`, `schedule-quantity-reconcile`, `lighting-report-extract`. Firm operations: `agreement`, `proposal`, `invoice`. Records and coordination: `receive` (document registration, identity and hash checks, path resolution, revision history), `norma` and `norma-support` (host-led coordination across the skill owners; direct skill requests stay with their owner), `architecture-knowledge`.
+- **External-source navigation.** `corpus/` indexes original sources by geography and topic with identity, publisher, URL and edition metadata only; the applicable original is retrieved for interpretation. Local reference summaries, rule tables and alternate versions are removed.
+- **New document model.** Register schemas under `schema/`, shared studio document templates under `studio/templates/` with metric and imperial page sizes, and the document design contract in `docs/`.
+- **Architecture entry point.** `PATTERNS.md` links the governance, external-source knowledge, execution and user-owned memory contracts; `docs/architecture.md`, `docs/host-harness-contract.md` and `docs/workspace-model.md` are the owner documents.
 
 ## [1.4.5] - 2026-09-03
 
@@ -32,13 +52,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
-- Added `.codex-plugin/plugin.json` and a repository Git marketplace at `.agents/plugins/marketplace.json`, allowing Codex to install Architecture Studio as `as@skills-for-architects`.
+- Added `.codex-plugin/plugin.json` and a repository Git marketplace at `.agents/plugins/marketplace.json`, allowing Codex to install Arch Studio as `as@skills-for-architects`.
 - Added Codex `AGENTS.md` templates and `.agents/skills/` roots to new studio and project workspaces alongside the existing Claude Code files.
 - Added a Codex compatibility contract test covering manifests, marketplace metadata, skill portability, workspace scaffolds, and documented installation commands.
 
 ### Changed
 
-- All bundled skills now translate Architecture Studio invocation syntax by host: `$skill-name` on Codex and `/as:skill-name` on Claude Code.
+- All bundled skills now translate Arch Studio invocation syntax by host: `$skill-name` on Codex and `/as:skill-name` on Claude Code.
 - Bundled scripts and references resolve from the loaded skill path through portable `<skill-root>` and `<plugin-root>` placeholders instead of requiring Claude-only environment variables.
 - Skill Maker now targets `.agents/skills/` on Codex and `.claude/skills/` on Claude Code while preserving catalog, studio, project, and global ownership boundaries.
 - Installation, data-governance, deployment, workspace, and contribution documentation now distinguishes the shared skill catalog from Claude Code-only native agents and hooks.
@@ -56,11 +76,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [1.4.0] - 2026-07-26
 
-Architecture Studio v1.4.0 is a breaking migration release. It preserves the public `1.x` release sequence while replacing the installed plugin identity and introducing the studio/project workspace architecture.
+Arch Studio v1.4.0 is a breaking migration release. It preserves the public `1.x` release sequence while replacing the installed plugin identity and introducing the studio/project workspace architecture.
 
 ### Breaking
 
-- **Shorter technical namespace.** Architecture Studio now installs as `as@skills-for-architects`, and public commands use `/as:<skill>`. Existing users must remove the retired v1 install or installs, update the marketplace, install `as@skills-for-architects`, and reload plugins or restart Claude Code. User-owned project and workspace files are untouched. Manually maintained Claude settings must replace only the old plugin identifier with the new one.
+- **Shorter technical namespace.** Arch Studio now installs as `as@skills-for-architects`, and public commands use `/as:<skill>`. Existing users must remove the retired v1 install or installs, update the marketplace, install `as@skills-for-architects`, and reload plugins or restart Claude Code. User-owned project and workspace files are untouched. Manually maintained Claude settings must replace only the old plugin identifier with the new one.
 - **One project-memory interface.** `/as:project` replaces `/as:project-dossier` and `/decision`; no compatibility aliases remain. Use `/as:project init`, `/as:project update` or `/as:project remember`, `/as:project decisions`, `/as:project record-decision`, and `/as:project supersede`.
 - **Decision files are canonical.** `PROJECT.md` no longer maintains a Decisions table. Run `/as:project migrate` in an existing 1.x project; migration removes the table only after every row matches a decision file.
 
@@ -86,11 +106,11 @@ Existing local welcome and update-check preferences remain in place because thei
 
 ### Data boundaries and onboarding
 
-- **Lightweight onboarding** — running `/as:studio` displays the Architecture Studio mark, creator, ALPA ownership/contact, license, and repository provenance before moving into setup. Setup uses one structured interaction gate per question or confirmation instead of asking once in prose and again in the UI. The first-session hook is now a concise visible discovery notice rather than an instruction that rewrites the user’s first response.
+- **Lightweight onboarding** — running `/as:studio` displays the Arch Studio mark, creator, ALPA ownership/contact, license, and repository provenance before moving into setup. Setup uses one structured interaction gate per question or confirmation instead of asking once in prose and again in the UI. The first-session hook is now a concise visible discovery notice rather than an instruction that rewrites the user’s first response.
 - **Project-record integrations** — meeting minutes, site reports, analysis skills, work plans, tasks, and time tracking hand facts and decisions to `/as:project` and discover decision files directly.
 - **Installation remains non-mutating** — installing the plugin creates no user workspace, account, cloud store, git repository, or project files.
 - **Local CSV product data** — `product-library.csv` is the sole persistent FF&E library; EPD parsing remains PDF-first, with `epd-library.csv` created only when the user explicitly saves reusable records. SIF conversion remains available as bounded interchange, not as the persistent schedule source.
-- **Honest legacy migration** — existing `master-schedule.json` and `canoa.json` files are preserved as cloud-configuration evidence. Users export their former cloud rows to CSV before import; Architecture Studio does not claim to migrate disconnected data.
+- **Honest legacy migration** — existing `master-schedule.json` and `canoa.json` files are preserved as cloud-configuration evidence. Users export their former cloud rows to CSV before import; Arch Studio does not claim to migrate disconnected data.
 - **Reserved connector boundary** — `/as:studio init` creates a root `.mcp.json` containing only an empty `mcpServers` object. It configures no provider, endpoint, credential, or OAuth flow, and projects do not receive MCP manifests.
 - **Deferred formats and integrations** — XLS/XLSX product support and configured studio connectors remain outside v1.4.
 - **Privacy disclosure** — documents the feedback transmission boundary and ordinary Cloudflare request metadata without treating endpoint traffic as anonymous users or daily active users.
@@ -109,8 +129,8 @@ Existing local welcome and update-check preferences remain in place because thei
 ### Learning and extension tooling
 
 - **`/as:skill-maker`** — scaffold a new skill in three steps, no interview: copy the canonical bundled template, apply the PATTERNS.md checklist (read at runtime, single source), verify with `scripts/lint.sh` inside the catalog or a portable checklist outside it.
-- **Post-install discovery** — a `SessionStart` hook (`session-start-welcome`) emits one concise notice that `/as:studio` and `/as:learn` are available, without changing the user’s first response. Together with the opt-in version notice, Architecture Studio now has four hook handlers across three events.
-- **`/as:learn` teaches three framing concepts** threaded through the course: this version stores project files locally while sending prompts and needed file contents to the configured Claude service, Architecture Studio is an open-source harness on Claude Code, and course/project memory is plain markdown files — with an explicit markdown explainer at the first file creation. Future cloud-based versions may require accounts and use a different data model.
+- **Post-install discovery** — a `SessionStart` hook (`session-start-welcome`) emits one concise notice that `/as:studio` and `/as:learn` are available, without changing the user’s first response. Together with the opt-in version notice, Arch Studio now has four hook handlers across three events.
+- **`/as:learn` teaches three framing concepts** threaded through the course: this version stores project files locally while sending prompts and needed file contents to the configured Claude service, Arch Studio is an open-source harness on Claude Code, and course/project memory is plain markdown files — with an explicit markdown explainer at the first file creation. Future cloud-based versions may require accounts and use a different data model.
 - **Terminal preflight** in the README — a hand-to-a-colleague page covering install → login → `/as:learn` for people who have never opened a terminal.
 
 - **`/as:learn` restructured to six modules named for their lessons** (How we interact with each other · Nothing without your "yes" · Let's set some guidelines first · Plan first, build second · Creating your own skills · Get started) for an honest ~75-minute core plus a 30–60 min capstone. Plan mode, subagents, and the precedent study moved to a planned advanced track. Data privacy is taught in Module 2 alongside consent; Module 6 opens with a source-check and absence drill on a faithful summary (no planted errors), then a professional checklist offered but never imposed (firm data-governance policy, low-stakes project, work on a copy) and one real task; quitting /learn is honored immediately at any point. The deliverable thread is a site-visit report and a learner-built `/site-report` skill. The five sandbox project types were replaced by a single project — a fictional Brooklyn art museum expansion — one example path, same engineered flaws. Permission-prompt narration covers the "stop asking" option; the tutor spec itself was cut roughly in half. Old 0-indexed PROGRESS.md files migrate by content.
@@ -258,7 +278,8 @@ First public release.
 - **3 hooks** — post-write disclaimer check, post-output metadata, pre-commit spec lint.
 - Marketplace install: `claude plugin marketplace add AlpacaLabsLLC/skills-for-architects`.
 
-[Unreleased]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.4.5...HEAD
+[Unreleased]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.4.5...v1.5.0
 [1.4.5]: https://github.com/AlpacaLabsLLC/skills-for-architects/releases/tag/v1.4.5
 [1.4.4]: https://github.com/AlpacaLabsLLC/skills-for-architects/releases/tag/v1.4.4
 [1.4.3]: https://github.com/AlpacaLabsLLC/skills-for-architects/releases/tag/v1.4.3

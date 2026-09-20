@@ -1,18 +1,25 @@
-# NNNN — Decision title
+# {{DECISION_NUMBER}} — {{DECISION_TITLE}}
 
-- **Status:** proposed
-- **Date:** YYYY-MM-DD
-- **Deciders:**
+- **Status:** {{STATUS}}
+- **Date:** {{DECISION_DATE}}
+- **Deciders:** {{DECIDERS}}
 
 ## Context
 
+{{CONTEXT}}
+
 ## Options considered
 
-1. **Option A** —
-2. **Option B** —
+{{OPTIONS}}
 
 ## Decision
 
+{{CHOICE_AND_RATIONALE}}
+
 ## Consequences
 
--
+{{CONSEQUENCES}}
+
+## Sources
+
+{{EXACT_SOURCES}}

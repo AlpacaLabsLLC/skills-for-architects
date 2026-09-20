@@ -1,28 +1,27 @@
-[SCANNED DOCUMENT - OCR TEXT - Zoning memo excerpt, Noble Street Land Use, draft 06/05]
+[SYNTHETIC TRAINING FIXTURE — scanned project memo, draft 06/05]
 
-RE: 44 Noble Street, Brooklyn — Preliminary Zoning Review (EXCERPT, pp. 2-3 of 9)
+RE: Fictional museum expansion — Preliminary Brief Review
+(EXCERPT, pp. 2–3 of 9; invented project material, not a code reference)
 
-The subject property is located within an R6B district. The existing
-building is a two-story museum structure with cellar, built 1968, lot area
-approximately 15,000 sf, existing building footprint approximately 11,200 sf.
+The museum's working brief proposes a rooftop pavilion of approximately
+1,475 sf. This is the client's requested program area, not an allowable
+area established by zoning. The design team has not received an applicable
+code edition, adopted zoning text or a verified survey in this excerpt.
 
-A museum is a community facility use (Use Group 3) permitted as-of-right
-in R6B. The applicable community facility FAR is 2.0, corresponding to a
-maximum zoning floor area of 30,000 sf. The existing building contains
-approximately 28,400 zsf, a built FAR of approximately 1.89 — leaving
-approximately 1,600 sf of unused floor area for any enlargement.
+The current design sketch labels the roof at 41'-3" and the proposed
+pavilion top at 53'-8". Both labels are provisional drawing annotations;
+they are not surveyed measurements or maximum heights allowed by law.
+The team must verify the existing condition and obtain applicable original
+agency material before reaching a regulatory conclusion.
 
-Maximum building height in R6B is 50 feet. The existing main roof has been
-measured at 42'-6" (survey, Franklin Street Land Surveying, 05/08); the
-gallery 3 skylight curb rises to 44'-9". Any rooftop construction wou1d
-[sic] be measured against the 50-foot limit and the applicable sky
-exposure plane above the street wall.
+The director has asked for a 75-person reception scenario. The brief gives
+no verified area-per-person rule, egress analysis or approval for that count.
+Treat it as design intent, and keep any later calculated occupant load separate.
 
-ROOFTOP PAVILION: The contemplated pavilion and sculpture terrace would
-add floor area within the remaining 1,600 sf margin only if enclosed
-area is strictly limited; open terrace area is treated differently from
-enclosed gallery space under ZR 12-10, and the interaction of the pavilion
-enclosure with the height limit and sky exposure plane requires careful
-analysis before the client is advised it is feasible.
+ROOFTOP PAVILION: The client wants a covered exhibition room and an open
+sculpture terrace. The enclosed and open portions are not dimensioned here.
+The available sketch cannot establish the final program area or feasibility.
+A revised drawing wou1d [sic] need those dimensions before the team can
+reconcile the requested area against the design.
 
-[remainder of page illegible - rescan requested]
+[remainder of page illegible — rescan requested]

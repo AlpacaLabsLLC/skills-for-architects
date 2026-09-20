@@ -1,10 +1,16 @@
-# Agents
+# Specialist profiles
 
-Agents are autonomous specialists that orchestrate multiple skills to complete a complex task. Unlike skills (single-purpose, invoked directly), agents assess the situation, choose a path, and exercise judgment.
+Arch Studio retains seven specialist profiles and one optional Norma worker. They help an available host coordinate
+multi-step work using the same owning skills. A profile is not an independent service, model,
+background agent or permission grant. Native registration and delegation depend on the host
+and must be observed; package presence alone is not proof.
 
-All seven agents ship with the **Architecture Studio** plugin (`as`; this `agents/` directory), so installing the plugin registers each one as a native Claude Code subagent — Claude can delegate to it automatically, and `/as:studio` routes to it by name.
+The harness may select a domain skill directly. Norma coordinates substantial multistep work with workplan, presents a concrete plan and useful team assignments, and preserves existing authorization. It does not add a plan gate to quick tasks. When the host exposes delegation and
+the request permits it, Norma may use one of these profiles with the same scope, source
+identities, unresolved facts, outputs, validation state and authorization. Otherwise the host
+follows the relevant skills directly. Direct skill calls and existing profile names remain valid.
 
-## Available Agents
+## Available profiles
 
 | Agent | Domain | Skills it orchestrates |
 |-------|--------|----------------------|
@@ -16,48 +22,22 @@ All seven agents ship with the **Architecture Studio** plugin (`as`; this `agent
 | [ffe-designer](../agents/ffe-designer.md) | FF&E Design | product-pair, product-data-cleanup, product-data-import, product-enrich, product-image-processor, csv-to-sif, sif-to-csv |
 | [brand-manager](../agents/brand-manager.md) | Presentations | slide-deck-generator, color-palette-generator, resize-images |
 
-## How Agents Differ from Skills
+| [norma](../agents/norma.md) | Optional Claude Code worker | Executes an already resolved authorized assignment; returns questions to the main harness |
 
-| Layer | Behavior | Example |
-|-------|----------|---------|
-| **Skill** | Does one thing when invoked | `/as:product-research` searches the web for products |
-| **Agent** | Assesses the input, chooses a path, orchestrates skills, exercises judgment | The researcher decides whether to search, extract from PDFs, or find alternatives based on what you give it |
+## Scope and completion
 
-Use an **agent** when the task is open-ended and multi-step (the agent decides which skills to run and in what order). Call a **skill** directly when you know exactly which single operation you need.
+Read the profile's declaration and selected skill references. Listed skills describe its domain;
+they are not an automatic full pipeline. A request for a product comparison does not authorize
+library adoption, a project record change or a presentation. Necessary dependencies within an
+already authorized deliverable remain part of that work.
 
-## How They Work Together
+The host remains responsible for actual tool access and permissions. Specialists return sourced
+results and precise incomplete work; Norma continues the authorized task and gives a coherent
+answer. Retrieval and typed proposals do not prove execution or factual accuracy. Every canonical
+write stays with its skill owner, and every output needs that owner's validation.
 
-```
-Address or site
-      ↓
-site-planner
-      → climate, transit, demographics, neighborhood context
-      ↓
-nyc-zoning-expert
-      → property records, zoning envelope, 3D visualization
-      ↓
-workplace-strategist
-      → occupancy compliance, zone allocation, room schedule
-      ↓
-product-and-materials-researcher
-      → finds products, extracts specs, tags and classifies
-      ↓
-sustainability-specialist
-      → evaluates environmental impact, compares GWP, checks LEED
-      ↓
-ffe-designer
-      → composes room packages, builds schedule, runs QA, exports
-      ↓
-brand-manager
-      → builds the presentation, ensures visual consistency
-```
+Studio retains workspace administration and forwards other architecture-task requests once to
+Norma. Naming an agent or using a legacy studio route never creates credentials, independent
+memory, a hosted service or outbound-message authority.
 
-Each agent works standalone. Use one, several, or all depending on the task.
-
-## Usage
-
-Three ways in:
-
-1. **Automatic delegation** — with the plugin installed, Claude Code registers the agent and can delegate matching work to it on its own (the agent's `description` frontmatter drives this).
-2. **`/as:studio` routing** — describe your task; the dispatcher classifies it and hands off to the right agent.
-3. **Direct** — name the agent in your request ("have the ffe-designer clean this schedule up").
+A disclosed team exists only after the harness successfully creates its agents through exposed tools. If creation fails or is unavailable, report that before claiming team execution; continue only within the actual authorized capabilities. The optional Norma worker never runs onboarding or asks the user directly.

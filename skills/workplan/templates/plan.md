@@ -82,3 +82,9 @@
 - [Observable completion condition]
 - Every requirement is covered by a completed work unit.
 - Required verification evidence has been recorded.
+
+## Execution handoff (when applicable)
+
+Record the requested output, bounded owner assignments, dependencies, exclusive file ownership, integrator and acceptance evidence. State whether the user approved implementation and any useful team. A plan-only request grants neither. Prior exact approval persists; the main harness creates an approved team through real tools.
+
+For durable filing, use confirmed document coordinates and register kind `plan`; a revision names the superseded document ID. An inline plan requires no file.

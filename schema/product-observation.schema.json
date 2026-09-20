@@ -1,0 +1,629 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://architecture.studio/schema/product-observation.schema.json",
+  "title": "Unadopted product observation and explicit item binding",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "observation_id",
+    "observed_at",
+    "source",
+    "product",
+    "configuration",
+    "fields"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "observation_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "reference",
+        "content_sha256"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "url",
+            "pdf",
+            "workbook",
+            "supplied"
+          ]
+        },
+        "reference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "content_sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "product": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manufacturer",
+        "model",
+        "manufacturer_sku",
+        "vendor_item_id",
+        "storefront_id"
+      ],
+      "properties": {
+        "manufacturer": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "model": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "manufacturer_sku": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vendor_item_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "storefront_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "configuration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "selected",
+        "available"
+      ],
+      "properties": {
+        "selected": {
+          "type": "object",
+          "additionalProperties": {
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          }
+        },
+        "available": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": [
+                "string",
+                "number",
+                "boolean",
+                "null"
+              ]
+            },
+            "uniqueItems": true
+          }
+        }
+      }
+    },
+    "fields": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 10000,
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/textField"
+          },
+          {
+            "$ref": "#/$defs/priceField"
+          },
+          {
+            "$ref": "#/$defs/quantityField"
+          },
+          {
+            "$ref": "#/$defs/imageField"
+          }
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "textField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field",
+        "kind",
+        "value",
+        "status",
+        "locator",
+        "unit",
+        "meaning",
+        "currency",
+        "price_basis",
+        "variant_match"
+      ],
+      "properties": {
+        "field": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "text"
+        },
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "enum": [
+            "observed",
+            "unknown",
+            "unavailable",
+            "inferred"
+          ]
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unit": {
+          "type": "null"
+        },
+        "meaning": {
+          "type": "null"
+        },
+        "currency": {
+          "type": "null"
+        },
+        "price_basis": {
+          "type": "null"
+        },
+        "variant_match": {
+          "enum": [
+            "exact",
+            "family",
+            "unknown"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "unknown",
+                  "unavailable"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "const": null
+              }
+            }
+          }
+        }
+      ]
+    },
+    "priceField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field",
+        "kind",
+        "value",
+        "status",
+        "locator",
+        "unit",
+        "meaning",
+        "currency",
+        "price_basis",
+        "variant_match"
+      ],
+      "properties": {
+        "field": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "price"
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "status": {
+          "enum": [
+            "observed",
+            "unknown",
+            "unavailable",
+            "inferred"
+          ]
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unit": {
+          "type": "null"
+        },
+        "meaning": {
+          "type": "null"
+        },
+        "currency": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[A-Z]{3}$"
+        },
+        "price_basis": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "variant_match": {
+          "enum": [
+            "exact",
+            "family",
+            "unknown"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "unknown",
+                  "unavailable"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "const": null
+              }
+            }
+          }
+        }
+      ]
+    },
+    "quantityField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field",
+        "kind",
+        "value",
+        "status",
+        "locator",
+        "unit",
+        "meaning",
+        "currency",
+        "price_basis",
+        "variant_match"
+      ],
+      "properties": {
+        "field": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "quantity"
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "status": {
+          "enum": [
+            "observed",
+            "unknown",
+            "unavailable",
+            "inferred"
+          ]
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "meaning": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "currency": {
+          "type": "null"
+        },
+        "price_basis": {
+          "type": "null"
+        },
+        "variant_match": {
+          "enum": [
+            "exact",
+            "family",
+            "unknown"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "unknown",
+                  "unavailable"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "const": null
+              }
+            }
+          }
+        }
+      ]
+    },
+    "imageField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field",
+        "kind",
+        "value",
+        "status",
+        "locator",
+        "unit",
+        "meaning",
+        "currency",
+        "price_basis",
+        "variant_match"
+      ],
+      "properties": {
+        "field": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "image"
+        },
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        },
+        "status": {
+          "enum": [
+            "observed",
+            "unknown",
+            "unavailable",
+            "inferred"
+          ]
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unit": {
+          "type": "null"
+        },
+        "meaning": {
+          "type": "null"
+        },
+        "currency": {
+          "type": "null"
+        },
+        "price_basis": {
+          "type": "null"
+        },
+        "variant_match": {
+          "enum": [
+            "exact",
+            "family",
+            "unknown"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "unknown",
+                  "unavailable"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "const": null
+              }
+            }
+          }
+        }
+      ]
+    },
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "item_id",
+        "revision",
+        "tag",
+        "fields",
+        "provenance",
+        "decision_refs"
+      ],
+      "properties": {
+        "item_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "tag": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fields": {
+          "type": "object"
+        },
+        "provenance": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["status"],
+            "properties": {
+              "status": {"enum": ["supplied", "verified", "unknown", "inferred"]},
+              "source": {"type": "string"},
+              "retrieved_at": {"type": "string"},
+              "note": {"type": "string"}
+            }
+          }
+        },
+        "decision_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observation_id",
+        "item_id",
+        "expected_revision",
+        "fields"
+      ],
+      "properties": {
+        "observation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "item_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "expected_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "fields": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "adapter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "observations",
+        "items",
+        "bindings"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "observations": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1000,
+          "items": {
+            "$ref": "#"
+          }
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 10000,
+          "items": {
+            "$ref": "#/$defs/item"
+          }
+        },
+        "bindings": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 10000,
+          "items": {
+            "$ref": "#/$defs/binding"
+          }
+        }
+      }
+    }
+  }
+}

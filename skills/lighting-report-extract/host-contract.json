@@ -1,0 +1,50 @@
+{
+  "path": "skills/lighting-report-extract/SKILL.md",
+  "responsibility": "Extract reported simulation metrics and normalize explicitly sourced inventory observations without additive surface counts, design or compliance judgments.",
+  "inputs": "Explicit source files/snapshots and scope; project instructions only for project-bound work.",
+  "owned_records": [],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "file-read",
+      "required": [
+        "file.read",
+        "pdf.read"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    },
+    {
+      "mode": "file-output",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": []
+    },
+    {
+      "mode": "delegate"
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "tools/transformers/evidence-contracts.md",
+    "operations": [
+      "pdf_evidence.extract",
+      "pdf_evidence.bind",
+      "lighting_report.build",
+      "context.resolve",
+      "documents.resolve",
+      "documents.register",
+      "documents.query"
+    ]
+  }
+}

@@ -1,0 +1,291 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Arch Studio document model 1 CSV rows",
+  "schema_version": 1,
+  "$defs": {
+    "documents": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string"
+        },
+        "filename": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "phase": {
+          "type": "string"
+        },
+        "stage": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "originator": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "received_at": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "sheet": {
+          "type": "string"
+        },
+        "package": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "supersedes": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "change_id": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "history": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "sha256",
+        "filename",
+        "path",
+        "type",
+        "kind",
+        "phase",
+        "stage",
+        "scope",
+        "originator",
+        "date",
+        "received_at",
+        "title",
+        "sheet",
+        "package",
+        "status",
+        "supersedes",
+        "source",
+        "change_id",
+        "notes",
+        "history"
+      ],
+      "additionalProperties": false
+    },
+    "tasks": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "project_id": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "string"
+        },
+        "due": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string"
+        },
+        "updated": {
+          "type": "string"
+        },
+        "completed": {
+          "type": "string"
+        },
+        "cancelled": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "related": {
+          "type": "string"
+        },
+        "history": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "project_id",
+        "description",
+        "owner",
+        "due",
+        "status",
+        "created",
+        "updated",
+        "completed",
+        "cancelled",
+        "source",
+        "related",
+        "history"
+      ],
+      "additionalProperties": false
+    },
+    "time": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "hours": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "sources": {
+          "type": "string"
+        },
+        "correction": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "date",
+        "hours",
+        "description",
+        "sources",
+        "correction"
+      ],
+      "additionalProperties": false
+    },
+    "invoices": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "invoice_number": {
+          "type": "string"
+        },
+        "period_start": {
+          "type": "string"
+        },
+        "period_end": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "base": {
+          "type": "string"
+        },
+        "expenses": {
+          "type": "string"
+        },
+        "total": {
+          "type": "string"
+        },
+        "sent": {
+          "type": "string"
+        },
+        "paid": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "correction": {
+          "type": "string"
+        },
+        "document_id": {
+          "type": "string"
+        },
+        "history": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "invoice_number",
+        "period_start",
+        "period_end",
+        "currency",
+        "base",
+        "expenses",
+        "total",
+        "sent",
+        "paid",
+        "status",
+        "correction",
+        "document_id",
+        "history"
+      ],
+      "additionalProperties": false
+    },
+    "changes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "document_ids": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "description",
+        "status",
+        "source",
+        "document_ids",
+        "date",
+        "notes"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

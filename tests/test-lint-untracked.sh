@@ -23,6 +23,19 @@ fi
 
 grep -q '.lint-untracked-probe/README.md: broken link' "$LOG"
 
+printf 'Host handoff: verify the exact spreadsheet ID and provider readback.\n' > "$PROBE"
+if ! ./scripts/lint.sh >"$LOG" 2>&1; then
+  echo 'lint rejected a host-owned spreadsheet target declaration' >&2
+  cat "$LOG" >&2
+  exit 1
+fi
+printf 'Use mcp__google-sheets for the retired Arch Studio-owned integration.\n' > "$PROBE"
+if ./scripts/lint.sh >"$LOG" 2>&1; then
+  echo 'lint accepted a retired hardcoded spreadsheet integration' >&2
+  exit 1
+fi
+grep -q 'retired Google Sheets product workflow found' "$LOG"
+
 printf '`/definitely-not-a-real-skill`\n' > "$PROBE"
 if ./scripts/lint.sh >"$LOG" 2>&1; then
   echo "lint passed despite an unresolved command in an untracked markdown file" >&2

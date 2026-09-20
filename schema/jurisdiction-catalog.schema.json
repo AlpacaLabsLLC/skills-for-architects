@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "jurisdiction-catalog",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "jurisdictions"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "jurisdictions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "parent",
+          "coverage"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^jurisdiction:[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "parent": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "coverage": {
+            "enum": [
+              "routing-only",
+              "selected-existing-procedures"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -47,6 +47,11 @@ assert 'Write' not in skill.split('---', 2)[1]
 PY
 
 grep -Fq '| [`/as:studio-feedback`](./studio-feedback)' skills/README.md
-grep -Fq '/as:studio-feedback' skills/tool-catalog/SKILL.md
+python3 - <<'CHECK'
+import json
+from pathlib import Path
+rows=json.loads(Path('corpus/components.json').read_text())['components']
+assert any(r['id']=='skill:studio-feedback' and r['path']=='skills/studio-feedback/SKILL.md' for r in rows)
+CHECK
 
 echo "✓ feedback is review-first, field-compatible, and never auto-submits"

@@ -1,0 +1,252 @@
+{
+  "source_commit": "2957b9195d0a9cd8a4638c237d5ef46741b3ccf0",
+  "node": "24.20.0",
+  "results": [
+    {
+      "check": "scripts/lint.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 3.42
+    },
+    {
+      "check": "tests/test-agreement-contract.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.06
+    },
+    {
+      "check": "tests/test-agreement-workspace.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 3.16
+    },
+    {
+      "check": "tests/test-architecture-knowledge-contract.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.04
+    },
+    {
+      "check": "tests/test-architecture-knowledge-integration.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.07
+    },
+    {
+      "check": "tests/test-category-contracts.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.67
+    },
+    {
+      "check": "tests/test-category-source-integration.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.03
+    },
+    {
+      "check": "tests/test-codex-compatibility.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.05
+    },
+    {
+      "check": "tests/test-commercial-lifecycle-integration.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 1.69
+    },
+    {
+      "check": "tests/test-context-audit-description-styles.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.64
+    },
+    {
+      "check": "tests/test-context-audit.sh",
+      "exit_code": 1,
+      "elapsed_seconds": 0.19
+    },
+    {
+      "check": "tests/test-csv-library.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 1.26
+    },
+    {
+      "check": "tests/test-epd-csv-contract.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.23
+    },
+    {
+      "check": "tests/test-ffe-csv-contract.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.25
+    },
+    {
+      "check": "tests/test-foundation-export.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.29
+    },
+    {
+      "check": "tests/test-hook-enforcement.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.98
+    },
+    {
+      "check": "tests/test-invoice-contract.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.06
+    },
+    {
+      "check": "tests/test-invoice-ledger.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 2.07
+    },
+    {
+      "check": "tests/test-learn-host-compatibility.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.04
+    },
+    {
+      "check": "tests/test-lint-untracked.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 12.18
+    },
+    {
+      "check": "tests/test-master-schedule-csv.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.14
+    },
+    {
+      "check": "tests/test-meeting-minutes-contract.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.07
+    },
+    {
+      "check": "tests/test-plugin-component-inventory.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.74
+    },
+    {
+      "check": "tests/test-plugin-namespace.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 1.47
+    },
+    {
+      "check": "tests/test-project-context-resolution.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 28.24
+    },
+    {
+      "check": "tests/test-project-contract.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.08
+    },
+    {
+      "check": "tests/test-project-migration.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 6.53
+    },
+    {
+      "check": "tests/test-project-records-integration.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.17
+    },
+    {
+      "check": "tests/test-project-rollback-failure.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.5
+    },
+    {
+      "check": "tests/test-project-workspace.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.96
+    },
+    {
+      "check": "tests/test-proposal-contract.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.12
+    },
+    {
+      "check": "tests/test-proposal-register.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 2.88
+    },
+    {
+      "check": "tests/test-session-start-welcome.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.93
+    },
+    {
+      "check": "tests/test-site-visit-report-contract.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.1
+    },
+    {
+      "check": "tests/test-skill-correctness-contract.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.05
+    },
+    {
+      "check": "tests/test-skill-maker-targets.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.05
+    },
+    {
+      "check": "tests/test-source-contracts.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.22
+    },
+    {
+      "check": "tests/test-studio-feedback-contract.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.05
+    },
+    {
+      "check": "tests/test-studio-project-boundaries.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.11
+    },
+    {
+      "check": "tests/test-studio-workspace.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 34.98
+    },
+    {
+      "check": "tests/test-tasklist-contract.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.12
+    },
+    {
+      "check": "tests/test-timetracker-contract.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.06
+    },
+    {
+      "check": "tests/test-v1-5-release-contract.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.23
+    },
+    {
+      "check": "tests/test-version-check.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 1.61
+    },
+    {
+      "check": "tests/test-workplan-contract.sh",
+      "exit_code": 0,
+      "elapsed_seconds": 0.13
+    }
+  ],
+  "initial_run_passed": false,
+  "documentation_correction_commit": "4eaacce",
+  "follow_up_checks": [
+    {
+      "check": "tests/test-context-audit.sh",
+      "exit_code": 0,
+      "reason": "Updated maintained report to measured 451371 body bytes; preserved prior measurement."
+    },
+    {
+      "check": "tests/test-v1-5-release-contract.sh",
+      "exit_code": 0,
+      "reason": "Final candidate changelog remains explicitly unpublished."
+    },
+    {
+      "check": "scripts/lint.sh",
+      "exit_code": 0,
+      "reason": "Final documentation correction and integrated category/source checks."
+    }
+  ],
+  "accepted_local_checks": true,
+  "acceptance_limit": "44 shell contracts accepted after documented report correction; no MCP deployment/client or published-distribution acceptance inferred."
+}

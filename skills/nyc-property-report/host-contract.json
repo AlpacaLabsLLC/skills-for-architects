@@ -1,0 +1,49 @@
+{
+  "path": "skills/nyc-property-report/SKILL.md",
+  "responsibility": "Compile NYC landmarks, DOB, ACRIS, HPD, and BSA findings into one property due-diligence report. Use for a full report; use individual NYC skills for one dataset.",
+  "inputs": "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records.",
+  "owned_records": [],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "research",
+      "when": "When requested substantive findings need applicable original sources; metadata-only source directories need no content retrieval, and authorized supplied original evidence remains usable."
+    },
+    {
+      "mode": "file-read"
+    },
+    {
+      "mode": "file-output",
+      "when": "For requested report/evidence files at the authorized task destination; inline lookup requires no file output.",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    },
+    {
+      "mode": "delegate",
+      "when": "For only the requested NYC domain owners, sharing verified identity and source/query scope; for requested project facts/decisions or durable document placement/registration; inherit target scope, permissions and source evidence."
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "skills/nyc-property-report/SKILL.md",
+    "operations": []
+  }
+}

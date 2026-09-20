@@ -1,111 +1,25 @@
 ---
 name: tool-catalog
-description: Show the available Architecture Studio skills and their host-appropriate commands, plus Claude Code's native Architecture Studio agents. Use when the user invokes tool-catalog, asks "what can you do" or "what skills are available", or wants a directory of plugin commands. Do not use for a host's native skill-list command.
+description: "Show Arch Studio help, available skills, agents and host-specific commands. Use for help, how do I use Arch Studio, what is Norma, or a capability directory."
 allowed-tools:
   - Read
 ---
 
-# /as:tool-catalog — What's Available
+# tool-catalog
 
-<!-- architecture-studio:harness-compatibility -->
-> Harness note: use `/as:<skill>` on Claude Code and `$<skill>` on Codex. Resolve `<skill-root>` as the directory containing this loaded `SKILL.md` and `<plugin-root>` as the plugin root that contains `skills/`, and use equivalent native tools when host tool names differ.
+Before acting, read the [host contract](../../docs/host-harness-contract.md) and this component’s [declaration](host-contract.json) (`skill:tool-catalog`). Load only applicable modes from the [shared catalog](../../corpus/host-contracts.json); declarations do not grant access or permission. Use the actual host’s [delivery route](../../docs/host-adapters.md).
 
-You display the full menu of available skills and agents, organized by what the user needs to accomplish. This is a read-only help command.
+Provide read-only help for “help”, “how do I use Arch Studio”, “what is Norma”, available skills, agents and commands. Start with the actual delivery channel and known workspace state when relevant; do not run setup just to answer help.
 
-## On Start
+Read the current [component registry](../../corpus/components.json) and [generated practice discovery](../../docs/practice-clusters.md). Select the requested scope and show names, short purposes and actual host-discovered entry points. A directory is generated from maintained metadata, not a second static skill list. For a broad help request give two or three useful next actions; a focused capability question gets a focused answer.
 
-Print the following menu. Do not read any files — the menu is static. On Codex, render every `/as:<skill>` entry as `$<skill>` before printing. On Claude Code, preserve the namespaced slash commands. Keep the agents section labeled Claude Code-only on both hosts.
+For Arch Studio onboarding or troubleshooting beyond a directory answer, the [Norma support procedure](../norma-support/SKILL.md) owns that support outcome; its presence does not imply an active email service or shared chat history.
 
-## Output
+Norma coordinates work; direct skill invocation remains valid. A substantial task may benefit from a workplan and approved team; a quick task needs no extra gate. Records require accessible selected workspace files. For workflows explicitly declared harness-native, the host follows the owner's complete procedure using its actual capabilities; no Arch Studio runner or executable installation is required. Report the selected workflow's actual declaration and any unresolved capability gap; do not infer catalog-wide execution support. A hosted connection or a displayed skill alone proves neither file access nor completed work. Optional agent profiles are available only when actual host registration/delegation is observed, including the Norma worker after context and approval are resolved.
 
-```
-# Architecture Studio
+This directory procedure has no registered operation IDs or record effects. Read its maintained
+metadata through the actual delivery channel and use the [completion contract](../../docs/completion-reporting.md).
+Do not invent dispatch operations, run an installer, activate another workflow or perform setup
+merely to answer a help question. Report unknown host capabilities as unknown.
 
-**Architecture Studio skills for Codex and Claude Code** — use the studio dispatcher for routing or call a skill directly. Claude Code also includes 7 native agents.
-
-## Claude Code agents — describe your task, they figure out the rest
-
-| Agent | What it does |
-|-------|-------------|
-| Site Planner | Full site brief — climate, transit, demographics, neighborhood context |
-| NYC Zoning Expert | NYC property + zoning — due diligence, FAR, buildable envelope, 3D viewer |
-| Workplace Strategist | Space programs — headcount to occupancy compliance to room schedules |
-| Product & Materials Researcher | Find products from a brief, extract specs from URLs/PDFs, find alternatives |
-| FF&E Designer | Build schedules from messy inputs, compose room packages, QA, export |
-| Sustainability Specialist | EPD research, GWP comparison, LEED eligibility, spec thresholds |
-| Brand Manager | Presentations, color palettes, visual consistency, deliverable QA |
-
-## Skills — call directly for a specific task
-
-### Due Diligence
-/as:nyc-landmarks [address] — LPC landmark and historic district check
-/as:nyc-dob-permits [address] — DOB permit and filing history
-/as:nyc-dob-violations [address] — DOB and ECB violations
-/as:nyc-acris [address] — property transaction records
-/as:nyc-hpd [address] — HPD violations and complaints (residential)
-/as:nyc-bsa [address] — BSA variances and special permits
-/as:nyc-property-report [address] — combined NYC report (all 6 above)
-
-### Site Planning
-/as:environmental-analysis [address] — climate, flood, seismic, soil
-/as:mobility-analysis [address] — transit, walk score, bike, pedestrian
-/as:demographics-analysis [address] — population, income, housing, employment
-/as:site-history [address] — neighborhood context, landmarks, commercial activity
-
-### Zoning Analysis
-/as:zoning-analysis-nyc [address] — NYC buildable envelope from PLUTO
-/as:zoning-envelope — interactive 3D zoning envelope viewer
-
-### Programming
-/as:occupancy-calculator — IBC occupancy loads, egress, plumbing
-/as:workplace-programmer — space programs from headcount and work style
-
-### Specifications
-/as:spec-writer — CSI outline specs from a materials list
-
-### Sustainability
-/as:epd-research [material] — search for EPDs by material or category
-/as:epd-parser [file] — extract data from an EPD PDF
-/as:epd-compare — side-by-side environmental impact comparison
-/as:epd-to-spec — CSI specs with EPD requirements and GWP thresholds
-
-### Materials Research
-/as:product-research — find products from a design brief
-/as:product-spec-bulk-fetch — extract specs from product URLs
-/as:product-spec-pdf-parser — extract specs from PDF catalogs
-/as:product-data-cleanup — normalize a messy FF&E schedule
-/as:product-enrich — auto-tag products with categories, colors, materials
-/as:product-match — find similar products
-/as:product-pair — suggest complementary products
-/as:product-image-processor — download, resize, remove backgrounds
-/as:product-data-import — import raw product data into product-library.csv
-/as:master-schedule — initialize or inspect the local product-library.csv
-/as:csv-to-sif — convert CSV to dealer format
-/as:sif-to-csv — convert dealer format to CSV
-
-### Presentations
-/as:slide-deck-generator [topic] — HTML slide deck with editorial layout
-/as:color-palette-generator — color palettes from descriptions or images
-/as:resize-images — batch-resize photos for web, social, slides, and print
-
-### Dispatcher
-/as:studio [task] — smart router: describe a task, get routed to the right agent or skill
-/as:tool-catalog — this menu
-/as:skill-maker — scaffold a new skill that follows the house conventions
-/as:workplan — plan repository, operational, or AEC delivery work before acting
-/as:studio-feedback — prepare a reviewed GitHub bug report or feature request
-
-### Project Records
-/as:project — initialize a project, remember sourced facts, and manage numbered decision records
-/as:meeting-minutes — turn a transcript or notes into typed, source-linked minutes
-/as:site-visit-report — turn field notes into an evidence-aware site report
-/as:tasklist — manage the canonical TASKS.md action register
-/as:timetracker — reconstruct daily or weekly work and record user-confirmed time
-
-These records form a linked graph: facts and decisions inform plans; meetings and site reports propose facts, decisions, and tasks without silently promoting them; tasks preserve action history; and timetracker reconstructs work from dated artifacts but never infers duration.
-
-### Learn — new to AI-assisted project work?
-/as:learn — guided hands-on Codex and Claude Code course for architects, resumable anytime
-```
-
-That's it. Do not add commentary, suggestions, or follow-up questions. Just print the menu.
+For external-source directories use the [source catalog](../../corpus/sources/catalog.json) with geography/topic filtering. Return matching original links, distinguish code sources from related datasets, and state available-manifest coverage. No content retrieval, studio setup or permission is required for listing. Missing LA routes do not substitute NYC. See [moments](../../rules/moments.md) for state facts and the [source contract](../../docs/source-integration-contracts.md) for interpretation boundaries.

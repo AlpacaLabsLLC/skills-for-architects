@@ -4,12 +4,9 @@ PDF product spec parser for Claude Code. Feed it price books, fact sheets, or sp
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../LICENSE)
 
-### Dependencies
+### Host capabilities
 
-- **PyMuPDF** — PDF text extraction
-  ```bash
-  pip install PyMuPDF
-  ```
+The host reads each PDF with its own available capability: native PDF viewing, text extraction or page rendering. No Arch Studio package or dependency installation is required. If the host cannot read a supplied PDF's text or pages, the skill reports that limitation instead of guessing its contents.
 
 ## Usage
 

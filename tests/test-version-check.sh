@@ -35,26 +35,37 @@ run_hook() {
   ./hooks/version-check.sh
 }
 
+preference() {
+  python3 - "$ARCHITECTURE_STUDIO_STATE_DIR" "$1" <<'PREFPY'
+import importlib.util,sys
+from pathlib import Path
+spec=importlib.util.spec_from_file_location('preference',Path('skills/studio/scripts/update_preference.py'))
+module=importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
+result=module.dispatch('update_preference.'+sys.argv[2],{'state_directory':sys.argv[1]})
+print('enabled' if result['enabled'] else 'disabled')
+PREFPY
+}
+
 # Preference changes are deterministic and status is read-only.
 PREF="$TEST_ROOT/preference"
-[ "$(CLAUDE_PLUGIN_DATA="$TEST_ROOT/plugin-data-old" ARCHITECTURE_STUDIO_STATE_DIR="$PREF" ./skills/studio/scripts/update-preference.sh status)" = disabled ]
+[ "$(CLAUDE_PLUGIN_DATA="$TEST_ROOT/plugin-data-old" ARCHITECTURE_STUDIO_STATE_DIR="$PREF" preference status)" = disabled ]
 [ ! -e "$PREF" ]
-[ "$(CLAUDE_PLUGIN_DATA="$TEST_ROOT/plugin-data-old" ARCHITECTURE_STUDIO_STATE_DIR="$PREF" ./skills/studio/scripts/update-preference.sh enable)" = enabled ]
+[ "$(CLAUDE_PLUGIN_DATA="$TEST_ROOT/plugin-data-old" ARCHITECTURE_STUDIO_STATE_DIR="$PREF" preference enable)" = enabled ]
 [ -f "$PREF/.architecture-studio-update-check-enabled" ]
 [ ! -e "$TEST_ROOT/plugin-data-old/.architecture-studio-update-check-enabled" ]
 mode=$(python3 -c 'import os,sys; print(oct(os.stat(sys.argv[1]).st_mode & 0o777)[2:])' "$PREF/.architecture-studio-update-check-enabled")
 [ "$mode" = 600 ]
 printf 'checked_at=0\nremote=9.9.9\nnudged_for=\n' > "$PREF/.architecture-studio-version-check"
-[ "$(CLAUDE_PLUGIN_DATA="$TEST_ROOT/plugin-data-new" ARCHITECTURE_STUDIO_STATE_DIR="$PREF" ./skills/studio/scripts/update-preference.sh enable)" = enabled ]
+[ "$(CLAUDE_PLUGIN_DATA="$TEST_ROOT/plugin-data-new" ARCHITECTURE_STUDIO_STATE_DIR="$PREF" preference enable)" = enabled ]
 [ ! -e "$PREF/.architecture-studio-version-check" ]
-[ "$(CLAUDE_PLUGIN_DATA="$TEST_ROOT/plugin-data-new" ARCHITECTURE_STUDIO_STATE_DIR="$PREF" ./skills/studio/scripts/update-preference.sh disable)" = disabled ]
+[ "$(CLAUDE_PLUGIN_DATA="$TEST_ROOT/plugin-data-new" ARCHITECTURE_STUDIO_STATE_DIR="$PREF" preference disable)" = disabled ]
 [ ! -e "$PREF/.architecture-studio-update-check-enabled" ]
 
 # Opt in under the retired identifier's plugin-data root, then run the hook
 # under the new identifier's distinct root. Both must use the stable state root.
 CONTINUITY="$TEST_ROOT/continuity"
 CLAUDE_PLUGIN_DATA_FIXTURE="$TEST_ROOT/plugin-data-new"
-[ "$(CLAUDE_PLUGIN_DATA="$TEST_ROOT/plugin-data-old" ARCHITECTURE_STUDIO_STATE_DIR="$CONTINUITY" ./skills/studio/scripts/update-preference.sh enable)" = enabled ]
+[ "$(CLAUDE_PLUGIN_DATA="$TEST_ROOT/plugin-data-old" ARCHITECTURE_STUDIO_STATE_DIR="$CONTINUITY" preference enable)" = enabled ]
 [ -z "$(run_hook "$CONTINUITY")" ]
 [ -f "$CONTINUITY/.architecture-studio-version-check" ]
 [ ! -e "$TEST_ROOT/plugin-data-old/.architecture-studio-update-check-enabled" ]
@@ -93,6 +104,24 @@ for remote in v1.4.0 v1.3.9; do
   [ -z "$(run_hook "$CASE_DIR" "{\"version\":\"$remote\"}")" ]
 done
 
+# Four-segment content patches: a missing fourth segment compares as zero.
+for spec in 1.5.0:v1.5.0.1:nudge 1.5.0.1:v1.5.0:silent 1.5.0.1:v1.5.1:nudge 1.5.0.1:v1.5.0.1:silent; do
+  IFS=: read -r local_v remote expect <<< "$spec"
+  CASE_DIR="$TEST_ROOT/patch-$local_v-${remote#v}"
+  mkdir -p "$CASE_DIR"
+  touch "$CASE_DIR/.architecture-studio-update-check-enabled"
+  printf 'checked_at=0\nremote=\nnudged_for=\n' > "$CASE_DIR/.architecture-studio-version-check"
+  printf '{"version":"%s"}\n' "$local_v" > "$PLUGIN_ROOT/.claude-plugin/plugin.json"
+  OUT=$(run_hook "$CASE_DIR" "{\"version\":\"$remote\"}")
+  if [ "$expect" = nudge ]; then
+    printf '%s' "$OUT" | python3 -c 'import json,sys; d=json.load(sys.stdin); assert sys.argv[1] in d["systemMessage"]; assert sys.argv[2] in d["systemMessage"]' "${remote#v}" "$local_v"
+    grep -q "^nudged_for=${remote#v}\$" "$CASE_DIR/.architecture-studio-version-check"
+  else
+    [ -z "$OUT" ]
+  fi
+done
+printf '{"version":"1.4.0"}\n' > "$PLUGIN_ROOT/.claude-plugin/plugin.json"
+
 # Failure and malformed state are silent and always exit zero.
 FAIL_DIR="$TEST_ROOT/fail"
 mkdir -p "$FAIL_DIR"
@@ -123,35 +152,24 @@ text = Path(sys.argv[1]).read_text()
 assert re.fullmatch(r'checked_at=\d+\nremote=\d+\.\d+\.\d+\nnudged_for=(?:\d+\.\d+\.\d+)?\n', text), text
 PY
 
-grep -Fq '/as:studio updates enable' skills/studio/SKILL.md
-grep -Fq '/as:studio updates disable' skills/studio/SKILL.md
-grep -Fq '<skill-root>/scripts/update-preference.sh' skills/studio/SKILL.md
-grep -Fq 'disabled by default' skills/studio/SKILL.md
-rg -q 'Cloudflare.*processes ordinary request metadata' README.md
-
-# The preference helper remains a Claude Code feature; Codex must stop before
-# resolving update state or mutating its marker.
-python3 - <<'PY'
+# Native MCP does not install lifecycle hooks; the installed-package helper contract remains tested above.
+python3 - <<'PYTEST'
 from pathlib import Path
-
-studio = Path('skills/studio/SKILL.md').read_text(encoding='utf-8')
-updates = studio.split('### `/as:studio updates status|enable|disable`', 1)[1].split('### `/as:studio tasks mode project|portfolio`', 1)[0]
-codex = updates.split('- **Codex:**', 1)[1].split('- **Claude Code:**', 1)[0]
-claude = updates.split('- **Claude Code:**', 1)[1]
-
-assert 'background update checking is unavailable' in codex
-assert all(command in codex for command in ('`status`', '`enable`', '`disable`'))
-assert 'Do not open a confirmation gate' in codex
-assert 'run `<skill-root>/scripts/update-preference.sh`' in codex
-assert 'create, remove, or inspect `.architecture-studio-update-check-enabled`' in codex
-
-for command in ('status', 'enable', 'disable'):
-    assert f'<skill-root>/scripts/update-preference.sh {command}' in claude
-
-governance = Path('docs/data-governance.md').read_text(encoding='utf-8')
+import json
+studio=Path('skills/studio/SKILL.md').read_text()
+assert 'MCP instruction delivery does not install lifecycle hooks' in studio
+assert 'report it unavailable here without inspecting or creating package state' in studio
+assert 'do not invoke installed-package update operations through this workflow' in studio
+declaration=json.loads(Path('skills/studio/host-contract.json').read_text())
+assert declaration['execution']['model']=='harness-native'
+assert not any(operation.startswith('update_preference.') for operation in declaration['execution']['operations'])
+registry=json.loads(Path('tools/runner/operations.json').read_text())
+for command in ('status','enable','disable'):
+    assert any(row['id']=='update_preference.'+command for row in registry['operations'])
+governance=Path('docs/data-governance.md').read_text()
+assert 'disabled by default' in governance
 assert 'available only on Claude Code' in governance
 assert 'The Codex package does not install that lifecycle hook' in governance
 assert 'do not write an enablement marker or cache' in governance
-PY
-
-echo "✓ update checking is opt-in, throttled, fail-silent, and once per version"
+PYTEST
+printf '%s\n' '✓ update checking is opt-in, throttled, fail-silent, and once per version'

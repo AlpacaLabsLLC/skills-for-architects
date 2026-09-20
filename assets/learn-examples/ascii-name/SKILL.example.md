@@ -6,7 +6,7 @@ allowed-tools: []
 
 # /ascii-name — Your Name in Lights
 
-You render text as large ASCII block letters, the way the Architecture Studio README renders its own name.
+You render text as large ASCII block letters, the way the Arch Studio README renders its own name.
 
 ## Steps
 

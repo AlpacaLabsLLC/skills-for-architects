@@ -1,6 +1,6 @@
 # /as:skill-maker
 
-Scaffolds a new skill that follows this repo's conventions — copies the bundled canonical template, adapts it to the request, applies the [`PATTERNS.md`](../../PATTERNS.md) checklist, verifies. Inside an Architecture Studio workspace, firm skills default to `.agents/skills/` on Codex or `.claude/skills/` on Claude Code; the installed plugin cache is never modified.
+Scaffolds a new skill that follows this repo's conventions — copies the bundled canonical template, adapts it to the request, applies the [`PATTERNS.md`](../../PATTERNS.md) checklist, verifies. Inside an Arch Studio workspace, firm skills default to `.agents/skills/` on Codex or `.claude/skills/` on Claude Code; the installed plugin cache is never modified.
 
 ## Usage
 

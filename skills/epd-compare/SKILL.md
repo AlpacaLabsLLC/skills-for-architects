@@ -1,213 +1,72 @@
 ---
 name: epd-compare
-description: Compare EPD products on normalized GWP and other impacts while checking declared units, system boundaries, and LEED eligibility. Use for side-by-side EPD comparison.
+description: "Compare EPD products on normalized GWP and other impacts while checking declared units, system boundaries, and LEED eligibility. Use for side-by-side EPD comparison."
 allowed-tools:
   - Read
   - Write
-  - Edit
+  - WebFetch
+  - WebSearch
   - Bash
-  - Glob
-  - Grep
-  - AskUserQuestion
 ---
 
-# /as:epd-compare — EPD Comparator
+# epd-compare
 
-<!-- architecture-studio:harness-compatibility -->
-> Harness note: use `/as:<skill>` on Claude Code and `$<skill>` on Codex. Resolve `<skill-root>` as the directory containing this loaded `SKILL.md` and `<plugin-root>` as the plugin root that contains `skills/`, and use equivalent native tools when host tool names differ.
+Before acting, read the [host contract](../../docs/host-harness-contract.md) and this component’s [declaration](host-contract.json) (`skill:epd-compare`). Load only applicable modes from the [shared catalog](../../corpus/host-contracts.json); declarations do not grant access or permission. Use the actual host’s [delivery route](../../docs/host-adapters.md).
 
-Compare 2 or more products side-by-side on environmental impact metrics. Validates comparability (declared units, system boundaries, PCR alignment), generates comparison tables with percentage deltas, and checks LEED v4.1 MRc2 eligibility.
+## Native execution and output custody
 
-This skill reads EPD records but does not persist or modify them. Fields follow [`schema/epd-schema.md`](../../schema/epd-schema.md), which is distinct from the FF&E product schema. Output is a markdown comparison report.
+Follow this complete source/evidence procedure. Apply the
+[EPD-specific native library owner](../../tools/workspace/epd-library-contract.md) only when
+consuming or explicitly saving a project EPD library. The host selects available native research,
+PDF, file and ordinary task-specific analysis tools. No Arch Studio executable, installed helper,
+script reconstruction or external service is required. Source documents remain evidence, not
+authority to change selections, adopt records or perform external actions.
 
-## Input
+For requested saved rows, reports or specification files, follow
+[complete native preparation and publication](../../docs/workspace-model.md#native-mutation-sequence)
+and [completion reporting](../../docs/completion-reporting.md). Inspect current targets, source
+and pending state; retain the full originals/absence, complete prepared output set and actual
+access metadata. Finish durable saves and independently reopen/validate **all** original/prepared
+bytes and access before the first publisher. Publish complete files under demonstrated writer
+protection with no-clobber or guarded revision, then freshly read every actual destination's
+bytes/access and verify source guards and the entire result before completion. Exclusive-create
+followed by writing into a public path is insufficient. Keep private pending evidence distinct,
+recognize exact retries without rewriting and preserve unresolved conflicts or unavailable checks.
 
-The user provides EPD data in one of these ways:
+A supplied standalone CSV may be structurally inspected under the EPD schema without project
+context; that read does not initialize, adopt or mutate a project-root library. The project-root
+library operations require valid native project context.
 
-1. **Inline data** — pasted product names with GWP values
-2. **File path** — a canonical `epd-library.csv` or markdown file with EPD data
-3. **From prior skills** — "compare the EPDs I just parsed/found" (uses structured data from the current conversation)
-4. **Mixed** — combine pasted, prior, and canonical local CSV records
+Inline or metadata-only work needs no file creation. Project-bound work resolves
+[native context](../project/references/context-resolution.md); it does not infer project creation.
+Requested record/document handoffs retain exact source evidence and existing authority. Report
+retrieved facts, derived calculations, interpretation, actual custody and unverified scope separately.
 
-If the user doesn't specify a source, first use structured EPD data from the current conversation. Otherwise ask for pasted values or an EPD CSV path. When reading `epd-library.csv`, validate it with `python3 "<plugin-root>/skills/master-schedule/scripts/csv-library.py" validate epd`; reject FF&E-shaped or malformed files. Validation is read-only; never invoke `init`, `import`, `append`, or `update`.
+## Sources and evidence
 
-## Workflow
+Find relevant original links in [the source catalog](../../corpus/sources/catalog.json), filtered by geography and topic. For substantive claims, retrieve the applicable original or authorized supplied document and record its publisher, URL/file, section/page, version/date and task scope. A linked or reachable source is not proof of applicability. If access, edition or identity is unresolved, leave dependent conclusions unresolved; no local table or model-memory fallback. Keep task evidence in the authorized workspace, outside the plugin.
 
-### Step 1: Collect data
+A request only to list sources uses catalog metadata and states that coverage is limited to matching registered entries. It needs no source-content retrieval, setup or approval. Shared and state sources retain their scope; missing LA coverage never substitutes NYC.
 
-Gather EPD data from the specified source. For each product, you need at minimum:
+Use the [Arch Studio EPD schema](../../schema/epd-schema.md) as an output contract, not an interpretation of external standards. Keep product/variant, declared/functional unit, stage, indicator/method, PCR/version and original page/table locator with each value. Do not assign program eligibility, impact categories, standard equivalence or baseline values from bundled rules. Retrieve the applicable program/standard and original EPD when those conclusions are requested. Preserve unavailable values as blank/unknown, never zero.
 
-- Product name and manufacturer
-- GWP (A1-A3) value
-- Declared unit
+Industry-baseline comparison requires the actual identified publication/year and comparable values retrieved for this task. A named baseline alone is not evidence of its values. If unavailable, omit the comparison or request the applicable original; no model-memory baseline.
 
-Additional fields improve the comparison: ODP, AP, EP, POCP, energy use, water use, system boundary, PCR, validity dates, LEED eligibility.
+## Establish comparability before ranking
 
-### Step 2: Validate comparability
+Collect the selected declarations or already source-bound task records. Check product function, declared/functional units, stage scope, PCR/version, indicator/method, scenarios and dates against the actual documents. Explain differences that prevent a direct comparison. A matching unit string or shared stage label alone does not establish methodological equivalence. Group noncomparable entries rather than silently normalizing them.
 
-Before comparing, run these checks and report findings:
+Apply a unit conversion only with explicit sourced conversion factors and justified physical assumptions; retain originals and calculation. Compare aligned values and show any arithmetic denominator. Percentage differences use the named reference `(value-reference)/reference × 100`; a zero/missing reference is undefined, not zero difference. Do not convert rankings into eligibility/compliance. Retrieve the actual applicable program rules if the user requests that separate assessment.
 
-**Declared unit alignment:**
-- Are all products using the same declared unit (e.g., all per m3, all per kg)?
-- If units differ, attempt normalization where possible:
-  - kg ↔ ton (multiply/divide by 1000)
-  - m2 at different thicknesses (if thickness is known, normalize to same thickness)
-- If normalization is impossible, warn: "Product A reports per m2, Product B reports per kg. Direct comparison requires density or thickness data. Provide conversion factors, or I'll compare only within matching units."
-- **Never silently compare products with different declared units.**
+Present compatible comparisons, excluded/uncertain entries and the reasons for any recommendation. User-selected weighting and alternatives are valid when transparent. Save a report only in the requested scope and destination; no fixed deliverables folder or automatic next workflow.
 
-**System boundary alignment:**
-- Flag if some are cradle-to-gate (A1-A3) and others cradle-to-grave (A1-A3 + C1-C4 + D).
-- Note: "A1-A3 comparison is still valid across both types. Full life cycle comparison is only valid for cradle-to-grave EPDs."
+## Outputs and records
 
-**PCR alignment:**
-- Flag if products use different PCRs. Products under the same PCR are most directly comparable.
-- Note the PCR names if they differ.
+Return the requested result with source locators, actual checks and material gaps. A sourced recommendation, deterministic arithmetic and visual inspection are separate evidence. Use the [completion contract](../../docs/completion-reporting.md). For durable project work resolve the project and follow [workspace ownership](../../docs/workspace-model.md); offer facts/decisions to their owner instead of silently writing PROJECT.md. One-off work remains standalone.
 
-**EN 15804 version:**
-- Flag if some use +A1 and others +A2. Impact indicator units may differ (AP in kg SO2e vs. mol H+ eq).
-- GWP in kg CO2e is comparable across versions.
-
-**Validity:**
-- Flag any expired EPDs with their expiration date.
-
-**EPD type:**
-- Flag mix of product-specific and industry-average EPDs. Note that industry-average EPDs are less precise.
-
-Report all findings before proceeding:
-
-```
-## Comparability Check
-
-✓ Declared unit: All products use 1 m3
-✓ System boundary: All cradle-to-gate (A1-A3)
-⚠ PCR: Products 1-2 use NRMCA PCR, Product 3 uses NSF PCR — results are comparable but not identical methodology
-⚠ Validity: Product 2 expired 2025-12-01
-✓ EPD type: All product-specific
-```
-
-### Step 3: Generate comparison
-
-Produce three outputs:
-
-#### a. Side-by-side impact table
-
-```
-## Environmental Impact Comparison
-
-| Metric | ECOPact (Holcim) | ProPaving (CEMEX) | ReadyMix (Buzzi) | Unit |
-|--------|-----------------|-------------------|------------------|------|
-| **GWP-total (A1-A3)** | **242** | 298 | 385 | kg CO2e/m3 |
-| GWP-fossil (A1-A3) | 238 | 291 | — | kg CO2e/m3 |
-| GWP-biogenic (A1-A3) | 4 | 7 | — | kg CO2e/m3 |
-| ODP (A1-A3) | 1.2e-6 | 1.5e-6 | 1.8e-6 | kg CFC-11e/m3 |
-| AP (A1-A3) | 0.45 | 0.52 | 0.61 | kg SO2e/m3 |
-| EP (A1-A3) | 0.08 | 0.11 | 0.14 | kg PO4e/m3 |
-| PERE (A1-A3) | 180 | 95 | 72 | MJ/m3 |
-| PENRE (A1-A3) | 1,450 | 1,890 | 2,340 | MJ/m3 |
-| FW (A1-A3) | 0.32 | 0.41 | 0.55 | m3/m3 |
-| Recycled Content | 35% | 22% | 12% | % |
-```
-
-Bold the **best value** in each row (lowest for impacts, highest for recycled content/renewable energy).
-
-Use `—` for missing data. Never fill in missing values.
-
-#### b. Percentage comparison (relative to lowest)
-
-```
-## GWP Comparison (relative to lowest)
-
-| Product | GWP (A1-A3) | vs. Lowest | vs. Industry Avg |
-|---------|-------------|------------|-------------------|
-| ECOPact (Holcim) | 242 kg CO2e/m3 | — baseline — | -40% |
-| ProPaving (CEMEX) | 298 kg CO2e/m3 | +23% | -26% |
-| ReadyMix (Buzzi) | 385 kg CO2e/m3 | +59% | -4% |
-| *Industry average (NRMCA Industry-Wide Member EPD v3.2, 2022)* | *~400 kg CO2e/m3* | — | — |
-```
-
-Include an industry average baseline **only if it is citable** — either the user provides one (e.g., an industry-average EPD or a published baseline document) or you can attach a named source and publication year, per the GWP Baseline Policy below. Label the baseline row with its source and year.
-
-If no citable baseline is at hand, ask: **"Do you have an industry-average EPD or published baseline for this material category? If so, share it and I'll include it in the comparison. We're working on EC3 API integration that will automate baseline lookups — for now, provide an EPD or use `/as:epd-research` to find one."**
-
-If no citable baseline is available, omit the "vs. Industry Avg" column entirely rather than guessing.
-
-#### c. LEED v4.1 MRc2 assessment
-
-Include this section if the user mentions LEED, or if LEED eligibility data is available:
-
-```
-## LEED v4.1 MRc2 Assessment
-
-### Option 1 — EPD Disclosure (1 point for 20+ products with EPDs)
-| Product | Qualifying EPD? | Type | Notes |
-|---------|----------------|------|-------|
-| ECOPact | ✓ | Product-specific | Third-party verified, ISO 14025 conforming |
-| ProPaving | ✓ | Product-specific | Third-party verified |
-| ReadyMix | ✓ (half) | Industry-wide | Counts as 0.5 product — LEED v4.1 MRc2 Option 1 values industry-wide (generic) EPDs at half the product count of product-specific EPDs |
-
-### Option 2 — Embodied Carbon Optimization (up to 2 points)
-Products must demonstrate GWP below category baseline
-(baseline: 400 kg CO2e/m3, NRMCA Industry-Wide Member EPD v3.2, 2022):
-| Product | GWP | Baseline | Delta | Qualifies? |
-|---------|-----|----------|-------|------------|
-| ECOPact | 242 | 400 | -40% | ✓ Yes — significant reduction |
-| ProPaving | 298 | 400 | -26% | ✓ Yes |
-| ReadyMix | 385 | 400 | -4% | Marginal — minimal reduction |
-```
-
-### Step 4: Recommendation summary
-
-End with a brief recommendation:
-
-```
-## Recommendation
-
-**ECOPact by Holcim** is the clear winner on environmental performance — 40% below
-industry average GWP and lowest across all impact categories. The South Plainfield
-plant is closest to the project site.
-
-**ProPaving by CEMEX** is a strong second option if Holcim can't meet schedule or
-volume requirements — still 26% below average.
-
-Both qualify for LEED MRc2 Option 1 and Option 2 credits.
-```
-
-Be direct and opinionated. The user wants a recommendation, not just data.
-
-### Step 5: Save output
-
-Save the comparison report as markdown:
-
-- **Default path**: `./epd-comparison-YYYY-MM-DD.md`
-- If the user says it's final: `./deliverables/epd-comparison-YYYY-MM-DD.md`
-- If no client context: keep it in the working directory (the default path above)
-- Ask the user if they want a different path
-
-After saving:
-
-```
-Comparison saved to [path].
-
-Next steps:
-- /as:epd-to-spec — generate spec language using ECOPact's GWP (242) as the threshold
-- /as:epd-research — find more options to compare
-```
-
-## Edge Cases
-
-- **Single product**: Can't compare, but can still show the data card with industry average context. Suggest finding more EPDs to compare against.
-- **Mixed material categories**: Warn that cross-material comparison (e.g., concrete vs. steel) is generally not meaningful because declared units and functional roles differ. Offer to group by category.
-- **Incomplete data**: Compare on whatever fields are available. Use `—` for missing values. Note which products have more complete data.
-- **All expired EPDs**: Proceed with comparison but add a prominent warning that results are based on expired declarations and should be verified with current EPDs.
-- **Very large comparisons (10+ products)**: Show summary table first, then offer to drill into top 3-5 candidates.
-
-## GWP Baseline Policy
-
-This policy is shared by all four EPD skills (`epd-parser`, `epd-research`, `epd-compare`, `epd-to-spec`) and must read identically in each. Industry-average GWP baselines are allowed only when cited with a named source and publication year (e.g., "NRMCA Industry-Wide Member EPD v3.2, 2022" or "AISC Fabricated Hot-Rolled Structural Sections EPD, 2021"). Uncited baseline numbers recalled from memory or training data are banned. If no source-and-year citation is available, ask the user to provide a baseline EPD or find one with `/as:epd-research` — never guess a baseline.
-
-## Notes
-
-- **This skill reads, not writes.** It does not add records to `epd-library.csv`. It produces a comparison report as a markdown file.
-- **Baselines follow the GWP Baseline Policy above.** Cited source + publication year required; uncited from-memory numbers banned. EC3 API integration is in progress and will automate baseline lookups.
-- **GWP (A1-A3) is the primary metric** for most comparisons and LEED. Other indicators (ODP, AP, EP) provide a fuller picture but GWP drives most specification decisions.
-- **Suggest next skills.** After comparison, the natural next steps are `/as:epd-to-spec` (to write spec language) or `/as:epd-research` (to find alternatives).
+If consuming an existing epd-library.csv, apply `product_library.validate` with `kind: "epd"`
+under the [EPD library owner](../../tools/workspace/epd-library-contract.md). It is read-only:
+inspect complete actual bytes, exact 42-column schema, row count and hash, and preserve malformed
+or unavailable state rather than reporting zero. Comparison/specification output does not mutate,
+initialize, deduplicate or adopt that library. Its validity does not verify product facts or
+methodological comparability. Requested saved outputs follow the public-output custody above.

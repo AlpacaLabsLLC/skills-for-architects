@@ -1,0 +1,18 @@
+case	request	state	expected
+quick	Correct this heading	approved small edit	Execute directly without extra plan gate
+source-directory	List all NYC code sources	no workspace	Matching manifest links and coverage; no content fetch or setup
+la-gap	List LA code sources	no registered LA sources	Explicit catalog gap; no NYC substitution
+substantive-source	Explain this NYC requirement	applicable original unavailable	Dependent conclusion unresolved
+substantial	Produce the selected package	no execution approval	Concrete plan/checks and useful team; wait for approval
+approved	Go	approved plan and team	Actual agent creation identities and integrated outputs
+revise	Use two workers instead	pending plan	Revise plan; dependent execution pending
+decline	No	pending plan	No dependent execution or persistent writes
+ambiguous	Maybe later	pending plan	Keep pending; no inferred approval
+no-reply	[no reply]	pending plan	Elapsed time does not approve execution
+resume	Continue	previous exact approval	Resume scope without duplicate gate
+material-change	Publish it too	implementation-only approval	Concrete publication result and only missing authorization
+unsupported	Use a team	no delegation tool	Disclose before promising; no fabricated workers
+failed-creation	Go	approved team; creation fails	Preserve work, report failure, review material fallback
+standalone	Update this project note	valid standalone PROJECT.md	Preserve valid project; no forced studio setup
+declined-setup	Continue the lookup	setup previously declined	No repeated nudge or approval gate
+worker-question	[worker needs scope choice]	approved bounded assignment	Question returned to main loop

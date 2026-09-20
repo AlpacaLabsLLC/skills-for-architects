@@ -11,3 +11,8 @@
 .env
 .env.local
 .worktrees/
+
+# Python runtime and test caches
+__pycache__/
+*.py[cod]
+.venv/

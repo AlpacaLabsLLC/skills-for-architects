@@ -1,0 +1,1962 @@
+{
+  "schema_version": 1,
+  "operations": [
+    {
+      "id": "documents.resolve",
+      "module": "skills/receive/scripts/documents.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "coordinates": {
+            "type": "object",
+            "properties": {
+              "phase": {
+                "type": "string"
+              },
+              "stage": {
+                "type": "string"
+              },
+              "scope": {
+                "type": "string"
+              },
+              "originator": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "kind": {
+            "type": "string"
+          },
+          "record": {
+            "enum": [
+              "SCHEDULE.csv"
+            ]
+          },
+          "path": {
+            "type": "string"
+          },
+          "metadata": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "project_root",
+          "coordinates"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "read"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-documents.py"
+      ]
+    },
+    {
+      "id": "documents.hash",
+      "module": "skills/receive/scripts/documents.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_root",
+          "path"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "read"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-documents.py"
+      ]
+    },
+    {
+      "id": "documents.register",
+      "module": "skills/receive/scripts/documents.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "source_path": {
+            "type": "string"
+          },
+          "coordinates": {
+            "type": "object",
+            "properties": {
+              "phase": {
+                "type": "string"
+              },
+              "stage": {
+                "type": "string"
+              },
+              "scope": {
+                "type": "string"
+              },
+              "originator": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "kind": {
+            "type": "string"
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "sheet": {
+                "type": "string"
+              },
+              "package": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "supersedes": {
+                "type": "string"
+              },
+              "change_id": {
+                "type": "string"
+              },
+              "notes": {
+                "type": "string"
+              },
+              "source": {
+                "type": "object"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_root",
+          "source_path",
+          "coordinates",
+          "kind"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-documents.py"
+      ]
+    },
+    {
+      "id": "documents.move",
+      "module": "skills/receive/scripts/documents.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "expected_sha256": {
+            "type": "string"
+          },
+          "coordinates": {
+            "type": "object",
+            "properties": {
+              "phase": {
+                "type": "string"
+              },
+              "stage": {
+                "type": "string"
+              },
+              "scope": {
+                "type": "string"
+              },
+              "originator": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_root",
+          "id",
+          "expected_sha256",
+          "coordinates"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-documents.py"
+      ]
+    },
+    {
+      "id": "documents.update",
+      "module": "skills/receive/scripts/documents.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "expected_sha256": {
+            "type": "string"
+          },
+          "changes": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "notes": {
+                "type": "string"
+              },
+              "change_id": {
+                "type": "string"
+              },
+              "source": {
+                "type": "object"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "event": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "project_root",
+          "id",
+          "expected_sha256",
+          "changes"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-documents.py"
+      ]
+    },
+    {
+      "id": "documents.verify",
+      "module": "skills/receive/scripts/documents.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "as_of": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_root"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "read"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-documents.py"
+      ]
+    },
+    {
+      "id": "documents.query",
+      "module": "skills/receive/scripts/documents.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "filters": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "phase": {
+                "type": "string"
+              },
+              "stage": {
+                "type": "string"
+              },
+              "scope": {
+                "type": "string"
+              },
+              "originator": {
+                "type": "string"
+              },
+              "since": {
+                "type": "string"
+              },
+              "change_id": {
+                "type": "string"
+              },
+              "source_type": {
+                "type": "string"
+              },
+              "expires_before": {
+                "type": "string"
+              },
+              "latest": {
+                "type": "boolean"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "project_root"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "read"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-documents.py"
+      ]
+    },
+    {
+      "id": "documents.recover",
+      "module": "skills/receive/scripts/documents.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "project_root"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-documents.py"
+      ]
+    },
+    {
+      "id": "project.init",
+      "module": "skills/receive/scripts/workspaces.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "target": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "project_id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "client_code": {
+            "type": "string"
+          },
+          "client": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string"
+          },
+          "vocabularies": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          },
+          "stages": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          },
+          "path_template": {
+            "type": "string"
+          },
+          "task_mode": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "target",
+          "name",
+          "project_id",
+          "kind",
+          "type",
+          "status",
+          "client_code",
+          "client",
+          "vocabularies"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-documents.py"
+      ]
+    },
+    {
+      "id": "project.status",
+      "module": "skills/receive/scripts/workspaces.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "as_of": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_root"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "read"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-documents.py"
+      ]
+    },
+    {
+      "id": "project.vocab",
+      "module": "skills/receive/scripts/workspaces.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "axis": {
+            "enum": [
+              "phase",
+              "scope",
+              "originator"
+            ]
+          },
+          "action": {
+            "enum": [
+              "list",
+              "add",
+              "rename"
+            ]
+          },
+          "value": {
+            "type": "string"
+          },
+          "old": {
+            "type": "string"
+          },
+          "folder": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "project_root",
+          "axis",
+          "action"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-documents.py"
+      ]
+    },
+    {
+      "id": "context.resolve",
+      "module": "skills/receive/scripts/workspaces.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "effects": [
+        "read"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-documents.py"
+      ]
+    },
+    {
+      "id": "studio.init",
+      "module": "skills/receive/scripts/workspaces.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "target": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "roots": {
+            "type": "object"
+          },
+          "naming_policy": {
+            "type": "string"
+          },
+          "units": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "id_convention": {
+            "type": "string"
+          },
+          "folder_taxonomy": {
+            "type": "string"
+          },
+          "folder_convention": {
+            "type": "string"
+          },
+          "task_mode": {
+            "type": "string"
+          },
+          "path_template": {
+            "type": "string"
+          },
+          "stages": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "default_scopes": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          }
+        },
+        "required": [
+          "target",
+          "name"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-documents.py"
+      ]
+    },
+    {
+      "id": "studio.status",
+      "module": "skills/receive/scripts/workspaces.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "studio_root"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "read"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-documents.py"
+      ]
+    },
+    {
+      "id": "studio.register",
+      "module": "skills/receive/scripts/workspaces.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "project_root": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "studio_root",
+          "project_root"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-documents.py"
+      ]
+    },
+    {
+      "id": "studio.set-status",
+      "module": "skills/receive/scripts/workspaces.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "project_id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "studio_root",
+          "project_id",
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-documents.py"
+      ]
+    },
+    {
+      "id": "studio.archive",
+      "module": "skills/receive/scripts/workspaces.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "project_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "studio_root",
+          "project_id"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-documents.py"
+      ]
+    },
+    {
+      "id": "studio.set-naming",
+      "module": "skills/receive/scripts/workspaces.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "policy": {
+            "type": "string"
+          },
+          "convention": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "studio_root",
+          "policy",
+          "convention"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-documents.py"
+      ]
+    },
+    {
+      "id": "studio.task-mode",
+      "module": "skills/receive/scripts/workspaces.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "mode": {
+            "enum": [
+              "project",
+              "portfolio"
+            ]
+          }
+        },
+        "required": [
+          "studio_root",
+          "mode"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-documents.py"
+      ]
+    },
+    {
+      "id": "tasks.list",
+      "module": "skills/receive/scripts/records.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "project_root"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "read"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-document-records.py"
+      ]
+    },
+    {
+      "id": "tasks.add",
+      "module": "skills/receive/scripts/records.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "task": {
+            "type": "object",
+            "properties": {
+              "description": {
+                "type": "string"
+              },
+              "owner": {
+                "type": "string"
+              },
+              "due": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string"
+              },
+              "related": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "description",
+              "source"
+            ],
+            "additionalProperties": false
+          },
+          "distinct_reason": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_root",
+          "task"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-document-records.py"
+      ]
+    },
+    {
+      "id": "tasks.update",
+      "module": "skills/receive/scripts/records.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "changes": {
+            "type": "object",
+            "properties": {
+              "description": {
+                "type": "string"
+              },
+              "owner": {
+                "type": "string"
+              },
+              "due": {
+                "type": "string"
+              },
+              "related": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "date": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_root",
+          "id",
+          "changes"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-document-records.py"
+      ]
+    },
+    {
+      "id": "tasks.complete",
+      "module": "skills/receive/scripts/records.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_root",
+          "id"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-document-records.py"
+      ]
+    },
+    {
+      "id": "tasks.cancel",
+      "module": "skills/receive/scripts/records.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_root",
+          "id",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-document-records.py"
+      ]
+    },
+    {
+      "id": "tasks.reopen",
+      "module": "skills/receive/scripts/records.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_root",
+          "id",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-document-records.py"
+      ]
+    },
+    {
+      "id": "time.list",
+      "module": "skills/receive/scripts/records.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "project_root"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "read"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-document-records.py"
+      ]
+    },
+    {
+      "id": "time.append",
+      "module": "skills/receive/scripts/records.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "entry": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "type": "string"
+              },
+              "hours": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "description": {
+                "type": "string"
+              },
+              "sources": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1
+              },
+              "correction": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "date",
+              "hours",
+              "description",
+              "sources"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "project_root",
+          "entry"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-document-records.py"
+      ]
+    },
+    {
+      "id": "invoice.init",
+      "module": "skills/receive/scripts/records.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "project_root"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "read"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-document-records.py"
+      ]
+    },
+    {
+      "id": "invoice.allocate",
+      "module": "skills/receive/scripts/records.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "project_root"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "read"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-document-records.py"
+      ]
+    },
+    {
+      "id": "invoice.status",
+      "module": "skills/receive/scripts/records.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "project_root"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "read"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-document-records.py"
+      ]
+    },
+    {
+      "id": "invoice.append",
+      "module": "skills/receive/scripts/records.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "invoice": {
+            "type": "object",
+            "properties": {
+              "invoice_number": {
+                "type": "string"
+              },
+              "period_start": {
+                "type": "string"
+              },
+              "period_end": {
+                "type": "string"
+              },
+              "currency": {
+                "type": "string"
+              },
+              "base": {
+                "type": "string"
+              },
+              "expenses": {
+                "type": "string"
+              },
+              "total": {
+                "type": "string"
+              },
+              "sent": {
+                "type": "string"
+              },
+              "paid": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "correction": {
+                "type": "string"
+              },
+              "document_id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "invoice_number",
+              "period_start",
+              "period_end",
+              "currency",
+              "base",
+              "expenses",
+              "total"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "project_root",
+          "invoice"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-document-records.py"
+      ]
+    },
+    {
+      "id": "invoice.set-lifecycle",
+      "module": "skills/receive/scripts/records.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "event": {
+            "enum": [
+              "sent",
+              "paid",
+              "void"
+            ]
+          },
+          "date": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_root",
+          "id",
+          "event",
+          "date"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-document-records.py"
+      ]
+    },
+    {
+      "id": "proposal.create",
+      "module": "skills/receive/scripts/commercial.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "source_path": {
+            "type": "string"
+          },
+          "coordinates": {
+            "type": "object",
+            "properties": {
+              "phase": {
+                "type": "string"
+              },
+              "stage": {
+                "type": "string"
+              },
+              "scope": {
+                "type": "string"
+              },
+              "originator": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "sheet": {
+                "type": "string"
+              },
+              "package": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "supersedes": {
+                "type": "string"
+              },
+              "change_id": {
+                "type": "string"
+              },
+              "notes": {
+                "type": "string"
+              },
+              "source": {
+                "type": "object"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_root",
+          "source_path",
+          "coordinates"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-document-records.py"
+      ]
+    },
+    {
+      "id": "proposal.list",
+      "module": "skills/receive/scripts/commercial.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "project_root"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "read"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-document-records.py"
+      ]
+    },
+    {
+      "id": "proposal.verify",
+      "module": "skills/receive/scripts/commercial.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "project_root"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "read"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-document-records.py"
+      ]
+    },
+    {
+      "id": "proposal.status",
+      "module": "skills/receive/scripts/commercial.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_root",
+          "id"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "read"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-document-records.py"
+      ]
+    },
+    {
+      "id": "proposal.send",
+      "module": "skills/receive/scripts/commercial.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_root",
+          "id",
+          "date",
+          "evidence"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-document-records.py"
+      ]
+    },
+    {
+      "id": "proposal.set-status",
+      "module": "skills/receive/scripts/commercial.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "accepted",
+              "declined",
+              "superseded"
+            ]
+          }
+        },
+        "required": [
+          "project_root",
+          "id",
+          "date",
+          "evidence",
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-document-records.py"
+      ]
+    },
+    {
+      "id": "agreement.verify",
+      "module": "skills/receive/scripts/commercial.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "project_root"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "read"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-document-records.py"
+      ]
+    },
+    {
+      "id": "agreement.init",
+      "module": "skills/receive/scripts/commercial.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "facts": {
+            "type": "array"
+          },
+          "in_scope": {
+            "type": "string"
+          },
+          "not_in_scope": {
+            "type": "string"
+          },
+          "requires_sow": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_root",
+          "id"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-document-records.py"
+      ]
+    },
+    {
+      "id": "agreement.promote",
+      "module": "skills/receive/scripts/commercial.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "facts": {
+            "type": "array"
+          },
+          "in_scope": {
+            "type": "string"
+          },
+          "not_in_scope": {
+            "type": "string"
+          },
+          "requires_sow": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_root",
+          "id"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-document-records.py"
+      ]
+    },
+    {
+      "id": "agreement.record-amendment",
+      "module": "skills/receive/scripts/commercial.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string"
+          },
+          "studio_root": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_root",
+          "id",
+          "summary",
+          "date"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "canonical-write"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-document-records.py"
+      ]
+    }
+  ]
+}

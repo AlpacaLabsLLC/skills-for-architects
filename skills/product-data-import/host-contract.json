@@ -1,0 +1,69 @@
+{
+  "path": "skills/product-data-import/SKILL.md",
+  "responsibility": "Normalize supplied FF&E data and explicit observation bindings into review proposals; own accepted document-job input manifests and correction lineage, without adopting records or independently writing reusable libraries.",
+  "inputs": "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records.",
+  "owned_records": [
+    "ffe/jobs/input-manifests"
+  ],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "answer"
+    },
+    {
+      "mode": "file-read"
+    },
+    {
+      "mode": "file-output",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": []
+    },
+    {
+      "mode": "record-write",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    },
+    {
+      "mode": "workbook-read"
+    },
+    {
+      "mode": "workbook-edit"
+    },
+    {
+      "mode": "delegate",
+      "when": "Only for requested owner handoffs: reusable CSV changes to product-library, adopted records to master-schedule, accepted-input rendering to product-cut-sheet/spec-book and registered reports to receive. This skill owns accepted intake; preserve exact authorization, targets, evidence and current revisions."
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "tools/transformers/ffe-intake-contract.md",
+    "operations": [
+      "ffe_intake.prepare",
+      "product_observations.validate",
+      "product_observations.validate-batch",
+      "product_observations.adapt",
+      "context.resolve",
+      "workbook_preservation.compare"
+    ]
+  }
+}

@@ -1,36 +1,38 @@
 # Terminology
 
-Use standard AEC terminology in all skill outputs. This improves consistency and ensures outputs read as professional documents.
+This rule governs style and first-use, not factual definitions. For neutral professional-practice terms, AIA document-family orientation, document purpose, and source boundaries, use [architecture-knowledge](../skills/architecture-knowledge/SKILL.md) and its applicable original-source routes. No local definitions are a reference authority.
 
-## Preferred Terms
+## Product name
 
-| Use this | Not this |
-|----------|----------|
-| program | floor plan list, room list |
-| adjacency | nearby rooms, close to |
-| circulation | hallway space, walking area |
-| egress | exit path, way out |
-| fenestration | windows and doors (when discussing envelope openings as a system) |
-| cladding | exterior finish, outer wall covering |
-| substrate | base layer, underlying surface |
-| millwork | built-in woodwork, custom cabinetry (when referring to the trade/division) |
-| GWB | drywall sheet, sheetrock (use "gypsum wall board" on first mention) |
-| CLT | cross-laminated timber (spell out on first mention) |
-| MEP | mechanical, electrical, and plumbing (spell out on first mention) |
-| AHJ | authority having jurisdiction (spell out on first mention) |
-| FF&E | furniture, fixtures, and equipment (spell out on first mention) |
+The product is **Arch Studio** in every sentence, on every channel. Not "Architecture Studio", not "Arch Studio" on its own. Identifiers keep their technical form: the plugin `as@skills-for-architects`, commands `/as:<skill>` and `$<skill>`, tools `as_<name>`, the `.as-folder.json` record, the `as` monogram, repository and folder names. Release labels read "Arch Studio 1.5". The word "Studio" alone means the user's workspace, never the product.
 
-## Abbreviation Rules
+**Why:** three names for one product read as three products. Lint rejects the two retired forms outside identifiers and the license text.
 
-- **Define on first use**, then abbreviate throughout: "Gross Square Feet (GSF)" → "GSF"
-- **Never assume** the reader knows an abbreviation — even common ones like HVAC get defined once
-- **Domain-specific abbreviations** (FAR, FOS, FOT, NSF, USF, RSF) must always be defined on first use
+## Skill, workflow and tool
 
-## Material Names
+- A **skill** is one bounded procedure, delivered to the assistant as a single `as_<name>` entry point. This is the count in every skill catalog and release note ("60 skills").
+- A **workflow**, on the framework pages (architecturestudio.ai/framework/execution) and in customer-facing copy, names a distinct, smaller feature: a skill that sequences other skills, with a typed handoff between steps ("a skill that sequences other skills"). This is a different, much smaller count (7 at last count) than the skill catalog. Do not use "workflow" as a plain synonym for "skill".
+- **"Workflow instructions"** is the MCP delivery mechanism for any skill (see [host-harness contract](../docs/host-harness-contract.md)); it does not imply composition. Release-ledger and catalog fields named `workflows` (for example `counts.workflows`) count entries at this delivery layer, which today happens to equal the skill count. Do not present that field as the composed-Workflows feature count, or the reverse.
 
-- Use industry-standard names: "gypsum wall board" not "plasterboard"
-- For products: use the generic material name, not brand names (unless specifying a sole-source product)
-- Capitalize proprietary names: "Corian", "Trespa", "Viroc" — lowercase generic equivalents: "solid surface", "HPL panel", "fiber cement"
+**Why:** the release ledger, PATTERNS.md's own prose, and the site's Workflows feature page each use "workflow" for a different thing, with no cross-reference between them. A release-notes author or a reader cannot tell which is meant without checking three separate places, and every ambiguous use so far has produced a wrong published number.
+
+## Word choice
+
+Use precise language appropriate to the reader and preserve the user’s project vocabulary. Retrieve original definitions when a professional term’s meaning affects the requested conclusion. Style preferences do not establish technical equivalence or a regulatory definition.
+
+## First use
+
+- Define an abbreviation on first use, then use it consistently.
+- Do not assume the reader knows an abbreviation.
+- Domain-specific abbreviations such as FAR, FOS, FOT, NSF, USF, and RSF must always be defined on first use.
+- Preserve a user-supplied term when it is the name of a project record, product, or organization.
+
+## Style
+
+- Prefer clear generic names over informal shorthand unless the user requests the shorthand.
+- Identify proprietary names as supplied; do not silently treat a brand name as a generic requirement.
+- Capitalize proprietary names and lowercase their generic equivalents.
+- Do not turn generic terminology into a project fact, a contract interpretation, a regulatory conclusion, or a permission to act.
 
 ## Numeric Style
 

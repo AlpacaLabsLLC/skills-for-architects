@@ -1,0 +1,44 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 456 >>
+stream
+BT /F1 11 Tf 54 720 Td 14 TL
+(ACME Seating - Product Data Sheet) Tj T*
+() Tj T*
+(Model: AC-4820 Task Chair) Tj T*
+(Manufacturer: Acme Seating Works) Tj T*
+(Dimensions: 660 mm W x 635 mm D x 965-1120 mm H) Tj T*
+(Seat height: 430-560 mm) Tj T*
+(Frame finish: Powder-coated aluminium, Graphite) Tj T*
+(Upholstery: Recycled polyester mesh, Slate Blue) Tj T*
+(Weight capacity: 136 kg) Tj T*
+(Certification: BIFMA X5.1) Tj T*
+(List price: USD 1,245.00) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000000748 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+818
+%%EOF

@@ -1,0 +1,55 @@
+{
+  "path": "skills/receive/SKILL.md",
+  "responsibility": "Register received or authored project documents by confirmed coordinates, preserve their filenames and provenance, and find or verify registered documents. Use for filing a supplied file/package or locating documents by kind, date, source or revision. Coordinated document moves may rewrite only affected links in PROJECT.md under the preservation contract; this does not confer ownership of its facts or Agreement terms.",
+  "inputs": "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records.",
+  "owned_records": [
+    "DOCUMENTS.csv"
+  ],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "INVOICES.csv"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "record-read",
+      "required": [
+        "file.read"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    },
+    {
+      "mode": "record-write",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    },
+    {
+      "mode": "delegate"
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "docs/workspace-model.md",
+    "operations": [
+      "context.resolve",
+      "documents.resolve",
+      "documents.hash",
+      "documents.register",
+      "documents.move",
+      "documents.update",
+      "documents.verify",
+      "documents.query",
+      "documents.recover"
+    ]
+  }
+}

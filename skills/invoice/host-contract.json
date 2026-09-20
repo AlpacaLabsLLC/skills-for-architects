@@ -1,0 +1,57 @@
+{
+  "path": "skills/invoice/SKILL.md",
+  "responsibility": "Maintain an append-only project INVOICES.csv ledger from explicit billing facts and recorded lifecycle evidence; never infer charges or payment from activity or time logs.",
+  "inputs": "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records.",
+  "owned_records": [
+    "INVOICES.csv"
+  ],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "DOCUMENTS.csv (kind=proposal)",
+    "PROJECT.md#agreement and registered agreement/contract documents",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "record-read",
+      "required": [
+        "file.read"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    },
+    {
+      "mode": "record-write",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    },
+    {
+      "mode": "delegate"
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "docs/workspace-model.md",
+    "operations": [
+      "context.resolve",
+      "invoice.init",
+      "invoice.allocate",
+      "invoice.status",
+      "invoice.append",
+      "invoice.set-lifecycle"
+    ]
+  }
+}

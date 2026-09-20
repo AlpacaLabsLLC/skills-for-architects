@@ -27,6 +27,6 @@ EPD Link,Manufacturer,Product Name,Description,Declared Unit,Functional Unit,CSI
 
 ## Controlled values
 
-- `LEED Eligible`: `Yes`, `No`, or `Partial`.
+- `LEED Eligible`: `Yes`, `No`, or `Partial` only when supported by the actual applicable program/version and project evidence; blank means not assessed or unresolved. Declaration type alone does not establish eligibility.
 - `Source`: the skill that produced the row, such as `epd-parser` or `epd-research`.
 - `Material Category`: Concrete, Steel, Aluminum, Wood/Timber, Insulation, Gypsum, Glass, Ceramic/Tile, Carpet, Resilient Flooring, Roofing Membrane, Sealant, Paint/Coating, Masonry, Stone, Composite Panel, Acoustic, Cladding, Rebar, Cement, Aggregate, Furniture, or Other.

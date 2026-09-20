@@ -1,0 +1,56 @@
+{
+  "path": "skills/spec-book/SKILL.md",
+  "responsibility": "Assemble a complete ordered FF&E specification package from an explicit item scope, composing product cut sheets with resumable verification. Use for a spec book, all scheduled product PDFs, or a combined specification package.",
+  "inputs": "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records.",
+  "owned_records": [
+    "ffe/package-manifests-and-receipts"
+  ],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "file-read"
+    },
+    {
+      "mode": "render",
+      "required": [
+        "file.read",
+        "file.write",
+        "document.render",
+        "document.inspect"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    },
+    {
+      "mode": "delegate"
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "tools/renderers/ffe-output-contract.md",
+    "operations": [
+      "context.resolve",
+      "ffe_records.read",
+      "document_contracts.resolve",
+      "ffe_outputs.prepare",
+      "ffe_outputs.check",
+      "ffe_outputs.resume",
+      "delivery_coverage.assess",
+      "delivery_coverage.verify-links"
+    ]
+  }
+}

@@ -1,6 +1,6 @@
 # CSV Library Conventions
 
-Architecture Studio stores persistent product data in project-local CSV files:
+Arch Studio stores persistent product data in project-local CSV files:
 
 - `product-library.csv` uses the exact 33-column header in [product-schema.md](product-schema.md).
 - `epd-library.csv` uses the exact 42-column header in [epd-schema.md](epd-schema.md) and is optional.
@@ -17,7 +17,7 @@ Architecture Studio stores persistent product data in project-local CSV files:
 
 ## Project boundary
 
-Resolve the project root by walking from the working directory toward the filesystem root and selecting the nearest directory containing `PROJECT.md`. Store both libraries at that root. Do not create a library outside a recognized project.
+Resolve the canonical project through [native context resolution](../skills/project/references/context-resolution.md), including supported identity and actual project instructions. A filename alone does not establish valid context. Store a selected persistent library at that project root; one-off supplied CSV work does not initialize or adopt a library.
 
 ## Safe mutation
 
@@ -28,9 +28,26 @@ Before any mutation:
 3. verify the exact header and every row's field count;
 4. construct and validate the complete replacement in memory;
 5. preview material changes and use the repository's single confirmation gate when user approval is required;
-6. write a temporary file in the target directory, flush and sync it, then replace the target atomically.
+6. apply the owning operation's verified native publication contract, preserving complete old/new visibility and actual access metadata, then reread the entire result.
 
-If decoding, parsing, or validation fails, leave the target byte-for-byte unchanged and remove any temporary file. Last-writer conflicts remain possible because CSV does not provide multi-user locking; validate again immediately before replacement.
+If decoding, parsing, or validation fails, leave the target byte-for-byte unchanged. Product-library
+owns product mutations through its [native semantic contract](../tools/workspace/product-library-contract.md):
+read-only preview, exact expected hash, stable request identity and the complete shared
+[native mutation sequence](../docs/workspace-model.md#native-mutation-sequence). Durably retain and
+independently reopen all original/prepared evidence before first publication. Resolve pending work,
+prevent silent stale overwrite and recognize exact retries without duplicate rows. A cooperating lock
+or check-then-replace alone does not protect against external writers. If the selected method cannot
+meet the actual writer/access boundary, preserve current state and report the specific limitation.
+Only finish after full actual byte/schema/access readback.
+
+Historical `ffe/library/` operation files remain readable product recovery evidence; no helper is
+needed to interpret their declared intent, bytes and hashes. EPD operations use the distinct
+[native EPD owner](../tools/workspace/epd-library-contract.md), exact 42-column schema and retained
+native intent/evidence; they do not inherit product request grammars, row identities or journals.
+Native EPD preview/recovery are procedure stages, not previously supported runner operations.
+Parsing/research need no persistence; only an explicitly selected save invokes library mutation.
+Existing helpers and schemas remain historical compatibility assets. OSS allocation/delivery is
+separately deferred; no implicit EPD conversion or product ownership transfer is authorized.
 
 ## Legacy configuration
 

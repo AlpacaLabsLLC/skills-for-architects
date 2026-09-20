@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FF&E output verification receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "fingerprint",
+    "schedule",
+    "outputs",
+    "template_sha256",
+    "audience",
+    "verified_artifacts",
+    "failures",
+    "status",
+    "workflowCompleted",
+    "verification",
+    "design"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "enum": [1, 2]
+    },
+    "fingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "schedule": {
+      "type": "object"
+    },
+    "outputs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "tag": {"$ref": "product-identity.schema.json#/$defs/tag"},
+          "filename": {"$ref": "product-identity.schema.json#/$defs/filename"}
+        },
+        "required": [
+          "fingerprint",
+          "tag",
+          "items",
+          "expected_pages"
+        ]
+      }
+    },
+    "template_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "audience": {
+      "enum": [
+        "client",
+        "internal"
+      ]
+    },
+    "verified_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "file",
+          "sha256",
+          "pages",
+          "page_boxes"
+        ],
+        "properties": {
+          "file": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "pages": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "page_boxes": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "page",
+                "width_pt",
+                "height_pt",
+                "rotation",
+                "user_unit"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "failures": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "enum": [
+        "complete",
+        "incomplete"
+      ]
+    },
+    "workflowCompleted": {
+      "type": "boolean"
+    },
+    "verification": {
+      "type": "string"
+    },
+    "design": {
+      "type": "object",
+      "required": [
+        "fingerprint",
+        "identities",
+        "page",
+        "layout"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"schema_version": {"const": 2}}},
+      "then": {"properties": {"outputs": {"items": {"required": ["filename"]}}}},
+      "else": {"properties": {"outputs": {"items": {"not": {"required": ["filename"]}}}}}
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "complete"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "workflowCompleted": {
+            "const": true
+          },
+          "failures": {
+            "maxItems": 0
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "workflowCompleted": {
+            "const": false
+          },
+          "failures": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

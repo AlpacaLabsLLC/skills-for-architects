@@ -1,6 +1,6 @@
 ---
 name: skill-maker
-description: Scaffold a new Architecture Studio skill for Codex or Claude Code following this repo's conventions — copy a canonical template, apply the PATTERNS.md checklist, and verify it. Use when the user invokes skill-maker, asks to create or package a new skill, or wants to turn a procedure into a reusable command.
+description: "Scaffold a new Arch Studio skill for Codex or Claude Code following this repo's conventions — copy a canonical template, apply the PATTERNS.md checklist, and verify it. Use when the user invokes skill-maker, asks to create or package a new skill, or wants to turn a procedure into a reusable command."
 allowed-tools:
   - Read
   - Write
@@ -12,8 +12,13 @@ allowed-tools:
 
 # /as:skill-maker — Scaffold a New Skill
 
-<!-- architecture-studio:harness-compatibility -->
-> Harness note: use `/as:<skill>` on Claude Code and `$<skill>` on Codex. Resolve `<skill-root>` as the directory containing this loaded `SKILL.md` and `<plugin-root>` as the plugin root that contains `skills/`, and use equivalent native tools when host tool names differ.
+Before acting, read the [host contract](../../docs/host-harness-contract.md) and this component's [declaration](host-contract.json) (`skill:skill-maker`). Load only its referenced mode profiles from the [shared catalog](../../corpus/host-contracts.json). Compose modes required by the actual task; declarations are requirements, not proof of access or permission. Use the actual host’s [delivery route](../../docs/host-adapters.md).
+
+## Harness-native execution
+
+Follow this complete procedure using the active host's authorized file, search and YAML-reading facilities. The existing `skill_scaffold.validate` identifier names the checks below; it is not a dispatcher requirement. No Arch Studio executable, copied helper or installation step is required. MCP references identify release resources, not paths assumed to exist on this machine. Retrieve complete templates and PATTERNS at the delivered release pin before using them; retain their actual identity.
+
+For all requested files follow [native publication](../../docs/workspace-model.md#native-mutation-sequence): inspect the exact target and actual existing bytes/access; finish and durably retain all original and proposed files; separately reopen the complete preparation before any public write; publish complete bytes with actual no-clobber/stale-write protection; then reopen and check the whole affected set. Include README and any requested validation report. Inspect incomplete prior attempts before retrying. If required access, concurrent-writer protection or recoverable publication is unavailable, stop before mutation with the concrete limitation. This preparation is an internal execution safeguard, not another user draft approval gate.
 
 You turn a described procedure into a working skill: a directory with a `SKILL.md` and a `README.md` that follows this repo's conventions. Input is the user's request; output is a card Codex or Claude Code can follow.
 
@@ -42,7 +47,7 @@ A skill is a procedure card. Four load-bearing parts:
 
 ## Step 1 — Scaffold from the template
 
-Resolve `SKILL.example.md` and `README.md` from the non-installable bundled template at `<plugin-root>/assets/skill-maker-template/`, adapting `SKILL.example.md` into the target's `SKILL.md` and changing every line that describes the example. **This skill's output is files on disk, not a proposal**: for a new, safely resolved target, state the exact path and write both `SKILL.md` and `README.md` without presenting a draft first. Do not promise that a permission prompt will appear; permission behavior depends on the active Claude Code settings. If the bundled template can't be located, scaffold from the Anatomy table above.
+Read the non-installable bundled [SKILL template](../../assets/skill-maker-template/SKILL.example.md) and [README template](../../assets/skill-maker-template/README.md), adapting the first into the target's `SKILL.md` and changing every line that describes the example. **This skill's output is files on disk, not a proposal**: for a new, safely resolved target, state the exact path and write both files under existing authorization after complete preparation. Do not promise that a permission prompt will appear; permission behavior depends on the active host. If a required delivered template is missing or mismatched, report the release dependency issue; do not fabricate its bytes and claim template conformance.
 
 - **Name**: kebab-case, derived from the request. Directory name and frontmatter `name` must match.
 - **Description**: trigger-phrased — what the skill does AND when to invoke it, with phrases the user would actually say. A description that only labels never fires.
@@ -52,7 +57,7 @@ Resolve `SKILL.example.md` and `README.md` from the non-installable bundled temp
 
 **Where it goes** — resolve catalog, studio, and project boundaries before choosing a target:
 
-1. Run `git rev-parse --show-toplevel` and inspect `.codex-plugin/plugin.json` or `.claude-plugin/plugin.json`. If either has name `as`, this is the public catalog even when the current directory is nested inside it. Catalog detection has highest priority.
+1. Resolve the actual repository root using available host repository metadata or `git rev-parse --show-toplevel` when shell access is available, and inspect `.codex-plugin/plugin.json` or `.claude-plugin/plugin.json`. If either has name `as`, this is the public catalog even when the current directory is nested inside it. Catalog detection has highest priority. A loaded MCP resource or plugin cache is not a writable source checkout.
 2. Otherwise search upward for the nearest `STUDIO.md`. Its parent is the studio root, including when the current directory is a descendant project. This is the ordinary firm-skill boundary.
 3. Separately resolve the nearest `PROJECT.md` or project marker only for an explicitly requested project-only skill. Do not let a nearer project silently override a resolved studio.
 4. If no catalog, studio, or project marker is found, say that the current directory is only a fallback and ask the single allowed target question before writing.
@@ -70,7 +75,7 @@ For a project-only skill, warn that discovery is narrower and that starting insi
 
 ## Step 2 — Apply the conventions checklist
 
-Read `<plugin-root>/PATTERNS.md` at runtime and apply its rules to the scaffolded skill. Do not work from a remembered copy; the file is the authority.
+Read the complete [PATTERNS.md](../../PATTERNS.md) resource at the same release pin and apply its rules to the scaffolded skill. Do not work from a remembered copy; the file is the authority.
 
 Enforce these portable essentials regardless of target:
 
@@ -82,9 +87,15 @@ Enforce these portable essentials regardless of target:
 
 ## Step 3 — Verify
 
-For every target, run `bash "<plugin-root>/skills/skill-maker/scripts/validate-skill.sh" <absolute-skill-directory>` and fix every finding. This deterministic check verifies the directory/name contract, required files and frontmatter, and portable paths.
+For every target, implement the existing `skill_scaffold.validate` semantics with native facilities:
 
-**Inside the repo:** after the scaffold validator passes, run `<plugin-root>/scripts/lint.sh` from the resolved repository root and fix findings until green. Repository lint additionally verifies catalog membership and shared plugin contracts. No aggregate skill count needs updating.
+1. Input is exactly `{"directory": "<selected path>"}`, with a required string directory and no extra fields. The target must exist as a directory; its final name matches `[a-z0-9]+(?:-[a-z0-9]+)*` in full.
+2. Require a regular readable `README.md` and UTF-8 `SKILL.md`. Frontmatter begins at the first byte with `---` followed by LF or CRLF, contains YAML, and closes with a separate `---` line followed by newline or end of file. A leading BOM, absent delimiter or unreadable file is invalid.
+3. Parse YAML safely as data, never construct executable objects. The result must be a mapping; `name` equals the directory's final name, and `description` is a nonempty string after trimming. Do not substitute a substring search for YAML parsing; if a suitable native parser is unavailable, leave this check unverified.
+4. Reject `~/` anywhere in SKILL.md, including examples and frontmatter. Other Step 2 conventions remain additional human/content checks.
+5. On success report `{"valid": true, "directory": "<actual input path>", "name": "<directory name>"}` only after rereading the actual destination. On failure identify the failing check, fix only authorized scaffold files, and rerun the whole check; never emit valid true for a partial result. The check itself is read-only and does not validate host discovery or behavioral quality.
+
+**Inside an actual authorized source checkout:** after native scaffold checks pass, run the existing `<plugin-root>/scripts/lint.sh` from that verified checkout when available as maintainer validation and fix findings until green. Do not download or reconstruct it through MCP. Repository lint additionally verifies catalog membership and shared plugin contracts; unavailable lint leaves catalog-contribution acceptance pending without implying that private skill creation needs an Arch Studio runtime. No aggregate skill count needs updating.
 
 **Outside the repo:** run the Step 2 checklist explicitly, item by item, and say so. The house lint applies only to catalog contributions — a studio-owned, project-only, or global private skill owes it nothing.
 

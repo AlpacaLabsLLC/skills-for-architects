@@ -1,12 +1,12 @@
 name: Feature request
-description: Suggest an Architecture Studio improvement
+description: Suggest an Arch Studio improvement
 title: "[feature] "
 labels: [enhancement]
 body:
   - type: input
     id: version
     attributes:
-      label: Architecture Studio version
+      label: Arch Studio version
     validations:
       required: true
   - type: input

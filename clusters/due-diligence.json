@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "cluster:due-diligence",
+  "name": "Due Diligence",
+  "maintainer": "Arch Studio maintainers",
+  "scope": "Existing NYC property records and sourced site context.",
+  "members": [
+    "skill:nyc-property-report",
+    "skill:nyc-acris",
+    "skill:nyc-bsa",
+    "skill:nyc-dob-permits",
+    "skill:nyc-dob-violations",
+    "skill:nyc-hpd",
+    "skill:nyc-landmarks",
+    "skill:site-history",
+    "studio:workspace-contract",
+    "knowledge:sources",
+    "knowledge:jurisdictions"
+  ],
+  "dependencies": [],
+  "coverage": {
+    "jurisdictions": [
+      "jurisdiction:us-ny-nyc"
+    ],
+    "limitations": "Selected NYC agency routes are indexed as original-source metadata. Procedures cover NYC property records; no complete due-diligence coverage, current factual determination or validated cluster workflow is claimed.",
+    "sources_indexed": true,
+    "procedures_available": true,
+    "execution_implemented": false,
+    "workflow_validated": false
+  },
+  "host_requirements": [
+    "agent instruction following",
+    "read resources",
+    "skill-specific tools and authorized workspace access when required"
+  ],
+  "evaluations": [
+    {
+      "id": "due-diligence-discovery",
+      "kind": "contract",
+      "path": "tests/test-category-contracts.sh",
+      "claim": "Manifest membership and portability only; not workflow acceptance"
+    },
+    {
+      "id": "due-diligence-source-membership",
+      "kind": "contract",
+      "path": "tests/test-category-source-integration.sh",
+      "claim": "Shared source dependencies and truthful cluster declarations only; not workflow validation"
+    }
+  ],
+  "reviewed_on": "2026-09-13"
+}

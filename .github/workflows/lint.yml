@@ -13,18 +13,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      # lint.sh hard-fails in CI when shellcheck or jq is missing (it only
-      # skips them locally), so install them explicitly instead of trusting
-      # the runner image to keep shipping them (ALPA-366).
       - name: Install lint dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y shellcheck jq ripgrep
-          pip install pyyaml
+
+      - name: Read managed runtime versions
+        id: runtime
+        run: |
+          echo "python=$(jq -r .python tools/runner/runtime-lock.json)" >> "$GITHUB_OUTPUT"
+          echo "uv=$(jq -r .uv tools/runner/runtime-lock.json)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ steps.runtime.outputs.python }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24.20.0"
+
+      - name: Install managed operation dependencies
+        run: |
+          python -m pip install "uv==${{ steps.runtime.outputs.uv }}"
+          uv sync --frozen --project tools/runner --python "${{ steps.runtime.outputs.python }}"
+          echo "$PWD/tools/runner/.venv/bin" >> "$GITHUB_PATH"
 
       - name: Run lint
         run: ./scripts/lint.sh
@@ -35,6 +47,13 @@ jobs:
         run: |
           for test_file in tests/test-*.sh; do
             echo "::group::$test_file"
-            "$test_file"
+            bash "$test_file"
             echo "::endgroup::"
           done
+
+      - name: Document and packaged-operation engineering tests
+        run: |
+          python3 tests/test-documents.py
+          python3 tests/test-document-records.py
+          python3 tests/test-local-runner.py
+          python3 tests/test-operation-adapters.py

@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "id": "cluster:project-management",
+  "name": "Project Management",
+  "maintainer": "Arch Studio maintainers",
+  "scope": "Project identity, sourced records, plans, tasks and confirmed time.",
+  "members": [
+    "skill:project",
+    "skill:workplan",
+    "skill:tasklist",
+    "skill:timetracker",
+    "skill:meeting-minutes",
+    "skill:site-visit-report",
+    "skill:agreement",
+    "skill:architecture-knowledge",
+    "studio:workspace-contract",
+    "knowledge:sources",
+    "skill:receive"
+  ],
+  "dependencies": [],
+  "coverage": {
+    "jurisdictions": [],
+    "limitations": "Record procedures use their native semantic owners and the actual host’s authorized workspace capabilities. US professional terminology is reference guidance; it does not confirm facts, scope or decisions. No cluster-wide execution or end-to-end validation claim.",
+    "sources_indexed": false,
+    "procedures_available": true,
+    "execution_implemented": false,
+    "workflow_validated": false
+  },
+  "host_requirements": [
+    "agent instruction following",
+    "read resources",
+    "skill-specific tools and authorized workspace access when required"
+  ],
+  "evaluations": [
+    {
+      "id": "project-management-discovery",
+      "kind": "contract",
+      "path": "tests/test-category-contracts.sh",
+      "claim": "Manifest membership and portability only; not workflow acceptance"
+    },
+    {
+      "id": "project-management-source-membership",
+      "kind": "contract",
+      "path": "tests/test-category-source-integration.sh",
+      "claim": "Shared source dependencies and truthful cluster declarations only; not workflow validation"
+    }
+  ],
+  "reviewed_on": "2026-09-05"
+}

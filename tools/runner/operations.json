@@ -1,0 +1,3487 @@
+{
+  "schema_version": 1,
+  "includes": [
+    "skills/receive/scripts/operations.json"
+  ],
+  "operations": [
+    {
+      "id": "delivery_coverage.assess",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/transformers/delivery_coverage.py",
+      "argv": [
+        {
+          "field": "data",
+          "json_file": true
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "data": {}
+        },
+        "required": [
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "drawing_quantities.summarize",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/transformers/drawing_quantities.py",
+      "argv": [
+        {
+          "field": "data",
+          "json_file": true
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "data": {}
+        },
+        "required": [
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "lighting_report.build",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/transformers/lighting_report.py",
+      "argv": [
+        {
+          "field": "data",
+          "json_file": true
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "data": {}
+        },
+        "required": [
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "schedule_reconcile.compare",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/transformers/schedule_reconcile.py",
+      "argv": [
+        {
+          "field": "data",
+          "json_file": true
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "data": {}
+        },
+        "required": [
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "dimension_values.normalize",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/transformers/dimension_values.py",
+      "argv": [
+        {
+          "field": "data",
+          "json_file": true
+        },
+        {
+          "field": "unit",
+          "flag": "--unit"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "data": {},
+          "unit": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "ffe_audit.assess",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/validators/ffe_audit.py",
+      "argv": [
+        {
+          "field": "data",
+          "json_file": true
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "data": {}
+        },
+        "required": [
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "product_observations.validate",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/transformers/product_observations.py",
+      "argv": [
+        "validate",
+        {
+          "field": "data",
+          "json_file": true
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "data": {}
+        },
+        "required": [
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "product_observations.validate-batch",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/transformers/product_observations.py",
+      "argv": [
+        "validate-batch",
+        {
+          "field": "data",
+          "json_file": true
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "data": {}
+        },
+        "required": [
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "product_observations.adapt",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/transformers/product_observations.py",
+      "argv": [
+        "adapt",
+        {
+          "field": "data",
+          "json_file": true
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "data": {}
+        },
+        "required": [
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "pdf_evidence.extract",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/transformers/pdf_evidence.py",
+      "argv": [
+        "extract",
+        {
+          "field": "input"
+        },
+        {
+          "field": "page_map",
+          "flag": "--page-map"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string"
+          },
+          "page_map": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "input"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [
+        "PyMuPDF"
+      ],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "pdf_evidence.bind",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/transformers/pdf_evidence.py",
+      "argv": [
+        "bind",
+        {
+          "field": "input"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "input"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "ffe_intake.prepare",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/transformers/ffe_intake.py",
+      "argv": [
+        {
+          "field": "input",
+          "flag": "--input"
+        },
+        {
+          "field": "project",
+          "flag": "--project"
+        },
+        {
+          "field": "workspace",
+          "flag": "--workspace"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string"
+          },
+          "project": {
+            "type": "string"
+          },
+          "workspace": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "input"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "scratch-write"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "document_contracts.resolve",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/renderers/document_contracts.py",
+      "argv": [
+        "resolve",
+        {
+          "field": "kind",
+          "flag": "--kind"
+        },
+        {
+          "field": "page",
+          "flag": "--page"
+        },
+        {
+          "field": "orientation",
+          "flag": "--orientation"
+        },
+        {
+          "field": "measurement_units",
+          "flag": "--measurement-units"
+        },
+        {
+          "field": "output",
+          "flag": "--output"
+        },
+        {
+          "field": "custom_width",
+          "flag": "--custom-width"
+        },
+        {
+          "field": "custom_height",
+          "flag": "--custom-height"
+        },
+        {
+          "field": "custom_units",
+          "flag": "--custom-units"
+        },
+        {
+          "field": "studio",
+          "flag": "--studio"
+        },
+        {
+          "field": "project_assets",
+          "flag": "--project-assets"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "page": {
+            "type": "string"
+          },
+          "orientation": {
+            "type": "string"
+          },
+          "measurement_units": {
+            "type": "string"
+          },
+          "output": {
+            "type": "string"
+          },
+          "custom_width": {
+            "type": "number"
+          },
+          "custom_height": {
+            "type": "number"
+          },
+          "custom_units": {
+            "type": "string"
+          },
+          "studio": {
+            "type": "string"
+          },
+          "project_assets": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "page",
+          "orientation",
+          "measurement_units",
+          "output"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "scratch-write"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "ffe_outputs.prepare",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/renderers/ffe_outputs.py",
+      "argv": [
+        "prepare",
+        {
+          "field": "input",
+          "flag": "--input"
+        },
+        {
+          "field": "contract",
+          "flag": "--contract"
+        },
+        {
+          "field": "template",
+          "flag": "--template"
+        },
+        {
+          "field": "design",
+          "flag": "--design"
+        },
+        {
+          "field": "output",
+          "flag": "--output"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string"
+          },
+          "contract": {
+            "type": "string"
+          },
+          "template": {
+            "type": "string"
+          },
+          "design": {
+            "type": "string"
+          },
+          "output": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "input",
+          "contract",
+          "template",
+          "design",
+          "output"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "scratch-write"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "ffe_outputs.check",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/renderers/ffe_outputs.py",
+      "argv": [
+        "check",
+        {
+          "field": "job",
+          "flag": "--job"
+        },
+        {
+          "field": "input",
+          "flag": "--input"
+        },
+        {
+          "field": "contract",
+          "flag": "--contract"
+        },
+        {
+          "field": "template",
+          "flag": "--template"
+        },
+        {
+          "field": "design",
+          "flag": "--design"
+        },
+        {
+          "field": "inspection",
+          "flag": "--inspection"
+        },
+        {
+          "field": "receipt",
+          "flag": "--receipt"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "job": {
+            "type": "string"
+          },
+          "input": {
+            "type": "string"
+          },
+          "contract": {
+            "type": "string"
+          },
+          "template": {
+            "type": "string"
+          },
+          "design": {
+            "type": "string"
+          },
+          "inspection": {
+            "type": "string"
+          },
+          "receipt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "job",
+          "input",
+          "contract",
+          "template",
+          "design",
+          "inspection",
+          "receipt"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [
+        "pypdf",
+        "PyMuPDF"
+      ],
+      "effects": [
+        "scratch-write"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "ffe_outputs.resume",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/renderers/ffe_outputs.py",
+      "argv": [
+        "resume",
+        {
+          "field": "previous",
+          "flag": "--previous"
+        },
+        {
+          "field": "job",
+          "flag": "--job"
+        },
+        {
+          "field": "receipt",
+          "flag": "--receipt"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "previous": {
+            "type": "string"
+          },
+          "job": {
+            "type": "string"
+          },
+          "receipt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "previous",
+          "job",
+          "receipt"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "scratch-write"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "assistant_preference.preview",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/transformers/assistant_preference.py",
+      "argv": [
+        "preview",
+        {
+          "field": "target",
+          "flag": "--target"
+        },
+        {
+          "field": "scope",
+          "flag": "--scope"
+        },
+        {
+          "field": "action",
+          "flag": "--action"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "target": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "target",
+          "scope",
+          "action"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ],
+      "platforms": [
+        "darwin",
+        "linux"
+      ],
+      "unsupported_handoff": "Use a verified native host instruction-file editor on Windows; preserve the exact preview and approved diff."
+    },
+    {
+      "id": "assistant_preference.apply",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/transformers/assistant_preference.py",
+      "argv": [
+        "apply",
+        {
+          "field": "plan",
+          "flag": "--plan"
+        },
+        {
+          "field": "approval_digest",
+          "flag": "--approval-digest"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "plan": {
+            "type": "string"
+          },
+          "approval_digest": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "plan",
+          "approval_digest"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "canonical-write"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ],
+      "platforms": [
+        "darwin",
+        "linux"
+      ],
+      "unsupported_handoff": "Use a verified native host instruction-file editor on Windows; preserve the exact preview and approved diff."
+    },
+    {
+      "id": "clip_log.start",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/workspace/clip_log.py",
+      "argv": [
+        "start",
+        {
+          "field": "project",
+          "flag": "--project"
+        },
+        {
+          "field": "destination",
+          "flag": "--destination"
+        },
+        {
+          "field": "request_id",
+          "flag": "--request-id"
+        },
+        {
+          "field": "url",
+          "flag": "--url"
+        },
+        {
+          "field": "configuration",
+          "flag": "--configuration-json",
+          "json_string": true
+        },
+        {
+          "field": "prior_capture_id",
+          "flag": "--prior-capture-id"
+        },
+        {
+          "field": "outcome",
+          "flag": "--outcome"
+        },
+        {
+          "field": "observation",
+          "flag": "--observation-json",
+          "json_file": true
+        },
+        {
+          "field": "resolved_url",
+          "flag": "--resolved-url"
+        },
+        {
+          "field": "canonical_url",
+          "flag": "--canonical-url"
+        },
+        {
+          "field": "product",
+          "flag": "--product"
+        },
+        {
+          "field": "date_from",
+          "flag": "--date-from"
+        },
+        {
+          "field": "date_to",
+          "flag": "--date-to"
+        },
+        {
+          "field": "as_version",
+          "flag": "--as-version"
+        },
+        {
+          "field": "as_digest",
+          "flag": "--as-digest"
+        },
+        {
+          "field": "extractor_version",
+          "flag": "--extractor-version"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project": {
+            "type": "string"
+          },
+          "destination": {
+            "type": "string"
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "configuration": {
+            "type": "object"
+          },
+          "prior_capture_id": {
+            "type": "string"
+          },
+          "outcome": {
+            "type": "string"
+          },
+          "observation": {
+            "type": "object"
+          },
+          "resolved_url": {
+            "type": "string"
+          },
+          "canonical_url": {
+            "type": "string"
+          },
+          "product": {
+            "type": "string"
+          },
+          "date_from": {
+            "type": "string"
+          },
+          "date_to": {
+            "type": "string"
+          },
+          "as_version": {
+            "type": "string"
+          },
+          "as_digest": {
+            "type": "string"
+          },
+          "extractor_version": {
+            "type": "string"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "canonical-write"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "clip_log.finish",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/workspace/clip_log.py",
+      "argv": [
+        "finish",
+        {
+          "field": "project",
+          "flag": "--project"
+        },
+        {
+          "field": "destination",
+          "flag": "--destination"
+        },
+        {
+          "field": "request_id",
+          "flag": "--request-id"
+        },
+        {
+          "field": "url",
+          "flag": "--url"
+        },
+        {
+          "field": "configuration",
+          "flag": "--configuration-json",
+          "json_string": true
+        },
+        {
+          "field": "prior_capture_id",
+          "flag": "--prior-capture-id"
+        },
+        {
+          "field": "outcome",
+          "flag": "--outcome"
+        },
+        {
+          "field": "observation",
+          "flag": "--observation-json",
+          "json_file": true
+        },
+        {
+          "field": "resolved_url",
+          "flag": "--resolved-url"
+        },
+        {
+          "field": "canonical_url",
+          "flag": "--canonical-url"
+        },
+        {
+          "field": "product",
+          "flag": "--product"
+        },
+        {
+          "field": "date_from",
+          "flag": "--date-from"
+        },
+        {
+          "field": "date_to",
+          "flag": "--date-to"
+        },
+        {
+          "field": "as_version",
+          "flag": "--as-version"
+        },
+        {
+          "field": "as_digest",
+          "flag": "--as-digest"
+        },
+        {
+          "field": "extractor_version",
+          "flag": "--extractor-version"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project": {
+            "type": "string"
+          },
+          "destination": {
+            "type": "string"
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "configuration": {
+            "type": "object"
+          },
+          "prior_capture_id": {
+            "type": "string"
+          },
+          "outcome": {
+            "type": "string"
+          },
+          "observation": {
+            "type": "object"
+          },
+          "resolved_url": {
+            "type": "string"
+          },
+          "canonical_url": {
+            "type": "string"
+          },
+          "product": {
+            "type": "string"
+          },
+          "date_from": {
+            "type": "string"
+          },
+          "date_to": {
+            "type": "string"
+          },
+          "as_version": {
+            "type": "string"
+          },
+          "as_digest": {
+            "type": "string"
+          },
+          "extractor_version": {
+            "type": "string"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "canonical-write"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "clip_log.recover",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/workspace/clip_log.py",
+      "argv": [
+        "recover",
+        {
+          "field": "project",
+          "flag": "--project"
+        },
+        {
+          "field": "destination",
+          "flag": "--destination"
+        },
+        {
+          "field": "request_id",
+          "flag": "--request-id"
+        },
+        {
+          "field": "url",
+          "flag": "--url"
+        },
+        {
+          "field": "configuration",
+          "flag": "--configuration-json",
+          "json_string": true
+        },
+        {
+          "field": "prior_capture_id",
+          "flag": "--prior-capture-id"
+        },
+        {
+          "field": "outcome",
+          "flag": "--outcome"
+        },
+        {
+          "field": "observation",
+          "flag": "--observation-json",
+          "json_file": true
+        },
+        {
+          "field": "resolved_url",
+          "flag": "--resolved-url"
+        },
+        {
+          "field": "canonical_url",
+          "flag": "--canonical-url"
+        },
+        {
+          "field": "product",
+          "flag": "--product"
+        },
+        {
+          "field": "date_from",
+          "flag": "--date-from"
+        },
+        {
+          "field": "date_to",
+          "flag": "--date-to"
+        },
+        {
+          "field": "as_version",
+          "flag": "--as-version"
+        },
+        {
+          "field": "as_digest",
+          "flag": "--as-digest"
+        },
+        {
+          "field": "extractor_version",
+          "flag": "--extractor-version"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project": {
+            "type": "string"
+          },
+          "destination": {
+            "type": "string"
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "configuration": {
+            "type": "object"
+          },
+          "prior_capture_id": {
+            "type": "string"
+          },
+          "outcome": {
+            "type": "string"
+          },
+          "observation": {
+            "type": "object"
+          },
+          "resolved_url": {
+            "type": "string"
+          },
+          "canonical_url": {
+            "type": "string"
+          },
+          "product": {
+            "type": "string"
+          },
+          "date_from": {
+            "type": "string"
+          },
+          "date_to": {
+            "type": "string"
+          },
+          "as_version": {
+            "type": "string"
+          },
+          "as_digest": {
+            "type": "string"
+          },
+          "extractor_version": {
+            "type": "string"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "canonical-write"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "clip_log.history",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/workspace/clip_log.py",
+      "argv": [
+        "history",
+        {
+          "field": "project",
+          "flag": "--project"
+        },
+        {
+          "field": "destination",
+          "flag": "--destination"
+        },
+        {
+          "field": "request_id",
+          "flag": "--request-id"
+        },
+        {
+          "field": "url",
+          "flag": "--url"
+        },
+        {
+          "field": "configuration",
+          "flag": "--configuration-json",
+          "json_string": true
+        },
+        {
+          "field": "prior_capture_id",
+          "flag": "--prior-capture-id"
+        },
+        {
+          "field": "outcome",
+          "flag": "--outcome"
+        },
+        {
+          "field": "observation",
+          "flag": "--observation-json",
+          "json_file": true
+        },
+        {
+          "field": "resolved_url",
+          "flag": "--resolved-url"
+        },
+        {
+          "field": "canonical_url",
+          "flag": "--canonical-url"
+        },
+        {
+          "field": "product",
+          "flag": "--product"
+        },
+        {
+          "field": "date_from",
+          "flag": "--date-from"
+        },
+        {
+          "field": "date_to",
+          "flag": "--date-to"
+        },
+        {
+          "field": "as_version",
+          "flag": "--as-version"
+        },
+        {
+          "field": "as_digest",
+          "flag": "--as-digest"
+        },
+        {
+          "field": "extractor_version",
+          "flag": "--extractor-version"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project": {
+            "type": "string"
+          },
+          "destination": {
+            "type": "string"
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "configuration": {
+            "type": "object"
+          },
+          "prior_capture_id": {
+            "type": "string"
+          },
+          "outcome": {
+            "type": "string"
+          },
+          "observation": {
+            "type": "object"
+          },
+          "resolved_url": {
+            "type": "string"
+          },
+          "canonical_url": {
+            "type": "string"
+          },
+          "product": {
+            "type": "string"
+          },
+          "date_from": {
+            "type": "string"
+          },
+          "date_to": {
+            "type": "string"
+          },
+          "as_version": {
+            "type": "string"
+          },
+          "as_digest": {
+            "type": "string"
+          },
+          "extractor_version": {
+            "type": "string"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "ffe_records.adopt",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/workspace/ffe_records.py",
+      "argv": [
+        "adopt",
+        {
+          "field": "project",
+          "flag": "--project"
+        },
+        {
+          "field": "schedule",
+          "flag": "--schedule"
+        },
+        {
+          "field": "input",
+          "flag": "--input"
+        },
+        {
+          "field": "revision",
+          "flag": "--revision"
+        },
+        {
+          "field": "expected_revision",
+          "flag": "--expected-revision"
+        },
+        {
+          "field": "base_revision",
+          "flag": "--base-revision"
+        },
+        {
+          "field": "allow_remove",
+          "flag": "--allow-remove",
+          "boolean": true
+        },
+        {
+          "field": "native",
+          "flag": "--native"
+        },
+        {
+          "field": "phase",
+          "flag": "--phase"
+        },
+        {
+          "field": "snapshot",
+          "flag": "--snapshot"
+        },
+        {
+          "field": "destination",
+          "flag": "--destination"
+        },
+        {
+          "field": "kind",
+          "flag": "--kind"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project": {
+            "type": "string"
+          },
+          "schedule": {
+            "type": "string"
+          },
+          "input": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "integer"
+          },
+          "expected_revision": {
+            "type": "integer"
+          },
+          "base_revision": {
+            "type": "integer"
+          },
+          "allow_remove": {
+            "type": "boolean"
+          },
+          "native": {
+            "type": "string"
+          },
+          "phase": {
+            "type": "string"
+          },
+          "snapshot": {
+            "type": "string"
+          },
+          "destination": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "canonical-write"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "ffe_records.read",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/workspace/ffe_records.py",
+      "argv": [
+        "read",
+        {
+          "field": "project",
+          "flag": "--project"
+        },
+        {
+          "field": "schedule",
+          "flag": "--schedule"
+        },
+        {
+          "field": "input",
+          "flag": "--input"
+        },
+        {
+          "field": "revision",
+          "flag": "--revision"
+        },
+        {
+          "field": "expected_revision",
+          "flag": "--expected-revision"
+        },
+        {
+          "field": "base_revision",
+          "flag": "--base-revision"
+        },
+        {
+          "field": "allow_remove",
+          "flag": "--allow-remove",
+          "boolean": true
+        },
+        {
+          "field": "native",
+          "flag": "--native"
+        },
+        {
+          "field": "phase",
+          "flag": "--phase"
+        },
+        {
+          "field": "snapshot",
+          "flag": "--snapshot"
+        },
+        {
+          "field": "destination",
+          "flag": "--destination"
+        },
+        {
+          "field": "kind",
+          "flag": "--kind"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project": {
+            "type": "string"
+          },
+          "schedule": {
+            "type": "string"
+          },
+          "input": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "integer"
+          },
+          "expected_revision": {
+            "type": "integer"
+          },
+          "base_revision": {
+            "type": "integer"
+          },
+          "allow_remove": {
+            "type": "boolean"
+          },
+          "native": {
+            "type": "string"
+          },
+          "phase": {
+            "type": "string"
+          },
+          "snapshot": {
+            "type": "string"
+          },
+          "destination": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "ffe_records.revise",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/workspace/ffe_records.py",
+      "argv": [
+        "revise",
+        {
+          "field": "project",
+          "flag": "--project"
+        },
+        {
+          "field": "schedule",
+          "flag": "--schedule"
+        },
+        {
+          "field": "input",
+          "flag": "--input"
+        },
+        {
+          "field": "revision",
+          "flag": "--revision"
+        },
+        {
+          "field": "expected_revision",
+          "flag": "--expected-revision"
+        },
+        {
+          "field": "base_revision",
+          "flag": "--base-revision"
+        },
+        {
+          "field": "allow_remove",
+          "flag": "--allow-remove",
+          "boolean": true
+        },
+        {
+          "field": "native",
+          "flag": "--native"
+        },
+        {
+          "field": "phase",
+          "flag": "--phase"
+        },
+        {
+          "field": "snapshot",
+          "flag": "--snapshot"
+        },
+        {
+          "field": "destination",
+          "flag": "--destination"
+        },
+        {
+          "field": "kind",
+          "flag": "--kind"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project": {
+            "type": "string"
+          },
+          "schedule": {
+            "type": "string"
+          },
+          "input": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "integer"
+          },
+          "expected_revision": {
+            "type": "integer"
+          },
+          "base_revision": {
+            "type": "integer"
+          },
+          "allow_remove": {
+            "type": "boolean"
+          },
+          "native": {
+            "type": "string"
+          },
+          "phase": {
+            "type": "string"
+          },
+          "snapshot": {
+            "type": "string"
+          },
+          "destination": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "canonical-write"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "ffe_records.reconcile",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/workspace/ffe_records.py",
+      "argv": [
+        "reconcile",
+        {
+          "field": "project",
+          "flag": "--project"
+        },
+        {
+          "field": "schedule",
+          "flag": "--schedule"
+        },
+        {
+          "field": "input",
+          "flag": "--input"
+        },
+        {
+          "field": "revision",
+          "flag": "--revision"
+        },
+        {
+          "field": "expected_revision",
+          "flag": "--expected-revision"
+        },
+        {
+          "field": "base_revision",
+          "flag": "--base-revision"
+        },
+        {
+          "field": "allow_remove",
+          "flag": "--allow-remove",
+          "boolean": true
+        },
+        {
+          "field": "native",
+          "flag": "--native"
+        },
+        {
+          "field": "phase",
+          "flag": "--phase"
+        },
+        {
+          "field": "snapshot",
+          "flag": "--snapshot"
+        },
+        {
+          "field": "destination",
+          "flag": "--destination"
+        },
+        {
+          "field": "kind",
+          "flag": "--kind"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project": {
+            "type": "string"
+          },
+          "schedule": {
+            "type": "string"
+          },
+          "input": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "integer"
+          },
+          "expected_revision": {
+            "type": "integer"
+          },
+          "base_revision": {
+            "type": "integer"
+          },
+          "allow_remove": {
+            "type": "boolean"
+          },
+          "native": {
+            "type": "string"
+          },
+          "phase": {
+            "type": "string"
+          },
+          "snapshot": {
+            "type": "string"
+          },
+          "destination": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "ffe_records.snapshot",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/workspace/ffe_records.py",
+      "argv": [
+        "snapshot",
+        {
+          "field": "project",
+          "flag": "--project"
+        },
+        {
+          "field": "schedule",
+          "flag": "--schedule"
+        },
+        {
+          "field": "input",
+          "flag": "--input"
+        },
+        {
+          "field": "revision",
+          "flag": "--revision"
+        },
+        {
+          "field": "expected_revision",
+          "flag": "--expected-revision"
+        },
+        {
+          "field": "base_revision",
+          "flag": "--base-revision"
+        },
+        {
+          "field": "allow_remove",
+          "flag": "--allow-remove",
+          "boolean": true
+        },
+        {
+          "field": "native",
+          "flag": "--native"
+        },
+        {
+          "field": "phase",
+          "flag": "--phase"
+        },
+        {
+          "field": "snapshot",
+          "flag": "--snapshot"
+        },
+        {
+          "field": "destination",
+          "flag": "--destination"
+        },
+        {
+          "field": "kind",
+          "flag": "--kind"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project": {
+            "type": "string"
+          },
+          "schedule": {
+            "type": "string"
+          },
+          "input": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "integer"
+          },
+          "expected_revision": {
+            "type": "integer"
+          },
+          "base_revision": {
+            "type": "integer"
+          },
+          "allow_remove": {
+            "type": "boolean"
+          },
+          "native": {
+            "type": "string"
+          },
+          "phase": {
+            "type": "string"
+          },
+          "snapshot": {
+            "type": "string"
+          },
+          "destination": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "canonical-write"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "ffe_records.recover",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/workspace/ffe_records.py",
+      "argv": [
+        "recover",
+        {
+          "field": "project",
+          "flag": "--project"
+        },
+        {
+          "field": "schedule",
+          "flag": "--schedule"
+        },
+        {
+          "field": "input",
+          "flag": "--input"
+        },
+        {
+          "field": "revision",
+          "flag": "--revision"
+        },
+        {
+          "field": "expected_revision",
+          "flag": "--expected-revision"
+        },
+        {
+          "field": "base_revision",
+          "flag": "--base-revision"
+        },
+        {
+          "field": "allow_remove",
+          "flag": "--allow-remove",
+          "boolean": true
+        },
+        {
+          "field": "native",
+          "flag": "--native"
+        },
+        {
+          "field": "phase",
+          "flag": "--phase"
+        },
+        {
+          "field": "snapshot",
+          "flag": "--snapshot"
+        },
+        {
+          "field": "destination",
+          "flag": "--destination"
+        },
+        {
+          "field": "kind",
+          "flag": "--kind"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project": {
+            "type": "string"
+          },
+          "schedule": {
+            "type": "string"
+          },
+          "input": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "integer"
+          },
+          "expected_revision": {
+            "type": "integer"
+          },
+          "base_revision": {
+            "type": "integer"
+          },
+          "allow_remove": {
+            "type": "boolean"
+          },
+          "native": {
+            "type": "string"
+          },
+          "phase": {
+            "type": "string"
+          },
+          "snapshot": {
+            "type": "string"
+          },
+          "destination": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "canonical-write"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "ffe_records.export",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/workspace/ffe_records.py",
+      "argv": [
+        "export",
+        {
+          "field": "project",
+          "flag": "--project"
+        },
+        {
+          "field": "schedule",
+          "flag": "--schedule"
+        },
+        {
+          "field": "input",
+          "flag": "--input"
+        },
+        {
+          "field": "revision",
+          "flag": "--revision"
+        },
+        {
+          "field": "expected_revision",
+          "flag": "--expected-revision"
+        },
+        {
+          "field": "base_revision",
+          "flag": "--base-revision"
+        },
+        {
+          "field": "allow_remove",
+          "flag": "--allow-remove",
+          "boolean": true
+        },
+        {
+          "field": "native",
+          "flag": "--native"
+        },
+        {
+          "field": "phase",
+          "flag": "--phase"
+        },
+        {
+          "field": "snapshot",
+          "flag": "--snapshot"
+        },
+        {
+          "field": "destination",
+          "flag": "--destination"
+        },
+        {
+          "field": "kind",
+          "flag": "--kind"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project": {
+            "type": "string"
+          },
+          "schedule": {
+            "type": "string"
+          },
+          "input": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "integer"
+          },
+          "expected_revision": {
+            "type": "integer"
+          },
+          "base_revision": {
+            "type": "integer"
+          },
+          "allow_remove": {
+            "type": "boolean"
+          },
+          "native": {
+            "type": "string"
+          },
+          "phase": {
+            "type": "string"
+          },
+          "snapshot": {
+            "type": "string"
+          },
+          "destination": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "canonical-write"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "product_library.init",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "skills/product-library/scripts/csv-library.py",
+      "argv": [
+        "init",
+        {
+          "field": "kind"
+        },
+        {
+          "field": "project",
+          "flag": "--project"
+        },
+        {
+          "field": "source",
+          "flag": "--source"
+        },
+        {
+          "field": "row_json",
+          "flag": "--row-json",
+          "json_file": true
+        },
+        {
+          "field": "match_column",
+          "flag": "--match-column"
+        },
+        {
+          "field": "match_value",
+          "flag": "--match-value"
+        },
+        {
+          "field": "replace_existing",
+          "flag": "--replace-existing",
+          "boolean": true
+        },
+        {
+          "field": "operation",
+          "flag": "--operation"
+        },
+        {
+          "field": "request_id",
+          "flag": "--request-id"
+        },
+        {
+          "field": "expected_sha256",
+          "flag": "--expected-sha256"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "project": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "row_json": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            ]
+          },
+          "match_column": {
+            "type": "string"
+          },
+          "match_value": {
+            "type": "string"
+          },
+          "replace_existing": {
+            "type": "boolean"
+          },
+          "operation": {
+            "type": "string"
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "expected_sha256": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "project"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "canonical-write"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "product_library.status",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "skills/product-library/scripts/csv-library.py",
+      "argv": [
+        "status",
+        {
+          "field": "kind"
+        },
+        {
+          "field": "project",
+          "flag": "--project"
+        },
+        {
+          "field": "source",
+          "flag": "--source"
+        },
+        {
+          "field": "row_json",
+          "flag": "--row-json",
+          "json_file": true
+        },
+        {
+          "field": "match_column",
+          "flag": "--match-column"
+        },
+        {
+          "field": "match_value",
+          "flag": "--match-value"
+        },
+        {
+          "field": "replace_existing",
+          "flag": "--replace-existing",
+          "boolean": true
+        },
+        {
+          "field": "operation",
+          "flag": "--operation"
+        },
+        {
+          "field": "request_id",
+          "flag": "--request-id"
+        },
+        {
+          "field": "expected_sha256",
+          "flag": "--expected-sha256"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "project": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "row_json": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            ]
+          },
+          "match_column": {
+            "type": "string"
+          },
+          "match_value": {
+            "type": "string"
+          },
+          "replace_existing": {
+            "type": "boolean"
+          },
+          "operation": {
+            "type": "string"
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "expected_sha256": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "project"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "product_library.validate",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "skills/product-library/scripts/csv-library.py",
+      "argv": [
+        "validate",
+        {
+          "field": "kind"
+        },
+        {
+          "field": "project",
+          "flag": "--project"
+        },
+        {
+          "field": "source",
+          "flag": "--source"
+        },
+        {
+          "field": "row_json",
+          "flag": "--row-json",
+          "json_file": true
+        },
+        {
+          "field": "match_column",
+          "flag": "--match-column"
+        },
+        {
+          "field": "match_value",
+          "flag": "--match-value"
+        },
+        {
+          "field": "replace_existing",
+          "flag": "--replace-existing",
+          "boolean": true
+        },
+        {
+          "field": "operation",
+          "flag": "--operation"
+        },
+        {
+          "field": "request_id",
+          "flag": "--request-id"
+        },
+        {
+          "field": "expected_sha256",
+          "flag": "--expected-sha256"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "project": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "row_json": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            ]
+          },
+          "match_column": {
+            "type": "string"
+          },
+          "match_value": {
+            "type": "string"
+          },
+          "replace_existing": {
+            "type": "boolean"
+          },
+          "operation": {
+            "type": "string"
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "expected_sha256": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "project"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "product_library.import",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "skills/product-library/scripts/csv-library.py",
+      "argv": [
+        "import",
+        {
+          "field": "kind"
+        },
+        {
+          "field": "project",
+          "flag": "--project"
+        },
+        {
+          "field": "source",
+          "flag": "--source"
+        },
+        {
+          "field": "row_json",
+          "flag": "--row-json",
+          "json_file": true
+        },
+        {
+          "field": "match_column",
+          "flag": "--match-column"
+        },
+        {
+          "field": "match_value",
+          "flag": "--match-value"
+        },
+        {
+          "field": "replace_existing",
+          "flag": "--replace-existing",
+          "boolean": true
+        },
+        {
+          "field": "operation",
+          "flag": "--operation"
+        },
+        {
+          "field": "request_id",
+          "flag": "--request-id"
+        },
+        {
+          "field": "expected_sha256",
+          "flag": "--expected-sha256"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "project": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "row_json": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            ]
+          },
+          "match_column": {
+            "type": "string"
+          },
+          "match_value": {
+            "type": "string"
+          },
+          "replace_existing": {
+            "type": "boolean"
+          },
+          "operation": {
+            "type": "string"
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "expected_sha256": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "project"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "canonical-write"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "product_library.append",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "skills/product-library/scripts/csv-library.py",
+      "argv": [
+        "append",
+        {
+          "field": "kind"
+        },
+        {
+          "field": "project",
+          "flag": "--project"
+        },
+        {
+          "field": "source",
+          "flag": "--source"
+        },
+        {
+          "field": "row_json",
+          "flag": "--row-json",
+          "json_file": true
+        },
+        {
+          "field": "match_column",
+          "flag": "--match-column"
+        },
+        {
+          "field": "match_value",
+          "flag": "--match-value"
+        },
+        {
+          "field": "replace_existing",
+          "flag": "--replace-existing",
+          "boolean": true
+        },
+        {
+          "field": "operation",
+          "flag": "--operation"
+        },
+        {
+          "field": "request_id",
+          "flag": "--request-id"
+        },
+        {
+          "field": "expected_sha256",
+          "flag": "--expected-sha256"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "project": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "row_json": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            ]
+          },
+          "match_column": {
+            "type": "string"
+          },
+          "match_value": {
+            "type": "string"
+          },
+          "replace_existing": {
+            "type": "boolean"
+          },
+          "operation": {
+            "type": "string"
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "expected_sha256": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "project"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "canonical-write"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "product_library.update",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "skills/product-library/scripts/csv-library.py",
+      "argv": [
+        "update",
+        {
+          "field": "kind"
+        },
+        {
+          "field": "project",
+          "flag": "--project"
+        },
+        {
+          "field": "source",
+          "flag": "--source"
+        },
+        {
+          "field": "row_json",
+          "flag": "--row-json",
+          "json_file": true
+        },
+        {
+          "field": "match_column",
+          "flag": "--match-column"
+        },
+        {
+          "field": "match_value",
+          "flag": "--match-value"
+        },
+        {
+          "field": "replace_existing",
+          "flag": "--replace-existing",
+          "boolean": true
+        },
+        {
+          "field": "operation",
+          "flag": "--operation"
+        },
+        {
+          "field": "request_id",
+          "flag": "--request-id"
+        },
+        {
+          "field": "expected_sha256",
+          "flag": "--expected-sha256"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "project": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "row_json": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            ]
+          },
+          "match_column": {
+            "type": "string"
+          },
+          "match_value": {
+            "type": "string"
+          },
+          "replace_existing": {
+            "type": "boolean"
+          },
+          "operation": {
+            "type": "string"
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "expected_sha256": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "project"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "canonical-write"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "product_library.preview",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "skills/product-library/scripts/csv-library.py",
+      "argv": [
+        "preview",
+        {
+          "field": "kind"
+        },
+        {
+          "field": "project",
+          "flag": "--project"
+        },
+        {
+          "field": "source",
+          "flag": "--source"
+        },
+        {
+          "field": "row_json",
+          "flag": "--row-json",
+          "json_file": true
+        },
+        {
+          "field": "match_column",
+          "flag": "--match-column"
+        },
+        {
+          "field": "match_value",
+          "flag": "--match-value"
+        },
+        {
+          "field": "replace_existing",
+          "flag": "--replace-existing",
+          "boolean": true
+        },
+        {
+          "field": "operation",
+          "flag": "--operation"
+        },
+        {
+          "field": "request_id",
+          "flag": "--request-id"
+        },
+        {
+          "field": "expected_sha256",
+          "flag": "--expected-sha256"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "project": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "row_json": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            ]
+          },
+          "match_column": {
+            "type": "string"
+          },
+          "match_value": {
+            "type": "string"
+          },
+          "replace_existing": {
+            "type": "boolean"
+          },
+          "operation": {
+            "type": "string"
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "expected_sha256": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "project"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "product_library.recover",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "skills/product-library/scripts/csv-library.py",
+      "argv": [
+        "recover",
+        {
+          "field": "kind"
+        },
+        {
+          "field": "project",
+          "flag": "--project"
+        },
+        {
+          "field": "source",
+          "flag": "--source"
+        },
+        {
+          "field": "row_json",
+          "flag": "--row-json",
+          "json_file": true
+        },
+        {
+          "field": "match_column",
+          "flag": "--match-column"
+        },
+        {
+          "field": "match_value",
+          "flag": "--match-value"
+        },
+        {
+          "field": "replace_existing",
+          "flag": "--replace-existing",
+          "boolean": true
+        },
+        {
+          "field": "operation",
+          "flag": "--operation"
+        },
+        {
+          "field": "request_id",
+          "flag": "--request-id"
+        },
+        {
+          "field": "expected_sha256",
+          "flag": "--expected-sha256"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "project": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "row_json": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            ]
+          },
+          "match_column": {
+            "type": "string"
+          },
+          "match_value": {
+            "type": "string"
+          },
+          "replace_existing": {
+            "type": "boolean"
+          },
+          "operation": {
+            "type": "string"
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "expected_sha256": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "project"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "canonical-write"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "resize_images.resize",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "skills/resize-images/scripts/resize_images.py",
+      "argv": [
+        {
+          "field": "folder"
+        },
+        {
+          "field": "modes"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "folder": {
+            "type": "string"
+          },
+          "modes": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "web",
+                "social",
+                "slides",
+                "print"
+              ]
+            }
+          }
+        },
+        "required": [
+          "folder",
+          "modes"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [
+        "Pillow"
+      ],
+      "effects": [
+        "scratch-write"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "skill_scaffold.validate",
+      "module": "skills/skill-maker/scripts/validate_skill.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "directory": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "directory"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [
+        "PyYAML"
+      ],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-local-runner.py"
+      ]
+    },
+    {
+      "id": "workbook_preservation.compare",
+      "module": "tools/validators/workbook_preservation.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "before": {
+            "type": "string"
+          },
+          "after": {
+            "type": "string"
+          },
+          "allowed_edits": {
+            "type": "array"
+          }
+        },
+        "required": [
+          "before",
+          "after",
+          "allowed_edits"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-local-runner.py"
+      ]
+    },
+    {
+      "id": "update_preference.status",
+      "module": "skills/studio/scripts/update_preference.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "state_directory": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "state_directory"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-local-runner.py"
+      ]
+    },
+    {
+      "id": "update_preference.enable",
+      "module": "skills/studio/scripts/update_preference.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "state_directory": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "state_directory"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "canonical-write"
+      ],
+      "fixtures": [
+        "tests/test-local-runner.py"
+      ]
+    },
+    {
+      "id": "update_preference.disable",
+      "module": "skills/studio/scripts/update_preference.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "state_directory": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "state_directory"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "canonical-write"
+      ],
+      "fixtures": [
+        "tests/test-local-runner.py"
+      ]
+    },
+    {
+      "id": "capabilities.validate",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/validators/capabilities.py",
+      "argv": [],
+      "input_schema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "capabilities.write",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/validators/capabilities.py",
+      "argv": [
+        "--write"
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "canonical-write"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "capabilities.check",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/validators/capabilities.py",
+      "argv": [
+        "--check"
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "categories.validate",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/validators/validate-categories.py",
+      "argv": [],
+      "input_schema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "categories.write-guide",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/validators/validate-categories.py",
+      "argv": [
+        "--write-guide"
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "canonical-write"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "categories.check-guide",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/validators/validate-categories.py",
+      "argv": [
+        "--check-guide"
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "namespace.validate",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/validators/check-plugin-namespace.py",
+      "argv": [
+        {
+          "field": "root"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "root": {
+            "type": "string"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "geographic_applicability.validate",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/validators/geographic_applicability.py",
+      "argv": [],
+      "input_schema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "geographic_applicability.assess",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/validators/geographic_applicability.py",
+      "argv": [
+        "--assess"
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "assessment": {}
+        },
+        "required": [
+          "assessment"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ],
+      "stdin_field": "assessment"
+    },
+    {
+      "id": "host_contracts.validate",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/validators/host_contracts.py",
+      "argv": [],
+      "input_schema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "host_contracts.assess",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/validators/host_contracts.py",
+      "argv": [
+        {
+          "field": "component",
+          "flag": "--component"
+        },
+        {
+          "field": "mode",
+          "flag": "--mode"
+        },
+        {
+          "field": "evidence",
+          "flag": "--evidence",
+          "json_file": true
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "component": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          },
+          "evidence": {}
+        },
+        "required": [
+          "component",
+          "mode",
+          "evidence"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "source_health.validate",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/integrations/source-health.mjs",
+      "argv": [
+        "--validate"
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "source_health.check",
+      "module": "tools/runner/adapters.py",
+      "handler": "dispatch",
+      "script": "tools/integrations/source-health.mjs",
+      "argv": [
+        "--check",
+        {
+          "field": "sources"
+        }
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "sources"
+        ],
+        "additionalProperties": false
+      },
+      "dependencies": [],
+      "effects": [
+        "read"
+      ],
+      "fixtures": [
+        "tests/test-operation-adapters.py"
+      ]
+    },
+    {
+      "id": "delivery_coverage.verify-links",
+      "module": "tools/transformers/delivery_coverage.py",
+      "handler": "dispatch",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "expected": {
+            "type": "array"
+          }
+        },
+        "required": [
+          "expected"
+        ],
+        "additionalProperties": false
+      },
+      "effects": [
+        "read"
+      ],
+      "dependencies": [],
+      "fixtures": [
+        "tests/test-local-runner.py"
+      ]
+    }
+  ]
+}
