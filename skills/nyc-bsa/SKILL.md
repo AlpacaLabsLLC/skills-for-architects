@@ -13,6 +13,12 @@ allowed-tools:
 <!-- architecture-studio:harness-compatibility -->
 > Harness note: use `/as:<skill>` on Claude Code and `$<skill>` on Codex. Resolve `<skill-root>` as the directory containing this loaded `SKILL.md` and `<plugin-root>` as the plugin root that contains `skills/`, and use equivalent native tools when host tool names differ.
 
+## Maintained geographic source references
+
+Before relying on a NYC source, resolve `source:nyc-bsa-resolutions` through [the canonical source index](../../corpus/sources/catalog.json) and follow [the shared lookup evidence contract](../../corpus/jurisdictions/us/ny/nyc/local-procedures/lookup.md). These records own source identity, edition/access limitations and current retrieval routes; existing dataset-query steps below remain the workflow, not a second editable legal source map.
+
+Keep property-specific relief/history here; a base zoning provision belongs to /as:nyc-zoning-provision, and a BSA application is not proof a resolution granted relief.
+
 Look up Board of Standards and Appeals (BSA) applications, variances, and special permits for any NYC property. Records available from 1998 to present. No API key required.
 
 ## Usage

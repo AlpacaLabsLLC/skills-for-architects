@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "record_type": "source",
+  "data": {
+    "id": "source:nyc-zoning-resolution",
+    "title": "NYC Zoning Resolution",
+    "url": "https://zr.planning.nyc.gov/",
+    "document_kind": "legal-publication",
+    "authority": "authority:nyc-dcp",
+    "jurisdiction": "jurisdiction:us-ny-nyc",
+    "edition": null,
+    "effective_date": null,
+    "rights": "Bounded quotation of enacted city-law provision, not site assets or complete republication; preserve citation and disclaim applicability; specialist rights review pending.",
+    "access": "public",
+    "adapter": "integration:source-lookup",
+    "identity": {
+      "contains_all": [
+        "Zoning Resolution"
+      ],
+      "allowed_content_types": [
+        "text/html"
+      ],
+      "max_bytes": 1048576
+    },
+    "existing_skills": [
+      "zoning-analysis-nyc"
+    ],
+    "governance": {
+      "published_date": null,
+      "enacted_date": null,
+      "repealed_date": null,
+      "applicability": {
+        "conditions": [],
+        "unknowns": [
+          "Current online publication not proof of historical applicable version.",
+          "Current bounded HTML extractor has no verified structural section selector for this source; provision retrieval is unavailable."
+        ]
+      },
+      "review": {
+        "status": "pending-human-review",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "maintainer": "Architecture Studio maintainers",
+      "evidence": [
+        {
+          "url": "https://zr.planning.nyc.gov/",
+          "checked_at": "2026-09-06",
+          "note": "Current online publication not proof of historical applicable version."
+        }
+      ],
+      "family_id": null
+    },
+    "retrieval": {
+      "mode": "metadata-only",
+      "allowed_origins": [
+        "https://zr.planning.nyc.gov"
+      ],
+      "max_excerpt_chars": 1200,
+      "provisions": {
+        "37-70": {
+          "url": "https://zr.planning.nyc.gov/article-iii/chapter-7/37-70",
+          "contains_all": [
+            "37-70",
+            "PUBLIC PLAZAS"
+          ]
+        }
+      }
+    },
+    "checked_at": null
+  },
+  "relationships": [
+    {
+      "from": "source:nyc-zoning-resolution",
+      "type": "published-by",
+      "to": "authority:nyc-dcp",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "skills/zoning-analysis-nyc/zoning-rules/overview.md"
+    }
+  ]
+}

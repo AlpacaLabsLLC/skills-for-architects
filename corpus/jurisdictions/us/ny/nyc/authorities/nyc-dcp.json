@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "record_type": "authority",
+  "data": {
+    "id": "authority:nyc-dcp",
+    "name": "NYC Department of City Planning",
+    "jurisdiction": "jurisdiction:us-ny-nyc"
+  }
+}

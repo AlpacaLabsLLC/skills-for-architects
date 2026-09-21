@@ -34,7 +34,7 @@ export function validateShape(value, schema, path = '$') {
     if (schema.format === 'date-time' && (!/^\d{4}-\d{2}-\d{2}T.*Z$/.test(value) || !Number.isFinite(Date.parse(value)))) fail(path);
     if (schema.format === 'https-url') {
       let url; try { url = new URL(value); } catch { fail(path); }
-      if (url.protocol !== 'https:' || url.username || url.password || url.hash || /(?:token|key|secret|password|authorization)/i.test(url.search)) fail(path);
+      if (url.protocol !== 'https:' || url.username || url.password || url.hash || /(?:^|[?&])(?:token|access_token|key|api[_-]?key|secret|password|authorization)=/i.test(url.search)) fail(path);
     }
   }
 }

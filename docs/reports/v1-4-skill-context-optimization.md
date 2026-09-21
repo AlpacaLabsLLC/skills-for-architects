@@ -4,10 +4,10 @@ Measured with `scripts/audit-skill-context.sh`. Characters, words, and lines are
 
 | Measure | Baseline | Final | Delta |
 |---|---:|---:|---:|
-| Skills discovered | 46 | 53 | +7 (+15.2%) |
-| Description characters | 12,990 | 12,791 | -199 (-1.5%) |
-| Description estimated tokens | 3,266 | 3,219 | -47 (-1.4%) |
-| Skill-body characters | 387,881 | 498,892 | +111,011 (+28.6%) |
+| Skills discovered | 46 | 98 | +52 (+113.0%) |
+| Description characters | 12,990 | 20,716 | +7,726 (+59.5%) |
+| Description estimated tokens | 3,266 | 5,219 | +1,953 (+59.8%) |
+| Skill-body characters | 387,881 | 635,797 | +247,916 (+63.9%) |
 
 The standing-description reduction preserves distinguishing positive and negative routes in high-risk pairs: workplace programming versus code occupancy, EPD write versus parse/find/compare, product research versus image matching/pairing, and NYC base zoning versus BSA relief/3D visualization.
 
@@ -17,4 +17,4 @@ The final column is the integrated checkout measurement, including correctness, 
 
 Foundation integration refresh (2026-09-05, code commit `2957b91`): skill-body bytes increased by 770 from the preceding candidate measurement (450,601), reflecting commercial duplicate/record-separator guidance and category-discovery links. Skill count and description totals are unchanged. This table intentionally tracks the integrated checkout; the prior measurement is retained here as history.
 
-FF&E integration refresh (2026-09-05): the expanded candidate has 53 skills. Added audit/cut-sheet/book entry points and shared record, source-evidence and host-workbook boundaries increase context intentionally. The preceding foundation measurement was 50 skills, 12,081 description characters, 3,041 estimated description tokens and 451,371 body characters. Shared layout rules remain in centralized studio assets rather than copied into each skill.
+NYC reference candidate refresh (2026-09-07): 45 atomic reference cards add to the prior 53-skill FF&E candidate. Shared retrieval, rights and applicability procedure remains centralized. These measurements describe discovery/instruction volume, not successful regulatory workflows. The preceding FF&E measurement was 53 skills, 12,791 description characters, 3,219 estimated description tokens and 498,892 body characters; the foundation measurement was 50 skills, 12,081 description characters, 3,041 estimated description tokens and 451,371 body characters.

@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "record_type": "source",
+  "data": {
+    "id": "source:nyc-electrical-code",
+    "title": "NYC Electrical Code",
+    "url": "https://www.nyc.gov/site/buildings/codes/electrical-code.page",
+    "document_kind": "code-index",
+    "authority": "authority:nyc-dob",
+    "jurisdiction": "jurisdiction:us-ny-nyc",
+    "edition": "2025",
+    "effective_date": "2025-12-21",
+    "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+    "access": "public",
+    "adapter": "integration:public-source-health",
+    "identity": {
+      "contains_all": [
+        "2025"
+      ],
+      "allowed_content_types": [
+        "text/html"
+      ],
+      "max_bytes": 1048576
+    },
+    "existing_skills": [],
+    "governance": {
+      "published_date": null,
+      "enacted_date": null,
+      "repealed_date": null,
+      "applicability": {
+        "conditions": [],
+        "unknowns": [
+          "Full effect December21 2025; NYC amendments to NFPA70-2020; NEC publisher rights separate."
+        ]
+      },
+      "review": {
+        "status": "pending-human-review",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "maintainer": "Architecture Studio maintainers",
+      "evidence": [
+        {
+          "url": "https://www.nyc.gov/site/buildings/codes/electrical-code.page",
+          "checked_at": "2026-09-06",
+          "note": "Full effect December21 2025; NYC amendments to NFPA70-2020; NEC publisher rights separate."
+        }
+      ],
+      "family_id": "family:nyc-electrical-code"
+    },
+    "retrieval": {
+      "mode": "metadata-only",
+      "allowed_origins": [
+        "https://www.nyc.gov"
+      ],
+      "max_excerpt_chars": 1200,
+      "provisions": {}
+    },
+    "checked_at": null
+  },
+  "relationships": [
+    {
+      "from": "source:nyc-electrical-code",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": "2025",
+      "effective_date": "2025-12-21",
+      "evidence": "corpus/jurisdictions/us/ny/nyc/codes/nyc-electrical-code.json"
+    }
+  ]
+}

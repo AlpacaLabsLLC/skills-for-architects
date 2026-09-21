@@ -2,17 +2,848 @@
   "schema_version": 1,
   "authorities": [
     {
-      "id": "authority:nyc-dob",
-      "name": "NYC Department of Buildings",
+      "id": "authority:ny-legislature",
+      "name": "New York State Legislature",
+      "jurisdiction": "jurisdiction:us-ny"
+    },
+    {
+      "id": "authority:nyc-bsa",
+      "name": "NYC Board of Standards and Appeals",
       "jurisdiction": "jurisdiction:us-ny-nyc"
     },
     {
       "id": "authority:nyc-dcp",
       "name": "NYC Department of City Planning",
       "jurisdiction": "jurisdiction:us-ny-nyc"
+    },
+    {
+      "id": "authority:nyc-dep",
+      "name": "NYC Department of Environmental Protection",
+      "jurisdiction": "jurisdiction:us-ny-nyc"
+    },
+    {
+      "id": "authority:nyc-dob",
+      "name": "NYC Department of Buildings",
+      "jurisdiction": "jurisdiction:us-ny-nyc"
+    },
+    {
+      "id": "authority:nyc-dof",
+      "name": "NYC Department of Finance",
+      "jurisdiction": "jurisdiction:us-ny-nyc"
+    },
+    {
+      "id": "authority:nyc-dot",
+      "name": "NYC Department of Transportation",
+      "jurisdiction": "jurisdiction:us-ny-nyc"
+    },
+    {
+      "id": "authority:nyc-fdny",
+      "name": "NYC Fire Department",
+      "jurisdiction": "jurisdiction:us-ny-nyc"
+    },
+    {
+      "id": "authority:nyc-hpd",
+      "name": "NYC Department of Housing Preservation and Development",
+      "jurisdiction": "jurisdiction:us-ny-nyc"
+    },
+    {
+      "id": "authority:nyc-lpc",
+      "name": "NYC Landmarks Preservation Commission",
+      "jurisdiction": "jurisdiction:us-ny-nyc"
+    },
+    {
+      "id": "authority:nyc-mayor",
+      "name": "NYC Office of the Mayor",
+      "jurisdiction": "jurisdiction:us-ny-nyc"
+    },
+    {
+      "id": "authority:nyc-operations",
+      "name": "NYC Mayor's Office of Operations",
+      "jurisdiction": "jurisdiction:us-ny-nyc"
+    },
+    {
+      "id": "authority:nyc-parks",
+      "name": "NYC Department of Parks and Recreation",
+      "jurisdiction": "jurisdiction:us-ny-nyc"
+    },
+    {
+      "id": "authority:us-doj",
+      "name": "United States Department of Justice",
+      "jurisdiction": "jurisdiction:us-federal"
     }
   ],
   "sources": [
+    {
+      "id": "source:ny-multiple-dwelling-law",
+      "title": "NY Multiple Dwelling Law",
+      "url": "https://www.nysenate.gov/legislation/laws/MDW",
+      "document_kind": "legal-publication",
+      "authority": "authority:ny-legislature",
+      "jurisdiction": "jurisdiction:us-ny",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Bounded quotation of state enacted statute; no third-party assets; preserve source and revision label.",
+      "access": "public",
+      "adapter": "integration:source-lookup",
+      "identity": {
+        "contains_all": [
+          "Multiple Dwelling"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "State-owned; section history distinct from applicability.",
+            "Current bounded HTML extractor has no verified structural section selector for this source; provision retrieval is unavailable."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nysenate.gov/legislation/laws/MDW",
+            "checked_at": "2026-09-06",
+            "note": "State-owned; section history distinct from applicability."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nysenate.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {
+          "section-2": {
+            "url": "https://www.nysenate.gov/legislation/laws/MDW/2",
+            "contains_all": [
+              "SECTION 2",
+              "Legislative finding",
+              "Multiple Dwelling"
+            ]
+          }
+        }
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-acris",
+      "title": "ACRIS property records",
+      "url": "https://www.nyc.gov/site/finance/property/acris.page",
+      "document_kind": "guidance",
+      "authority": "authority:nyc-dof",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "ACRIS"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Recorded evidence not title opinion; interactive search may be required."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/finance/property/acris.page",
+            "checked_at": "2026-09-06",
+            "note": "Recorded evidence not title opinion; interactive search may be required."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-agency-rules",
+      "title": "NYC Rules",
+      "url": "https://rules.cityofnewyork.us/",
+      "document_kind": "instrument-index",
+      "authority": "authority:nyc-operations",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "Rules"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Adopted versus proposed; codified RCNY and final notices separate."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://rules.cityofnewyork.us/",
+            "checked_at": "2026-09-06",
+            "note": "Adopted versus proposed; codified RCNY and final notices separate."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://rules.cityofnewyork.us"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-air-pollution",
+      "title": "DEP air pollution regulations",
+      "url": "https://www.nyc.gov/site/dep/environment/air-pollution-regulations.page",
+      "document_kind": "guidance",
+      "authority": "authority:nyc-dep",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "Air Code"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Guidance links provisions; not universal emissions clearance."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/dep/environment/air-pollution-regulations.page",
+            "checked_at": "2026-09-06",
+            "note": "Guidance links provisions; not universal emissions clearance."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-asbestos",
+      "title": "DEP asbestos abatement",
+      "url": "https://www.nyc.gov/site/dep/environment/asbestos-abatement.page",
+      "document_kind": "guidance",
+      "authority": "authority:nyc-dep",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "Asbestos"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "NYC rules and state/federal overlays separate."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/dep/environment/asbestos-abatement.page",
+            "checked_at": "2026-09-06",
+            "note": "NYC rules and state/federal overlays separate."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-bsa-resolutions",
+      "title": "BSA resolutions",
+      "url": "https://www.nyc.gov/site/bsa/resolutions/search-for-resolutions.page",
+      "document_kind": "guidance",
+      "authority": "authority:nyc-bsa",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "1998"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Applications1998 onward; votes upload lag and older records explicit limitations."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/bsa/resolutions/search-for-resolutions.page",
+            "checked_at": "2026-09-06",
+            "note": "Applications1998 onward; votes upload lag and older records explicit limitations."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-building-code",
+      "title": "2022 NYC Building Code",
+      "url": "https://www.nyc.gov/site/buildings/codes/2022-construction-codes.page",
+      "document_kind": "code-index",
+      "authority": "authority:nyc-dob",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": "2022",
+      "effective_date": "2022-11-07",
+      "rights": "Bounded quotation of enacted city-code provision; no complete chapter redistribution or third-party publisher standard text.",
+      "access": "public",
+      "adapter": "integration:source-lookup",
+      "identity": {
+        "contains_all": [
+          "BUILDING CODE"
+        ],
+        "allowed_content_types": [
+          "text/html",
+          "application/pdf"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Chapter links are PDF viewers, not extracted text."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/buildings/codes/2022-construction-codes.page",
+            "checked_at": "2026-09-06",
+            "note": "Chapter links are PDF viewers, not extracted text."
+          }
+        ],
+        "family_id": "family:nyc-building-code"
+      },
+      "retrieval": {
+        "mode": "bounded-text",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {
+          "chapter-8": {
+            "url": "https://www.nyc.gov/assets/buildings/codes-pdf/cons_codes_2022/2022BC_Chapter08_InteriorFinishesWBwm.pdf",
+            "contains_all": [
+              "CHAPTER 8",
+              "INTERIOR FINISHES",
+              "SECTION BC 803"
+            ]
+          }
+        }
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-building-code-2008",
+      "title": "2008 NYC Construction Codes — official chapter navigation",
+      "url": "https://www.nyc.gov/site/buildings/codes/2008-construction-codes-updates.page",
+      "document_kind": "code-index",
+      "authority": "authority:nyc-dob",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": "2008",
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "2008 NYC Construction Codes"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Update and amendment navigation; effective date and project applicability not established."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/buildings/codes/2008-construction-codes-updates.page",
+            "checked_at": "2026-09-07",
+            "note": "Official edition navigation verified; metadata only."
+          },
+          {
+            "url": "https://www.nyc.gov/site/buildings/codes/prior-codes.page",
+            "checked_at": "2026-09-07",
+            "note": "Update and amendment navigation; effective date and project applicability not established."
+          }
+        ],
+        "family_id": "family:nyc-building-code"
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-building-code-2014",
+      "title": "2014 Construction Codes — official chapter navigation",
+      "url": "https://www.nyc.gov/site/buildings/codes/2014-construction-codes.page",
+      "document_kind": "code-index",
+      "authority": "authority:nyc-dob",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": "2014",
+      "effective_date": "2014-12-31",
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "2014 Construction Codes"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "DOB prior-codes page identifies filings 2014-12-31 through 2022-11-06; applicability remains project-specific."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/buildings/codes/2014-construction-codes.page",
+            "checked_at": "2026-09-07",
+            "note": "Official edition navigation verified; metadata only."
+          },
+          {
+            "url": "https://www.nyc.gov/site/buildings/codes/prior-codes.page",
+            "checked_at": "2026-09-07",
+            "note": "DOB prior-codes page identifies filings 2014-12-31 through 2022-11-06; applicability remains project-specific."
+          }
+        ],
+        "family_id": "family:nyc-building-code"
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-buildings-bulletins",
+      "title": "DOB Buildings Bulletins",
+      "url": "https://www.nyc.gov/site/buildings/codes/building-bulletins-current.page",
+      "document_kind": "guidance",
+      "authority": "authority:nyc-dob",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "Bulletin"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Interpretations not independent statutes; supersession review needed."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/buildings/codes/building-bulletins-current.page",
+            "checked_at": "2026-09-06",
+            "note": "Interpretations not independent statutes; supersession review needed."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-certificate-of-occupancy",
+      "title": "DOB certificate of occupancy",
+      "url": "https://www.nyc.gov/site/buildings/property-or-business-owner/certificate-of-occupancy.page",
+      "document_kind": "guidance",
+      "authority": "authority:nyc-dob",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "Certificate of Occupancy"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "BIS before March1 2021 requests; DOB NOW newer; absence not legal-use conclusion."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/buildings/property-or-business-owner/certificate-of-occupancy.page",
+            "checked_at": "2026-09-06",
+            "note": "BIS before March1 2021 requests; DOB NOW newer; absence not legal-use conclusion."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-code-notes",
+      "title": "DOB Code Notes",
+      "url": "https://www.nyc.gov/site/buildings/codes/code-notes.page",
+      "document_kind": "guidance",
+      "authority": "authority:nyc-dob",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "Code Notes"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Guidance index not complete legal text."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/buildings/codes/code-notes.page",
+            "checked_at": "2026-09-06",
+            "note": "Guidance index not complete legal text."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-construction-administration",
+      "title": "NYC General Administrative Provisions",
+      "url": "https://www.nyc.gov/site/buildings/codes/2022-construction-codes.page",
+      "document_kind": "code-index",
+      "authority": "authority:nyc-dob",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": "2022",
+      "effective_date": "2022-11-07",
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "GENERAL ADMINISTRATIVE PROVISIONS"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Title28 distinct from technical codes; review amendments."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/buildings/codes/2022-construction-codes.page",
+            "checked_at": "2026-09-06",
+            "note": "Title28 distinct from technical codes; review amendments."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
     {
       "id": "source:nyc-construction-codes",
       "title": "NYC Construction Codes",
@@ -22,48 +853,1381 @@
       "jurisdiction": "jurisdiction:us-ny-nyc",
       "edition": null,
       "effective_date": null,
-      "checked_at": null,
-      "rights": "verify-reuse-conditions-at-source",
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
       "access": "public",
       "adapter": "integration:public-source-health",
       "identity": {
         "contains_all": [
-          "construction codes"
+          "Construction Codes"
         ],
         "allowed_content_types": [
           "text/html"
         ],
-        "max_bytes": 262144
+        "max_bytes": 1048576
       },
       "existing_skills": [
         "occupancy-calculator"
-      ]
+      ],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Not exhaustive applicable laws."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/buildings/codes/codes.page",
+            "checked_at": "2026-09-06",
+            "note": "Not exhaustive applicable laws."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
     },
     {
-      "id": "source:nyc-zoning-resolution",
-      "title": "NYC Zoning Resolution",
-      "url": "https://zr.planning.nyc.gov/",
-      "document_kind": "legal-publication",
-      "authority": "authority:nyc-dcp",
+      "id": "source:nyc-curb-cuts",
+      "title": "DOB curb cuts",
+      "url": "https://www.nyc.gov/site/buildings/property-or-business-owner/curb-cuts.page",
+      "document_kind": "guidance",
+      "authority": "authority:nyc-dob",
       "jurisdiction": "jurisdiction:us-ny-nyc",
       "edition": null,
       "effective_date": null,
-      "checked_at": null,
-      "rights": "verify-reuse-conditions-at-source",
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
       "access": "public",
       "adapter": "integration:public-source-health",
       "identity": {
         "contains_all": [
-          "zoning resolution"
+          "Curb Cuts"
         ],
         "allowed_content_types": [
           "text/html"
         ],
-        "max_bytes": 262144
+        "max_bytes": 1048576
       },
-      "existing_skills": [
-        "zoning-analysis-nyc"
-      ]
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "DOT,DOB,ZR and possible Parks/LPC overlap."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/buildings/property-or-business-owner/curb-cuts.page",
+            "checked_at": "2026-09-06",
+            "note": "DOT,DOB,ZR and possible Parks/LPC overlap."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-dob-records",
+      "title": "DOB building history",
+      "url": "https://www.nyc.gov/site/buildings/tenant/get-building-history.page",
+      "document_kind": "guidance",
+      "authority": "authority:nyc-dob",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "BIS"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Separate BIS/DOB NOW; no hits not proof of no permits/violations."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/buildings/tenant/get-building-history.page",
+            "checked_at": "2026-09-06",
+            "note": "Separate BIS/DOB NOW; no hits not proof of no permits/violations."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-electrical-code",
+      "title": "NYC Electrical Code",
+      "url": "https://www.nyc.gov/site/buildings/codes/electrical-code.page",
+      "document_kind": "code-index",
+      "authority": "authority:nyc-dob",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": "2025",
+      "effective_date": "2025-12-21",
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "2025"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Full effect December21 2025; NYC amendments to NFPA70-2020; NEC publisher rights separate."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/buildings/codes/electrical-code.page",
+            "checked_at": "2026-09-06",
+            "note": "Full effect December21 2025; NYC amendments to NFPA70-2020; NEC publisher rights separate."
+          }
+        ],
+        "family_id": "family:nyc-electrical-code"
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-electrical-code-2011",
+      "title": "2011 Electrical Code — official chapter navigation",
+      "url": "https://www.nyc.gov/site/buildings/codes/old-electrical-codes.page",
+      "document_kind": "code-index",
+      "authority": "authority:nyc-dob",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": "2011",
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "2011 Electrical Code"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Historical administrative-requirements navigation, not full NEC corpus; applicability dates not established."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/buildings/codes/old-electrical-codes.page",
+            "checked_at": "2026-09-07",
+            "note": "Official edition navigation verified; metadata only."
+          },
+          {
+            "url": "https://www.nyc.gov/site/buildings/codes/electrical-code.page",
+            "checked_at": "2026-09-07",
+            "note": "Historical administrative-requirements navigation, not full NEC corpus; applicability dates not established."
+          }
+        ],
+        "family_id": "family:nyc-electrical-code"
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-energy-code",
+      "title": "NYC Energy Code",
+      "url": "https://www.nyc.gov/site/buildings/codes/energy-conservation-code.page",
+      "document_kind": "code-index",
+      "authority": "authority:nyc-dob",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": "2025",
+      "effective_date": "2026-03-30",
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "March 30, 2026"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "2025 NYCECC enforcement March30 2026; complete filing date controls; state/ASHRAE texts separate rights."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/buildings/codes/energy-conservation-code.page",
+            "checked_at": "2026-09-06",
+            "note": "2025 NYCECC enforcement March30 2026; complete filing date controls; state/ASHRAE texts separate rights."
+          }
+        ],
+        "family_id": "family:nyc-energy-code"
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-energy-code-2020",
+      "title": "2020 Energy Conservation Code — official chapter navigation",
+      "url": "https://www.nyc.gov/site/buildings/codes/2020-energy-conservation-code.page",
+      "document_kind": "code-index",
+      "authority": "authority:nyc-dob",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": "2020",
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "2020 Energy Conservation Code"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Complete filings on/before 2026-03-29 can continue under 2020; verify completeness and exceptions."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/buildings/codes/2020-energy-conservation-code.page",
+            "checked_at": "2026-09-07",
+            "note": "Official edition navigation verified; metadata only."
+          },
+          {
+            "url": "https://www.nyc.gov/site/buildings/codes/energy-conservation-code.page",
+            "checked_at": "2026-09-07",
+            "note": "Complete filings on/before 2026-03-29 can continue under 2020; verify completeness and exceptions."
+          }
+        ],
+        "family_id": "family:nyc-energy-code"
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-energy-code-2025",
+      "title": "2025 Energy Conservation Code — official chapter navigation",
+      "url": "https://www.nyc.gov/site/buildings/codes/2025-energy-conservation-code.page",
+      "document_kind": "code-index",
+      "authority": "authority:nyc-dob",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": "2025",
+      "effective_date": "2026-03-30",
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "2025 Energy Conservation Code"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Filings on/after 2026-03-30 use 2025; incomplete earlier filings may also be subject to 2025."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/buildings/codes/2025-energy-conservation-code.page",
+            "checked_at": "2026-09-07",
+            "note": "Official edition navigation verified; metadata only."
+          },
+          {
+            "url": "https://www.nyc.gov/site/buildings/codes/energy-conservation-code.page",
+            "checked_at": "2026-09-07",
+            "note": "Filings on/after 2026-03-30 use 2025; incomplete earlier filings may also be subject to 2025."
+          }
+        ],
+        "family_id": "family:nyc-energy-code"
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-executive-orders",
+      "title": "NYC EO1 2026 prior orders instrument",
+      "url": "https://www.nyc.gov/content/dam/nycgov/mayors-office/downloads/pdf/executive-orders/2026/eo1-prior-executive-orders.pdf",
+      "document_kind": "legal-publication",
+      "authority": "authority:nyc-mayor",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "EXECUTIVE ORDER"
+        ],
+        "allowed_content_types": [
+          "application/pdf"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Representative verified EO PDF; complete archive unresolved. Emergency EOs distinct."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/content/dam/nycgov/mayors-office/downloads/pdf/executive-orders/2026/eo1-prior-executive-orders.pdf",
+            "checked_at": "2026-09-06",
+            "note": "Representative verified EO PDF; complete archive unresolved. Emergency EOs distinct."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-existing-building-code",
+      "title": "NYC Existing Building Code",
+      "url": "https://www.nyc.gov/site/buildings/codes/existing-building-code.page",
+      "document_kind": "guidance",
+      "authority": "authority:nyc-dob",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": "2026",
+      "effective_date": "2027-07-17",
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "July 17, 2027"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": "2026-01-17",
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Enacted January17 2026; effective July17 2027 per DOB; not yet effective at check date."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/buildings/codes/existing-building-code.page",
+            "checked_at": "2026-09-06",
+            "note": "Enacted January17 2026; effective July17 2027 per DOB; not yet effective at check date."
+          }
+        ],
+        "family_id": "family:nyc-existing-building-code"
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-fdny-rules",
+      "title": "FDNY rules",
+      "url": "https://www.nyc.gov/site/fdny/codes/fire-department-rules/fire-dept-rules.page",
+      "document_kind": "instrument-index",
+      "authority": "authority:nyc-fdny",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "Title 3"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Compilation published July1 2026; proposed versus adopted must be distinguished."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/fdny/codes/fire-department-rules/fire-dept-rules.page",
+            "checked_at": "2026-09-06",
+            "note": "Compilation published July1 2026; proposed versus adopted must be distinguished."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-fire-code",
+      "title": "NYC Fire Code",
+      "url": "https://www.nyc.gov/site/fdny/codes/fire-code/fire-code.page",
+      "document_kind": "code-index",
+      "authority": "authority:nyc-fdny",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": "2022",
+      "effective_date": "2022-04-15",
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "2022 Fire Code"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Effective April15 2022; FC102 and project-in-progress conditions require review."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/fdny/codes/fire-code/fire-code.page",
+            "checked_at": "2026-09-06",
+            "note": "Effective April15 2022; FC102 and project-in-progress conditions require review."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-fuel-gas-code",
+      "title": "2022 NYC Fuel Gas Code",
+      "url": "https://www.nyc.gov/site/buildings/codes/2022-construction-codes.page",
+      "document_kind": "code-index",
+      "authority": "authority:nyc-dob",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": "2022",
+      "effective_date": "2022-11-07",
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "FUEL GAS CODE"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Select chapter PDF."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/buildings/codes/2022-construction-codes.page",
+            "checked_at": "2026-09-06",
+            "note": "Select chapter PDF."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-hazardous-materials",
+      "title": "DEP Community Right-to-Know",
+      "url": "https://www.nyc.gov/site/dep/about/community-right-to-know-program.page",
+      "document_kind": "guidance",
+      "authority": "authority:nyc-dep",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "Community Right-to-Know"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "DEP reporting does not replace FDNY storage/use requirements."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/dep/about/community-right-to-know-program.page",
+            "checked_at": "2026-09-06",
+            "note": "DEP reporting does not replace FDNY storage/use requirements."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-housing-maintenance-code",
+      "title": "Housing Maintenance Code",
+      "url": "https://www1.nyc.gov/assets/buildings/pdf/HousingMaintenanceCode.pdf",
+      "document_kind": "legal-publication",
+      "authority": "authority:nyc-hpd",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "HOUSING MAINTENANCE CODE"
+        ],
+        "allowed_content_types": [
+          "application/pdf"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "211-page PDF linked by official OSE; compilation currency unverified; check amendments."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www1.nyc.gov/assets/buildings/pdf/HousingMaintenanceCode.pdf",
+            "checked_at": "2026-09-06",
+            "note": "211-page PDF linked by official OSE; compilation currency unverified; check amendments."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www1.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-hpd-records",
+      "title": "HPD Online",
+      "url": "https://www.nyc.gov/site/hpd/about/hpd-online.page",
+      "document_kind": "guidance",
+      "authority": "authority:nyc-hpd",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "HPD Online"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Interactive property query needed; guidance not property result."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/hpd/about/hpd-online.page",
+            "checked_at": "2026-09-06",
+            "note": "Interactive property query needed; guidance not property result."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-landmark-records",
+      "title": "LPC designation maps",
+      "url": "https://www.nyc.gov/site/lpc/designations/maps.page",
+      "document_kind": "guidance",
+      "authority": "authority:nyc-lpc",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "Discover NYC Landmarks"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Designated versus calendared; report and lot scope must match."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/lpc/designations/maps.page",
+            "checked_at": "2026-09-06",
+            "note": "Designated versus calendared; report and lot scope must match."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-ll97",
+      "title": "LL97 emissions rules and guidance",
+      "url": "https://www.nyc.gov/site/buildings/codes/ll97-greenhouse-gas-emissions-reductions.page",
+      "document_kind": "guidance",
+      "authority": "authority:nyc-dob",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "Covered Buildings"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "CBL is reference only; reporting-year limits and exemptions require authoritative evidence."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/buildings/codes/ll97-greenhouse-gas-emissions-reductions.page",
+            "checked_at": "2026-09-06",
+            "note": "CBL is reference only; reporting-year limits and exemptions require authoritative evidence."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-local-laws",
+      "title": "DOB local laws",
+      "url": "https://www.nyc.gov/site/buildings/codes/local-laws.page",
+      "document_kind": "instrument-index",
+      "authority": "authority:nyc-dob",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "Local Laws"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "DOB subset only; Council enactment status required."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/buildings/codes/local-laws.page",
+            "checked_at": "2026-09-06",
+            "note": "DOB subset only; Council enactment status required."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-lpc-rules",
+      "title": "LPC rules",
+      "url": "https://www.nyc.gov/site/lpc/applications/rules-guides.page",
+      "document_kind": "instrument-index",
+      "authority": "authority:nyc-lpc",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "Title 63"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Codified rules/PDF linked; designation-specific conditions separate."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/lpc/applications/rules-guides.page",
+            "checked_at": "2026-09-06",
+            "note": "Codified rules/PDF linked; designation-specific conditions separate."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-mechanical-code",
+      "title": "2022 NYC Mechanical Code",
+      "url": "https://www.nyc.gov/site/buildings/codes/2022-construction-codes.page",
+      "document_kind": "code-index",
+      "authority": "authority:nyc-dob",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": "2022",
+      "effective_date": "2022-11-07",
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "MECHANICAL CODE"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Select chapter PDF."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/buildings/codes/2022-construction-codes.page",
+            "checked_at": "2026-09-06",
+            "note": "Select chapter PDF."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-noise-code",
+      "title": "DEP Noise Code",
+      "url": "https://www.nyc.gov/site/dep/environment/noise-code.page",
+      "document_kind": "guidance",
+      "authority": "authority:nyc-dep",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "Noise Code"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Noise enforcement shared DEP/NYPD; guidance links code."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/dep/environment/noise-code.page",
+            "checked_at": "2026-09-06",
+            "note": "Noise enforcement shared DEP/NYPD; guidance links code."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-plazas",
+      "title": "DOT plaza rules",
+      "url": "https://www.nyc.gov/html/dot/html/sidewalks/publicplaza.shtml",
+      "document_kind": "guidance",
+      "authority": "authority:nyc-dot",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "Plaza Rules"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "DOT pedestrian plazas distinct from ZR37-70 private public plazas; ask which."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/html/dot/html/sidewalks/publicplaza.shtml",
+            "checked_at": "2026-09-06",
+            "note": "DOT pedestrian plazas distinct from ZR37-70 private public plazas; ask which."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-plumbing-code",
+      "title": "2022 NYC Plumbing Code",
+      "url": "https://www.nyc.gov/site/buildings/codes/2022-construction-codes.page",
+      "document_kind": "code-index",
+      "authority": "authority:nyc-dob",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": "2022",
+      "effective_date": "2022-11-07",
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "PLUMBING CODE"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Select chapter PDF, not viewer controls."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/buildings/codes/2022-construction-codes.page",
+            "checked_at": "2026-09-06",
+            "note": "Select chapter PDF, not viewer controls."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
     },
     {
       "id": "source:nyc-pluto",
@@ -90,9 +2254,839 @@
       "existing_skills": [
         "zoning-analysis-nyc"
       ]
+    },
+    {
+      "id": "source:nyc-prior-codes",
+      "title": "NYC prior codes",
+      "url": "https://www.nyc.gov/site/buildings/codes/prior-codes.page",
+      "document_kind": "code-index",
+      "authority": "authority:nyc-dob",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "Past Codes"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Archive availability is not applicability."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/buildings/codes/prior-codes.page",
+            "checked_at": "2026-09-06",
+            "note": "Archive availability is not applicability."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-sewer-connections",
+      "title": "DEP sewer certification and connections",
+      "url": "https://www.nyc.gov/site/dep/about/sewer-connections.page",
+      "document_kind": "guidance",
+      "authority": "authority:nyc-dep",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "Chapter 31"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Certification and connection permit distinct; current amendments needed."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/dep/about/sewer-connections.page",
+            "checked_at": "2026-09-06",
+            "note": "Certification and connection permit distinct; current amendments needed."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-sidewalks",
+      "title": "DOT sidewalks",
+      "url": "https://www.nyc.gov/html/dot/html/infrastructure/sidewalkintro.shtml",
+      "document_kind": "guidance",
+      "authority": "authority:nyc-dot",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "Sidewalk"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Highway rules/specifications linked; not zoning."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/html/dot/html/infrastructure/sidewalkintro.shtml",
+            "checked_at": "2026-09-06",
+            "note": "Highway rules/specifications linked; not zoning."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-stormwater",
+      "title": "DEP stormwater permits",
+      "url": "https://www.nyc.gov/site/dep/water/stormwater-permits.page",
+      "document_kind": "guidance",
+      "authority": "authority:nyc-dep",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "Stormwater Permits"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Title15 chapter19.1 definitions/exclusions; state SPDES overlay unresolved."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/dep/water/stormwater-permits.page",
+            "checked_at": "2026-09-06",
+            "note": "Title15 chapter19.1 definitions/exclusions; state SPDES overlay unresolved."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-street-trees",
+      "title": "Parks street tree planting standards",
+      "url": "https://static.nycgovparks.org/images/pagefiles/53/Tree-Planting-Standards.pdf",
+      "document_kind": "guidance",
+      "authority": "authority:nyc-parks",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "Planting"
+        ],
+        "allowed_content_types": [
+          "application/pdf"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Publisher PDF search verified; revision date unverified; permit/species separate."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://static.nycgovparks.org/images/pagefiles/53/Tree-Planting-Standards.pdf",
+            "checked_at": "2026-09-06",
+            "note": "Publisher PDF search verified; revision date unverified; permit/species separate."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://static.nycgovparks.org"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-water-connections",
+      "title": "DEP water connections",
+      "url": "https://www.nyc.gov/site/dep/about/water-service-connections-private-water-mains.page",
+      "document_kind": "guidance",
+      "authority": "authority:nyc-dep",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+      "access": "public",
+      "adapter": "integration:public-source-health",
+      "identity": {
+        "contains_all": [
+          "Water Service"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Water/sewer only; not electric/gas/telecom utility service rules."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.nyc.gov/site/dep/about/water-service-connections-private-water-mains.page",
+            "checked_at": "2026-09-06",
+            "note": "Water/sewer only; not electric/gas/telecom utility service rules."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://www.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {}
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:nyc-zoning-resolution",
+      "title": "NYC Zoning Resolution",
+      "url": "https://zr.planning.nyc.gov/",
+      "document_kind": "legal-publication",
+      "authority": "authority:nyc-dcp",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition": null,
+      "effective_date": null,
+      "rights": "Bounded quotation of enacted city-law provision, not site assets or complete republication; preserve citation and disclaim applicability; specialist rights review pending.",
+      "access": "public",
+      "adapter": "integration:source-lookup",
+      "identity": {
+        "contains_all": [
+          "Zoning Resolution"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [
+        "zoning-analysis-nyc"
+      ],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Current online publication not proof of historical applicable version.",
+            "Current bounded HTML extractor has no verified structural section selector for this source; provision retrieval is unavailable."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://zr.planning.nyc.gov/",
+            "checked_at": "2026-09-06",
+            "note": "Current online publication not proof of historical applicable version."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "metadata-only",
+        "allowed_origins": [
+          "https://zr.planning.nyc.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {
+          "37-70": {
+            "url": "https://zr.planning.nyc.gov/article-iii/chapter-7/37-70",
+            "contains_all": [
+              "37-70",
+              "PUBLIC PLAZAS"
+            ]
+          }
+        }
+      },
+      "checked_at": null
+    },
+    {
+      "id": "source:us-ada-standards",
+      "title": "2010 ADA Standards",
+      "url": "https://www.ada.gov/law-and-regs/design-standards/2010-stds/",
+      "document_kind": "legal-publication",
+      "authority": "authority:us-doj",
+      "jurisdiction": "jurisdiction:us-federal",
+      "edition": "2010",
+      "effective_date": null,
+      "rights": "DOJ-authored federal text: public-domain default per DOJ legalpolicies; exclude third-party material and seals. Cite DOJ, no endorsement.",
+      "access": "public",
+      "adapter": "integration:source-lookup",
+      "identity": {
+        "contains_all": [
+          "2010 ADA Standards"
+        ],
+        "allowed_content_types": [
+          "text/html"
+        ],
+        "max_bytes": 1048576
+      },
+      "existing_skills": [],
+      "governance": {
+        "published_date": null,
+        "enacted_date": null,
+        "repealed_date": null,
+        "applicability": {
+          "conditions": [],
+          "unknowns": [
+            "Federal regime separate from NYC accessibility; date/title conditions needed."
+          ]
+        },
+        "review": {
+          "status": "pending-human-review",
+          "reviewer": null,
+          "reviewed_at": null
+        },
+        "maintainer": "Architecture Studio maintainers",
+        "evidence": [
+          {
+            "url": "https://www.ada.gov/law-and-regs/design-standards/2010-stds/",
+            "checked_at": "2026-09-06",
+            "note": "Federal regime separate from NYC accessibility; date/title conditions needed."
+          },
+          {
+            "url": "https://www.justice.gov/legalpolicies",
+            "checked_at": "2026-09-06",
+            "note": "Copyright Status and Citation permits copying DOJ information unless otherwise indicated; excludes third-party material."
+          },
+          {
+            "url": "https://www.ada.gov/law-and-regs/design-standards/2010-stds/",
+            "checked_at": "2026-09-07",
+            "note": "Verified actual TITLE and unique H3 ID 404-doors-doorways-and-gates; no separately verified 404.2.3 heading. Only bounded section404 excerpt is configured."
+          }
+        ],
+        "family_id": null
+      },
+      "retrieval": {
+        "mode": "bounded-text",
+        "allowed_origins": [
+          "https://www.ada.gov"
+        ],
+        "max_excerpt_chars": 1200,
+        "provisions": {
+          "404": {
+            "url": "https://www.ada.gov/law-and-regs/design-standards/2010-stds/",
+            "start_id": "404-doors-doorways-and-gates",
+            "contains_all": [
+              "404 Doors, Doorways, and Gates"
+            ]
+          }
+        },
+        "edition_title": "2010 ADA Standards for Accessible Design | ADA.gov"
+      },
+      "checked_at": null
     }
   ],
   "relationships": [
+    {
+      "from": "source:ny-multiple-dwelling-law",
+      "type": "published-by",
+      "to": "authority:ny-legislature",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/state/codes/ny-multiple-dwelling-law.json"
+    },
+    {
+      "from": "source:nyc-acris",
+      "type": "published-by",
+      "to": "authority:nyc-dof",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/property-records/nyc-acris.json"
+    },
+    {
+      "from": "source:nyc-agency-rules",
+      "type": "published-by",
+      "to": "authority:nyc-operations",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/instruments/nyc-agency-rules.json"
+    },
+    {
+      "from": "source:nyc-air-pollution",
+      "type": "published-by",
+      "to": "authority:nyc-dep",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/regulations/nyc-air-pollution.json"
+    },
+    {
+      "from": "source:nyc-asbestos",
+      "type": "published-by",
+      "to": "authority:nyc-dep",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/regulations/nyc-asbestos.json"
+    },
+    {
+      "from": "source:nyc-bsa-resolutions",
+      "type": "published-by",
+      "to": "authority:nyc-bsa",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/property-records/nyc-bsa-resolutions.json"
+    },
+    {
+      "from": "source:nyc-building-code-2008",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": "2008",
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/codes/nyc-building-code-2008.json"
+    },
+    {
+      "from": "source:nyc-building-code-2014",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": "2014",
+      "effective_date": "2014-12-31",
+      "evidence": "corpus/jurisdictions/us/ny/nyc/codes/nyc-building-code-2014.json"
+    },
+    {
+      "from": "source:nyc-building-code",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": "2022",
+      "effective_date": "2022-11-07",
+      "evidence": "corpus/jurisdictions/us/ny/nyc/codes/nyc-building-code.json"
+    },
+    {
+      "from": "source:nyc-buildings-bulletins",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/instruments/nyc-buildings-bulletins.json"
+    },
+    {
+      "from": "source:nyc-certificate-of-occupancy",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/property-records/nyc-certificate-of-occupancy.json"
+    },
+    {
+      "from": "source:nyc-code-notes",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/instruments/nyc-code-notes.json"
+    },
+    {
+      "from": "source:nyc-construction-administration",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": "2022",
+      "effective_date": "2022-11-07",
+      "evidence": "corpus/jurisdictions/us/ny/nyc/codes/nyc-construction-administration.json"
+    },
+    {
+      "from": "source:nyc-curb-cuts",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/regulations/nyc-curb-cuts.json"
+    },
+    {
+      "from": "source:nyc-dob-records",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/property-records/nyc-dob-records.json"
+    },
+    {
+      "from": "source:nyc-electrical-code-2011",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": "2011",
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/codes/nyc-electrical-code-2011.json"
+    },
+    {
+      "from": "source:nyc-electrical-code",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": "2025",
+      "effective_date": "2025-12-21",
+      "evidence": "corpus/jurisdictions/us/ny/nyc/codes/nyc-electrical-code.json"
+    },
+    {
+      "from": "source:nyc-energy-code-2020",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": "2020",
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/codes/nyc-energy-code-2020.json"
+    },
+    {
+      "from": "source:nyc-energy-code-2025",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": "2025",
+      "effective_date": "2026-03-30",
+      "evidence": "corpus/jurisdictions/us/ny/nyc/codes/nyc-energy-code-2025.json"
+    },
+    {
+      "from": "source:nyc-energy-code",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": "2025",
+      "effective_date": "2026-03-30",
+      "evidence": "corpus/jurisdictions/us/ny/nyc/codes/nyc-energy-code.json"
+    },
+    {
+      "from": "source:nyc-executive-orders",
+      "type": "published-by",
+      "to": "authority:nyc-mayor",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/instruments/nyc-executive-orders.json"
+    },
+    {
+      "from": "source:nyc-existing-building-code",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": "2026",
+      "effective_date": "2027-07-17",
+      "evidence": "corpus/jurisdictions/us/ny/nyc/codes/nyc-existing-building-code.json"
+    },
+    {
+      "from": "source:nyc-fdny-rules",
+      "type": "published-by",
+      "to": "authority:nyc-fdny",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/instruments/nyc-fdny-rules.json"
+    },
+    {
+      "from": "source:nyc-fire-code",
+      "type": "published-by",
+      "to": "authority:nyc-fdny",
+      "edition": "2022",
+      "effective_date": "2022-04-15",
+      "evidence": "corpus/jurisdictions/us/ny/nyc/codes/nyc-fire-code.json"
+    },
+    {
+      "from": "source:nyc-fuel-gas-code",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": "2022",
+      "effective_date": "2022-11-07",
+      "evidence": "corpus/jurisdictions/us/ny/nyc/codes/nyc-fuel-gas-code.json"
+    },
+    {
+      "from": "source:nyc-hazardous-materials",
+      "type": "published-by",
+      "to": "authority:nyc-dep",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/regulations/nyc-hazardous-materials.json"
+    },
+    {
+      "from": "source:nyc-housing-maintenance-code",
+      "type": "published-by",
+      "to": "authority:nyc-hpd",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/codes/nyc-housing-maintenance-code.json"
+    },
+    {
+      "from": "source:nyc-hpd-records",
+      "type": "published-by",
+      "to": "authority:nyc-hpd",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/property-records/nyc-hpd-records.json"
+    },
+    {
+      "from": "source:nyc-landmark-records",
+      "type": "published-by",
+      "to": "authority:nyc-lpc",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/property-records/nyc-landmark-records.json"
+    },
+    {
+      "from": "source:nyc-ll97",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/regulations/nyc-ll97.json"
+    },
+    {
+      "from": "source:nyc-local-laws",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/instruments/nyc-local-laws.json"
+    },
+    {
+      "from": "source:nyc-lpc-rules",
+      "type": "published-by",
+      "to": "authority:nyc-lpc",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/regulations/nyc-lpc-rules.json"
+    },
+    {
+      "from": "source:nyc-mechanical-code",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": "2022",
+      "effective_date": "2022-11-07",
+      "evidence": "corpus/jurisdictions/us/ny/nyc/codes/nyc-mechanical-code.json"
+    },
+    {
+      "from": "source:nyc-noise-code",
+      "type": "published-by",
+      "to": "authority:nyc-dep",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/regulations/nyc-noise-code.json"
+    },
+    {
+      "from": "source:nyc-plazas",
+      "type": "published-by",
+      "to": "authority:nyc-dot",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/regulations/nyc-plazas.json"
+    },
+    {
+      "from": "source:nyc-plumbing-code",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": "2022",
+      "effective_date": "2022-11-07",
+      "evidence": "corpus/jurisdictions/us/ny/nyc/codes/nyc-plumbing-code.json"
+    },
+    {
+      "from": "source:nyc-pluto",
+      "type": "published-by",
+      "to": "authority:nyc-dcp",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "skills/zoning-analysis-nyc/README.md"
+    },
+    {
+      "from": "source:nyc-prior-codes",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/codes/nyc-prior-codes.json"
+    },
+    {
+      "from": "source:nyc-sewer-connections",
+      "type": "published-by",
+      "to": "authority:nyc-dep",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/regulations/nyc-sewer-connections.json"
+    },
+    {
+      "from": "source:nyc-sidewalks",
+      "type": "published-by",
+      "to": "authority:nyc-dot",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/regulations/nyc-sidewalks.json"
+    },
+    {
+      "from": "source:nyc-stormwater",
+      "type": "published-by",
+      "to": "authority:nyc-dep",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/regulations/nyc-stormwater.json"
+    },
+    {
+      "from": "source:nyc-street-trees",
+      "type": "published-by",
+      "to": "authority:nyc-parks",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/regulations/nyc-street-trees.json"
+    },
+    {
+      "from": "source:nyc-water-connections",
+      "type": "published-by",
+      "to": "authority:nyc-dep",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/regulations/nyc-water-connections.json"
+    },
     {
       "from": "source:nyc-zoning-resolution",
       "type": "published-by",
@@ -102,12 +3096,12 @@
       "evidence": "skills/zoning-analysis-nyc/zoning-rules/overview.md"
     },
     {
-      "from": "source:nyc-pluto",
+      "from": "source:us-ada-standards",
       "type": "published-by",
-      "to": "authority:nyc-dcp",
-      "edition": null,
+      "to": "authority:us-doj",
+      "edition": "2010",
       "effective_date": null,
-      "evidence": "skills/zoning-analysis-nyc/README.md"
+      "evidence": "corpus/jurisdictions/us/federal/codes/us-ada-standards.json"
     }
   ]
 }

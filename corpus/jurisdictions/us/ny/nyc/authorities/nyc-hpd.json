@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "record_type": "authority",
+  "data": {
+    "id": "authority:nyc-hpd",
+    "name": "NYC Department of Housing Preservation and Development",
+    "jurisdiction": "jurisdiction:us-ny-nyc"
+  }
+}

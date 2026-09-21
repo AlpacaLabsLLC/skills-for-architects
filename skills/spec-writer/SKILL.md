@@ -15,6 +15,12 @@ allowed-tools:
 <!-- architecture-studio:harness-compatibility -->
 > Harness note: use `/as:<skill>` on Claude Code and `$<skill>` on Codex. Resolve `<skill-root>` as the directory containing this loaded `SKILL.md` and `<plugin-root>` as the plugin root that contains `skills/`, and use equivalent native tools when host tool names differ.
 
+## Maintained geographic source references
+
+Before relying on a NYC source, resolve `source:nyc-building-code`, `source:nyc-fire-code` through [the canonical source index](../../corpus/sources/catalog.json) and follow [the shared lookup evidence contract](../../corpus/jurisdictions/us/ny/nyc/local-procedures/lookup.md). These records own source identity, edition/access limitations and current retrieval routes; existing dataset-query steps below remain the workflow, not a second editable legal source map.
+
+Only when NYC requirements are relevant, use the application-specific material/finish/furnishing/drapery lookup; identify incorporated standards through /as:nyc-referenced-standard. Do not use a generic ASTM E84 citation for carpet or hanging drapery, and do not treat lookup as product approval. Other jurisdictions retain their own source gates.
+
 Takes a materials list, product schedule, or project description and produces outline specifications organized by CSI MasterFormat 2020 divisions. Output is a structured `.md` file ready for review by a senior specifier. The included mapping is a limited MasterFormat 2020 compatibility baseline, not a substitute for the project's licensed edition; verify selected numbers and titles against the project's licensed edition before issue.
 
 For neutral terminology, consult `<plugin-root>/skills/architecture-knowledge/references/` as terminology context only. It is not record authority, a mutation path, permission, or gate; `/as:spec-writer` remains responsible for the outline specification.

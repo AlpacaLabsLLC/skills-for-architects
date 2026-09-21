@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "record_type": "source",
+  "data": {
+    "id": "source:nyc-electrical-code-2011",
+    "title": "2011 Electrical Code — official chapter navigation",
+    "url": "https://www.nyc.gov/site/buildings/codes/old-electrical-codes.page",
+    "document_kind": "code-index",
+    "authority": "authority:nyc-dob",
+    "jurisdiction": "jurisdiction:us-ny-nyc",
+    "edition": "2011",
+    "effective_date": null,
+    "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+    "access": "public",
+    "adapter": "integration:public-source-health",
+    "identity": {
+      "contains_all": [
+        "2011 Electrical Code"
+      ],
+      "allowed_content_types": [
+        "text/html"
+      ],
+      "max_bytes": 1048576
+    },
+    "existing_skills": [],
+    "governance": {
+      "published_date": null,
+      "enacted_date": null,
+      "repealed_date": null,
+      "applicability": {
+        "conditions": [],
+        "unknowns": [
+          "Historical administrative-requirements navigation, not full NEC corpus; applicability dates not established."
+        ]
+      },
+      "review": {
+        "status": "pending-human-review",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "maintainer": "Architecture Studio maintainers",
+      "evidence": [
+        {
+          "url": "https://www.nyc.gov/site/buildings/codes/old-electrical-codes.page",
+          "checked_at": "2026-09-07",
+          "note": "Official edition navigation verified; metadata only."
+        },
+        {
+          "url": "https://www.nyc.gov/site/buildings/codes/electrical-code.page",
+          "checked_at": "2026-09-07",
+          "note": "Historical administrative-requirements navigation, not full NEC corpus; applicability dates not established."
+        }
+      ],
+      "family_id": "family:nyc-electrical-code"
+    },
+    "retrieval": {
+      "mode": "metadata-only",
+      "allowed_origins": [
+        "https://www.nyc.gov"
+      ],
+      "max_excerpt_chars": 1200,
+      "provisions": {}
+    },
+    "checked_at": null
+  },
+  "relationships": [
+    {
+      "from": "source:nyc-electrical-code-2011",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": "2011",
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/codes/nyc-electrical-code-2011.json"
+    }
+  ]
+}

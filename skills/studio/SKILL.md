@@ -275,6 +275,7 @@ If the input is not a studio-management command, classify and route it. Prefer t
 | One product cut sheet or specification sheet | `$product-cut-sheet` on Codex or `/as:product-cut-sheet` on Claude Code |
 | Complete FF&E specification book or cut-sheet package | `$spec-book` on Codex or `/as:spec-book` on Claude Code |
 | Regulatory conclusion | the existing regulatory skill appropriate to the stated jurisdiction (for example, `$zoning-analysis-nyc` on Codex or `/as:zoning-analysis-nyc` on Claude Code) |
+| NYC code, rule, authority, edition, amendment, referenced standard or bounded requirement lookup | Read [Code & Regulatory routing](../../corpus/jurisdictions/us/ny/nyc/local-procedures/routing.md), then invoke only the matching atomic skill. Public lookup needs no studio setup or folder grant; unsupported geography stays unsupported. |
 
 ### Claude Code native-agent routes
 

@@ -1,0 +1,746 @@
+{
+  "schema_version": 1,
+  "kind": "routing-contract-fixtures-not-host-evaluation",
+  "routes": [
+    {
+      "skill": "skill:nyc-building-code",
+      "coverage": "N01",
+      "source_ids": [
+        "source:nyc-building-code"
+      ],
+      "trigger": "building-code section or provision",
+      "non_trigger": "Calculate occupant load; select a code year; approve a building",
+      "required_input": "Code edition and section/topic",
+      "output": "Building-code provision evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-existing-building-code",
+      "coverage": "N01",
+      "source_ids": [
+        "source:nyc-existing-building-code"
+      ],
+      "trigger": "existing-building code text",
+      "non_trigger": "Assume an enacted future code already applies; decide conversion compliance",
+      "required_input": "Edition and section/topic; filing/work dates only for applicability",
+      "output": "Existing-building provision evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-plumbing-code",
+      "coverage": "N01",
+      "source_ids": [
+        "source:nyc-plumbing-code"
+      ],
+      "trigger": "plumbing-code section",
+      "non_trigger": "Size a plumbing system or calculate fixture counts",
+      "required_input": "Edition and provision or plumbing topic",
+      "output": "Plumbing provision evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-mechanical-code",
+      "coverage": "N01",
+      "source_ids": [
+        "source:nyc-mechanical-code"
+      ],
+      "trigger": "mechanical-code requirement",
+      "non_trigger": "Design HVAC or calculate ventilation rates",
+      "required_input": "Edition and provision or mechanical topic",
+      "output": "Mechanical provision evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-fuel-gas-code",
+      "coverage": "N01",
+      "source_ids": [
+        "source:nyc-fuel-gas-code"
+      ],
+      "trigger": "fuel-gas code section",
+      "non_trigger": "Size gas piping or approve equipment",
+      "required_input": "Edition and provision or fuel-gas topic",
+      "output": "Fuel-gas provision evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-construction-administration",
+      "coverage": "N01",
+      "source_ids": [
+        "source:nyc-construction-administration"
+      ],
+      "trigger": "construction administrative provision",
+      "non_trigger": "Make a permit determination or replace DOB filing review",
+      "required_input": "Title/chapter/section or bounded administrative topic",
+      "output": "Administrative provision evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-electrical-code",
+      "coverage": "N02",
+      "source_ids": [
+        "source:nyc-electrical-code"
+      ],
+      "trigger": "electrical-code section",
+      "non_trigger": "Substitute an unamended NEC edition or design a circuit",
+      "required_input": "NYC edition and section or electrical topic",
+      "output": "Electrical provision evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-fire-code",
+      "coverage": "N03",
+      "source_ids": [
+        "source:nyc-fire-code"
+      ],
+      "trigger": "fire-code section",
+      "non_trigger": "Treat a Building Code provision as an FDNY operational approval",
+      "required_input": "Edition and section or fire-safety topic",
+      "output": "Fire Code provision evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-fdny-rule",
+      "coverage": "N03",
+      "source_ids": [
+        "source:nyc-fdny-rules"
+      ],
+      "trigger": "FDNY rule text",
+      "non_trigger": "Retrieve Fire Code text when no rule is requested",
+      "required_input": "Rule number/title or bounded FDNY subject",
+      "output": "FDNY rule evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-energy-code",
+      "coverage": "N04",
+      "source_ids": [
+        "source:nyc-energy-code"
+      ],
+      "trigger": "energy-code section",
+      "non_trigger": "Calculate U-values, certify energy compliance, or assume ASHRAE edition",
+      "required_input": "Edition, commercial/residential regime when material, section/topic",
+      "output": "Energy Code provision evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-ll97-applicability",
+      "coverage": "N04",
+      "source_ids": [
+        "source:nyc-ll97"
+      ],
+      "trigger": "does LL97 apply",
+      "non_trigger": "Certify exemption, calculate emissions or declare complete applicability",
+      "required_input": "Building identifiers, floor-area evidence and relevant reporting year if known",
+      "output": "LL97 applicability evidence with unresolved conditions",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-emissions-limit",
+      "coverage": "N04",
+      "source_ids": [
+        "source:nyc-ll97"
+      ],
+      "trigger": "LL97 emissions limit",
+      "non_trigger": "Calculate annual emissions, penalties or LL97 applicability",
+      "required_input": "Reporting period and legally identified category; unknowns stay unknown",
+      "output": "Emissions-limit citation, unit and period",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-zoning-provision",
+      "coverage": "N05",
+      "source_ids": [
+        "source:nyc-zoning-resolution"
+      ],
+      "trigger": "zoning section text",
+      "non_trigger": "Calculate buildable capacity, massing or decide variance eligibility",
+      "required_input": "Section identifier or tightly bounded zoning topic; version/date if supplied",
+      "output": "Zoning provision evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-housing-maintenance",
+      "coverage": "N06",
+      "source_ids": [
+        "source:nyc-housing-maintenance-code"
+      ],
+      "trigger": "housing maintenance requirement",
+      "non_trigger": "Search address-specific HPD violations",
+      "required_input": "Section or housing-maintenance topic",
+      "output": "Housing Maintenance Code provision evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-multiple-dwelling-law",
+      "coverage": "N06",
+      "source_ids": [
+        "source:ny-multiple-dwelling-law"
+      ],
+      "trigger": "Multiple Dwelling Law section",
+      "non_trigger": "Assume MDL and NYC Housing Maintenance Code are interchangeable",
+      "required_input": "Section or bounded MDL topic; building facts only if applicability is requested",
+      "output": "State-owned MDL provision evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-noise-requirement",
+      "coverage": "N07",
+      "source_ids": [
+        "source:nyc-noise-code"
+      ],
+      "trigger": "noise-code requirement",
+      "non_trigger": "Predict sound levels or certify an acoustic design",
+      "required_input": "Activity/source and section if known",
+      "output": "Noise requirement evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-asbestos-requirement",
+      "coverage": "N07",
+      "source_ids": [
+        "source:nyc-asbestos"
+      ],
+      "trigger": "asbestos requirement",
+      "non_trigger": "Provide abatement instructions or conclude material is asbestos-free",
+      "required_input": "Activity and provision/topic; work scope when material",
+      "output": "Asbestos procedural requirement evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-air-emissions-requirement",
+      "coverage": "N07",
+      "source_ids": [
+        "source:nyc-air-pollution"
+      ],
+      "trigger": "air permit requirement",
+      "non_trigger": "Calculate dispersion or decide permit eligibility",
+      "required_input": "Equipment/activity and provision if known",
+      "output": "Air-emissions requirement evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-stormwater-requirement",
+      "coverage": "N07",
+      "source_ids": [
+        "source:nyc-stormwater"
+      ],
+      "trigger": "stormwater requirement",
+      "non_trigger": "Size detention or claim a project is exempt",
+      "required_input": "Activity, discharge context and section if known",
+      "output": "Stormwater requirement evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-sewer-requirement",
+      "coverage": "N07",
+      "source_ids": [
+        "source:nyc-sewer-connections"
+      ],
+      "trigger": "sewer connection rule",
+      "non_trigger": "Design drainage or approve connection capacity",
+      "required_input": "Sewer/wastewater activity and location context if material",
+      "output": "Sewer requirement evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-hazardous-material-requirement",
+      "coverage": "N07",
+      "source_ids": [
+        "source:nyc-hazardous-materials",
+        "source:nyc-fire-code"
+      ],
+      "trigger": "hazardous-material storage or reporting requirement",
+      "non_trigger": "Give handling instructions, classify unknown chemicals or certify safety",
+      "required_input": "Material, quantity if known and activity; do not infer classification",
+      "output": "Authority-qualified hazardous-material requirement evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-accessibility-requirement",
+      "coverage": "N08",
+      "source_ids": [
+        "source:nyc-building-code",
+        "source:us-ada-standards"
+      ],
+      "trigger": "NYC accessibility requirement",
+      "non_trigger": "Treat NYC approval as ADA compliance or design a compliant route",
+      "required_input": "Element/use, NYC edition if known and requested regime",
+      "output": "NYC accessibility provision evidence with separate federal pointer",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:ada-requirement",
+      "coverage": "N08",
+      "source_ids": [
+        "source:us-ada-standards"
+      ],
+      "trigger": "ADA section or technical requirement",
+      "non_trigger": "Assume federal ADA resolves state/local accessibility or project applicability",
+      "required_input": "ADA regime and section/element; jurisdiction only for separate local overlays",
+      "output": "Federal ADA provision evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-lpc-requirement",
+      "coverage": "N09",
+      "source_ids": [
+        "source:nyc-lpc-rules"
+      ],
+      "trigger": "LPC rule or alteration requirement",
+      "non_trigger": "Determine landmark designation or promise approval",
+      "required_input": "Rule/work type; designation evidence if applicability requested",
+      "output": "LPC requirement evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-sidewalk-requirement",
+      "coverage": "N10",
+      "source_ids": [
+        "source:nyc-sidewalks"
+      ],
+      "trigger": "sidewalk requirement",
+      "non_trigger": "Design the sidewalk or determine street-tree obligations",
+      "required_input": "Work/activity and location context if material",
+      "output": "Sidewalk requirement evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-curb-cut-requirement",
+      "coverage": "N10",
+      "source_ids": [
+        "source:nyc-curb-cuts"
+      ],
+      "trigger": "curb-cut requirement",
+      "non_trigger": "Approve driveway access or calculate zoning capacity",
+      "required_input": "Location/use and work type if material",
+      "output": "Curb-cut requirement evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-plaza-requirement",
+      "coverage": "N10",
+      "source_ids": [
+        "source:nyc-plazas",
+        "source:nyc-zoning-resolution"
+      ],
+      "trigger": "public plaza requirement",
+      "non_trigger": "Assume DOT plazas and privately owned public spaces share rules",
+      "required_input": "Plaza type/program or known record; clarify DOT plaza versus zoning POPS",
+      "output": "Program-qualified plaza requirement evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-street-tree-requirement",
+      "coverage": "N10",
+      "source_ids": [
+        "source:nyc-street-trees"
+      ],
+      "trigger": "street-tree requirement",
+      "non_trigger": "Select species or approve tree removal",
+      "required_input": "Planting/work activity and location context if material",
+      "output": "Street-tree requirement evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-utility-connection-requirement",
+      "coverage": "N10",
+      "source_ids": [
+        "source:nyc-water-connections"
+      ],
+      "trigger": "DEP water connection requirement",
+      "non_trigger": "Claim coverage of private electric/gas/telecom utility requirements",
+      "required_input": "Water-connection activity and location context if material",
+      "output": "Water-connection requirement evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-material-requirement",
+      "coverage": "N11",
+      "source_ids": [
+        "source:nyc-building-code",
+        "source:nyc-fire-code"
+      ],
+      "trigger": "building material code requirement",
+      "non_trigger": "Approve a product; swallow wall finish, carpet, furniture or drapery requests",
+      "required_input": "Material/application, occupancy and code regime if known",
+      "output": "Application-qualified material requirement evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-interior-finish-requirement",
+      "coverage": "N11",
+      "source_ids": [
+        "source:nyc-building-code",
+        "source:nyc-fire-code"
+      ],
+      "trigger": "wall finish or ceiling finish requirement",
+      "non_trigger": "Treat carpet, furniture or hanging curtains as wall finish",
+      "required_input": "Wall/ceiling application, occupancy and location in building if known",
+      "output": "Interior wall/ceiling finish requirement evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-floor-finish-requirement",
+      "coverage": "N11",
+      "source_ids": [
+        "source:nyc-building-code",
+        "source:nyc-fire-code"
+      ],
+      "trigger": "carpet or floor finish requirement",
+      "non_trigger": "Apply wall/ceiling finish classification to flooring",
+      "required_input": "Floor application, occupancy and location if known",
+      "output": "Floor-finish requirement evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-furnishing-requirement",
+      "coverage": "N11",
+      "source_ids": [
+        "source:nyc-fire-code",
+        "source:nyc-building-code"
+      ],
+      "trigger": "furniture or furnishing fire requirement",
+      "non_trigger": "Treat upholstery automatically as wall finish or approve a product",
+      "required_input": "Furnishing type, occupancy and use location if known",
+      "output": "Furnishing requirement evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-drapery-requirement",
+      "coverage": "N11",
+      "source_ids": [
+        "source:nyc-fire-code",
+        "source:nyc-building-code"
+      ],
+      "trigger": "curtain or drapery fire requirement",
+      "non_trigger": "Treat a curtain as an interior wall finish or substitute upholstery testing",
+      "required_input": "Hanging/decorative textile application, occupancy and location if known",
+      "output": "Drapery requirement evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-local-law",
+      "coverage": "N12",
+      "source_ids": [
+        "source:nyc-local-laws"
+      ],
+      "trigger": "Local Law number and year",
+      "non_trigger": "Assume enactment date is effective date or resolve all amendments",
+      "required_input": "Law number and year or unambiguous title",
+      "output": "Identified Local Law evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-agency-rule",
+      "coverage": "N12",
+      "source_ids": [
+        "source:nyc-agency-rules"
+      ],
+      "trigger": "NYC agency rule text",
+      "non_trigger": "Treat guidance or a proposed rule as an adopted rule",
+      "required_input": "Agency plus rule citation or unambiguous title",
+      "output": "Identified agency-rule evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-buildings-bulletin",
+      "coverage": "N12",
+      "source_ids": [
+        "source:nyc-buildings-bulletins"
+      ],
+      "trigger": "Buildings Bulletin number",
+      "non_trigger": "Treat a bulletin as code text or infer universal applicability",
+      "required_input": "Bulletin number/year or unambiguous subject",
+      "output": "Buildings Bulletin evidence and document classification",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-code-note",
+      "coverage": "N12",
+      "source_ids": [
+        "source:nyc-code-notes"
+      ],
+      "trigger": "DOB Code Note",
+      "non_trigger": "Treat guidance as enacted law or a project approval",
+      "required_input": "Work topic or Code Note title",
+      "output": "Code Note guidance evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-executive-order",
+      "coverage": "N12",
+      "source_ids": [
+        "source:nyc-executive-orders"
+      ],
+      "trigger": "NYC executive order number",
+      "non_trigger": "Treat an order as a permanent amendment without evidence",
+      "required_input": "Order number/year or unambiguous title",
+      "output": "Executive-order evidence and scope unknowns",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-certificate-of-occupancy",
+      "coverage": "N13",
+      "source_ids": [
+        "source:nyc-certificate-of-occupancy"
+      ],
+      "trigger": "certificate of occupancy or legal use by floor",
+      "non_trigger": "Infer legal occupancy from PLUTO, a permit, or absence of a search result",
+      "required_input": "Address and borough or BIN/BBL; certificate/date if known",
+      "output": "Property-specific occupancy-record evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-authority-resolver",
+      "coverage": "N12",
+      "source_ids": [
+        "source:nyc-construction-codes",
+        "source:nyc-fire-code",
+        "source:nyc-zoning-resolution",
+        "source:nyc-agency-rules"
+      ],
+      "trigger": "which NYC agency regulates this",
+      "non_trigger": "Infer legal precedence from folder hierarchy or provide a final compliance answer",
+      "required_input": "Location and issue/activity",
+      "output": "Candidate-authority map with triggers and unknowns",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-code-edition",
+      "coverage": "N12",
+      "source_ids": [
+        "source:nyc-construction-codes",
+        "source:nyc-existing-building-code",
+        "source:nyc-electrical-code",
+        "source:nyc-energy-code",
+        "source:nyc-fire-code"
+      ],
+      "trigger": "which NYC code edition applies",
+      "non_trigger": "Set one global NYC code year or choose newest by default",
+      "required_input": "Regime; filing/work dates and existing-building facts if known",
+      "output": "Edition-candidate evidence with unresolved applicability",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-code-section",
+      "coverage": "N12",
+      "source_ids": [
+        "source:nyc-construction-codes",
+        "source:nyc-fire-code",
+        "source:nyc-zoning-resolution"
+      ],
+      "trigger": "look up this exact code section",
+      "non_trigger": "Guess regime from a bare section number or perform code analysis",
+      "required_input": "Regime/edition and section identifier",
+      "output": "Identified provision evidence",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-amendment-check",
+      "coverage": "N12",
+      "source_ids": [
+        "source:nyc-local-laws",
+        "source:nyc-agency-rules",
+        "source:nyc-buildings-bulletins"
+      ],
+      "trigger": "what amended this section",
+      "non_trigger": "Claim an exhaustive legal history or treat every bulletin as an amendment",
+      "required_input": "Base source/edition/provision and date interval",
+      "output": "Bounded amendment evidence and search limitations",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    },
+    {
+      "skill": "skill:nyc-referenced-standard",
+      "coverage": "N11",
+      "source_ids": [
+        "source:nyc-building-code",
+        "source:nyc-fire-code",
+        "source:nyc-energy-code"
+      ],
+      "trigger": "which ASTM NFPA UL ASHRAE edition is referenced",
+      "non_trigger": "Supply copyrighted standard text or assume the publisher newest edition is incorporated",
+      "required_input": "Controlling code source/edition/provision and standard designation if known",
+      "output": "Referenced-standard metadata and authorized access route",
+      "missing_context": "ask only material missing input or report qualified unknown",
+      "access_failure": "report unavailable without memory substitution"
+    }
+  ],
+  "cases": [
+    {
+      "request": "What code governs this building in Dubai?",
+      "expected_skill": null,
+      "expected": "unsupported-jurisdiction",
+      "must_not": [
+        "nyc-building-code"
+      ],
+      "question": "Which applicable official jurisdiction source can you provide?"
+    },
+    {
+      "request": "NYC conversion, which code year applies?",
+      "expected_skill": "nyc-code-edition",
+      "question": "What filing/work timeline and code regime are you evaluating?",
+      "must_not": [
+        "newest-edition-default"
+      ]
+    },
+    {
+      "request": "Retrieve NYC BC 2022 section 1004",
+      "expected_skill": "nyc-building-code",
+      "sources": [
+        "source:nyc-building-code"
+      ],
+      "must_not": [
+        "occupancy-calculator",
+        "project-intake"
+      ]
+    },
+    {
+      "request": "Find FDNY Rule 3 RCNY 601",
+      "expected_skill": "nyc-fdny-rule",
+      "sources": [
+        "source:nyc-fdny-rules"
+      ]
+    },
+    {
+      "request": "NYC hotel hanging curtain fire requirement",
+      "expected_skill": "nyc-drapery-requirement",
+      "must_not": [
+        "nyc-interior-finish-requirement"
+      ]
+    },
+    {
+      "request": "NYC office wall panel finish classification requirement",
+      "expected_skill": "nyc-interior-finish-requirement",
+      "must_not": [
+        "nyc-floor-finish-requirement"
+      ]
+    },
+    {
+      "request": "NYC corridor carpet fire test requirement",
+      "expected_skill": "nyc-floor-finish-requirement",
+      "must_not": [
+        "nyc-interior-finish-requirement"
+      ]
+    },
+    {
+      "request": "NYC lounge upholstered furniture fire requirement",
+      "expected_skill": "nyc-furnishing-requirement",
+      "must_not": [
+        "nyc-drapery-requirement"
+      ]
+    },
+    {
+      "request": "Retrieve MDL section 4",
+      "expected_skill": "nyc-multiple-dwelling-law",
+      "sources": [
+        "source:ny-multiple-dwelling-law"
+      ]
+    },
+    {
+      "request": "Does NYC accessibility approval satisfy ADA?",
+      "expected_skill": "nyc-accessibility-requirement",
+      "sources": [
+        "source:nyc-building-code",
+        "source:us-ada-standards"
+      ],
+      "must_not": [
+        "regimes-equivalent"
+      ]
+    },
+    {
+      "request": "Does LL97 apply to this property?",
+      "expected_skill": "nyc-ll97-applicability",
+      "must_not": [
+        "nyc-emissions-limit",
+        "automatic-exemption"
+      ]
+    },
+    {
+      "request": "NYC sidewalk repair permit requirement",
+      "expected_skill": "nyc-sidewalk-requirement",
+      "must_not": [
+        "nyc-street-tree-requirement"
+      ]
+    },
+    {
+      "request": "NYC street tree planting requirement",
+      "expected_skill": "nyc-street-tree-requirement",
+      "must_not": [
+        "nyc-sidewalk-requirement"
+      ]
+    },
+    {
+      "request": "NYC zoning variance history for this property",
+      "expected_skill": "nyc-bsa",
+      "must_not": [
+        "nyc-zoning-provision"
+      ]
+    },
+    {
+      "request": "Calculate occupancy for an office in Montevideo",
+      "expected_skill": "occupancy-calculator",
+      "must_not": [
+        "nyc-building-code",
+        "NYC-factor-default"
+      ]
+    },
+    {
+      "request": "Approve this curtain as compliant",
+      "expected_skill": null,
+      "expected": "lookup-not-approval",
+      "optional_lookup": "nyc-drapery-requirement"
+    },
+    {
+      "request": "Provide the entire NFPA 701 standard",
+      "expected_skill": "nyc-referenced-standard",
+      "expected": "metadata-and-authorized-access-only",
+      "must_not": [
+        "protected-standard-reproduction"
+      ]
+    }
+  ]
+}

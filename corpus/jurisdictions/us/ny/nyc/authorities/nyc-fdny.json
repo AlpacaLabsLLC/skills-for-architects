@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "record_type": "authority",
+  "data": {
+    "id": "authority:nyc-fdny",
+    "name": "NYC Fire Department",
+    "jurisdiction": "jurisdiction:us-ny-nyc"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "standard:ashrae-90-1",
+  "title": "ASHRAE 90.1",
+  "publisher": "ASHRAE",
+  "url": "https://www.ashrae.org/technical-resources/standards-and-guidelines/read-only-versions-of-ashrae-standards",
+  "edition": null,
+  "effective_date": null,
+  "rights": "reference-metadata-only",
+  "access": "metadata-only-no-ai-content-without-permission",
+  "coverage": "Publisher explicitly prohibits AI entry and AI derivative works without express written permission. Link and metadata only; no automatic user-upload fallback. NYC2025 energy portal references ASHRAE90.1-2022 via state modifications, not publisher current90.1-2025."
+}

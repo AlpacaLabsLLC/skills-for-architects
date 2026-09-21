@@ -17,6 +17,12 @@ allowed-tools:
 <!-- architecture-studio:harness-compatibility -->
 > Harness note: use `/as:<skill>` on Claude Code and `$<skill>` on Codex. Resolve `<skill-root>` as the directory containing this loaded `SKILL.md` and `<plugin-root>` as the plugin root that contains `skills/`, and use equivalent native tools when host tool names differ.
 
+## Maintained geographic source references
+
+Before relying on a NYC source, resolve `source:nyc-zoning-resolution`, `source:nyc-pluto` through [the canonical source index](../../corpus/sources/catalog.json) and follow [the shared lookup evidence contract](../../corpus/jurisdictions/us/ny/nyc/local-procedures/lookup.md). These records own source identity, edition/access limitations and current retrieval routes; existing dataset-query steps below remain the workflow, not a second editable legal source map.
+
+Retain the existing source IDs and analysis owner. Use /as:nyc-zoning-provision for bounded text retrieval; versioned ZR evidence is distinct from PLUTO vintage and AS release digest. A source index is not a verified provision.
+
 Analyze building envelope rules for any lot in New York City using the PLUTO database (NYC Open Data) and the NYC Zoning Resolution.
 
 ## Project context

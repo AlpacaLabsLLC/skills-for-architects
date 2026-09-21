@@ -8,6 +8,12 @@
       "coverage": "routing-only"
     },
     {
+      "id": "jurisdiction:us-federal",
+      "name": "United States federal authority",
+      "parent": "jurisdiction:us",
+      "coverage": "selected-reference-lookup"
+    },
+    {
       "id": "jurisdiction:us-ny",
       "name": "New York State",
       "parent": "jurisdiction:us",

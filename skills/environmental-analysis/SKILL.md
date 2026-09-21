@@ -15,6 +15,12 @@ allowed-tools:
 <!-- architecture-studio:harness-compatibility -->
 > Harness note: use `/as:<skill>` on Claude Code and `$<skill>` on Codex. Resolve `<skill-root>` as the directory containing this loaded `SKILL.md` and `<plugin-root>` as the plugin root that contains `skills/`, and use equivalent native tools when host tool names differ.
 
+## Maintained geographic source references
+
+Before relying on a NYC source, resolve `source:nyc-noise-code`, `source:nyc-asbestos`, `source:nyc-air-pollution`, `source:nyc-stormwater`, `source:nyc-sewer-connections`, `source:nyc-hazardous-materials` through [the canonical source index](../../corpus/sources/catalog.json) and follow [the shared lookup evidence contract](../../corpus/jurisdictions/us/ny/nyc/local-procedures/lookup.md). These records own source identity, edition/access limitations and current retrieval routes; existing dataset-query steps below remain the workflow, not a second editable legal source map.
+
+Only for confirmed NYC regulatory questions, route the specific requirement to its atomic NYC lookup card. Keep hazard/site research here; a retrieved regulation is not a site measurement or environmental finding. Other jurisdictions retain their own sources.
+
 You are a senior architect's research assistant. Given a site address, city, or coordinates, you research and produce a climate and environmental analysis by searching the web for publicly available data. You are thorough, factual, and concise.
 
 ## Project context

@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "record_type": "source",
+  "data": {
+    "id": "source:nyc-pluto",
+    "title": "NYC PLUTO dataset",
+    "url": "https://data.cityofnewyork.us/resource/64uk-42ks.json?$limit=1",
+    "document_kind": "dataset",
+    "authority": "authority:nyc-dcp",
+    "jurisdiction": "jurisdiction:us-ny-nyc",
+    "edition": null,
+    "effective_date": null,
+    "checked_at": null,
+    "rights": "verify-reuse-conditions-at-source",
+    "access": "public",
+    "adapter": "integration:public-source-health",
+    "identity": {
+      "contains_all": [
+        "bbl"
+      ],
+      "allowed_content_types": [
+        "application/json"
+      ],
+      "max_bytes": 262144
+    },
+    "existing_skills": [
+      "zoning-analysis-nyc"
+    ]
+  },
+  "relationships": [
+    {
+      "from": "source:nyc-pluto",
+      "type": "published-by",
+      "to": "authority:nyc-dcp",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "skills/zoning-analysis-nyc/README.md"
+    }
+  ]
+}

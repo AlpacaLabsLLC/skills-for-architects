@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "record_type": "source",
+  "data": {
+    "id": "source:nyc-stormwater",
+    "title": "DEP stormwater permits",
+    "url": "https://www.nyc.gov/site/dep/water/stormwater-permits.page",
+    "document_kind": "guidance",
+    "authority": "authority:nyc-dep",
+    "jurisdiction": "jurisdiction:us-ny-nyc",
+    "edition": null,
+    "effective_date": null,
+    "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+    "access": "public",
+    "adapter": "integration:public-source-health",
+    "identity": {
+      "contains_all": [
+        "Stormwater Permits"
+      ],
+      "allowed_content_types": [
+        "text/html"
+      ],
+      "max_bytes": 1048576
+    },
+    "existing_skills": [],
+    "governance": {
+      "published_date": null,
+      "enacted_date": null,
+      "repealed_date": null,
+      "applicability": {
+        "conditions": [],
+        "unknowns": [
+          "Title15 chapter19.1 definitions/exclusions; state SPDES overlay unresolved."
+        ]
+      },
+      "review": {
+        "status": "pending-human-review",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "maintainer": "Architecture Studio maintainers",
+      "evidence": [
+        {
+          "url": "https://www.nyc.gov/site/dep/water/stormwater-permits.page",
+          "checked_at": "2026-09-06",
+          "note": "Title15 chapter19.1 definitions/exclusions; state SPDES overlay unresolved."
+        }
+      ],
+      "family_id": null
+    },
+    "retrieval": {
+      "mode": "metadata-only",
+      "allowed_origins": [
+        "https://www.nyc.gov"
+      ],
+      "max_excerpt_chars": 1200,
+      "provisions": {}
+    },
+    "checked_at": null
+  },
+  "relationships": [
+    {
+      "from": "source:nyc-stormwater",
+      "type": "published-by",
+      "to": "authority:nyc-dep",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/regulations/nyc-stormwater.json"
+    }
+  ]
+}

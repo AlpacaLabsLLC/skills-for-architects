@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "record_type": "source",
+  "data": {
+    "id": "source:us-ada-standards",
+    "title": "2010 ADA Standards",
+    "url": "https://www.ada.gov/law-and-regs/design-standards/2010-stds/",
+    "document_kind": "legal-publication",
+    "authority": "authority:us-doj",
+    "jurisdiction": "jurisdiction:us-federal",
+    "edition": "2010",
+    "effective_date": null,
+    "rights": "DOJ-authored federal text: public-domain default per DOJ legalpolicies; exclude third-party material and seals. Cite DOJ, no endorsement.",
+    "access": "public",
+    "adapter": "integration:source-lookup",
+    "identity": {
+      "contains_all": [
+        "2010 ADA Standards"
+      ],
+      "allowed_content_types": [
+        "text/html"
+      ],
+      "max_bytes": 1048576
+    },
+    "existing_skills": [],
+    "governance": {
+      "published_date": null,
+      "enacted_date": null,
+      "repealed_date": null,
+      "applicability": {
+        "conditions": [],
+        "unknowns": [
+          "Federal regime separate from NYC accessibility; date/title conditions needed."
+        ]
+      },
+      "review": {
+        "status": "pending-human-review",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "maintainer": "Architecture Studio maintainers",
+      "evidence": [
+        {
+          "url": "https://www.ada.gov/law-and-regs/design-standards/2010-stds/",
+          "checked_at": "2026-09-06",
+          "note": "Federal regime separate from NYC accessibility; date/title conditions needed."
+        },
+        {
+          "url": "https://www.justice.gov/legalpolicies",
+          "checked_at": "2026-09-06",
+          "note": "Copyright Status and Citation permits copying DOJ information unless otherwise indicated; excludes third-party material."
+        },
+        {
+          "url": "https://www.ada.gov/law-and-regs/design-standards/2010-stds/",
+          "checked_at": "2026-09-07",
+          "note": "Verified actual TITLE and unique H3 ID 404-doors-doorways-and-gates; no separately verified 404.2.3 heading. Only bounded section404 excerpt is configured."
+        }
+      ],
+      "family_id": null
+    },
+    "retrieval": {
+      "mode": "bounded-text",
+      "allowed_origins": [
+        "https://www.ada.gov"
+      ],
+      "max_excerpt_chars": 1200,
+      "provisions": {
+        "404": {
+          "url": "https://www.ada.gov/law-and-regs/design-standards/2010-stds/",
+          "start_id": "404-doors-doorways-and-gates",
+          "contains_all": [
+            "404 Doors, Doorways, and Gates"
+          ]
+        }
+      },
+      "edition_title": "2010 ADA Standards for Accessible Design | ADA.gov"
+    },
+    "checked_at": null
+  },
+  "relationships": [
+    {
+      "from": "source:us-ada-standards",
+      "type": "published-by",
+      "to": "authority:us-doj",
+      "edition": "2010",
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/federal/codes/us-ada-standards.json"
+    }
+  ]
+}

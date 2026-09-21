@@ -1,0 +1,352 @@
+{
+  "schema_version": 1,
+  "owner": "Architecture Studio maintainers; product owner Federico",
+  "review_status": "pending-human-review",
+  "reviewer": null,
+  "domains": [
+    {
+      "id": "N01",
+      "source_ids": [
+        "source:nyc-construction-codes",
+        "source:nyc-building-code",
+        "source:nyc-plumbing-code",
+        "source:nyc-mechanical-code",
+        "source:nyc-fuel-gas-code",
+        "source:nyc-construction-administration",
+        "source:nyc-existing-building-code",
+        "source:nyc-prior-codes"
+      ],
+      "owner": "reference-curation",
+      "test_ids": [
+        "geographic-record-integrity",
+        "source-identity-negative-fixtures"
+      ],
+      "status": "mapped-not-specialist-approved",
+      "limitations": [
+        "Not exhaustive applicable laws.",
+        "Chapter links are PDF viewers, not extracted text.",
+        "Select chapter PDF, not viewer controls.",
+        "Select chapter PDF.",
+        "Select chapter PDF.",
+        "Title28 distinct from technical codes; review amendments.",
+        "Enacted January17 2026; effective July17 2027 per DOB; not yet effective at check date.",
+        "Archive availability is not applicability."
+      ],
+      "representative_provisions": [
+        {
+          "source_id": "source:nyc-building-code",
+          "provision_ids": [
+            "chapter-8"
+          ],
+          "operation_status": "pdf-extraction-unbound"
+        }
+      ],
+      "retrieval_acceptance": "not-accepted"
+    },
+    {
+      "id": "N02",
+      "source_ids": [
+        "source:nyc-prior-codes",
+        "source:nyc-electrical-code"
+      ],
+      "owner": "reference-curation",
+      "test_ids": [
+        "geographic-record-integrity",
+        "source-identity-negative-fixtures"
+      ],
+      "status": "mapped-not-specialist-approved",
+      "limitations": [
+        "Archive availability is not applicability.",
+        "Full effect December21 2025; NYC amendments to NFPA70-2020; NEC publisher rights separate."
+      ],
+      "representative_provisions": [],
+      "retrieval_acceptance": "not-accepted"
+    },
+    {
+      "id": "N03",
+      "source_ids": [
+        "source:nyc-fire-code",
+        "source:nyc-fdny-rules"
+      ],
+      "owner": "reference-curation",
+      "test_ids": [
+        "geographic-record-integrity",
+        "source-identity-negative-fixtures"
+      ],
+      "status": "mapped-not-specialist-approved",
+      "limitations": [
+        "Effective April15 2022; FC102 and project-in-progress conditions require review.",
+        "Compilation published July1 2026; proposed versus adopted must be distinguished."
+      ],
+      "representative_provisions": [],
+      "retrieval_acceptance": "not-accepted"
+    },
+    {
+      "id": "N04",
+      "source_ids": [
+        "source:nyc-energy-code",
+        "source:nyc-ll97"
+      ],
+      "owner": "reference-curation",
+      "test_ids": [
+        "geographic-record-integrity",
+        "source-identity-negative-fixtures"
+      ],
+      "status": "mapped-not-specialist-approved",
+      "limitations": [
+        "2025 NYCECC enforcement March30 2026; complete filing date controls; state/ASHRAE texts separate rights.",
+        "CBL is reference only; reporting-year limits and exemptions require authoritative evidence."
+      ],
+      "representative_provisions": [],
+      "retrieval_acceptance": "not-accepted"
+    },
+    {
+      "id": "N05",
+      "source_ids": [
+        "source:nyc-zoning-resolution"
+      ],
+      "owner": "reference-curation",
+      "test_ids": [
+        "geographic-record-integrity",
+        "source-identity-negative-fixtures"
+      ],
+      "status": "mapped-not-specialist-approved",
+      "limitations": [
+        "Current online publication not proof of historical applicable version."
+      ],
+      "representative_provisions": [
+        {
+          "source_id": "source:nyc-zoning-resolution",
+          "provision_ids": [
+            "37-70"
+          ],
+          "operation_status": "metadata-only-no-verified-section-selector"
+        }
+      ],
+      "retrieval_acceptance": "not-accepted"
+    },
+    {
+      "id": "N06",
+      "source_ids": [
+        "source:nyc-housing-maintenance-code",
+        "source:ny-multiple-dwelling-law"
+      ],
+      "owner": "reference-curation",
+      "test_ids": [
+        "geographic-record-integrity",
+        "source-identity-negative-fixtures"
+      ],
+      "status": "mapped-not-specialist-approved",
+      "limitations": [
+        "211-page PDF linked by official OSE; compilation currency unverified; check amendments.",
+        "State-owned; section history distinct from applicability."
+      ],
+      "representative_provisions": [
+        {
+          "source_id": "source:ny-multiple-dwelling-law",
+          "provision_ids": [
+            "section-2"
+          ],
+          "operation_status": "metadata-only-no-verified-section-selector"
+        }
+      ],
+      "retrieval_acceptance": "not-accepted"
+    },
+    {
+      "id": "N07",
+      "source_ids": [
+        "source:nyc-fire-code",
+        "source:nyc-noise-code",
+        "source:nyc-asbestos",
+        "source:nyc-air-pollution",
+        "source:nyc-stormwater",
+        "source:nyc-sewer-connections",
+        "source:nyc-hazardous-materials"
+      ],
+      "owner": "reference-curation",
+      "test_ids": [
+        "geographic-record-integrity",
+        "source-identity-negative-fixtures"
+      ],
+      "status": "mapped-not-specialist-approved",
+      "limitations": [
+        "Effective April15 2022; FC102 and project-in-progress conditions require review.",
+        "Noise enforcement shared DEP/NYPD; guidance links code.",
+        "NYC rules and state/federal overlays separate.",
+        "Guidance links provisions; not universal emissions clearance.",
+        "Title15 chapter19.1 definitions/exclusions; state SPDES overlay unresolved.",
+        "Certification and connection permit distinct; current amendments needed.",
+        "DEP reporting does not replace FDNY storage/use requirements."
+      ],
+      "representative_provisions": [],
+      "retrieval_acceptance": "not-accepted"
+    },
+    {
+      "id": "N08",
+      "source_ids": [
+        "source:nyc-building-code",
+        "source:us-ada-standards"
+      ],
+      "owner": "reference-curation",
+      "test_ids": [
+        "geographic-record-integrity",
+        "source-identity-negative-fixtures"
+      ],
+      "status": "mapped-not-specialist-approved",
+      "limitations": [
+        "Chapter links are PDF viewers, not extracted text.",
+        "Federal regime separate from NYC accessibility; date/title conditions needed."
+      ],
+      "representative_provisions": [
+        {
+          "source_id": "source:us-ada-standards",
+          "provision_ids": [
+            "404"
+          ],
+          "operation_status": "bounded-html-excerpt-candidate"
+        }
+      ],
+      "retrieval_acceptance": "not-accepted"
+    },
+    {
+      "id": "N09",
+      "source_ids": [
+        "source:nyc-lpc-rules",
+        "source:nyc-landmark-records"
+      ],
+      "owner": "reference-curation",
+      "test_ids": [
+        "geographic-record-integrity",
+        "source-identity-negative-fixtures"
+      ],
+      "status": "mapped-not-specialist-approved",
+      "limitations": [
+        "Codified rules/PDF linked; designation-specific conditions separate.",
+        "Designated versus calendared; report and lot scope must match."
+      ],
+      "representative_provisions": [],
+      "retrieval_acceptance": "not-accepted"
+    },
+    {
+      "id": "N10",
+      "source_ids": [
+        "source:nyc-zoning-resolution",
+        "source:nyc-sewer-connections",
+        "source:nyc-sidewalks",
+        "source:nyc-curb-cuts",
+        "source:nyc-plazas",
+        "source:nyc-street-trees",
+        "source:nyc-water-connections"
+      ],
+      "owner": "reference-curation",
+      "test_ids": [
+        "geographic-record-integrity",
+        "source-identity-negative-fixtures"
+      ],
+      "status": "mapped-not-specialist-approved",
+      "limitations": [
+        "Current online publication not proof of historical applicable version.",
+        "Certification and connection permit distinct; current amendments needed.",
+        "Highway rules/specifications linked; not zoning.",
+        "DOT,DOB,ZR and possible Parks/LPC overlap.",
+        "DOT pedestrian plazas distinct from ZR37-70 private public plazas; ask which.",
+        "Publisher PDF search verified; revision date unverified; permit/species separate.",
+        "Water/sewer only; not electric/gas/telecom utility service rules."
+      ],
+      "representative_provisions": [
+        {
+          "source_id": "source:nyc-zoning-resolution",
+          "provision_ids": [
+            "37-70"
+          ],
+          "operation_status": "metadata-only-no-verified-section-selector"
+        }
+      ],
+      "retrieval_acceptance": "not-accepted"
+    },
+    {
+      "id": "N11",
+      "source_ids": [
+        "source:nyc-building-code",
+        "source:nyc-fire-code"
+      ],
+      "owner": "reference-curation",
+      "test_ids": [
+        "geographic-record-integrity",
+        "source-identity-negative-fixtures"
+      ],
+      "status": "mapped-not-specialist-approved",
+      "limitations": [
+        "Chapter links are PDF viewers, not extracted text.",
+        "Effective April15 2022; FC102 and project-in-progress conditions require review."
+      ],
+      "representative_provisions": [
+        {
+          "source_id": "source:nyc-building-code",
+          "provision_ids": [
+            "chapter-8"
+          ],
+          "operation_status": "pdf-extraction-unbound"
+        }
+      ],
+      "retrieval_acceptance": "not-accepted"
+    },
+    {
+      "id": "N12",
+      "source_ids": [
+        "source:nyc-construction-administration",
+        "source:nyc-fdny-rules",
+        "source:nyc-local-laws",
+        "source:nyc-agency-rules",
+        "source:nyc-buildings-bulletins",
+        "source:nyc-code-notes",
+        "source:nyc-executive-orders"
+      ],
+      "owner": "reference-curation",
+      "test_ids": [
+        "geographic-record-integrity",
+        "source-identity-negative-fixtures"
+      ],
+      "status": "mapped-not-specialist-approved",
+      "limitations": [
+        "Title28 distinct from technical codes; review amendments.",
+        "Compilation published July1 2026; proposed versus adopted must be distinguished.",
+        "DOB subset only; Council enactment status required.",
+        "Adopted versus proposed; codified RCNY and final notices separate.",
+        "Interpretations not independent statutes; supersession review needed.",
+        "Guidance index not complete legal text.",
+        "Representative verified EO PDF; complete archive unresolved. Emergency EOs distinct."
+      ],
+      "representative_provisions": [],
+      "retrieval_acceptance": "not-accepted"
+    },
+    {
+      "id": "N13",
+      "source_ids": [
+        "source:nyc-acris",
+        "source:nyc-dob-records",
+        "source:nyc-hpd-records",
+        "source:nyc-bsa-resolutions",
+        "source:nyc-landmark-records",
+        "source:nyc-certificate-of-occupancy",
+        "source:nyc-pluto"
+      ],
+      "owner": "reference-curation",
+      "test_ids": [
+        "geographic-record-integrity",
+        "source-identity-negative-fixtures"
+      ],
+      "status": "mapped-not-specialist-approved",
+      "limitations": [
+        "Recorded evidence not title opinion; interactive search may be required.",
+        "Separate BIS/DOB NOW; no hits not proof of no permits/violations.",
+        "Interactive property query needed; guidance not property result.",
+        "Applications1998 onward; votes upload lag and older records explicit limitations.",
+        "Designated versus calendared; report and lot scope must match.",
+        "BIS before March1 2021 requests; DOB NOW newer; absence not legal-use conclusion."
+      ],
+      "representative_provisions": [],
+      "retrieval_acceptance": "not-accepted"
+    }
+  ]
+}

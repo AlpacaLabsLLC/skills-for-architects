@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "record_type": "source",
+  "data": {
+    "id": "source:nyc-energy-code-2020",
+    "title": "2020 Energy Conservation Code — official chapter navigation",
+    "url": "https://www.nyc.gov/site/buildings/codes/2020-energy-conservation-code.page",
+    "document_kind": "code-index",
+    "authority": "authority:nyc-dob",
+    "jurisdiction": "jurisdiction:us-ny-nyc",
+    "edition": "2020",
+    "effective_date": null,
+    "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+    "access": "public",
+    "adapter": "integration:public-source-health",
+    "identity": {
+      "contains_all": [
+        "2020 Energy Conservation Code"
+      ],
+      "allowed_content_types": [
+        "text/html"
+      ],
+      "max_bytes": 1048576
+    },
+    "existing_skills": [],
+    "governance": {
+      "published_date": null,
+      "enacted_date": null,
+      "repealed_date": null,
+      "applicability": {
+        "conditions": [],
+        "unknowns": [
+          "Complete filings on/before 2026-03-29 can continue under 2020; verify completeness and exceptions."
+        ]
+      },
+      "review": {
+        "status": "pending-human-review",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "maintainer": "Architecture Studio maintainers",
+      "evidence": [
+        {
+          "url": "https://www.nyc.gov/site/buildings/codes/2020-energy-conservation-code.page",
+          "checked_at": "2026-09-07",
+          "note": "Official edition navigation verified; metadata only."
+        },
+        {
+          "url": "https://www.nyc.gov/site/buildings/codes/energy-conservation-code.page",
+          "checked_at": "2026-09-07",
+          "note": "Complete filings on/before 2026-03-29 can continue under 2020; verify completeness and exceptions."
+        }
+      ],
+      "family_id": "family:nyc-energy-code"
+    },
+    "retrieval": {
+      "mode": "metadata-only",
+      "allowed_origins": [
+        "https://www.nyc.gov"
+      ],
+      "max_excerpt_chars": 1200,
+      "provisions": {}
+    },
+    "checked_at": null
+  },
+  "relationships": [
+    {
+      "from": "source:nyc-energy-code-2020",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": "2020",
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/codes/nyc-energy-code-2020.json"
+    }
+  ]
+}

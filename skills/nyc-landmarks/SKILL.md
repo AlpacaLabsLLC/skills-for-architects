@@ -13,6 +13,12 @@ allowed-tools:
 <!-- architecture-studio:harness-compatibility -->
 > Harness note: use `/as:<skill>` on Claude Code and `$<skill>` on Codex. Resolve `<skill-root>` as the directory containing this loaded `SKILL.md` and `<plugin-root>` as the plugin root that contains `skills/`, and use equivalent native tools when host tool names differ.
 
+## Maintained geographic source references
+
+Before relying on a NYC source, resolve `source:nyc-landmark-records`, `source:nyc-lpc-rules` through [the canonical source index](../../corpus/sources/catalog.json) and follow [the shared lookup evidence contract](../../corpus/jurisdictions/us/ny/nyc/local-procedures/lookup.md). These records own source identity, edition/access limitations and current retrieval routes; existing dataset-query steps below remain the workflow, not a second editable legal source map.
+
+Keep designation/district lookup here. Use /as:nyc-lpc-requirement for rule or review requirements; designation alone does not determine approval.
+
 Check if a NYC building is individually landmarked or within a historic district using the LPC Individual Landmark & Historic District Building Database. No API key required.
 
 ## Usage

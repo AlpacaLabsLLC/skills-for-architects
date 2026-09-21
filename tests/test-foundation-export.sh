@@ -33,8 +33,8 @@ with tempfile.TemporaryDirectory(prefix='as-foundation-export-') as temporary:
         shutil.copy2(source, destination)
     assert not (exported / '.git').exists()
     skills = sorted(p.parent.name for p in (exported / 'skills').glob('*/SKILL.md'))
-    assert len(skills) == 53
-    assert len(list(exported.rglob('SKILL.md'))) == 53
+    assert len(skills) == 98
+    assert len(list(exported.rglob('SKILL.md'))) == 98
     versions = [json.loads((exported / path).read_text())['version'] for path in (
         '.claude-plugin/plugin.json', '.codex-plugin/plugin.json')]
     assert versions == ['1.5.0', '1.5.0']

@@ -12,8 +12,8 @@ root = Path.cwd()
 spec = importlib.util.spec_from_file_location('categories', root/'tools/validators/validate-categories.py')
 m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
 components, clusters = m.validate(root)
-assert len(clusters) == 9
-assert len([x for x in components if x.startswith('skill:')]) == 53
+assert len(clusters) == 10
+assert len([x for x in components if x.startswith('skill:')]) == 98
 assert m.render(components, clusters) == (root/'docs/practice-clusters.md').read_text()
 with tempfile.TemporaryDirectory(prefix='as-package-') as directory:
     dest = Path(directory)/'package'
@@ -52,7 +52,7 @@ with tempfile.TemporaryDirectory(prefix='as-package-') as directory:
     catalog['jurisdictions'].append(fixture);jurisdictions.write_text(json.dumps(catalog))
     d['coverage']['jurisdictions']=['jurisdiction:fixture-city']
     (dest/'clusters/fixture-practice.json').write_text(json.dumps(d))
-    _, updated=m.validate(dest); assert len(updated)==10
+    _, updated=m.validate(dest); assert len(updated)==11
     # Existing skill reference paths forward to a canonical file, with no duplicated concepts.
     for file in (dest/'skills/architecture-knowledge/references').glob('*.md'):
         text=file.read_text(); assert '../../../corpus/practice-methods/' in text

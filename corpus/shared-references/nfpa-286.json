@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "standard:nfpa-286",
+  "title": "NFPA 286",
+  "publisher": "NFPA",
+  "url": "https://www.nfpa.org/codes-and-standards/nfpa-286-standard-development/286",
+  "edition": null,
+  "effective_date": null,
+  "rights": "reference-metadata-only",
+  "access": "metadata-only",
+  "coverage": "Official page returned zero extractable lines; adopted edition must come from code reference table, not latest publisher version."
+}

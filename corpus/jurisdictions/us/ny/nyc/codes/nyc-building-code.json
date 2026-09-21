@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "record_type": "source",
+  "data": {
+    "id": "source:nyc-building-code",
+    "title": "2022 NYC Building Code",
+    "url": "https://www.nyc.gov/site/buildings/codes/2022-construction-codes.page",
+    "document_kind": "code-index",
+    "authority": "authority:nyc-dob",
+    "jurisdiction": "jurisdiction:us-ny-nyc",
+    "edition": "2022",
+    "effective_date": "2022-11-07",
+    "rights": "Bounded quotation of enacted city-code provision; no complete chapter redistribution or third-party publisher standard text.",
+    "access": "public",
+    "adapter": "integration:source-lookup",
+    "identity": {
+      "contains_all": [
+        "BUILDING CODE"
+      ],
+      "allowed_content_types": [
+        "text/html",
+        "application/pdf"
+      ],
+      "max_bytes": 1048576
+    },
+    "existing_skills": [],
+    "governance": {
+      "published_date": null,
+      "enacted_date": null,
+      "repealed_date": null,
+      "applicability": {
+        "conditions": [],
+        "unknowns": [
+          "Chapter links are PDF viewers, not extracted text."
+        ]
+      },
+      "review": {
+        "status": "pending-human-review",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "maintainer": "Architecture Studio maintainers",
+      "evidence": [
+        {
+          "url": "https://www.nyc.gov/site/buildings/codes/2022-construction-codes.page",
+          "checked_at": "2026-09-06",
+          "note": "Chapter links are PDF viewers, not extracted text."
+        }
+      ],
+      "family_id": "family:nyc-building-code"
+    },
+    "retrieval": {
+      "mode": "bounded-text",
+      "allowed_origins": [
+        "https://www.nyc.gov"
+      ],
+      "max_excerpt_chars": 1200,
+      "provisions": {
+        "chapter-8": {
+          "url": "https://www.nyc.gov/assets/buildings/codes-pdf/cons_codes_2022/2022BC_Chapter08_InteriorFinishesWBwm.pdf",
+          "contains_all": [
+            "CHAPTER 8",
+            "INTERIOR FINISHES",
+            "SECTION BC 803"
+          ]
+        }
+      }
+    },
+    "checked_at": null
+  },
+  "relationships": [
+    {
+      "from": "source:nyc-building-code",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": "2022",
+      "effective_date": "2022-11-07",
+      "evidence": "corpus/jurisdictions/us/ny/nyc/codes/nyc-building-code.json"
+    }
+  ]
+}

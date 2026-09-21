@@ -2,6 +2,521 @@
   "schema_version": 1,
   "components": [
     {
+      "id": "skill:nyc-building-code",
+      "category": "skills",
+      "path": "skills/nyc-building-code/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-existing-building-code",
+      "category": "skills",
+      "path": "skills/nyc-existing-building-code/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-plumbing-code",
+      "category": "skills",
+      "path": "skills/nyc-plumbing-code/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-mechanical-code",
+      "category": "skills",
+      "path": "skills/nyc-mechanical-code/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-fuel-gas-code",
+      "category": "skills",
+      "path": "skills/nyc-fuel-gas-code/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-construction-administration",
+      "category": "skills",
+      "path": "skills/nyc-construction-administration/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-electrical-code",
+      "category": "skills",
+      "path": "skills/nyc-electrical-code/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-fire-code",
+      "category": "skills",
+      "path": "skills/nyc-fire-code/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-fdny-rule",
+      "category": "skills",
+      "path": "skills/nyc-fdny-rule/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-energy-code",
+      "category": "skills",
+      "path": "skills/nyc-energy-code/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-ll97-applicability",
+      "category": "skills",
+      "path": "skills/nyc-ll97-applicability/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-emissions-limit",
+      "category": "skills",
+      "path": "skills/nyc-emissions-limit/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-zoning-provision",
+      "category": "skills",
+      "path": "skills/nyc-zoning-provision/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-housing-maintenance",
+      "category": "skills",
+      "path": "skills/nyc-housing-maintenance/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-multiple-dwelling-law",
+      "category": "skills",
+      "path": "skills/nyc-multiple-dwelling-law/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-noise-requirement",
+      "category": "skills",
+      "path": "skills/nyc-noise-requirement/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-asbestos-requirement",
+      "category": "skills",
+      "path": "skills/nyc-asbestos-requirement/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-air-emissions-requirement",
+      "category": "skills",
+      "path": "skills/nyc-air-emissions-requirement/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-stormwater-requirement",
+      "category": "skills",
+      "path": "skills/nyc-stormwater-requirement/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-sewer-requirement",
+      "category": "skills",
+      "path": "skills/nyc-sewer-requirement/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-hazardous-material-requirement",
+      "category": "skills",
+      "path": "skills/nyc-hazardous-material-requirement/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-accessibility-requirement",
+      "category": "skills",
+      "path": "skills/nyc-accessibility-requirement/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:ada-requirement",
+      "category": "skills",
+      "path": "skills/ada-requirement/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-lpc-requirement",
+      "category": "skills",
+      "path": "skills/nyc-lpc-requirement/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-sidewalk-requirement",
+      "category": "skills",
+      "path": "skills/nyc-sidewalk-requirement/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-curb-cut-requirement",
+      "category": "skills",
+      "path": "skills/nyc-curb-cut-requirement/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-plaza-requirement",
+      "category": "skills",
+      "path": "skills/nyc-plaza-requirement/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-street-tree-requirement",
+      "category": "skills",
+      "path": "skills/nyc-street-tree-requirement/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-utility-connection-requirement",
+      "category": "skills",
+      "path": "skills/nyc-utility-connection-requirement/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-material-requirement",
+      "category": "skills",
+      "path": "skills/nyc-material-requirement/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-interior-finish-requirement",
+      "category": "skills",
+      "path": "skills/nyc-interior-finish-requirement/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-floor-finish-requirement",
+      "category": "skills",
+      "path": "skills/nyc-floor-finish-requirement/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-furnishing-requirement",
+      "category": "skills",
+      "path": "skills/nyc-furnishing-requirement/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-drapery-requirement",
+      "category": "skills",
+      "path": "skills/nyc-drapery-requirement/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-local-law",
+      "category": "skills",
+      "path": "skills/nyc-local-law/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-agency-rule",
+      "category": "skills",
+      "path": "skills/nyc-agency-rule/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-buildings-bulletin",
+      "category": "skills",
+      "path": "skills/nyc-buildings-bulletin/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-code-note",
+      "category": "skills",
+      "path": "skills/nyc-code-note/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-executive-order",
+      "category": "skills",
+      "path": "skills/nyc-executive-order/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-certificate-of-occupancy",
+      "category": "skills",
+      "path": "skills/nyc-certificate-of-occupancy/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-authority-resolver",
+      "category": "skills",
+      "path": "skills/nyc-authority-resolver/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-code-edition",
+      "category": "skills",
+      "path": "skills/nyc-code-edition/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-code-section",
+      "category": "skills",
+      "path": "skills/nyc-code-section/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-amendment-check",
+      "category": "skills",
+      "path": "skills/nyc-amendment-check/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "skill:nyc-referenced-standard",
+      "category": "skills",
+      "path": "skills/nyc-referenced-standard/SKILL.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:nyc-sources",
+        "knowledge:code-regulatory-procedure"
+      ]
+    },
+    {
+      "id": "knowledge:code-regulatory-procedure",
+      "category": "knowledge",
+      "path": "corpus/jurisdictions/us/ny/nyc/local-procedures/lookup.md",
+      "owner": "Architecture Studio maintainers",
+      "execution": "reference",
+      "dependencies": [
+        "knowledge:nyc-sources"
+      ]
+    },
+    {
+      "id": "tool:source-lookup",
+      "category": "tools",
+      "path": "tools/integrations/source-lookup.mjs",
+      "owner": "Architecture Studio maintainers",
+      "execution": "local-node",
+      "dependencies": [
+        "knowledge:nyc-sources"
+      ]
+    },
+    {
       "id": "skill:agreement",
       "category": "skills",
       "path": "skills/agreement/SKILL.md",

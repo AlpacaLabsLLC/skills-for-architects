@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "record_type": "jurisdiction",
+  "data": {
+    "id": "jurisdiction:us-ny",
+    "name": "New York State",
+    "parent": "jurisdiction:us",
+    "coverage": "routing-only"
+  }
+}

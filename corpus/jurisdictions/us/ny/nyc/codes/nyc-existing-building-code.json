@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "record_type": "source",
+  "data": {
+    "id": "source:nyc-existing-building-code",
+    "title": "NYC Existing Building Code",
+    "url": "https://www.nyc.gov/site/buildings/codes/existing-building-code.page",
+    "document_kind": "guidance",
+    "authority": "authority:nyc-dob",
+    "jurisdiction": "jurisdiction:us-ny-nyc",
+    "edition": "2026",
+    "effective_date": "2027-07-17",
+    "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+    "access": "public",
+    "adapter": "integration:public-source-health",
+    "identity": {
+      "contains_all": [
+        "July 17, 2027"
+      ],
+      "allowed_content_types": [
+        "text/html"
+      ],
+      "max_bytes": 1048576
+    },
+    "existing_skills": [],
+    "governance": {
+      "published_date": null,
+      "enacted_date": "2026-01-17",
+      "repealed_date": null,
+      "applicability": {
+        "conditions": [],
+        "unknowns": [
+          "Enacted January17 2026; effective July17 2027 per DOB; not yet effective at check date."
+        ]
+      },
+      "review": {
+        "status": "pending-human-review",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "maintainer": "Architecture Studio maintainers",
+      "evidence": [
+        {
+          "url": "https://www.nyc.gov/site/buildings/codes/existing-building-code.page",
+          "checked_at": "2026-09-06",
+          "note": "Enacted January17 2026; effective July17 2027 per DOB; not yet effective at check date."
+        }
+      ],
+      "family_id": "family:nyc-existing-building-code"
+    },
+    "retrieval": {
+      "mode": "metadata-only",
+      "allowed_origins": [
+        "https://www.nyc.gov"
+      ],
+      "max_excerpt_chars": 1200,
+      "provisions": {}
+    },
+    "checked_at": null
+  },
+  "relationships": [
+    {
+      "from": "source:nyc-existing-building-code",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": "2026",
+      "effective_date": "2027-07-17",
+      "evidence": "corpus/jurisdictions/us/ny/nyc/codes/nyc-existing-building-code.json"
+    }
+  ]
+}

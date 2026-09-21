@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "families": [
+    {
+      "id": "family:nyc-building-code",
+      "title": "nyc building code",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition_source_ids": [
+        "source:nyc-building-code",
+        "source:nyc-building-code-2014",
+        "source:nyc-building-code-2008"
+      ],
+      "limitations": [
+        "Navigation only; not exhaustive history or a project applicability determination.",
+        "Pending human review; verify complete amendments and underlying rights."
+      ],
+      "evidence": [
+        {
+          "url": "https://www.nyc.gov/site/buildings/codes/prior-codes.page",
+          "checked_at": "2026-09-07",
+          "note": "Official navigation and edition references verified."
+        }
+      ]
+    },
+    {
+      "id": "family:nyc-energy-code",
+      "title": "nyc energy code",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition_source_ids": [
+        "source:nyc-energy-code-2025",
+        "source:nyc-energy-code-2020"
+      ],
+      "limitations": [
+        "Navigation only; not exhaustive history or a project applicability determination.",
+        "Pending human review; verify complete amendments and underlying rights."
+      ],
+      "evidence": [
+        {
+          "url": "https://www.nyc.gov/site/buildings/codes/energy-conservation-code.page",
+          "checked_at": "2026-09-07",
+          "note": "Official navigation and edition references verified."
+        }
+      ]
+    },
+    {
+      "id": "family:nyc-electrical-code",
+      "title": "nyc electrical code",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition_source_ids": [
+        "source:nyc-electrical-code",
+        "source:nyc-electrical-code-2011"
+      ],
+      "limitations": [
+        "Navigation only; not exhaustive history or a project applicability determination.",
+        "Pending human review; verify complete amendments and underlying rights."
+      ],
+      "evidence": [
+        {
+          "url": "https://www.nyc.gov/site/buildings/codes/electrical-code.page",
+          "checked_at": "2026-09-07",
+          "note": "Official navigation and edition references verified."
+        }
+      ]
+    },
+    {
+      "id": "family:nyc-existing-building-code",
+      "title": "nyc existing building code",
+      "jurisdiction": "jurisdiction:us-ny-nyc",
+      "edition_source_ids": [
+        "source:nyc-existing-building-code"
+      ],
+      "limitations": [
+        "Enacted 2026-01-17, future effective 2027-07-17; not current applicability and not an official edition label of 2027.",
+        "Pending human review; verify complete amendments and underlying rights."
+      ],
+      "evidence": [
+        {
+          "url": "https://www.nyc.gov/site/buildings/codes/existing-building-code.page",
+          "checked_at": "2026-09-07",
+          "note": "Official navigation and edition references verified."
+        }
+      ]
+    }
+  ]
+}

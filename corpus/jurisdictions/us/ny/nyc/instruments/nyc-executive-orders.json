@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "record_type": "source",
+  "data": {
+    "id": "source:nyc-executive-orders",
+    "title": "NYC EO1 2026 prior orders instrument",
+    "url": "https://www.nyc.gov/content/dam/nycgov/mayors-office/downloads/pdf/executive-orders/2026/eo1-prior-executive-orders.pdf",
+    "document_kind": "legal-publication",
+    "authority": "authority:nyc-mayor",
+    "jurisdiction": "jurisdiction:us-ny-nyc",
+    "edition": null,
+    "effective_date": null,
+    "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+    "access": "public",
+    "adapter": "integration:public-source-health",
+    "identity": {
+      "contains_all": [
+        "EXECUTIVE ORDER"
+      ],
+      "allowed_content_types": [
+        "application/pdf"
+      ],
+      "max_bytes": 1048576
+    },
+    "existing_skills": [],
+    "governance": {
+      "published_date": null,
+      "enacted_date": null,
+      "repealed_date": null,
+      "applicability": {
+        "conditions": [],
+        "unknowns": [
+          "Representative verified EO PDF; complete archive unresolved. Emergency EOs distinct."
+        ]
+      },
+      "review": {
+        "status": "pending-human-review",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "maintainer": "Architecture Studio maintainers",
+      "evidence": [
+        {
+          "url": "https://www.nyc.gov/content/dam/nycgov/mayors-office/downloads/pdf/executive-orders/2026/eo1-prior-executive-orders.pdf",
+          "checked_at": "2026-09-06",
+          "note": "Representative verified EO PDF; complete archive unresolved. Emergency EOs distinct."
+        }
+      ],
+      "family_id": null
+    },
+    "retrieval": {
+      "mode": "metadata-only",
+      "allowed_origins": [
+        "https://www.nyc.gov"
+      ],
+      "max_excerpt_chars": 1200,
+      "provisions": {}
+    },
+    "checked_at": null
+  },
+  "relationships": [
+    {
+      "from": "source:nyc-executive-orders",
+      "type": "published-by",
+      "to": "authority:nyc-mayor",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/instruments/nyc-executive-orders.json"
+    }
+  ]
+}

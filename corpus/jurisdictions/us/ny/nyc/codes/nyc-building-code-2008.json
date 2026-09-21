@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "record_type": "source",
+  "data": {
+    "id": "source:nyc-building-code-2008",
+    "title": "2008 NYC Construction Codes — official chapter navigation",
+    "url": "https://www.nyc.gov/site/buildings/codes/2008-construction-codes-updates.page",
+    "document_kind": "code-index",
+    "authority": "authority:nyc-dob",
+    "jurisdiction": "jurisdiction:us-ny-nyc",
+    "edition": "2008",
+    "effective_date": null,
+    "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+    "access": "public",
+    "adapter": "integration:public-source-health",
+    "identity": {
+      "contains_all": [
+        "2008 NYC Construction Codes"
+      ],
+      "allowed_content_types": [
+        "text/html"
+      ],
+      "max_bytes": 1048576
+    },
+    "existing_skills": [],
+    "governance": {
+      "published_date": null,
+      "enacted_date": null,
+      "repealed_date": null,
+      "applicability": {
+        "conditions": [],
+        "unknowns": [
+          "Update and amendment navigation; effective date and project applicability not established."
+        ]
+      },
+      "review": {
+        "status": "pending-human-review",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "maintainer": "Architecture Studio maintainers",
+      "evidence": [
+        {
+          "url": "https://www.nyc.gov/site/buildings/codes/2008-construction-codes-updates.page",
+          "checked_at": "2026-09-07",
+          "note": "Official edition navigation verified; metadata only."
+        },
+        {
+          "url": "https://www.nyc.gov/site/buildings/codes/prior-codes.page",
+          "checked_at": "2026-09-07",
+          "note": "Update and amendment navigation; effective date and project applicability not established."
+        }
+      ],
+      "family_id": "family:nyc-building-code"
+    },
+    "retrieval": {
+      "mode": "metadata-only",
+      "allowed_origins": [
+        "https://www.nyc.gov"
+      ],
+      "max_excerpt_chars": 1200,
+      "provisions": {}
+    },
+    "checked_at": null
+  },
+  "relationships": [
+    {
+      "from": "source:nyc-building-code-2008",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": "2008",
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/codes/nyc-building-code-2008.json"
+    }
+  ]
+}

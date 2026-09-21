@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "record_type": "source",
+  "data": {
+    "id": "source:nyc-ll97",
+    "title": "LL97 emissions rules and guidance",
+    "url": "https://www.nyc.gov/site/buildings/codes/ll97-greenhouse-gas-emissions-reductions.page",
+    "document_kind": "guidance",
+    "authority": "authority:nyc-dob",
+    "jurisdiction": "jurisdiction:us-ny-nyc",
+    "edition": null,
+    "effective_date": null,
+    "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+    "access": "public",
+    "adapter": "integration:public-source-health",
+    "identity": {
+      "contains_all": [
+        "Covered Buildings"
+      ],
+      "allowed_content_types": [
+        "text/html"
+      ],
+      "max_bytes": 1048576
+    },
+    "existing_skills": [],
+    "governance": {
+      "published_date": null,
+      "enacted_date": null,
+      "repealed_date": null,
+      "applicability": {
+        "conditions": [],
+        "unknowns": [
+          "CBL is reference only; reporting-year limits and exemptions require authoritative evidence."
+        ]
+      },
+      "review": {
+        "status": "pending-human-review",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "maintainer": "Architecture Studio maintainers",
+      "evidence": [
+        {
+          "url": "https://www.nyc.gov/site/buildings/codes/ll97-greenhouse-gas-emissions-reductions.page",
+          "checked_at": "2026-09-06",
+          "note": "CBL is reference only; reporting-year limits and exemptions require authoritative evidence."
+        }
+      ],
+      "family_id": null
+    },
+    "retrieval": {
+      "mode": "metadata-only",
+      "allowed_origins": [
+        "https://www.nyc.gov"
+      ],
+      "max_excerpt_chars": 1200,
+      "provisions": {}
+    },
+    "checked_at": null
+  },
+  "relationships": [
+    {
+      "from": "source:nyc-ll97",
+      "type": "published-by",
+      "to": "authority:nyc-dob",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/regulations/nyc-ll97.json"
+    }
+  ]
+}

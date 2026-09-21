@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "record_type": "source",
+  "data": {
+    "id": "source:ny-multiple-dwelling-law",
+    "title": "NY Multiple Dwelling Law",
+    "url": "https://www.nysenate.gov/legislation/laws/MDW",
+    "document_kind": "legal-publication",
+    "authority": "authority:ny-legislature",
+    "jurisdiction": "jurisdiction:us-ny",
+    "edition": null,
+    "effective_date": null,
+    "rights": "Bounded quotation of state enacted statute; no third-party assets; preserve source and revision label.",
+    "access": "public",
+    "adapter": "integration:source-lookup",
+    "identity": {
+      "contains_all": [
+        "Multiple Dwelling"
+      ],
+      "allowed_content_types": [
+        "text/html"
+      ],
+      "max_bytes": 1048576
+    },
+    "existing_skills": [],
+    "governance": {
+      "published_date": null,
+      "enacted_date": null,
+      "repealed_date": null,
+      "applicability": {
+        "conditions": [],
+        "unknowns": [
+          "State-owned; section history distinct from applicability.",
+          "Current bounded HTML extractor has no verified structural section selector for this source; provision retrieval is unavailable."
+        ]
+      },
+      "review": {
+        "status": "pending-human-review",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "maintainer": "Architecture Studio maintainers",
+      "evidence": [
+        {
+          "url": "https://www.nysenate.gov/legislation/laws/MDW",
+          "checked_at": "2026-09-06",
+          "note": "State-owned; section history distinct from applicability."
+        }
+      ],
+      "family_id": null
+    },
+    "retrieval": {
+      "mode": "metadata-only",
+      "allowed_origins": [
+        "https://www.nysenate.gov"
+      ],
+      "max_excerpt_chars": 1200,
+      "provisions": {
+        "section-2": {
+          "url": "https://www.nysenate.gov/legislation/laws/MDW/2",
+          "contains_all": [
+            "SECTION 2",
+            "Legislative finding",
+            "Multiple Dwelling"
+          ]
+        }
+      }
+    },
+    "checked_at": null
+  },
+  "relationships": [
+    {
+      "from": "source:ny-multiple-dwelling-law",
+      "type": "published-by",
+      "to": "authority:ny-legislature",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/state/codes/ny-multiple-dwelling-law.json"
+    }
+  ]
+}

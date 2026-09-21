@@ -7,8 +7,8 @@ const response = (body, status = 200, headers = {}) => new Response(body, { stat
 const check = async fetchImpl => (await checkSources([sourceID], { fetchImpl }))[0];
 
 test('all maintained manifests validate; unknown editions remain null', async () => {
-  const c = await loadCatalog(); assert.equal(c.sources.sources.length, 3);
-  assert.equal(c.sources.sources[0].edition, null);
+  const c = await loadCatalog(); assert.ok(c.sources.sources.length >= 41);
+  assert.equal(c.sources.sources.find(s=>s.id==='source:nyc-pluto').edition, null);
   assert.equal(c.standards[0].rights, 'reference-metadata-only');
   assert.equal(c.integrations.integrations.find(i => i.id === 'integration:ec3').status, 'declaration-only');
 });
@@ -28,7 +28,7 @@ test('shared standards referenced from two jurisdictions need no duplication', a
   const c = await loadCatalog();
   c.jurisdictions.jurisdictions.push({ id: 'jurisdiction:fixture', name: 'Test fixture', parent: 'jurisdiction:us', coverage: 'routing-only' });
   for (const from of ['jurisdiction:fixture', 'jurisdiction:us-ny-nyc']) c.sources.relationships.push({ from, type: 'references', to: 'standard:astm-e84', edition: null, effective_date: null, evidence: 'fixture-only' });
-  validateRelationships(c); assert.equal(c.standards.length, 1);
+  validateRelationships(c); assert.equal(c.standards.filter(s=>s.id==='standard:astm-e84').length, 1);
 });
 test('a matched response never claims applicable law or freshness', async () => {
   const result = await check(async (_url, options) => {
@@ -49,7 +49,7 @@ test('200 login page, replaced text, wrong media type, large body, denial and ou
     [() => response('<input type="password">Zoning Resolution'), 'login-page'],
     [() => response('unrelated publication'), 'expected-markers-missing'],
     [() => response('Zoning Resolution', 200, { 'content-type': 'application/octet-stream' }), 'unexpected-content-type'],
-    [() => response('x'.repeat(262145)), 'body-limit'],
+    [() => response('x'.repeat(1048577)), 'body-limit'],
     [() => response('', 403), 'access-required'],
     [() => response('', 503), 'http-error'],
   ]) assert.equal((await check(async () => make())).reason, reason);

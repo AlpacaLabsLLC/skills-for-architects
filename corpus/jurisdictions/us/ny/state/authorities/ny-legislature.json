@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "record_type": "authority",
+  "data": {
+    "id": "authority:ny-legislature",
+    "name": "New York State Legislature",
+    "jurisdiction": "jurisdiction:us-ny"
+  }
+}

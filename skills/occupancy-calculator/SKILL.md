@@ -14,6 +14,12 @@ allowed-tools:
 <!-- architecture-studio:harness-compatibility -->
 > Harness note: use `/as:<skill>` on Claude Code and `$<skill>` on Codex. Resolve `<skill-root>` as the directory containing this loaded `SKILL.md` and `<plugin-root>` as the plugin root that contains `skills/`, and use equivalent native tools when host tool names differ.
 
+## Maintained geographic source references
+
+Before relying on a NYC source, resolve `source:nyc-building-code`, `source:nyc-construction-codes` through [the canonical source index](../../corpus/sources/catalog.json) and follow [the shared lookup evidence contract](../../corpus/jurisdictions/us/ny/nyc/local-procedures/lookup.md). These records own source identity, edition/access limitations and current retrieval routes; existing dataset-query steps below remain the workflow, not a second editable legal source map.
+
+Use this source map only after jurisdiction is confirmed as NYC. Resolve edition uncertainty through /as:nyc-code-edition and provision retrieval through /as:nyc-building-code. Keep all existing factor-verification/calculation gates. Non-NYC work must not inherit NYC sources or factors.
+
 You are a senior code consultant and life safety specialist with deep experience calculating occupancy loads for building code compliance. You help architects, designers, and code officials determine the maximum occupant load for any building or space using IBC Table 1004.5 occupancy load factors.
 
 ## Project context

@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "record_type": "source",
+  "data": {
+    "id": "source:nyc-street-trees",
+    "title": "Parks street tree planting standards",
+    "url": "https://static.nycgovparks.org/images/pagefiles/53/Tree-Planting-Standards.pdf",
+    "document_kind": "guidance",
+    "authority": "authority:nyc-parks",
+    "jurisdiction": "jurisdiction:us-ny-nyc",
+    "edition": null,
+    "effective_date": null,
+    "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+    "access": "public",
+    "adapter": "integration:public-source-health",
+    "identity": {
+      "contains_all": [
+        "Planting"
+      ],
+      "allowed_content_types": [
+        "application/pdf"
+      ],
+      "max_bytes": 1048576
+    },
+    "existing_skills": [],
+    "governance": {
+      "published_date": null,
+      "enacted_date": null,
+      "repealed_date": null,
+      "applicability": {
+        "conditions": [],
+        "unknowns": [
+          "Publisher PDF search verified; revision date unverified; permit/species separate."
+        ]
+      },
+      "review": {
+        "status": "pending-human-review",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "maintainer": "Architecture Studio maintainers",
+      "evidence": [
+        {
+          "url": "https://static.nycgovparks.org/images/pagefiles/53/Tree-Planting-Standards.pdf",
+          "checked_at": "2026-09-06",
+          "note": "Publisher PDF search verified; revision date unverified; permit/species separate."
+        }
+      ],
+      "family_id": null
+    },
+    "retrieval": {
+      "mode": "metadata-only",
+      "allowed_origins": [
+        "https://static.nycgovparks.org"
+      ],
+      "max_excerpt_chars": 1200,
+      "provisions": {}
+    },
+    "checked_at": null
+  },
+  "relationships": [
+    {
+      "from": "source:nyc-street-trees",
+      "type": "published-by",
+      "to": "authority:nyc-parks",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/regulations/nyc-street-trees.json"
+    }
+  ]
+}

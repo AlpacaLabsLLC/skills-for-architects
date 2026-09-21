@@ -110,8 +110,60 @@ Explicitly adopted FF&E schedules use immutable item/schedule records; workbooks
 
 ## Individual skill documentation
 
+### Code & Regulatory
+
+Bounded reference lookup; source-specific rights, edition and retrieval limits apply.
+
+| Skill | Primary output |
+|---|---|
+| [`/as:nyc-building-code`](./nyc-building-code) | Building-code provision evidence |
+| [`/as:nyc-existing-building-code`](./nyc-existing-building-code) | Existing-building provision evidence |
+| [`/as:nyc-plumbing-code`](./nyc-plumbing-code) | Plumbing provision evidence |
+| [`/as:nyc-mechanical-code`](./nyc-mechanical-code) | Mechanical provision evidence |
+| [`/as:nyc-fuel-gas-code`](./nyc-fuel-gas-code) | Fuel-gas provision evidence |
+| [`/as:nyc-construction-administration`](./nyc-construction-administration) | Administrative provision evidence |
+| [`/as:nyc-electrical-code`](./nyc-electrical-code) | Electrical provision evidence |
+| [`/as:nyc-fire-code`](./nyc-fire-code) | Fire Code provision evidence |
+| [`/as:nyc-fdny-rule`](./nyc-fdny-rule) | FDNY rule evidence |
+| [`/as:nyc-energy-code`](./nyc-energy-code) | Energy Code provision evidence |
+| [`/as:nyc-ll97-applicability`](./nyc-ll97-applicability) | LL97 applicability evidence with unresolved conditions |
+| [`/as:nyc-emissions-limit`](./nyc-emissions-limit) | Emissions-limit citation, unit and period |
+| [`/as:nyc-zoning-provision`](./nyc-zoning-provision) | Zoning provision evidence |
+| [`/as:nyc-housing-maintenance`](./nyc-housing-maintenance) | Housing Maintenance Code provision evidence |
+| [`/as:nyc-multiple-dwelling-law`](./nyc-multiple-dwelling-law) | State-owned MDL provision evidence |
+| [`/as:nyc-noise-requirement`](./nyc-noise-requirement) | Noise requirement evidence |
+| [`/as:nyc-asbestos-requirement`](./nyc-asbestos-requirement) | Asbestos procedural requirement evidence |
+| [`/as:nyc-air-emissions-requirement`](./nyc-air-emissions-requirement) | Air-emissions requirement evidence |
+| [`/as:nyc-stormwater-requirement`](./nyc-stormwater-requirement) | Stormwater requirement evidence |
+| [`/as:nyc-sewer-requirement`](./nyc-sewer-requirement) | Sewer requirement evidence |
+| [`/as:nyc-hazardous-material-requirement`](./nyc-hazardous-material-requirement) | Authority-qualified hazardous-material requirement evidence |
+| [`/as:nyc-accessibility-requirement`](./nyc-accessibility-requirement) | NYC accessibility provision evidence with separate federal pointer |
+| [`/as:ada-requirement`](./ada-requirement) | Federal ADA provision evidence |
+| [`/as:nyc-lpc-requirement`](./nyc-lpc-requirement) | LPC requirement evidence |
+| [`/as:nyc-sidewalk-requirement`](./nyc-sidewalk-requirement) | Sidewalk requirement evidence |
+| [`/as:nyc-curb-cut-requirement`](./nyc-curb-cut-requirement) | Curb-cut requirement evidence |
+| [`/as:nyc-plaza-requirement`](./nyc-plaza-requirement) | Program-qualified plaza requirement evidence |
+| [`/as:nyc-street-tree-requirement`](./nyc-street-tree-requirement) | Street-tree requirement evidence |
+| [`/as:nyc-utility-connection-requirement`](./nyc-utility-connection-requirement) | Water-connection requirement evidence |
+| [`/as:nyc-material-requirement`](./nyc-material-requirement) | Application-qualified material requirement evidence |
+| [`/as:nyc-interior-finish-requirement`](./nyc-interior-finish-requirement) | Interior wall/ceiling finish requirement evidence |
+| [`/as:nyc-floor-finish-requirement`](./nyc-floor-finish-requirement) | Floor-finish requirement evidence |
+| [`/as:nyc-furnishing-requirement`](./nyc-furnishing-requirement) | Furnishing requirement evidence |
+| [`/as:nyc-drapery-requirement`](./nyc-drapery-requirement) | Drapery requirement evidence |
+| [`/as:nyc-local-law`](./nyc-local-law) | Identified Local Law evidence |
+| [`/as:nyc-agency-rule`](./nyc-agency-rule) | Identified agency-rule evidence |
+| [`/as:nyc-buildings-bulletin`](./nyc-buildings-bulletin) | Buildings Bulletin evidence and document classification |
+| [`/as:nyc-code-note`](./nyc-code-note) | Code Note guidance evidence |
+| [`/as:nyc-executive-order`](./nyc-executive-order) | Executive-order evidence and scope unknowns |
+| [`/as:nyc-certificate-of-occupancy`](./nyc-certificate-of-occupancy) | Property-specific occupancy-record evidence |
+| [`/as:nyc-authority-resolver`](./nyc-authority-resolver) | Candidate-authority map with triggers and unknowns |
+| [`/as:nyc-code-edition`](./nyc-code-edition) | Edition-candidate evidence with unresolved applicability |
+| [`/as:nyc-code-section`](./nyc-code-section) | Identified provision evidence |
+| [`/as:nyc-amendment-check`](./nyc-amendment-check) | Bounded amendment evidence and search limitations |
+| [`/as:nyc-referenced-standard`](./nyc-referenced-standard) | Referenced-standard metadata and authorized access route |
+
 Each directory contains an authoritative `SKILL.md`, a human-facing `README.md`, and any scripts, references, templates, or data owned by that skill. Create studio or project procedures with `/as:skill-maker`; to contribute a built-in skill, read [CONTRIBUTING.md](../CONTRIBUTING.md).
 
-Practice discovery is generated from the [nine maintained cluster manifests](../docs/practice-clusters.md).
+Practice discovery is generated from the [maintained cluster manifests](../docs/practice-clusters.md).
 See the [category authoring contract](../docs/category-authoring.md) for shared ownership;
 public skill names and invocation syntax remain unchanged.

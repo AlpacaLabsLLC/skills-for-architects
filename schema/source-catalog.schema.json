@@ -80,6 +80,7 @@
               "agency-rule",
               "guidance",
               "standard"
+              ,"instrument-index"
             ]
           },
           "authority": {
@@ -164,6 +165,165 @@
               "type": "string",
               "minLength": 1
             }
+          },
+          "governance": {
+            "type": "object",
+            "required": [
+              "maintainer",
+              "review",
+              "applicability",
+              "evidence"
+            ],
+            "properties": {
+              "maintainer": {
+                "type": "string",
+                "minLength": 1
+              },
+              "family_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "published_date": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date"
+              },
+              "enacted_date": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date"
+              },
+              "repealed_date": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date"
+              },
+              "review": {
+                "type": "object",
+                "required": [
+                  "status",
+                  "reviewer",
+                  "reviewed_at"
+                ],
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "pending-human-review",
+                      "reviewed",
+                      "blocked"
+                    ]
+                  },
+                  "reviewer": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "reviewed_at": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "date-time"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "applicability": {
+                "type": "object",
+                "required": [
+                  "conditions",
+                  "unknowns"
+                ],
+                "properties": {
+                  "conditions": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "unknowns": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                },
+                "additionalProperties": false
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "url",
+                    "checked_at",
+                    "note"
+                  ],
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "format": "https-url"
+                    },
+                      "checked_at": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "note": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "retrieval": {
+            "type": "object",
+            "required": [
+              "mode",
+              "allowed_origins"
+            ],
+            "properties": {
+              "mode": {
+                "enum": [
+                  "metadata-only",
+                  "bounded-text"
+                ]
+              },
+              "allowed_origins": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "max_excerpt_chars": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 1200
+              },
+              "edition_title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "provisions": {
+                "type": "object"
+              }
+            },
+            "additionalProperties": false
           }
         },
         "additionalProperties": false

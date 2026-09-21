@@ -2,6 +2,21 @@
   "schema_version": 1,
   "integrations": [
     {
+      "id": "integration:source-lookup",
+      "status": "implemented",
+      "execution_routes": ["oss-local", "as-server-library"],
+      "operation": "lookup_source",
+      "implementation": "tools/integrations/source-lookup.mjs",
+      "input_contract": "registered source/provision IDs and exact release digest; local CLI additionally requires the independently pinned catalog hash",
+      "output_contract": "as.source-lookup-result/v1 evidence receipt; unavailable/partial is not successful provision retrieval",
+      "required_scopes": [],
+      "credential_reference": null,
+      "data_recipient": "registered official publisher",
+      "storage": "bounded request memory only; no persistent cache or workspace writes",
+      "hosted_binding": "not-implemented",
+      "runtime": "node>=18"
+    },
+    {
       "id": "integration:public-source-health",
       "status": "implemented",
       "execution_routes": [

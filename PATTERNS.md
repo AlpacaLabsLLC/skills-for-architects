@@ -21,6 +21,12 @@ Each skill does one thing. Frontmatter is short, body is focused. If a `SKILL.md
 
 ## 2. Clear contracts between skills
 
+Every skill and agent must follow the [host-harness contract](docs/host-harness-contract.md):
+declare semantic capabilities, exact targets, side effects, authorization, handoffs and completion
+evidence. Gmail access does not establish spreadsheet access. AS owns domain/record rules; hosts
+operate available applications. No instruction response, agent handoff or connector listing proves
+execution. Existing consumers and machine-readable conformance remain subject to release validation.
+
 Skills hand off via explicit cross-references in their bodies — never via implicit shared state.
 
 - Each skill documents what input it expects, what it produces, what it hands off to next
@@ -131,6 +137,15 @@ The hosted Architecture Studio MCP service has an independent version. The initi
 For Claude Code, `.claude-plugin/marketplace.json` lives at the repo root. Codex-compatible repositories also carry `.agents/plugins/marketplace.json`. For a flat single plugin, `.claude-plugin/plugin.json` and `.codex-plugin/plugin.json` both live at the plugin root; their versions and names stay aligned.
 
 Don't pick the multi-plugin layout for a single plugin — adds nesting without payoff and forces awkward `/plugin:start` slash UX. Don't pick the flat layout when shipping multiple plugins — they'll collide on skill names.
+
+### Practice area and geography are independent
+
+Follow [Practice areas and geographic applicability](docs/geographic-applicability.md).
+Keep skill folders and public tool identities flat. Practice areas classify intent; project/request
+context supplies location, references declare geographic/temporal coverage, and skills/tools check
+applicability. Geographic folders do not imply legal precedence or worldwide support. Preserve
+canonical references and give skills a primary discovery home with secondary cross-references.
+The contract distinguishes target architecture from pending catalog and enforcement implementation.
 
 ## 8. MCP server bundling
 

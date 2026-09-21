@@ -15,7 +15,7 @@ The AS maintainer owns the reviewed content and OSS release. The MCP maintainer 
 
 ## Prepare OSS
 
-1. Reconcile the final source branch; preserve contributor attribution and previous releases. Validate the expanded 53 public commands and distinguish course examples from installable skills.
+1. Reconcile the final source branch; preserve contributor attribution and previous releases. Validate every public command against the component registry and distinguish course examples from installable skills.
 2. Run `CI=true ./scripts/lint.sh` and every `tests/test-*.sh` contract. Run the foundation validators and export/package test. Record the exact tested commit and failures or skips; skipped checks are not accepted evidence.
 3. Verify fresh-install behavior on supported Codex and Claude Code hosts, plus isolated format-2 migration, backup and rollback. Keep synthetic fixtures separate from user records. Automated contract results do not substitute for unperformed host UI checks.
 4. Align Claude/Codex plugin versions and marketplace metadata at 1.5.0. At publication, consolidate candidate notes into the actual dated 1.5.0 changelog section; do not retain a forecast date as publication evidence.

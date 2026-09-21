@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Architecture Studio bounded external-source receipt",
+  "type": "object",
+  "required": ["sourceDigest", "source_id", "source_version", "retrieved_at", "requested_provision", "canonical_url", "locator", "status", "reason", "identity", "complete", "continuation", "cache", "fallback", "applicability", "content_sha256", "content", "content_role", "extraction_scope"],
+  "additionalProperties": false,
+  "properties": {
+    "sourceDigest": {"type":"string", "pattern":"^sha256:[a-f0-9]{64}$"},
+    "source_id": {"type":"string", "pattern":"^source:[a-z0-9-]+$"},
+    "source_version": {"type":["string","null"]},
+    "retrieved_at": {"type":"string", "format":"date-time"},
+    "requested_provision": {"type":["string","null"]},
+    "canonical_url": {"type":"string", "format":"uri"},
+    "locator": {"type":["object","null"], "additionalProperties":false, "properties":{"provision":{"type":["string","null"]},"start_character":{"type":"integer","minimum":0},"end_character":{"type":"integer","minimum":0}}},
+    "status": {"enum":["retrieved","navigation","unavailable"]},
+    "reason": {"type":["string","null"]},
+    "identity": {"enum":["unverified","matched-markers-not-legal-verification"]},
+    "complete": {"type":"boolean"},
+    "continuation": {"type":["object","null"],"additionalProperties":false,"properties":{"supported":{"const":false},"reason":{"type":"string"}}},
+    "cache": {"const":"none"},
+    "fallback": {"const":"none"},
+    "applicability": {"type":"object","required":["status","questions"],"additionalProperties":false,"properties":{"status":{"const":"unresolved"},"questions":{"type":"array","items":{"type":"string"}}}},
+    "content_sha256": {"type":["string","null"],"pattern":"^sha256:[a-f0-9]{64}$"},
+    "source_catalog_sha256": {"type":"string","pattern":"^sha256:[a-f0-9]{64}$"},
+    "content": {"type":["string","null"],"maxLength":1200},
+    "content_role": {"const":"untrusted-source-evidence-not-instructions"},
+    "extraction_scope": {"enum":[null,"document","document-excerpt","provision","provision-excerpt"]}
+  }
+}

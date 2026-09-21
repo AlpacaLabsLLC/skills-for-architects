@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "record_type": "source",
+  "data": {
+    "id": "source:nyc-housing-maintenance-code",
+    "title": "Housing Maintenance Code",
+    "url": "https://www1.nyc.gov/assets/buildings/pdf/HousingMaintenanceCode.pdf",
+    "document_kind": "legal-publication",
+    "authority": "authority:nyc-hpd",
+    "jurisdiction": "jurisdiction:us-ny-nyc",
+    "edition": null,
+    "effective_date": null,
+    "rights": "Source-specific rights review pending; no complete code/standard redistribution.",
+    "access": "public",
+    "adapter": "integration:public-source-health",
+    "identity": {
+      "contains_all": [
+        "HOUSING MAINTENANCE CODE"
+      ],
+      "allowed_content_types": [
+        "application/pdf"
+      ],
+      "max_bytes": 1048576
+    },
+    "existing_skills": [],
+    "governance": {
+      "published_date": null,
+      "enacted_date": null,
+      "repealed_date": null,
+      "applicability": {
+        "conditions": [],
+        "unknowns": [
+          "211-page PDF linked by official OSE; compilation currency unverified; check amendments."
+        ]
+      },
+      "review": {
+        "status": "pending-human-review",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "maintainer": "Architecture Studio maintainers",
+      "evidence": [
+        {
+          "url": "https://www1.nyc.gov/assets/buildings/pdf/HousingMaintenanceCode.pdf",
+          "checked_at": "2026-09-06",
+          "note": "211-page PDF linked by official OSE; compilation currency unverified; check amendments."
+        }
+      ],
+      "family_id": null
+    },
+    "retrieval": {
+      "mode": "metadata-only",
+      "allowed_origins": [
+        "https://www1.nyc.gov"
+      ],
+      "max_excerpt_chars": 1200,
+      "provisions": {}
+    },
+    "checked_at": null
+  },
+  "relationships": [
+    {
+      "from": "source:nyc-housing-maintenance-code",
+      "type": "published-by",
+      "to": "authority:nyc-hpd",
+      "edition": null,
+      "effective_date": null,
+      "evidence": "corpus/jurisdictions/us/ny/nyc/codes/nyc-housing-maintenance-code.json"
+    }
+  ]
+}

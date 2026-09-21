@@ -13,6 +13,12 @@ allowed-tools:
 <!-- architecture-studio:harness-compatibility -->
 > Harness note: use `/as:<skill>` on Claude Code and `$<skill>` on Codex. Resolve `<skill-root>` as the directory containing this loaded `SKILL.md` and `<plugin-root>` as the plugin root that contains `skills/`, and use equivalent native tools when host tool names differ.
 
+## Maintained geographic source references
+
+Before relying on a NYC source, resolve `source:nyc-hpd-records`, `source:nyc-housing-maintenance-code`, `source:ny-multiple-dwelling-law` through [the canonical source index](../../corpus/sources/catalog.json) and follow [the shared lookup evidence contract](../../corpus/jurisdictions/us/ny/nyc/local-procedures/lookup.md). These records own source identity, edition/access limitations and current retrieval routes; existing dataset-query steps below remain the workflow, not a second editable legal source map.
+
+Keep violations/complaints/registration here. For legal provision text use /as:nyc-housing-maintenance or /as:nyc-multiple-dwelling-law rather than treating a violation dataset as enacted law.
+
 Look up HPD (Housing Preservation & Development) violations, complaints, and building registration for NYC residential buildings. Only applies to residential building classes. No API key required.
 
 ## Usage

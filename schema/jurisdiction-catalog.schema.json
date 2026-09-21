@@ -38,6 +38,7 @@
           "coverage": {
             "enum": [
               "routing-only",
+              "selected-reference-lookup",
               "selected-existing-procedures"
             ]
           }

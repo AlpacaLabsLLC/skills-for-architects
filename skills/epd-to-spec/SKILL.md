@@ -16,6 +16,12 @@ allowed-tools:
 <!-- architecture-studio:harness-compatibility -->
 > Harness note: use `/as:<skill>` on Claude Code and `$<skill>` on Codex. Resolve `<skill-root>` as the directory containing this loaded `SKILL.md` and `<plugin-root>` as the plugin root that contains `skills/`, and use equivalent native tools when host tool names differ.
 
+## Maintained geographic source references
+
+Before relying on a NYC source, resolve `source:nyc-building-code`, `source:nyc-energy-code` through [the canonical source index](../../corpus/sources/catalog.json) and follow [the shared lookup evidence contract](../../corpus/jurisdictions/us/ny/nyc/local-procedures/lookup.md). These records own source identity, edition/access limitations and current retrieval routes; existing dataset-query steps below remain the workflow, not a second editable legal source map.
+
+For an explicitly NYC regulatory requirement, retrieve the exact controlling source through the matching atomic lookup. Keep EPD/submittal language here; do not convert voluntary carbon targets into legal requirements or assume LL97 establishes a product-level GWP limit.
+
 Takes EPD data, GWP limits, or a materials list and generates CSI-formatted specification sections that require Environmental Product Declarations and set maximum Global Warming Potential thresholds. Output follows the same three-part CSI SectionFormat used by `/as:spec-writer`.
 
 For neutral terminology, consult `<plugin-root>/skills/architecture-knowledge/references/` as terminology context only. It is not record authority, a mutation path, permission, or gate; `/as:epd-to-spec` remains responsible for its specification output.
