@@ -4,7 +4,7 @@ type: feat
 date: 2026-09-09
 deepened: 2026-09-10
 artifact_contract: ce-unified-plan/v1
-artifact_readiness: implementation-ready
+artifact_readiness: pending-r4-baseline-reconciliation
 product_contract_source: session-2026-09-09
 execution: code
 ---
@@ -12,15 +12,17 @@ execution: code
 # Document register and phase taxonomy for Architecture Studio
 
 - **Created:** 2026-09-09
-- **Status:** Final for implementation, 2026-09-10. Release disposition (1.5 or next candidate) remains Federico's call per Q1; every other question is closed below. Recorded in the ALPA studio project `260302-INT-ARCHITECTURE-STUDIO` as decision 0004; work units tracked there as T0019 to T0029. This file is the implementation plan of record.
+- **Status:** Complete local module allocated to R4 by Federico on 2026-09-13. R4 W1 reconciles the actual source and reusable implementation before execution. Recorded in the ALPA studio project `260302-INT-ARCHITECTURE-STUDIO` as decision 0004; work units tracked there as T0019 to T0029. This file remains the detailed implementation plan, subordinate to the current R4 scope and contracts.
 - **Planning mode:** Repository
 - **Depth:** Standard
 - **Owner:** Architecture Studio, project `260302-INT-ARCHITECTURE-STUDIO`
 - **Authority:** Federico directed the design in the 2026-09-09 working session and asked for a detailed plan to be queued for a decision on whether it ships in 1.5 (Sharmila) or a later release candidate. This plan does not approve implementation, release or migration of any studio.
 
+**R4 reconciliation — 2026-09-13, latest owner direction:** The [R4 umbrella](../../../../docs/ALPA/10-PROJECTS/INTERNAL/260302-INT-ARCHITECTURE-STUDIO/docs/plans/2026-09-12-as-r4-architecture-and-host-contract.md) governs. Federico states there are no users requiring backward compatibility: implement the complete new local model and fresh setup, without historical workspace conversion, Markdown-register importers, 1.4.5 upgrade tests or compatibility-only adapters. These obligations are removed, not deferred. This narrows the earlier complete-local-module-and-migration allocation while retaining the new model. Local W1–W8 and W10–W11 apply only to the forward model; W9 server bindings remain H2. Use the R4 W1 candidate from accepted R3 `a664b5d` with explicit carry-forward reconciliation. P0 is complete. Actual Mac/Windows × CLI/desktop execution proof is the final acceptance activity after full implementation, packaging and documentation; no early host proof gates implementation. Ordinary engineering checks remain with the changes. Use fresh synthetic new-model fixtures and preserve live originals. No live conversion is required or authorized. Raw conversation has not been archived.
+
 ## Outcome
 
-Architecture Studio gains one deterministic document model: every file in a project, received or authored, is a document with coordinates (phase, stage, scope, originator, date) plus kind, registered in `DOCUMENTS.csv`, placed by a path template the firm owns (AS default `<phase>/<stage>/<scope>/<originator>/<date>/`), and addressed by coordinates and id rather than by path. The project root holds manifests only. Skills stop composing or hard-coding paths; a single small library resolves coordinates to folders, hashes, registers and moves. Registers become CSV. The Local studio, already migrated by hand on 2026-09-09, becomes the fixture that proves the model.
+Architecture Studio gains one deterministic document model: every file in a project, received or authored, is a document with coordinates (phase, stage, scope, originator, date) plus kind, registered in `DOCUMENTS.csv`, placed by a path template the firm owns (AS default `<phase>/<stage>/<scope>/<originator>/<date>/`), and addressed by coordinates and id rather than by path. The project root holds manifests only. Skills stop composing or hard-coding paths; a single small library resolves coordinates to folders, hashes, registers and moves. Registers become CSV. Fresh synthetic projects prove the new model without changing the live studio.
 
 ## Problem Frame
 
@@ -32,7 +34,7 @@ The design settled in the session: phase is the firm's slice of a project (named
 
 ### Included
 
-- A single deterministic library exposing resolve, hash, register, move, verify and migrate, callable as a script by the local plugin and as tools by the MCP tier.
+- A single deterministic library exposing resolve, hash, register, move and verify through the shared R4 local runner. Its interfaces remain reusable by later H2 server bindings without a second implementation.
 - `DOCUMENTS.csv` as a canonical record; a new one-verb `receive` skill as its only writer.
 - Phase, stage, scope and originator vocabularies owned by `PROJECT.md` and `STUDIO.md`.
 - `TASKS.csv`, `TIME.csv`, `INVOICES.csv` replacing the markdown registers; `CHANGES.csv` and per-scope `SCHEDULE.csv` defined as records.
@@ -40,14 +42,14 @@ The design settled in the session: phase is the firm's slice of a project (named
 - A project `Kind` axis (`building`, `initiative`, `software`, extensible) beside `Type`, driving stage and scope vocabularies and AEC skill applicability.
 - A firm-owned document path template, AS five-level default.
 - Skills that write files (site-visit-report, meeting-minutes, workplan, proposal, agreement, invoice, tasklist, timetracker, master-schedule) adopting the library.
-- Workspace model, templates, lint, tests and the format 3 migration manifest.
+- Workspace model, templates, lint and tests for fresh new-model projects.
 
 ### Excluded
 
 - The product / placement / procurement split of the FF&E records (T0016, T0021, T0022); this plan only fixes where `SCHEDULE.csv` lives.
 - Text extraction, sheet-index parsing and mailbox ingestion beyond a first pass; drawing take-off (T0010) and RFQ packaging (T0013) stay separate.
 - A change-order skill; `CHANGES.csv` is defined here, not automated.
-- Migration of any studio other than Local as a fixture; ALPA and PERSONAL studios migrate under the release, not this plan.
+- Automatic conversion of any live studio, including Local, ALPA and PERSONAL. Legacy conversion is outside the forward-only implementation and is not an acceptance prerequisite.
 - Uniclass, NCS sheet naming for received sets, and any human-facing generated views.
 
 ## Evidence Reviewed
@@ -69,11 +71,11 @@ The design settled in the session: phase is the firm's slice of a project (named
 - **R6:** `DOCUMENTS.csv` has exactly one writer, the `receive` skill through the library. A file with no row is unreceived and `status` reports it.
 - **R7:** Registers are CSV with fixed headers; prose belongs in `PROJECT.md` and in authored documents (decisions, event records, plans, proposals, agreements) filed by coordinates.
 - **R11:** Every project carries a `Kind`; stage and default scope vocabularies are keyed by kind; AEC skills declare the kinds they apply to and warn, never block, on mismatch.
-- **R8:** The library runs with Python 3 stdlib only, on macOS, Linux and Windows, under Claude Code and Codex, and its operations are exposable as MCP tools without change.
-- **R9:** Migration is previewed, fail-closed and reversible, per the format 3 migration contract.
+- **R8:** The document library uses Python 3 stdlib, packaged through the shared R4 local runner with its managed runtime. Verify the actual Mac/Windows × CLI/desktop routes selected in R4 W1/W5; a product name or successful MCP connection is not execution proof. Linux portability is a design property, not an added R4 host acceptance target. Later H2 bindings reuse the same operation semantics.
+- **R9:** New-model file operations preserve identity/content/history, validate inputs before writes and handle interrupted writes without data loss. No legacy workspace migration is required.
 - **R10:** Every rule in R1 to R7 is checked by lint or a test, not by prose.
 
-## Known Facts
+## Historical Observations — September 9–10; not current compatibility requirements
 
 - Format 3 is unreleased; changing its record shape now costs one migration, not two.
 - The Local studio already satisfies R1 to R4 by hand; its DOCUMENTS.csv rows have kind and stage but empty source and sheet columns for most files.
@@ -87,18 +89,18 @@ The design settled in the session: phase is the firm's slice of a project (named
 - `local` (studio) and `tgs` (owner-side role) are both valid originator codes for "us"; the project vocabulary decides, not the plugin.
 - A package that has internal structure (a zip's extracted tree, a model release with `releases/` and `working/`) keeps that structure below its date folder; the register row for the package points at the folder.
 - Large binaries (zip, ifc, rvt) may be ignored by git and still hold a row; `path` may be external.
-- The hosted tier reuses the library's operations as MCP tools; no second implementation.
+- Future H2 server bindings reuse the library's operations; no second implementation or R4 server-execution requirement.
 
 ## Decisions
 
 ### D1 — One library, not many scripts
-Deterministic behaviour (resolve, hash, register, move, verify, migrate) lives in one Python module with no dependencies. Everything else stays a directive. The existing `*-workspace.sh` scripts are not extended; the library takes their document-facing responsibilities and they shrink.
+Deterministic behaviour (resolve, hash, register, move, verify) lives in one Python module with no dependencies. Everything else stays a directive. The existing `*-workspace.sh` scripts are not extended; the library takes their document-facing responsibilities and they shrink.
 
 ### D2 — Coordinates and ids, never paths
 Skills carry `(phase, stage, scope, originator, date)` or a `doc-id`. The library owns the string. Templates and SKILL.md bodies name records by their register name from the canonical-owner table, never by a composed folder.
 
-### D3 — Extend format 3 before release
-Per the 2026-09-09 session, format 3 is amended rather than followed by a format 4. The migration manifest gains the register conversion and the folder rebuild. A workspace created on the unamended format 3 (private cohort) is recognised by its layout, `TASKS.md` and `proposals/` present and `DOCUMENTS.csv` absent, and converted only after the user sees the full preview and confirms; there is no silent conversion. Federico accepted keeping the version number at 3 on that condition, 2026-09-09.
+### D3 — Fresh new-model setup, no legacy conversion
+The latest September 13 owner direction removes historical format detection, old-register conversion and package/data downgrade requirements. Implement the new record shapes directly. Historical decision-0004 migration prose records the earlier design; it does not impose an R4 backward-compatibility requirement. Do not modify live workspaces as an implementation or acceptance step.
 
 ### D4 — Vocabularies are data
 Phases, scopes and originators are tables in `PROJECT.md`; stages are a table in `STUDIO.md`. The library validates against them and the project skill edits them. Unknown values are confirmed by the user, never invented.
@@ -113,7 +115,7 @@ A site visit report is an event record like minutes, a call or a workshop, disti
 `Kind` (`building`, `initiative`, `software`, extensible by the studio) is asked at init, recorded in `PROJECT.md` and as a registry column, and is advisory. `Type` (`internal`, `client`) is unchanged. Stage and default scope vocabularies in `STUDIO.md` are keyed by kind (B101 phases for `building`; `discovery, design, build, release, operate` as the shipped default for `software`; firm-named for `initiative`). Skills declare `kinds:` next to geographic scope per decision 0003 and warn on mismatch.
 
 ### D8 — The path is the firm's, the coordinates are AS's
-`STUDIO.md` carries one document path template. `resolve`, `verify` and `migrate` are functions of the template and the row. The empty template means "record where the firm put it, never move it". Manifests are the only names AS reserves.
+`STUDIO.md` carries one document path template. `resolve`, `verify` and `move` are functions of the template and the row. The empty template means "record where the firm put it, never move it". Manifests are the only names AS reserves.
 
 ## Work Units
 
@@ -121,17 +123,17 @@ Each unit is one module with its upstream input, downstream output and the contr
 
 ### W1 — `documents` library
 - **Location:** `skills/receive/scripts/documents.py`; invoked via `<plugin-root>/skills/receive/scripts/documents.py <op>` by every other skill.
-- **Operations:** `resolve` coordinates plus kind to folder via the studio template; `hash` sha256; `register` append or update rows; `move` with link rewrite; `verify` files versus rows, duplicates, missing prefixes; `migrate` preview and apply with rollback.
+- **Operations:** `resolve` coordinates plus kind to folder via the studio template; `hash` sha256; `register` append or update rows; `move` with link rewrite; `verify` files versus rows, duplicates, missing prefixes.
 - **Upstream:** `STUDIO.md` stage vocabulary, `PROJECT.md` phase/scope/originator tables, `DOCUMENTS.csv`.
 - **Downstream:** every skill in W4 to W8; the MCP tools in W9.
 - **Contract:** stdlib only; every op has `--dry-run`; output is JSON on stdout, human text on stderr; exit codes distinguish invalid coordinates, unknown vocabulary, collision and IO failure; never renames a received file; never writes outside the project root.
-- **Tests:** fixture project built from the TGS and Hotel Sonido trees; one test per op; casing and prefix rules; collision by hash; link rewrite across `../`.
+- **Tests:** fresh synthetic project with representative document cases; one test per op; casing and prefix rules; collision by hash; link rewrite across `../`.
 
 ### W2 — Vocabularies, Kind and path template in the manifests
 - **Location:** `skills/studio` (path template, stage and default-scope tables keyed by kind in `STUDIO.md`), `skills/project` (`Kind` in identity; phase, scope, originator tables in `PROJECT.md`; `project vocab add|list|rename`; `vocab add phase` may create the empty phase folder on request).
 - **Upstream:** user confirmation at studio setup and project init.
 - **Downstream:** W1 validation; W3 to W8 reads.
-- **Contract:** tables bounded by markers like the projects registry; header-keyed parsing; a rename is a migration through W1, not an edit; the template validator rejects unknown `{field}` names; a kind with no stage table falls back to the firm-named list with a warning.
+- **Contract:** tables bounded by markers like the projects registry; header-keyed parsing; a vocabulary rename is a coordinated new-model operation through W1; the template validator rejects unknown `{field}` names; a kind with no stage table falls back to the firm-named list with a warning.
 
 ### W3 — `DOCUMENTS.csv` record and `receive` skill
 - **Location:** new `skills/receive/`, one verb, `user-invocable: true`; register schema in `docs/workspace-model.md`.
@@ -143,7 +145,7 @@ Each unit is one module with its upstream input, downstream output and the contr
 
 ### W4 — Registers to CSV
 - **Location:** `skills/tasklist` (`TASKS.csv`), `skills/timetracker` (`TIME.csv`), `skills/invoice` (`INVOICES.csv`), studio portfolio view; `CHANGES.csv` and `SCHEDULE.csv` schemas documented, no writer yet.
-- **Contract:** fixed headers per record in the workspace model; append-only history preserved; markdown tables read once by the migration and never again; prose sections move to `PROJECT.md` under named headings.
+- **Contract:** fixed headers per record in the workspace model; append-only history preserved; new registers are created directly as CSV; new prose uses `PROJECT.md` or registered authored documents. No old Markdown table converter.
 
 ### W5 — Commercial records as documents
 - **Location:** `skills/proposal`, `skills/agreement`, `skills/invoice`.
@@ -158,62 +160,62 @@ Each unit is one module with its upstream input, downstream output and the contr
 - **Contract:** `product-library.csv` remains the catalogue layer at the root; a scope schedule is `<phase>/<stage>/<scope>/SCHEDULE.csv` resolved by W1; no other structural change, the placement split is its own plan.
 
 ### W8 — Project and studio skills
-- **Location:** `skills/project` (init asks `Kind`; creates only `PROJECT.md`, the registers and host files; `status` calls `verify`), `skills/studio` (setup asks for stage vocabulary; migration adds W3 to W6 steps to the manifest), `resolve-context.sh` trimmed to identity.
-- **Contract:** no scaffold folders at all; `status` reports unreceived files, orphan rows, duplicate hashes, expired sources, template violations; migration recognises an unamended format 3 layout and converts only after previewed confirmation (D3).
+- **Location:** `skills/project` (init asks `Kind`; creates only `PROJECT.md`, the registers and host files; `status` calls `verify`), `skills/studio` (setup asks for stage vocabulary; fresh setup creates the new register/model declarations), `resolve-context.sh` trimmed to identity.
+- **Contract:** no scaffold folders at all; `status` reports unreceived files, orphan rows, duplicate hashes, expired sources, template violations; fresh setup uses the new shape directly; no old-layout detection or conversion (D3).
 
 ### W9 — MCP tools
+- **Allocation:** H2, excluded from R4. This historical unit is not an R4 execution prerequisite or a substitute for a missing local host bridge.
 - **Location:** as-mcp / as-platform.
 - **Contract:** `documents.resolve`, `documents.register`, `documents.verify` wrap W1 with identical semantics and JSON; no path composition in the server.
 
 ### W10 — Spec, lint, tests, docs
 - **Location:** `docs/workspace-model.md`, `docs/plans/commercial-records/design.md`, `scripts/lint.sh`, `tests/`, `README.md`, `CHANGELOG.md`.
-- **Contract:** canonical-owner table gains `DOCUMENTS.csv`, `CHANGES.csv`, `SCHEDULE.csv` and the document kinds; loses `decisions/`, `meetings/`, `site-reports/`, `docs/plans/`, `proposals/`, `agreement/`; lint enforces R1, R2, R4, R6; a reference page states the AIA 5.12, B101, A201 §3.12, NCS and ISO 19650 basis with Uniclass excluded and why.
+- **Contract:** canonical-owner table gains `DOCUMENTS.csv`, `CHANGES.csv`, `SCHEDULE.csv` and the document kinds; loses `decisions/`, `meetings/`, `site-reports/`, `docs/plans/`, `proposals/`, `agreement/`; lint enforces R1, R2, R4, R6. External standards use original-source navigation metadata under R4 W4; do not create a local explanatory reference summary. Document AS-owned design decisions separately from external authority.
 
-### W11 — Fixture and dogfood
-- **Location:** Local studio, private.
-- **Contract:** the Local studio, re-migrated to the revised model (decisions, meetings, contracts under their phases, `campus` phase on TGS), is the acceptance fixture; W1 `verify` must pass on it unchanged; W3 must ingest the RBS 2025-12-05 zip, the TGS millwork submittals from the mailbox and one WeTransfer link; the questions from the 2026-09-09 session (latest set, what arrived since a date, everything tied to a CO, what is only in email, what expires) must each be one register query.
+### W11 — New-model fixtures
+- **Location:** Isolated fresh synthetic projects; no existing studio conversion.
+- **Contract:** verify authored/received records, firm-defined coordinates, zip/PDF/attachment-provenance and expiring-link examples on the new model. Exercise the five queries: latest set, arrivals since a date, documents tied to a change, email-only provenance and expiry. State unknowns. File-operation tests preserve identities, hashes, links and history and prevent duplicate rows on repeat calls. Actual host execution of the fully integrated package occurs last under R4 W10; ordinary local checks accompany implementation.
 
 ## Dependencies and Risks
 
-- W2 before W1 validation; W1 before everything else; W4 and W5 before W8's migration step; W9 after W1's JSON contract is frozen.
+- R4 W1 baseline reconciliation precedes this plan's implementation. Here, W2 precedes W1 validation; W1 precedes dependent callers; W4–W7 and all affected consumers precede integrated W8 new-model acceptance. W9 remains a later H2 dependency on the frozen operation contracts.
 - The good-morning skill and ALPA `global_tasks.md` read `TASKS.md`; they break the day W4 ships unless updated together.
-- Hosts without a shell (claude.ai, Cowork) depend on W9; until then `receive` is local-only.
+- Required host routes must expose a usable local execution and file-access facility through the R4 shared runner. Verify actual capabilities; where a bridge is missing, identify the concrete gap and propose a bounded local integration under R4 W5. Do not assume product capabilities from names, count unsupported handling as passed coverage, or import W9/H2 remote execution to satisfy R4.
 - Windows path length with deep trees and long RBS filenames; test in W1.
 - Mail ingestion depends on the Gmail token expiry problem (`reference_gmail_mcp_oauth_testing_expiry`); W3 must degrade to "file from disk" cleanly.
-- Migration on studios with per-folder `.gitignore` artifact rules: the manifest must carry those rules to the root, or files silently start tracking.
+- Fresh project templates must keep intended artifact ignore rules; document operations must not accidentally start tracking private/binary inputs.
 
-## Pending Decision
+## Release Allocation
 
-- **Q1, release disposition, Federico:** which work units ship in 1.5 with Sharmila and which wait for the next candidate. Recommendation: W1, W2, W3, W8, W10 in 1.5, since shipping format 3 without them buys a second migration; W4 and W5 in 1.5 only if the migration stays one step; W6, W7, W9 and W11 beyond the fixture in the next candidate.
+- **Q1 resolved by Federico, September 13:** the complete local module, W1–W8 and W10–W11, is included in R4 across its W3/W5/W8/W10. W9 server bindings remain H2. Do not reopen the historical split-release recommendation. The final public/package version is determined by R4's release review; allocation does not authorize publication or live-workspace conversion.
 
 ## Closed Questions
 
 - **Q2:** the studio's own originator code is a vocabulary entry the studio sets (`local` for Estudio Local; `tgs` on the TGS project where the studio acts on the owner's side). The plugin ships no reserved word.
-- **Q3:** `CHANGES.csv` is defined and migrated in this cycle; its writer is a later change-order skill.
+- **Q3:** `CHANGES.csv` is defined for new-model projects in this cycle; its writer is a later change-order skill.
 - **Q4:** no generated views in this cycle; the register is the only view. Views remain possible later because they are a function of the row.
 - **Q5:** `vocab add phase` records the phase; it creates the folder only with `--folder`. Stage, scope and originator folders appear only when a file is filed.
 
 ## Pending Work
 
-- **T0029, fixture:** the Local studio still has `decisions/`, `meetings/` and `contracts/` at project roots and no `campus` phase on TGS. Re-migrating it is the first implementation step, before W1's tests, so the fixture matches this plan.
+- **T0029, fixture:** use fresh synthetic new-model projects; the former live/copy re-migration requirement is removed. Canonical task status is unchanged by this plan correction.
 
 ## Execution Order
 
-1. W2 vocabulary and template tables, so W1 has something to validate against.
-2. W1 library with its test fixture; freeze the JSON contract before anything calls it.
-3. W3 `receive`, proven on the RBS 2025-12-05 zip and one mailbox attachment.
-4. W8 init and status, so a new project starts on the model and an old one reports drift.
-5. W4 registers to CSV, together with the good-morning skill and the ALPA task tracker.
-6. W5 and W6 in either order; they only depend on W1 and W3.
-7. W10 spec, lint, tests and docs, updated as each unit lands and completed last.
-8. W11 fixture re-migration and the five acceptance queries.
-9. W7 and W9 after the release line is drawn; they are candidates for the next release regardless of Q1.
+1. Consume R4 W1's reconciled source and module inventory; prepare fresh synthetic new-model fixtures.
+2. W2 vocabulary and template tables, then W1 library and fixtures; freeze JSON contracts and integrate the shared R4 runner before dependent callers.
+3. W3 `receive`, proven on representative zip, PDF and authorized/synthetic attachment inputs.
+4. W8 init and status, so a new project starts on the model and current-model status reports inconsistencies.
+5. W4 new CSV register definitions, together with good-morning, the ALPA task tracker and every other affected reader.
+6. W5 commercial writers, W6 authored records and W7 FF&E placement; all are included in R4 and coordinated before new-model acceptance.
+7. W8 fresh setup and current writer/reader integration, followed by W11 new-model fixtures and the five register queries. Check invalid input, interrupted document writes and repeat-operation idempotence.
+8. W10 spec, lint, tests and docs follow each changed module and close with integrated R4 W8/W10 evidence. Actual host execution verification is the last acceptance activity after full implementation. No legacy conversion work is required. W9 remains H2.
 
 ## Definition of Done
 
-- W1 passes its tests on the Local fixture and `verify` reports zero findings on TGS Campus and Hotel Sonido.
+- W1 passes its tests on fresh synthetic projects; `verify` reports zero unexplained findings on the new-model fixtures. Live originals remain unchanged.
 - No SKILL.md or template in the repo contains a composed document path; lint proves it.
 - A fresh project initialised by `project init` has `PROJECT.md`, the registers and host files, and no folders.
-- A firm template other than the default places, verifies and migrates a fixture project correctly.
-- `receive` files a zip, a single PDF and a Gmail attachment into the right folder with a row each, on Claude Code and Codex.
-- The workspace model, CHANGELOG and README describe the model in the same words as this plan, and the release notes state which work units shipped and which are deferred.
+- A firm template other than the default places, moves and verifies documents in a fresh fixture project correctly.
+- `receive` files a zip, a single PDF and an authorized or synthetic mailbox attachment into the right folder with a row each, using the actual local runner routes claimed by R4. Provider integration success is claimed only with authorized provider evidence, separately from fixture behavior.
+- The workspace model, CHANGELOG and README describe the same model; release notes identify the complete local allocation, actual verified host routes, fresh setup requirements and separate H2 server bindings.
