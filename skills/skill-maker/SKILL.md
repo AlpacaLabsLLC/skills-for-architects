@@ -84,6 +84,7 @@ Enforce these portable essentials regardless of target:
 3. No `~/` paths in the SKILL.md body — they break on every machine but the author's. Use project-relative paths, or `$HOME` in the rare case a home path is the point.
 4. For Claude Code, `allowed-tools` is the minimum blast radius for the steps as written. For Codex-only skills, omit it and rely on Codex permissions.
 5. If the skill produces code, zoning, or life-safety analysis, its steps must instruct ending every report with the canonical disclaimer block followed by the marker `<!-- architecture-studio:requires-disclaimer -->` — see how `skills/occupancy-calculator/SKILL.md` does it.
+6. If the skill is adapted from work developed for a specific client or project, inspect the source for client names, addresses, project numbers, PII, confidential identifiers, internal paths, and engagement-specific assumptions. Remove PII and confidential identifiers, and convert client-, firm-, or project-specific values and assumptions into explicit inputs. Preserve externally defined technical thresholds and schema requirements, but document their source, jurisdiction, edition, or format. Do not carry unexplained client-specific defaults into a reusable skill.
 
 ## Step 3 — Verify
 
