@@ -1,5 +1,6 @@
 # HTML Template
 
+`{{STUDIO_NAME}}` is replaced with HTML-escaped studio-name text as specified in `SKILL.md`, or exactly `Insert Studio Name` when no nonblank name is available.
 Use this exact CSS and JS. Only modify the slide `<div>` elements inside `<body>`.
 
 ```html
@@ -71,7 +72,6 @@ body {
     font-weight: 700;
     letter-spacing: 0.15em;
     color: var(--grey-300);
-    text-transform: uppercase;
 }
 .slide.dark .brand-mark { color: var(--grey-500); }
 
@@ -344,7 +344,7 @@ Title slide (image cover — default):
         <h1>Title Goes<br/>Here</h1>
         <p class="subtitle">Subtitle — Month Year</p>
     </div>
-    <div class="brand-mark">ALPA</div>
+    <div class="brand-mark">{{STUDIO_NAME}}</div>
 </div>
 
 Title slide (text only — fallback):
@@ -354,7 +354,7 @@ Title slide (text only — fallback):
         <p class="subtitle">Subtitle — Month Year</p>
         <p>Prepared by Name</p>
     </div>
-    <div class="brand-mark">ALPA</div>
+    <div class="brand-mark">{{STUDIO_NAME}}</div>
 </div>
 
 Content slide:
@@ -364,19 +364,19 @@ Content slide:
         <h2>Heading states the insight</h2>
         <p>Supporting text goes here.</p>
     </div>
-    <div class="brand-mark">ALPA</div>
+    <div class="brand-mark">{{STUDIO_NAME}}</div>
 </div>
 
 Statement slide (white):
 <div class="slide centered">
     <div class="statement">Bold centered statement text.</div>
-    <div class="brand-mark">ALPA</div>
+    <div class="brand-mark">{{STUDIO_NAME}}</div>
 </div>
 
 Statement slide (dark):
 <div class="slide dark">
     <div class="statement">Bold centered statement text on dark.</div>
-    <div class="brand-mark">ALPA</div>
+    <div class="brand-mark">{{STUDIO_NAME}}</div>
 </div>
 
 Centered content slide (stats, timelines, grids):
@@ -386,7 +386,7 @@ Centered content slide (stats, timelines, grids):
         <h2>Heading</h2>
         <!-- stat-row, timeline, grid, or comparison here -->
     </div>
-    <div class="brand-mark">ALPA</div>
+    <div class="brand-mark">{{STUDIO_NAME}}</div>
 </div>
 
 Table slide:
@@ -396,7 +396,7 @@ Table slide:
         <h2>Table heading</h2>
         <table class="data-table">...</table>
     </div>
-    <div class="brand-mark">ALPA</div>
+    <div class="brand-mark">{{STUDIO_NAME}}</div>
 </div>
 -->
 

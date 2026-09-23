@@ -15,7 +15,7 @@ Provide a topic, outline, data, or document and the skill produces a single `.ht
 - **Font:** Helvetica Neue
 - **Layout:** Left-aligned by default, generous whitespace, editorial feel
 - **Palette:** Monochrome (black, white, greys) with a warm yellow accent (`#E8B517`) on the progress bar
-- **Brand mark:** "ALPA" fixed bottom-right on every slide
+- **Brand mark:** Studio-name text fixed bottom-right; missing or blank names use `Insert Studio Name`. Full-bleed image and image-grid slides omit it; full-bleed + title keeps it.
 - **Page numbers:** Auto-injected top-right (skips first and last slide)
 
 ### Backgrounds
@@ -121,4 +121,4 @@ The default accent is warm yellow (`#E8B517`). Override `--accent` in the CSS `:
 
 ## Related
 
-- Fork the skill and swap fonts, colors, and the brand mark for your own design system
+- The skill resolves your studio name for each deck; no logo configuration is needed. See `SKILL.md` for name resolution and HTML escaping.

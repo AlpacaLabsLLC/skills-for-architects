@@ -1,6 +1,6 @@
 ---
-name: spec-book
-description: "Build an ordered specification package with every selected product accounted for, using accepted templates and exact product identities. Use for grouped cut sheets or a combined book; not for implicit scope reduction or adoption."
+name: ffe-spec-book
+description: "Assemble an ordered FF&E specification book from selected product cut sheets, with every product accounted for and verified package receipts. Use for grouped sheets or a combined FF&E book; use spec-writer for Project Manual sections."
 allowed-tools:
   - Read
   - Write
@@ -9,14 +9,18 @@ allowed-tools:
   - Grep
 ---
 
-# /as:spec-book — Assemble a Specification Package
+# /as:ffe-spec-book — Assemble an FF&E Specification Book
 
-Before acting, read the [host contract](../../docs/host-harness-contract.md) and this component's [declaration](host-contract.json) (`skill:spec-book`). Load only its referenced mode profiles from the [shared catalog](../../corpus/host-contracts.json). Compose modes required by the actual task; declarations are requirements, not proof of access or permission.
+Before acting, read the [host contract](../../docs/host-harness-contract.md) and this component's [declaration](host-contract.json) (`skill:ffe-spec-book`). Load only its referenced mode profiles from the [shared catalog](../../corpus/host-contracts.json). Compose modes required by the actual task; declarations are requirements, not proof of access or permission.
 
 <!-- architecture-studio:harness-compatibility -->
 > Host adapter: read [delivery-specific guidance](../../docs/host-adapters.md) for invocation, package paths, questions, file access and optional delegation.
 
 Compose `/as:product-cut-sheet`; do not duplicate extraction, research or sheet layout logic. Input: explicit ordered scope, pinned schedule/item revisions or a one-off snapshot, accepted template, grouping and audience. Output: individual/combined artifacts as requested and a derived package preparation manifest and revision receipt owned by this skill. `/as:product-data-import` owns the accepted job input manifest; this skill only consumes it. Item/schedule records remain owned by `/as:master-schedule`; decisions and project facts remain owned by `/as:project`.
+
+## Document role and compatibility
+
+Assemble an FF&E specification book from source-faithful product entries. Project Manual sections and their design, submittal and execution requirements belong to `/as:spec-writer`. The skill name is `ffe-spec-book`; the persisted document kind `spec-book`, template IDs/paths, helper operations and existing receipts retain their current contracts. Do not migrate saved records merely because the skill name changed.
 
 ## Native preparation and publication
 

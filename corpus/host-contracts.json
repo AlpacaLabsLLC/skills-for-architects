@@ -235,7 +235,7 @@
     "skill:site-visit-report": "skills/site-visit-report/host-contract.json",
     "skill:skill-maker": "skills/skill-maker/host-contract.json",
     "skill:slide-deck-generator": "skills/slide-deck-generator/host-contract.json",
-    "skill:spec-book": "skills/spec-book/host-contract.json",
+    "skill:ffe-spec-book": "skills/ffe-spec-book/host-contract.json",
     "skill:spec-writer": "skills/spec-writer/host-contract.json",
     "skill:studio": "skills/studio/host-contract.json",
     "skill:studio-feedback": "skills/studio-feedback/host-contract.json",

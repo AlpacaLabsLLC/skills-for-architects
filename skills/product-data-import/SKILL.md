@@ -48,7 +48,7 @@ Exact same-job/same-normalized-intent retry verifies the prior result without wr
 
 For an explicitly requested reusable save, prepare complete rows under [product schema](../../schema/product-schema.md) and [CSV conventions](../../schema/csv-conventions.md), then hand one complete batch to product-library's native owner. Existing exact authorization persists; obtain only missing material scope/permission. Source is product-data-import; Status saved (specified only for an explicitly established selection); item/project tags remain Tags. Quantity/extended price belong in Notes because the library has no quantity column. Do not loop per row or write the library independently.
 
-Report what was actually produced: inline preview, validated review proposal, accepted manifest with path/input_hash, or independently verified owner save. Preserve unresolved data, scope, sources and limits. Product-cut-sheet/spec-book consume accepted inputs; research, enrichment, cleanup, audit and adoption remain separate requested outcomes. No Arch Studio executable or installed runner is a prerequisite.
+Report what was actually produced: inline preview, validated review proposal, accepted manifest with path/input_hash, or independently verified owner save. Preserve unresolved data, scope, sources and limits. Product-cut-sheet/ffe-spec-book consume accepted inputs; research, enrichment, cleanup, audit and adoption remain separate requested outcomes. No Arch Studio executable or installed runner is a prerequisite.
 
 ## Native workbook preservation comparison
 

@@ -3,7 +3,7 @@
   "id": "cluster:materials-ffe",
   "name": "Materials & FF&E",
   "maintainer": "Arch Studio maintainers",
-  "scope": "Product sourcing, evidence review, adopted item/schedule records, host-operated views and cut-sheet/spec-book delivery; optional CSV library and SIF interchange.",
+  "scope": "Product sourcing, evidence review, adopted item/schedule records, host-operated views and cut-sheet/ffe-spec-book delivery; optional CSV library and SIF interchange.",
   "members": [
     "skill:master-schedule",
     "skill:product-data-cleanup",
@@ -20,7 +20,7 @@
     "studio:workspace-contract",
     "skill:product-audit",
     "skill:product-cut-sheet",
-    "skill:spec-book",
+    "skill:ffe-spec-book",
     "knowledge:ffe-evidence",
     "studio:ffe-record-contract",
     "studio:document-design-system",

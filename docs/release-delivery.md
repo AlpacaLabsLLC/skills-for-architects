@@ -1,12 +1,12 @@
 # Arch Studio release delivery
 
-Arch Studio 1.5 has one versioned core and separate delivery receipts for the private hosted service and the later OSS plugin. R4 prepares the integrated **hosted/private candidate first**. OSS 1.5 is a later, independently approved deployment; the public 1.4.5 release remains unchanged until then. This active runbook supersedes the earlier public-first sequence for R2. Historical plans and release evidence remain historical records.
+Arch Studio 1.5.1 targets both the OSS plugin and production MCP, using one versioned shared core and separate channel receipts. Both channels previously published 1.5.0. Prepare and verify each exact candidate, record the publication order, and report a partial release if only one channel succeeds. A candidate version or dated changelog does not establish publication. Historical plans and release evidence remain historical records.
 
 ## Identities and ownership
 
 | Identity | Meaning |
 |---|---|
-| Arch Studio version | Shared skills, knowledge, tools and Studio contracts |
+| Arch Studio version | Shared skills, knowledge, maintainer helpers and studio contracts |
 | Arch Studio source commit and digest | Exact shared content selected for a delivery |
 | Channel package digest | Exact private hosted or approved public package bytes |
 | MCP service version and build | Hosted implementation, authentication and executable bindings |
@@ -21,13 +21,13 @@ The Arch Studio maintainer owns the shared source and channel content review. Th
 3. Preserve source-navigation metadata, Arch Studio-owned procedures, helper imports, schemas and package-relative paths. External reference bodies are not bundled. Review the [host adapters](host-adapters.md), task-first discovery and existing skill names. Record technical shared-core support, channel adapter/service differences, commercial access, licensing and untested behavior separately.
 4. Review the final diff, fresh setup instructions and known limitations. Each promotion request must identify a concrete tested candidate and the exact effects. Source validation alone does not authorize deployment, email or public publication.
 
-## R4 acceptance sequence
+## Candidate acceptance sequence
 
-Complete all source implementation, current-caller integration, package construction and documentation before actual host acceptance. Ordinary engineering tests run with each slice. Then perform the actual Mac/Windows × CLI/desktop runner, invocation, fresh setup and artifact checks as the final acceptance activity. Missing or unsupported routes do not pass; fix material failures before declaring readiness. Retain exact package/source identities and independent review.
+Complete all source implementation, current-caller integration, package construction and documentation before actual host acceptance. Ordinary engineering tests run with each slice. Then perform invocation, fresh setup and artifact checks on the selected actual hosts as the final acceptance activity. For 1.5.1, the owner selected Claude MCP desktop, ChatGPT Work in the app and Claude Code with the explicit OSS plugin directory. Windows, ChatGPT browser connection and Codex CLI OSS discovery gaps are disclosed as untested, not passed, and do not block this release. Missing or unsupported routes do not pass; fix material failures before declaring readiness. Retain exact package/source identities and independent review.
 
-R4 implements forward-only new records and contracts. No 1.4.5 upgrade matrix, old-format converter, compatibility-only alias or historical custom-skill preservation program is required. Operational recovery of a production deployment remains separate from backward-compatible software or workspace conversion.
+The 1.5 series implements forward-only new records and contracts. No 1.4.5 upgrade matrix, old-format converter, compatibility-only alias or historical custom-skill preservation program is required. Operational recovery of a production deployment remains separate from backward-compatible software or workspace conversion.
 
-## Prepare and promote hosted/private 1.5
+## Prepare and promote hosted/private 1.5.1
 
 Hosted acceptance uses the exact integrated Arch Studio source. OSS publication is not a prerequisite.
 
@@ -35,18 +35,18 @@ Hosted acceptance uses the exact integrated Arch Studio source. OSS publication 
 2. Build and test the service and web candidate. Tie immutable build receipts to the selected Arch Studio content digest and service/web identities. Report the hosted service version separately from the shared Arch Studio version and public plugin release.
 3. Verify authentication, native discovery and selection, complete resource retrieval, authorized host execution and actual workflow outcomes independently in each supported client. Test missing host capabilities explicitly; instruction delivery does not complete work. A local test of new content does not verify a live service still serving an older release.
 4. Demonstrate refresh, staged content upgrade and rollback. Keep active workflows pinned to the original digest and explicitly select the promoted digest for new work. Record the service/content pair before and after transitions. Restore the prior immutable application/content pair without rewriting user records.
-5. Obtain separate production promotion approval for the reviewed candidate. Only then deploy using the hosted controller, and independently read back production identity and authenticated behavior. Retain the prior deployment and recovery receipt.
+5. Confirm that the owner’s authorization covers production promotion of the reviewed candidate; request approval only if it does not. Then deploy using the hosted controller, and independently read back production identity and authenticated behavior. Retain the prior deployment and recovery receipt.
 
 The hosted pipeline owns exact infrastructure commands and credentials. They are not duplicated into this source runbook. No secrets belong in release evidence. A source-health failure degrades the affected capability; HTTP availability never establishes legal applicability or a valid source edition.
 
-## Prepare and publish OSS 1.5 later
+## Prepare and publish OSS 1.5.1
 
-1. After hosted/private acceptance, review the exact intended public content, dependencies and licensing. Private evaluation fixtures, client records and service-only material must not enter a public package implicitly. Reuse the approved shared core and review the plugin adapter differences.
-2. Verify fresh installation, native discovery, refresh and duplicate-registration behavior on supported plugin hosts, using the new document model directly. R4 has no historical package/workspace conversion requirement. Keep synthetic fixtures separate from user records. Export checks do not substitute for unperformed host UI checks.
+1. Review the exact intended public content, dependencies and licensing. Private evaluation fixtures, client records and service-only material must not enter a public package implicitly. Reuse the approved shared core and review the plugin adapter differences.
+2. Verify fresh installation, native discovery, refresh and duplicate-registration behavior on supported plugin hosts, using the new document model directly. The 1.5 series has no historical package/workspace conversion requirement. Keep synthetic fixtures separate from user records. Export checks do not substitute for unperformed host UI checks.
 3. Align Claude/Codex plugin manifests, marketplace metadata and release ledger with the approved public version. Consolidate candidate notes into the actual dated changelog at publication; a forecast date is not publication evidence.
-4. Obtain separate public publication approval for the exact tested source and notes before merge, push, tag or release. Then follow the accepted repository process, revalidating any changed source. Create the annotated release tag and publish the approved package.
+4. Confirm that the owner’s authorization covers publication of the exact tested source and notes before merge, push, tag or release; request approval only if it does not. Then follow the accepted repository process, revalidating any changed source. Create the annotated release tag and publish the approved package.
 5. Independently verify the tag's peeled source commit, release metadata, package digest and a fresh public installation. A tag object ID is not the source commit. Reject mismatched or unpublished artifacts as release evidence.
 
 ## Acceptance boundary
 
-Hosted/private 1.5 and later OSS 1.5 have separate gates and receipts. Earlier-version client evidence must be rerun where content or bindings changed. Unverified clients remain unverified, and unsupported execution is explicit. No shared-team store, synchronization, independent Norma runtime or email authority is implied by this release.
+Hosted/private 1.5.1 and OSS 1.5.1 have separate gates and receipts. Earlier-version client evidence must be rerun where content or bindings changed. Unverified clients remain unverified, and unsupported execution is explicit. No shared-team store, synchronization, independent Norma runtime or email authority is implied by this release.

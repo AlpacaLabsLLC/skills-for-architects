@@ -3,7 +3,7 @@
   "id": "cluster:specifications",
   "name": "Specifications",
   "maintainer": "Arch Studio maintainers",
-  "scope": "Outline specification procedures and professional terminology.",
+  "scope": "Project Manual specification sections, EPD requirements and professional terminology; FF&E entries and book assembly belong to the Materials & FF&E cluster.",
   "members": [
     "skill:spec-writer",
     "skill:epd-to-spec",

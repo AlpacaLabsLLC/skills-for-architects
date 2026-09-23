@@ -37,7 +37,7 @@ with tempfile.TemporaryDirectory(prefix='as-foundation-export-') as temporary:
     assert len(list(exported.rglob('SKILL.md'))) == len(skills)
     versions = [json.loads((exported / path).read_text())['version'] for path in (
         '.claude-plugin/plugin.json', '.codex-plugin/plugin.json')]
-    assert versions == ['1.5.0', '1.5.0']
+    assert versions == ['1.5.1', '1.5.1']
     subprocess.run([sys.executable, 'tools/validators/validate-categories.py',
                     '--root', '.', '--check-guide'], cwd=exported, check=True)
     subprocess.run([sys.executable, 'tools/validators/capabilities.py',

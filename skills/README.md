@@ -1,6 +1,6 @@
 # Tooling catalog
 
-Arch Studio skills install together in one flat catalog. The links below use `/as:<skill>` as a naming convention; use the exact entry point discovered by the current host, including any plugin namespace it requires. These groups describe what the tools do; they are not separate plugins or installation packages.
+Arch Studio skills install together in one flat catalog. The links below use `/as:<skill>` as a naming convention; use the exact entry point discovered by the current host, including any plugin namespace it requires. These groups describe what the skills do; they are not separate plugins or installation packages.
 
 The [generated capability catalog](../docs/capabilities.md) provides task-first discovery for the R2 critical paths from the shared component registry. This full catalog retains every skill.
 
@@ -72,7 +72,7 @@ Project records form a linked graph of plain files. `/as:project` is the setup a
 |-------|-------------|
 | [`/as:workplace-programmer`](./workplace-programmer) | Workplace programs from headcount and work style |
 | [`/as:occupancy-calculator`](./occupancy-calculator) | IBC occupancy loads, egress, exits, and plumbing fixtures |
-| [`/as:spec-writer`](./spec-writer) | CSI outline specifications with review markers |
+| [`/as:spec-writer`](./spec-writer) | Project Manual specification sections with review markers |
 
 ### Sustainability
 
@@ -81,7 +81,7 @@ Project records form a linked graph of plain files. `/as:project` is the setup a
 | [`/as:epd-parser`](./epd-parser) | Extract environmental data from EPD PDFs |
 | [`/as:epd-research`](./epd-research) | Research EPD registries by material or category |
 | [`/as:epd-compare`](./epd-compare) | Compare environmental impacts and LEED eligibility |
-| [`/as:epd-to-spec`](./epd-to-spec) | Generate CSI language with EPD requirements and GWP thresholds |
+| [`/as:epd-to-spec`](./epd-to-spec) | Project Manual EPD submittal requirements and sourced GWP limits |
 
 ### FF&E and materials
 
@@ -105,8 +105,8 @@ Explicitly adopted FF&E schedules use immutable item/schedule records; workbooks
 | [`/as:product-pair`](./product-pair) | Suggest complementary products |
 | [`/as:product-image-processor`](./product-image-processor) | Download, resize, and remove product-image backgrounds |
 | [`/as:product-audit`](./product-audit) | Review fresh or saved product evidence, discrepancies and unknowns |
-| [`/as:product-cut-sheet`](./product-cut-sheet) | Prepare one revision-pinned cut sheet using shared templates and host production |
-| [`/as:spec-book`](./spec-book) | Assemble a complete ordered specification package with itemized receipts |
+| [`/as:product-cut-sheet`](./product-cut-sheet) | Source-faithful single-product PDF/URL cut sheet or FF&E entry |
+| [`/as:ffe-spec-book`](./ffe-spec-book) | Assemble an ordered FF&E specification book with itemized receipts |
 | [`/as:csv-to-sif`](./csv-to-sif) | Convert canonical product CSV to SIF |
 | [`/as:sif-to-csv`](./sif-to-csv) | Convert SIF into the canonical product CSV schema |
 

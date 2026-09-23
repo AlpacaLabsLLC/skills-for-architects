@@ -2,9 +2,29 @@
 
 All notable changes to **Arch Studio** (`AlpacaLabsLLC/skills-for-architects`) are documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Arch Studio uses a sequential `major.minor.patch` release scheme, marks breaking migrations explicitly, and reserves patch releases for compatible corrections. A fourth segment (`major.minor.patch.n`) is reserved for content-only patches that change skill text without changing code or packaging; the first is planned as 1.5.0.1.
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Arch Studio uses a sequential `major.minor.patch` release scheme, marks breaking migrations explicitly, and reserves patch releases for compatible corrections. A fourth segment (`major.minor.patch.n`) is reserved for content-only patches that change skill text without changing code or packaging.
 
 ## [Unreleased]
+
+## [1.5.1] - 2026-09-23
+
+### Breaking
+
+- **Skill entry point renamed.** Use `ffe-spec-book` instead of `spec-book`; the old skill entry point is removed with no compatibility alias. Persisted document kinds, template paths and receipt identities remain unchanged. This release includes an owner-approved breaking rename as an explicit exception to the compatible-patch convention.
+
+### Changed
+
+- **Specification roles.** `spec-writer` drafts Project Manual sections; `epd-to-spec` adds their EPD/GWP requirements; `product-cut-sheet` records source-faithful facts for one product from a supplied PDF or URL. `ffe-spec-book` assembles the agreed product entries.
+- **Central studio policy.** Studio setup offers an existing policy or the default governance policy. Skill Maker adds live references rather than policy snapshots. Generated skills reread the policy on invocation and before resumed policy-dependent actions, and pause those actions if the configured document is unreadable. Policy composes with provenance and existing governance and preserves prior authorization.
+- **Studio-name branding.** Slide-deck text uses the resolved studio name or exactly `Insert Studio Name` when none is available, preserving existing slide layouts.
+- **Skills and tools.** Product language identifies skills as procedural instructions. Server-side deterministic product tools remain planned for 1.6 or later; current MCP tool names, host tools and maintainer helper contracts retain their technical meanings.
+
+### Fixed
+
+- Document-design guidance resolves both studio template paths against the studio workspace while preserving template precedence.
+- Private source incorporates the packaging corrections already shipped in OSS 1.5.0, including four-segment update checks and current installation guidance.
+
+These notes describe the source candidate. OSS and production MCP publication, host acceptance and incident closure require their own release evidence.
 
 ## [1.5.0] - 2026-09-20
 
@@ -278,7 +298,8 @@ First public release.
 - **3 hooks** — post-write disclaimer check, post-output metadata, pre-commit spec lint.
 - Marketplace install: `claude plugin marketplace add AlpacaLabsLLC/skills-for-architects`.
 
-[Unreleased]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.0...HEAD
+[Unreleased]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.1...HEAD
+[1.5.1]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.4.5...v1.5.0
 [1.4.5]: https://github.com/AlpacaLabsLLC/skills-for-architects/releases/tag/v1.4.5
 [1.4.4]: https://github.com/AlpacaLabsLLC/skills-for-architects/releases/tag/v1.4.4

@@ -1,6 +1,6 @@
 ---
 name: epd-to-spec
-description: "Write CSI specification language for EPD submittals and sourced GWP limits. Use to add embodied-carbon or EPD requirements to specs; not to parse, find, or compare EPDs."
+description: "Draft Project Manual specification requirements for EPD submittals and sourced GWP limits. Use for embodied-carbon requirements in project sections; use the EPD parsing, research or comparison skills for product evidence."
 allowed-tools:
   - Read
   - Write
@@ -12,6 +12,10 @@ allowed-tools:
 # epd-to-spec
 
 Before acting, read the [host contract](../../docs/host-harness-contract.md) and this component’s [declaration](host-contract.json) (`skill:epd-to-spec`). Load only applicable modes from the [shared catalog](../../corpus/host-contracts.json); declarations do not grant access or permission. Use the actual host’s [delivery route](../../docs/host-adapters.md).
+
+## Document role
+
+This skill writes EPD and embodied-carbon requirements within Project Manual specification sections. It does not create a product cut sheet or an FF&E specification book. Preserve the distinction between sourced environmental evidence and the project requirements proposed from it; `/as:spec-writer` owns the broader Project Manual section.
 
 ## Native execution and output custody
 

@@ -41,7 +41,7 @@ class CompletionReporting(unittest.TestCase):
             registry = root / 'corpus/components.json'
             original = registry.read_text()
             document = json.loads(original)
-            row = next(r for r in document['components'] if r['id'] == 'skill:spec-book')
+            row = next(r for r in document['components'] if r['id'] == 'skill:ffe-spec-book')
             row['capability']['references'].remove('docs/completion-reporting.md')
             registry.write_text(json.dumps(document))
             with self.assertRaisesRegex(ValueError, 'required host references'):

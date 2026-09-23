@@ -20,4 +20,8 @@ No routine interview — name, description, tools, and steps are derived from th
 
 ## House rules vs. your rules
 
-Inside this repo the lint is law: catalog coverage, frontmatter, links, markers — enforced on every commit. Outside it, none of that applies. The portable checklist (trigger description, README, no home paths, minimal tools) is what makes a skill good anywhere, and it's all a private skill owes. Adopt the rest if you like how it feels.
+Inside this repo the lint is law: catalog coverage, frontmatter, links, markers — enforced on every commit. Outside it, none of that applies. The portable checklist (trigger description, README, no home paths, minimal tools) is what makes a skill good anywhere, does not replace the studio's applicable governance. Adopt other repository conventions if useful.
+
+## Live studio policy
+
+Relevant generated skills follow the [central policy reference](../../docs/studio-policy.md) recorded by the studio in STUDIO.md. They read the current policy on every invocation and before resumed policy-dependent actions; inaccessible policies and conflicting rules pause affected work. No policy or a declined choice leaves existing governance in force. Skill Maker consumes configuration without adopting a policy or modifying STUDIO.md. Public bundles contain generic lookup instructions, never private policy text or locators. Existing skills require an explicit update; file creation does not establish discovery, governed execution or organization-wide distribution.

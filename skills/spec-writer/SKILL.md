@@ -1,6 +1,6 @@
 ---
 name: spec-writer
-description: "Turn a material or product list into CSI MasterFormat outline specifications with three-part sections and review flags. Use to write specs; use epd-to-spec for embodied-carbon requirements."
+description: "Draft Project Manual specification sections from accepted project requirements using CSI MasterFormat identities, three-part sections and review flags. Use for design requirements; use product-cut-sheet for source-faithful product entries and epd-to-spec for EPD requirements."
 allowed-tools:
   - Read
   - Write
@@ -13,6 +13,10 @@ allowed-tools:
 # spec-writer
 
 Before acting, read the [host contract](../../docs/host-harness-contract.md) and this component’s [declaration](host-contract.json) (`skill:spec-writer`). Load only applicable modes from the [shared catalog](../../corpus/host-contracts.json); declarations do not grant access or permission. Use the actual host’s [delivery route](../../docs/host-adapters.md).
+
+## Document role
+
+Draft Project Manual sections: accepted design requirements, products/performance, submittals and execution. Keep proposed requirements distinct from adopted requirements. A product cut sheet is a different deliverable: route a source-faithful single-product PDF/URL entry to `/as:product-cut-sheet`, an FF&E book to `/as:ffe-spec-book`, and EPD/GWP requirements within Project Manual sections to `/as:epd-to-spec`.
 
 ## Native execution and specification output
 

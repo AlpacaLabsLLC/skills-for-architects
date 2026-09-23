@@ -39,7 +39,7 @@ For adopted schedules, use `/as:master-schedule` to read the pinned item/schedul
 
 The schema/result includes input hash, item IDs/revisions, source locators, findings and comparison mode. `matches-supplied-observations` means only that the supplied values match; it is not product certification or legal compliance.
 
-Audit does not mutate item/schedule specifications, decisions, recovery snapshots or the optional library. Propose corrections to `/as:master-schedule`; sourcing goes to `/as:product-research`, PDF/URL extraction to their existing skills. Selection rationale and approval go through `/as:project`; never infer them from an artifact or audit result. After resolved findings, `/as:product-cut-sheet` and `/as:spec-book` consume the exact selected revisions. Cross-skill handoff does not require a subagent or separate Norma runtime.
+Audit does not mutate item/schedule specifications, decisions, recovery snapshots or the optional library. Propose corrections to `/as:master-schedule`; sourcing goes to `/as:product-research`, PDF/URL extraction to their existing skills. Selection rationale and approval go through `/as:project`; never infer them from an artifact or audit result. After resolved findings, `/as:product-cut-sheet` and `/as:ffe-spec-book` consume the exact selected revisions. Cross-skill handoff does not require a subagent or separate Norma runtime.
 
 ## Native report publication and handoff
 

@@ -32,7 +32,7 @@ You turn a described procedure into a working skill: a directory with a `SKILL.m
 
 ## Hard rule: no routine interview
 
-Derive everything — name, description, tools, steps — from the request. Do not ask routine setup questions. Ask exactly one question only when the skill's purpose is genuinely indecipherable, the user requests a global skill without explicitly authorizing the global target, or an existing target would have to be updated. Otherwise make the reasonable call and note it when presenting the result.
+Derive everything — name, description, tools, steps — from the request. Do not ask routine setup questions. Ask only for the missing information when the skill's purpose is genuinely indecipherable, the user requests a global skill without explicitly authorizing the global target, or an existing target would have to be updated. A policy-dependent action may also need a precise studio-selection, inaccessible-policy or conflicting-rule clarification under the governance contract below; this is not a routine setup interview. Otherwise make the reasonable call and note it when presenting the result.
 
 ## Anatomy of what you're producing
 
@@ -73,6 +73,12 @@ Read the non-installable bundled [SKILL template](../../assets/skill-maker-templ
 
 For a project-only skill, warn that discovery is narrower and that starting inside a nested project repository may not load parent studio configuration. Do not duplicate the skill as a workaround. Codex detects skill changes automatically but may need a restart if a new skill does not appear; Claude Code may require a restart when it was not already watching the selected `.claude/skills/` directory.
 
+## Live studio governance
+
+Read the complete [studio policy contract](../../docs/studio-policy.md). For a relevant studio/project procedure, resolve the owning studio using the [context contract](../project/references/context-resolution.md), read its recorded current policy when needed to establish the procedure, and add the contract's live-reference step to the generated SKILL.md with a dependency explanation in README.md. The generated step resolves the current studio and rereads its central policy on each invocation and before resumed policy-dependent actions, handles unreadable references and conflicts explicitly, and preserves existing authorization. Embed portable instructions, not policy text or a dependency on this plugin's installed path.
+
+Skill Maker never writes STUDIO.md or adopts a policy. No policy/decline leaves existing governance in force. Standalone/global skills do not require a studio. Public-catalog outputs use generic lookup where relevant and contain no originating policy text, private locator or studio identity in any bundle file. Existing generated skills are changed only by an explicit update request; no automatic adoption or organization-wide installation is implied.
+
 ## Step 2 — Apply the conventions checklist
 
 Read the complete [PATTERNS.md](../../PATTERNS.md) resource at the same release pin and apply its rules to the scaffolded skill. Do not work from a remembered copy; the file is the authority.
@@ -94,6 +100,8 @@ For every target, implement the existing `skill_scaffold.validate` semantics wit
 3. Parse YAML safely as data, never construct executable objects. The result must be a mapping; `name` equals the directory's final name, and `description` is a nonempty string after trimming. Do not substitute a substring search for YAML parsing; if a suitable native parser is unavailable, leave this check unverified.
 4. Reject `~/` anywhere in SKILL.md, including examples and frontmatter. Other Step 2 conventions remain additional human/content checks.
 5. On success report `{"valid": true, "directory": "<actual input path>", "name": "<directory name>"}` only after rereading the actual destination. On failure identify the failing check, fix only authorized scaffold files, and rerun the whole check; never emit valid true for a partial result. The check itself is read-only and does not validate host discovery or behavioral quality.
+
+Review the whole generated bundle for the applicable live-reference step, README dependency, policy privacy, and preserved destination/publication constraints. Structural validation cannot prove policy access or governed behavior; report those separately.
 
 **Inside an actual authorized source checkout:** after native scaffold checks pass, run the existing `<plugin-root>/scripts/lint.sh` from that verified checkout when available as maintainer validation and fix findings until green. Do not download or reconstruct it through MCP. Repository lint additionally verifies catalog membership and shared plugin contracts; unavailable lint leaves catalog-contribution acceptance pending without implying that private skill creation needs an Arch Studio runtime. No aggregate skill count needs updating.
 

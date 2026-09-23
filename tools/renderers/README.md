@@ -2,7 +2,7 @@
 
 This document specifies the FF&E output contract: inputs, design resolution, identity and
 filename rules, and the verification evidence a completed PDF job requires. Hosted
-product-cut-sheet and spec-book workflows follow these rules natively with the host's own
+product-cut-sheet and ffe-spec-book skills follow these rules natively with the host's own
 tools; they do not require an Arch Studio runner, package or dependency installation.
 
 `ffe_outputs.py` and `document_contracts.py` are retained maintainer reference
@@ -27,7 +27,7 @@ A separately supplied accepted PDF/reference is pinned by `--template`; name its
 
 ## Inputs and ownership
 
-`product-cut-sheet` owns an individual sheet job manifest/receipt; `spec-book` owns a package manifest/receipt. The owning skill applies the same contract natively. `master-schedule` owns adopted schedule/item records; outputs only consume its snapshot API. The host owns actual rendering, spreadsheet operation, visual inspection and authorized delivery.
+`product-cut-sheet` owns an individual sheet job manifest/receipt; `ffe-spec-book` owns a package manifest/receipt. The owning skill applies the same contract natively. `master-schedule` owns adopted schedule/item records; outputs only consume its snapshot API. The host owns actual rendering, spreadsheet operation, visual inspection and authorized delivery.
 
 Use the shared [completion report](../../docs/completion-reporting.md) when returning artifacts.
 Preserve requested, produced and verified counts, source/check evidence, unresolved items and

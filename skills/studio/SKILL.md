@@ -28,6 +28,8 @@ Fresh setup prepares the whole declared studio tree and identities. Project-mode
 
 ## Setup
 
+Read the [studio policy contract](../../docs/studio-policy.md) for fresh setup or an explicitly requested policy configuration. Ask once whether the user has an AI-use policy or wants the offered default, show the default before adoption, and allow decline. Existing references stay in place; a default is created only at the resolved Standards root's `governance/ai-policy.md`. Record the reference and adoption choice in STUDIO.md's Data governance section. Include that exact file set in the existing setup preview and readback. Preserve already-configured choices on unrelated edits; Skill Maker only consumes them. No policy is silently adopted or migrated.
+
 Use `studio.init` for a confirmed exact fresh target. Gather only missing studio name, working units, jurisdiction (No default is valid), naming policy (`as`, `firm`, `none`), folder taxonomy/managed roots, document path template and firm stage vocabulary keyed by project Kind. Naming and taxonomy are separate advisory choices. Preserve confirmed human names/casing. The shipped building/software/initiative stages are Arch Studio-owned defaults, not an asserted external standard.
 
 Show the exact target, files, managed roots and data boundary: records stay in the user workspace; content supplied to a configured model follows that provider's terms; setup creates no ALPA account/cloud storage/Git repository. One concrete setup gate covers those choices. Format version stays 3; Document model 1 identifies the fresh record shape. No existing workspace conversion or backward-compatibility setup is provided.

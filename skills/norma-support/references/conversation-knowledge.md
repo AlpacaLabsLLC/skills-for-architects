@@ -55,11 +55,11 @@ For questions asking what Arch Studio offers, use this catalog to name skills an
 | zoning-envelope | Self-contained interactive 3D zoning envelope |
 | workplace-programmer | Workplace programs from headcount and work style |
 | occupancy-calculator | IBC occupancy loads, egress, exits, and plumbing fixtures |
-| spec-writer | CSI outline specifications with review markers |
+| spec-writer | Project Manual specification sections with review markers |
 | epd-parser | Extract environmental data from EPD PDFs |
 | epd-research | Research EPD registries by material or category |
 | epd-compare | Compare environmental impacts and LEED eligibility |
-| epd-to-spec | Generate CSI language with EPD requirements and GWP thresholds |
+| epd-to-spec | Project Manual EPD submittal requirements and sourced GWP limits |
 | master-schedule | Adopt/revise/reconcile schedules; keep library maintenance with product-library |
 | product-library | Own reusable CSV products with previews, guarded saves and retry recovery |
 | product-url-clip | Retain supplied URL evidence and inspect durable capture history without adopting products |
@@ -76,8 +76,8 @@ For questions asking what Arch Studio offers, use this catalog to name skills an
 | product-pair | Suggest complementary products |
 | product-image-processor | Download, resize, and remove product-image backgrounds |
 | product-audit | Review fresh or saved product evidence, discrepancies and unknowns |
-| product-cut-sheet | Prepare one revision-pinned cut sheet using shared templates and host production |
-| spec-book | Assemble a complete ordered specification package with itemized receipts |
+| product-cut-sheet | Source-faithful single-product PDF/URL cut sheet or FF&E entry |
+| ffe-spec-book | Assemble an ordered FF&E specification book with itemized receipts |
 | csv-to-sif | Convert canonical product CSV to SIF |
 | sif-to-csv | Convert SIF into the canonical product CSV schema |
 | slide-deck-generator | Create self-contained HTML slide decks |

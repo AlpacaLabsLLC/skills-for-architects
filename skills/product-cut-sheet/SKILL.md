@@ -1,6 +1,6 @@
 ---
 name: product-cut-sheet
-description: "Produce one specification sheet from selected FF&E inputs using an accepted template, exact identity and inspected source imagery. Use for one product or explicit group; use spec-book for a complete package."
+description: "Create a source-faithful single-product FF&E cut sheet or spec book entry from a supplied PDF or product URL. Preserve selected identity and source limits; use ffe-spec-book for a complete FF&E book and spec-writer for Project Manual requirements."
 allowed-tools:
   - Read
   - Write
@@ -16,7 +16,11 @@ Before acting, read the [host contract](../../docs/host-harness-contract.md) and
 <!-- architecture-studio:harness-compatibility -->
 > Host adapter: read [delivery-specific guidance](../../docs/host-adapters.md) for invocation, package paths, questions, file access and optional delegation.
 
-Produce one selected product sheet, or an explicitly agreed product/finish grouping. Input: pinned item revision(s) or a one-off source snapshot, accepted template, exact tag, audience and image evidence. Output: an actual requested-format artifact and hash-bound receipt. This skill owns derived individual-sheet preparation manifests and artifact receipts; `/as:product-data-import` owns the accepted job input manifest; `/as:spec-book` owns package receipts. Neither owns item specifications or project decisions.
+Produce one selected product sheet, or an explicitly agreed product/finish grouping. Input: pinned item revision(s) or a one-off source snapshot, accepted template, exact tag, audience and image evidence. Output: an actual requested-format artifact and hash-bound receipt. This skill owns derived individual-sheet preparation manifests and artifact receipts; `/as:product-data-import` owns the accepted job input manifest; `/as:ffe-spec-book` owns package receipts. Neither owns item specifications or project decisions.
+
+## Source-faithful product entry
+
+For a supplied PDF or product URL, reproduce only supported facts for the selected product/variant, with source page/URL locators and units. Missing or inaccessible values remain explicit unknowns. Do not add other manufacturers, "or approved equal", submittals, execution clauses, performance requirements or other Project Manual editorial content absent from that source, even when labeled as recommendations. User-supplied project identifiers remain separately identified metadata, not manufacturer facts. Preserve source limits and selected-versus-available configurations; a source page is not approval or schedule adoption. A request for new design requirements belongs to `/as:spec-writer`; a complete FF&E book belongs to `/as:ffe-spec-book`.
 
 ## Native preparation and publication
 

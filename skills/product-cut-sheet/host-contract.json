@@ -1,6 +1,6 @@
 {
   "path": "skills/product-cut-sheet/SKILL.md",
-  "responsibility": "Produce one FF&E product cut sheet from a pinned item or explicit input snapshot using an accepted template. Use for a product sheet or a tag-named specification PDF; use spec-book for a complete package.",
+  "responsibility": "Create a source-faithful single-product FF&E cut sheet or spec book entry from a supplied PDF or product URL. Preserve selected identity and source limits; use ffe-spec-book for a complete FF&E book and spec-writer for Project Manual requirements.",
   "inputs": "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records.",
   "owned_records": [
     "ffe/cut-sheet-manifests-and-receipts"

@@ -51,7 +51,7 @@
     },
     {
       "mode": "delegate",
-      "when": "Only for requested owner handoffs: reusable CSV changes to product-library, adopted records to master-schedule, accepted-input rendering to product-cut-sheet/spec-book and registered reports to receive. This skill owns accepted intake; preserve exact authorization, targets, evidence and current revisions."
+      "when": "Only for requested owner handoffs: reusable CSV changes to product-library, adopted records to master-schedule, accepted-input rendering to product-cut-sheet/ffe-spec-book and registered reports to receive. This skill owns accepted intake; preserve exact authorization, targets, evidence and current revisions."
     }
   ],
   "execution": {

@@ -1,6 +1,6 @@
 {
   "path": "skills/epd-to-spec/SKILL.md",
-  "responsibility": "Write CSI specification language for EPD submittals and sourced GWP limits. Use to add embodied-carbon or EPD requirements to specs; not to parse, find, or compare EPDs.",
+  "responsibility": "Draft Project Manual specification requirements for EPD submittals and sourced GWP limits. Use for embodied-carbon requirements in project sections; use the EPD parsing, research or comparison skills for product evidence.",
   "inputs": "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records.",
   "owned_records": [],
   "non_owned_records": [

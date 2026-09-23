@@ -1,8 +1,9 @@
 # Slide Type Components
 
+`{{STUDIO_NAME}}` is replaced with HTML-escaped studio-name text as specified in `SKILL.md`, or exactly `Insert Studio Name` when no nonblank name is available.
 Example quantities below are synthetic layout fixtures, not workforce findings or benchmarks.
 
-Markup for every slide component in the ALPA design system. Use these structures verbatim when composing slides — only the text/data content changes.
+Markup for every slide component in the bundled editorial design system. Use these structures verbatim when composing slides — only the text/data content changes.
 
 **Eyebrow** — small bold label directly above the heading:
 ```html
@@ -102,7 +103,7 @@ Always placed inside `.content`, immediately before the `<h2>`.
             </div>
         </div>
     </div>
-    <div class="brand-mark">ALPA</div>
+    <div class="brand-mark">{{STUDIO_NAME}}</div>
 </div>
 ```
 The `.slide.centered .content h2` rule tightens the heading's bottom margin so the heading sits close to the stat-row, matching the timeline layout.
@@ -213,7 +214,7 @@ The `.slide.centered .content h2` rule tightens the heading's bottom margin so t
         <h1>Title Goes Here</h1>
         <p class="subtitle">Optional subtitle</p>
     </div>
-    <div class="brand-mark">ALPA</div>
+    <div class="brand-mark">{{STUDIO_NAME}}</div>
 </div>
 ```
 

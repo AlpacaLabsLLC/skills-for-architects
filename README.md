@@ -22,7 +22,15 @@
 
 Firm-created skills remain in the user-owned studio workspace, outside the installed plugin cache. They can stay private to a firm or project, or be developed for contribution back to the open-source project.
 
-**One plugin**—`as` v1.5.0—with a shared skill catalog for Codex and Claude Code. The repository contains **5 hooks**: Claude Code loads four handlers across three events, while Codex loads one ambient `SessionStart` hook. Claude Code also loads **8 agents** and **8 rules**. Created by Federico Negro in 2026 and built by [ALPA](https://alpa.llc) (`hello@alpa.llc`). Copyright © 2026 Alpaca Design Lab LLC; MIT-licensed.
+**One plugin**—`as` v1.5.1—with a shared skill catalog for Codex and Claude Code. The repository contains **5 hooks**: Claude Code loads four handlers across three events, while Codex loads one ambient `SessionStart` hook. Claude Code also loads **8 agents** and **8 rules**. Created by Federico Negro in 2026 and built by [ALPA](https://alpa.llc) (`hello@alpa.llc`). Copyright © 2026 Alpaca Design Lab LLC; MIT-licensed.
+
+## What’s new in 1.5.1
+
+The 61-skill catalog now separates Project Manual sections, source-faithful product cut sheets and FF&E books. Use `ffe-spec-book` for book assembly: the `spec-book` skill entry point is removed immediately, with no alias. Existing `spec-book` document kinds, templates and receipts retain their identities.
+
+Studio setup offers an existing central governance policy or a reusable default. Skill Maker references the selected policy live, rereads it when a skill runs or resumes, and pauses policy-dependent actions if it cannot read it. Slide decks use the studio’s name as text, or exactly `Insert Studio Name` when unavailable. Document-template paths now explicitly resolve inside the studio workspace.
+
+Skills remain procedural instructions executed by the host. Product tools will be server-side deterministic operations in 1.6 or later; this release adds no server-side execution. Manifest versions and these notes describe the source candidate; channel publication requires the separate receipts in the [release guide](docs/release-delivery.md).
 
 ## What’s new in 1.5.0
 
@@ -32,7 +40,7 @@ Breaking: new studios and projects use `DOCUMENTS.csv`, `CHANGES.csv`, `SCHEDULE
 
 ### Foundation organization and delivery
 
-Arch Studio organizes shared content into five categories: Knowledge (`corpus/`), maintainer Tools (`tools/`), procedural Skills (`skills/`), Practice Clusters (`clusters/`) and distributed Studio contracts (`studio/`). Practice clusters assemble existing components; geographic manifests describe maintained source coverage independently. Actual firm and project records remain in the user's workspace.
+Arch Studio organizes shared content into five categories: Knowledge (`corpus/`), maintainer helpers (`tools/`), procedural Skills (`skills/`), Practice Clusters (`clusters/`) and distributed Studio contracts (`studio/`). Practice clusters assemble existing components; geographic manifests describe maintained source coverage independently. Actual firm and project records remain in the user's workspace.
 
 The same content is also delivered as a hosted MCP service under its own version. Install the plugin or connect the MCP, not both: the MCP delivers instructions, does not execute skills and has no access to local files, and this plugin ships no MCP server entry. See [release delivery and acceptance](docs/release-delivery.md).
 
@@ -67,7 +75,7 @@ Full history is in the [CHANGELOG](./CHANGELOG.md).
 |---|---|
 | Governance | Shared obligations, host contracts, authorization and evidence |
 | Knowledge | Geographic navigation to external original sources |
-| Execution | Skills, specialist profiles, declared tools and the installed local runner |
+| Execution | Skills, specialist profiles and declared host capabilities, performed by the connected assistant with its own tools |
 | Memory | User-owned project facts, document/register records and accepted history |
 
 These are responsibilities, not four mandatory folders. [PATTERNS](PATTERNS.md) links the [authority map](docs/architecture.md) and each policy owner, including the [host-harness contract](docs/host-harness-contract.md). Skills remain flat and helpers remain with their useful owners.
@@ -80,7 +88,7 @@ Arch Studio separates maintained plugin capabilities from the procedures a firm 
 
 | Layer | Location | Purpose |
 |-------|----------|---------|
-| Bundled reference skills | Installed plugin | Working AEC tools, examples, and reusable patterns maintained upstream |
+| Bundled reference skills | Installed plugin | Working AEC skills, examples, and reusable patterns maintained upstream |
 | Studio skills | `studio/.agents/skills/` (Codex) or `studio/.claude/skills/` (Claude Code) | Firm standards, internal procedures, shared templates, and practice-specific workflows |
 | Project skills | `<registered-project>/.agents/skills/` or `.claude/skills/` | Client-, jurisdiction-, delivery-, or project-specific procedures |
 | Upstream contributions | This repository | General-purpose capabilities proposed for the open-source project |
@@ -121,7 +129,7 @@ After Claude Code opens, run:
 /as:studio
 ```
 
-The studio entry point offers paths to set up a studio, use the tools without setup, open an existing studio, or learn on a fictional practice project. Start the course with `$learn` on Codex or `/as:learn` on Claude Code. Arch Studio creates no studio, project, ALPA account, cloud store, or git repository until you approve an exact local target.
+The studio entry point offers paths to set up a studio, use the skills without setup, open an existing studio, or learn on a fictional practice project. Start the course with `$learn` on Codex or `/as:learn` on Claude Code. Arch Studio creates no studio, project, ALPA account, cloud store, or git repository until you approve an exact local target.
 
 ### Use
 
@@ -145,15 +153,15 @@ Use `$tool-catalog` on Codex or `/as:tool-catalog` on Claude Code for the comple
 
 Use the package installed for the selected channel. Start with an ordinary task or ask Norma for help; create a studio/project only when you need durable records. The new document model uses fresh setup rather than converting a historical workspace.
 
-Local operations require the verified helper package and its declared runner. The installer supplies complete files and managed dependencies outside conversation text; the harness invokes a named operation with structured inputs. A hosted workflow connection delivers instructions and does not itself establish local execution or file access. See [host adapters](docs/host-adapters.md) and [release delivery](docs/release-delivery.md) for the actual acceptance boundary.
+Record and file operations follow each skill's semantic contract and run with the connected assistant's own tools, within its existing permissions. No Arch Studio runner, installer or bridge is required, and executable source is never reconstructed from instructions. A hosted workflow connection delivers instructions and does not itself establish file access or workflow completion. See the [host-harness contract](docs/host-harness-contract.md), [host adapters](docs/host-adapters.md) and [release delivery](docs/release-delivery.md) for the actual acceptance boundary.
 
 ### Three ways to use Arch Studio
 
-- **Use the references.** Invoke the bundled skills as installed; Claude Code also exposes the native agents. No studio workspace is required. Selecting tools-only onboarding creates no workspace files; an invoked tool may create only the output you ask it to produce.
+- **Use the references.** Invoke the bundled skills as installed; Claude Code also exposes the native agents. No studio workspace is required. Selecting tools-only onboarding creates no workspace files; an invoked skill may create only the output you ask it to produce.
 - **Build your practice layer.** Create a studio when you want persistent settings, linked projects, and firm- or project-specific skills.
 - **Contribute upstream.** Generalize a capability that benefits other practices and propose it to the open-source project.
 
-All three paths use the same plugin architecture. You can begin with the reference tools and create a studio later without migration or cleanup.
+All three paths use the same plugin architecture. You can begin with the reference skills and create a studio later without migration or cleanup.
 
 ### Host setup
 
@@ -194,12 +202,21 @@ All bundled skills live in one flat catalog and install together. They make Arch
 | Practice and design | Site planning | Environmental, mobility, demographic, and site-history research |
 | Practice and design | Zoning analysis | NYC zoning analysis and interactive buildable-envelope visualization |
 | Practice and design | Programming | Workplace programs, occupancy loads, egress, and plumbing fixtures |
-| Practice and design | Specifications | CSI outline specifications with professional-review markers |
+| Practice and design | Specifications | Project Manual sections and EPD requirements with professional-review markers |
 | Practice and design | Sustainability | EPD parsing, research, comparison, and GWP requirements |
 | Practice and design | FF&E and materials | Product research, extraction, cleanup, schedules, imagery, CSV, and SIF |
 | Practice and design | Presentations | Slide decks, color palettes, and image preparation |
 
 Browse the [complete tooling catalog](./skills/README.md) for every command, input, output, and supporting skill document.
+
+Choose the specification skill by the requested document:
+
+| Deliverable | Skill |
+|---|---|
+| Project Manual section with design, submittal and execution requirements | [spec-writer](./skills/spec-writer/SKILL.md) |
+| Source-faithful product entry from a supplied PDF or URL | [product-cut-sheet](./skills/product-cut-sheet/SKILL.md) |
+| Ordered FF&E specification book assembled from product sheets | [ffe-spec-book](./skills/ffe-spec-book/SKILL.md) |
+| Project Manual EPD submittal requirements and sourced GWP limits | [epd-to-spec](./skills/epd-to-spec/SKILL.md) |
 
 ## Rules
 
@@ -224,7 +241,7 @@ These event-driven automations are Claude Code-specific. They register with the 
 
 | Hook | Event | What it does |
 |------|-------|--------------|
-| [session-start-welcome](./hooks/session-start-welcome.sh) | First session after install | Confirms that built-in tools are ready and points to optional studio setup and learning |
+| [session-start-welcome](./hooks/session-start-welcome.sh) | First session after install | Confirms that built-in skills are ready and points to optional studio setup and learning |
 | [post-write-disclaimer-check](./hooks/post-write-disclaimer-check.sh) | After Write or Edit | Flags marked regulatory output that is missing the professional disclaimer |
 | [pre-commit-spec-lint](./hooks/pre-commit-spec-lint.sh) | Before git commit | Flags malformed CSI section numbers |
 | [version-check](./hooks/version-check.sh) | Enabled startup sessions, at most daily | Checks for a newer release only after explicit opt-in |

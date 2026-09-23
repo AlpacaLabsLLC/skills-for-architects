@@ -3,6 +3,8 @@ import importlib.util
 from pathlib import Path
 import unittest
 import re
+import hashlib
+import json
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('host_contracts', ROOT / 'tools/validators/host_contracts.py')
@@ -13,6 +15,13 @@ spec.loader.exec_module(host)
 class SupportContract(unittest.TestCase):
     def setUp(self):
         self.contract = host.load(ROOT)
+
+    def test_knowledge_manifest_pins_actual_source_bytes(self):
+        manifest = json.loads((ROOT / 'skills/norma-support/knowledge-manifest.json').read_text())
+        for entry in manifest['files']:
+            with self.subTest(path=entry['path']):
+                actual = hashlib.sha256((ROOT / entry['path']).read_bytes()).hexdigest()
+                self.assertEqual(actual, entry['sha256'])
 
     def test_email_catalog_matches_the_canonical_skill_catalog(self):
         catalog = (ROOT / 'skills/README.md').read_text()

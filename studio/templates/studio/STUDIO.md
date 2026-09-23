@@ -32,6 +32,13 @@
 
 ## Data governance
 
+| Setting | Value |
+|---|---|
+| Firm policy | {{FIRM_POLICY}} |
+| Firm policy adoption | {{FIRM_POLICY_ADOPTION}} |
+
+The recorded policy complements existing governance, including provenance; it does not replace those authoritative rules. Read the current referenced document for policy-dependent work. `None` with `declined` records an explicit choice to continue under existing governance without adopting a policy.
+
 This local version stores studio and project records in this workspace. Arch Studio does not send them to or store them with ALPA. Content provided to the configured LLM is handled by that provider under the user’s account and data terms. Future cloud-based versions may require an account and use different storage.
 
 ## Studio resources

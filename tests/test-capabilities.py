@@ -14,6 +14,30 @@ spec.loader.exec_module(capabilities)
 
 
 class Capabilities(unittest.TestCase):
+    def test_ffe_book_rename_preserves_document_contract_without_skill_alias(self):
+        rows = {row['id']: row for row in capabilities.definitions(ROOT)}
+        self.assertNotIn('skill:spec-book', rows)
+        self.assertFalse((ROOT / 'skills/spec-book').exists())
+        book = rows['skill:ffe-spec-book']
+        self.assertEqual(book['path'], 'skills/ffe-spec-book/SKILL.md')
+        contracts = json.loads((ROOT / 'corpus/host-contracts.json').read_text())['components']
+        self.assertNotIn('skill:spec-book', contracts)
+        self.assertEqual(contracts['skill:ffe-spec-book'], 'skills/ffe-spec-book/host-contract.json')
+        for row in rows.values():
+            self.assertTrue((ROOT / row['path']).is_file())
+            for reference in row['references']:
+                self.assertTrue((ROOT / reference).is_file(), reference)
+        manifest = json.loads((ROOT / 'studio/templates/documents/spec-book/manifest.json').read_text())
+        self.assertEqual(manifest['id'], 'as.spec-book-template')
+        self.assertIn('studio/templates/documents/spec-book/manifest.json', book['references'])
+        # Scan active instructions/discovery, excluding historical records and this negative test.
+        for directory in ('skills', 'corpus', 'clusters', 'agents'):
+            for path in (ROOT / directory).rglob('*'):
+                if path.is_file() and path.suffix in ('.md', '.json'):
+                    text = path.read_text()
+                    for retired in ('/as:' + 'spec-book', '$' + 'spec-book', 'skill:spec-book', 'skills/spec-book/'):
+                        self.assertNotIn(retired, text, str(path))
+
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory(prefix='as-capabilities-')
         self.addCleanup(self.tmp.cleanup)
@@ -29,7 +53,7 @@ class Capabilities(unittest.TestCase):
     def test_generation_is_idempotent_and_does_not_replace_skill_bodies(self):
         definitions = capabilities.definitions(self.root)
         required = {'skill:lighting-report-extract', 'skill:schedule-quantity-reconcile',
-                    'skill:product-data-import', 'skill:product-cut-sheet', 'skill:spec-book',
+                    'skill:product-data-import', 'skill:product-cut-sheet', 'skill:ffe-spec-book',
                     'skill:product-library', 'skill:product-spec-pdf-parser', 'skill:product-url-clip',
                     'skill:studio', 'skill:project', 'skill:workplan', 'skill:norma'}
         self.assertTrue(required <= {row['id'] for row in definitions})
@@ -93,15 +117,15 @@ class Capabilities(unittest.TestCase):
 
     def test_required_and_conditional_dependencies_remain_explicit(self):
         rows = {row['id']: row for row in capabilities.definitions(self.root)}
-        for key in ('skill:product-cut-sheet', 'skill:spec-book'):
+        for key in ('skill:product-cut-sheet', 'skill:ffe-spec-book'):
             self.assertTrue({'tools/renderers/ffe-output-contract.md', 'tools/renderers/document-design-contract.md',
                              'schema/product-identity.schema.json', 'schema/ffe-output.schema.json'}
                             <= set(rows[key]['references']))
         self.assertTrue(all(row['executionOwner'] == 'host' for row in rows.values()))
         self.assertTrue(rows['skill:product-data-import']['conditionalReferences'])
         self.assertTrue({'skills/product-cut-sheet/SKILL.md', 'tools/renderers/ffe-output-contract.md',
-                         'tools/transformers/evidence-contracts.md'} <= set(rows['skill:spec-book']['references']))
-        self.assertTrue(set(rows['skill:product-cut-sheet']['references']) <= set(rows['skill:spec-book']['references']))
+                         'tools/transformers/evidence-contracts.md'} <= set(rows['skill:ffe-spec-book']['references']))
+        self.assertTrue(set(rows['skill:product-cut-sheet']['references']) <= set(rows['skill:ffe-spec-book']['references']))
         self.assertTrue({'schema/product-observations.md', 'schema/product-observation.schema.json',
                          'tools/transformers/ffe-intake-contract.md', 'schema/product-identity.schema.json'}
                         <= set(rows['skill:product-data-import']['references']))
@@ -112,7 +136,7 @@ class Capabilities(unittest.TestCase):
         for key in ('skill:product-data-import', 'skill:product-spec-pdf-parser', 'skill:product-url-clip',
                     'skill:product-data-cleanup', 'skill:product-enrich', 'skill:product-research',
                     'skill:product-spec-bulk-fetch', 'skill:product-audit',
-                    'skill:product-cut-sheet', 'skill:spec-book'):
+                    'skill:product-cut-sheet', 'skill:ffe-spec-book'):
             paths = rows[key]['references'] + list(conditional[key])
             self.assertTrue({'schema/product-observations.md', 'schema/product-observation.schema.json'}
                             <= set(rows[key]['references']))

@@ -91,7 +91,7 @@ Only remove backgrounds when requested; preserve the selected original and resiz
 
 ## Step 7: Report Results
 
-After processing, write a new image receipt with pinned inputs, source/derivative hashes, parameters, exact/representative/missing classification and inspected outcomes. Return paths for usable files and each failure; do not claim a whole batch complete with unresolved required images. For sheet/package production, hand off to `/as:product-cut-sheet` or `/as:spec-book` with this evidence. Then print a summary:
+After processing, write a new image receipt with pinned inputs, source/derivative hashes, parameters, exact/representative/missing classification and inspected outcomes. Return paths for usable files and each failure; do not claim a whole batch complete with unresolved required images. For sheet/package production, hand off to `/as:product-cut-sheet` or `/as:ffe-spec-book` with this evidence. Then print a summary:
 
 ```
 ## Product Image Processing Complete

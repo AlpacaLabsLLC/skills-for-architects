@@ -65,7 +65,7 @@ class Contracts(unittest.TestCase):
         self.assertEqual(mode['required'], [])
 
     def test_native_render_requires_actual_readback_without_mandatory_process(self):
-        for name in ('product-cut-sheet', 'spec-book'):
+        for name in ('product-cut-sheet', 'ffe-spec-book'):
             mode = host.select(self.document, 'skill:' + name, 'render')
             self.assertTrue({'file.read', 'file.write', 'document.render', 'document.inspect'} <= set(mode['required']))
             self.assertNotIn('process.run', mode['required'])
@@ -135,7 +135,7 @@ class Contracts(unittest.TestCase):
 
     def test_write_modes_cannot_downgrade_effect_or_permission(self):
         cases = [('skill:master-schedule', 'workbook-edit'), ('skill:project', 'record-write'),
-                 ('skill:csv-to-sif', 'file-output'), ('skill:spec-book', 'render'),
+                 ('skill:csv-to-sif', 'file-output'), ('skill:ffe-spec-book', 'render'),
                  ('skill:resize-images', 'image-transform'), ('skill:studio-feedback', 'external-open')]
         for component, mode in cases:
             for patch in [{'effects': []}, {'effects': ['none']}, {'permission': 'read-within-scope'},

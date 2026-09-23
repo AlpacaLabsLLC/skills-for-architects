@@ -11,14 +11,21 @@ from pathlib import Path
 plugin = json.loads(Path('.claude-plugin/plugin.json').read_text())
 codex_plugin = json.loads(Path('.codex-plugin/plugin.json').read_text())
 marketplace = json.loads(Path('.claude-plugin/marketplace.json').read_text())
-assert plugin['version'] == '1.5.0'
+assert plugin['version'] == '1.5.1'
 assert codex_plugin['version'] == plugin['version']
 assert marketplace['metadata']['version'] == plugin['version']
 assert plugin['description'].startswith('Arch Studio —')
 assert marketplace['plugins'][0]['description'].startswith('Arch Studio —')
+components = json.loads(Path('corpus/components.json').read_text())['components']
+skills = {item['id'] for item in components if item['category'] == 'skills'}
+assert len(skills) == 61
+assert 'skill:ffe-spec-book' in skills and 'skill:spec-book' not in skills
+assert not Path('skills/spec-book').exists()
+assert '61 skills' in Path('rules/terminology.md').read_text()
 PY
 
 grep -q '^## \[Unreleased\]$' CHANGELOG.md
+grep -q '^## \[1\.5\.1\] - 2026-09-23$' CHANGELOG.md
 grep -Eq '^## \[1\.5\.0\] - (Unreleased|[0-9]{4}-[0-9]{2}-[0-9]{2})$' CHANGELOG.md
 grep -q '^## \[1\.4\.5\] - 2026-09-03$' CHANGELOG.md
 grep -q '^## \[1\.4\.4\] - 2026-08-25$' CHANGELOG.md
@@ -28,7 +35,8 @@ grep -q '^## \[1\.4\.2\] - 2026-08-10$' CHANGELOG.md
 grep -q '^## \[1\.4\.1\] - 2026-07-29$' CHANGELOG.md
 grep -q '^## \[1\.4\.0\] - 2026-07-26$' CHANGELOG.md
 grep -q 'sequential `major.minor.patch` release scheme' CHANGELOG.md
-grep -q '^\[Unreleased\]: .*compare/v1\.5\.0\.\.\.HEAD$' CHANGELOG.md
+grep -q '^\[Unreleased\]: .*compare/v1\.5\.1\.\.\.HEAD$' CHANGELOG.md
+grep -q '^\[1\.5\.1\]: .*compare/v1\.5\.0\.\.\.v1\.5\.1$' CHANGELOG.md
 grep -q '^\[1\.5\.0\]: .*compare/v1\.4\.5\.\.\.v1\.5\.0$' CHANGELOG.md
 grep -q '^\[1\.4\.5\]: .*releases/tag/v1\.4\.5$' CHANGELOG.md
 grep -q '^\[1\.4\.4\]: .*releases/tag/v1\.4\.4$' CHANGELOG.md

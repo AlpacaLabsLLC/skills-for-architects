@@ -36,6 +36,8 @@ all original bytes. Do not normalize line endings before hashing.
 Search layers in this exact priority: explicitly selected project assets; configured studio assets;
 bundled `studio/` assets. A project asset root must exist as a real directory; configured studio
 must have valid `STUDIO.md`. Asset roots mirror `standards/documents/` and `templates/documents/`.
+For the configured studio layer, `<studio-root>` is the workspace directory containing that
+`STUDIO.md`, not the plugin’s bundled `studio/` directory.
 Select each manifest independently, allowing partial overrides. If a candidate exists at a higher
 layer but is malformed, unsafe or incomplete, stop; do not fall through to a lower layer. Reject
 symlink files, unsafe ancestors, escapes from the selected authorized root and missing regular files.
@@ -43,9 +45,12 @@ symlink files, unsafe ancestors, escapes from the selected authorized root and m
 Resolve these manifests in order:
 
 1. `standards/documents/design-system.json`, ID `as.document-design-system`.
-2. `templates/documents/<kind>/manifest.json`, ID `as.<kind>-template`.
+2. `templates/documents/<kind>/manifest.json`, ID `as.<kind>-template`; the configured studio
+   candidate is `<studio-root>/templates/documents/<kind>/manifest.json`.
 3. For a book only, also `templates/documents/product-cut-sheet/manifest.json`, ID
-   `as.product-cut-sheet-template`. The book's `dependencies` must equal `["product-cut-sheet"]`.
+   `as.product-cut-sheet-template`; the configured studio candidate is
+   `<studio-root>/templates/documents/product-cut-sheet/manifest.json`. The book's `dependencies`
+   must equal `["product-cut-sheet"]`.
 
 Each manifest has integer `schema_version: 1`, exact expected ID, nonempty string `version` and
 nonempty object `assets`. Retain its complete original UTF-8 text and raw hash. For every declared
