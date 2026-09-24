@@ -384,7 +384,7 @@ Centered content slide (stats, timelines, grids):
     <div class="content">
         <div class="eyebrow">Section</div>
         <h2>Heading</h2>
-        <!-- stat-row, timeline, grid, or comparison here -->
+        [stat-row, timeline, grid, or comparison here]
     </div>
     <div class="brand-mark">{{STUDIO_NAME}}</div>
 </div>

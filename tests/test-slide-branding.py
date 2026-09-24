@@ -69,6 +69,16 @@ class SlideBranding(unittest.TestCase):
             self.assertTrue(marks, filename)
             self.assertEqual(set(marks), {"{{STUDIO_NAME}}"}, filename)
 
+    def test_template_examples_do_not_create_live_slides(self):
+        text = (SLIDES / "html-template.md").read_text()
+        self.assertEqual(SlideMarkup(text).slides, [])
+        inserted = '\n'.join(
+            '<div class="slide"><div class="brand-mark">Test Studio</div></div>'
+            for _ in range(3)
+        )
+        rendered = text.replace("<!-- SLIDES GO HERE -->", inserted, 1)
+        self.assertEqual(len(SlideMarkup(rendered).slides), 3)
+
     def test_visible_brand_preserves_name_case(self):
         # Uppercasing would visibly change the exact fallback and supplied studio names.
         for filename in ["html-template.md", "sample.html"]:
