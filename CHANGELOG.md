@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
-## [1.5.1] - 2026-09-23
+## [1.5.1] - 2026-09-24
 
 ### Breaking
 
@@ -21,10 +21,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
+- Slide-deck template examples remain comments instead of creating an unintended extra slide.
 - Document-design guidance resolves both studio template paths against the studio workspace while preserving template precedence.
 - Private source incorporates the packaging corrections already shipped in OSS 1.5.0, including four-segment update checks and current installation guidance.
 
-These notes describe the source candidate. OSS and production MCP publication, host acceptance and incident closure require their own release evidence.
+Release scope: OSS plugin and production MCP. Channel publication and acceptance results are recorded separately; this changelog does not certify every host workflow.
 
 ## [1.5.0] - 2026-09-20
 
