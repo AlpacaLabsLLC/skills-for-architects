@@ -26,7 +26,7 @@ Or paste a markdown table directly in the conversation.
 
 ### Output
 
-Previews proposed fixes, then applies approved changes atomically to the project library.
+Previews meaning-preserving fixes and separates proposed factual corrections. Produces an authorized standalone cleaned file, or hands a requested library change to product-library for guarded publication and readback.
 
 ## How it fits
 
@@ -73,7 +73,7 @@ Splits combined strings into separate W/D/H + Unit columns:
 | `32 x 24 x 30 in` | 32 | 24 | 30 | in |
 | `Ancho: 80, Prof: 60, Alto: 75 cm` | 80 | 60 | 75 | cm |
 
-Units are never converted — manufacturer's original spec preserved for ordering.
+Source units are preserved by default. Explicitly requested conversions retain the raw source and conversion basis.
 
 ### Language
 

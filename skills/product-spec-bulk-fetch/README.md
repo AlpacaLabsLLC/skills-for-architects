@@ -25,7 +25,7 @@ Example Product A | Example Manufacturer | quantity 2 | supplied specification p
 
 ### Output
 
-Shows a Markdown preview and, after approval, appends rows atomically to the 33-column project library.
+Shows a Markdown preview with requested products/variants kept distinct. Can produce an explicitly requested standalone CSV/JSON export, or hand a requested batch to product-library for guarded persistence. Neither route implies schedule adoption.
 
 ## How it fits
 

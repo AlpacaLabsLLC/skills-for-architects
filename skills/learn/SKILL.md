@@ -45,7 +45,7 @@ Codex does not expose Claude Code-native agents, hooks, or the `/clear` command.
 
 1. **Do, then explain.** Hands on the keyboard within a few sentences of any teach beat. Never do the exercise for them — guide, hint, review. Narration is the teaching: say what's about to appear on screen before it appears, confirm what happened after. Nothing shows up unannounced.
 2. **Signpost.** Open each module with where we are, what they'll do, why an architect cares. Close by naming what they can now do — specifically, no generic praise.
-3. **Plain language, fixed analogies.** Terminal → the front desk (two counters: the bare terminal takes short commands like `cd` and `codex` or `claude`; once the active host is open, everything is plain English). Working directory → the project folder open on your desk. `AGENTS.md` (Codex) or `CLAUDE.md` (Claude Code) → the office standards binder. Skills → laminated procedures. Markdown → plain paper: text any app opens, a few pencil conventions (`#` heading, `-` list), still readable in twenty years.
+3. **Plain language, fixed analogies.** Terminal → the front desk (two counters: the bare terminal takes short commands like `cd` and `codex` or `claude`; once the active host is open, everything is plain English). Working directory → the project folder open on your desk. `AGENTS.md` (Codex) or `CLAUDE.md` (Claude Code) → the office standards binder. Skills → capability cards: outcomes, constraints and checks. Markdown → plain paper: text any app opens, a few pencil conventions (`#` heading, `-` list), still readable in twenty years.
 4. **Mistakes are material.** Name what happened plainly, say nothing broke and why, hand them the next move. A raw error is never the last thing on their screen. If they're flying, compress the concepts — never the signposts or the safety promise. If they're struggling, split the exercise smaller; every exercise still happens.
 5. **Update `PROGRESS.md` after every module, as a moment.** Show the row turning ✅ and the progress bar gaining a segment. The file is itself the lesson: memory here is files.
 
@@ -141,11 +141,11 @@ In order. For each: signpost, teach conversationally, run the exercise with narr
 
 ### Module 3 — Let's set some guidelines first (~15 min)
 
-- **Teach:** `AGENTS.md` on Codex or `CLAUDE.md` on Claude Code is the standards binder: conventions written once, obeyed every session, unprompted. Sessions end and the desk gets swept; files persist — which is why the binder is a file.
+- **Teach:** `AGENTS.md` on Codex or `CLAUDE.md` on Claude Code is the standards binder: persistent conventions that the active host must actually discover and load; a saved file alone does not prove that happened. Sessions end and the desk gets swept; files persist — which is why the binder is a file.
 - **Exercise:** Copy the complete delivered `skills/learn/templates/office-CLAUDE.md` into the practice folder as `AGENTS.md` on Codex or `CLAUDE.md` on Claude Code. Walk it section by section; they customize at least three `← edit` lines with their office's real conventions and delete what they don't care about. Test: request a short document (a transmittal for the report) and catch a convention obeyed unprompted. On Claude Code, run `/clear` together — announced first — and request one more. On Codex, start a new chat or session with the active Codex surface, then make the same request; do not invoke `/clear`. The binder still holds. Conversation is memory that dies; the file is memory that doesn't.
 - **The harness, in one breath:** Arch Studio supplies domain procedures; the active host supplies the model loop, file tools, permissions and any available agents or hooks. Their binder is their office's layer. Verify that the current host actually loads it. MCP delivery and public OSS distribution have separate content and installation paths; this course does not promise release parity.
 - **Pass:** Customized host-appropriate binder; one convention obeyed unprompted, including once after a fresh conversation.
-- **Recap:** *Write standards down once; every session reads the binder. Files survive; conversations don't.*
+- **Recap:** *Write standards down once; verify that the active host reads the binder, including after a fresh session. Files persist; loading them must be checked.*
 
 ### Module 4 — Plan first, build second (~20 min)
 

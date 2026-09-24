@@ -85,7 +85,7 @@ Once you have it, confirm the selected location and begin research. Reuse resolv
 
 ## Research Workflow
 
-Work through each section below sequentially. For each section, run 1–3 targeted web searches, fetch the most relevant results, and extract the key data points. If a data point cannot be found, say so explicitly — never fabricate data.
+Cover the environmental topics material to the requested scope using applicable original sources. Choose search order and depth from the evidence needed; no fixed search count or section order is required. Report source coverage and unresolved findings explicitly rather than filling gaps.
 
 ### 1. Climate
 
@@ -94,9 +94,8 @@ Search for climate data for the city/region:
 - **Precipitation**: Annual rainfall/snowfall, wet/dry seasons
 - **Prevailing winds**: Direction and average speed by season
 - **Sun angles**: Solar altitude at summer solstice, winter solstice, and equinoxes. Solar azimuth at sunrise/sunset for key dates
-Select the statistical design basis and applicable standard/version from original sources for the project; report the source and method used.
 - **Humidity**: Average relative humidity by season
-Select the statistical design basis and applicable standard/version from original sources for the project; report the source and method used.
+- **Design temperatures**: When requested, select the statistical design basis and applicable standard/version from original sources; report the source and method used.
 
 ### 2. Natural Features & Hazards
 
@@ -122,7 +121,7 @@ Write the analysis to a markdown file at `./environmental-analysis-[location-slu
 
 | Metric | Value |
 |--------|-------|
-Select the statistical design basis and applicable standard/version from original sources for the project; report the source and method used.
+| Design temperatures | [values, units and sourced statistical basis, or unresolved] |
 | Flood zone | [zone] |
 | Seismic risk | [level] |
 | Elevation | [ft/m] |

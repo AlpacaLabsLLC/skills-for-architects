@@ -22,7 +22,10 @@
       "mode": "answer"
     },
     {
-      "mode": "file-read"
+      "mode": "file-read",
+      "optional": [
+        "image.read"
+      ]
     },
     {
       "mode": "file-output",
@@ -41,6 +44,10 @@
     {
       "mode": "delegate",
       "when": "Only for explicitly requested owner work: product-library saves, master-schedule adoption/revision, product-data-import accepted inputs or receive registered reports. Preserve authorization, target identity, source evidence and current revisions."
+    },
+    {
+      "mode": "research",
+      "when": "Only for authorized retrieval of original facts or selected image sources for existing products; supplied evidence and inline tagging need no web retrieval."
     }
   ],
   "execution": {

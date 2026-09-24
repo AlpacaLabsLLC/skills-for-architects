@@ -17,7 +17,7 @@ On Claude Code, the first-session notice points to `/as:studio` or `/as:learn`. 
 
 - **Do, then explain** — the learner's hands are on the keyboard within a few sentences of any teach beat.
 - **The tutor never does the exercise for them** — it guides and reviews.
-- **Studio analogies throughout** — `AGENTS.md` (Codex) or `CLAUDE.md` (Claude Code) is the standards binder, skills are laminated procedures, markdown is plain paper.
+- **Studio analogies throughout** — `AGENTS.md` (Codex) or `CLAUDE.md` (Claude Code) is the standards binder, skills are capability cards describing outcomes, constraints and checks, markdown is plain paper.
 - **Three ideas thread the course**: this version stores project files locally while sending prompts and needed file contents to the configured Codex or Claude service, Arch Studio is an open-source harness on both hosts (fork it, make it your own), and course/project memory is plain files you can read. Future cloud-based versions may require accounts and work differently.
 - **One worksurface for firm extensions**: the course uses a sandbox-local skill, while real firm-created skills default to the initialized studio’s `.agents/skills/` on Codex or `.claude/skills/` on Claude Code; ordinary users do not maintain the installed plugin source.
 - **Module 6 closes with real work** — a source-check drill (trace claims to their lines, then ask about what the document *doesn't* say), a short professional checklist (firm policy, low-stakes, work on a copy — recommended, never imposed), and one real task end to end. Data privacy is taught back in Module 2, where consent is taught. The learner can quit `$learn` or `/as:learn` at any moment, no questions asked.

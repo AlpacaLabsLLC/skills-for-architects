@@ -1,8 +1,8 @@
 # /as:product-enrich
 
-Auto-tag FF&E products with categories, colors, materials, and style tags using AI. for Claude Code.
+Propose FF&E categories, sourced material and finish attributes, and explicitly labeled descriptive style tags.
 
-Enrichment is previewed before approved named-field updates are applied atomically to the nearest project's `product-library.csv`.
+Preview available finish options separately from explicit selected finishes and tentative image interpretations. Requested library updates go through product-library; enrichment does not adopt selections or convert inferred appearance into product facts.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../LICENSE)
 

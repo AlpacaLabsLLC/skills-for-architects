@@ -73,9 +73,9 @@ More specific classification within the category:
 - Storage → Credenza, Bookcase, Filing Cabinet, Wardrobe, Sideboard, Dresser
 - Desk → Writing Desk, Executive Desk, Standing Desk, Workstation
 
-### Primary Color
-The color of the evidenced selected configuration; family availability does not establish selection:
-- Use standard color names: Black, White, Gray, Brown, Beige, Navy, Blue, Green, Red, Orange, Yellow, Pink, Purple, Natural, Walnut, Oak, Teak, Chrome, Brass, Copper, Multi
+### Available and selected colors/finishes
+Keep manufacturer-evidenced available options separate from the evidenced selected configuration. `Colors/Finishes` holds available options; `Selected Color/Finish` holds an explicit user selection or source-backed selection, never an inferred choice. A selected color alone is not a complete availability list. Tentative visual descriptions stay labeled in Notes or the preview, not in either factual finish field:
+- Preserve exact source finish names in factual fields. Broad color labels such as Black, White or Brown may be proposed as descriptive tags without replacing those names.
 
 ### Material
 Primary materials, comma-separated:
@@ -91,7 +91,7 @@ Primary materials, comma-separated:
 - Context: Residential, Contract, Hospitality, Healthcare, Education, Outdoor
 
 ### Image Analysis
-If product data includes the named `Image URL` field, inspect it for tentative visual descriptions. An image alone cannot verify material composition or selected finish. The image may suggest:
+When visual enrichment is requested and the source includes the named `Image URL` field, establish actual authorized image access and inspect its bytes through an available host image capability. Missing access leaves visual enrichment unverified. For missing factual attributes, retrieve the relevant original for the existing product only when authorized; otherwise preserve unknowns. Inspect images for tentative visual descriptions. An image alone cannot verify material composition or selected finish. The image may suggest:
 - Apparent color under the shown lighting
 - Apparent texture, explicitly labeled as inferred
 - Style characteristics
@@ -113,7 +113,7 @@ Flag any products where enrichment is uncertain:
 ## Step 4: Apply
 
 ### To the project library
-Read `../../schema/product-schema.md` and `../../schema/csv-conventions.md`. Map enrichment only to canonical named fields: `Category`, `Materials`, `Colors/Finishes`, and appended `Tags`; place noncanonical subcategory detail in `Notes`. Do not overwrite a populated field unless the preview explicitly calls that out.
+Read `../../schema/product-schema.md` and `../../schema/csv-conventions.md`. Map evidence-backed enrichment to canonical named fields: `Category`, `Materials`, available `Colors/Finishes`, and explicitly established `Selected Color/Finish`. Preserve existing selections and populated values unless their exact change is authorized. Keep inferred color, texture, material or subcategory descriptions labeled in `Notes`; proposed descriptive style tags may be appended to `Tags` with their judgment status retained in Notes. Do not turn visual inference into a specification fact.
 
 For multiple enriched rows, materialize the complete proposed 33-column CSV as a temporary or user-visible review file. Validate it, preview every material change and the target `product-library.csv` once, then use existing exact authorization or ask once for the missing approval. After approval, hand the complete batch to product-library's native import operation for one guarded publication, not a per-row loop. A genuinely single-record enrichment may use that owner's native update with a uniquely matching stable field and exact request/current-state evidence.
 

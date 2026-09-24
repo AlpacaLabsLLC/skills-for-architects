@@ -34,7 +34,7 @@ Resolve the selected report and target; clarify conflicting request/report sites
 
 ## Project context
 
-If `PROJECT.md` exists in the working directory, read it before fetching — lot geometry and bulk controls may already be on file from `/as:zoning-analysis-nyc`. After completing, offer a one-line envelope summary and viewer path to `/as:project update` for its **Zoning** section, each with a source and date. No `PROJECT.md`? Skip silently — or mention `/as:project init` if the user is clearly starting a project.
+For project-bound work, resolve the selected report's owning project through the [native context contract](../project/references/context-resolution.md) and read its instructions and relevant sourced geometry/controls. Do not infer identity from the current directory or bypass an invalid manifest. A standalone supplied report needs no project setup. Offer sourced facts to project only within the authorized scope; this renderer does not write project records.
 
 ## Usage
 
@@ -93,7 +93,7 @@ From the parsed JSON, build the internal model:
 - `STATS` — key/value pairs for the parameters panel
 - `SCENARIOS` — if present, multi-scenario toggle data
 
-**Compute inset polygons** using the validated `insetPolygon(poly, distance)` function. For multi-volume envelopes (base + tower), compute the tower inset **from the base inset** (cumulative), not from the lot polygon — so the tower is always smaller than the base.
+**Compute footprints from the report's explicit model.** Use cumulative base/tower insets only when the report specifies them; otherwise preserve explicit supplied footprints or source-defined setback relationships. Do not infer that every tower is uniformly inset from its base. Use a geometry method capable of preserving the supplied topology and per-edge constraints; ambiguous or unsupported models remain unresolved, not approximated as buildable space.
 
 **Compute volumes** by extruding inset polygons between height intervals.
 

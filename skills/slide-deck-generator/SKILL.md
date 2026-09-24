@@ -32,7 +32,7 @@ This skill keeps its bulk material in reference files in this directory. Load th
 
 ## On Start
 
-When invoked, read [slide-types.md](slide-types.md), then give the user its compact numbered list of page-type names. Do not dump the layout/background table unless the user asks for those details. Any slide can include a callout footnote.
+When composing, read [slide-types.md](slide-types.md). Show its compact numbered list of page-type names only when the user requests layout options or a material unresolved choice needs it. Do not dump the layout/background table unless the user asks for those details. Any slide can include a callout footnote.
 
 A sample deck demonstrating every type is at `sample.html` in this skill's directory.
 
@@ -46,9 +46,9 @@ A sample deck demonstrating every type is at `sample.html` in this skill's direc
    - Local image files or a folder (use as image slides — see [image-handling.md](image-handling.md))
 
 2. **Plan the deck.** Before writing HTML, decide:
-   - How many slides (aim for 10-20, never fewer than 6)
+   - How many slides the brief needs; honor an explicit count, including decks shorter than six slides
    - Which slide type and components each slide uses
-   - The narrative arc: setup -> insight -> evidence -> recommendation -> close
+   - A narrative appropriate to the brief; setup -> insight -> evidence -> recommendation -> close is an optional starting point
 
 3. **Embed local images.** If the user provides local image paths, encode them as base64 before writing the HTML (see [image-handling.md](image-handling.md)). This keeps the deck self-contained and portable.
 
@@ -116,9 +116,11 @@ If the presentation is for a different brand or context, change `--accent`. Comm
 - Purple: `#6B21A8`
 - Orange: `#C2410C`
 
-Ask the user if they want a specific accent color. If the topic suggests a brand, try to match.
+Use the supplied accent or verified brand guidance; otherwise retain the default. Ask only when a consequential choice remains unresolved, not as a routine setup question.
 
 ## Slide Structure Rules
+
+The active first slide and valid component markup are implementation requirements. The sequence below is a default narrative, not a minimum slide count or mandatory content outline; adapt it to the brief and omit inapplicable beats. Preserve the accepted template and studio-name behavior.
 
 1. **First slide**: Always `active` — use `.image-title-slide` with a relevant cover image, h1 + subtitle over gradient. If no image is available, fall back to white text-only title (h1 + `.subtitle` + credit).
 2. **Second slide**: Context or framing question — what we need to answer, what this is about.

@@ -35,15 +35,15 @@ Keep source identity, page/URL locator, retrieval time, selected-versus-availabl
 
 Takes a messy FF&E schedule and normalizes everything: casing, dimensions, units, language, materials vocabulary, currency formatting, and duplicates. Outputs a clean, consistent, spec-ready schedule.
 
-Persistent cleanup operates on the nearest project's `product-library.csv`. Pasted tables may be previewed in Markdown but are not another persistent format.
+Cleanup can produce an inline preview or an explicitly requested standalone cleaned file without library adoption. Only a requested reusable-library change routes to product-library; adopted schedule changes route to master-schedule.
 
 ## Input
 
 The user provides a schedule in one of these ways:
 
 1. **Project library** — the nearest `product-library.csv` under an ancestor containing `PROJECT.md`.
-2. **CSV file path** — import only after its exact 33-column header is validated.
-3. **Pasted table** — preview a proposed canonical mapping before any persistence.
+2. **CSV file path** — preserve the supplied schema for one-off cleanup; validate the exact 33-column header only for a requested canonical library import.
+3. **Pasted table** — preview the intended output schema; a canonical mapping is required only for a requested library save.
 
 If the input format is unclear, ask.
 
@@ -64,7 +64,7 @@ If the input format is unclear, ask.
 
 Map free-text categories to the canonical vocabulary and alias table defined in `../../schema/product-schema.md`. Read that file for the full mapping of variations (English, Spanish, legacy terms) to canonical category names.
 
-If a category is ambiguous, keep the closest match and add a `[?]` flag for the user to review.
+If a category is ambiguous, preserve its original value and propose candidates separately for review. Do not publish a guessed category or put a review marker into a canonical category field.
 
 ### 3. Dimensions
 
@@ -120,12 +120,13 @@ If the user says "keep in Spanish" or specifies a target language, respect that.
 
 ### 5. Materials & Finishes Vocabulary
 
-Standardize common material terms:
+Apply only source-supported, meaning-preserving terminology changes. An abbreviation with multiple meanings stays unchanged with a review note; do not add composition, manufacturing method or finish claims. Proposed semantic corrections need evidence and explicit authorization. Examples apply only when the source establishes the same meaning:
 
 | Variations | → Standard |
 |-----------|------------|
 | SS, Stainless, S/S | Stainless steel |
-| Ply, Plywood, Mold ply | Molded plywood |
+| Ply, Plywood | Plywood |
+| Mold ply, Molded plywood | Molded plywood |
 | MDF, Medium density | MDF |
 | HPL, High pressure laminate | HPL |
 | Lam, Laminate | Laminate |
@@ -201,13 +202,15 @@ Report:
 ```
 
 ### Step 6: Save
-Read `../../schema/product-schema.md` and `../../schema/csv-conventions.md`. For multiple changed rows, materialize the complete proposed 33-column CSV as a temporary or user-visible review file, validate that candidate, preview the whole change once, and use existing exact authorization or ask once for the missing approval. After approval, hand the complete batch to product-library's native import operation; that owner performs one guarded publication, not a per-row loop. A genuinely single-record edit may instead use its native update with one uniquely matching stable field and exact request/current-state evidence. Never overwrite an arbitrary input or hand-edit `product-library.csv`.
+For an explicitly requested standalone cleaned file, preserve the agreed source columns and unresolved raw values, retain originals and the change report, and follow the complete native output custody below. Do not force a one-off export into the library schema or adopt records.
+
+For a requested reusable-library save, read `../../schema/product-schema.md` and `../../schema/csv-conventions.md`. For multiple changed rows, materialize the complete proposed 33-column CSV as a temporary or user-visible review file, validate that candidate, preview the whole change once, and use existing exact authorization or ask once for the missing approval. After approval, hand the complete batch to product-library's native import operation; that owner performs one guarded publication, not a per-row loop. A genuinely single-record edit may instead use its native update with one uniquely matching stable field and exact request/current-state evidence. Never overwrite an arbitrary input or hand-edit `product-library.csv`.
 
 ## Edge Cases
 
 - **Mixed-language schedule**: Detect dominant language per column, normalize to one language
 - **Merged cells or irregular formatting**: Flag and ask user how to handle
-- **Extra columns not in schema**: Reject persistence and preview how they would map to canonical fields
+- **Extra columns not in schema**: Preserve them in standalone output; for a canonical library save, resolve their mapping before persistence
 - **Empty rows**: List them in the preview as proposed removals; remove only within the approved scope
 - **Header detection**: Auto-detect header row (first row with text that matches known field names). If uncertain, ask.
 
