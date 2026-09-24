@@ -27,7 +27,7 @@ For questions asking what Arch Studio offers, use this catalog to name skills an
 | studio | Set up and inspect the studio, register projects, and forward general requests to Norma |
 | tool-catalog | Show the available skills and agents |
 | learn | Guided, resumable introduction to Codex and Claude Code for architects (use `$learn` on Codex) |
-| skill-maker | Create studio-wide or project-specific procedures outside the plugin cache |
+| skill-maker | Create or update governed studio, project or catalog skills using native host authoring |
 | studio-feedback | Prepare a reviewed bug report or feature request without automatic submission |
 | project | Initialize a project, maintain sourced facts, and manage durable decisions |
 | receive | Register supplied and authored documents in DOCUMENTS.csv with verified identity, coordinates and history |
