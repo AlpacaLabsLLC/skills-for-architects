@@ -9,10 +9,13 @@ Existing OSS distribution behavior and release scope are separately preserved an
 
 ## Ownership
 
-Arch Studio owns domain procedures, typed-record authority, evidence requirements, validations and proposed
+Arch Studio owns domain capability contracts, required procedures, typed-record authority, evidence requirements, validations and proposed
 changes. The host owns the conversation and available browser, email, spreadsheet, filesystem,
 rendering and process capabilities. The harness selects and performs a native method that meets the
-owning semantic specification. Normal MCP workflows require no Arch Studio runner, installer, bridge or
+owning semantic specification. This is the Tooling pillar described in [architecture](architecture.md).
+Skills specify outcomes, domain invariants, interfaces and verification; prescribe execution order only
+when a domain, safety, interoperability or observed-failure requirement needs it. Required mutation
+sequences and preservation guarantees still apply. Normal MCP workflows require no Arch Studio runner, installer, bridge or
 reconstructed helper. An existing bounded server validator remains optional within its declared
 scope; it does not establish general project access. Instruction delivery is not execution, access
 or workflow completion.
@@ -74,7 +77,7 @@ owning semantic operation scope; an empty list is not a way to bypass record own
 
 Use capabilities already available to the host. The harness may use ordinary task-specific code
 for parsing, decimal calculations, transformations or checks when its selected method benefits from
-it. Arch Studio supplies complete procedures, schemas, formulas and examples, not executable source that the
+it. Arch Studio supplies complete capability contracts, required procedures, schemas, formulas and examples, not executable source that the
 host must download, reconstruct or install. A process capability is required only for a selected
 native method that needs one. Missing Arch Studio executable paths are never a normal workflow prerequisite.
 Do not silently substitute a hosted execution service, project store or another destination.

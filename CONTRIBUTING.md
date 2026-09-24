@@ -29,7 +29,7 @@ A run that reports `all checks passed` with skip notices above it has not verifi
 
 Record an adjacent defect in the owning project with its source and consequence. Do not expand the approved slice or post an external issue/comment without applicable authorization. Durable project records, not chat mentions, carry unfinished work.
 
-Read [PATTERNS.md](./PATTERNS.md) for naming, layout, dispatcher behavior, versioning, and lessons from prior defects.
+Read [PATTERNS.md](./PATTERNS.md) for the authoring boundary and pointers to the owners of naming, host behavior, record authority and release checks.
 
 Do not include client data, firm secrets, credentials, or proprietary procedures in a pull request. Codex invokes catalog and private skills as `$name`; Claude Code uses namespaced catalog commands such as `/as:site-history` and local `/{name}` commands for private workspace skills.
 

@@ -30,7 +30,7 @@ The 61-skill catalog now separates Project Manual sections, source-faithful prod
 
 Studio setup offers an existing central governance policy or a reusable default. Skill Maker references the selected policy live, rereads it when a skill runs or resumes, and pauses policy-dependent actions if it cannot read it. Slide decks use the studio’s name as text, or exactly `Insert Studio Name` when unavailable. Document-template paths now explicitly resolve inside the studio workspace.
 
-Skills remain procedural instructions executed by the host. Product tools will be server-side deterministic operations in 1.6 or later; this release adds no server-side execution. Manifest versions and these notes describe the source candidate; channel publication requires the separate receipts in the [release guide](docs/release-delivery.md).
+Skills define bounded capabilities through outcomes, domain constraints, interfaces, evidence and verification; the host executes them. Product tools will be server-side deterministic operations in 1.6 or later; this release adds no server-side execution. Manifest versions and these notes describe the source candidate; channel publication requires the separate receipts in the [release guide](docs/release-delivery.md).
 
 ## What’s new in 1.5.0
 
@@ -40,7 +40,7 @@ Breaking: new studios and projects use `DOCUMENTS.csv`, `CHANGES.csv`, `SCHEDULE
 
 ### Foundation organization and delivery
 
-Arch Studio organizes shared content into five categories: Knowledge (`corpus/`), maintainer helpers (`tools/`), procedural Skills (`skills/`), Practice Clusters (`clusters/`) and distributed Studio contracts (`studio/`). Practice clusters assemble existing components; geographic manifests describe maintained source coverage independently. Actual firm and project records remain in the user's workspace.
+Arch Studio packages source and capability catalogs under `corpus/`, maintainer tools under `tools/`, skills under `skills/`, practice clusters under `clusters/`, and workspace contracts under `studio/`. These directories support the four pillars below; they are not a second pillar taxonomy. Actual firm and project records remain in the user's workspace.
 
 The same content is also delivered as a hosted MCP service under its own version. Install the plugin or connect the MCP, not both: the MCP delivers instructions, does not execute skills and has no access to local files, and this plugin ships no MCP server entry. See [release delivery and acceptance](docs/release-delivery.md).
 
@@ -71,14 +71,14 @@ Full history is in the [CHANGELOG](./CHANGELOG.md).
 
 ## Architecture
 
-| Layer | Responsibility |
+| Pillar | Responsibility |
 |---|---|
-| Governance | Shared obligations, host contracts, authorization and evidence |
-| Knowledge | Geographic navigation to external original sources |
-| Execution | Skills, specialist profiles and declared host capabilities, performed by the connected assistant with its own tools |
-| Memory | User-owned project facts, document/register records and accepted history |
+| Governance | Authority, permissions, ownership, evidence and acceptance |
+| Tooling | Skills, specialist profiles, tools and integrations; the host performs execution |
+| Knowledge | Access to applicable authoritative original sources and their provenance |
+| Memory | Accepted studio/project facts, decisions, preferences, records and evidence |
 
-These are responsibilities, not four mandatory folders. [PATTERNS](PATTERNS.md) links the [authority map](docs/architecture.md) and each policy owner, including the [host-harness contract](docs/host-harness-contract.md). Skills remain flat and helpers remain with their useful owners.
+The [architecture and authority map](docs/architecture.md) owns these definitions and their folder mapping. `corpus/` contains both source navigation and capability discovery; it is not another name for Knowledge. [PATTERNS](PATTERNS.md) links the governing policies, including the [host-harness contract](docs/host-harness-contract.md).
 
 The plugin supplies instructions, schemas, helpers and templates. A user studio owns its `STUDIO.md`, registered projects and firm instructions. Fresh projects own `PROJECT.md`, `DOCUMENTS.csv`, `TASKS.csv`, `TIME.csv` and `INVOICES.csv`; received and authored documents are registered and placed through the firm's path template. Received filenames are preserved. Read the [workspace model](docs/workspace-model.md) for exact ownership and the [data-governance boundary](docs/data-governance.md).
 
@@ -93,7 +93,7 @@ Arch Studio separates maintained plugin capabilities from the procedures a firm 
 | Project skills | `<registered-project>/.agents/skills/` or `.claude/skills/` | Client-, jurisdiction-, delivery-, or project-specific procedures |
 | Upstream contributions | This repository | General-purpose capabilities proposed for the open-source project |
 
-`/as:skill-maker` helps turn a firm procedure into a structured skill at the correct ownership level. It follows Arch Studio’s governance, provenance, and testing patterns without writing into the installed plugin cache.
+`/as:skill-maker` creates or updates a bounded capability at the correct ownership level. It uses the host’s native skill maker when available, applies Arch Studio governance and validates the result. Without a native maker it authors a minimal portable skill under the same contracts. Skills define outcomes, constraints and verification; ordered steps belong only where their order is required.
 
 ## Quick start
 

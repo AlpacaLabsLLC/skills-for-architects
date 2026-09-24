@@ -22,12 +22,11 @@ $transmittal sent the 50% CD set to the structural engineer for review
 /transmittal issued A-101 through A-110 to the GC via file share
 ```
 
-## Steps
+## Outcome and evidence
 
-1. Resolve the owning project and current document vocabulary/path template. Confirm only missing coordinates and source evidence; preserve authorization already covering the record.
-2. Extract recipient, actual sent date, files, purpose and method from the request/evidence. Refer to registered document IDs where available. Mark unverified paths and unknown facts explicitly.
-3. Prepare the transmittal text below. Follow the shared document contract to resolve placement and register the authored file as `kind: transmittal`, retaining provenance and the allocated permanent document ID. Use available host tools for the write; no Arch Studio runner or package is required. Do not create a second numbering authority or fixed folder.
-4. Reopen the registered file and report its actual path/ID and recorded delivery evidence. A registered report does not prove an email was sent.
+Produce a transmittal in the owning project from the user's confirmed delivery evidence. Record recipient, actual sent date, files, purpose and method; refer to registered document IDs where available. Mark missing facts unknown, and do not infer that a registered report proves a message was sent.
+
+Follow the shared document contract to allocate the permanent ID, register the file as `kind: transmittal` and verify the actual destination. Preserve existing authorization, provenance and unrelated records. Report the registered path/ID and the delivery evidence. Use the host's available tools; no Arch Studio runner is required.
 
 ## Output format
 

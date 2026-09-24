@@ -12,10 +12,13 @@ grep -q '\.agents/skills.*Codex' "$SKILL"
 grep -q '\.claude/skills.*Claude Code' "$SKILL"
 grep -q 'installed plugin cache is never a private-skill target' "$SKILL"
 grep -q 'Catalog detection has highest priority' "$SKILL"
-grep -q 'Do not let a nearer project silently override a resolved studio' "$SKILL"
+grep -qi 'do not let a nearer project silently override a resolved studio' "$SKILL"
 grep -q 'skill_scaffold.validate' "$SKILL"
 grep -q '](../../assets/skill-maker-template/SKILL.example.md)' "$SKILL"
 grep -q '](../../assets/skill-maker-template/README.md)' "$SKILL"
+grep -q "native skill maker when available" "$SKILL"
+grep -q 'use them as examples, not mandatory prose or sequence' "$SKILL"
+grep -q 'Include an ordered procedure only when its order is itself required' "$SKILL"
 [ -f skills/skill-maker/scripts/validate_skill.py ]
 
 ROOT=$(mktemp -d)

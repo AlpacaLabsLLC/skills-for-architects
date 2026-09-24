@@ -8,9 +8,13 @@ The product is **Arch Studio** in every sentence, on every channel. Do not use "
 
 **Why:** three names for one product read as three products. Lint rejects the two retired forms outside identifiers and the license text.
 
+## Pillar names
+
+Use **Governance, Tooling, Knowledge and Memory** for the four pillars. Their definitions and folder mapping live in [architecture](../docs/architecture.md). Tooling includes skills, agents, tools and integrations; execution describes the host activity, not a pillar. Keep technical field names such as `execution` unchanged. `corpus/` is a directory containing both source navigation and capability discovery, not a synonym for Knowledge.
+
 ## Skill, workflow and tool
 
-- A **skill** is procedural instructions for one bounded outcome, performed by the assistant with its available host capabilities. Hosted delivery exposes each skill through an `as_<name>` MCP entry point; plugin invocation uses the host’s skill syntax. The canonical catalog currently contains 61 skills.
+- A **skill** is one bounded capability with an outcome, domain constraints, interfaces, evidence and verification criteria. It may contain an ordered procedure when the order itself is required. Hosts expose native skill invocation; MCP delivers the skill through an `as_<name>` entry point. The canonical catalog currently contains 61 skills. Skill catalogs and release notes count these capabilities, not their internal steps.
 - A product **tool** means a server-side deterministic operation, planned for 1.6 or later; 1.5.1 does not add these operations. Current MCP skill entry points such as `as_<skill>` deliver instructions; existing status, resource and validation utilities retain their separate contracts. Native host tools, `allowed-tools`, helper paths under `tools/` and persisted `tools-only` identifiers retain their technical meanings and names.
 - A **workflow**, on the framework pages (architecturestudio.ai/framework/execution) and in customer-facing copy, names a distinct, smaller feature: a skill that sequences other skills, with a typed handoff between steps ("a skill that sequences other skills"). This is a different, much smaller count (7 at last count) than the skill catalog. Do not use "workflow" as a plain synonym for "skill".
 - **"Workflow instructions"** is the MCP delivery mechanism for any skill (see [host-harness contract](../docs/host-harness-contract.md)); it does not imply composition. Release-ledger and catalog fields named `workflows` (for example `counts.workflows`) count entries at this delivery layer, which today happens to equal the skill count. Do not present that field as the composed-Workflows feature count, or the reverse.

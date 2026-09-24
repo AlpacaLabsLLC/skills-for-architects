@@ -1,6 +1,6 @@
 {
   "path": "skills/skill-maker/SKILL.md",
-  "responsibility": "Scaffold a new Arch Studio skill for Codex or Claude Code following this repo's conventions \u2014 copy a canonical template, apply the PATTERNS.md checklist, and verify it. Use when the user invokes skill-maker, asks to create or package a new skill, or wants to turn a procedure into a reusable command.",
+  "responsibility": "Create or update an Arch Studio skill for Codex or Claude Code using the active host's skill-authoring capability and the repository's governance. Use when asked to create, package, adapt, or revise a reusable skill.",
   "inputs": "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records.",
   "owned_records": [],
   "non_owned_records": [

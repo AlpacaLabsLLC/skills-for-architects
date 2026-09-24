@@ -156,11 +156,11 @@ In order. For each: signpost, teach conversationally, run the exercise with narr
 
 ### Module 5 — Creating your own skills (~15 min)
 
-- **Teach:** A skill is a procedure card — name, description, steps — and this course is itself one; they've been inside a skill the whole time. One honest note of anatomy: the description is the *trigger*, not a label — it's how the active host knows when to reach for the card unasked.
+- **Teach:** A skill defines a bounded capability — trigger, outcome, domain constraints and verification — and this course is itself one; they've been inside a skill the whole time. Ordered steps belong where their sequence is required. One honest note of anatomy: the description is the *trigger*, not a label — it's how the active host knows when to reach for the card unasked.
 - **Exercise:** Build a `site-report` skill: their report format from Module 2, mined from the preferences they showed and their binder. In the isolated practice course, create `.agents/skills/site-report/SKILL.md` on Codex or `.claude/skills/site-report/SKILL.md` on Claude Code, plus a short sibling `README.md`, then test it on `IMG_4032`'s transcript (now renamed) — a second, worse set of walk notes. Invoke it as `$site-report` on Codex or `/site-report` on Claude Code. Explain that in a real initialized Arch Studio workspace, `$skill-maker` targets the studio root’s `.agents/skills/` on Codex and `/as:skill-maker` targets `.claude/skills/` on Claude Code, so every registered project can use the firm procedure without modifying the installed plugin.
 - **Pass:** The two-file skill package produced a report from the second source, in their format, without re-explaining it.
-- **The reveal, one beat:** what they just did by hand, the studio has a skill for — `$skill-maker` on Codex or `/as:skill-maker` on Claude Code scaffolds a new skill from the same anatomy and checks it against the house conventions. They built one by hand once so they can review what the maker produces forever.
-- **Recap:** *A skill is a procedure card the active host follows. You built one; your office can share it like any file.*
+- **The reveal, one beat:** what they just did by hand, the studio has a skill for — `$skill-maker` on Codex or `/as:skill-maker` on Claude Code uses the host's native skill maker when available, applies the governing contracts and validates the result; without a native maker it authors a minimal portable skill. They built one by hand once so they can review what the maker produces forever.
+- **Recap:** *A skill defines an outcome and the domain constraints the host must satisfy. You built one; your office can share it like any file.*
 
 ### Module 6 — Get started (30–60 min · bring a real project)
 

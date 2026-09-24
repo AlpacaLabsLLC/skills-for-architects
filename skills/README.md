@@ -13,7 +13,7 @@ The [generated capability catalog](../docs/capabilities.md) provides task-first 
 | [`/as:studio`](./studio) | Set up and inspect the studio, register projects, and forward general requests to Norma |
 | [`/as:tool-catalog`](./tool-catalog) | Show the available skills and agents |
 | [`/as:learn`](./learn) | Guided, resumable introduction to Codex and Claude Code for architects (use `$learn` on Codex) |
-| [`/as:skill-maker`](./skill-maker) | Create studio-wide or project-specific procedures outside the plugin cache |
+| [`/as:skill-maker`](./skill-maker) | Create or update governed studio, project or catalog skills using native host authoring |
 | [`/as:studio-feedback`](./studio-feedback) | Prepare a reviewed bug report or feature request without automatic submission |
 
 ## Project management
@@ -120,7 +120,7 @@ Explicitly adopted FF&E schedules use immutable item/schedule records; workbooks
 
 ## Individual skill documentation
 
-Each directory contains an authoritative `SKILL.md`, any needed human-facing guide, and its owned procedures, scripts, schemas or templates; external knowledge is routed through the source catalog. Create studio or project procedures with `/as:skill-maker`; to contribute a built-in skill, read [CONTRIBUTING.md](../CONTRIBUTING.md).
+Each directory contains an authoritative `SKILL.md`, any needed human-facing guide, and its owned procedures, scripts, schemas or templates; external knowledge is routed through the source catalog. Create or update studio or project capabilities with `/as:skill-maker`; to contribute a built-in skill, read [CONTRIBUTING.md](../CONTRIBUTING.md).
 
 Practice discovery is generated from the [nine maintained cluster manifests](../docs/practice-clusters.md).
 See the [category authoring contract](../docs/category-authoring.md) for shared ownership;

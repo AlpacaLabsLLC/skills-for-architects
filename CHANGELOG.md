@@ -17,7 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **Specification roles.** `spec-writer` drafts Project Manual sections; `epd-to-spec` adds their EPD/GWP requirements; `product-cut-sheet` records source-faithful facts for one product from a supplied PDF or URL. `ffe-spec-book` assembles the agreed product entries.
 - **Central studio policy.** Studio setup offers an existing policy or the default governance policy. Skill Maker adds live references rather than policy snapshots. Generated skills reread the policy on invocation and before resumed policy-dependent actions, and pause those actions if the configured document is unreadable. Policy composes with provenance and existing governance and preserves prior authorization.
 - **Studio-name branding.** Slide-deck text uses the resolved studio name or exactly `Insert Studio Name` when none is available, preserving existing slide layouts.
-- **Skills and tools.** Product language identifies skills as procedural instructions. Server-side deterministic product tools remain planned for 1.6 or later; current MCP tool names, host tools and maintainer helper contracts retain their technical meanings.
+- **Skills and tools.** The four pillars are Governance, Tooling, Knowledge and Memory. Skills define bounded capabilities through outcomes, domain constraints, interfaces, evidence and verification. Skill Maker uses native host authoring where available and applies Arch Studio governance and validation. Server-side deterministic product tools remain planned for 1.6 or later; current MCP tool names, host tools and maintainer helper contracts retain their technical meanings.
 
 ### Fixed
 

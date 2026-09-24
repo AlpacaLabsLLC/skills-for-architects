@@ -1,15 +1,23 @@
 # Architecture and authority
 
-Arch Studio uses four layers to assign responsibility. They are not four required directory trees.
+Arch Studio has four pillars: **Governance, Tooling, Knowledge and Memory**. This document owns their definitions and mapping to the repository. Pillars assign responsibility; directories organize delivery and need not map one-to-one.
 
-| Layer | Authority and maintained owners |
+| Pillar | Responsibility and maintained owners |
 |---|---|
-| Governance | PATTERNS is the entry point. Host collaboration: host-harness-contract.md and host-adapters.md. Reporting: completion-reporting.md. Workspace semantics: workspace-model.md. Distribution: release-delivery.md. |
-| Knowledge | corpus/sources/catalog.json owns external-source navigation; corpus/jurisdictions/catalog.json owns geographic identities. External facts remain at the original source. |
-| Execution | skills/*/SKILL.md own task procedures; agents/*.md own specialist roles; adjacent host-contract.json files declare modes. Owning specifications define operation semantics; the harness executes with its native capabilities. Retained scripts have explicit maintenance or separately scoped distribution roles. |
-| Memory | User/project records belong to the resolved studio/project, not the plugin. workspace-model.md defines the new document/register model and each writer. Source manifests are navigation, not project evidence. |
+| Governance | Authority, permissions, ownership, evidence and acceptance. PATTERNS.md is the entry point; rules/ and shared contracts in docs/ own specific policies. |
+| Tooling | Capabilities supplied through skills/, agents/, tools/ and declared integrations. Skills define outcomes, domain constraints, interfaces and verification; the host selects and performs valid execution methods. Adjacent host-contract.json files declare requirements. |
+| Knowledge | Domain knowledge accessed through authoritative original sources. corpus/sources/catalog.json owns source navigation; corpus/jurisdictions/catalog.json owns geographic identities. External facts remain at their original source and are retrieved when needed. |
+| Memory | Accepted studio/project facts, decisions, preferences, records and evidence in the user-owned workspace. docs/workspace-model.md defines authority and writers; actual user records never belong in the plugin. |
 
-Read only the policies, declaration and procedure required by the selected task. A direct skill invocation has the same obligations as a coordinated one. Local supporting procedure is execution guidance, not an external reference.
+## Pillars and folders
+
+`corpus/` is a package directory, not a fifth pillar or a synonym for Knowledge. It currently contains both source navigation and component/capability discovery metadata. The former supports Knowledge; the latter supports Tooling and Governance. Keep the existing paths and identify each resource by its actual responsibility.
+
+`clusters/` composes existing capabilities and source coverage. `studio/` distributes workspace contracts and templates; it does not contain the user's actual Memory. These packaging categories do not replace the four pillars.
+
+Tooling includes skills and specialist profiles as well as executable tools. Execution remains the activity performed by the host; the pillar name does not rename operation fields or change runtime contracts. A skill is a capability contract and may contain an ordered procedure when the order is required for correctness, safety, interoperability or a demonstrated failure mode.
+
+Read only the policies, declarations and domain guidance required by the selected task. A direct skill invocation has the same obligations as a coordinated one. Local supporting procedure is execution guidance, not an external reference.
 
 ## Authority and dependency rules
 

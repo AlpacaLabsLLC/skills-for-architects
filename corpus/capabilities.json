@@ -3271,11 +3271,13 @@
       "dependencies": [
         "knowledge:host-contracts"
       ],
-      "description": "Scaffold a new Arch Studio skill for Codex or Claude Code following this repo's conventions — copy a canonical template, apply the PATTERNS.md checklist, and verify it. Use when the user invokes skill-maker, asks to create or package a new skill, or wants to turn a procedure into a reusable command.",
+      "description": "Create or update an Arch Studio skill for Codex or Claude Code using the host's native skill maker when available, with Arch Studio governance and validation. Use when asked to create, package, adapt or revise a reusable skill.",
       "hostContract": "skills/skill-maker/host-contract.json",
       "executionOwner": "host",
       "triggers": [
-        "Scaffold a new Arch Studio skill for Codex or Claude Code following this repo's conventions — copy a canonical template, apply the PATTERNS.md checklist, and verify it. Use when the user invokes skill-maker, asks to create or package a new skill, or wants to turn a procedure into a reusable command."
+        "Create a reusable skill",
+        "Update or adapt an existing skill",
+        "Package a firm or project capability"
       ],
       "exclusions": [
         "No Arch Studio executable acquisition or unrequested record ownership"
@@ -3295,12 +3297,19 @@
         "corpus/host-contracts.json",
         "docs/workspace-model.md",
         "PATTERNS.md",
-        "assets/skill-maker-template/SKILL.example.md",
-        "assets/skill-maker-template/README.md",
         "docs/studio-policy.md",
         "skills/project/references/context-resolution.md"
       ],
-      "conditionalReferences": [],
+      "conditionalReferences": [
+        {
+          "path": "assets/skill-maker-template/SKILL.example.md",
+          "when": "When no native host skill maker is available and the bundled example is used."
+        },
+        {
+          "path": "assets/skill-maker-template/README.md",
+          "when": "When no native host skill maker is available and the bundled example is used."
+        }
+      ],
       "handoffs": []
     },
     {
