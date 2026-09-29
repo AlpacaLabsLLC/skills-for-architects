@@ -73,7 +73,6 @@ else
 fi
 
 post_hook="$PWD/hooks/post-write-disclaimer-check.sh"
-pre_hook="$PWD/hooks/pre-commit-spec-lint.sh"
 stdout_file="$root/hook.stdout"
 stderr_file="$root/hook.stderr"
 
@@ -84,21 +83,6 @@ run_post() {
   : > "$stderr_file"
   set +e
   printf '%s' "$hook_payload" | PATH="$hook_path" CLAUDE_PLUGIN_ROOT="$plugin_root" "$bash_bin" "$post_hook" > "$stdout_file" 2> "$stderr_file"
-  run_status=$?
-  set -e
-}
-
-run_pre() {
-  hook_path=$1
-  hook_payload=$2
-  hook_repo=$3
-  : > "$stdout_file"
-  : > "$stderr_file"
-  set +e
-  (
-    cd "$hook_repo"
-    printf '%s' "$hook_payload" | PATH="$hook_path" CLAUDE_PLUGIN_ROOT="$plugin_root" "$bash_bin" "$pre_hook"
-  ) > "$stdout_file" 2> "$stderr_file"
   run_status=$?
   set -e
 }
@@ -188,69 +172,4 @@ for documented_file in CHANGELOG.md PATTERNS.md hooks/README.md rules/README.md 
   assert_stdout_empty "$documented_file marker documentation"
 done
 
-# PreToolUse: ordinary Bash commands are never blocked, including when no
-# decoder is available to classify the command.
-repo="$root/repo with space"
-mkdir -p "$repo"
-(
-  cd "$repo"
-  "$git_bin" init -q
-  printf 'CSI section 092900 is malformed\n' > 'quoted "spec" \file.md'
-  "$git_bin" add 'quoted "spec" \file.md'
-)
-
-ordinary_command_payload=$("$python_bin" -c 'import json; print(json.dumps({"tool_name":"Bash","tool_input":{"command":"printf ordinary"}}))')
-for decoder_case in "${decoder_cases[@]}" "none:$no_decoder_path"; do
-  decoder=${decoder_case%%:*}
-  hook_path=${decoder_case#*:}
-  run_pre "$hook_path" "$ordinary_command_payload" "$repo"
-  assert_status 0 "ordinary Bash with $decoder decoder"
-done
-
-# Malformed PreToolUse input likewise fails open. A stderr warning is allowed,
-# but the exit status—not message text—is the enforcement contract.
-for decoder_case in "${decoder_cases[@]}" "none:$no_decoder_path"; do
-  decoder=${decoder_case%%:*}
-  hook_path=${decoder_case#*:}
-  run_pre "$hook_path" '{not-json' "$repo"
-  assert_status 0 "malformed PreToolUse payload with $decoder decoder"
-
-  for malformed_payload in '{}' '{"tool_input":{"command":42}}'; do
-    run_pre "$hook_path" "$malformed_payload" "$repo"
-    assert_status 0 "valid malformed PreToolUse payload with $decoder decoder"
-  done
-done
-
-# Confirmed malformed CSI references remain blocking with jq-only and
-# Python-only decoding, including compound commands and awkward file names.
-command_text='printf "quoted value" \\ path
-git commit -m "spec check"'
-command_payload=$(COMMAND_TEXT="$command_text" "$python_bin" -c 'import json,os; print(json.dumps({"tool_name":"Bash","tool_input":{"command":os.environ["COMMAND_TEXT"]}}))')
-for decoder_case in "${decoder_cases[@]}"; do
-  decoder=${decoder_case%%:*}
-  hook_path=${decoder_case#*:}
-  run_pre "$hook_path" "$command_payload" "$repo"
-  assert_status 2 "$decoder CSI finding"
-  assert_contains "$stderr_file" 'CSI formatting issues found' "$decoder CSI finding"
-  assert_contains "$stderr_file" "$PWD/rules/csi-formatting.md" "$decoder CSI finding"
-done
-
-# Without a decoder, even a commit-shaped payload cannot be inspected and must
-# fail open rather than claiming that a policy violation was confirmed.
-run_pre "$no_decoder_path" "$command_payload" "$repo"
-assert_status 0 "commit payload with no decoder"
-
-# A decoded commit with valid CSI formatting remains allowed.
-printf 'CSI section 09 29 00 — Gypsum Board is valid\n' > "$repo/quoted \"spec\" \file.md"
-(
-  cd "$repo"
-  "$git_bin" add 'quoted "spec" \file.md'
-)
-for decoder_case in "${decoder_cases[@]}"; do
-  decoder=${decoder_case%%:*}
-  hook_path=${decoder_case#*:}
-  run_pre "$hook_path" "$command_payload" "$repo"
-  assert_status 0 "$decoder valid CSI commit"
-done
-
-echo "✓ enforcement hooks fail open on decoder infrastructure errors and block confirmed findings"
+echo "✓ the disclaimer hook fails open on decoder infrastructure errors and blocks confirmed findings"

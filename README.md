@@ -22,7 +22,7 @@
 
 Firm-created skills remain in the user-owned studio workspace, outside the installed plugin cache. They can stay private to a firm or project, or be developed for contribution back to the open-source project.
 
-**One plugin**—`as` v1.5.1—with a shared skill catalog for Codex and Claude Code. The repository contains **5 hooks**: Claude Code loads four handlers across three events, while Codex loads one ambient `SessionStart` hook. Claude Code also loads **8 agents** and **8 rules**. Created by Federico Negro in 2026 and built by [ALPA](https://alpa.llc) (`hello@alpa.llc`). Copyright © 2026 Alpaca Design Lab LLC; MIT-licensed.
+**One plugin**—`as` v1.5.1—with a shared skill catalog for Codex and Claude Code. The repository contains **4 hooks**: Claude Code loads three handlers across two events, while Codex loads one ambient `SessionStart` hook. Claude Code also loads **8 agents** and **8 rules**. Created by Federico Negro in 2026 and built by [ALPA](https://alpa.llc) (`hello@alpa.llc`). Copyright © 2026 Alpaca Design Lab LLC; MIT-licensed.
 
 ## What’s new in 1.5.1
 
@@ -243,7 +243,6 @@ These event-driven automations are Claude Code-specific. They register with the 
 |------|-------|--------------|
 | [session-start-welcome](./hooks/session-start-welcome.sh) | First session after install | Confirms that built-in skills are ready and points to optional studio setup and learning |
 | [post-write-disclaimer-check](./hooks/post-write-disclaimer-check.sh) | After Write or Edit | Flags marked regulatory output that is missing the professional disclaimer |
-| [pre-commit-spec-lint](./hooks/pre-commit-spec-lint.sh) | Before git commit | Flags malformed CSI section numbers |
 | [version-check](./hooks/version-check.sh) | Enabled startup sessions, at most daily | Checks for a newer release only after explicit opt-in |
 
 Background update checking is disabled by default. If enabled, it makes at most one bare request per 24 hours to `version.alpa.llc`, sends no project content or Arch Studio identifier, and fails silently. Cloudflare still processes ordinary request metadata such as IP address, headers, and timestamps.

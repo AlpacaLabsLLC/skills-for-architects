@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Removed
+
+- **`pre-commit-spec-lint` hook (target 1.5.1.1).** The CSI formatting lint that ran before every `git commit` Claude made, in any repository, is removed. It read any `NN-NN-NN` digit run on a line mentioning a spec as a malformed section number, so date-based IDs such as `BUG-2026-09-17-01` blocked unrelated commits; and it linted the working copy rather than the staged content, so other uncommitted edits could block a commit. `rules/csi-formatting.md` stays and is still applied by `spec-writer` and `epd-to-spec`; it is now advisory like the other rules. Claude Code loads three hook handlers across two events.
+
 ## [1.5.1] - 2026-09-24
 
 ### Breaking
