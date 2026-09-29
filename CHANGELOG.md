@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- **Release procedure.** `docs/release-delivery.md` is now version-neutral, allows four-segment tags, and adds scope and tracker disposition, a role-specific contribution-credit audit, and rules for corrections after publication. It absorbs the unmerged August release checklist.
+
 ## [1.5.1.1] - 2026-09-29
 
 A four-segment patch on 1.5.1 by owner decision. It removes a hook script, which is a code change, so it is an explicit exception to the content-only use of the fourth segment.
