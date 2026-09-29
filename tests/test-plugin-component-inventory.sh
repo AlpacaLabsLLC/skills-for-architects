@@ -37,9 +37,9 @@ if [ "${AS_FINAL_HOST_ACCEPTANCE:-0}" = 1 ] && command -v claude >/dev/null 2>&1
 
   printf '%s\n' "$details" | grep -q "^  Skills ($expected_skill_count)  "
   printf '%s\n' "$details" | grep -q "^  Agents ($expected_agent_count)  "
-  printf '%s\n' "$details" | grep -q '^  Hooks (3)  SessionStart, PostToolUse, PreToolUse'
+  printf '%s\n' "$details" | grep -q '^  Hooks (2)  SessionStart, PostToolUse$'
   printf '%s\n' "$details" | grep -q '^  MCP servers (0)$'
   ! printf '%s\n' "$details" | grep -q 'Agents (.*README'
 fi
 
-echo "✓ source component inventory contains $expected_skill_count skills, $expected_agent_count agents, and 4 handlers across 3 hook events"
+echo "✓ source component inventory contains $expected_skill_count skills, $expected_agent_count agents, and 3 handlers across 2 hook events"

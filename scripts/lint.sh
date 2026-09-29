@@ -218,8 +218,9 @@ mp = json.loads(pathlib.Path('.claude-plugin/marketplace.json').read_text(encodi
 for key in ('name', 'version', 'description'):
     if not plugin.get(key):
         errors.append(f"plugin.json missing '{key}'")
-if not re.fullmatch(r'\d+\.\d+\.\d+', plugin.get('version', '')):
-    errors.append(f"plugin.json version '{plugin.get('version')}' is not X.Y.Z")
+# A fourth segment marks a patch on a released version (Decision 0022), e.g. 1.5.1.1.
+if not re.fullmatch(r'\d+\.\d+\.\d+(\.\d+)?', plugin.get('version', '')):
+    errors.append(f"plugin.json version '{plugin.get('version')}' is not X.Y.Z or X.Y.Z.N")
 if not mp.get('metadata', {}).get('version'):
     errors.append("marketplace.json missing metadata.version")
 elif mp['metadata']['version'] != plugin.get('version'):
