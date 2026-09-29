@@ -6,9 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [1.5.1.1] - 2026-09-29
+
+A four-segment patch on 1.5.1 by owner decision. It removes a hook script, which is a code change, so it is an explicit exception to the content-only use of the fourth segment.
+
 ### Removed
 
-- **`pre-commit-spec-lint` hook (target 1.5.1.1).** The CSI formatting lint that ran before every `git commit` Claude made, in any repository, is removed. It read any `NN-NN-NN` digit run on a line mentioning a spec as a malformed section number, so date-based IDs such as `BUG-2026-09-17-01` blocked unrelated commits; and it linted the working copy rather than the staged content, so other uncommitted edits could block a commit. `rules/csi-formatting.md` stays and is still applied by `spec-writer` and `epd-to-spec`; it is now advisory like the other rules. Claude Code loads three hook handlers across two events.
+- **`pre-commit-spec-lint` hook.** The CSI formatting lint that ran before every `git commit` Claude made, in any repository, is removed. It read any `NN-NN-NN` digit run on a line mentioning a spec as a malformed section number, so date-based IDs such as `BUG-2026-09-17-01` blocked unrelated commits; and it linted the working copy rather than the staged content, so other uncommitted edits could block a commit. `rules/csi-formatting.md` stays and is still applied by `spec-writer` and `epd-to-spec`; it is now advisory like the other rules. Claude Code loads three hook handlers across two events.
 
 ## [1.5.1] - 2026-09-24
 
@@ -303,7 +307,8 @@ First public release.
 - **3 hooks** — post-write disclaimer check, post-output metadata, pre-commit spec lint.
 - Marketplace install: `claude plugin marketplace add AlpacaLabsLLC/skills-for-architects`.
 
-[Unreleased]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.1...HEAD
+[Unreleased]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.1.1...HEAD
+[1.5.1.1]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.1...v1.5.1.1
 [1.5.1]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.4.5...v1.5.0
 [1.4.5]: https://github.com/AlpacaLabsLLC/skills-for-architects/releases/tag/v1.4.5

@@ -22,7 +22,11 @@
 
 Firm-created skills remain in the user-owned studio workspace, outside the installed plugin cache. They can stay private to a firm or project, or be developed for contribution back to the open-source project.
 
-**One plugin**—`as` v1.5.1—with a shared skill catalog for Codex and Claude Code. The repository contains **4 hooks**: Claude Code loads three handlers across two events, while Codex loads one ambient `SessionStart` hook. Claude Code also loads **8 agents** and **8 rules**. Created by Federico Negro in 2026 and built by [ALPA](https://alpa.llc) (`hello@alpa.llc`). Copyright © 2026 Alpaca Design Lab LLC; MIT-licensed.
+**One plugin**—`as` v1.5.1.1—with a shared skill catalog for Codex and Claude Code. The repository contains **4 hooks**: Claude Code loads three handlers across two events, while Codex loads one ambient `SessionStart` hook. Claude Code also loads **8 agents** and **8 rules**. Created by Federico Negro in 2026 and built by [ALPA](https://alpa.llc) (`hello@alpa.llc`). Copyright © 2026 Alpaca Design Lab LLC; MIT-licensed.
+
+## What’s new in 1.5.1.1
+
+A maintenance patch: the CSI commit hook (`pre-commit-spec-lint`) is removed. It blocked unrelated commits whenever a date-based ID sat next to the word “spec”. CSI formatting in `spec-writer` and `epd-to-spec` is unchanged. Upgrading from 1.5.1 requires nothing.
 
 ## What’s new in 1.5.1
 
