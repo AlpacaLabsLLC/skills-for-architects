@@ -10,6 +10,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 - **Release procedure.** `docs/release-delivery.md` is now version-neutral, allows four-segment tags, and adds scope and tracker disposition, a role-specific contribution-credit audit, and rules for corrections after publication. It absorbs the unmerged August release checklist.
 
+## [1.5.1.2] - Unreleased
+
+A content-only four-segment patch on 1.5.1. No runtime behavior, technical identifier, directory, schema, protocol, skill, agent or record kind changes.
+
+### Changed
+
+- **Studio pillar.** The first product pillar is **Studio**, replacing the retired **Governance** pillar name. Studio is the product control plane for **Account and access**, **Configuration**, **Standards**, and **Assurance**. Tooling, Knowledge and Memory are unchanged. Lowercase governance remains where it names an actual responsibility, process, rule, policy or data-governance topic.
+
 ## [1.5.1.1] - 2026-09-29
 
 A four-segment patch on 1.5.1 by owner decision. It removes a hook script, which is a code change, so it is an explicit exception to the content-only use of the fourth segment.
@@ -311,7 +319,8 @@ First public release.
 - **3 hooks** — post-write disclaimer check, post-output metadata, pre-commit spec lint.
 - Marketplace install: `claude plugin marketplace add AlpacaLabsLLC/skills-for-architects`.
 
-[Unreleased]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.1.1...HEAD
+[Unreleased]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.1.2...HEAD
+[1.5.1.2]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.1.1...v1.5.1.2
 [1.5.1.1]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.1...v1.5.1.1
 [1.5.1]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.4.5...v1.5.0

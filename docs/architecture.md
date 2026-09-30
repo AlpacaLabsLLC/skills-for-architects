@@ -1,17 +1,17 @@
 # Architecture and authority
 
-Arch Studio has four pillars: **Governance, Tooling, Knowledge and Memory**. This document owns their definitions and mapping to the repository. Pillars assign responsibility; directories organize delivery and need not map one-to-one.
+Arch Studio has four pillars: **Studio, Tooling, Knowledge and Memory**. This document owns their definitions and mapping to the repository. Pillars assign responsibility; directories organize delivery and need not map one-to-one.
 
 | Pillar | Responsibility and maintained owners |
 |---|---|
-| Governance | Authority, permissions, ownership, evidence and acceptance. PATTERNS.md is the entry point; rules/ and shared contracts in docs/ own specific policies. |
+| Studio | The product control plane, organized as **Account and access**, **Configuration**, **Standards**, and **Assurance**. Account and access owns identity, membership, roles, permissions, ownership and authority. Configuration owns product and workspace settings, delivery choices and declared connections. Standards owns firm methods, policies, templates and reusable conventions. Assurance owns evidence, review, acceptance and release controls. PATTERNS.md is the entry point; rules/, studio/ and shared contracts in docs/ own specific policies and distributed workspace contracts. |
 | Tooling | Capabilities supplied through skills/, agents/, tools/ and declared integrations. Skills define outcomes, domain constraints, interfaces and verification; the host selects and performs valid execution methods. Adjacent host-contract.json files declare requirements. |
 | Knowledge | Domain knowledge accessed through authoritative original sources. corpus/sources/catalog.json owns source navigation; corpus/jurisdictions/catalog.json owns geographic identities. External facts remain at their original source and are retrieved when needed. |
 | Memory | Accepted studio/project facts, decisions, preferences, records and evidence in the user-owned workspace. docs/workspace-model.md defines authority and writers; actual user records never belong in the plugin. |
 
 ## Pillars and folders
 
-`corpus/` is a package directory, not a fifth pillar or a synonym for Knowledge. It currently contains both source navigation and component/capability discovery metadata. The former supports Knowledge; the latter supports Tooling and Governance. Keep the existing paths and identify each resource by its actual responsibility.
+`corpus/` is a package directory, not a fifth pillar or a synonym for Knowledge. It currently contains both source navigation and component/capability discovery metadata. The former supports Knowledge; the latter supports Tooling and Studio. Keep the existing paths and identify each resource by its actual responsibility.
 
 `clusters/` composes existing capabilities and source coverage. `studio/` distributes workspace contracts and templates; it does not contain the user's actual Memory. These packaging categories do not replace the four pillars.
 

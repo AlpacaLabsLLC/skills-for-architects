@@ -22,7 +22,11 @@
 
 Firm-created skills remain in the user-owned studio workspace, outside the installed plugin cache. They can stay private to a firm or project, or be developed for contribution back to the open-source project.
 
-**One plugin**—`as` v1.5.1.1—with a shared skill catalog for Codex and Claude Code. The repository contains **4 hooks**: Claude Code loads three handlers across two events, while Codex loads one ambient `SessionStart` hook. Claude Code also loads **8 agents** and **8 rules**. Created by Federico Negro in 2026 and built by [ALPA](https://alpa.llc) (`hello@alpa.llc`). Copyright © 2026 Alpaca Design Lab LLC; MIT-licensed.
+**One plugin**—`as` v1.5.1.2—with a shared skill catalog for Codex and Claude Code. The repository contains **4 hooks**: Claude Code loads three handlers across two events, while Codex loads one ambient `SessionStart` hook. Claude Code also loads **8 agents** and **8 rules**. Created by Federico Negro in 2026 and built by [ALPA](https://alpa.llc) (`hello@alpa.llc`). Copyright © 2026 Alpaca Design Lab LLC; MIT-licensed.
+
+## What’s new in 1.5.1.2
+
+The first product pillar is now **Studio**, replacing the retired **Governance** pillar name. Studio is the product control plane for **Account and access**, **Configuration**, **Standards**, and **Assurance**. Tooling, Knowledge and Memory are unchanged. This is a content-only terminology correction: technical identifiers, directories, schemas, protocols, skills, agents, record kinds and behavior do not change. Lowercase governance remains in use when it names an actual responsibility, process, rule, policy or data-governance topic.
 
 ## What’s new in 1.5.1.1
 
@@ -77,7 +81,7 @@ Full history is in the [CHANGELOG](./CHANGELOG.md).
 
 | Pillar | Responsibility |
 |---|---|
-| Governance | Authority, permissions, ownership, evidence and acceptance |
+| Studio | Account and access, Configuration, Standards and Assurance |
 | Tooling | Skills, specialist profiles, tools and integrations; the host performs execution |
 | Knowledge | Access to applicable authoritative original sources and their provenance |
 | Memory | Accepted studio/project facts, decisions, preferences, records and evidence |

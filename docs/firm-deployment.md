@@ -1,6 +1,6 @@
 # Firm deployment guide
 
-Arch Studio v1.5.1 supplies governed workflows through plugin and hosted instruction delivery. Project records remain local. Assign a technology owner before firm distribution and keep the studio workspace in firm-controlled storage. The [release guide](release-delivery.md) separates candidate, host acceptance and publication.
+Arch Studio v1.5.1.2 supplies governed workflows through plugin and hosted instruction delivery. Project records remain local. Assign a technology owner before firm distribution and keep the studio workspace in firm-controlled storage. The [release guide](release-delivery.md) separates candidate, host acceptance and publication.
 
 ## Pilot ownership
 
