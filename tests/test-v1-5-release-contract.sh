@@ -11,7 +11,7 @@ from pathlib import Path
 plugin = json.loads(Path('.claude-plugin/plugin.json').read_text())
 codex_plugin = json.loads(Path('.codex-plugin/plugin.json').read_text())
 marketplace = json.loads(Path('.claude-plugin/marketplace.json').read_text())
-assert plugin['version'] == '1.5.1.1'
+assert plugin['version'] == '1.5.1.2'
 assert codex_plugin['version'] == plugin['version']
 assert marketplace['metadata']['version'] == plugin['version']
 assert plugin['description'].startswith('Arch Studio —')
@@ -25,6 +25,7 @@ assert '61 skills' in Path('rules/terminology.md').read_text()
 PY
 
 grep -q '^## \[Unreleased\]$' CHANGELOG.md
+grep -q '^## \[1\.5\.1\.2\] - Unreleased$' CHANGELOG.md
 grep -q '^## \[1\.5\.1\.1\] - 2026-09-29$' CHANGELOG.md
 grep -q '^## \[1\.5\.1\] - 2026-09-24$' CHANGELOG.md
 grep -Eq '^## \[1\.5\.0\] - (Unreleased|[0-9]{4}-[0-9]{2}-[0-9]{2})$' CHANGELOG.md
@@ -36,7 +37,8 @@ grep -q '^## \[1\.4\.2\] - 2026-08-10$' CHANGELOG.md
 grep -q '^## \[1\.4\.1\] - 2026-07-29$' CHANGELOG.md
 grep -q '^## \[1\.4\.0\] - 2026-07-26$' CHANGELOG.md
 grep -q 'sequential `major.minor.patch` release scheme' CHANGELOG.md
-grep -q '^\[Unreleased\]: .*compare/v1\.5\.1\.1\.\.\.HEAD$' CHANGELOG.md
+grep -q '^\[Unreleased\]: .*compare/v1\.5\.1\.2\.\.\.HEAD$' CHANGELOG.md
+grep -q '^\[1\.5\.1\.2\]: .*compare/v1\.5\.1\.1\.\.\.v1\.5\.1\.2$' CHANGELOG.md
 grep -q '^\[1\.5\.1\.1\]: .*compare/v1\.5\.1\.\.\.v1\.5\.1\.1$' CHANGELOG.md
 grep -q '^\[1\.5\.1\]: .*compare/v1\.5\.0\.\.\.v1\.5\.1$' CHANGELOG.md
 grep -q '^\[1\.5\.0\]: .*compare/v1\.4\.5\.\.\.v1\.5\.0$' CHANGELOG.md
@@ -56,6 +58,18 @@ for target in ('docs/architecture.md', 'docs/host-harness-contract.md', 'docs/wo
 assert 'as@skills-for-architects' in readme
 assert '/as:project migrate' not in readme, 'Active README must not prescribe retired conversion'
 assert not Path('agents/README.md').exists()
+
+active = {
+    path: Path(path).read_text()
+    for path in ('README.md', 'PATTERNS.md', 'docs/architecture.md', 'rules/terminology.md')
+}
+pillar = 'Studio, Tooling, Knowledge and Memory'
+assert all(pillar in text for path, text in active.items() if path != 'README.md')
+assert '| Studio | Account and access, Configuration, Standards and Assurance |' in active['README.md']
+for responsibility in ('Account and access', 'Configuration', 'Standards', 'Assurance'):
+    assert responsibility in active['docs/architecture.md'], responsibility
+for path, text in active.items():
+    assert 'Governance, Tooling, Knowledge and Memory' not in text, path
 PY
 
 python3 - <<'PY'
