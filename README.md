@@ -261,7 +261,7 @@ See the [hooks index](./hooks/README.md) for behavior and customization.
 
 Arch Studio runs inside the user's own Codex or Claude Code session. Model-side data controls, retention, and account or organization policies remain managed by the selected provider. Review OpenAI's [privacy policy](https://openai.com/policies/privacy-policy/) for Codex or Anthropic's [Privacy Center](https://privacy.claude.com/) for Claude, together with the settings and administrator policies for the active account.
 
-- Arch Studio does not upload or store studio or project records with ALPA.
+- The open-source plugin does not upload or store studio, project or module records on Arch Studio servers. Hosted record-holding modules use the separate boundaries in the [data-governance documentation](./docs/data-governance.md).
 - Prompts and files sent to the configured LLM are handled under that provider account and its data terms.
 - Research skills contact the public sources named in their documentation when the user runs them.
 - New studios reserve `.mcp.json` with an empty `mcpServers` object. Arch Studio does not select providers, configure OAuth, or bundle credentials.
