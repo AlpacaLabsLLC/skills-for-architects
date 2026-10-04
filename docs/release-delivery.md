@@ -52,6 +52,21 @@ Hosted acceptance uses the exact integrated Arch Studio source. OSS publication 
 
 The hosted pipeline owns exact infrastructure commands and credentials. They are not duplicated into this source runbook. No secrets belong in release evidence. A source-health failure degrades the affected capability; HTTP availability never establishes legal applicability or a valid source edition.
 
+## Public data-promise projection gate
+
+The public-plugin data promise is projected from the accepted private-source policy at revision `baacdacf25511d118b5a0c9e2999ba70dcb5b940`; the SHA-256 of its exact `docs/data-governance.md` bytes is `f7fea15a95ef007775cf208c4068094fc7d7690ae039986ea3ccbb1d51407af9`. The private source remains authoritative. No projection may invent a second policy authority or weaken the local-plugin, module-storage, firm-isolation, retention, deletion, use, export or no-silent-fallback rules.
+
+Before a release can include a record-holding hosted module:
+
+1. Verify the public plugin still says that it does not upload or store studio, project or module records on Arch Studio servers. Configured hosts, model providers, connectors and third-party synchronization remain separate data paths; hosted module behavior must not be presented as plugin behavior.
+2. Verify this bounded projection states the module's record and file boundary, firm-only access and isolation, retention while off, requested-operation-only use, prohibited training/product-improvement/cross-firm-analysis use and full-export right.
+3. Keep canonical live-record deletion distinct from the six-hour database recovery history and up-to-60-second file-cache propagation. Do not claim all-copy deletion, a backup-copy location or a single-region boundary.
+4. State that the embedding path has zero-data-retention and training-disabled controls, while the inference region is not pinned. Storage locations do not establish inference location. The legal-role classifications remain neutral and pending owner and legal approval.
+5. Exercise module-off and unavailable/error cases. A hosted operation must stop with an explicit unresolved result; it must not silently write a local CSV, another store or another firm's records. Enabling a module must not upload existing local records or change unrelated data handling.
+6. Compare this projection with the pinned owner bytes, run the focused mutation/contract test and retain independent review. Provider identities, exact region identifiers and provider-specific audit findings belong to the private owner and applicable hosted-service disclosures, not this plugin projection.
+
+No firm enablement, merge, publication, release or deployment is authorized by this projection.
+
 ## Prepare and publish the OSS release
 
 1. Review the exact intended public content, dependencies and licensing. Private evaluation fixtures, client records and service-only material must not enter a public package implicitly. Reuse the approved shared core and review the plugin adapter differences.
