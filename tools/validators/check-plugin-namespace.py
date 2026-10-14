@@ -24,7 +24,7 @@ VALIDATOR_ALLOWLIST = {
     "tests/test-plugin-namespace.sh",
 }
 PERSISTENT_STATE_NAMES = {
-    ".architecture-studio-update-check-enabled",
+    ".architecture-studio-update-check-disabled",
     ".architecture-studio-version-check",
     ".architecture-studio-welcomed",
 }

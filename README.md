@@ -22,7 +22,13 @@
 
 Firm-created skills remain in the user-owned studio workspace, outside the installed plugin cache. They can stay private to a firm or project, or be developed for contribution back to the open-source project.
 
-**One plugin**—`as` v1.5.1.2—with a shared skill catalog for Codex and Claude Code. The repository contains **4 hooks**: Claude Code loads three handlers across two events, while Codex loads one ambient `SessionStart` hook. Claude Code also loads **8 agents** and **8 rules**. Created by Federico Negro in 2026 and built by [ALPA](https://alpa.llc) (`hello@alpa.llc`). Copyright © 2026 Alpaca Design Lab LLC; MIT-licensed.
+**One plugin**—`as` v1.5.2—with a shared skill catalog for Codex and Claude Code. The repository contains **4 hooks**: Claude Code loads three handlers across two events, while Codex loads one ambient `SessionStart` hook. Claude Code also loads **8 agents** and **8 rules**. Created by Federico Negro in 2026 and built by [ALPA](https://alpa.llc) (`hello@alpa.llc`). Copyright © 2026 Alpaca Design Lab LLC; MIT-licensed.
+
+## What’s new in 1.5.2
+
+The daily update check is now on by default, and its request carries an anonymous usage ping: a random install ID generated once and stored locally, plus the plugin version. No names, account, firm, file paths, project content or user text are sent. Set `AS_TELEMETRY_DISABLED=1` to turn the ping off; set `AS_UPDATE_CHECK_DISABLED=1` or run `/as:studio updates disable` to turn the update check off. This replaces the earlier "disabled by default" promise; see [Data and privacy](#data-and-privacy) below. The Codex package installs no lifecycle hook, so it sends neither.
+
+Skill Maker now requires an observed fresh policy read and a separate observed read of the actual destination after publication; a claimed read or a prepared file compared with itself no longer counts as verification. Upgrading from 1.5.1.2 requires nothing.
 
 ## What’s new in 1.5.1.2
 
@@ -251,9 +257,11 @@ These event-driven automations are Claude Code-specific. They register with the 
 |------|-------|--------------|
 | [session-start-welcome](./hooks/session-start-welcome.sh) | First session after install | Confirms that built-in skills are ready and points to optional studio setup and learning |
 | [post-write-disclaimer-check](./hooks/post-write-disclaimer-check.sh) | After Write or Edit | Flags marked regulatory output that is missing the professional disclaimer |
-| [version-check](./hooks/version-check.sh) | Enabled startup sessions, at most daily | Checks for a newer release only after explicit opt-in |
+| [version-check](./hooks/version-check.sh) | Startup sessions, at most daily | Checks for a newer release and sends the anonymous usage ping; both on by default |
 
-Background update checking is disabled by default. If enabled, it makes at most one bare request per 24 hours to `version.alpa.llc`, sends no project content or Arch Studio identifier, and fails silently. Cloudflare still processes ordinary request metadata such as IP address, headers, and timestamps.
+Background update checking is on by default. It makes at most one request per 24 hours to `version.alpa.llc`, sends no project content, and fails silently. To turn it off, set `AS_UPDATE_CHECK_DISABLED=1` or run `/as:studio updates disable`.
+
+The plugin also sends an anonymous usage ping, on by default, in that same daily request: a random install ID generated once and stored locally (not derived from the user or the machine) and the plugin version. It sends no names, account, firm, file paths, project content or user text, and fails silently. To turn it off, set the environment variable `AS_TELEMETRY_DISABLED=1`. Cloudflare still processes ordinary request metadata such as IP address, headers, and timestamps.
 
 See the [hooks index](./hooks/README.md) for behavior and customization.
 
@@ -262,6 +270,7 @@ See the [hooks index](./hooks/README.md) for behavior and customization.
 Arch Studio runs inside the user's own Codex or Claude Code session. Model-side data controls, retention, and account or organization policies remain managed by the selected provider. Review OpenAI's [privacy policy](https://openai.com/policies/privacy-policy/) for Codex or Anthropic's [Privacy Center](https://privacy.claude.com/) for Claude, together with the settings and administrator policies for the active account.
 
 - The open-source plugin does not upload or store studio, project or module records on Arch Studio servers. Hosted record-holding modules use the separate boundaries in the [data-governance documentation](./docs/data-governance.md).
+- On Claude Code, a daily request to `version.alpa.llc` checks for updates and carries an anonymous usage ping (a random local install ID and the plugin version), both on by default. Set `AS_TELEMETRY_DISABLED=1` to stop the ping and `AS_UPDATE_CHECK_DISABLED=1` to stop the update check; see [Hooks](#hooks).
 - Prompts and files sent to the configured LLM are handled under that provider account and its data terms.
 - Research skills contact the public sources named in their documentation when the user runs them.
 - New studios reserve `.mcp.json` with an empty `mcpServers` object. Arch Studio does not select providers, configure OAuth, or bundle credentials.

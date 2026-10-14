@@ -8,16 +8,16 @@ def dispatch(operation, request):
     if command not in ('status', 'enable', 'disable'):
         raise ValueError('Unknown update preference operation')
     directory = Path(request['state_directory']).expanduser().resolve()
-    enabled = directory / '.architecture-studio-update-check-enabled'
+    disabled = directory / '.architecture-studio-update-check-disabled'
     cache = directory / '.architecture-studio-version-check'
-    if enabled.is_symlink() or cache.is_symlink():
+    if disabled.is_symlink() or cache.is_symlink():
         raise ValueError('Preference symlink targets are not supported')
     if command == 'enable':
-        directory.mkdir(parents=True, exist_ok=True)
-        with enabled.open('a'):
-            pass
-        enabled.chmod(0o600)
+        disabled.unlink(missing_ok=True)
         cache.unlink(missing_ok=True)
     elif command == 'disable':
-        enabled.unlink(missing_ok=True)
-    return {'enabled': enabled.is_file(), 'state_directory': str(directory)}
+        directory.mkdir(parents=True, exist_ok=True)
+        with disabled.open('a'):
+            pass
+        disabled.chmod(0o600)
+    return {'enabled': not disabled.is_file(), 'state_directory': str(directory)}

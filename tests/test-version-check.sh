@@ -13,7 +13,7 @@ printf '{"version":"1.4.0"}\n' > "$PLUGIN_ROOT/.claude-plugin/plugin.json"
 
 cat > "$FAKE_BIN/curl" <<'SH'
 #!/usr/bin/env bash
-printf 'called\n' >> "$CURL_MARKER"
+printf 'called %s\n' "$*" >> "$CURL_MARKER"
 if [ "${CURL_FAIL:-0}" = 1 ]; then exit 7; fi
 if [ -n "${CURL_RESPONSE:-}" ]; then
   printf '%s\n' "$CURL_RESPONSE"
@@ -46,40 +46,59 @@ print('enabled' if result['enabled'] else 'disabled')
 PREFPY
 }
 
-# Preference changes are deterministic and status is read-only.
+# Preference changes are deterministic and status is read-only. On is the default.
 PREF="$TEST_ROOT/preference"
-[ "$(CLAUDE_PLUGIN_DATA="$TEST_ROOT/plugin-data-old" ARCHITECTURE_STUDIO_STATE_DIR="$PREF" preference status)" = disabled ]
+[ "$(CLAUDE_PLUGIN_DATA="$TEST_ROOT/plugin-data-old" ARCHITECTURE_STUDIO_STATE_DIR="$PREF" preference status)" = enabled ]
 [ ! -e "$PREF" ]
-[ "$(CLAUDE_PLUGIN_DATA="$TEST_ROOT/plugin-data-old" ARCHITECTURE_STUDIO_STATE_DIR="$PREF" preference enable)" = enabled ]
-[ -f "$PREF/.architecture-studio-update-check-enabled" ]
-[ ! -e "$TEST_ROOT/plugin-data-old/.architecture-studio-update-check-enabled" ]
-mode=$(python3 -c 'import os,sys; print(oct(os.stat(sys.argv[1]).st_mode & 0o777)[2:])' "$PREF/.architecture-studio-update-check-enabled")
+[ "$(CLAUDE_PLUGIN_DATA="$TEST_ROOT/plugin-data-old" ARCHITECTURE_STUDIO_STATE_DIR="$PREF" preference disable)" = disabled ]
+[ -f "$PREF/.architecture-studio-update-check-disabled" ]
+[ ! -e "$TEST_ROOT/plugin-data-old/.architecture-studio-update-check-disabled" ]
+mode=$(python3 -c 'import os,sys; print(oct(os.stat(sys.argv[1]).st_mode & 0o777)[2:])' "$PREF/.architecture-studio-update-check-disabled")
 [ "$mode" = 600 ]
 printf 'checked_at=0\nremote=9.9.9\nnudged_for=\n' > "$PREF/.architecture-studio-version-check"
 [ "$(CLAUDE_PLUGIN_DATA="$TEST_ROOT/plugin-data-new" ARCHITECTURE_STUDIO_STATE_DIR="$PREF" preference enable)" = enabled ]
 [ ! -e "$PREF/.architecture-studio-version-check" ]
-[ "$(CLAUDE_PLUGIN_DATA="$TEST_ROOT/plugin-data-new" ARCHITECTURE_STUDIO_STATE_DIR="$PREF" preference disable)" = disabled ]
-[ ! -e "$PREF/.architecture-studio-update-check-enabled" ]
+[ ! -e "$PREF/.architecture-studio-update-check-disabled" ]
 
-# Opt in under the retired identifier's plugin-data root, then run the hook
-# under the new identifier's distinct root. Both must use the stable state root.
+# Opt out under the retired identifier's plugin-data root, then run the hook
+# under the new identifier's distinct root. Both must use the stable state root;
+# with both switches off the hook does no I/O.
 CONTINUITY="$TEST_ROOT/continuity"
 CLAUDE_PLUGIN_DATA_FIXTURE="$TEST_ROOT/plugin-data-new"
-[ "$(CLAUDE_PLUGIN_DATA="$TEST_ROOT/plugin-data-old" ARCHITECTURE_STUDIO_STATE_DIR="$CONTINUITY" preference enable)" = enabled ]
-[ -z "$(run_hook "$CONTINUITY")" ]
-[ -f "$CONTINUITY/.architecture-studio-version-check" ]
-[ ! -e "$TEST_ROOT/plugin-data-old/.architecture-studio-update-check-enabled" ]
-[ ! -e "$TEST_ROOT/plugin-data-new/.architecture-studio-version-check" ]
+[ "$(CLAUDE_PLUGIN_DATA="$TEST_ROOT/plugin-data-old" ARCHITECTURE_STUDIO_STATE_DIR="$CONTINUITY" preference disable)" = disabled ]
+[ -z "$(AS_TELEMETRY_DISABLED=1 run_hook "$CONTINUITY")" ]
+[ ! -e "$CONTINUITY/.architecture-studio-version-check" ]
+[ ! -e "$CONTINUITY/curl-called" ]
+[ ! -e "$TEST_ROOT/plugin-data-old/.architecture-studio-update-check-disabled" ]
 
-# Disabled is the default: no directory, cache, or request.
-DISABLED="$TEST_ROOT/disabled"
-[ -z "$(run_hook "$DISABLED")" ]
-[ ! -e "$DISABLED" ]
+# Both environment opt-outs: no directory, cache, or request.
+OFF="$TEST_ROOT/off"
+[ -z "$(AS_UPDATE_CHECK_DISABLED=1 AS_TELEMETRY_DISABLED=1 run_hook "$OFF")" ]
+[ ! -e "$OFF" ]
 
-# Enabled first session seeds silently without curl, independent of welcome state.
+# Usage ping: a random install ID is created once, reused, and dropped by the opt-out.
+PING="$TEST_ROOT/ping"
+mkdir -p "$PING"
+printf 'checked_at=0\nremote=\nnudged_for=\n' > "$PING/.architecture-studio-version-check"
+run_hook "$PING" >/dev/null
+id=$(cat "$PING/.architecture-studio-install-id")
+[[ $id =~ ^[0-9a-f]{32}$ ]]
+grep -qxF "called -fsS --max-time 2 https://version.alpa.llc/?id=$id&v=1.4.0" "$PING/curl-called"
+mode=$(python3 -c 'import os,sys; print(oct(os.stat(sys.argv[1]).st_mode & 0o777)[2:])' "$PING/.architecture-studio-install-id")
+[ "$mode" = 600 ]
+rm -f "$PING/curl-called"
+printf 'checked_at=0\nremote=\nnudged_for=\n' > "$PING/.architecture-studio-version-check"
+[ -z "$(AS_UPDATE_CHECK_DISABLED=1 run_hook "$PING")" ]
+grep -qxF "called -fsS --max-time 2 https://version.alpa.llc/?id=$id&v=1.4.0" "$PING/curl-called"
+rm -f "$PING/curl-called"
+printf 'checked_at=0\nremote=\nnudged_for=\n' > "$PING/.architecture-studio-version-check"
+AS_TELEMETRY_DISABLED=1 run_hook "$PING" >/dev/null
+grep -qxF "called -fsS --max-time 2 https://version.alpa.llc/" "$PING/curl-called"
+
+# First session seeds silently without curl, independent of welcome state.
 FIRST="$TEST_ROOT/first"
 mkdir -p "$FIRST"
-touch "$FIRST/.architecture-studio-update-check-enabled" "$FIRST/.architecture-studio-welcomed"
+touch "$FIRST/.architecture-studio-welcomed"
 [ -z "$(run_hook "$FIRST")" ]
 [ -f "$FIRST/.architecture-studio-version-check" ]
 [ ! -e "$FIRST/curl-called" ]
@@ -99,7 +118,6 @@ rm -f "$FIRST/curl-called"
 for remote in v1.4.0 v1.3.9; do
   CASE_DIR="$TEST_ROOT/${remote#v}"
   mkdir -p "$CASE_DIR"
-  touch "$CASE_DIR/.architecture-studio-update-check-enabled"
   printf 'checked_at=0\nremote=\nnudged_for=\n' > "$CASE_DIR/.architecture-studio-version-check"
   [ -z "$(run_hook "$CASE_DIR" "{\"version\":\"$remote\"}")" ]
 done
@@ -109,7 +127,6 @@ for spec in 1.5.0:v1.5.0.1:nudge 1.5.0.1:v1.5.0:silent 1.5.0.1:v1.5.1:nudge 1.5.
   IFS=: read -r local_v remote expect <<< "$spec"
   CASE_DIR="$TEST_ROOT/patch-$local_v-${remote#v}"
   mkdir -p "$CASE_DIR"
-  touch "$CASE_DIR/.architecture-studio-update-check-enabled"
   printf 'checked_at=0\nremote=\nnudged_for=\n' > "$CASE_DIR/.architecture-studio-version-check"
   printf '{"version":"%s"}\n' "$local_v" > "$PLUGIN_ROOT/.claude-plugin/plugin.json"
   OUT=$(run_hook "$CASE_DIR" "{\"version\":\"$remote\"}")
@@ -125,14 +142,12 @@ printf '{"version":"1.4.0"}\n' > "$PLUGIN_ROOT/.claude-plugin/plugin.json"
 # Failure and malformed state are silent and always exit zero.
 FAIL_DIR="$TEST_ROOT/fail"
 mkdir -p "$FAIL_DIR"
-touch "$FAIL_DIR/.architecture-studio-update-check-enabled"
 printf 'checked_at=banana\nremote=bad\nnudged_for=bad\n' > "$FAIL_DIR/.architecture-studio-version-check"
 [ -z "$(run_hook "$FAIL_DIR" '{}' 1)" ]
 grep -Eq '^checked_at=[0-9]+$' "$FAIL_DIR/.architecture-studio-version-check"
 
 MALFORMED="$TEST_ROOT/malformed"
 mkdir -p "$MALFORMED"
-touch "$MALFORMED/.architecture-studio-update-check-enabled"
 printf 'checked_at=0\nremote=\nnudged_for=\n' > "$MALFORMED/.architecture-studio-version-check"
 [ -z "$(run_hook "$MALFORMED" 'not-json')" ]
 
@@ -140,7 +155,6 @@ printf 'checked_at=0\nremote=\nnudged_for=\n' > "$MALFORMED/.architecture-studio
 # replacement must always leave one complete, parseable three-line record.
 CONCURRENT="$TEST_ROOT/concurrent"
 mkdir -p "$CONCURRENT"
-touch "$CONCURRENT/.architecture-studio-update-check-enabled"
 printf 'checked_at=0\nremote=\nnudged_for=\n' > "$CONCURRENT/.architecture-studio-version-check"
 run_hook "$CONCURRENT" >/dev/null & first_pid=$!
 run_hook "$CONCURRENT" >/dev/null & second_pid=$!
@@ -167,9 +181,12 @@ registry=json.loads(Path('tools/runner/operations.json').read_text())
 for command in ('status','enable','disable'):
     assert any(row['id']=='update_preference.'+command for row in registry['operations'])
 governance=Path('docs/data-governance.md').read_text()
-assert 'disabled by default' in governance
+assert 'update checking is on by default' in governance
+assert 'anonymous usage ping, on by default' in governance
+assert 'AS_UPDATE_CHECK_DISABLED=1' in governance
+assert 'AS_TELEMETRY_DISABLED=1' in governance
 assert 'available only on Claude Code' in governance
 assert 'The Codex package does not install that lifecycle hook' in governance
 assert 'do not write an enablement marker or cache' in governance
 PYTEST
-printf '%s\n' '✓ update checking is opt-in, throttled, fail-silent, and once per version'
+printf '%s\n' '✓ update check and usage ping are on by default, throttled, fail-silent, and honor their opt-outs; install ID persists'

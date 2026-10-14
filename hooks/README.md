@@ -29,7 +29,7 @@ All three Claude Code hooks surface their output so Claude actually receives it 
 
 - **session-start-welcome** (SessionStart) emits a concise visible system message once, after checking required plugin sentinels. It says the built-in tools are ready, points to `/as:tool-catalog`, optional `/as:studio` setup, and `/as:learn`, and does not rewrite the user’s first response. It records the one-time marker only after output succeeds.
 - **post-write-disclaimer-check** (PostToolUse) emits JSON `{"decision": "block", "reason": …}` on stdout on findings, which surfaces the reason to Claude so it restores the disclaimer block.
-- **version-check** (SessionStart) exits before any filesystem or network work unless the user explicitly enabled it through `/as:studio`. The first enabled session seeds a private local cache silently. Later sessions make at most one two-second request per 24 hours, fail silently, and notify once for each newer version. Disable it with `/as:studio updates disable`.
+- **version-check** (SessionStart) is on by default. The first session seeds a private local cache silently. Later sessions make at most one two-second request per 24 hours, fail silently, and notify once for each newer version. The same request carries the anonymous usage ping (a random local install ID and the plugin version). Disable the update notice with `AS_UPDATE_CHECK_DISABLED=1` or `/as:studio updates disable`; disable the ping with `AS_TELEMETRY_DISABLED=1`. With both off the hook does no filesystem or network work.
 
 The deterministic preference helper lives with the owning `/as:studio` skill; it is not a hook.
 

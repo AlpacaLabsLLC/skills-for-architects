@@ -19,6 +19,9 @@ grep -q '](../../assets/skill-maker-template/README.md)' "$SKILL"
 grep -q "native skill maker when available" "$SKILL"
 grep -q 'use them as examples, not mandatory prose or sequence' "$SKILL"
 grep -q 'Include an ordered procedure only when its order is itself required' "$SKILL"
+grep -q 'observed host operation' "$SKILL"
+grep -q 'actual destination path' "$SKILL"
+grep -q 'temporary or prepared file with itself' "$SKILL"
 [ -f skills/skill-maker/scripts/validate_skill.py ]
 
 ROOT=$(mktemp -d)

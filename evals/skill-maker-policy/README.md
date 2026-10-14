@@ -6,6 +6,62 @@ Create a fresh target with `python3 evals/skill-maker-policy/make-fixture.py <ne
 
 Use the exact candidate plugin on Claude Code; use candidate-pinned MCP instruction delivery on Claude desktop and ChatGPT Work in the app. Evaluate file generation, discovery and subsequent execution separately. Invoke generated skills only through actual available host facilities, recording whether discovery was native or the instruction file was explicitly loaded. Do not claim the latter proves installation/discovery.
 
+## Publication evidence check
+
+Normalize only retained actual host-trace events into a JSON record and run:
+
+```sh
+python3 evals/skill-maker-policy/check-evidence.py evidence.json
+```
+
+The record has `schema_version: 1`, nonempty `case_id` and `attempt`, a `host` object with exact
+`name` and `version`, `candidate_source_digest`, an `expected` object, and an ordered `trace` array.
+`expected` names the exact `policy_path`, `destination_path` and expected complete
+`artifact_sha256`. Digests use `sha256:` plus 64 lowercase hexadecimal characters. Each trace
+event has a unique, strictly increasing integer `sequence` and a supported `kind`. The checker
+rejects unknown kinds so an unmodeled authority-bearing operation cannot hide beside the selected
+evidence. Evidence-bearing file operations also require `observed: true`; self-reported claims do
+not. File identity is compared after lexical path normalization, including `.` and `..` segments.
+
+For a publication pass, the trace must establish this order with exact paths and matching hashes:
+
+1. `invocation_start`;
+2. a fresh observed `policy_read` with nonempty `revision` at the expected policy path;
+3. when the host uses a separate prepared file, observed `artifact_prepared` and then observed
+   `prepared_read` at that non-destination path;
+4. observed `destination_write` at the exact expected destination; and
+5. a later observed `destination_read` at that destination.
+
+A direct complete-content host write need not invent a temporary prepared file. When preparation
+events are claimed, however, both the preparation and its readback must be observed. A `claim`
+cannot replace a read. A `byte_comparison` whose two paths are the same is rejected, and no
+comparison substitutes for the post-publication destination read. Supplemental comparisons must
+be observed, carry both digests and bind any destination-side digest to the expected artifact.
+Correct artifact bytes alone
+do not prove either the current policy was read or the destination was verified. Checker success
+establishes only that the supplied normalized record has this evidence shape and order; the grader
+must still inspect the retained source trace, policy revision and artifact content. If the raw trace
+was not retained, do not reconstruct it from output bytes, a final response or memory: mark the case
+failed or not run with that limitation.
+
+## T0105 root-cause boundary
+
+**Verified historical facts (owning task T0105).** Generated Claude policy run 2 reported a
+pre-publication reread that its retained trace did not show. Its purported destination verification
+compared a prepared temporary file with itself. The note content was correct, but correct content
+does not establish either a fresh policy read or verified publication. The raw conversation was not
+archived, so it cannot be recovered or reconstructed here.
+
+**Inference.** The prior evaluation could accept asserted procedure and correct bytes without a
+deterministic ordered-operation check. That evidence gap, rather than the note's content, permitted
+the unsupported verification claim.
+
+**Host behavior versus instruction.** The missing read and self-comparison are observations about
+that host run. The Skill Maker instruction already required preparation and destination readback,
+but did not state as explicitly that a claim is not an observed read and that preparation evidence
+cannot stand in for an actual-destination read. T0105 tightens those instructions and adds the
+checker; it does not claim to repair, rerun or certify the historical attempt.
+
 ## Generate once, exercise current policy
 
 From `studio-amber`, give [prompt.md](prompt.md) to Skill Maker. Save all bundle files and their hashes. Resolve the host skill root using the skill's normal destination contract. Use the same generated bundle for P01–P04; no rewriting between runs. Exact output destinations below are explicit synthetic test authorization. Retain reads and final artifacts; artifact bytes alone cannot prove a fresh policy read.

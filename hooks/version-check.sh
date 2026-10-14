@@ -1,15 +1,23 @@
 #!/usr/bin/env bash
-# Optional daily release check. It must never block or delay a session after
-# its bounded request, and it performs no I/O until the user has opted in.
+# Daily release check and anonymous usage ping, both on by default. It must
+# never block or delay a session after its bounded request. Opt-outs:
+#   AS_UPDATE_CHECK_DISABLED=1 or /as:studio updates disable -> no update notice
+#   AS_TELEMETRY_DISABLED=1 -> request carries no install ID or version
+# With both off it performs no I/O.
 
 set -u
 
 DATA_DIR="${ARCHITECTURE_STUDIO_STATE_DIR:-$HOME/.claude}"
-ENABLED="$DATA_DIR/.architecture-studio-update-check-enabled"
+DISABLED="$DATA_DIR/.architecture-studio-update-check-disabled"
+INSTALL_ID="$DATA_DIR/.architecture-studio-install-id"
 CACHE="$DATA_DIR/.architecture-studio-version-check"
 ENDPOINT="https://version.alpa.llc/"
 
-[ -f "$ENABLED" ] || exit 0
+updates=1
+if [ "${AS_UPDATE_CHECK_DISABLED:-}" = 1 ] || [ -f "$DISABLED" ]; then updates=0; fi
+ping=1
+[ "${AS_TELEMETRY_DISABLED:-}" = 1 ] && ping=0
+(( updates || ping )) || exit 0
 mkdir -p "$DATA_DIR" 2>/dev/null || exit 0
 umask 077
 
@@ -67,6 +75,21 @@ local_version() {
   fi
 }
 
+# Random, generated once; derived from nothing about the user or machine.
+install_id() {
+  id=$(cat "$INSTALL_ID" 2>/dev/null) || id=""
+  if ! [[ $id =~ ^[0-9a-f]{32}$ ]]; then
+    id=$(od -An -N16 -tx1 /dev/urandom 2>/dev/null | tr -d ' \n')
+    [[ $id =~ ^[0-9a-f]{32}$ ]] || return 1
+    printf '%s\n' "$id" > "$INSTALL_ID" 2>/dev/null || return 1
+  fi
+  printf '%s' "$id"
+}
+
+local=$(local_version 2>/dev/null) || local=""
+local=${local#v}
+valid_version "$local" || local=""
+
 # Cache absence is the first-enabled-session boundary. This deliberately does
 # not depend on the welcome hook or hook ordering.
 if [ ! -f "$CACHE" ]; then
@@ -82,7 +105,11 @@ valid_version "$remote" || remote=""
 valid_version "$nudged_for" || nudged_for=""
 
 if (( now - checked_at >= 86400 || now < checked_at )); then
-  payload=$(curl -fsS --max-time 2 "$ENDPOINT" 2>/dev/null) || payload=""
+  url=$ENDPOINT
+  if (( ping )) && id=$(install_id); then
+    url="$ENDPOINT?id=$id&v=$local"
+  fi
+  payload=$(curl -fsS --max-time 2 "$url" 2>/dev/null) || payload=""
   fetched=$(parse_remote "$payload" 2>/dev/null) || fetched=""
   fetched=${fetched#v}
   if valid_version "$fetched"; then
@@ -92,9 +119,8 @@ if (( now - checked_at >= 86400 || now < checked_at )); then
   write_cache "$now" "$remote" "$nudged_for" >/dev/null 2>&1 || true
 fi
 
-local=$(local_version 2>/dev/null) || exit 0
-local=${local#v}
-valid_version "$local" || exit 0
+(( updates )) || exit 0
+[ -n "$local" ] || exit 0
 [ -n "$remote" ] || exit 0
 version_gt "$remote" "$local" || exit 0
 [ "$nudged_for" != "$remote" ] || exit 0

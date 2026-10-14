@@ -6,9 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [1.5.2] - Unreleased
+
+A compatible patch on 1.5.1.2. It changes the Claude Code update-check hook, so it is a three-segment patch rather than a content-only release. No user action is required after installation.
+
 ### Changed
 
+- **Update check and usage ping on by default.** The daily update check now runs without opt-in (turn off with `AS_UPDATE_CHECK_DISABLED=1` or `/as:studio updates disable`), and its request carries an anonymous usage ping: a locally generated random install ID and the plugin version. Set `AS_TELEMETRY_DISABLED=1` to turn the ping off. This replaces the earlier "disabled by default" telemetry promise (Decision 0023 amendment, 2026-10-14). The Codex package installs no lifecycle hook and sends neither.
 - **Release procedure.** `docs/release-delivery.md` is now version-neutral, allows four-segment tags, and adds scope and tracker disposition, a role-specific contribution-credit audit, and rules for corrections after publication. It absorbs the unmerged August release checklist.
+
+### Fixed
+
+- **Skill Maker verification evidence.** Generated skills must show an observed fresh policy read and a separate observed read of the actual destination after publication. A claimed read, or a prepared file compared with itself, is no longer accepted as verification. `evals/skill-maker-policy/check-evidence.py` checks the order of normalized trace evidence and rejects those cases.
+
+### Documentation
+
+- Hosted module record routing (`docs/module-record-routing.md`), deterministic server JSON tool contracts (`docs/server-json-tools.md`) and the projected hosted-module data promise in `docs/data-governance.md`. These describe hosted surfaces; the plugin itself still uploads no studio, project or module records.
 
 ## [1.5.1.2] - 2026-09-30
 
@@ -319,7 +332,8 @@ First public release.
 - **3 hooks** — post-write disclaimer check, post-output metadata, pre-commit spec lint.
 - Marketplace install: `claude plugin marketplace add AlpacaLabsLLC/skills-for-architects`.
 
-[Unreleased]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.1.2...HEAD
+[Unreleased]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.2...HEAD
+[1.5.2]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.1.2...v1.5.2
 [1.5.1.2]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.1.1...v1.5.1.2
 [1.5.1.1]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.1...v1.5.1.1
 [1.5.1]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.0...v1.5.1
