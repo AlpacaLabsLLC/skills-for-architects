@@ -25,7 +25,7 @@ assert '61 skills' in Path('rules/terminology.md').read_text()
 PY
 
 grep -q '^## \[Unreleased\]$' CHANGELOG.md
-grep -q '^## \[1\.5\.2\] - Unreleased$' CHANGELOG.md
+grep -q '^## \[1\.5\.2\] - 2026-10-14$' CHANGELOG.md
 grep -q '^## \[1\.5\.1\.2\] - 2026-09-30$' CHANGELOG.md
 grep -q '^## \[1\.5\.1\.1\] - 2026-09-29$' CHANGELOG.md
 grep -q '^## \[1\.5\.1\] - 2026-09-24$' CHANGELOG.md

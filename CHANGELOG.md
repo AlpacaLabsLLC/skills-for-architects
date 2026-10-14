@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
-## [1.5.2] - Unreleased
+## [1.5.2] - 2026-10-14
 
 A compatible patch on 1.5.1.2. It changes the Claude Code update-check hook, so it is a three-segment patch rather than a content-only release. No user action is required after installation.
 
