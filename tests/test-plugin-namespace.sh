@@ -53,7 +53,7 @@ PY
     'Run `/as:tasklist`.' > "$FIXTURE/skills/tasklist/SKILL.md"
   printf '%s\n' \
     '.architecture-studio-welcomed' \
-    '.architecture-studio-update-check-enabled' \
+    '.architecture-studio-update-check-disabled' \
     '.architecture-studio-version-check' > "$FIXTURE/hooks/state.txt"
 }
 

@@ -112,12 +112,13 @@ class Runner(unittest.TestCase):
 
     def test_current_write_repeat_and_nonascii_space_path(self):
         destination = self.root / 'Préférences with spaces'
-        result = self.call('update_preference.enable', {'state_directory': str(destination)})
+        result = self.call('update_preference.disable', {'state_directory': str(destination)})
         self.assertEqual(result['status'], 'ok', result)
-        self.assertEqual(result, self.call('update_preference.enable', {'state_directory': str(destination)}))
+        self.assertEqual(result, self.call('update_preference.disable', {'state_directory': str(destination)}))
         self.assertEqual(len(list(destination.iterdir())), 1)
-        self.assertTrue(self.call('update_preference.status', {'state_directory': str(destination)})['result']['enabled'])
-        self.assertFalse(self.call('update_preference.disable', {'state_directory': str(destination)})['result']['enabled'])
+        self.assertFalse(self.call('update_preference.status', {'state_directory': str(destination)})['result']['enabled'])
+        self.assertTrue(self.call('update_preference.enable', {'state_directory': str(destination)})['result']['enabled'])
+        self.assertEqual(list(destination.iterdir()), [])
 
     def test_portable_scaffold_validation_from_package(self):
         directory = self.root / 'synthetic-skill'; directory.mkdir()

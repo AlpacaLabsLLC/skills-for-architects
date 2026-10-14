@@ -35,7 +35,9 @@ Exact infrastructure-provider identities, storage region identifiers and provide
 
 Research skills use the original sources selected from the source catalog when the authorized task needs them. Local package installation may acquire declared runtime/dependency bytes from their configured distribution sources; it does not transmit project documents.
 
-Background update checking is available only on Claude Code, whose package installs the lifecycle hook, and it is disabled by default. If enabled explicitly through `/as:studio`, it makes at most one bare request per 24 hours to `version.alpa.llc`, sends no project content or Arch Studio identifier, fails silently, and notifies once per newer version. Cloudflare still processes ordinary request metadata such as IP address, request headers, and timestamps.
+Background update checking is available only on Claude Code, whose package installs the lifecycle hook, and update checking is on by default. It makes at most one request per 24 hours to `version.alpa.llc`, sends no project content, fails silently, and notifies once per newer version. To turn it off, set `AS_UPDATE_CHECK_DISABLED=1` or run `/as:studio updates disable`.
+
+The plugin also sends an anonymous usage ping, on by default, in that same daily request: a random install ID generated once and stored locally (not derived from the user or the machine) and the plugin version. It sends no names, account, firm, file paths, project content or user text, and fails silently. To turn it off, set the environment variable `AS_TELEMETRY_DISABLED=1`. Cloudflare still processes ordinary request metadata such as IP address, request headers, and timestamps.
 
 The Codex package does not install that lifecycle hook. `$studio updates status`, `$studio updates enable`, and `$studio updates disable` report that background checking is unavailable; they do not write an enablement marker or cache and do not contact the endpoint.
 
