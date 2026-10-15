@@ -2,8 +2,9 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/brand/arch-studio-typemark-white.png">
-  <img src="assets/brand/arch-studio-typemark.png" alt="Arch Studio" width="450">
+  <img src="assets/brand/arch-studio-typemark.png" alt="Arch Studio" width="650">
 </picture>
+<br>
 <br>
 <br>
 
