@@ -2,13 +2,18 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/brand/arch-studio-typemark-white.png">
-  <img src="assets/brand/arch-studio-typemark.png" alt="Arch Studio" width="396">
+  <img src="assets/brand/arch-studio-typemark.png" alt="Arch Studio" width="450">
 </picture>
 <br>
 <br>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Release](https://img.shields.io/github/v/release/AlpacaLabsLLC/skills-for-architects)](https://github.com/AlpacaLabsLLC/skills-for-architects/releases)
+[![Claude Code: plugin](https://img.shields.io/badge/Claude_Code-plugin-blue)](https://code.claude.com/docs)
+[![Codex: plugin](https://img.shields.io/badge/Codex-plugin-blue)](https://developers.openai.com/codex/)
+[![skills: 61](https://img.shields.io/badge/skills-61-blue)](./skills/README.md)
+[![website: alpa.llc/skills](https://img.shields.io/badge/website-alpa.llc%2Fskills-blue)](https://alpa.llc/skills)
+[![Last commit](https://img.shields.io/github/last-commit/AlpacaLabsLLC/skills-for-architects)](https://github.com/AlpacaLabsLLC/skills-for-architects/commits/main)
 
 </div>
 
