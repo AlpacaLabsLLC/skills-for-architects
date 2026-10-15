@@ -1,6 +1,6 @@
 ---
 name: master-schedule
-description: "Adopt, read, reconcile or revise project FF&E item and schedule records with permanent identities and exact revision pins; preserve native workbook views and recover new artifacts."
+description: "Adopt, read, reconcile or revise the project's FF&E master schedule (item and schedule records) with permanent identities and exact revision pins; preserve native workbook views and recover new artifacts."
 allowed-tools:
   - Read
   - Write
@@ -13,7 +13,7 @@ allowed-tools:
 Before acting, read the [host contract](../../docs/host-harness-contract.md) and this component's [declaration](host-contract.json) (`skill:master-schedule`). Load only its referenced mode profiles from the [shared catalog](../../corpus/host-contracts.json). Compose modes required by the actual task; declarations are requirements, not proof of access or permission.
 
 <!-- architecture-studio:harness-compatibility -->
-Use the [host adapter](../../docs/host-adapters.md), available native facilities and ordinary task-specific code. Operation IDs describe semantic scope, not a required dispatcher.
+Use the [host adapter](../../docs/host-adapters.md), available native facilities and ordinary task-specific scripts. Operation IDs describe semantic scope, not a required dispatcher.
 
 ## Native operation
 

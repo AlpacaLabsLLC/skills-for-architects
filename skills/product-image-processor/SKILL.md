@@ -87,7 +87,7 @@ Use native image decoding/resampling/encoding to derive each selected original i
 
 ## Step 6: Remove Backgrounds Only When Requested
 
-Only remove backgrounds when requested; preserve the selected original and resized derivative. Use an actually available supported host image capability. Establish its real model/tool access and supported image types; missing capability stays a specific gap, without installing an Arch Studio runtime, copying helper code or promising a cached model. Preserve the product's visible identity, selected finish, proportions and material details. Inspect the actual result for lost geometry, halos and residual background. Never claim an unperformed removal or substitute generated imagery as exact product evidence.
+Only remove backgrounds when requested; preserve the selected original and resized derivative. Use an actually available supported host image capability. Establish its real model/tool access and supported image types; missing capability stays a specific gap, without installing an Arch Studio runtime, copying helper scripts or promising a cached background-removal model. Preserve the product's visible identity, selected finish, proportions and material details. Inspect the actual result for lost geometry, halos and residual background. Never claim an unperformed removal or substitute generated imagery as exact product evidence.
 
 ## Step 7: Report Results
 

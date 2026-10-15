@@ -1,6 +1,6 @@
 # Terms and conditions clause library
 
-These clauses are drafting guidance, not legal advice; have a licensed attorney review before signing. Jurisdictions differ, and a clause that protects one practice can expose another. Assemble only the clauses that fit the engagement, adapt the bracketed values, and keep this caution with any assembled terms until counsel has reviewed them.
+These clauses are sample wording, not legal advice; have a licensed attorney review before signing. Jurisdictions differ, and a clause that protects one practice can expose another. Assemble only the clauses that fit the engagement, adapt the bracketed values, and keep this caution with any assembled terms until counsel has reviewed them.
 
 Each clause is written in plain English at proposal length. The bracketed slots are the decisions the parties must make.
 

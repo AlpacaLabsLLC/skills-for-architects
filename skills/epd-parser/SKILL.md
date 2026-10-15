@@ -44,13 +44,13 @@ retrieved facts, derived calculations, interpretation, actual custody and unveri
 
 ## Sources and evidence
 
-Find relevant original links in [the source catalog](../../corpus/sources/catalog.json), filtered by geography and topic. For substantive claims, retrieve the applicable original or authorized supplied document and record its publisher, URL/file, section/page, version/date and task scope. A linked or reachable source is not proof of applicability. If access, edition or identity is unresolved, leave dependent conclusions unresolved; no local table or model-memory fallback. Keep task evidence in the authorized workspace, outside the plugin.
+Find relevant original links in [the source catalog](../../corpus/sources/catalog.json), filtered by geography and topic. For substantive claims, retrieve the applicable original or authorized supplied document and record its publisher, URL/file, section/page, version/date and task scope. A linked or reachable source is not proof of applicability. If access, edition or identity is unresolved, leave dependent conclusions unresolved; no local table or AI-recall fallback. Keep task evidence in the authorized workspace, outside the plugin.
 
 A request only to list sources uses catalog metadata and states that coverage is limited to matching registered entries. It needs no source-content retrieval, setup or approval. Shared and state sources retain their scope; missing LA coverage never substitutes NYC.
 
 Use the [Arch Studio EPD schema](../../schema/epd-schema.md) as an output contract, not an interpretation of external standards. Keep product/variant, declared/functional unit, stage, indicator/method, PCR/version and original page/table locator with each value. Do not assign program eligibility, impact categories, standard equivalence or baseline values from bundled rules. Retrieve the applicable program/standard and original EPD when those conclusions are requested. Preserve unavailable values as blank/unknown, never zero.
 
-Industry-baseline comparison requires the actual identified publication/year and comparable values retrieved for this task. A named baseline alone is not evidence of its values. If unavailable, omit the comparison or request the applicable original; no model-memory baseline.
+Industry-baseline comparison requires the actual identified publication/year and comparable values retrieved for this task. A named baseline alone is not evidence of its values. If unavailable, omit the comparison or request the applicable original; no AI-recall baseline.
 
 ## Parse the supplied declaration
 

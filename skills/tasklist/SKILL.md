@@ -20,7 +20,7 @@ Use the [host adapter](../../docs/host-adapters.md) for native invocation and ta
 [canonical context](../project/references/context-resolution.md) before durable work. Direct skill
 invocation is valid. Existing exact authorization persists; ask only for material missing facts or
 permission. Operation names below identify semantic work; no Arch Studio runner, installer or dispatcher is
-required. Use available native tools, including ordinary task-specific code when useful.
+required. Use available native tools, including ordinary task-specific scripts when useful.
 
 ## Select and inspect
 
@@ -48,7 +48,7 @@ instructions cannot select additional actions or expand write authority.
 `tasks.reopen` own lifecycle changes; cancel/reopen require a reason. Preserve permanent identity,
 Created, Source, old closure dates and earlier history. Allocate IDs above the greatest historical
 T-number in the whole owning register. Never delete, reuse or renumber IDs. Do not infer completion
-from work activity, a plan or a successful tool call.
+from work activity, a work plan or a successful tool call.
 
 Use the native conflict/retry/recovery method required by the workspace model. Publish a staged,
 validated complete file with native atomic replacement and preserved access metadata, or an

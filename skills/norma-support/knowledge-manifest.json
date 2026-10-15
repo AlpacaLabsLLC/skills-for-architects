@@ -5,11 +5,11 @@
   "files": [
     {
       "path": "skills/norma-support/references/conversation-knowledge.md",
-      "sha256": "73d7ff74b1030fb57463055c12b3b6473ee1b299fafb5748530514f1e520374e"
+      "sha256": "7011c8a1fc354669a336681847ad94631527a38b4b7eb7f6de33c1cc72c2308b"
     },
     {
       "path": "skills/norma-support/references/access-and-installation.md",
-      "sha256": "9693fc7b4c10ffa607d000232ab74467fc6fd7c159754bee52d2f70ed68f0639"
+      "sha256": "ecb1aacb70f2e4f07ebea60456b2e7d6057854f06a5c4ef1af3f03da34424cfe"
     },
     {
       "path": "skills/norma-support/references/capability-observations.md",
@@ -17,7 +17,7 @@
     },
     {
       "path": "skills/norma-support/references/case-handoff.md",
-      "sha256": "c55b40a41ca1da343925ff8fb2d1e3a71e43c11d1d1361fbe283561ebc6ceed4"
+      "sha256": "3f4234051dab08b3d6321fdb5871b5123863ec93c8bc1b93a88076ce89ef804b"
     }
   ]
 }
