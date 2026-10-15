@@ -3,7 +3,8 @@
 Arch Studio retains seven specialist profiles and one optional Norma worker. They help an available host coordinate
 multi-step work using the same owning skills. A profile is not an independent service, model,
 background agent or permission grant. Native registration and delegation depend on the host
-and must be observed; package presence alone is not proof.
+and must be observed; package presence alone is not proof. The Codex package does not register these
+Claude agent files as Codex roles.
 
 The harness may select a domain skill directly. Norma coordinates substantial multistep work with workplan, presents a concrete plan and useful team assignments, and preserves existing authorization. It does not add a plan gate to quick tasks. When the host exposes delegation and
 the request permits it, Norma may use one of these profiles with the same scope, source
