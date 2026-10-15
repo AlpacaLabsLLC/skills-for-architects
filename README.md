@@ -38,12 +38,12 @@ Arch Studio is a framework that helps an architecture studio build its own AI pr
 
 Before a studio can trust AI with real work, it has to make a few decisions. Arch Studio gives each one a place to live and keeps the assistant inside it.
 
-- **Governance: who approves what.** Adopt your own AI-use policy or start from the default one. The assistant works within it. It shows a plan before larger jobs, offers findings to your records instead of writing them on its own, and marks code, zoning and specification output for professional review. The architect still signs off.
+- **Governance: who approves what.** Adopt your own AI-use policy or start from the default one. The assistant works within it. It shows a work plan before larger jobs, offers findings to your records instead of writing them on its own, and marks building-code, zoning and specification output for professional review. The architect still signs off.
 - **Practice areas: where AI helps.** Skills are grouped by [practice area](docs/practice-clusters.md), from due diligence and programming to specifications and FF&E. Use the areas that fit your practice and ignore the rest.
 - **Memory: what the studio remembers.** Studio settings, project facts, decisions, documents, tasks and time live in plain files in folders you own, so the next session can pick up where the last one ended.
 - **Tooling: what the assistant can use.** Start with the 61 bundled skills as working references. Then write your own with `/as:skill-maker`. Your skills live in your studio or project folder, and plugin updates never overwrite them.
 
-Run `/as:studio` to set up the governance and memory side: your AI-use policy, naming and filing rules, units, jurisdiction and project stages. It shows exactly what it will create and writes nothing until you approve. Then register projects. From there, Norma, the coordinator, sends each request to the right skills within the rules you set. You can also skip setup and try a skill on a single task first.
+Run `/as:studio` to set up the governance and memory side: your AI-use policy, naming and filing rules, units, jurisdiction and project phases. It shows exactly what it will create and writes nothing until you approve. Then register projects. From there, Norma, the coordinator, sends each request to the right skills within the rules you set. You can also skip setup and try a skill on a single task first.
 
 ## Two editions
 
@@ -91,9 +91,9 @@ For teams, Arch Studio MCP is connected rather than installed; see [Two editions
 ## The basic workflow
 
 1. **studio** — Run `/as:studio` to record your studio's policy, conventions and projects, or skip setup and go straight to a task. Skills work either way.
-2. **norma** — Describe what you need in plain words. Norma picks the skills, handles quick lookups directly, and for larger jobs uses **workplan** to show you the steps, skills, and outputs before starting.
+2. **norma** — Describe what you need in plain words. Norma picks the skills, handles quick lookups directly, and for larger jobs uses **workplan** to show you a work plan (steps, skills, and outputs) before starting.
 3. **Research skills** — Site, zoning, property, product, and EPD skills fetch original sources and cite them. For example, **nyc-property-report** gathers landmarks, permits, violations, ownership, housing, and BSA records into one report.
-4. **Drafting skills** — **spec-writer**, **epd-to-spec**, **product-cut-sheet**, **slide-deck-generator** and others turn the research into documents. Anything regulatory is marked for professional review.
+4. **Specification and presentation skills** — **spec-writer**, **epd-to-spec**, **product-cut-sheet**, **slide-deck-generator** and others prepare documents from the research. Anything regulatory is marked for professional review.
 5. **Record skills** — **project**, **receive**, **meeting-minutes**, **tasklist** and **timetracker** keep facts, documents, decisions, tasks, and time in your project folder. They offer what to save rather than writing silently, and time is logged only in amounts you confirm.
 6. **skill-maker** — When your firm repeats a procedure, run `/as:skill-maker` to turn it into a studio or project skill.
 
@@ -119,14 +119,14 @@ Not sure what is available? `/as:tool-catalog` lists every skill and agent on yo
 **Project records**
 - **project** — Set up a project and keep its facts and decisions
 - **receive** — File received and authored documents, keeping original filenames
-- **workplan** — Plan larger work before it starts
+- **workplan** — Prepare a work plan before larger work starts
 - **meeting-minutes** — Minutes from notes or transcripts, decisions kept separate from discussion
 - **site-visit-report** — Site-visit records: what was seen, what was reported, and follow-ups
 - **tasklist** — Project or studio task list (`TASKS.csv`)
 - **timetracker** — Logs only time you confirm (`TIME.csv`)
 
 **Proposals, agreements and invoices**
-- **proposal** — Draft and register proposals; protects terms once issued
+- **proposal** — Prepare and register proposals; protects terms once issued
 - **agreement** — Keep agreement scope on hand and check work against it
 - **invoice** — Append-only invoice ledger from billing facts you supply
 
@@ -154,11 +154,11 @@ Not sure what is available? `/as:tool-catalog` lists every skill and agent on yo
 
 **Programming**
 - **workplace-programmer** — Office programs from headcount and work style
-- **occupancy-calculator** — Code occupant loads, egress, and plumbing fixtures
+- **occupancy-calculator** — Building-code occupant loads, egress, and plumbing fixtures
 
 **Specifications**
 - **spec-writer** — Project Manual sections, with review markers
-- **epd-to-spec** — EPD submittal requirements and GWP limits for a section
+- **epd-to-spec** — EPD submittal requirements and GWP limits for a specification section
 
 **Sustainability**
 - **epd-research** — Find EPDs by material or category
@@ -192,11 +192,11 @@ Not sure what is available? `/as:tool-catalog` lists every skill and agent on yo
 - **color-palette-generator** — Color palettes with contrast checks
 - **resize-images** — Resize images for web, social, slides, and print
 
-**Which spec skill?** A Project Manual section → **spec-writer**. Its EPD and GWP requirements → **epd-to-spec**. One product from a PDF or URL → **product-cut-sheet**. A bound FF&E book → **ffe-spec-book**.
+**Which specification skill?** A Project Manual section → **spec-writer**. Its EPD and GWP requirements → **epd-to-spec**. One product from a PDF or URL → **product-cut-sheet**. A bound FF&E book → **ffe-spec-book**.
 
 ### Agents (Claude Code)
 
-Eight agents: seven specialists and an optional Norma worker. Each one combines a set of skills for a kind of work. They run only where the host supports delegation and the request allows it; otherwise the same skills run directly. Codex installs the skills but not these agents. See the [agents index](./docs/agents.md).
+Eight agents: seven specialists and an optional Norma worker. Each one combines a group of skills for a kind of work. They run only where the host supports delegation and the request allows it; otherwise the same skills run directly. Codex installs the skills but not these agents. See the [agents index](./docs/agents.md).
 
 | Agent | What it does |
 |-------|--------------|
@@ -216,7 +216,7 @@ Shared conventions the skills follow. They guide output; only the hooks below ch
 | Rule | Covers |
 |------|--------|
 | [units-and-measurements](./rules/units-and-measurements.md) | Imperial and metric defaults, area types, dimensions |
-| [code-citations](./rules/code-citations.md) | Code editions, jurisdiction, and references |
+| [code-citations](./rules/code-citations.md) | Building-code editions, jurisdiction, and references |
 | [professional-disclaimer](./rules/professional-disclaimer.md) | Required disclaimer and limits on regulated output |
 | [csi-formatting](./rules/csi-formatting.md) | CSI formatting from the original standard you supply |
 | [terminology](./rules/terminology.md) | Style and first-use conventions |
@@ -267,7 +267,7 @@ More detail: [architecture](docs/architecture.md), [workspace model](docs/worksp
 
 - **Local first.** Your studio and project records stay in your folders. The plugin does not upload them anywhere.
 - **Original sources.** Skills go to the authoritative source and say where each fact came from. They do not rely on summaries bundled with the plugin.
-- **The architect decides.** Skills draft and check. Code, zoning, and specification output is marked for professional review, and findings are offered to your records rather than written silently.
+- **The architect decides.** Skills research, prepare and check. Building-code, zoning, and specification output is marked for professional review, and findings are offered to your records rather than written silently.
 - **Firms own their skills.** Your procedures live in your workspace, can stay private, and can be shared upstream if you choose.
 
 ## When something goes wrong
@@ -288,10 +288,10 @@ Read [CONTRIBUTING.md](./CONTRIBUTING.md) first. Repository conventions are in [
 
 ## Data, privacy and telemetry
 
-Arch Studio runs inside your own Claude Code or Codex session. Your model provider's data controls, retention, and account policies apply: see Anthropic's [Privacy Center](https://privacy.claude.com/) or OpenAI's [privacy policy](https://openai.com/policies/privacy-policy/).
+Arch Studio runs inside your own Claude Code or Codex session. Your AI model provider's data controls, retention, and account policies apply: see Anthropic's [Privacy Center](https://privacy.claude.com/) or OpenAI's [privacy policy](https://openai.com/policies/privacy-policy/).
 
 - The open-source plugin does not upload or store studio, project or module records on Arch Studio servers. Hosted record-holding modules use the separate boundaries in the [data-governance documentation](./docs/data-governance.md).
-- Prompts and files you send to the model are handled under your provider account.
+- Prompts and files you send to the AI model are handled under your provider account.
 - Research skills contact the public sources named in their documentation when you run them.
 - New studios include an empty `.mcp.json`. Arch Studio does not pick providers, set up logins, or ship credentials.
 - `/as:studio-feedback` prepares everything locally. Opening the prefilled GitHub link sends what is shown on screen.
