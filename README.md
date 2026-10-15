@@ -16,11 +16,12 @@
 
 </div>
 
-Arch Studio is a framework that architecture firms use to build their own AI practice inside [Claude Code](https://code.claude.com/docs) or [Codex](https://developers.openai.com/codex/). Your firm sets its standards once, keeps its studio and project memory in folders it owns, and adds its own skills over time.
+Arch Studio is a framework that helps an architecture studio build its own AI practice. It helps you decide how AI is governed in your studio, which practice areas it covers, what it remembers, and which tools it uses, then carries those decisions into [Claude Code](https://code.claude.com/docs) or [Codex](https://developers.openai.com/codex/).
 
 ## Contents
 
 - [How it works](#how-it-works)
+- [Two editions](#two-editions)
 - [Commercial services](#commercial-services)
 - [Install](#install)
 - [The basic workflow](#the-basic-workflow)
@@ -35,19 +36,25 @@ Arch Studio is a framework that architecture firms use to build their own AI pra
 
 ## How it works
 
-It starts when you set up a studio. Run `/as:studio` and it asks how your firm works: studio name, units, jurisdiction, how documents are named and filed, the project stages you use, and whether to adopt your AI-use policy or a default one. It shows you exactly what it will create and writes nothing until you approve. The result is a studio folder that holds your firm's standards and memory.
+Before a studio can trust AI with real work, it has to make a few decisions. Arch Studio gives each one a place to live and keeps the assistant inside it.
 
-Then you register projects. Each project gets its own folder with a `PROJECT.md` for facts and decisions, plus registers for documents, tasks, time, and invoices. From then on, the assistant checks the studio and project records when a task needs them, so it follows your conventions without being told again.
+- **Governance: who approves what.** Adopt your own AI-use policy or start from the default one. The assistant works within it. It shows a plan before larger jobs, offers findings to your records instead of writing them on its own, and marks code, zoning and specification output for professional review. The architect still signs off.
+- **Practice areas: where AI helps.** Skills are grouped by [practice area](docs/practice-clusters.md), from due diligence and programming to specifications and FF&E. Use the areas that fit your practice and ignore the rest.
+- **Memory: what the studio remembers.** Studio settings, project facts, decisions, documents, tasks and time live in plain files in folders you own, so the next session can pick up where the last one ended.
+- **Tooling: what the assistant can use.** Start with the 61 bundled skills as working references. Then write your own with `/as:skill-maker`. Your skills live in your studio or project folder, and plugin updates never overwrite them.
 
-When you ask for something, Norma, the coordinator, picks the skills that fit and works within your rules. Small requests just get done. Larger ones get a plan first. Findings are offered to your records, not written on their own, and anything regulatory is marked for professional review. The architect still signs off.
+Run `/as:studio` to set up the governance and memory side: your AI-use policy, naming and filing rules, units, jurisdiction and project stages. It shows exactly what it will create and writes nothing until you approve. Then register projects. From there, Norma, the coordinator, sends each request to the right skills within the rules you set. You can also skip setup and try a skill on a single task first.
 
-Over time, the firm writes its own skills. When a procedure keeps coming up, such as a QA checklist, a client report format, or a way of filing drawings, `/as:skill-maker` turns it into a skill that lives in your studio or project folder. Plugin updates never overwrite it, and it rereads your studio's policy each time it runs.
+## Two editions
 
-Arch Studio ships with 61 working AEC skills, from site and zoning research to FF&E schedules and specifications. Use them as they are, or treat them as templates for your own. You can also try them with no setup at all and create a studio later.
+- **Arch Studio OSS** (this repository) is the single-user setup. You install the plugin in your own Claude Code or Codex, and your studio and project records stay in local folders. It is free and MIT-licensed.
+- **Arch Studio MCP** is the hosted service, for teams. It delivers the same Arch Studio content to a connected assistant through a signed-in firm account. It also adds hosted modules, such as the Materials Library, whose records only members of that firm can reach. It sends instructions; your assistant still does the work with its own tools, and the service cannot reach your local files. Project records stay local in both editions. Only records you save to a hosted module are held by the service ([data governance](docs/data-governance.md)).
+
+Use one or the other, not both. To ask about Arch Studio MCP, email `hello@alpa.llc`.
 
 ## Commercial services
 
-Arch Studio is open source under the MIT license. If your firm wants help setting up its studio, writing its own skills, training, or support, email ALPA at `hello@alpa.llc`.
+Arch Studio OSS is open source under the MIT license. If your studio wants help working through these decisions, writing its own skills, moving a team to Arch Studio MCP, training, or support, email ALPA at `hello@alpa.llc`.
 
 ## Install
 
@@ -79,11 +86,11 @@ Type `/as:studio` in Claude Code, or `$studio` in Codex. It offers four paths: s
 
 New to AI assistants? Start the six-module course with `/as:learn` (Codex: `$learn`).
 
-Arch Studio is also available as a hosted MCP service. Install the plugin or connect the MCP, not both: the MCP delivers instructions only, does not run skills, and cannot reach your local files. See [release delivery](docs/release-delivery.md).
+For teams, Arch Studio MCP is connected rather than installed; see [Two editions](#two-editions). Install the plugin or connect the MCP, not both: the MCP delivers instructions only, does not run skills, and cannot reach your local files. See [release delivery](docs/release-delivery.md).
 
 ## The basic workflow
 
-1. **studio** — Run `/as:studio` to set up a studio folder, or skip setup and go straight to a task. Skills work either way.
+1. **studio** — Run `/as:studio` to record your studio's policy, conventions and projects, or skip setup and go straight to a task. Skills work either way.
 2. **norma** — Describe what you need in plain words. Norma picks the skills, handles quick lookups directly, and for larger jobs uses **workplan** to show you the steps, skills, and outputs before starting.
 3. **Research skills** — Site, zoning, property, product, and EPD skills fetch original sources and cite them. For example, **nyc-property-report** gathers landmarks, permits, violations, ownership, housing, and BSA records into one report.
 4. **Drafting skills** — **spec-writer**, **epd-to-spec**, **product-cut-sheet**, **slide-deck-generator** and others turn the research into documents. Anything regulatory is marked for professional review.
