@@ -2,8 +2,10 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/brand/arch-studio-typemark-white.png">
-  <img src="assets/brand/arch-studio-typemark.png" alt="Arch Studio" width="360">
+  <img src="assets/brand/arch-studio-typemark.png" alt="Arch Studio" width="396">
 </picture>
+<br>
+<br>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Release](https://img.shields.io/github/v/release/AlpacaLabsLLC/skills-for-architects)](https://github.com/AlpacaLabsLLC/skills-for-architects/releases)
