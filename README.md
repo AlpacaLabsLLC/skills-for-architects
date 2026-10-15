@@ -16,7 +16,7 @@
 
 </div>
 
-Arch Studio is a set of architecture skills for [Claude Code](https://code.claude.com/docs) and [Codex](https://developers.openai.com/codex/). It runs inside the assistant you already use, keeps your studio and project records in folders you own, and lets your firm add skills of its own.
+Arch Studio is a framework that architecture firms use to build their own AI practice inside [Claude Code](https://code.claude.com/docs) or [Codex](https://developers.openai.com/codex/). Your firm sets its standards once, keeps its studio and project memory in folders it owns, and adds its own skills over time.
 
 ## Contents
 
@@ -35,15 +35,19 @@ Arch Studio is a set of architecture skills for [Claude Code](https://code.claud
 
 ## How it works
 
-Type an address: `/as:norma 123 Main St, Brooklyn NY`.
+It starts when you set up a studio. Run `/as:studio` and it asks how your firm works: studio name, units, jurisdiction, how documents are named and filed, the project stages you use, and whether to adopt your AI-use policy or a default one. It shows you exactly what it will create and writes nothing until you approve. The result is a studio folder that holds your firm's standards and memory.
 
-Norma, the coordinator, reads the request and picks the skills that fit: NYC property records, zoning, and site research. Each skill goes to the original public source, such as the city's permit, landmark, or zoning data, and cites where every fact came from. When the work is bigger than a quick lookup, Norma shows you a plan first. When a finding is worth keeping, it offers to save it to your project records instead of writing them on its own.
+Then you register projects. Each project gets its own folder with a `PROJECT.md` for facts and decisions, plus registers for documents, tasks, time, and invoices. From then on, the assistant checks the studio and project records when a task needs them, so it follows your conventions without being told again.
 
-You can skip Norma and call any skill by name, for example `/as:zoning-analysis-nyc 123 Main St`. You don't need to set anything up to start: the skills work as soon as the plugin is installed. A studio folder is optional, for when you want settings, projects, and records that last between sessions.
+When you ask for something, Norma, the coordinator, picks the skills that fit and works within your rules. Small requests just get done. Larger ones get a plan first. Findings are offered to your records, not written on their own, and anything regulatory is marked for professional review. The architect still signs off.
+
+Over time, the firm writes its own skills. When a procedure keeps coming up, such as a QA checklist, a client report format, or a way of filing drawings, `/as:skill-maker` turns it into a skill that lives in your studio or project folder. Plugin updates never overwrite it, and it rereads your studio's policy each time it runs.
+
+Arch Studio ships with 61 working AEC skills, from site and zoning research to FF&E schedules and specifications. Use them as they are, or treat them as templates for your own. You can also try them with no setup at all and create a studio later.
 
 ## Commercial services
 
-Arch Studio is open source under the MIT license. If your firm wants help deploying it, building custom studio skills, training, or support, email ALPA at `hello@alpa.llc`.
+Arch Studio is open source under the MIT license. If your firm wants help setting up its studio, writing its own skills, training, or support, email ALPA at `hello@alpa.llc`.
 
 ## Install
 
@@ -84,6 +88,7 @@ Arch Studio is also available as a hosted MCP service. Install the plugin or con
 3. **Research skills** — Site, zoning, property, product, and EPD skills fetch original sources and cite them. For example, **nyc-property-report** gathers landmarks, permits, violations, ownership, housing, and BSA records into one report.
 4. **Drafting skills** — **spec-writer**, **epd-to-spec**, **product-cut-sheet**, **slide-deck-generator** and others turn the research into documents. Anything regulatory is marked for professional review.
 5. **Record skills** — **project**, **receive**, **meeting-minutes**, **tasklist** and **timetracker** keep facts, documents, decisions, tasks, and time in your project folder. They offer what to save rather than writing silently, and time is logged only in amounts you confirm.
+6. **skill-maker** — When your firm repeats a procedure, run `/as:skill-maker` to turn it into a studio or project skill.
 
 Not sure what is available? `/as:tool-catalog` lists every skill and agent on your host. `/as:studio` stays the place for studio administration; a general task typed there is passed to Norma. Optional [default preferences](skills/norma/references/assistant-preference.md) make your assistant use Arch Studio by default for architecture and project work; they need a supported target, an exact diff, and your approval.
 
