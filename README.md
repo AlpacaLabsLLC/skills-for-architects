@@ -18,16 +18,10 @@
 
 Arch Studio is a set of architecture skills for [Claude Code](https://code.claude.com/docs) and [Codex](https://developers.openai.com/codex/). It runs inside the assistant you already use, keeps your studio and project records in folders you own, and lets your firm add skills of its own.
 
-## How it works
-
-Type an address: `/as:norma 123 Main St, Brooklyn NY`.
-
-Norma, the coordinator, reads the request and picks the skills that fit: NYC property records, zoning, and site research. Each skill goes to the original public source, such as the city's permit, landmark, or zoning data, and cites where every fact came from. When the work is bigger than a quick lookup, Norma shows you a plan first. When a finding is worth keeping, it offers to save it to your project records instead of writing them on its own.
-
-You can skip Norma and call any skill by name, for example `/as:zoning-analysis-nyc 123 Main St`. You don't need to set anything up to start: the skills work as soon as the plugin is installed. A studio folder is optional, for when you want settings, projects, and records that last between sessions.
-
 ## Contents
 
+- [How it works](#how-it-works)
+- [Commercial services](#commercial-services)
 - [Install](#install)
 - [The basic workflow](#the-basic-workflow)
 - [What's inside](#whats-inside)
@@ -38,6 +32,18 @@ You can skip Norma and call any skill by name, for example `/as:zoning-analysis-
 - [Contributing](#contributing)
 - [Data, privacy and telemetry](#data-privacy-and-telemetry)
 - [License](#license)
+
+## How it works
+
+Type an address: `/as:norma 123 Main St, Brooklyn NY`.
+
+Norma, the coordinator, reads the request and picks the skills that fit: NYC property records, zoning, and site research. Each skill goes to the original public source, such as the city's permit, landmark, or zoning data, and cites where every fact came from. When the work is bigger than a quick lookup, Norma shows you a plan first. When a finding is worth keeping, it offers to save it to your project records instead of writing them on its own.
+
+You can skip Norma and call any skill by name, for example `/as:zoning-analysis-nyc 123 Main St`. You don't need to set anything up to start: the skills work as soon as the plugin is installed. A studio folder is optional, for when you want settings, projects, and records that last between sessions.
+
+## Commercial services
+
+Arch Studio is open source under the MIT license. If your firm wants help deploying it, building custom studio skills, training, or support, email ALPA at `hello@alpa.llc`.
 
 ## Install
 
