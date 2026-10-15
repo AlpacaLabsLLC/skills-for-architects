@@ -64,7 +64,7 @@ The research method is portable; dataset and hazard coverage are not. Resolve th
 
 ## Project context
 
-For project-bound work, resolve the nearest valid project through the native context owner and read its instructions before fetching; sourced site facts may already be on file. After completing, offer the key climate, flood, seismic, and soil findings to `/as:project update` for its **Site** section, each with a source and date. A standalone request stays standalone; creating a project requires an explicit request handled by its owner.
+For project-bound work, resolve the nearest valid project through the native context owner and read its instructions before fetching; sourced site facts may already be on file. After completing, offer the key climate, flood, seismic, and soil findings to `/as:project update` for the **Site** heading in PROJECT.md, each with a source and date. A standalone request stays standalone; creating a project requires an explicit request handled by its owner.
 
 ## Usage
 
@@ -100,7 +100,7 @@ Search for climate data for the city/region:
 ### 2. Natural Features & Hazards
 
 Search for environmental and topographic data:
-- **Topography**: Elevation, slope, general terrain description
+- **Topography**: Ground elevation (above datum), slope, general terrain description
 - **Flood zones**: FEMA flood zone designation (US) or equivalent
 - **Seismic risk**: Seismic zone or fault proximity
 - **Soil**: General soil type or geotechnical conditions if available
@@ -124,7 +124,7 @@ Write the analysis to a markdown file at `./environmental-analysis-[location-slu
 | Design temperatures | [values, units and sourced statistical basis, or unresolved] |
 | Flood zone | [zone] |
 | Seismic risk | [level] |
-| Elevation | [ft/m] |
+| Ground elevation (above datum) | [ft/m] |
 
 ---
 
@@ -148,7 +148,7 @@ Write the analysis to a markdown file at `./environmental-analysis-[location-slu
 ## 2. Natural Features & Hazards
 
 ### Topography
-[Elevation, slope, terrain]
+[Ground elevation, slope, terrain]
 
 ### Flood Zones
 [FEMA designation, context]
@@ -187,7 +187,7 @@ Write the analysis to a markdown file at `./environmental-analysis-[location-slu
 
 ## Sources and evidence
 
-Find relevant original links in [the source catalog](../../corpus/sources/catalog.json), filtered by geography and topic. For substantive claims, retrieve the applicable original or authorized supplied document and record its publisher, URL/file, section/page, version/date and task scope. A linked or reachable source is not proof of applicability. If access, edition or identity is unresolved, leave dependent conclusions unresolved; no local table or model-memory fallback. Keep task evidence in the authorized workspace, outside the plugin.
+Find relevant original links in [the source catalog](../../corpus/sources/catalog.json), filtered by geography and topic. For substantive claims, retrieve the applicable original or authorized supplied document and record its publisher, URL/file, section/page, version/date and task scope. A linked or reachable source is not proof of applicability. If access, edition or identity is unresolved, leave dependent conclusions unresolved; no local table or AI-recall fallback. Keep task evidence in the authorized workspace, outside the plugin.
 
 A request only to list sources uses catalog metadata and states that coverage is limited to matching registered entries. It needs no source-content retrieval, setup or approval. Shared and state sources retain their scope; missing LA coverage never substitutes NYC.
 

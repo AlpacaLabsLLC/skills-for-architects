@@ -7,7 +7,7 @@ Creates or updates a skill using the active host's skill-authoring capability an
 ```
 /as:skill-maker a skill that turns raw site photos into a numbered photo log
 /as:skill-maker package our submittal-review checklist as a slash command
-/as:skill-maker a skill that drafts meeting minutes from a transcript
+/as:skill-maker a skill that prepares meeting minutes from a transcript
 ```
 
 No routine interview. Existing targets are preserved unless an update was requested; global scope must be explicit.

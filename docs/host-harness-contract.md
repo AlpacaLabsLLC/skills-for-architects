@@ -1,6 +1,6 @@
 # Host-harness contract for every Arch Studio skill and agent
 
-Required architecture contract, adopted for the Sharmila 1.5 release plan on 2026-09-07.
+Required system-architecture contract, adopted for the Sharmila 1.5 release plan on 2026-09-07.
 Documentation adoption does not establish that all existing skills/agents or hosts pass it.
 
 The R5-HN hosted MCP successor adopts harness-native execution (project Decision 0018,
@@ -12,7 +12,7 @@ Existing OSS distribution behavior and release scope are separately preserved an
 Arch Studio owns domain capability contracts, required procedures, typed-record authority, evidence requirements, validations and proposed
 changes. The host owns the conversation and available browser, email, spreadsheet, filesystem,
 rendering and process capabilities. The harness selects and performs a native method that meets the
-owning semantic specification. This is the Tooling pillar described in [architecture](architecture.md).
+owning semantic specification. This is the Tooling pillar described in [product architecture](architecture.md).
 Skills specify outcomes, domain invariants, interfaces and verification; prescribe execution order only
 when a domain, safety, interoperability or observed-failure requirement needs it. Required mutation
 sequences and preservation guarantees still apply. Normal MCP workflows require no Arch Studio runner, installer, bridge or
@@ -75,7 +75,7 @@ to its complete existing procedure. Do not invent operation IDs to label native 
 does not broaden its effects or grant permissions. Record-read/write modes still declare their
 owning semantic operation scope; an empty list is not a way to bypass record ownership.
 
-Use capabilities already available to the host. The harness may use ordinary task-specific code
+Use capabilities already available to the host. The harness may use ordinary task-specific scripts
 for parsing, decimal calculations, transformations or checks when its selected method benefits from
 it. Arch Studio supplies complete capability contracts, required procedures, schemas, formulas and examples, not executable source that the
 host must download, reconstruct or install. A process capability is required only for a selected

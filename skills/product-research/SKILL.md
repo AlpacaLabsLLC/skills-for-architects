@@ -102,7 +102,7 @@ Run **3-5 searches** depending on brief complexity. Aim for breadth — differen
 
 Attempt to fetch the product page with WebFetch to extract full specs. If the page is JS-rendered and returns no data:
 - Use the search result only to identify the candidate and locate another current, authoritative source.
-- Never fill price, availability, lead time, dimensions, finishes, certifications, or other purchasing facts from model memory.
+- Never fill price, availability, lead time, dimensions, finishes, certifications, or other purchasing facts from the AI model's own recall.
 - Label any volatile fact without a current manufacturer, authorized-dealer, or certification-registry source as `Not verified`; do not turn a search snippet into a confirmed fact.
 
 For every price, availability, lead-time, finish, dimension, and certification claim, retain the source URL and access date. Prefer the manufacturer's current product page or price list; use an authorized dealer only when the manufacturer does not publish the fact. A candidate may remain useful with `Not verified` fields, but the shortlist must make those gaps visible.

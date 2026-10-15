@@ -1,6 +1,6 @@
 ---
 name: product-spec-bulk-fetch
-description: "Extract structured FF&E specs from a list of product URLs into a schedule. Use to pull or bulk-import product-page data; not for PDF catalogs."
+description: "Extract structured FF&E product data from a list of product URLs into a schedule. Use to pull or bulk-import product-page data; not for PDF catalogs."
 allowed-tools:
   - Read
   - Write
@@ -12,7 +12,7 @@ allowed-tools:
   - AskUserQuestion
 ---
 
-# /as:product-spec-bulk-fetch — Bulk Product Spec Fetcher
+# /as:product-spec-bulk-fetch — Bulk Product Data Fetcher
 
 Before acting, read the [host contract](../../docs/host-harness-contract.md) and this component's [declaration](host-contract.json) (`skill:product-spec-bulk-fetch`). Load only its referenced mode profiles from the [shared catalog](../../corpus/host-contracts.json). Compose modes required by the actual task; declarations are requirements, not proof of access or permission.
 

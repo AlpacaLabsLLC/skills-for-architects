@@ -16,7 +16,7 @@ Before acting, read the [host contract](../../docs/host-harness-contract.md) and
 from the [catalog](../../corpus/host-contracts.json). Requirements do not grant access.
 
 <!-- architecture-studio:harness-compatibility -->
-Use the [host adapter](../../docs/host-adapters.md) and available native tools or ordinary task-specific code. Operation names identify semantic procedures, not installed functions. No Arch Studio runner, package installation or executable reconstruction is required. Existing exact authorization persists; ask only for material missing information or permission.
+Use the [host adapter](../../docs/host-adapters.md) and available native tools or ordinary task-specific scripts. Operation names identify semantic procedures, not installed functions. No Arch Studio runner, package installation or executable reconstruction is required. Existing exact authorization persists; ask only for material missing information or permission.
 
 Input: exact supplied drawing files/revisions, building/floor/phase scope and requested tags/types.
 Output: unadopted instance ledger, scoped counts and coverage/exclusion evidence. No record owner is

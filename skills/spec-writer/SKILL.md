@@ -1,6 +1,6 @@
 ---
 name: spec-writer
-description: "Draft Project Manual specification sections from accepted project requirements using CSI MasterFormat identities, three-part sections and review flags. Use for design requirements; use product-cut-sheet for source-faithful product entries and epd-to-spec for EPD requirements."
+description: "Prepare Project Manual specification sections from accepted project requirements using CSI MasterFormat identities, three-part sections and review flags. Use for design requirements; use product-cut-sheet for source-faithful product entries and epd-to-spec for EPD requirements."
 allowed-tools:
   - Read
   - Write
@@ -16,7 +16,7 @@ Before acting, read the [host contract](../../docs/host-harness-contract.md) and
 
 ## Document role
 
-Draft Project Manual sections: accepted design requirements, products/performance, submittals and execution. Keep proposed requirements distinct from adopted requirements. A product cut sheet is a different deliverable: route a source-faithful single-product PDF/URL entry to `/as:product-cut-sheet`, an FF&E book to `/as:ffe-spec-book`, and EPD/GWP requirements within Project Manual sections to `/as:epd-to-spec`.
+Prepare Project Manual sections: accepted design requirements, products/performance, submittals and execution. Keep proposed requirements distinct from adopted requirements. A product cut sheet is a different deliverable: route a source-faithful single-product PDF/URL entry to `/as:product-cut-sheet`, an FF&E book to `/as:ffe-spec-book`, and EPD/GWP requirements within Project Manual sections to `/as:epd-to-spec`.
 
 ## Native execution and specification output
 
@@ -47,14 +47,14 @@ Keep every source/formatting/disclaimer requirement below, including the exact a
 
 ## Sources and evidence
 
-Find relevant original links in [the source catalog](../../corpus/sources/catalog.json), filtered by geography and topic. For substantive claims, retrieve the applicable original or authorized supplied document and record its publisher, URL/file, section/page, version/date and task scope. A linked or reachable source is not proof of applicability. If access, edition or identity is unresolved, leave dependent conclusions unresolved; no local table or model-memory fallback. Keep task evidence in the authorized workspace, outside the plugin.
+Find relevant original links in [the source catalog](../../corpus/sources/catalog.json), filtered by geography and topic. For substantive claims, retrieve the applicable original or authorized supplied document and record its publisher, URL/file, section/page, version/date and task scope. A linked or reachable source is not proof of applicability. If access, edition or identity is unresolved, leave dependent conclusions unresolved; no local table or AI-recall fallback. Keep task evidence in the authorized workspace, outside the plugin.
 
 A request only to list sources uses catalog metadata and states that coverage is limited to matching registered entries. It needs no source-content retrieval, setup or approval. Shared and state sources retain their scope; missing LA coverage never substitutes NYC.
-## Draft the requested specification
+## Prepare the requested specification
 
 Read the materials brief, accepted project requirements and any supplied template. Resolve ambiguous material/function choices only where they change the specification. Obtain selected division/section identities from the actual authorized publisher edition or supplied verified task inputs, using the CSI routes in the source catalog. There is no bundled MasterFormat mapping or compatibility edition. Keep an unresolved section identity open for review instead of inventing a best-fit number.
 
-Use [Arch Studio specification formatting](../../rules/csi-formatting.md). Cover the actual requested materials and applications; consolidate duplicates only when the accepted scope supports it. Preserve client template, units and terminology. Draft required submittals, accepted products/performance and execution/verification expectations from sourced project evidence. Distinguish proposed design requirements from adopted requirements and manufacturer claims. Cite exact standards/editions only after original verification.
+Use [Arch Studio specification formatting](../../rules/csi-formatting.md). Cover the actual requested materials and applications; consolidate duplicates only when the accepted scope supports it. Preserve client template, units and terminology. Write the required submittals, accepted products/performance and execution/verification expectations from sourced project evidence. Distinguish proposed design requirements from adopted requirements and manufacturer claims. Cite exact standards/editions only after original verification.
 
 Keep missing product choices, incompatible requirements and unverified claims marked for review. Do not fill gaps with generic manufacturer facts, copied clauses or unsupported code requirements. An outline does not certify code compliance or construction suitability.
 

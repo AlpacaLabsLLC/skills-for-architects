@@ -10,7 +10,7 @@ The product is **Arch Studio** in every sentence, on every channel. Do not use "
 
 ## Pillar names
 
-Use **Studio, Tooling, Knowledge and Memory** for the four pillars. Studio is the product control plane and has four responsibility areas: **Account and access**, **Configuration**, **Standards**, and **Assurance**. Their definitions and folder mapping live in [architecture](../docs/architecture.md). Tooling includes skills, agents, tools and integrations; execution describes the host activity, not a pillar. Keep technical field names such as `execution` unchanged. `corpus/` is a directory containing both source navigation and capability discovery, not a synonym for Knowledge.
+Use **Studio, Tooling, Knowledge and Memory** for the four pillars. Studio is the product control plane and has four responsibility areas: **Account and access**, **Configuration**, **Standards**, and **Assurance**. Their definitions and folder mapping live in [product architecture](../docs/architecture.md). Tooling includes skills, agents, tools and integrations; execution describes the host activity, not a pillar. Keep technical field names such as `execution` unchanged. `corpus/` is a directory containing both source navigation and capability discovery, not a synonym for Knowledge.
 
 ## Skill, workflow and tool
 
@@ -30,6 +30,31 @@ These are Arch Studio routing terms, not definitions of professional standards:
 - **FF&E specification book:** the agreed ordered set of product entries; `ffe-spec-book` owns assembly and package receipts.
 
 When “specification” or “spec book” is ambiguous, resolve the requested deliverable from its inputs and purpose before choosing a skill. Persisted document kind `spec-book` and its template/receipt identities remain unchanged.
+
+## Architecture vocabulary
+
+Arch Studio's readers are architects. When a word has a drawing, document or practice meaning, use it in that sense; for a software or writing sense, choose another word.
+
+| Term | Reserved meaning | For the other sense, write |
+|---|---|---|
+| draft, drafting | Drawing; also a draft of a text ("a draft proposal", "draft minutes") | prepare or write when describing what a skill does. Never use "draft" to label a category of skills or where it could read as drawing. Persisted status `draft` stays an identifier. |
+| plan | Floor, site or roof plan (drawing) | work plan (document kind `plan`); subscription plan |
+| code | Building, fire, energy or zoning code | building code on first use; scripts or software code; client code |
+| model | 3D/BIM or physical model | AI model; record format (the `Document model` setting) |
+| section | Drawing section, or a Project Manual (CSI) section | heading or part of a file; PROJECT.md heading |
+| set | Drawing or document set issued together (CD set) | group of files |
+| schedule | FF&E, room, door or finish schedule; project time schedule when named as such | name the kind: FF&E schedule, project schedule, .sif file |
+| program, programming | Architectural or space program | space programming in catalogs and manifests; software, script, effort |
+| phase, stage | Professional-service phase: predesign, SD, DD, CD, procurement, construction, closeout | step, for procedures |
+| spec, specification | Project Manual specification | product data; cut sheet; FF&E spec book |
+| elevation | Elevation drawing | ground elevation (height above datum) |
+| architecture | The built discipline | product or system architecture |
+
+**Phase and stage.** US practice says phase and UK practice says stage; both are correct. In user-facing prose prefer "phase" and, where it helps, note that UK practice says "stage". Stored fields, identifiers, schema keys and folder paths keep their names: the document coordinates `phase` and `stage`, the stage vocabulary values (`1-sd`, `2-dd`, `3-cd` and so on) and the `{phase}/{stage}/{scope}` path template are unchanged. When prose refers to a stored coordinate, name it as a field (`stage`) so it is not read as the professional term.
+
+**Draft.** Keep "draft" where it means a draft of a text. In skill descriptions, prefer "prepare".
+
+Identifiers (skill names, document kinds, column names, folder names, status values) keep their technical form; describe them in prose with a word that does not collide with the reserved meaning. Correct professional usage is never rewritten: "Project Manual section", "FF&E schedule", "CD set", "area takeoff" and "submittal" are correct.
 
 ## Word choice
 

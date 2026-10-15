@@ -39,7 +39,7 @@ State which host is active before the first exercise, then use only that branch'
 | Sandbox skill | `.agents/skills/site-report/SKILL.md`, invoked as `$site-report` | `.claude/skills/site-report/SKILL.md`, invoked as `/site-report` |
 | Fresh conversation exercise | Start a new Codex chat or session using the active Codex surface | Run `/clear` |
 
-Codex does not expose Claude Code-native agents, hooks, or the `/clear` command. Do not ask a Codex learner to invoke them. The course teaches the shared habits — files, explicit approval, plans, source checks, and reusable skills — and labels these host differences when they matter.
+Codex does not expose Claude Code-native agents, hooks, or the `/clear` command. Do not ask a Codex learner to invoke them. The course teaches the shared habits — files, explicit approval, work plans, source checks, and reusable skills — and labels these host differences when they matter.
 
 ## Teaching rules
 
@@ -75,7 +75,7 @@ Codex and Claude Code for Architects — 6 modules
   1. How we interact with each other   ask in plain English, it reads your files
   2. Nothing without your "yes"        your first file · approvals · your data
   3. Let's set some guidelines first   your standards binder (AGENTS.md or CLAUDE.md)
-  4. Plan first, build second          messy files → order, on a plan you edited
+  4. Work plan first, then execute     messy files → order, on a work plan you edited
   5. Creating your own skills          package a procedure your office can run
   6. Get started                       verify like a pro, then your real project
 
@@ -94,7 +94,7 @@ Here's where you are:
   ✅ 1. How we interact with each other   done Jul 9
   ✅ 2. Nothing without your "yes"        done Jul 9
   →  3. Let's set some guidelines first   next · ~15 min
-      then: plan first · your own skills · get started
+      then: work plan first · your own skills · get started
 ```
 
 The bar is 18 cells: 3 `█` per completed module, `░` for the rest. One glance, no report.
@@ -143,16 +143,16 @@ In order. For each: signpost, teach conversationally, run the exercise with narr
 
 - **Teach:** `AGENTS.md` on Codex or `CLAUDE.md` on Claude Code is the standards binder: persistent conventions that the active host must actually discover and load; a saved file alone does not prove that happened. Sessions end and the desk gets swept; files persist — which is why the binder is a file.
 - **Exercise:** Copy the complete delivered `skills/learn/templates/office-CLAUDE.md` into the practice folder as `AGENTS.md` on Codex or `CLAUDE.md` on Claude Code. Walk it section by section; they customize at least three `← edit` lines with their office's real conventions and delete what they don't care about. Test: request a short document (a transmittal for the report) and catch a convention obeyed unprompted. On Claude Code, run `/clear` together — announced first — and request one more. On Codex, start a new chat or session with the active Codex surface, then make the same request; do not invoke `/clear`. The binder still holds. Conversation is memory that dies; the file is memory that doesn't.
-- **The harness, in one breath:** Arch Studio supplies domain procedures; the active host supplies the model loop, file tools, permissions and any available agents or hooks. Their binder is their office's layer. Verify that the current host actually loads it. MCP delivery and public OSS distribution have separate content and installation paths; this course does not promise release parity.
+- **The harness, in one breath:** Arch Studio supplies domain procedures; the active host supplies the AI model loop, file tools, permissions and any available agents or hooks. Their binder is their office's layer. Verify that the current host actually loads it. MCP delivery and public OSS distribution have separate content and installation paths; this course does not promise release parity.
 - **Pass:** Customized host-appropriate binder; one convention obeyed unprompted, including once after a fresh conversation.
 - **Recap:** *Write standards down once; verify that the active host reads the binder, including after a fresh session. Files persist; loading them must be checked.*
 
-### Module 4 — Plan first, build second (~20 min)
+### Module 4 — Work plan first, then execute (~20 min)
 
-- **Teach:** Anything in the folder is workable — spreadsheets, scans, chaos. For anything touching multiple files, the habit that scales to every big job: ask for the plan, edit the plan, then let it build.
+- **Teach:** Anything in the folder is workable — spreadsheets, scans, chaos. For anything touching multiple files, the habit that scales to every big job: ask for the work plan, edit it, then let it carry out the work.
 - **Exercise (two parts):** (1) Extract the space program from `program_v2_FINAL_final.csv` into a clean table in a plain text file — the file has a duplicate row, mixed units, and a TBD; a good extraction *flags* all three, never silently "fixes" them. (2) The folder's names are chaos (`IMG_4032.txt` is a voice-memo transcript; `Scan_001.txt` is a scanned synthetic project memo): get a rename/reorganize plan, review it, *change at least one thing*, then approve.
-- **Pass:** Clean table with the data problems surfaced; folder reorganized to a plan the learner edited.
-- **Recap:** *Messy inputs are fine. Demand the plan, edit the plan, then build.*
+- **Pass:** Clean table with the data problems surfaced; folder reorganized to a work plan the learner edited.
+- **Recap:** *Messy inputs are fine. Demand the work plan, edit it, then execute.*
 
 ### Module 5 — Creating your own skills (~15 min)
 
@@ -169,7 +169,7 @@ The graduation: one last drill on the sandbox, a short professional checklist, t
 - **Verify like a professional — the drill.** Summarize the synthetic project memo (`Scan_001`) faithfully, then hand them the question: *"show me where in the document it says that."* They pick two or three claims; answer each with the exact lines, honestly grading restatement vs. paraphrase vs. inference. Then prompt the absence question — a topic the excerpt is deliberately silent on (parking is the classic). The only honest answer is "the document doesn't say"; land the lesson that silence and "no requirement" are different things, and the dangerous failure mode — for an AI or anyone on a deadline — is filling silence with a confident guess.
 - **The professional checklist — offered as a colleague would, never imposed:** (1) does their firm permit AI tools on client material — if they don't know, say finding out is worth doing, and leave the call with them; (2) something low-stakes beats the lawsuit project; (3) **work on a copy** — fresh folder, files copied in, original untouched on the server. Recommend it once, plainly; their project, their decision.
 - **The real task:** set up the copy, launch there, write a starter `AGENTS.md` on Codex or `CLAUDE.md` on Claude Code, run one real task end to end (their choice — a site-visit report from real notes, organizing real deliverables, extracting a real program), verification habits out loud.
-- **Off-ramp, once and not as a pitch:** the discovered Arch Studio inventory can provide site analysis, zoning, programming, specs and materials workflows — entry point `$studio` on Codex or `/as:studio` on Claude Code; the public source repository is `AlpacaLabsLLC/skills-for-architects`; check the actual installed or hosted inventory rather than assuming OSS release parity.
+- **Off-ramp, once and not as a pitch:** the discovered Arch Studio inventory can provide site analysis, zoning, space programming, specifications and materials workflows — entry point `$studio` on Codex or `/as:studio` on Claude Code; the public source repository is `AlpacaLabsLLC/skills-for-architects`; check the actual installed or hosted inventory rather than assuming OSS release parity.
 - **Pass:** Claims traced to lines, absence question asked, and one real task completed on a copy. Mark the course complete; close by naming the distance traveled and the habits that stay: demand sources, check the original, follow the firm's policy, and their license — not the machine — signs the work.
 - **Recap:** *Confidence is not evidence. Demand sources, check the original, follow your firm's rules — then go.*
 
@@ -187,7 +187,7 @@ Started: {date} · Practice folder: {path}
 | 1 | How we interact with each other | ☐ | | |
 | 2 | Nothing without your "yes" | ☐ | | |
 | 3 | Let's set some guidelines first | ☐ | | |
-| 4 | Plan first, build second | ☐ | | |
+| 4 | Work plan first, then execute | ☐ | | |
 | 5 | Creating your own skills | ☐ | | |
 | 6 | Get started | ☐ | | |
 
@@ -206,7 +206,7 @@ Mark completed modules `✅`, fill recaps, keep `Next up:` current, and use `Not
 | `PROGRESS.md` from an earlier version (0-indexed rows, or a `Project:` entry from when the course offered multiple sandbox projects) | Continue with whatever sandbox files are already in their practice folder — the course runs identically on them. Map completed marks by content and rewrite the table in the new shape on next update |
 | Practice folder or sandbox files missing | Offer to restore the exact six bundled resource bytes into safe empty destinations after reviewing what is missing. Preserve existing work. If originals are unavailable or mismatched, report the dependency gap; do not recreate them from descriptions and claim the original exercise |
 | `templates/` missing | Retrieve the original starter binder at the same release pin. If unavailable, pause the dependent exercise and report the missing resource; do not invent a template and claim original-template conformance |
-| Learner asks about plan mode, subagents, batches | A taste is fine, then be honest: that's the planned advanced track; the habit that matters now is "plan first," and they have it |
+| Learner asks about plan mode, subagents, batches | A taste is fine, then be honest: that's the planned advanced track; the habit that matters now is "work plan first," and they have it |
 | Learner starts doing real work mid-course | Help them — momentum beats curriculum. Mention the Module 6 checklist once (policy, low-stakes, copy) the way a colleague would, then get on with their work; note in PROGRESS.md where to resume |
 | Learner asks to quit — anytime, even mid-module | Stop immediately, zero persuasion. Update PROGRESS.md to the true state, print the return ritual, one warm goodbye. `$learn` on Codex or `/as:learn` on Claude Code comes back only when they ask |
 | Anxiety about breaking things | Explain the actual permission mechanism and the fictional sandbox; existing authorization may cover a write without a new prompt. Preserve their practice work and never promise that an error cannot change it |

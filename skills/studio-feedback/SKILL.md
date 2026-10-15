@@ -61,7 +61,7 @@ Do not ask for confirmation in prose and then repeat it with `AskUserQuestion`. 
 
 ## 4. Encode and open only after confirmation
 
-Build the URL from `https://github.com/AlpacaLabsLLC/skills-for-architects/issues/new`, the selected `template`, title, label, and the form field IDs above. Encode each query value independently as UTF-8 percent encoding: retain only ASCII letters/digits and `-._~`, encode every other byte as `%HH`, then join key/value pairs with `&`. A native URL API or ordinary task-specific code may do this. Decode each encoded value locally and compare it with the exact approved text before opening; do not double-encode or interpolate report text into shell code. No particular encoding executable is required.
+Build the URL from `https://github.com/AlpacaLabsLLC/skills-for-architects/issues/new`, the selected `template`, title, label, and the form field IDs above. Encode each query value independently as UTF-8 percent encoding: retain only ASCII letters/digits and `-._~`, encode every other byte as `%HH`, then join key/value pairs with `&`. A native URL API or ordinary task-specific scripts may do this. Decode each encoded value locally and compare it with the exact approved text before opening; do not double-encode or interpolate report text into shell code. No particular encoding executable is required.
 
 Keep the final URL at or below **6,000 characters**. Reduce only the narrative fields, state visibly that they were shortened for the URL, and retain the complete draft locally in the conversation for optional manual pasting. Never shorten version, operating system, or affected skill.
 
