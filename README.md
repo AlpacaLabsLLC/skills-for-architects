@@ -16,6 +16,8 @@
 [![website: architecturestudio.ai](https://img.shields.io/badge/website-architecturestudio.ai-blue)](https://architecturestudio.ai)
 [![Last commit](https://img.shields.io/github/last-commit/AlpacaLabsLLC/skills-for-architects)](https://github.com/AlpacaLabsLLC/skills-for-architects/commits/main)
 
+**Current release: 1.5.2 · Preparing 1.5.3**
+
 </div>
 
 Arch Studio is a framework that helps an architecture studio build its own AI practice. It helps you decide how AI is governed in your studio, which practice areas it covers, what it remembers, and which tools it uses, then carries those decisions into [Claude Code](https://code.claude.com/docs) or [Codex](https://developers.openai.com/codex/).
