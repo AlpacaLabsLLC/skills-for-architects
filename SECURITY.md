@@ -12,4 +12,4 @@ Security fixes go into the latest release on the `main` branch.
 
 ---
 
-Architecture Studio is maintained by [ALPA](https://alpa.llc) (Alpaca Labs LLC).
+Arch Studio is maintained by [ALPA](https://alpa.llc) (Alpaca Labs, LLC).
