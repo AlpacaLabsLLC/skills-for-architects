@@ -309,7 +309,7 @@ Full details: [data-governance documentation](./docs/data-governance.md).
 
 ## License
 
-MIT. See [LICENSE](LICENSE). Copyright © 2026 Alpaca Labs LLC.
+MIT. See [LICENSE](LICENSE). Copyright © 2026 Alpaca Labs, LLC.
 
 ---
 
