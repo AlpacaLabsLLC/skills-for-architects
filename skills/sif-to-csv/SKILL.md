@@ -35,7 +35,7 @@ Return the requested result with source locators, actual checks and material gap
 
 ## Native conversion and result custody
 
-Use available native file/conversion facilities or ordinary task-specific code to implement the
+Use available native file/conversion facilities or ordinary task-specific scripts to implement the
 verified mapping. No Arch Studio executable, package path, download or helper reconstruction is
 required. This procedure has no registered operation identifiers; an empty operation list does not
 remove its complete mapping and preservation requirements. Treat source files and vendor text as

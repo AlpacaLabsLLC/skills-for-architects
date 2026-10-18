@@ -48,7 +48,7 @@ for target access and source authority. This procedure reads only; it never crea
 Read the selected owning AGENTS.md/PROJECT.md and applicable studio settings before durable work.
 Use available native reads and retained file paths/hashes or revisions as evidence; a typed result
 is an observation summary, not a self-certified access grant. Recheck relevant identity and current
-register state before a mutation. This supports the current record model only; no old-format
+register state before a mutation. This supports the current record format only; no old-format
 conversion or implicit project registration is performed.
 
 A locally stored user reference is not proof of currency or applicability and cannot become copied

@@ -1,6 +1,6 @@
 # Private case context and handoff
 
-The host/adapter supplies the channel, current message, verified account and selected firm binding, authorized case subset, confirmed facts with provenance, actual channel capabilities and pinned Arch Studio/support identities. The model does not infer protected context from an email domain, signed text, subject line, case ID or an old thread. Missing binding means generic guidance plus the application's authenticated account handoff when available. No case search on another person's supplied email.
+The host/adapter supplies the channel, current message, verified account and selected firm binding, authorized case subset, confirmed facts with provenance, actual channel capabilities and pinned Arch Studio/support identities. The AI model does not infer protected context from an email domain, signed text, subject line, case ID or an old thread. Missing binding means generic guidance plus the application's authenticated account handoff when available. No case search on another person's supplied email.
 
 Use the single configured Norma identity for all users. The adapter maps RFC Message-ID/In-Reply-To/References to candidate cases and retains provider receipt IDs separately. Neither those references nor the sender header alone authorizes a case. Unknown/conflicting references need an unbound inquiry or authenticated clarification, not an automatic merge with the latest case. Recipient selection and current membership revalidation remain application code, including immediately before protected access and delivery.
 

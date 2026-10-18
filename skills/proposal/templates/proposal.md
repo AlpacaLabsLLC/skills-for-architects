@@ -47,7 +47,7 @@ Payment terms: > **[TO CONFIRM: invoicing cadence and payment terms]**
 
 > **[TO CONFIRM: assemble applicable clauses from the `/as:proposal` clause library.]**
 
-These clauses are drafting guidance, not legal advice; have a licensed attorney review before signing.
+These clauses are sample wording, not legal advice; have a licensed attorney review before signing.
 
 ### Acceptance
 

@@ -1,6 +1,6 @@
 ---
 name: epd-to-spec
-description: "Draft Project Manual specification requirements for EPD submittals and sourced GWP limits. Use for embodied-carbon requirements in project sections; use the EPD parsing, research or comparison skills for product evidence."
+description: "Prepare Project Manual specification requirements for EPD submittals and sourced GWP limits. Use for embodied-carbon requirements in Project Manual sections; use the EPD parsing, research or comparison skills for product evidence."
 allowed-tools:
   - Read
   - Write
@@ -48,19 +48,19 @@ retrieved facts, derived calculations, interpretation, actual custody and unveri
 
 ## Sources and evidence
 
-Find relevant original links in [the source catalog](../../corpus/sources/catalog.json), filtered by geography and topic. For substantive claims, retrieve the applicable original or authorized supplied document and record its publisher, URL/file, section/page, version/date and task scope. A linked or reachable source is not proof of applicability. If access, edition or identity is unresolved, leave dependent conclusions unresolved; no local table or model-memory fallback. Keep task evidence in the authorized workspace, outside the plugin.
+Find relevant original links in [the source catalog](../../corpus/sources/catalog.json), filtered by geography and topic. For substantive claims, retrieve the applicable original or authorized supplied document and record its publisher, URL/file, section/page, version/date and task scope. A linked or reachable source is not proof of applicability. If access, edition or identity is unresolved, leave dependent conclusions unresolved; no local table or AI-recall fallback. Keep task evidence in the authorized workspace, outside the plugin.
 
 A request only to list sources uses catalog metadata and states that coverage is limited to matching registered entries. It needs no source-content retrieval, setup or approval. Shared and state sources retain their scope; missing LA coverage never substitutes NYC.
 
 Use the [Arch Studio EPD schema](../../schema/epd-schema.md) as an output contract, not an interpretation of external standards. Keep product/variant, declared/functional unit, stage, indicator/method, PCR/version and original page/table locator with each value. Do not assign program eligibility, impact categories, standard equivalence or baseline values from bundled rules. Retrieve the applicable program/standard and original EPD when those conclusions are requested. Preserve unavailable values as blank/unknown, never zero.
 
-Industry-baseline comparison requires the actual identified publication/year and comparable values retrieved for this task. A named baseline alone is not evidence of its values. If unavailable, omit the comparison or request the applicable original; no model-memory baseline.
+Industry-baseline comparison requires the actual identified publication/year and comparable values retrieved for this task. A named baseline alone is not evidence of its values. If unavailable, omit the comparison or request the applicable original; no AI-recall baseline.
 
-## Draft from accepted evidence
+## Prepare from accepted evidence
 
 Establish the selected products/materials, governing project brief, environmental goal and actual specification/standard editions. Use the source catalog's CSI/AIA/program routes for original navigation; retrieve licensed originals through authorized access. Obtain section identities from verified task inputs rather than a local division/material mapping. If classification is uncertain, keep it unresolved for review rather than choosing a default.
 
-Use [Arch Studio specification formatting](../../rules/csi-formatting.md) and the user's template. Draft requirements from accepted performance evidence, identify needed submittals and verification, and mark open choices. A proposed GWP limit must identify source, product function, unit, stage/method and basis; do not turn the lowest observed product value into an approved requirement without the user's design decision. Label draft choices as proposals.
+Use [Arch Studio specification formatting](../../rules/csi-formatting.md) and the user's template. Write requirements from accepted performance evidence, identify needed submittals and verification, and mark open choices. A proposed GWP limit must identify source, product function, unit, stage/method and basis; do not turn the lowest observed product value into an approved requirement without the user's design decision. Label unconfirmed choices as proposals.
 
 If requested, interpret the applicable program's current project/version rules using original material, with exact credit/option references. No bundled LEED counts, multipliers, thresholds, declaration eligibility or specification clauses supply that meaning. Never copy protected standard text or imply the draft is independently compliant.
 

@@ -14,7 +14,7 @@ Before acting, read the [host contract](../../docs/host-harness-contract.md) and
 [catalog](../../corpus/host-contracts.json). No source or write access is implied.
 
 <!-- architecture-studio:harness-compatibility -->
-Use the [host adapter](../../docs/host-adapters.md) and available native tools or ordinary task-specific code. Operation names identify semantic procedures, not installed functions. No Arch Studio runner, package installation or executable reconstruction is required. Existing exact authorization persists; ask only for material missing information or permission.
+Use the [host adapter](../../docs/host-adapters.md) and available native tools or ordinary task-specific scripts. Operation names identify semantic procedures, not installed functions. No Arch Studio runner, package installation or executable reconstruction is required. Existing exact authorization persists; ask only for material missing information or permission.
 
 Input: two source-identified quantity snapshots and explicit building/floor/phase/revision scope.
 Output: a read-only comparison, not an authoritative merged schedule. Project instructions apply

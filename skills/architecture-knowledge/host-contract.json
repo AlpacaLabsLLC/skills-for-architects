@@ -1,6 +1,6 @@
 {
   "path": "skills/architecture-knowledge/SKILL.md",
-  "responsibility": "Explain US architecture professional-practice terms, phases, deliverables, roles, delivery methods, AIA contract families, CSI documentation systems, or NCS at a high level. Use for questions such as “what is a CD set?” or “what does 50% CDs mean?”; do not use for code/jurisdiction, outline-spec, agreement-scope, or work-plan work.",
+  "responsibility": "Explain US architecture professional-practice terms, phases, deliverables, roles, delivery methods, AIA contract families, CSI documentation systems, or NCS at a high level. Use for questions such as “what is a CD set?” or “what does 50% CDs mean?”; do not use for building-code/jurisdiction, outline-spec, agreement-scope, or work-plan work.",
   "inputs": "Question and selected source manifest metadata; original applicable publication required for substantive interpretation. No project required.",
   "owned_records": [],
   "non_owned_records": [

@@ -13,6 +13,6 @@ These are shared facts and conversational beats, not mandatory wording or extra 
 | Durable work without a matched project | Ask for the necessary project choice, or continue independent read-only/standalone work. Never create a project implicitly. |
 | Operation unavailable | Name the unavailable operation/capability and its effect. Preserve completed evidence; offer only a real supported route. Do not install source via conversation or claim a substitute passed the missing check. |
 | Help | Tool-catalog describes actual host route, known workspace state and useful next actions from current component metadata. No setup interrogation is required. |
-| Substantial multistep task | Norma/workplan present a proportionate concrete plan and useful team before execution approval. Quick tasks proceed within existing authorization. Prior approval survives resume; workers return questions to the main loop. |
+| Substantial multistep task | Norma/workplan present a proportionate work plan and useful team before execution approval. Quick tasks proceed within existing authorization. Prior approval survives resume; workers return questions to the main loop. |
 
 The optional default-preference question belongs to [the preference procedure](../skills/norma/references/assistant-preference.md) and the studio setup flow. A yes to preference setup is not approval of an unseen configuration edit. Branding stays in README only.

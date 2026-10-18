@@ -95,7 +95,7 @@ host-owned, and the deployed tool schema governs an actual invocation.
 ## Native local route
 
 The installed plugin and hosts without these exact server tools may perform the same selected
-read-only computation through granted native capabilities and ordinary task-specific code.
+read-only computation through granted native capabilities and ordinary task-specific scripts.
 Read the owning semantic contract: [quantity/dimension procedures](../tools/transformers/evidence-contracts.md),
 [audit contract](../tools/validators/ffe-audit-contract.md), or product-observation semantics above.
 Preserve exact typed evidence, ordering, rejection rules, number kinds, source/variant identity,

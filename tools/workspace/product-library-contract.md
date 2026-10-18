@@ -1,7 +1,7 @@
 # Native product-library operations
 
 This is the semantic owner for `product_library.*` in the MCP successor. The host selects native
-tools or ordinary task-specific code; operation IDs are scope names, not an Arch Studio dispatcher. No
+tools or ordinary task-specific scripts; operation IDs are scope names, not an Arch Studio dispatcher. No
 Arch Studio executable, installed helper, bridge or prescribed journal engine is required.
 
 ## Boundary and data

@@ -16,7 +16,7 @@ for skill in environmental-analysis spec-writer occupancy-calculator; do
 done
 
 product="${repo_root}/skills/product-research/SKILL.md"
-grep -q 'Never fill price, availability, lead time, dimensions, finishes, certifications, or other purchasing facts from model memory' "${product}"
+grep -q "Never fill price, availability, lead time, dimensions, finishes, certifications, or other purchasing facts from the AI model's own recall" "${product}"
 grep -q 'Not verified' "${product}"
 
 occupancy="${repo_root}/skills/occupancy-calculator/SKILL.md"

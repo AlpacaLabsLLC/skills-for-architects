@@ -15,7 +15,7 @@ Before acting, read the [host contract](../../docs/host-harness-contract.md) and
 
 ## Native execution and saved outputs
 
-Follow this complete procedure with the actual host’s available tools. No installed Arch Studio runner or executable source handoff is required. Task-specific arithmetic, source retrieval and ordinary native code may implement the procedure; source access and tool availability must be established from actual evidence.
+Follow this complete procedure with the actual host’s available tools. No installed Arch Studio runner or executable source handoff is required. Task-specific arithmetic, source retrieval and ordinary native scripts may implement the procedure; source access and tool availability must be established from actual evidence.
 
 For requested task-state files, reports or diagrams, follow the [native mutation sequence](../../docs/workspace-model.md#native-mutation-sequence) and [completion contract](../../docs/completion-reporting.md). Inspect the exact authorized destination, current bytes and access metadata. Finish, durably retain and separately reread every original and every prepared output, including actual access metadata, before the first public publisher. Publish complete bytes without clobbering a changed or unapproved destination; read back every actual destination and verify the complete affected set before reporting completion. Requested reports are public outputs; direct creation followed by streaming writes is insufficient. A retry must reconcile actual prior results and pending evidence before preparing another change. Inline answers require no file creation.
 
@@ -23,7 +23,7 @@ Use [project context](../project/references/context-resolution.md) only when the
 
 ## Sources and evidence
 
-Find relevant original links in [the source catalog](../../corpus/sources/catalog.json), filtered by geography and topic. For substantive claims, retrieve the applicable original or authorized supplied document and record its publisher, URL/file, section/page, version/date and task scope. A linked or reachable source is not proof of applicability. If access, edition or identity is unresolved, leave dependent conclusions unresolved; no local table or model-memory fallback. Keep task evidence in the authorized workspace, outside the plugin.
+Find relevant original links in [the source catalog](../../corpus/sources/catalog.json), filtered by geography and topic. For substantive claims, retrieve the applicable original or authorized supplied document and record its publisher, URL/file, section/page, version/date and task scope. A linked or reachable source is not proof of applicability. If access, edition or identity is unresolved, leave dependent conclusions unresolved; no local table or AI-recall fallback. Keep task evidence in the authorized workspace, outside the plugin.
 
 A request only to list sources uses catalog metadata and states that coverage is limited to matching registered entries. It needs no source-content retrieval, setup or approval. Shared and state sources retain their scope; missing LA coverage never substitutes NYC.
 ## Develop the program

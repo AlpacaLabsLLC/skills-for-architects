@@ -16,7 +16,7 @@ Before acting, read the [host contract](../../docs/host-harness-contract.md), th
 
 <!-- architecture-studio:harness-compatibility -->
 Use the [host adapter](../../docs/host-adapters.md), available native tools and ordinary task-specific
-code. Apply the [native library operations](../../tools/workspace/product-library-contract.md).
+scripts. Apply the [native library operations](../../tools/workspace/product-library-contract.md).
 Operation IDs describe semantic scope, not an installed dispatcher. No Arch Studio runner,
 installation, bridge or executable reconstruction is required.
 

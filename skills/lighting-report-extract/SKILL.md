@@ -16,7 +16,7 @@ Before acting, read the [host contract](../../docs/host-harness-contract.md) and
 [catalog](../../corpus/host-contracts.json). Host access must be demonstrated, not inferred.
 
 <!-- architecture-studio:harness-compatibility -->
-Use the [host adapter](../../docs/host-adapters.md) and available native tools or ordinary task-specific code. Operation names identify semantic procedures, not installed functions. No Arch Studio runner, package installation or executable reconstruction is required. Existing exact authorization persists; ask only for material missing information or permission.
+Use the [host adapter](../../docs/host-adapters.md) and available native tools or ordinary task-specific scripts. Operation names identify semantic procedures, not installed functions. No Arch Studio runner, package installation or executable reconstruction is required. Existing exact authorization persists; ask only for material missing information or permission.
 
 Input: supplied report PDF(s), requested rooms/surfaces, metrics and inventory scope. Output: separately
 sourced inventory observations and calculation results with a coverage ledger. No simulation, design adequacy determination or regulatory target is

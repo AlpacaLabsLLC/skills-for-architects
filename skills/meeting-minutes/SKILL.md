@@ -16,7 +16,7 @@ allowed-tools:
 Before acting, read the [host contract](../../docs/host-harness-contract.md), this component's [declaration](host-contract.json) (`skill:meeting-minutes`), and applicable [workspace semantics](../../docs/workspace-model.md). Load only the required modes from the [shared catalog](../../corpus/host-contracts.json).
 
 <!-- architecture-studio:harness-compatibility -->
-Use the [host adapter](../../docs/host-adapters.md) and available native tools or ordinary task-specific code. Apply the receive-owned semantic document rules directly; no installed library, nested skill invocation, runner or executable reconstruction is required. Resolve context before durable work. Existing exact authorization persists; ask only for material missing information or missing permission.
+Use the [host adapter](../../docs/host-adapters.md) and available native tools or ordinary task-specific scripts. Apply the receive-owned semantic document rules directly; no installed library, nested skill invocation, runner or executable reconstruction is required. Resolve context before durable work. Existing exact authorization persists; ask only for material missing information or missing permission.
 
 Own authored event documents of kind `meeting`. Preserve the [minutes template](templates/meeting-minutes.md) distinctions: discussion, stated information, confirmed decisions in the meeting, proposed decisions, proposed tasks and open questions. A meeting-confirmed choice is not automatically a durable project decision. Unknown attendees, attribution, dates or actions remain unknown.
 
@@ -24,7 +24,7 @@ Resolve the project and source scope. Distinguish event date, source date, creat
 
 ## Before changing records
 
-Before persistent changes, follow the [native mutation sequence](../../docs/workspace-model.md#native-mutation-sequence): **Inspect → Prepare → Verify preparation → Apply → Verify result → Complete**. Inspect pending work first. Finish and verify preparation before the first canonical write: separately reread every saved original and prepared file, check its complete actual bytes, establish durable saving, and inspect actual permissions, ownership and ACLs. Merely writing recovery files does not finish verification. Apply only that verified set. Mark complete only after fresh readback validates the entire affected result and its relationships. Read-only requests and inline drafts need no publication sequence.
+Before persistent changes, follow the [native mutation sequence](../../docs/workspace-model.md#native-mutation-sequence): **Inspect → Prepare → Verify preparation → Apply → Verify result → Complete**. Inspect pending work first. Finish and verify preparation before the first canonical write: separately reread every saved original and prepared file, check its complete actual bytes, establish durable saving, and inspect actual permissions, ownership and ACLs. Merely writing recovery files does not finish verification. Apply only that verified group of files. Mark complete only after fresh readback validates the entire affected result and its relationships. Read-only requests and inline drafts need no publication sequence.
 
 Saving minutes affects the complete meeting document plus DOCUMENTS.csv and any explicitly authorized attachment registrations. Prepare and verify that full set before writing the first member. Source notes/transcripts remain read guards; a saved meeting record does not authorize changes to PROJECT.md, TASKS.csv or decision records.
 

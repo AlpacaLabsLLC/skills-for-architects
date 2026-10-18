@@ -18,7 +18,7 @@ Before acting, read the [host contract](../../docs/host-harness-contract.md) and
 
 ## Native execution and saved outputs
 
-Follow this complete procedure with the actual host’s available tools. No installed Arch Studio runner or executable source handoff is required. Task-specific arithmetic, source retrieval and ordinary native code may implement the procedure; source access and tool availability must be established from actual evidence.
+Follow this complete procedure with the actual host’s available tools. No installed Arch Studio runner or executable source handoff is required. Task-specific arithmetic, source retrieval and ordinary native scripts may implement the procedure; source access and tool availability must be established from actual evidence.
 
 For requested task-state files, reports or diagrams, follow the [native mutation sequence](../../docs/workspace-model.md#native-mutation-sequence) and [completion contract](../../docs/completion-reporting.md). Inspect the exact authorized destination, current bytes and access metadata. Finish, durably retain and separately reread every original and every prepared output, including actual access metadata, before the first public publisher. Publish complete bytes without clobbering a changed or unapproved destination; read back every actual destination and verify the complete affected set before reporting completion. Requested reports are public outputs; direct creation followed by streaming writes is insufficient. A retry must reconcile actual prior results and pending evidence before preparing another change. Inline answers require no file creation.
 
@@ -67,11 +67,11 @@ Scale the report to the question. Include:
 - Requested controls and calculations, distinguishing verified inputs, assumptions and unresolved values.
 - Relevant exceptions, conflicts and limits on the conclusion.
 
-A useful control table is `Control | Value or unresolved status | Original section/version | Site input / calculation`. Do not populate it with illustrative code values. Draw diagrams from the verified geometry and controls only.
+A useful control table is `Control | Value or unresolved status | Original section/version | Site input / calculation`. Do not populate it with illustrative zoning values. Draw diagrams from the verified geometry and controls only.
 
 When `/as:zoning-envelope` is requested, pass the actual polygon, units, verified controls, source identity and unresolved inputs using that skill's accepted structure. Do not fill missing required values with zeros or silently invent a complete envelope. An illustrative scenario must be explicitly requested and labeled as hypothetical; it is not regulatory evidence.
 
-Save a requested report as `zoning-analysis-[address-slug].md` in the authorized task/project location. Retain task-specific evidence in that user workspace; do not add fetched code text, local summaries or source datasets to the plugin repository. A file being written does not establish review or acceptance.
+Save a requested report as `zoning-analysis-[address-slug].md` in the authorized task/project location. Retain task-specific evidence in that user workspace; do not add fetched Zoning Resolution or code text, local summaries or source datasets to the plugin repository. A file being written does not establish review or acceptance.
 
 ## Final Step: Disclaimer + Marker (required)
 

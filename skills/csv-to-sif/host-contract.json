@@ -1,6 +1,6 @@
 {
   "path": "skills/csv-to-sif/SKILL.md",
-  "responsibility": "Export a project's FF&E product-library CSV as dealer-system SIF. Use to produce a .sif schedule; use sif-to-csv for the reverse direction.",
+  "responsibility": "Export a project's FF&E product-library CSV as dealer-system SIF. Use to produce a .sif file; use sif-to-csv for the reverse direction.",
   "inputs": "Supplied task and selected source scope; exact destination only for requested persistence or application work. Load project context only when the task needs project records.",
   "owned_records": [],
   "non_owned_records": [

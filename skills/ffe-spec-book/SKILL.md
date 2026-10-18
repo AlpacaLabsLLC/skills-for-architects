@@ -87,7 +87,7 @@ On interruption, inspect retained pending state first and preserve manifests, fa
 
 The read-only reuse procedure identifies previously verified individual files whose item data/revision, grouping, template, audience, layout and images still match, and whose actual file hash still verifies. Copy only those reusable files into the new job; regenerate invalidated items. A corrected AP-05 invalidates its sheet. A changed template/audience invalidates every affected sheet. Combined output is rebuilt and checked. No automatic background work, retries or overwrite of issued revisions is implied.
 
-Re-read the current authoritative revision set immediately before completion. The verification procedure checks the input snapshot it is given; it cannot discover a newer record unless the host supplies the current read. A restored PDF is not authority to revert schedule data. Do not regenerate record identity while resuming.
+Re-read the current authoritative revisions immediately before completion. The verification procedure checks the input snapshot it is given; it cannot discover a newer record unless the host supplies the current read. A restored PDF is not authority to revert schedule data. Do not regenerate record identity while resuming.
 
 ## 4. Verify completeness and return
 

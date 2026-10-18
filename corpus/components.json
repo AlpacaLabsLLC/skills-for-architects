@@ -64,7 +64,7 @@
         "knowledge:sources"
       ],
       "capability": {
-        "description": "Explain US architecture professional-practice terms, phases, deliverables, roles, delivery methods, AIA contract families, CSI documentation systems, or NCS at a high level. Use for questions such as “what is a CD set?” or “what does 50% CDs mean?”; do not use for code/jurisdiction, outline-spec, agreement-scope, or work-plan work.",
+        "description": "Explain US architecture professional-practice terms, phases, deliverables, roles, delivery methods, AIA contract families, CSI documentation systems, or NCS at a high level. Use for questions such as “what is a CD set?” or “what does 50% CDs mean?”; do not use for building-code/jurisdiction, outline-spec, agreement-scope, or work-plan work.",
         "triggers": [
           "explain this architecture practice term",
           "list original professional practice sources"
@@ -164,7 +164,7 @@
         "knowledge:host-contracts"
       ],
       "capability": {
-        "description": "Export a project's FF&E product-library CSV as dealer-system SIF. Use to produce a .sif schedule; use sif-to-csv for the reverse direction.",
+        "description": "Export a project's FF&E product-library CSV as dealer-system SIF. Use to produce a .sif file; use sif-to-csv for the reverse direction.",
         "triggers": [
           "export selected product rows to verified dealer SIF"
         ],
@@ -579,7 +579,7 @@
         "knowledge:sources"
       ],
       "capability": {
-        "description": "Draft Project Manual specification requirements for EPD submittals and sourced GWP limits. Use for embodied-carbon requirements in project sections; use the EPD parsing, research or comparison skills for product evidence.",
+        "description": "Prepare Project Manual specification requirements for EPD submittals and sourced GWP limits. Use for embodied-carbon requirements in Project Manual sections; use the EPD parsing, research or comparison skills for product evidence.",
         "triggers": [
           "draft source-verified EPD specification language"
         ],
@@ -753,7 +753,7 @@
         "skill:product-library"
       ],
       "capability": {
-        "description": "Adopt, read, reconcile or revise project FF&E item and schedule records with permanent identities and exact revision pins; preserve native workbook views and recover new artifacts.",
+        "description": "Adopt, read, reconcile or revise the project's FF&E master schedule (item and schedule records) with permanent identities and exact revision pins; preserve native workbook views and recover new artifacts.",
         "hostContract": "skills/master-schedule/host-contract.json",
         "executionOwner": "host",
         "triggers": [
@@ -1967,7 +1967,7 @@
         "knowledge:host-contracts"
       ],
       "capability": {
-        "description": "Extract structured FF&E specs from a list of product URLs into a schedule. Use to pull or bulk-import product-page data; not for PDF catalogs.",
+        "description": "Extract structured FF&E product data from a list of product URLs into a schedule. Use to pull or bulk-import product-page data; not for PDF catalogs.",
         "triggers": [
           "extract specs from these product URLs",
           "bulk import these product pages"
@@ -2204,7 +2204,7 @@
         "knowledge:host-contracts"
       ],
       "capability": {
-        "description": "Draft and register project proposals, protect issued terms, and record explicitly evidenced commercial lifecycle changes. Sending messages is separate authorization.",
+        "description": "Prepare and register project proposals, protect issued terms, and record explicitly evidenced commercial lifecycle changes. Sending messages is separate authorization.",
         "hostContract": "skills/proposal/host-contract.json",
         "executionOwner": "host",
         "triggers": [
@@ -2572,7 +2572,7 @@
         "knowledge:sources"
       ],
       "capability": {
-        "description": "Draft Project Manual specification sections from accepted project requirements using CSI MasterFormat identities, three-part sections and review flags. Use for design requirements; use product-cut-sheet for source-faithful product entries and epd-to-spec for EPD requirements.",
+        "description": "Prepare Project Manual specification sections from accepted project requirements using CSI MasterFormat identities, three-part sections and review flags. Use for design requirements; use product-cut-sheet for source-faithful product entries and epd-to-spec for EPD requirements.",
         "triggers": [
           "draft the requested material specifications",
           "write sourced outline specifications"
@@ -2989,7 +2989,7 @@
         "knowledge:host-contracts"
       ],
       "capability": {
-        "description": "Prepare a proportionate work plan with outcomes, steps, dependencies and acceptance evidence. Use to plan substantial work or coordinate an approved team; a plan-only request does not authorize implementation.",
+        "description": "Prepare a proportionate work plan with outcomes, steps, dependencies and acceptance evidence. Use to plan substantial work or coordinate an approved team; a request for only a work plan does not authorize implementation.",
         "triggers": [
           "plan this implementation",
           "scope and sequence this work",
@@ -4045,7 +4045,7 @@
         "knowledge:host-contracts"
       ],
       "capability": {
-        "description": "Use Norma to coordinate architecture, buildings, projects, clients, proposals, schedules, specifications, sites, zoning, FF&E and firm work through the relevant Arch Studio owners. Direct skill requests stay with their owner.",
+        "description": "Use Norma to coordinate architecture, buildings, projects, clients, proposals, specifications, sites, zoning, FF&E and firm work through the relevant Arch Studio owners. Direct skill requests stay with their owner.",
         "triggers": [
           "Architecture or project task without a named skill owner",
           "Coordinate requested outputs across existing skills",

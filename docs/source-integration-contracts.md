@@ -10,9 +10,9 @@ Jurisdiction IDs follow the country → state/region → municipality hierarchy.
 
 ## Directory and substantive requests
 
-For “list all NYC code sources,” filter registered source metadata for NYC and code/zoning topics; label related mapping/data routes and state/federal/shared routes separately. Deduplicate IDs and state that “all” covers the matching available Arch Studio manifest entries, not every authority in NYC. Do not fetch content, infer current applicability or create records for a directory-only answer. Missing manifests reduce reported coverage.
+For “list all NYC code sources,” filter registered source metadata for NYC and building-code/zoning topics; label related mapping/data routes and state/federal/shared routes separately. Deduplicate IDs and state that “all” covers the matching available Arch Studio manifest entries, not every authority in NYC. Do not fetch content, infer current applicability or create records for a directory-only answer. Missing manifests reduce reported coverage.
 
-For interpretation, retrieve the applicable original or authorized user-supplied document. Verify jurisdiction, date, edition, adoption/amendments and task scope from it. Cite actual source/section/version used. Keep evidence in task memory outside the plugin. Inaccessible or uncertain originals leave dependent conclusions unresolved. Model memory, snippets and local summaries are not substitutes.
+For interpretation, retrieve the applicable original or authorized user-supplied document. Verify jurisdiction, date, edition, adoption/amendments and task scope from it. Cite actual source/section/version used. Keep evidence in task memory outside the plugin. Inaccessible or uncertain originals leave dependent conclusions unresolved. AI-model recall, snippets and local summaries are not substitutes.
 
 ## Pointer checks
 

@@ -14,7 +14,7 @@ allowed-tools:
 
 Use the active host's native skill maker when available. If none exists, write the minimum skill in that host's supported format. The host owns generic authoring technique; this skill supplies Arch Studio's target, governance and acceptance requirements. Do not require a particular host maker or install an Arch Studio runtime.
 
-Read [PATTERNS.md](../../PATTERNS.md) and follow its owning links as relevant: [architecture](../../docs/architecture.md), [host contract](../../docs/host-harness-contract.md), [host adapters](../../docs/host-adapters.md), [workspace model](../../docs/workspace-model.md), [terminology](../../rules/terminology.md), and [contribution rules](../../CONTRIBUTING.md). Read this component's [declaration](host-contract.json) (`skill:skill-maker`) and only its applicable modes from the [shared catalog](../../corpus/host-contracts.json). For MCP delivery, retrieve all required resources at the advertised release digest; resource references are not assumed local paths.
+Read [PATTERNS.md](../../PATTERNS.md) and follow its owning links as relevant: [product architecture](../../docs/architecture.md), [host contract](../../docs/host-harness-contract.md), [host adapters](../../docs/host-adapters.md), [workspace model](../../docs/workspace-model.md), [terminology](../../rules/terminology.md), and [contribution rules](../../CONTRIBUTING.md). Read this component's [declaration](host-contract.json) (`skill:skill-maker`) and only its applicable modes from the [shared catalog](../../corpus/host-contracts.json). For MCP delivery, retrieve all required resources at the advertised release digest; resource references are not assumed local paths.
 
 ## Target
 

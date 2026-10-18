@@ -1,6 +1,6 @@
 {
   "path": "skills/norma/SKILL.md",
-  "responsibility": "Use Norma to coordinate architecture, buildings, projects, clients, proposals, schedules, specifications, sites, zoning, FF&E and firm work through the relevant Arch Studio owners. Direct skill requests stay with their owner.",
+  "responsibility": "Use Norma to coordinate architecture, buildings, projects, clients, proposals, specifications, sites, zoning, FF&E and firm work through the relevant Arch Studio owners. Direct skill requests stay with their owner.",
   "inputs": "User intent, requested extent, actual host capability inventory, scoped sources and current authorization. Resolve project context only when necessary.",
   "owned_records": [
     "Arch Studio-default-preference-owned-block"

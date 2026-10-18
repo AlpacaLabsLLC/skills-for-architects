@@ -6,7 +6,7 @@ background agent or permission grant. Native registration and delegation depend 
 and must be observed; package presence alone is not proof. The Codex package does not register these
 Claude agent files as Codex roles.
 
-The harness may select a domain skill directly. Norma coordinates substantial multistep work with workplan, presents a concrete plan and useful team assignments, and preserves existing authorization. It does not add a plan gate to quick tasks. When the host exposes delegation and
+The harness may select a domain skill directly. Norma coordinates substantial multistep work with workplan, presents a concrete work plan and useful team assignments, and preserves existing authorization. It does not add an approval gate to quick tasks. When the host exposes delegation and
 the request permits it, Norma may use one of these profiles with the same scope, source
 identities, unresolved facts, outputs, validation state and authorization. Otherwise the host
 follows the relevant skills directly. Direct skill calls and existing profile names remain valid.
@@ -17,7 +17,7 @@ follows the relevant skills directly. Direct skill calls and existing profile na
 |-------|--------|----------------------|
 | [site-planner](../agents/site-planner.md) | Site Planning | environmental-analysis, mobility-analysis, demographics-analysis, site-history |
 | [nyc-zoning-expert](../agents/nyc-zoning-expert.md) | Due Diligence + Zoning | nyc-landmarks, nyc-dob-permits, nyc-dob-violations, nyc-acris, nyc-hpd, nyc-bsa, nyc-property-report, zoning-analysis-nyc, zoning-envelope |
-| [workplace-strategist](../agents/workplace-strategist.md) | Programming | occupancy-calculator, workplace-programmer |
+| [workplace-strategist](../agents/workplace-strategist.md) | Space programming | occupancy-calculator, workplace-programmer |
 | [sustainability-specialist](../agents/sustainability-specialist.md) | Sustainability | epd-research, epd-compare, epd-parser, epd-to-spec |
 | [product-and-materials-researcher](../agents/product-and-materials-researcher.md) | Materials Research | product-research, product-spec-bulk-fetch, product-spec-pdf-parser, product-match, product-enrich |
 | [ffe-designer](../agents/ffe-designer.md) | FF&E Design | product-pair, product-data-cleanup, product-data-import, product-enrich, product-image-processor, csv-to-sif, sif-to-csv |

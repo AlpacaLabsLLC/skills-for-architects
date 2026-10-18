@@ -22,7 +22,7 @@ The Arch Studio maintainer owns the shared source and channel content review. Th
 
 ## Contribution credit
 
-1. Read the complete public history of every included issue and pull request before drafting the changelog or release notes.
+1. Read the complete public history of every included issue and pull request before writing the changelog or release notes.
 2. Credit each person for the role the evidence supports: original report, independent reproduction or diagnosis, confirmed workaround, implementation, documentation or tests, and review findings that changed the release. Do not collapse distinct roles into one attribution, and recognize issue-only contributors, who do not appear in the commit-based contributor list.
 3. Use linked public GitHub handles. Never publish private names, email addresses or client information. If attribution is ambiguous, pause publication and ask.
 4. Put the same acknowledgements in the changelog entry and the GitHub release body, and re-read both before publication.
@@ -38,7 +38,7 @@ The Arch Studio maintainer owns the shared source and channel content review. Th
 
 Complete all source implementation, current-caller integration, package construction and documentation before actual host acceptance. Ordinary engineering tests run with each slice. Then perform invocation, fresh setup and artifact checks on the selected actual hosts as the final acceptance activity. Acceptance uses the exact candidate on each owner-selected channel; host evidence from an earlier version is historical and does not verify a new candidate. Untested clients are disclosed, not passed, and the release owner records whether each gap blocks promotion. Missing or unsupported routes do not pass; fix material failures before declaring readiness. Retain exact package/source identities and independent review.
 
-The 1.5 series implements forward-only new records and contracts. No 1.4.5 upgrade matrix, old-format converter, compatibility-only alias or historical custom-skill preservation program is required. Operational recovery of a production deployment remains separate from backward-compatible software or workspace conversion.
+The 1.5 series implements forward-only new records and contracts. No 1.4.5 upgrade matrix, old-format converter, compatibility-only alias or historical custom-skill preservation effort is required. Operational recovery of a production deployment remains separate from backward-compatible software or workspace conversion.
 
 ## Prepare and promote the hosted/private release
 
@@ -58,7 +58,7 @@ The public-plugin data promise is projected from the accepted private-source pol
 
 Before a release can include a record-holding hosted module:
 
-1. Verify the public plugin still says that it does not upload or store studio, project or module records on Arch Studio servers. Configured hosts, model providers, connectors and third-party synchronization remain separate data paths; hosted module behavior must not be presented as plugin behavior.
+1. Verify the public plugin still says that it does not upload or store studio, project or module records on Arch Studio servers. Configured hosts, AI model providers, connectors and third-party synchronization remain separate data paths; hosted module behavior must not be presented as plugin behavior.
 2. Verify this bounded projection states the module's record and file boundary, firm-only access and isolation, retention while off, requested-operation-only use, prohibited training/product-improvement/cross-firm-analysis use and full-export right.
 3. Keep canonical live-record deletion distinct from the six-hour database recovery history and up-to-60-second file-cache propagation. Do not claim all-copy deletion, a backup-copy location or a single-region boundary.
 4. State that the embedding path has zero-data-retention and training-disabled controls, while the inference region is not pinned. Storage locations do not establish inference location. The legal-role classifications remain neutral and pending owner and legal approval.
@@ -70,7 +70,7 @@ No firm enablement, merge, publication, release or deployment is authorized by t
 ## Prepare and publish the OSS release
 
 1. Review the exact intended public content, dependencies and licensing. Private evaluation fixtures, client records and service-only material must not enter a public package implicitly. Reuse the approved shared core and review the plugin adapter differences.
-2. Verify fresh installation, native discovery, refresh and duplicate-registration behavior on supported plugin hosts, using the new document model directly. The 1.5 series has no historical package/workspace conversion requirement. Keep synthetic fixtures separate from user records. Export checks do not substitute for unperformed host UI checks.
+2. Verify fresh installation, native discovery, refresh and duplicate-registration behavior on supported plugin hosts, using the current record format (`Document model 1`) directly. The 1.5 series has no historical package/workspace conversion requirement. Keep synthetic fixtures separate from user records. Export checks do not substitute for unperformed host UI checks.
 3. Set the approved version in `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json` and `.claude-plugin/marketplace.json`, and update `README.md`, `docs/firm-deployment.md` and the release-contract tests. Consolidate candidate notes into the dated changelog heading and compare links at publication; a forecast date is not publication evidence. Search for the previous version and explain any intentional historical reference.
 4. Confirm that the owner’s authorization covers publication of the exact tested source and notes before merge, push, tag or release; request approval only if it does not. Then follow the accepted repository process, revalidating any changed source. Create the annotated `v<version>` tag at the verified default-branch merge commit, never at a feature-branch head or a predicted merge commit, and publish the GitHub release from the audited notes.
 5. Independently verify the tag's peeled source commit, release metadata, package digest and a fresh public installation. A tag object ID is not the source commit. Reject mismatched or unpublished artifacts as release evidence.

@@ -4,7 +4,7 @@ This is the EPD-specific semantic owner for the existing `product_library.init`,
 `product_library.status`, `product_library.validate`, `product_library.import`,
 `product_library.append` and `product_library.update` identifiers when the selected kind is
 `epd`. Those names identify domain operations, not an Arch Studio dispatcher or executable.
-Use available native tools or ordinary task-specific code; no helper download, reconstruction
+Use available native tools or ordinary task-specific scripts; no helper download, reconstruction
 or installation is required. The separate product owner governs `kind: "product"` only.
 
 ## Scope, authority and source evidence
