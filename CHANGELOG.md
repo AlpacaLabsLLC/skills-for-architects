@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- **Governance pillar restored.** The first product pillar is again named **Governance**, undoing the 1.5.1.2 rename to **Studio**. Governance keeps the four responsibility areas introduced in 1.5.1.2: **Account and access**, **Configuration**, **Standards**, and **Assurance**. Tooling, Knowledge and Memory are unchanged. "Studio" alone again means the user's workspace only. Content-only: no technical identifier, directory, schema, protocol, skill, agent, record kind or behavior changes.
+
 ## [1.5.2] - 2026-10-14
 
 A compatible patch on 1.5.1.2. It changes the Claude Code update-check hook, so it is a three-segment patch rather than a content-only release. No user action is required after installation.

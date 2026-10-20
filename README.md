@@ -260,7 +260,7 @@ Arch Studio has four parts:
 
 | Pillar | Responsibility |
 |---|---|
-| Studio | Account and access, Configuration, Standards and Assurance |
+| Governance | Account and access, Configuration, Standards and Assurance |
 | Tooling | Skills, specialist profiles, tools and integrations; the host performs execution |
 | Knowledge | Access to applicable authoritative original sources and their provenance |
 | Memory | Accepted studio/project facts, decisions, preferences, records and evidence |

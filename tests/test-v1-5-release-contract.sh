@@ -65,13 +65,13 @@ active = {
     path: Path(path).read_text()
     for path in ('README.md', 'PATTERNS.md', 'docs/architecture.md', 'rules/terminology.md')
 }
-pillar = 'Studio, Tooling, Knowledge and Memory'
+pillar = 'Governance, Tooling, Knowledge and Memory'
 assert all(pillar in text for path, text in active.items() if path != 'README.md')
-assert '| Studio | Account and access, Configuration, Standards and Assurance |' in active['README.md']
+assert '| Governance | Account and access, Configuration, Standards and Assurance |' in active['README.md']
 for responsibility in ('Account and access', 'Configuration', 'Standards', 'Assurance'):
     assert responsibility in active['docs/architecture.md'], responsibility
 for path, text in active.items():
-    assert 'Governance, Tooling, Knowledge and Memory' not in text, path
+    assert 'Studio, Tooling, Knowledge and Memory' not in text, path
 PY
 
 python3 - <<'PY'

@@ -1,6 +1,6 @@
 # Arch Studio extension patterns
 
-Start with the [architecture and authority map](docs/architecture.md), the owner of the four pillars — Studio, Tooling, Knowledge and Memory — and their folder mapping. Studio covers Account and access, Configuration, Standards and Assurance. Use the map to find the owner of the policy needed for the task; do not load the whole repository.
+Start with the [architecture and authority map](docs/architecture.md), the owner of the four pillars — Governance, Tooling, Knowledge and Memory — and their folder mapping. Governance covers Account and access, Configuration, Standards and Assurance. Use the map to find the owner of the policy needed for the task; do not load the whole repository.
 
 ## Skill, tool, source or record
 
