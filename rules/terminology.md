@@ -4,13 +4,13 @@ This rule governs style and first-use, not factual definitions. For neutral prof
 
 ## Product name
 
-The product is **Arch Studio** in every sentence, on every channel. Do not use "Architecture Studio" or "AS" as the product name in prose. Identifiers keep their technical form: the plugin `as@skills-for-architects`, commands `/as:<skill>` and `$<skill>`, tools `as_<name>`, the `.as-folder.json` record, the `as` monogram, repository and folder names. Release labels read "Arch Studio 1.5". **Studio** alone names the first pillar only in an explicit pillar list or definition; elsewhere it means the user's workspace, never the product.
+The product is **Arch Studio** in every sentence, on every channel. Do not use "Architecture Studio" or "AS" as the product name in prose. Identifiers keep their technical form: the plugin `as@skills-for-architects`, commands `/as:<skill>` and `$<skill>`, tools `as_<name>`, the `.as-folder.json` record, the `as` monogram, repository and folder names. Release labels read "Arch Studio 1.5". The word "Studio" alone means the user's workspace, never the product.
 
 **Why:** three names for one product read as three products. Lint rejects the two retired forms outside identifiers and the license text.
 
 ## Pillar names
 
-Use **Studio, Tooling, Knowledge and Memory** for the four pillars. Studio is the product control plane and has four responsibility areas: **Account and access**, **Configuration**, **Standards**, and **Assurance**. Their definitions and folder mapping live in [architecture](../docs/architecture.md). Tooling includes skills, agents, tools and integrations; execution describes the host activity, not a pillar. Keep technical field names such as `execution` unchanged. `corpus/` is a directory containing both source navigation and capability discovery, not a synonym for Knowledge.
+Use **Governance, Tooling, Knowledge and Memory** for the four pillars. Governance is the product control plane and has four responsibility areas: **Account and access**, **Configuration**, **Standards**, and **Assurance**. Their definitions and folder mapping live in [architecture](../docs/architecture.md). Tooling includes skills, agents, tools and integrations; execution describes the host activity, not a pillar. Keep technical field names such as `execution` unchanged. `corpus/` is a directory containing both source navigation and capability discovery, not a synonym for Knowledge.
 
 ## Skill, workflow and tool
 
