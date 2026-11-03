@@ -84,7 +84,6 @@
     "skill:norma": "portable",
     "tool:assistant-preference": "portable",
     "skill:receive": "portable",
-    "tool:local-runner": "portable",
     "tool:workbook-preservation": "portable",
     "skill:norma-support": "portable"
   },

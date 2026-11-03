@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Removed
+
+- **Optional local runner.** `tools/runner/` (package builder, installer, `bootstrap` scripts, `as-run` dispatcher, desktop MCP adapter, operation registry and runtime lock) is removed, together with the receive operation-registry fragment (`skills/receive/scripts/operations.json`), the operation request schema, the `tool:local-runner` component and the runner-only tests (`tests/test-local-runner.py`, `tests/test-operation-adapters.py`). No skill used it since 1.5.0. Firms install the plugin from the marketplace like individuals. Helper scripts under `tools/` and `skills/*/scripts/` and their tests remain as maintainer tooling; CI now installs their Python dependencies directly. (#45)
+
 ### Changed
 
 - **Governance pillar restored.** The first product pillar is again named **Governance**, undoing the 1.5.1.2 rename to **Studio**. Governance keeps the four responsibility areas introduced in 1.5.1.2: **Account and access**, **Configuration**, **Standards**, and **Assurance**. Tooling, Knowledge and Memory are unchanged. "Studio" alone again means the user's workspace only. Content-only: no technical identifier, directory, schema, protocol, skill, agent, record kind or behavior changes.

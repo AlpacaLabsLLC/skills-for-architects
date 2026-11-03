@@ -11,6 +11,7 @@ Private firm and project skills belong in the user-owned studio workspace and do
 | Tool | Needed for | Without it |
 |---|---|---|
 | `python3` with `pyyaml` (`pip install pyyaml`) | SKILL.md frontmatter validation in `scripts/lint.sh`; `scripts/audit-skill-context.sh` | Frontmatter, JSON, count, and link checks skip; the audit script exits with an install hint |
+| `pypdf`, `PyMuPDF`, `Pillow` (versions pinned in `.github/workflows/lint.yml`) | PDF and image helper tests under `tests/` | Those tests fail with an import error |
 | `jq` | JSON manifest checks | Manifest validation skips |
 | Node.js >=18 (CI uses 24.20.0) | Source/integration contract validation and explicit source-health checks | Source validation requires installation; CI enforces it |
 | `shellcheck` | Shell-script analysis | Skipped locally with a notice; CI enforces it |
