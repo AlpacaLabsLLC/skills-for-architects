@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [1.5.2.1] - 2026-11-10
+
+A four-segment patch on 1.5.2 by owner decision. It corrects a maintainer script, which is a code change, so it is an explicit exception to the content-only use of the fourth segment. No user action is required after installation.
+
+### Fixed
+
+- **Context audit with a custom skills root.** `scripts/audit-skill-context.sh` now reports the name of each skill's folder when it is given a skills root, relative or absolute. It printed the supplied path before, which made fixture output harder to read and compare. `tests/test-context-audit-custom-root.sh` covers a relative root with a synthetic fixture.
+
+### Acknowledgements
+
+- [@dajiaohuang](https://github.com/dajiaohuang) implemented the fix and wrote its regression test ([#44](https://github.com/AlpacaLabsLLC/skills-for-architects/pull/44)).
+- [@fedenegro](https://github.com/fedenegro) reported the bug ([#12](https://github.com/AlpacaLabsLLC/skills-for-architects/issues/12)).
+
 ## [1.5.2] - 2026-10-14
 
 A compatible patch on 1.5.1.2. It changes the Claude Code update-check hook, so it is a three-segment patch rather than a content-only release. No user action is required after installation.
@@ -332,7 +345,8 @@ First public release.
 - **3 hooks** — post-write disclaimer check, post-output metadata, pre-commit spec lint.
 - Marketplace install: `claude plugin marketplace add AlpacaLabsLLC/skills-for-architects`.
 
-[Unreleased]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.2...HEAD
+[Unreleased]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.2.1...HEAD
+[1.5.2.1]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.2...v1.5.2.1
 [1.5.2]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.1.2...v1.5.2
 [1.5.1.2]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.1.1...v1.5.1.2
 [1.5.1.1]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.1...v1.5.1.1
