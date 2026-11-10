@@ -29,6 +29,7 @@ skills_root="${1:-${repo_root}/skills}"
 # Lengths stay byte lengths, matching LC_ALL=C above and the figures already
 # published in docs/reports/v1-4-skill-context-optimization.md.
 python3 - "${skills_root}"/*/SKILL.md <<'PY' | {
+import pathlib
 import sys
 
 # Explicit encoding and line endings, so the TSV is byte-identical on Windows,
@@ -49,13 +50,7 @@ def ceil4(n):
 
 
 def skill_name(path):
-    name = path.replace("\\", "/")
-    marker = "/skills/"
-    if marker in name:
-        name = name[name.rindex(marker) + len(marker):]
-    if name.endswith("/SKILL.md"):
-        name = name[: -len("/SKILL.md")]
-    return name
+    return pathlib.Path(path).parent.name
 
 
 def split_document(lines):
