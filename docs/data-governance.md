@@ -9,7 +9,6 @@ Arch Studio has separate local and hosted data paths. This document is a bounded
 - Core skills are instructions and contracts. Their presence does not upload firm data or grant Arch Studio access to local files.
 - The connected host reads or writes local files only through its own tools and permissions. Prompts and files sent to the configured LLM are governed by that provider account and its data terms.
 - If the studio folder is managed by a third-party sync provider, that provider's storage and sharing terms apply.
-- Local runner results are not automatically uploaded by the runner.
 
 ## Hosted record-holding modules
 

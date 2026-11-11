@@ -141,7 +141,6 @@ class Capabilities(unittest.TestCase):
             self.assertTrue({'schema/product-observations.md', 'schema/product-observation.schema.json'}
                             <= set(rows[key]['references']))
             self.assertFalse(any('/scripts/' in ref or ref.endswith('.py') for ref in paths))
-            self.assertNotIn('tool:local-runner', rows[key]['dependencies'])
         self.assertIn('tools/transformers/evidence-contracts.md', rows['skill:product-data-cleanup']['references'])
         self.assertTrue({'tools/validators/ffe-audit-contract.md', 'schema/ffe-audit.schema.json'}
                         <= set(rows['skill:product-audit']['references']))
@@ -149,11 +148,6 @@ class Capabilities(unittest.TestCase):
         self.assertIn('docs/workspace-model.md', rows['skill:studio']['references'])
         self.assertIn('skills/project/references/context-resolution.md', rows['skill:studio']['references'])
         self.assertFalse(any('/scripts/' in ref or ref.endswith('.py') for ref in rows['skill:studio']['references']))
-        self.assertNotIn('tool:local-runner', rows['skill:studio']['dependencies'])
-        for row in rows.values():
-            if 'tool:local-runner' in row['dependencies']:
-                self.assertIn('tools/runner/operations.json', row['references'])
-        self.assertNotIn('tool:local-runner', rows['skill:norma-support']['dependencies'])
 
     def test_export_preserves_all_native_names_and_description_values(self):
         import yaml

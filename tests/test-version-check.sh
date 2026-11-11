@@ -177,9 +177,6 @@ assert 'do not invoke installed-package update operations through this workflow'
 declaration=json.loads(Path('skills/studio/host-contract.json').read_text())
 assert declaration['execution']['model']=='harness-native'
 assert not any(operation.startswith('update_preference.') for operation in declaration['execution']['operations'])
-registry=json.loads(Path('tools/runner/operations.json').read_text())
-for command in ('status','enable','disable'):
-    assert any(row['id']=='update_preference.'+command for row in registry['operations'])
 governance=Path('docs/data-governance.md').read_text()
 assert 'update checking is on by default' in governance
 assert 'anonymous usage ping, on by default' in governance

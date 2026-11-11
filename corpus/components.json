@@ -4382,14 +4382,6 @@
       }
     },
     {
-      "id": "tool:local-runner",
-      "category": "tools",
-      "path": "tools/runner/run.py",
-      "owner": "Arch Studio maintainers",
-      "execution": "local-python",
-      "dependencies": []
-    },
-    {
       "id": "tool:workbook-preservation",
       "category": "tools",
       "path": "tools/validators/workbook_preservation.py",

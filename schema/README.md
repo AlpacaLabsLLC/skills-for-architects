@@ -34,5 +34,4 @@ See the [record workflow](../studio/ffe/README.md) and [shared product methods](
 
 ## Current local operations and records
 
-- [Operation request](operation.schema.json): closed named operation and exact package pin.
 - [Documents](documents.schema.json): new-model registered document identity and provenance; [workspace model](../docs/workspace-model.md) owns current writer and CSV semantics.
