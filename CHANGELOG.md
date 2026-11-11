@@ -6,13 +6,32 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
-### Removed
+## [1.5.3] - 2026-11-11
 
-- **Optional local runner.** `tools/runner/` (package builder, installer, `bootstrap` scripts, `as-run` dispatcher, desktop MCP adapter, operation registry and runtime lock) is removed, together with the receive operation-registry fragment (`skills/receive/scripts/operations.json`), the operation request schema, the `tool:local-runner` component and the runner-only tests (`tests/test-local-runner.py`, `tests/test-operation-adapters.py`). No skill used it since 1.5.0. Firms install the plugin from the marketplace like individuals. Helper scripts under `tools/` and `skills/*/scripts/` and their tests remain as maintainer tooling; CI now installs their Python dependencies directly. (#45)
+A compatible patch on 1.5.2. It removes the optional local runner, fixes a maintainer script and restores the Governance pillar name. No user action is required after installation; firms that installed through the local runner install from the marketplace like individuals.
+
+### Added
+
+- **`SECURITY.md`.** How to report a vulnerability privately.
 
 ### Changed
 
 - **Governance pillar restored.** The first product pillar is again named **Governance**, undoing the 1.5.1.2 rename to **Studio**. Governance keeps the four responsibility areas introduced in 1.5.1.2: **Account and access**, **Configuration**, **Standards**, and **Assurance**. Tooling, Knowledge and Memory are unchanged. "Studio" alone again means the user's workspace only. Content-only: no technical identifier, directory, schema, protocol, skill, agent, record kind or behavior changes.
+- **README.** Restructured for clarity, with the Arch Studio typemark. The legal entity in `LICENSE` and the README is now Alpaca Labs, LLC.
+- **Lint workflow.** CI uses Python 3.13, since 3.13.7 is not available on the current `ubuntu-latest` runner.
+
+### Removed
+
+- **Optional local runner.** `tools/runner/` (package builder, installer, `bootstrap` scripts, `as-run` dispatcher, desktop MCP adapter, operation registry and runtime lock) is removed, together with the receive operation-registry fragment (`skills/receive/scripts/operations.json`), the operation request schema, the `tool:local-runner` component and the runner-only tests (`tests/test-local-runner.py`, `tests/test-operation-adapters.py`). No skill used it since 1.5.0. Firms install the plugin from the marketplace like individuals. Helper scripts under `tools/` and `skills/*/scripts/` and their tests remain as maintainer tooling; CI now installs their Python dependencies directly. (#45)
+
+### Fixed
+
+- **Context audit with a custom skills root.** `scripts/audit-skill-context.sh` now reports the name of each skill's folder when it is given a skills root, relative or absolute. It printed the supplied path before, which made fixture output harder to read and compare. `tests/test-context-audit-custom-root.sh` covers a relative root with a synthetic fixture.
+
+### Acknowledgements
+
+- [@dajiaohuang](https://github.com/dajiaohuang) implemented the context audit fix and wrote its regression test ([#44](https://github.com/AlpacaLabsLLC/skills-for-architects/pull/44)).
+- [@fedenegro](https://github.com/fedenegro) reported the bug ([#12](https://github.com/AlpacaLabsLLC/skills-for-architects/issues/12)).
 
 ## [1.5.2] - 2026-10-14
 
@@ -340,7 +359,8 @@ First public release.
 - **3 hooks** — post-write disclaimer check, post-output metadata, pre-commit spec lint.
 - Marketplace install: `claude plugin marketplace add AlpacaLabsLLC/skills-for-architects`.
 
-[Unreleased]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.2...HEAD
+[Unreleased]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.3...HEAD
+[1.5.3]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.2...v1.5.3
 [1.5.2]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.1.2...v1.5.2
 [1.5.1.2]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.1.1...v1.5.1.2
 [1.5.1.1]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.1...v1.5.1.1

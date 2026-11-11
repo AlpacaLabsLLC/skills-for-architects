@@ -16,7 +16,7 @@
 [![website: architecturestudio.ai](https://img.shields.io/badge/website-architecturestudio.ai-blue)](https://architecturestudio.ai)
 [![Last commit](https://img.shields.io/github/last-commit/AlpacaLabsLLC/skills-for-architects)](https://github.com/AlpacaLabsLLC/skills-for-architects/commits/main)
 
-**Current release: 1.5.2 · Preparing 1.5.3**
+**Current release: 1.5.3**
 
 </div>
 
@@ -282,7 +282,7 @@ For setup or access questions, ask `/as:norma-support`. You can also [open an is
 
 ## Updating and what's new
 
-Current version: **1.5.2**. On Claude Code, a daily check tells you when a newer release is out. Release notes, including breaking changes and upgrade steps, are in the [CHANGELOG](./CHANGELOG.md).
+Current version: **1.5.3**. On Claude Code, a daily check tells you when a newer release is out. Release notes, including breaking changes and upgrade steps, are in the [CHANGELOG](./CHANGELOG.md).
 
 ## Contributing
 
