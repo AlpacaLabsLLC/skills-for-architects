@@ -47,7 +47,7 @@ Before a studio can trust AI with real work, it has to make a few decisions. Arc
 - **Memory: what the studio remembers.** Studio settings, project facts, decisions, documents, tasks and time live in plain files in folders you own, so the next session can pick up where the last one ended.
 - **Tooling: what the assistant can use.** Start with the 61 bundled skills as working references. Then write your own with `/as:skill-maker`. Your skills live in your studio or project folder, and plugin updates never overwrite them.
 
-Run `/as:studio` to set up the governance and memory side: your AI-use policy, naming and filing rules, units, jurisdiction and project phases. It shows exactly what it will create and writes nothing until you approve. Then register projects. From there, Norma, the coordinator, sends each request to the right skills within the rules you set. You can also skip setup and try a skill on a single task first.
+Run `/as:studio` to make these four decisions, one step at a time: governance (your AI-use policy), practice areas (the services you offer, your units and jurisdiction), memory (project phases, naming and filing rules, where records live) and tooling (where your own skills go, and whether this assistant uses Arch Studio by default). Each step has defaults you can accept or skip. It shows exactly what it will create and writes nothing until you approve. Then register projects. From there, Norma, the coordinator, sends each request to the right skills within the rules you set. You can also skip setup and try a skill on a single task first.
 
 ## Two editions
 

@@ -4,7 +4,8 @@ This folder is the studio worksurface.
 
 - Read `STUDIO.md` to find registered projects.
 - Use the working-unit and default-jurisdiction settings in `STUDIO.md` unless a project records an explicit override.
-- Firm-created Codex skills live in `.agents/skills/`.
+- The Practice areas table in `STUDIO.md` lists the services this studio offers. Suggest skills from those areas first; it never hides or blocks another skill the user asks for.
+- Firm-created Codex skills live in `.agents/skills/`; Claude Code skills live in `.claude/skills/`.
 - Ongoing studio operations and administrative records live in `{{OPERATIONS_ROOT}}/`.
 - Firm-wide standards and reusable templates live in `{{STANDARDS_ROOT}}/`.
 - External references, including code references, live in `{{REFERENCES_ROOT}}/`.
