@@ -29,7 +29,7 @@ One CSV per layout under a folder the user chose, and a reply opening with the s
 Read the [lessons](#lessons) after setup and before asking; write them after the report.
 
 1. **Read the document** with one script: units, layers, and whether the model's parent layer exists. If the Rhino tools are absent, follow [rhino-setup](../rhino-setup/SKILL.md) for the user action.
-2. **Ask** only what the model cannot answer, in one `ask_user` batch: scope (default everything), layouts, stock lengths, sheet sizes, waste, output folder.
+2. **Ask** only what the model cannot answer, in one `ask_user` batch: scope (default everything), layouts, stock lengths, sheet sizes, waste, output folder. Each question carries what it asks about, with your proposal as the first option ("Keep 1/4\" = 1'-0\""), since the question pane covers the chat; never refer to text shown behind it.
 3. **List the names**: run with `"AS_MODE": "names"`. Every name it prints needs a rule or an exclusion.
 4. **Write the specification** from [quantities](references/quantities.md), which lists the measures and the choice of measure by geometry.
 5. **Run** by file path. Build the path from the folder you read this `SKILL.md` from, which belongs to the installed plugin version; never hard-code it or reuse one from an earlier version:

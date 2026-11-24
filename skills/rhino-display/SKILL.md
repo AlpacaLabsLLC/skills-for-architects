@@ -27,7 +27,7 @@ A folder of PNGs the user named, in which every file was read back and matched t
 Read the [lessons](#lessons) after setup and before asking; write them after the report.
 
 1. **Setup.** If the Rhino tools are absent, follow [rhino-setup](../rhino-setup/SKILL.md) for the user action. List modes with `"AS_MODE": "modes"`.
-2. **Ask** in one `ask_user` batch only what is open: mode, views, layouts, image size, output folder. Layouts are layer paths. If an interior view is wanted, say in that batch that it cannot be exported (below).
+2. **Ask** in one `ask_user` batch only what is open: mode, views, layouts, image size, output folder. Each question carries what it asks about, with your proposal as the first option ("Keep 1/4\" = 1'-0\""), since the question pane covers the chat; never refer to text shown behind it. Layouts are layer paths. If an interior view is wanted, say in that batch that it cannot be exported (below).
 3. **Export** by file path. Build the path from the folder you read this `SKILL.md` from, which belongs to the installed plugin version; never hard-code it or reuse one from an earlier version:
 
 ```python
