@@ -597,6 +597,84 @@ for path in sorted(p for p in list(skill.rglob('*')) + [repo / 'clusters/modelin
     hits = [g for g in grams if hashlib.sha256(g.encode()).hexdigest()[:16] in BANNED]
     ok(not hits and not home.search(body), 'ships: no project terms or home paths in %s' % path.relative_to(repo))
 
+# ---- An owner's own stamp() re-stamps its requests that still hold (the Orca Sonnet run)
+# In that run Windows called stamp() every round but never restamp_requests(): its 4 requests, stamped at revision 1,
+# sat inside Structure's openings and stayed stale after the revision-3 reissue, so the team never settled.
+# Replay with that run's request ids and boxes, on a stub of the owner's document.
+class _P:
+    def __init__(self, x, y, z): self.X, self.Y, self.Z = x, y, z
+class _Geo:
+    def __init__(self, bb): self.bb = bb
+    def GetBoundingBox(self, _accurate): return types.SimpleNamespace(Min=_P(*self.bb[:3]), Max=_P(*self.bb[3:]))
+class _Attr:
+    def __init__(self, layer, name, user): self.LayerIndex, self.Name, self.user = layer, name, dict(user)
+    def GetUserString(self, k): return self.user.get(k)
+    def SetUserString(self, k, v): self.user[k] = v
+    def Duplicate(self): return _Attr(self.LayerIndex, self.Name, self.user)
+class _Obj:
+    def __init__(self, oid, layer, name, bb, **user): self.Id, self.Attributes, self.Geometry = oid, _Attr(layer, name, user), _Geo(bb)
+class _Objects(list):
+    def ModifyAttributes(self, o, a, _quiet): o.Attributes = a; return True
+class _Strings(dict):
+    def SetString(self, k, v): self[k] = v
+    def GetValue(self, k): return self.get(k)
+ORCA_REQUESTS = [('1f126c52-980d-4557-938f-eb8065421b2f', (-0.5, 168.0, 36.0, 5.5, 204.0, 84.0)),
+                 ('8287a926-f13b-4dd4-9acb-c29d63f3af00', (354.5, 168.0, 36.0, 360.5, 204.0, 84.0)),
+                 ('73360738-f60b-4d19-9ff5-2edb55a240dd', (162.0, 474.5, 36.0, 198.0, 480.5, 84.0)),
+                 ('8633f0eb-62bc-416a-911e-e42b8280edc3', (120.0, -0.5, 0.0, 240.0, 5.5, 96.0))]
+layers = [types.SimpleNamespace(FullPath='Windows::Units'), types.SimpleNamespace(FullPath='Interface::Penetrations')]
+wdoc = types.SimpleNamespace(Layers=layers, Strings=_Strings(setout_revision='1'),
+                             Objects=_Objects([_Obj(i, 1, 'Opening request through Windows', bb, setout_revision='1', **{'from': 'Windows'}) for i, bb in ORCA_REQUESTS]
+                                              + [_Obj('gone', 1, 'Opening request through Windows', (500, 500, 0, 506, 506, 10), setout_revision='1'),
+                                                 _Obj('unit', 0, 'window W1', (0, 170, 38, 5, 202, 82))]))
+openings = [{'layer': 'Structure::Openings', 'bb': (b[0] - 0.25, b[1] - 0.25, b[2] - 0.25, b[3] + 0.25, b[4] + 0.25, b[5] + 0.25)} for _, b in ORCA_REQUESTS]
+saved = {k: ns[k] for k in ('_doc', 'setout', 'host_records')}
+saved_cfg = dict(ns['CFG'])
+ns['CFG'].update(me='Windows', round=5)
+ns['_doc'] = lambda: wdoc
+ns['setout'] = lambda: {'revision': 3, 'owners': [{'name': 'Windows', 'file': 'barn-windows.3dm'}], 'shares': [], 'host': 'Structure'}
+ns['host_records'] = lambda: openings
+try:
+    before = ns['summary']() if False else None
+    out = ns['stamp']()
+    stamps = {o.Id: o.Attributes.GetUserString('setout_revision') for o in wdoc.Objects}
+    ok(out['requests_restamped'] == 4 and all(stamps[i] == '3' for i, _ in ORCA_REQUESTS),
+       'restamp: stamp() re-stamps the 4 Orca requests that still sit in Structure\'s openings', (out, stamps))
+    ok(out['requests_to_rebuild'] == [('gone', 'Opening request through Windows')] and stamps['gone'] == '1',
+       'restamp: a request that no longer holds is left stale and listed to rebuild', out)
+    ok(wdoc.Strings['setout_revision'] == 3 or wdoc.Strings['setout_revision'] == '3', 'restamp: the file is stamped too', wdoc.Strings)
+    wdoc.Objects[:] = [o for o in wdoc.Objects if o.Id != 'gone']
+    again = ns['stamp']()
+    ok(again['requests_restamped'] == 0 and again['requests_to_rebuild'] == [], 'restamp: a second stamp() has nothing left to do', again)
+    ns['CFG']['me'] = 'coordinator'
+    ok('requests_restamped' not in ns['stamp'](), 'restamp: the coordinator\'s stamp() touches no requests')
+finally:
+    ns.update(saved)
+    ns['CFG'].clear(); ns['CFG'].update(saved_cfg)
+
+# The same rule end to end on the fixture: after a reissue, the owner's ordinary turn (rebuild, check, stamp())
+# leaves nothing stale, and the team settles without a note from the coordinator.
+before = analyse(touched, recs, old_stamp, round_no=5)
+ok(not before['settled'] and any(i['action'] == 're-stamp' for i in before['stale_by_owner'].get('Plumbing', [])),
+   'restamp: before the owner\'s turn, Plumbing has a request to re-stamp', before['counts'])
+pdoc = types.SimpleNamespace(Layers=[types.SimpleNamespace(FullPath='Interface::Penetrations')], Strings=_Strings(setout_revision='1'),
+                             Objects=_Objects([_Obj('req', 0, 'request', recs[3]['bb'], setout_revision='1')]))
+saved = {k: ns[k] for k in ('_doc', 'setout', 'host_records')}
+saved_cfg = dict(ns['CFG'])
+ns['CFG'].update(me='Plumbing', round=5)
+ns['_doc'] = lambda: pdoc
+ns['setout'] = lambda: touched
+ns['host_records'] = lambda: [r for r in recs if r['layer'] == 'Shell::Openings']
+try:
+    turned = ns['stamp']()
+finally:
+    ns.update(saved)
+    ns['CFG'].clear(); ns['CFG'].update(saved_cfg)
+after_recs = copy.deepcopy(recs); after_recs[3]['user']['setout_revision'] = pdoc.Objects[0].Attributes.GetUserString('setout_revision')
+after = analyse(touched, after_recs, strings(), round_no=5)
+ok(turned['requests_restamped'] == 1 and after['settled'] and after['counts']['stale_references'] == 0,
+   'restamp: after the owner\'s stamp() the team settles with no stale reference', (turned, after['counts']))
+
 if failures:
     print('FAIL', len(failures))
     for line in failures:

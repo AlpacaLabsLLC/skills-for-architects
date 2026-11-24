@@ -777,15 +777,29 @@ def close(note_id):
 
 def stamp(revision=None):
     """Record which set-out revision this file is built to (default: the current one). Stamp only after your own
-    requirements check passed on that revision."""
+    requirements check passed on that revision. An owner stamping the current revision also re-stamps its own
+    opening requests that still hold (restamp_requests()), so a reissued set-out never leaves them waiting for a
+    coordinator's note; requests that no longer hold are listed to rebuild."""
     doc = _doc()
     current = setout()["revision"]
     revision = current if revision is None else revision
+    restamped = restamp_requests() if CFG.get("me") != "coordinator" and str(revision) == str(current) else []
     doc.Strings.SetString(STAMP, str(revision))
     doc.Strings.SetString(PLUGIN_KEY, plugin_version())
     doc.Strings.SetString(HELPER_KEY, helper_version())
     # Report against the set-out as it is now: never call a file current that is stamped to an older revision.
-    return {"stamped": revision, "setout_revision": current, "status": stamp_status(revision, current)}
+    out = {"stamped": revision, "setout_revision": current, "status": stamp_status(revision, current)}
+    if CFG.get("me") != "coordinator":
+        out["requests_restamped"] = len(restamped)
+        out["requests_to_rebuild"] = _stale_requests(doc, current)
+    return out
+
+
+def _stale_requests(doc, current):
+    """Your opening requests stamped to another set-out revision: (id, name) of each."""
+    return [(str(o.Id), o.Attributes.Name) for o in list(doc.Objects)
+            if doc.Layers[o.Attributes.LayerIndex].FullPath.startswith(REQUESTS)
+            and str(o.Attributes.GetUserString("setout_revision")) != str(current)]
 
 
 def restamp_requests():
@@ -1111,6 +1125,8 @@ def summary():
     n = notes()
     return {"me": CFG.get("me"), "round": CFG.get("round"), "plugin": plugin_version(), "helper": helper_version(), "setout_revision": c["revision"], "change": c.get("change"), "my_stamp": doc.Strings.GetValue("setout_revision"),
             "my_stamp_status": stamp_status(doc.Strings.GetValue("setout_revision"), c["revision"]) if CFG.get("me") != "coordinator" else None,
+            # stamp() re-stamps the ones that still hold; the rest are yours to rebuild
+            "my_stale_requests": len(_stale_requests(doc, c["revision"])) if CFG.get("me") != "coordinator" else None,
             "setout_gaps": setout_problems(c) if CFG.get("me") == "coordinator" else None,
             "owners": [o["name"] for o in c["owners"]], "host": c.get("host"), "priority": c.get("priority"),
             "shares": [(r["owner"], r["zone"]) for r in c["shares"]], "notes_to_me": n["to_me"],
