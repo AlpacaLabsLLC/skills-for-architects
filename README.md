@@ -107,7 +107,7 @@ Rhino 9 includes McNeel's Rhino MCP server; nothing else needs installing in Rhi
 3. Open the model in Rhino 9 and start its MCP server with `MCPStart`, or turn on "Load MCP server at startup" in Rhino's AI settings. The agent then works on that document.
 4. In a terminal, `claude mcp list` should show `rhino` as connected. Start a new session and name the skill, for example "Use /as:rhino-setup to check the connection". In Claude Code the skills load as plugin skills; the startup hook still names their lessons folder.
 
-Tested on Rhino 9.0.26300 for Mac, without a model: the entry above is the one `MCPConnect` writes for Claude Code, `claude mcp list` connects to it, and the server lists Rhino's tools and answers `get_context` and `run_python` for the open document. Not yet tested: a full agent session this way, and agents other than Claude Code.
+Tested once on Rhino 9.0.26300 for Mac with Claude Code: from a clean install and the entry above, the agent ran `rhino-setup`, modeled a 12 by 16 ft gable shed whose requirements check passed, and exported an axonometric sheet whose sheet and PDF checks passed. On that Mac, which also had Rhino 8 and its MCP package, the agent's first call launched Rhino 8 instead of using the Rhino 9 server; the two versions' MCP connectors share one list of running Rhinos. Not yet tested: a model started with `MCPStart` in a visible window, agents other than Claude Code, and Windows.
 
 ### Check that it works
 

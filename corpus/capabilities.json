@@ -3192,17 +3192,17 @@
       "dependencies": [
         "knowledge:host-contracts"
       ],
-      "description": "Plan, build and check architectural models in a live Rhino 9 session through the Rhino AI panel's Rhino tools, from a plain-language brief. Writes the model's requirements (dimensions, clearances, code values, each with its source) into the document before building, builds by script, and checks the model against them with the requirements check before replying. Use when the user asks to model, frame, mass or parametrize geometry in Rhino. Not for rendering, structural analysis, construction documents, BIM export or editing models it did not create.",
+      "description": "Plan, build and check architectural models in a live Rhino 9 session through Rhino's tools (the AI panel or a connected agent), from a plain-language brief. Writes the model's requirements (dimensions, clearances, code values, each with its source) into the document before building, builds by script, and checks the model against them with the requirements check before replying. Use when the user asks to model, frame, mass or parametrize geometry in Rhino. Not for rendering, structural analysis, construction documents, BIM export or editing models it did not create.",
       "hostContract": "skills/rhino-model/host-contract.json",
       "executionOwner": "host",
       "triggers": [
-        "Plan, build and check architectural models in a live Rhino 9 session through the Rhino AI panel's Rhino tools, from a plain-language brief. Writes the model's requirements (dimensions, clearances, code values, each with its source) into the document before building, builds by script, and checks the model against them with the requirements check before replying. Use when the user asks to model, frame, mass or parametrize geometry in Rhino. Not for rendering, structural analysis, construction documents, BIM export or editing models it did not create."
+        "Plan, build and check architectural models in a live Rhino 9 session through Rhino's tools (the AI panel or a connected agent), from a plain-language brief. Writes the model's requirements (dimensions, clearances, code values, each with its source) into the document before building, builds by script, and checks the model against them with the requirements check before replying. Use when the user asks to model, frame, mass or parametrize geometry in Rhino. Not for rendering, structural analysis, construction documents, BIM export or editing models it did not create."
       ],
       "exclusions": [
         "No connector installation or registration; no rendering, structural analysis, construction documents or BIM export; no edits to objects the task did not create"
       ],
       "inputs": [
-        "Plain-language modeling brief and the open Rhino 9 document reached through the Rhino AI panel's Rhino tools"
+        "Plain-language modeling brief and the open Rhino 9 document reached through Rhino's tools (the AI panel or a connected agent)"
       ],
       "outputs": [
         "Requirements with sources and revision history stored in the document, the model under one parent layer, a requirements check result against the requirements, dimension and layer tables, listed assumptions and save state"

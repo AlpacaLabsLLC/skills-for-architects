@@ -1,6 +1,6 @@
 ---
 name: rhino-model
-description: "Plan, build and check architectural models in a live Rhino 9 session through the Rhino AI panel's Rhino tools, from a plain-language brief. Writes the model's requirements (dimensions, clearances, code values, each with its source) into the document before building, builds by script, and checks the model against them with the requirements check before replying. Use when the user asks to model, frame, mass or parametrize geometry in Rhino. Not for rendering, structural analysis, construction documents, BIM export or editing models it did not create."
+description: "Plan, build and check architectural models in a live Rhino 9 session through Rhino's tools (the AI panel or a connected agent), from a plain-language brief. Writes the model's requirements (dimensions, clearances, code values, each with its source) into the document before building, builds by script, and checks the model against them with the requirements check before replying. Use when the user asks to model, frame, mass or parametrize geometry in Rhino. Not for rendering, structural analysis, construction documents, BIM export or editing models it did not create."
 allowed-tools:
   - AskUserQuestion
 ---
@@ -10,7 +10,7 @@ allowed-tools:
 Before acting, read the [host contract](../../docs/host-harness-contract.md), this component's [declaration](host-contract.json) (`skill:rhino-model`) and the mode profiles it references in the [shared catalog](../../corpus/host-contracts.json). Declarations are requirements, not proof of access or permission.
 
 <!-- architecture-studio:harness-compatibility -->
-Use the [host adapter](../../docs/host-adapters.md) for native invocation. Modeling requires Rhino 9 with an open document and its Rhino tools (`run_python`, `run_command`, `get_context`, `ask_user`). In the Rhino AI panel, ask questions with `ask_user`, not `AskUserQuestion`. Arch Studio never installs or registers anything. **Plugin-only for the requirements check:** writing requirements and running the check use `scripts/as-check.py` and `scripts/as-check-model.py` from the installed plugin's folder ([Rhino skill helpers](../../docs/host-harness-contract.md#rhino-skill-helpers)). Through hosted MCP instruction delivery those steps are not available, so the skill cannot complete there; if you cannot find this skill's folder on disk, stop and tell the user to install the plugin.
+Use the [host adapter](../../docs/host-adapters.md) for native invocation. Modeling requires Rhino 9 with an open document and its Rhino tools (`run_python`, `run_command`, `get_context`, `ask_user`). In the Rhino AI panel, ask questions with `ask_user`, not `AskUserQuestion`. Where `ask_user` is not available (an agent connected to Rhino from outside it), ask the same questions in chat, with the same options, and end the turn. Arch Studio never installs or registers anything. **Plugin-only for the requirements check:** writing requirements and running the check use `scripts/as-check.py` and `scripts/as-check-model.py` from the installed plugin's folder ([Rhino skill helpers](../../docs/host-harness-contract.md#rhino-skill-helpers)). Through hosted MCP instruction delivery those steps are not available, so the skill cannot complete there; if you cannot find this skill's folder on disk, stop and tell the user to install the plugin.
 
 ## Outcome
 
