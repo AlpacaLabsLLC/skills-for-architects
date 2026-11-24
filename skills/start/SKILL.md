@@ -10,7 +10,7 @@ allowed-tools:
 
 Before acting, read the [host contract](../../docs/host-harness-contract.md) and this component's [declaration](host-contract.json) (`skill:start`). Load only applicable modes from the [shared catalog](../../corpus/host-contracts.json); declarations do not grant access or permission. Use the actual host's [delivery route](../../docs/host-adapters.md). This skill only reads: it never runs setup, connects anything, installs a server or writes a file.
 
-The card is the plugin's version of the hosted Arch Studio MCP's `as_connect` welcome, as text. Print it in this order, as one reply, then wait for the user.
+The card is the plugin's version of the hosted Arch Studio MCP's `as_connect` welcome, as text. If you received these instructions through the hosted Arch Studio MCP rather than from the installed plugin's folder, call `as_connect` instead and follow its result: this card describes the plugin. Otherwise print the card in this order, as one reply, then wait for the user.
 
 ## 1. Logotype and release
 
