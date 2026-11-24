@@ -318,6 +318,14 @@ For setup or access questions, ask `/as:support`. You can also [open an issue](h
 
 Current version: **1.5.4**. On Claude Code, a daily check tells you when a newer release is out. Release notes, including breaking changes and upgrade steps, are in the [CHANGELOG](./CHANGELOG.md).
 
+### Upgrading from 1.5.3
+
+Update with `claude plugin marketplace update skills-for-architects`, then `claude plugin update as@skills-for-architects`, and start a new session (in Rhino 9, a new AI panel session). Your plugin data folder, studio and project folders are kept. This release removes three things, with no aliases:
+
+- The `norma` skill is gone: describe the task or name the skill; `workplan` plans larger jobs. Norma is now a separate product index; connect it for product search as in [docs/norma-index.md](./docs/norma-index.md).
+- The `norma-support` skill is now `support` (`/as:support`).
+- The agents (the Norma worker and seven specialists) are gone: name the skill instead. Every skill runs as before.
+
 ## Contributing
 
 If a skill would help other practices, propose it here. A good upstream skill has no firm or client secrets, clear inputs and outputs, cites its sources, keeps professional review in place, and includes tests or examples.

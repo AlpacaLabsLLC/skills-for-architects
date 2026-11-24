@@ -8,7 +8,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [1.5.4] - 2026-11-25
 
-A compatible release on 1.5.3 that adds the Rhino cluster: seven skills for architectural modeling in Rhino 9 on macOS and Windows, with two ways in and the same skills in both: from Rhino's AI panel, or from your terminal, with Claude Code or another agent connected through Rhino 9's built-in MCP server (see the README). It also adds `start`, renames `norma-support` to `support`, points the FF&E skills to the optional Norma index, and removes the Norma assistant and the agent definitions; see Changed and Removed. Install or update the plugin, then open a new AI panel session in Rhino 9, or connect your agent with `MCPConnect` and `MCPStart`.
+A release on 1.5.3 that adds the Rhino cluster: seven skills for architectural modeling in Rhino 9 on macOS and Windows, with two ways in and the same skills in both: from Rhino's AI panel, or from your terminal, with Claude Code or another agent connected through Rhino 9's built-in MCP server (see the README). It also adds `start` and points the FF&E skills to the optional Norma index. It is **not fully compatible** with 1.5.3: it removes the Norma assistant and the agent definitions and renames `norma-support` to `support`, with no aliases; see Breaking for what to do instead. Install or update the plugin, then open a new AI panel session in Rhino 9, or connect your agent with `MCPConnect` and `MCPStart`.
+
+### Breaking
+
+These changes are owner-approved for this release. The changelog header reserves patch releases for compatible corrections; where this release ships as a patch, they are the explicit exception to that rule. None has a compatibility alias. Updating keeps the plugin's data folder (Rhino lessons and firm rules), studio and project folders, and a saved default-preference block, which still works and is refreshed the next time the preference is updated.
+
+- **`/as:norma` is removed.** Arch Studio no longer has a coordinating assistant. Describe the task, or name the skill that owns it; for larger jobs, `workplan` shows the plan first. The session line no longer mentions a coordinator, and the default-preference procedure moved to `studio`. Norma is now a separate product index: to search products by that name, connect the Norma index MCP (`https://mcp.normaindex.com`, no login), which the FF&E skills use when it is connected ([setup](docs/norma-index.md)).
+- **`/as:norma-support` is now `/as:support`.** The same help with setup, access, memory and troubleshooting, presented as Arch Studio support. Type `/as:support` instead.
+- **The agent definitions are removed:** the Norma worker and the seven specialist agents (`site-planner`, `nyc-zoning-expert`, `workplace-strategist`, `product-and-materials-researcher`, `ffe-designer`, `sustainability-specialist`, `brand-manager`), and `docs/agents.md`. Every skill they combined runs directly as before: name the skill instead of the agent.
 
 ### Added
 
@@ -28,14 +36,8 @@ A compatible release on 1.5.3 that adds the Rhino cluster: seven skills for arch
 
 ### Changed
 
-- **`norma-support` is now `support`** (`/as:support`), presented as Arch Studio support; its knowledge files are re-pinned. Saved support facts and the email service are not affected.
 - **FF&E product search can use the Norma index.** `product-research`, `product-match` and `ffe-spec-book` use the [Norma index](https://normaindex.com) MCP (`https://mcp.normaindex.com`, no login) when it is connected, suggest connecting it once when the user needs products, and work without it ([setup](docs/norma-index.md)).
-- **The session line no longer names a coordinator:** use the skill that owns the task, and `workplan` for substantial multistep work. The optional default-preference block names Arch Studio instead of Norma; a block saved earlier still works and is refreshed the next time the preference is updated.
-
-### Removed
-
-- **The Norma assistant:** the `norma` skill (`/as:norma`) and the Norma worker agent. Its default-preference procedure moved to `studio`. After updating, describe the task or name the skill instead of `/as:norma`, and use `/as:support` instead of `/as:norma-support`.
-- **The agent definitions:** the eight specialist agents (`site-planner`, `nyc-zoning-expert`, `workplace-strategist`, `product-and-materials-researcher`, `ffe-designer`, `sustainability-specialist`, `brand-manager`, `rhino-modeler`) and `docs/agents.md`. Every skill they combined runs directly as before, and `rhino-agent-team` does not use them.
+- **The session line no longer names a coordinator,** and the optional default-preference block names Arch Studio instead of Norma (see Breaking).
 
 ### Known limits
 
