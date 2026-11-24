@@ -1,4 +1,4 @@
-# Host-harness contract for every Arch Studio skill and agent
+# Host-harness contract for every Arch Studio skill
 
 Required architecture contract, adopted for the Sharmila 1.5 release plan on 2026-09-07.
 Documentation adoption does not establish that all existing skills/agents or hosts pass it.
