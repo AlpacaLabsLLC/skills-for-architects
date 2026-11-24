@@ -1,6 +1,6 @@
 ---
 name: rhino-thinline
-description: "Drawing conventions for black and white vector sheets from a Rhino 9 model: a line hierarchy, line styles, hatch by material on cut faces, labels and leaders, detail tags, a title block, the sheet layout, a tamper-proof request record and a checked PDF. Use when the user asks for a line drawing, drawing sheet or black and white export from a Rhino model; for an axonometric, load rhino-axon, which chooses the view and loads this skill's library. Not for construction documents, coloured images or renders; line weights and hatch patterns are working conventions."
+description: "Drawing conventions for black and white vector sheets from a Rhino 9 model: a line hierarchy, line styles, hatch by material on the cut faces of details, labels and leaders, detail tags, a title block, the sheet layout, a tamper-proof request record and a checked PDF. Use when the user asks for a line drawing, drawing sheet or black and white export from a Rhino model; for an axonometric, load rhino-axon, which chooses the view and loads this skill's library. Not for construction documents, coloured images or renders; line weights and hatch patterns are working conventions."
 ---
 
 # /as:rhino-thinline
@@ -22,7 +22,7 @@ This skill owns how the sheet looks: weights, styles, hatch, annotation, layout,
 2. **The line hierarchy is the drawing.** Filled forms hide what is behind them, and silhouette, edge and receding lines are separate thin strokes on separate layers ([linework](references/linework.md)).
 3. **Black and white only.** Strokes and hatch are black on white; colour language in notes fails the check. The linework is static: after a model change, the view regenerates it.
 4. **Detail leaders are orthogonal only,** and a label's leader ends in a dot on its part.
-5. **Hatch only real cut faces, by material.** The patterns are working conventions, not checked against a standard; say so on request.
+5. **Hatch only real cut faces, by material.** Cut faces are hatched in the round details only; a cut-away in the main drawing is drawn in outline, not hatched. The patterns are working conventions, not checked against a standard; say so on request.
 6. **Measure, do not estimate.** Text boxes, margins and scale are read from the document.
 7. **Verify the PDF by parsing it, and an empty parse is a failure.** A sheet is not done until `as-pdf-check.py` passes.
 8. **Line weights are provisional.** They were accepted on screen and have not been proven on paper. Say so in every report until a printed sheet accepts them.

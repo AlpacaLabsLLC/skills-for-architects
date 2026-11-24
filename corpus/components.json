@@ -4584,11 +4584,11 @@
         "knowledge:host-contracts"
       ],
       "capability": {
-        "description": "Drawing conventions for black and white vector sheets from a Rhino 9 model: a line hierarchy, line styles, hatch by material on cut faces, labels and leaders, detail tags, a title block, the sheet layout, a tamper-proof request record and a checked PDF. Use when the user asks for a line drawing, drawing sheet or black and white export from a Rhino model; for an axonometric, load rhino-axon, which chooses the view and loads this skill's library. Not for construction documents, coloured images or renders; line weights and hatch patterns are working conventions.",
+        "description": "Drawing conventions for black and white vector sheets from a Rhino 9 model: a line hierarchy, line styles, hatch by material on the cut faces of details, labels and leaders, detail tags, a title block, the sheet layout, a tamper-proof request record and a checked PDF. Use when the user asks for a line drawing, drawing sheet or black and white export from a Rhino model; for an axonometric, load rhino-axon, which chooses the view and loads this skill's library. Not for construction documents, coloured images or renders; line weights and hatch patterns are working conventions.",
         "hostContract": "skills/rhino-thinline/host-contract.json",
         "executionOwner": "host",
         "triggers": [
-          "Drawing conventions for black and white vector sheets from a Rhino 9 model: a line hierarchy, line styles, hatch by material on cut faces, labels and leaders, detail tags, a title block, the sheet layout, a tamper-proof request record and a checked PDF. Use when the user asks for a line drawing, drawing sheet or black and white export from a Rhino model; for an axonometric, load rhino-axon, which chooses the view and loads this skill's library. Not for construction documents, coloured images or renders; line weights and hatch patterns are working conventions."
+          "Drawing conventions for black and white vector sheets from a Rhino 9 model: a line hierarchy, line styles, hatch by material on the cut faces of details, labels and leaders, detail tags, a title block, the sheet layout, a tamper-proof request record and a checked PDF. Use when the user asks for a line drawing, drawing sheet or black and white export from a Rhino model; for an axonometric, load rhino-axon, which chooses the view and loads this skill's library. Not for construction documents, coloured images or renders; line weights and hatch patterns are working conventions."
         ],
         "exclusions": [
           "No construction documents, code review, engineering, coloured images or renders; line weights are provisional and hatch patterns are working conventions"
