@@ -48,7 +48,7 @@
   "dependencies": [],
   "coverage": {
     "jurisdictions": [],
-    "limitations": "Native semantic owners specify record, input-evidence and output-contract checks; the host performs and verifies them. Hosts supply source/workbook access, rendering and visual inspection. Shared schemas and procedures do not establish full host/client acceptance; no independent Norma agent, database, remote execution, or general workbook engine is shipped.",
+    "limitations": "Native semantic owners specify record, input-evidence and output-contract checks; the host performs and verifies them. Hosts supply source/workbook access, rendering and visual inspection. Shared schemas and procedures do not establish full host/client acceptance; no independent agent, database, remote execution, or general workbook engine is shipped.",
     "sources_indexed": false,
     "procedures_available": true,
     "execution_implemented": false,

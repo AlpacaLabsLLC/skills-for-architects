@@ -8,9 +8,9 @@ The [generated capability catalog](../docs/capabilities.md) provides task-first 
 
 | Skill | Description |
 |-------|-------------|
-| [`/as:norma`](./norma) | Coordinate architectural intent, scope and handoffs through available skills |
-| [`/as:norma-support`](./norma-support) | Arch Studio onboarding, access and memory guidance, and evidence-bound troubleshooting |
-| [`/as:studio`](./studio) | Set up and inspect the studio, register projects, and forward general requests to Norma |
+| [`/as:start`](./start) | Show the Arch Studio card: release, setup checklist, practice areas and prompts to try |
+| [`/as:support`](./support) | Arch Studio onboarding, access and memory guidance, and evidence-bound troubleshooting |
+| [`/as:studio`](./studio) | Set up and inspect the studio and register projects |
 | [`/as:tool-catalog`](./tool-catalog) | Show the available skills and agents |
 | [`/as:learn`](./learn) | Guided, resumable introduction to Codex and Claude Code for architects (use `$learn` on Codex) |
 | [`/as:skill-maker`](./skill-maker) | Create or update governed studio, project or catalog skills using native host authoring |

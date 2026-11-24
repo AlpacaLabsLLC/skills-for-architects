@@ -82,4 +82,4 @@ Do not move, delete or recreate a published tag. Correct a factual or credit err
 
 ## Acceptance boundary
 
-Hosted/private and OSS releases have separate gates and receipts. Earlier-version client evidence must be rerun where content or bindings changed. Unverified clients remain unverified, and unsupported execution is explicit. No shared-team store, synchronization, independent Norma runtime or email authority is implied by this release.
+Hosted/private and OSS releases have separate gates and receipts. Earlier-version client evidence must be rerun where content or bindings changed. Unverified clients remain unverified, and unsupported execution is explicit. No shared-team store, synchronization, independent assistant runtime or email authority is implied by this release.

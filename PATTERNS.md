@@ -26,14 +26,14 @@ Before adding a skill, check for an existing owner of the same capability. Valid
 | Installation, invocation and optional delegation | [Host adapters](docs/host-adapters.md) |
 | Completion evidence and limitations | [Completion reporting](docs/completion-reporting.md) |
 | Project identity, records, document operations and writer ownership | [Workspace model](docs/workspace-model.md) |
-| Agent roles and skill discovery | [Agents](docs/agents.md), [skills](skills/README.md) and corpus/components.json |
+| Skill discovery | [Skills](skills/README.md) and corpus/components.json |
 | Package/channel identities and release checks | [Release delivery](docs/release-delivery.md) |
 | Names, voice and cross-cutting rules | [Terminology](rules/terminology.md) and [rules](rules/README.md) |
 | Contributions and source verification | [Contributing](CONTRIBUTING.md) |
 
 ## Collaboration contract
 
-The harness owns the conversation, interpretation, available host capabilities and actual agent creation. Arch Studio owns domain capability contracts, required procedures, record authority and evidence. Direct skill selection is valid. Norma coordinates substantial multistep work with workplan; quick tasks proceed within existing authorization. Disclose a useful team before approval, verify actual creation afterward and keep questions in the main loop. Never ask again for authorization already covering the action.
+The harness owns the conversation, interpretation, available host capabilities and actual agent creation. Arch Studio owns domain capability contracts, required procedures, record authority and evidence. Direct skill selection is the way in. Workplan plans substantial multistep work; quick tasks proceed within existing authorization. Disclose a useful team before approval, verify actual creation afterward and keep questions in the main loop. Never ask again for authorization already covering the action.
 
 The host checks identity, requested membership, revision links and declared preservation using the owning contracts and its available tools. The host chooses valid methods, resolves source meaning and inspects presentation. A completion report summarizes these observations; it is not another validator or a universal required runtime. See the existing reporting contract.
 

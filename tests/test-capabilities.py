@@ -55,7 +55,7 @@ class Capabilities(unittest.TestCase):
         required = {'skill:lighting-report-extract', 'skill:schedule-quantity-reconcile',
                     'skill:product-data-import', 'skill:product-cut-sheet', 'skill:ffe-spec-book',
                     'skill:product-library', 'skill:product-spec-pdf-parser', 'skill:product-url-clip',
-                    'skill:studio', 'skill:project', 'skill:workplan', 'skill:norma'}
+                    'skill:studio', 'skill:project', 'skill:workplan', 'skill:start'}
         self.assertTrue(required <= {row['id'] for row in definitions})
         bodies = {row['path']: (self.root / row['path']).read_text().split('\n---\n', 1)[1] for row in definitions}
         first = capabilities.generate(self.root, write=True)

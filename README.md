@@ -50,7 +50,7 @@ Before a studio can trust AI with real work, it has to make a few decisions. Arc
 - **Memory: what the studio remembers.** Studio settings, project facts, decisions, documents, tasks and time live in plain files in folders you own, so the next session can pick up where the last one ended.
 - **Tooling: what the assistant can use.** Start with the 68 bundled skills as working references. Then write your own with `/as:skill-maker`. Your skills live in your studio or project folder, and plugin updates never overwrite them.
 
-Run `/as:studio` to set up the governance and memory side: your AI-use policy, naming and filing rules, units, jurisdiction and project phases. It shows exactly what it will create and writes nothing until you approve. Then register projects. From there, Norma, the coordinator, sends each request to the right skills within the rules you set. You can also skip setup and try a skill on a single task first.
+Run `/as:studio` to set up the governance and memory side: your AI-use policy, naming and filing rules, units, jurisdiction and project phases. It shows exactly what it will create and writes nothing until you approve. Then register projects. From there, each request goes to the skill that owns it, within the rules you set. You can also skip setup and try a skill on a single task first.
 
 ## Two editions
 
@@ -130,26 +130,26 @@ For teams, Arch Studio MCP is connected rather than installed; see [Two editions
 
 ## The basic workflow
 
-1. **studio** — Run `/as:studio` to record your studio's policy, conventions and projects, or skip setup and go straight to a task. Skills work either way.
-2. **norma** — Describe what you need in plain words. Norma picks the skills, handles quick lookups directly, and for larger jobs uses **workplan** to show you a work plan (steps, skills, and outputs) before starting.
+1. **start** — Run `/as:start` to see the Arch Studio card: what is installed and connected, and prompts to try.
+2. **studio** — Run `/as:studio` to record your studio's policy, conventions and projects, or skip setup and go straight to a task. Skills work either way. Describe what you need in plain words and the skill that owns it takes it; for larger jobs, **workplan** shows you a work plan (steps, skills, and outputs) before starting.
 3. **Research skills** — Site, zoning, property, product, and EPD skills fetch original sources and cite them. For example, **nyc-property-report** gathers landmarks, permits, violations, ownership, housing, and BSA records into one report.
 4. **Specification and presentation skills** — **spec-writer**, **epd-to-spec**, **product-cut-sheet**, **slide-deck-generator** and others prepare documents from the research. Anything regulatory is marked for professional review.
 5. **Record skills** — **project**, **receive**, **meeting-minutes**, **tasklist** and **timetracker** keep facts, documents, decisions, tasks, and time in your project folder. They offer what to save rather than writing silently, and time is logged only in amounts you confirm.
 6. **skill-maker** — When your firm repeats a procedure, run `/as:skill-maker` to turn it into a studio or project skill.
 
-Not sure what is available? `/as:tool-catalog` lists every skill and agent on your host. `/as:studio` stays the place for studio administration; a general task typed there is passed to Norma. Optional [default preferences](skills/norma/references/assistant-preference.md) make your assistant use Arch Studio by default for architecture and project work; they need a supported target, an exact diff, and your approval.
+Not sure what is available? `/as:tool-catalog` lists every skill and agent on your host. `/as:studio` stays the place for studio administration. Optional [default preferences](skills/studio/references/assistant-preference.md) make your assistant use Arch Studio by default for architecture and project work; they need a supported target, an exact diff, and your approval.
 
 **Host syntax.** Claude Code uses `/as:<skill>`; Codex uses `$<skill>`. `as` is the plugin namespace. Use the exact name your assistant shows.
 
 ## What's inside
 
-68 skills, 9 agents, 8 rules, and 5 hooks. Everything installs together. The full catalog, with inputs and outputs, is in [skills/README.md](./skills/README.md).
+68 skills, 8 rules, and 5 hooks. Everything installs together. The full catalog, with inputs and outputs, is in [skills/README.md](./skills/README.md).
 
 ### Skills
 
 **Getting started and studio**
-- **norma** — Coordinates a request across the skills that fit it
-- **norma-support** — Help with setup, access, memory, and troubleshooting
+- **start** — Shows the Arch Studio card: release, what is set up, and prompts to try
+- **support** — Help with setup, access, memory, and troubleshooting
 - **studio** — Set up or open a studio and register projects
 - **tool-catalog** — Lists the skills and agents available on your host
 - **learn** — Six-module, resumable course using a sample museum project
@@ -206,6 +206,9 @@ Not sure what is available? `/as:tool-catalog` lists every skill and agent on yo
 - **epd-compare** — Compare EPDs side by side, including LEED eligibility
 
 **FF&E and materials**
+
+For product search, connect the optional [Norma index](https://normaindex.com) MCP (`https://mcp.normaindex.com`, no login); product-research and product-match use it when it is connected and work without it. Setup: [docs/norma-index.md](./docs/norma-index.md).
+
 - **product-research** — Find products from a design brief
 - **product-match** — Find similar products from an image, name, or description
 - **product-pair** — Suggest pieces that go with a product
@@ -242,22 +245,6 @@ Not sure what is available? `/as:tool-catalog` lists every skill and agent on yo
 - **rhino-agent-team** — Several agents on one Rhino model: a set-out written first, one file per owner, notes in the model and a check across the files
 
 **Which specification skill?** A Project Manual section → **spec-writer**. Its EPD and GWP requirements → **epd-to-spec**. One product from a PDF or URL → **product-cut-sheet**. A bound FF&E book → **ffe-spec-book**.
-
-### Agents (Claude Code)
-
-Nine agents: eight specialists and an optional Norma worker. Each one combines a group of skills for a kind of work. They run only where the host supports delegation and the request allows it; otherwise the same skills run directly. Codex installs the skills but not these agents. See the [agents index](./docs/agents.md).
-
-| Agent | What it does |
-|-------|--------------|
-| [site-planner](./agents/site-planner.md) | Runs environmental, mobility, demographic, and history research, then combines them |
-| [nyc-zoning-expert](./agents/nyc-zoning-expert.md) | NYC property research, zoning analysis, and envelope visualization |
-| [workplace-strategist](./agents/workplace-strategist.md) | Turns headcount and work style into programs and room schedules |
-| [product-and-materials-researcher](./agents/product-and-materials-researcher.md) | Finds products, extracts specs, and suggests alternatives |
-| [ffe-designer](./agents/ffe-designer.md) | Builds schedules and room packages, checks them, and prepares dealer files |
-| [sustainability-specialist](./agents/sustainability-specialist.md) | Researches and compares EPDs and prepares spec limits |
-| [brand-manager](./agents/brand-manager.md) | Builds decks and palettes and checks deliverables before they go out |
-| [rhino-modeler](./agents/rhino-modeler.md) | Builds and checks massing, framing and Grasshopper models in a live Rhino 9 through its AI panel |
-| [norma](./agents/norma.md) | Optional worker that carries out an already approved assignment; questions go back to you |
 
 ### Rules
 
@@ -325,7 +312,7 @@ More detail: [architecture](docs/architecture.md), [workspace model](docs/worksp
 
 Run `/as:studio-feedback` (Codex: `$studio-feedback`). It prepares a bug report or feature request on your machine for you to read. It opens a prefilled GitHub issue only when you choose to, and never submits it for you.
 
-For setup or access questions, ask `/as:norma-support`. You can also [open an issue](https://github.com/AlpacaLabsLLC/skills-for-architects/issues) directly.
+For setup or access questions, ask `/as:support`. You can also [open an issue](https://github.com/AlpacaLabsLLC/skills-for-architects/issues) directly.
 
 ## Updating and what's new
 

@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [1.5.4] - 2026-11-25
 
-A compatible release on 1.5.3 that adds the Rhino cluster: seven skills for architectural modeling in Rhino 9 on macOS and Windows, with two ways in and the same skills in both: from Rhino's AI panel, or from your terminal, with Claude Code or another agent connected through Rhino 9's built-in MCP server (see the README). Nothing changes for the other skills. Install or update the plugin, then open a new AI panel session in Rhino 9, or connect your agent with `MCPConnect` and `MCPStart`.
+A compatible release on 1.5.3 that adds the Rhino cluster: seven skills for architectural modeling in Rhino 9 on macOS and Windows, with two ways in and the same skills in both: from Rhino's AI panel, or from your terminal, with Claude Code or another agent connected through Rhino 9's built-in MCP server (see the README). It also adds `start`, renames `norma-support` to `support`, points the FF&E skills to the optional Norma index, and removes the Norma assistant and the agent definitions; see Changed and Removed. Install or update the plugin, then open a new AI panel session in Rhino 9, or connect your agent with `MCPConnect` and `MCPStart`.
 
 ### Added
 
@@ -20,11 +20,22 @@ A compatible release on 1.5.3 that adds the Rhino cluster: seven skills for arch
   - **`rhino-axon`** makes the view for an axonometric sheet (camera, cut-away, hidden-line occlusion, detail cuts with hatched cut faces) and hands the linework to `rhino-thinline`.
   - **`rhino-bom`** takes quantities from a model built under one parent layer, reconciled to the object count, with a source on every line and a list of what is not counted. Qty is always a piece count (`pcs` unless a count label such as `sheets` is given); a length, area or volume unit on a counted line is refused, and the measure goes under Total in its own unit.
   - **`rhino-agent-team`** runs several agents on one model split into one file per owner: a coordinator writes the set-out first (levels read off the host, each owner's share of shared space), the team check measures across the files every round and writes one issue note per fault to the owner who must move, and the model is settled only when every owner's own check passes and no note is open. It first tells the user when one agent would do.
-  - The **`rhino-modeler`** agent coordinates `rhino-setup` and `rhino-model`.
 - **Arch Studio in the Rhino AI panel.** The panel does not load plugin skills, so a Claude Code `SessionStart` hook adds one line pointing to `skills/as-rhino-index.md` in the installed version. When the user names an as-rhino skill or Arch Studio in Rhino, the model reads the skill by path. The hook (`hooks/as-rhino-context.sh`) is plain `sh` with no Python, so it runs in macOS's shell and in Git Bash on Windows; it reads nothing, sends nothing and never blocks a session. All the plugin's hooks now run on Windows under Git Bash, including the disclaimer check without `jq` or Python.
 - **Local lessons for the Rhino skills.** `rhino-model`, `rhino-bom`, `rhino-batch-image-export`, `rhino-thinline` and `rhino-axon` read what earlier runs learned before planning and write what each run learned at the end, as plain text in the plugin's data folder, which survives updates. A lesson becomes a firm rule only after the user agrees, and it can never change a checker or its tests.
 - **Model space only.** With a layout as the active view, Rhino puts new objects on the layout's page. `rhino-model`'s build scripts, `rhino-agent-team` and `rhino-batch-image-export` make a model view active first; the requirements check fails any part on a page (`baseline model space`), and `rhino-bom` refuses to count one.
 - **Host contract.** `model-read` and `model-edit` modes for connected modeling applications, a `delivery: "plugin-only"` declaration, and a named exception that lets the Rhino skills ship helper scripts that run inside the user's Rhino.
+- **`start`** (`/as:start`) shows the Arch Studio card as text, the plugin's version of the hosted MCP's `as_connect` welcome: the logotype, the installed release, a checklist (plugin installed, studio set up or not, Rhino 9 connected or not, Norma index connected or not), what Arch Studio is, how to use it, a tour of the practice areas, prompts to try and the footer. It only reads. The session-start message now points to it.
+
+### Changed
+
+- **`norma-support` is now `support`** (`/as:support`), presented as Arch Studio support; its knowledge files are re-pinned. Saved support facts and the email service are not affected.
+- **FF&E product search can use the Norma index.** `product-research`, `product-match` and `ffe-spec-book` use the [Norma index](https://normaindex.com) MCP (`https://mcp.normaindex.com`, no login) when it is connected, suggest connecting it once when the user needs products, and work without it ([setup](docs/norma-index.md)).
+- **The session line no longer names a coordinator:** use the skill that owns the task, and `workplan` for substantial multistep work. The optional default-preference block names Arch Studio instead of Norma; a block saved earlier still works and is refreshed the next time the preference is updated.
+
+### Removed
+
+- **The Norma assistant:** the `norma` skill (`/as:norma`) and the Norma worker agent. Its default-preference procedure moved to `studio`. After updating, describe the task or name the skill instead of `/as:norma`, and use `/as:support` instead of `/as:norma-support`.
+- **The agent definitions:** the eight specialist agents (`site-planner`, `nyc-zoning-expert`, `workplace-strategist`, `product-and-materials-researcher`, `ffe-designer`, `sustainability-specialist`, `brand-manager`, `rhino-modeler`) and `docs/agents.md`. Every skill they combined runs directly as before, and `rhino-agent-team` does not use them.
 
 ### Known limits
 

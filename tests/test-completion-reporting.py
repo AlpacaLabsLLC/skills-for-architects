@@ -17,10 +17,10 @@ class CompletionReporting(unittest.TestCase):
         text = (ROOT / 'docs/completion-reporting.md').read_text()
         for phrase in ('Source data', 'Arch Studio instructions', 'Host operations', 'Outputs',
                        'Validation', 'Unresolved items', 'Canonical writes', 'Full completion',
-                       'Partial or blocked', 'Instructions delivered', 'Use Norma',
+                       'Partial or blocked', 'Instructions delivered', 'Use product-cut-sheet',
                        '2 of 3', 'write outcome is unknown', 'machine-contract fields'):
             self.assertIn(phrase, text)
-        for file in ('docs/host-harness-contract.md', 'docs/host-adapters.md', 'skills/norma/SKILL.md', 'skills/studio/SKILL.md'):
+        for file in ('docs/host-harness-contract.md', 'docs/host-adapters.md', 'skills/studio/SKILL.md'):
             self.assertIn('completion-reporting.md', (ROOT / file).read_text())
 
     def test_every_declared_critical_capability_requires_the_same_reference(self):

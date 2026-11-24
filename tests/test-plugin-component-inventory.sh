@@ -7,8 +7,8 @@ expected_skill_count=$(python3 -c 'import json; print(sum(c["category"] == "skil
 expected_agent_count=$(python3 -c 'import json; print(sum(k.startswith("agent:") for k in json.load(open("corpus/host-contracts.json"))["components"]))')
 
 [ ! -e agents/README.md ]
-[ -f docs/agents.md ]
-[ "$(find agents -maxdepth 1 -type f -name '*.md' | wc -l | tr -d ' ')" = "$expected_agent_count" ]
+[ ! -e agents ] && [ ! -e docs/agents.md ]   # Arch Studio ships no agent definitions
+[ "$expected_agent_count" = 0 ]
 [ "$(find skills -mindepth 2 -maxdepth 2 -type f -name SKILL.md | wc -l | tr -d ' ')" = "$expected_skill_count" ]
 [ "$(find skills -mindepth 2 -type f -name SKILL.md | wc -l | tr -d ' ')" = "$expected_skill_count" ]
 

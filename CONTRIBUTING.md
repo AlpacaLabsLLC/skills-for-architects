@@ -38,7 +38,6 @@ Do not include client data, firm secrets, credentials, or proprietary procedures
 
 - Root `README.md`: product, installation, first use, and architectural orientation
 - `skills/README.md`: complete tooling catalog
-- `docs/agents.md`: orchestration model and agent roster
 - `rules/README.md`: governance conventions and enforcement strength
 - `hooks/README.md`: lifecycle automation and configuration
 - `schema/README.md`: shared data contracts

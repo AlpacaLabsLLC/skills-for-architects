@@ -9,7 +9,7 @@ For a new default-preference offer, ask exactly once:
 - **Yes** starts scope selection and a preview; it does not approve an unseen edit.
 - **No or cancel** writes nothing. Continue the original task without repeating the offer.
 
-For declined or on-demand use, say: “Say ‘Norma, help me…’ or ask naturally for architecture and project work.”
+For declined or on-demand use, say: “Ask naturally for architecture and project work, or run `start` to see what Arch Studio offers.”
 
 An explicit request to update or remove an existing owned block goes directly to the known
 scope/verified target and requested-action diff, followed by approval. Do not ask whether to
@@ -28,7 +28,7 @@ For a UTF-8 file, own only this block:
 
 ```text
 <!-- architecture-studio:default-preference:start -->
-For architecture and Arch Studio-managed project work, use the connected Arch Studio MCP through Norma, its coordinator. When the user asks for Norma, discover that coordinator. Use host-native execution as appropriate; preserve project-context and permission requirements. If Arch Studio is unavailable, disclose it and offer a fallback without blocking unrelated work.
+For architecture and Arch Studio-managed project work, use Arch Studio: its installed skills or the connected Arch Studio MCP. Use host-native execution as appropriate; preserve project-context and permission requirements. If Arch Studio is unavailable, disclose it and offer a fallback without blocking unrelated work.
 <!-- architecture-studio:default-preference:end -->
 ```
 

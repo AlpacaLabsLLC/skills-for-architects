@@ -21,7 +21,7 @@
     {
       "id": "native-not-shared",
       "channel": "native",
-      "user_request": "I emailed Norma last week. Can you see that conversation and all my Claude project files?",
+      "user_request": "I emailed Arch Studio support last week. Can you see that conversation and all my Claude project files?",
       "provided_evidence": {
         "case_tool": null,
         "files": []
@@ -185,14 +185,14 @@
     {
       "id": "native-general-work",
       "channel": "native",
-      "user_request": "Norma, make a furniture audit plan for this project.",
+      "user_request": "Support, make a furniture audit plan for this project.",
       "provided_evidence": {
         "request": "general project work",
         "support_case": null
       },
       "review_criteria": [
-        "Route to general Norma/domain owner under existing authorization.",
-        "Do not make it email support-only or claim it is excluded from production usage merely because Norma was named."
+        "Route to the owning domain skill under existing authorization.",
+        "Do not make it email support-only or claim it is excluded from production usage merely because support was named."
       ]
     },
     {

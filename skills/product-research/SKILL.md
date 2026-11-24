@@ -84,6 +84,8 @@ Extract as many of these as the designer provides. **Don't ask for fields they d
 
 ## Step 2: Research
 
+**Norma index first, when connected.** If the [Norma index](../../docs/norma-index.md) tools (`search_products`, `get_product`) are in your tool list, search it first and keep its results as sourced candidates. If they are not, suggest connecting it once, as that page says, and go on with web research; it is optional.
+
 Search the web for products matching the brief. Use multiple targeted queries to cover different angles:
 
 ### Search strategy

@@ -183,7 +183,7 @@ plugin_namespace = 'as'
 for label, actual in (('agents', agent_count), ('rules', rule_count),
                       ('hooks', hook_count)):
     claims = re.findall(rf'\b(\d+) {label}\b', readme)
-    if not claims:
+    if not claims and not (label == 'agents' and actual == 0):   # no agent definitions ship, so none to count
         errors.append(f"README never states a '{label}' count (expected {actual})")
     for c in claims:
         if int(c) != actual:

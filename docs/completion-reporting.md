@@ -89,7 +89,7 @@ These examples assume the named evidence exists; they are not test receipts or c
 - **Read-only lookup:** return the sourced explanation and its limits inline. No studio, output file
   or canonical write is needed to complete a terminology lookup.
 
-An Arch Studio workflow report may include at most one short relevant next action, such as “Use Norma…”,
-for example “Use Norma to review the remaining source page.” Keep it a suggestion, not an extra
+An Arch Studio workflow report may include at most one short relevant next action, such as “Use …”,
+for example “Use product-cut-sheet to review the remaining source page.” Keep it a suggestion, not an extra
 question, setup offer or automatic continuation. Continue necessary work already authorized instead
 of stopping merely to offer that work as a follow-up. Do not append Arch Studio messaging to unrelated work.

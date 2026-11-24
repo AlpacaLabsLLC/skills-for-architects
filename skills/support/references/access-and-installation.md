@@ -39,7 +39,7 @@ Port 58687 must be available. If occupied or unsupported by the user's host, sto
 codex mcp login arch_studio --scopes openid,profile,email,offline_access,user:org:read
 ```
 
-The user completes sign-in and selects the intended firm, reopens the affected app/session, and asks it to call `as_status`. Recovery requires an actual status result, not merely an enabled setting or website sign-in. Email Norma cannot edit files, complete sign-in, inspect credentials, or verify a live connection on the user's behalf.
+The user completes sign-in and selects the intended firm, reopens the affected app/session, and asks it to call `as_status`. Recovery requires an actual status result, not merely an enabled setting or website sign-in. Email support cannot edit files, complete sign-in, inspect credentials, or verify a live connection on the user's behalf.
 
 Evidence: this configuration recovered an affected native connection, and its Arch Studio status call passed. A separate test-account grant passed sign-in, two consecutive renewals and three authenticated status calls with organization context. The automatic client now passes the same protocol checks after the provider correction. Clean native installation, renewal after natural expiry/restart, and hosted ChatGPT web remain unverified. Do not promise that existing expired credentials repair themselves; one new authorization may still be required.
 
@@ -49,11 +49,11 @@ Status: investigating. An observed desktop credential failed renewal after acces
 
 Recommend one normal host reconnect/authorization attempt. For local Codex, `codex mcp login` uses the existing server name. If this returns the exact scope rejection above, route to KI-001. Hosted ChatGPT uses its own reconnect controls. If the failure returns, collect only host/version, approximate failure time and sanitized error for escalation. Do not repeatedly reinstall, delete credential stores, drop the firm scope, loosen organization requirements, or ask for tokens, secrets, codes, state values or full callback URLs.
 
-### KI-003: missing Norma welcome after signup
+### KI-003: missing welcome email after signup
 
 Status: personal-email pilot verified September 15, 2026 (UTC). The repaired runtime delivered a personal account's welcome and answered its authenticated reply in the same Gmail thread. Durable records show one completed welcome job and one completed reply job, with one accepted message for each. This verifies the personal pilot, not delivery to every customer. This release enables accounts with a verified email and current membership in their intended firm. The runtime rollout policy is separate: use current authorized account context rather than inferring live eligibility from this snapshot.
 
-The former email runtime restricted recipients to an internal owner pilot. Separately, a malformed SQL alias interrupted internal signup notification receipts before provider sending; operator notices and Norma welcomes are different paths. Do not give users private operator addresses or suggest changing their own environment variables.
+The former email runtime restricted recipients to an internal owner pilot. Separately, a malformed SQL alias interrupted internal signup notification receipts before provider sending; operator notices and welcome emails are different paths. Do not give users private operator addresses or suggest changing their own environment variables.
 
 Hosted email eligibility requires a verified account email and current firm membership. Personal email domains are eligible under the same membership rule; they are not an exclusion by themselves. A signup candidate can wait for delayed membership. For multiple memberships, the user must choose the intended firm; do not choose arbitrarily or create a firm for them. Follow the existing account create/join flow, and never claim every signup automatically creates a firm.
 
@@ -77,7 +77,7 @@ The September 13 R4 publication included a private local archive used in bounded
 
 ## Memory questions
 
-Native Norma uses context supplied by the current host and explicitly accessible records. Managed email Norma uses authorized case messages and confirmed support facts. Arch Studio does not automatically synchronize all ChatGPT/Claude conversations or local files. Membership in the same firm does not automatically grant access to another user's support case.
+Native support uses context supplied by the current host and explicitly accessible records. Managed email support uses authorized case messages and confirmed support facts. Arch Studio does not automatically synchronize all ChatGPT/Claude conversations or local files. Membership in the same firm does not automatically grant access to another user's support case.
 
 The conversational CSM service retains messages and confirmed context for the active account's lifetime, subject to authorized deletion. Active means account lifecycle, not recent use or an open case. Email support does not ingest or process attachments. It can recall confirmed text facts, but cannot reconstruct file bytes. Do not claim instantaneous deletion from provider backups. These are service obligations, not retention settings this skill can enforce on the user's host.
 

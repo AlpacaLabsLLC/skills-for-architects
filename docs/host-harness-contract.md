@@ -158,7 +158,7 @@ as well as intended outputs when testing this boundary.
 
 Preserve authorized scope, identity, accepted selections, current revisions, declared file/workbook features and evidence provenance. Allow valid alternative methods and layouts. Tools may establish mechanical properties; harness interpretation and visual inspection retain their own provenance and limits. A validator of supplied claims cannot certify the underlying observations.
 
-For substantial multistep work, Norma/workplan presents concrete steps, outputs, checks and useful team assignments before execution. Prior exact authorization persists. Quick tasks and direct skill calls do not gain another planning gate. The main harness actually creates any approved team through exposed tools, verifies creation and integrates results; a worker never acquires new authority or owns the user's approval channel.
+For substantial multistep work, workplan presents concrete steps, outputs, checks and useful team assignments before execution. Prior exact authorization persists. Quick tasks and direct skill calls do not gain another planning gate. The main harness actually creates any approved team through exposed tools, verifies creation and integrates results; a worker never acquires new authority or owns the user's approval channel.
 
 ## Google Sheets example
 

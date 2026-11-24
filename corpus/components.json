@@ -1785,6 +1785,10 @@
           {
             "path": "tools/workspace/product-library-contract.md",
             "when": "Only when preparing an explicitly requested reusable CSV library save for its owner."
+          },
+          {
+            "path": "docs/norma-index.md",
+            "when": "When the user needs products: use the Norma index if its tools are connected, otherwise suggest connecting it once; optional."
           }
         ],
         "executionOwner": "host",
@@ -1933,6 +1937,10 @@
           {
             "path": "tools/validators/workbook-preservation-contract.md",
             "when": "When an explicitly selected before/after native OOXML pair and permitted cell aspects are available for preservation comparison; actual editing and complete workbook verification remain separate."
+          },
+          {
+            "path": "docs/norma-index.md",
+            "when": "When the user needs products: use the Norma index if its tools are connected, otherwise suggest connecting it once; optional."
           }
         ],
         "executionOwner": "host",
@@ -2681,7 +2689,7 @@
             "when": "When explicitly initializing a studio."
           },
           {
-            "path": "skills/norma/references/assistant-preference.md",
+            "path": "skills/studio/references/assistant-preference.md",
             "when": "When optional default-assistant preference setup, update or removal is selected."
           },
           {
@@ -2730,10 +2738,6 @@
           {
             "target": "skill:project",
             "when": "For project-owned facts, identity or decisions"
-          },
-          {
-            "target": "skill:norma",
-            "when": "A general architecture or project-work request needs a domain owner; forward once, excluding studio administration."
           }
         ],
         "hostContract": "skills/studio/host-contract.json"
@@ -2886,7 +2890,7 @@
         "knowledge:host-contracts"
       ],
       "capability": {
-        "description": "Show Arch Studio help, available skills, agents and host-specific commands. Use for help, how do I use Arch Studio, what is Norma, or a capability directory.",
+        "description": "Show Arch Studio help, available skills, agents and host-specific commands. Use for help, how do I use Arch Studio, or a capability directory.",
         "triggers": [
           "show Arch Studio help",
           "what skills and agents are available"
@@ -2923,11 +2927,75 @@
         "executionOwner": "host",
         "handoffs": [
           {
-            "target": "skill:norma-support",
+            "target": "skill:support",
             "when": "For requested onboarding or troubleshooting beyond a directory answer; no automatic service activation."
           }
         ],
         "hostContract": "skills/tool-catalog/host-contract.json"
+      }
+    },
+    {
+      "id": "skill:start",
+      "category": "skills",
+      "path": "skills/start/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Show the Arch Studio card: logotype, installed release, a short setup checklist, what Arch Studio is, how to use it, a tour of the practice areas and prompts to try. Use for start, welcome, connect, is Arch Studio installed or working, or how do I begin. Read-only: runs no task and changes nothing.",
+        "triggers": [
+          "start Arch Studio",
+          "is Arch Studio installed",
+          "show the Arch Studio card"
+        ],
+        "exclusions": [
+          "run setup, connect a server or install anything",
+          "start a task before the user chooses one",
+          "infer a connection that is not in the session's tool list"
+        ],
+        "inputs": [
+          "The installed plugin manifest, the bundled clusters, and the session's observed tool list and working folder"
+        ],
+        "outputs": [
+          "The Arch Studio card as text: logotype, release, checklist, welcome sections, prompts and footer"
+        ],
+        "references": [
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "corpus/host-contracts.json",
+          "docs/completion-reporting.md",
+          "skills/start/host-contract.json",
+          "skills/start/SKILL.md",
+          "docs/practice-clusters.md"
+        ],
+        "conditionalReferences": [
+          {
+            "path": "skills/project/references/context-resolution.md",
+            "when": "When checking whether a studio is set up above the working folder."
+          }
+        ],
+        "executionOwner": "host",
+        "handoffs": [
+          {
+            "target": "skill:tool-catalog",
+            "when": "The user asks what Arch Studio can do or picks a practice-area tour."
+          },
+          {
+            "target": "skill:skill-maker",
+            "when": "The user picks Build my first skill."
+          },
+          {
+            "target": "skill:studio",
+            "when": "The user asks to set up a studio."
+          },
+          {
+            "target": "skill:support",
+            "when": "Setup, access or troubleshooting questions."
+          }
+        ],
+        "hostContract": "skills/start/host-contract.json"
       }
     },
     {
@@ -3558,6 +3626,10 @@
           {
             "path": "schema/ffe-record.schema.json",
             "when": "When validating exact adopted item/schedule envelopes and historical/current pins."
+          },
+          {
+            "path": "docs/norma-index.md",
+            "when": "When the user needs products: use the Norma index if its tools are connected, otherwise suggest connecting it once; optional."
           }
         ],
         "executionOwner": "host",
@@ -4036,304 +4108,6 @@
       ]
     },
     {
-      "id": "skill:norma",
-      "category": "skills",
-      "path": "skills/norma/SKILL.md",
-      "owner": "Arch Studio maintainers",
-      "execution": "instructions",
-      "dependencies": [
-        "knowledge:host-contracts"
-      ],
-      "capability": {
-        "description": "Use Norma to coordinate architecture, buildings, projects, clients, proposals, schedules, specifications, sites, zoning, FF&E and firm work through the relevant Arch Studio owners. Direct skill requests stay with their owner.",
-        "triggers": [
-          "Architecture or project task without a named skill owner",
-          "Coordinate requested outputs across existing skills",
-          "Explicitly set up, update or remove the Arch Studio default preference"
-        ],
-        "exclusions": [
-          "Directly named skill work stays with that owner",
-          "Unrelated requests remain with the host",
-          "No independent hosted agent, model, memory or email service"
-        ],
-        "inputs": [
-          "User request and extent, supplied sources and corrections",
-          "Known project/studio or explicit standalone scope",
-          "Actual host capabilities and current authorization"
-        ],
-        "outputs": [
-          "Selected owner with preserved scope, evidence and validation handoff",
-          "Coherent result of the authorized work or precise incomplete status",
-          "Only if requested and approved: one removable Arch Studio preference block"
-        ],
-        "references": [
-          "skills/norma/host-contract.json",
-          "docs/host-harness-contract.md",
-          "docs/host-adapters.md",
-          "corpus/host-contracts.json",
-          "corpus/components.json",
-          "corpus/capabilities.json",
-          "skills/README.md",
-          "rules/moments.md",
-          "docs/completion-reporting.md",
-          "skills/norma/SKILL.md",
-          "docs/workspace-model.md",
-          "skills/norma/references/assistant-preference.md",
-          "skills/project/references/context-resolution.md"
-        ],
-        "conditionalReferences": [
-          {
-            "path": "docs/agents.md",
-            "when": "An available authorized host specialist profile may help the requested work."
-          },
-          {
-            "path": "skills/studio/SKILL.md",
-            "when": "Opening, configuring or registering a studio/project; do not bounce the administration request back to Norma."
-          },
-          {
-            "path": "skills/norma-support/SKILL.md",
-            "when": "Arch Studio onboarding, installation, access, memory or troubleshooting support."
-          }
-        ],
-        "hostContract": "skills/norma/host-contract.json",
-        "executionOwner": "host",
-        "handoffs": [
-          {
-            "target": "skill:agreement",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:architecture-knowledge",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:color-palette-generator",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:csv-to-sif",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:demographics-analysis",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:drawing-quantity-extract",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:environmental-analysis",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:epd-compare",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:epd-parser",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:epd-research",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:epd-to-spec",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:invoice",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:learn",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:lighting-report-extract",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:master-schedule",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:meeting-minutes",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:mobility-analysis",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:nyc-acris",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:nyc-bsa",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:nyc-dob-permits",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:nyc-dob-violations",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:nyc-hpd",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:nyc-landmarks",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:nyc-property-report",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:occupancy-calculator",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:product-audit",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:product-cut-sheet",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:product-data-cleanup",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:product-data-import",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:product-enrich",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:product-image-processor",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:product-library",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:product-match",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:product-pair",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:product-research",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:product-spec-bulk-fetch",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:product-spec-pdf-parser",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:product-url-clip",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:project",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:proposal",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:resize-images",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:schedule-quantity-reconcile",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:sif-to-csv",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:site-history",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:site-visit-report",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:skill-maker",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:slide-deck-generator",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:ffe-spec-book",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:spec-writer",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:studio",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:studio-feedback",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:tasklist",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:timetracker",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:workplace-programmer",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:workplan",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:zoning-analysis-nyc",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:zoning-envelope",
-            "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-          },
-          {
-            "target": "skill:norma-support",
-            "when": "Arch Studio onboarding, installation, access, memory or troubleshooting support; general Norma remains the front door."
-          }
-        ]
-      }
-    },
-    {
       "id": "tool:assistant-preference",
       "category": "tools",
       "path": "tools/transformers/assistant_preference.py",
@@ -4390,9 +4164,9 @@
       "dependencies": []
     },
     {
-      "id": "skill:norma-support",
+      "id": "skill:support",
       "category": "skills",
-      "path": "skills/norma-support/SKILL.md",
+      "path": "skills/support/SKILL.md",
       "owner": "Arch Studio maintainers",
       "execution": "instructions",
       "dependencies": [
@@ -4403,7 +4177,7 @@
         "triggers": [
           "Install or authenticate Arch Studio",
           "Understand a reported Arch Studio or connector failure",
-          "Explain Norma support access, memory or an authorized case handoff"
+          "Explain Arch Studio support access, memory or an authorized case handoff"
         ],
         "exclusions": [
           "General architecture or production project execution",
@@ -4421,34 +4195,34 @@
           "Authorized support handoff summary; stored or sent only with a receipt"
         ],
         "references": [
-          "skills/norma-support/host-contract.json",
+          "skills/support/host-contract.json",
           "docs/host-harness-contract.md",
           "docs/host-adapters.md",
           "docs/completion-reporting.md",
           "corpus/host-contracts.json",
-          "skills/norma-support/references/conversation-knowledge.md",
-          "skills/norma-support/SKILL.md"
+          "skills/support/references/conversation-knowledge.md",
+          "skills/support/SKILL.md"
         ],
         "conditionalReferences": [
           {
-            "path": "skills/norma-support/references/access-and-installation.md",
+            "path": "skills/support/references/access-and-installation.md",
             "when": "Connection, runner, release acquisition or memory questions."
           },
           {
-            "path": "skills/norma-support/references/capability-observations.md",
+            "path": "skills/support/references/capability-observations.md",
             "when": "Google, Miro or Figma capability questions."
           },
           {
-            "path": "skills/norma-support/references/case-handoff.md",
+            "path": "skills/support/references/case-handoff.md",
             "when": "Protected email case context or a channel handoff."
           }
         ],
-        "hostContract": "skills/norma-support/host-contract.json",
+        "hostContract": "skills/support/host-contract.json",
         "executionOwner": "host",
         "handoffs": [
           {
-            "target": "skill:norma",
-            "when": "General architecture or project work in the native host; preserve scope and authorization."
+            "target": "skill:workplan",
+            "when": "General architecture or project work that benefits from a plan in the native host; otherwise the skill that owns the task. Preserve scope and existing authorization."
           }
         ]
       }

@@ -1,4 +1,4 @@
-# Shared Norma support behavior fixtures
+# Shared Arch Studio support behavior fixtures
 
 `scenarios.json` contains synthetic cases for independent forward testing. Run the same inputs against the native support skill and the managed email runtime, recording each actual channel's release/support hashes, reply, attempted tool actions and receipt IDs. These are evaluator criteria, not customer prompts or extra runtime instructions. Do not pass `review_criteria` to the responding agent.
 
