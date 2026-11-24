@@ -219,7 +219,7 @@ with tempfile.TemporaryDirectory() as tmp:
     assert 'not a lessons folder' in refused(L['resolve_dir'], str(root), None, {})
     # Folder resolution: the named folder, else CLAUDE_PLUGIN_DATA, else derived as Claude Code does.
     assert L['resolve_dir'](d, fake, {}) == d
-    assert L['resolve_dir'](None, fake, {'CLAUDE_PLUGIN_DATA': '/x/data/as-mkt'}) == '/x/data/as-mkt/rhino-lessons'
+    assert L['resolve_dir'](None, fake, {'CLAUDE_PLUGIN_DATA': '/x/data/as-mkt'}) == os.path.join('/x/data/as-mkt', 'rhino-lessons')
     assert L['resolve_dir'](None, fake, {}) == str(tmp / 'plugins/data/as-mkt/rhino-lessons')
     assert 'no lessons folder' in refused(L['resolve_dir'], None, str(tmp / 'dev/skills/as-rhino-lessons.py'), {})
     assert L['sanitize_id']('as@skills-for-architects') == 'as-skills-for-architects'
@@ -250,32 +250,31 @@ ref = (root / 'skills/as-rhino-lessons.md').read_text()
 assert 'temporary path' in ref and 'CLAUDE_PLUGIN_DATA' in ref and 'Host memory (optional)' in ref
 
 # The startup line names the lessons folder, stays short, and the skill script agrees on the folder.
-with tempfile.TemporaryDirectory() as tmp:
-    home = Path(tmp) / 'home'
-    py = home / '.rhinocode/py313-rh9'
-    py.mkdir(parents=True)
-    (py / 'python3.13').symlink_to(sys.executable)
-    plugin = home / '.claude/plugins/cache/skills-for-architects/as/1.5.3'
-    for f in ('hooks/as-rhino-context.py', 'hooks/lib/as-run-python.sh', 'skills/as-rhino-index.md', 'skills/as-rhino-lessons.py'):
-        (plugin / f).parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(root / f, plugin / f)
-    registered = json.loads((root / 'hooks/hooks.json').read_text())['hooks']['SessionStart']
-    command = next(h['command'] for e in registered for h in e['hooks'] if 'as-rhino-context.py' in h['command'])
-    cmd = command.replace('${CLAUDE_PLUGIN_ROOT}', str(plugin))
-    data = home / '.claude/plugins/data/as-skills-for-architects'
-    for env_data in (str(data), None):  # Claude Code exports CLAUDE_PLUGIN_DATA to hooks; without it, derived
-        env = {'HOME': str(home), 'PATH': '/usr/bin:/bin', 'PYTHONHOME': str(py)}
-        if env_data:
-            env['CLAUDE_PLUGIN_DATA'] = env_data
-        run = subprocess.run(['/bin/sh', '-c', cmd], input='{}', env=env, capture_output=True, text=True, cwd=tmp)
-        assert run.returncode == 0 and not run.stderr, run
-        line = json.loads(run.stdout)['hookSpecificOutput']['additionalContext']
-        folder = re.search(r'Their lessons folder: (/\S+)\.$', line).group(1)
-        assert folder == str(data / 'rhino-lessons'), folder
-        assert '\n' not in line and len(line.encode()) < 2048, len(line.encode())
-        assert not data.exists(), 'the hook writes nothing'
-        g = load()
-        assert g['resolve_dir'](None, str(plugin / 'skills/as-rhino-lessons.py'), {}) == folder
-    print('startup line: %d bytes' % len(line.encode()))
+# The hook is POSIX sh, run here through /bin/sh; on Windows tests/windows/run-hooks-no-python.sh runs it under Git Bash.
+if os.name != 'nt':
+    with tempfile.TemporaryDirectory() as tmp:
+        home = Path(tmp) / 'home'
+        plugin = home / '.claude/plugins/cache/skills-for-architects/as/1.5.3'
+        for f in ('hooks/as-rhino-context.sh', 'skills/as-rhino-index.md', 'skills/as-rhino-lessons.py'):
+            (plugin / f).parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(root / f, plugin / f)
+        registered = json.loads((root / 'hooks/hooks.json').read_text())['hooks']['SessionStart']
+        command = next(h['command'] for e in registered for h in e['hooks'] if 'as-rhino-context.sh' in h['command'])
+        cmd = command.replace('${CLAUDE_PLUGIN_ROOT}', str(plugin))
+        data = home / '.claude/plugins/data/as-skills-for-architects'
+        for env_data in (str(data), None):  # Claude Code exports CLAUDE_PLUGIN_DATA to hooks; without it, derived
+            env = {'HOME': str(home), 'PATH': '/usr/bin:/bin'}
+            if env_data:
+                env['CLAUDE_PLUGIN_DATA'] = env_data
+            run = subprocess.run(['/bin/sh', '-c', cmd], input='{}', env=env, capture_output=True, text=True, cwd=tmp)
+            assert run.returncode == 0 and not run.stderr, run
+            line = json.loads(run.stdout)['hookSpecificOutput']['additionalContext']
+            folder = re.search(r'Their lessons folder: (/\S+)\.$', line).group(1)
+            assert folder == str(data / 'rhino-lessons'), folder
+            assert '\n' not in line and len(line.encode()) < 2048, len(line.encode())
+            assert not data.exists(), 'the hook writes nothing'
+            g = load()
+            assert g['resolve_dir'](None, str(plugin / 'skills/as-rhino-lessons.py'), {}) == folder
+        print('startup line: %d bytes' % len(line.encode()))
 print('PASS: lessons write, read, count repeats, promote only after a yes, strip private details, stay away from the checker; the startup line names the folder')
 PY

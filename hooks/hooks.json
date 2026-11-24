@@ -6,12 +6,12 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/session-start-welcome.sh",
+            "command": "/bin/sh \"${CLAUDE_PLUGIN_ROOT}/hooks/session-start-welcome.sh\"",
             "timeout": 10
           },
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/version-check.sh",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/version-check.sh\"",
             "timeout": 5
           }
         ]
@@ -21,7 +21,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/bin/sh \"${CLAUDE_PLUGIN_ROOT}/hooks/lib/as-run-python.sh\" \"${CLAUDE_PLUGIN_ROOT}/hooks/as-rhino-context.py\"",
+            "command": "/bin/sh \"${CLAUDE_PLUGIN_ROOT}/hooks/as-rhino-context.sh\"",
             "timeout": 10
           }
         ]
@@ -33,7 +33,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/post-write-disclaimer-check.sh",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/post-write-disclaimer-check.sh\"",
             "timeout": 10
           }
         ]

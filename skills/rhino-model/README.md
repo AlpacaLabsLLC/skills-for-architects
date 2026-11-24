@@ -4,7 +4,7 @@ Plan, build and check architectural models in a live Rhino 9 session from a plai
 
 ## Requirements
 
-- Rhino 9 for Mac with a document open, used from the Rhino AI panel, and the Arch Studio plugin installed in Claude Code (the requirements check runs the plugin's helper scripts).
+- Rhino 9 on macOS or Windows with a document open, used from the Rhino AI panel, and the Arch Studio plugin installed in Claude Code (the requirements check runs the plugin's helper scripts).
 
 ## Usage
 

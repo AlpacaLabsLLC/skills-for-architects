@@ -17,7 +17,7 @@ A confirmed working connection (tools present, a document open, units known, a s
 ## Procedure
 
 1. **Tools.** Look for Rhino's tools (`run_python`, `get_context`), from the AI panel or a connected agent. If absent, stop and give the user this action: "Open a document in Rhino 9 and make this request in its AI panel. To use an agent outside Rhino, such as Claude Code in a terminal, run `MCPConnect` once in Rhino 9 and install it for your agent, then run `MCPStart` on the open model and start a new agent session." Arch Studio never installs, registers or configures anything.
-2. **Document.** `get_context` must answer with the open document. Then one `run_python` script reads `__rhino_doc__` and `Rhino.RhinoApp.Version`: Rhino version, units, name, path, live object count, top-level layers. If the version is below 9, report that the skills are written for Rhino 9. These values hold for this turn only; a later turn reads them again.
+2. **Document.** `get_context` must answer with the open document. Then one `run_python` script reads `__rhino_doc__`, `Rhino.RhinoApp.Version` and `sys.platform`: Rhino version, operating system (`darwin` is macOS, `win32` is Windows), units, name, path, live object count, top-level layers. If the version is below 9, report that the skills are written for Rhino 9. These values hold for this turn only; a later turn reads them again.
 3. **Smoke test** only when the user asked to verify: add one named point on a layer `Rhino Setup Check`, read it back, delete it and the layer, and report both steps. Never touch other objects. Run this script as written in one `run_python` call; it is tested in Rhino 9 and keeps a `Rhino Setup Check` layer that existed before. Layer calls with one string argument (`Layer(name)`, `Layers.Add(name)`, `Layers.FindByFullPath(name)`) fail there with "No overload".
 
 ```python
@@ -42,4 +42,4 @@ print("layer deleted:" if made else "layer kept, it existed before:", d.Layers.D
 
 ## Report
 
-Tools found or not, Rhino version, document name or "untitled", units, object count, smoke-test result, and the next user action if anything is missing. Complete under the [completion contract](../../docs/completion-reporting.md).
+Tools found or not, Rhino version and operating system, document name or "untitled", units, object count, smoke-test result, and the next user action if anything is missing. On Windows, if the panel found this skill only because the user pointed it to the skill index by hand, tell them to install Git for Windows and start a new panel session: Claude Code runs the plugin's startup hook in Git Bash. Complete under the [completion contract](../../docs/completion-reporting.md).

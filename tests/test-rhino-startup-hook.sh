@@ -8,7 +8,7 @@ import json, os, re, shutil, subprocess, sys, tempfile
 from pathlib import Path
 
 root = Path.cwd()
-FILES = ['hooks/as-rhino-context.py', 'hooks/lib/as-run-python.sh', 'skills/as-rhino-index.md',
+FILES = ['hooks/as-rhino-context.sh', 'skills/as-rhino-index.md',
          'skills/rhino-model/SKILL.md', 'skills/rhino-model/scripts/as-check.py', 'skills/rhino-setup/SKILL.md',
          'skills/rhino-display/SKILL.md', 'skills/rhino-display/scripts/as-display.py',
          'skills/rhino-thinline/SKILL.md', 'skills/rhino-thinline/scripts/as-sheet.py',
@@ -26,10 +26,13 @@ def index_path(line):
 STDIN = '{"hook_event_name":"SessionStart","source":"startup","session_id":"t","cwd":"/tmp"}'
 
 registered = json.loads((root / 'hooks/hooks.json').read_text())['hooks']['SessionStart']
-entry = next(e for e in registered if any('as-rhino-context.py' in h['command'] for h in e['hooks']))
+entry = next(e for e in registered if any('as-rhino-context.sh' in h['command'] for h in e['hooks']))
 assert set(entry['matcher'].split('|')) == {'startup', 'resume', 'clear', 'compact'}
 command = entry['hooks'][0]['command']
-assert 'hooks/lib/as-run-python.sh' in command and 'node' not in command, command
+assert command == '/bin/sh "${CLAUDE_PLUGIN_ROOT}/hooks/as-rhino-context.sh"', command
+# Plain sh with tr and sed: no Python, node or jq, so it runs in Git Bash on Windows as in macOS's sh.
+hook_text = (root / 'hooks/as-rhino-context.sh').read_text()
+assert not re.search(r'\b(python3?|node|jq)\b(?! or)', hook_text.split('\n\nroot=')[1]), 'the hook calls only sh builtins, tr and sed'
 
 index_text = (root / 'skills/as-rhino-index.md').read_text()
 rows = re.findall(r'^\| `(as-rhino-[a-z-]+)` \| `(/as:[a-z-]+)` \| `([^`]+)` \|', index_text, re.M)
@@ -39,19 +42,19 @@ for name, slash, rel in rows:
     assert slash == '/as:' + rel.split('/')[0], (slash, rel)
 
 with tempfile.TemporaryDirectory() as tmp:
-    # Rhino's bundled interpreter is stood in for by the interpreter running this test.
     home = Path(tmp) / 'home'
-    py = home / '.rhinocode/py313-rh9'
-    py.mkdir(parents=True)
-    (py / 'python3.13').symlink_to(sys.executable)
+    # A PATH with the basic tools only, and no python3, node or jq: a stock Windows PC under Git Bash.
+    tools = Path(tmp) / 'bin'
+    tools.mkdir()
+    for name in ('tr', 'sed', 'dirname', 'sh'):
+        (tools / name).symlink_to(shutil.which(name))
     cache = home / '.claude/plugins/cache/skills-for-architects/as'
     for version in ('1.5.2', '1.5.3'):
         for f in FILES:
             dst = cache / version / f
             dst.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(root / f, dst)
-    # The panel's environment: minimal PATH, no node, Rhino's PYTHONHOME.
-    env = {'HOME': str(home), 'PATH': '/usr/bin:/bin', 'PYTHONHOME': str(py)}
+    env = {'HOME': str(home), 'PATH': str(tools)}
     for version in ('1.5.2', '1.5.3'):
         plugin = cache / version
         cmd = command.replace('${CLAUDE_PLUGIN_ROOT}', str(plugin))

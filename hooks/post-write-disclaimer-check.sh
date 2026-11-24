@@ -38,8 +38,14 @@ except (KeyError, TypeError, ValueError, json.JSONDecodeError) as exc:
     exit 0
   fi
 else
-  exit 0
+  # No jq or python3 (a stock Windows PC under Git Bash): read the one field with sed. JSON
+  # escapes in the path (\\ on Windows, \" in a name) are undone after the match.
+  FILE_PATH=$(printf '%s' "$INPUT" | tr -d '\n\r' | sed -nE 's/.*"tool_input"[[:space:]]*:[[:space:]]*\{.*"file_path"[[:space:]]*:[[:space:]]*"(([^"\\]|\\.)*)".*/\1/p' | sed -e 's/\\"/"/g' -e 's/\\\\/\\/g')
+  [ -n "$FILE_PATH" ] || exit 0
 fi
+
+# Windows paths arrive with backslashes; Git Bash reads them with forward slashes.
+case "$FILE_PATH" in [A-Za-z]:\\*) FILE_PATH=$(printf '%s' "$FILE_PATH" | tr '\\' '/') ;; esac
 
 # Only check writes/edits to markdown files.
 [[ "$FILE_PATH" != *.md ]] && exit 0
@@ -82,7 +88,8 @@ if [ -n "$PROBLEMS" ]; then
   elif command -v python3 >/dev/null 2>&1; then
     PROBLEMS="$PROBLEMS" python3 -c 'import json,os; print(json.dumps({"decision":"block","reason":os.environ["PROBLEMS"]}))'
   else
-    printf '{"decision":"block","reason":"Arch Studio disclaimer check failed; restore the canonical block from %s/rules/professional-disclaimer.md."}\n' "${CLAUDE_PLUGIN_ROOT:-<plugin-root>}"
+    reason=$(printf '%s' "$PROBLEMS" | tr '\n' ' ' | sed -e 's/\\/\\\\/g' -e 's/"/\\"/g')
+    printf '{"decision":"block","reason":"%s"}\n' "$reason"
   fi
 fi
 

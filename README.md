@@ -89,7 +89,7 @@ Open **Customize → Plugins → + → Add marketplace**, choose a repository so
 
 ### Rhino 9
 
-The Rhino skills run in Rhino 9 for Mac. There are two ways in, with the same skills in both. Install the plugin in Claude Code as above, at user scope (the default), for either.
+The Rhino skills run in Rhino 9 on macOS and Windows. There are two ways in, with the same skills in both. Install the plugin in Claude Code as above, at user scope (the default), for either. On Windows, also install [Git for Windows](https://git-scm.com/downloads/win): Claude Code runs the plugin's hooks in Git Bash, and without it the panel never gets the startup line that points it to the Rhino skills ([hooks reference](https://code.claude.com/docs/en/hooks#exec-form-and-shell-form)). No Python is needed on the computer.
 
 #### Way 1: from Rhino's AI panel
 
@@ -98,24 +98,27 @@ For working in Rhino with an agent beside you.
 1. Open a model in Rhino 9 and start a new AI panel session. The panel reads your user settings, so it runs the plugin's startup hook, which points it to the Rhino skills.
 2. Name the skill or Arch Studio, for example "Use Arch Studio rhino-setup to check the connection", then "Use /as:rhino-model to model a 12 by 16 ft shed with a gable roof".
 
-Tested in the Rhino 9 AI panel on test buildings, one run each.
+Tested in the Rhino 9 AI panel on test buildings, one run each, on macOS. On Windows (Rhino 9.1.26315), `rhino-setup` and its smoke test have been run in the panel, with the skill index opened by hand; the startup line and the other skills are not yet tested there.
 
 #### Way 2: from your terminal
 
 For automation and agent teams: Claude Code, or another agent, connected to Rhino 9 through its built-in Rhino MCP server. Nothing else needs installing in Rhino.
 
 1. In Rhino 9, run `MCPConnect` and choose Install next to your agent (Claude Code, Codex, Cursor, Gemini CLI, Windsurf or OpenCode). It adds a `rhino` server to that agent's user settings. For Claude Code the same entry is:
-   `claude mcp add --scope user rhino -e RHINO_MCP_DEFAULT_VERSION=9 -- "$HOME/Library/Application Support/McNeel/Rhinoceros/ai/bin/rhino-mcp-router"`
+   - macOS (Terminal): `claude mcp add --scope user rhino -e RHINO_MCP_DEFAULT_VERSION=9 -- "$HOME/Library/Application Support/McNeel/Rhinoceros/ai/bin/rhino-mcp-router"`
+   - Windows (PowerShell): `claude mcp add --scope user rhino -e RHINO_MCP_DEFAULT_VERSION=9 -- "$env:APPDATA\McNeel\Rhinoceros\ai\bin\rhino-mcp-router.exe"`
 
-   `RHINO_MCP_DEFAULT_VERSION=9` makes the connection start Rhino 9 rather than Rhino 8, its default, when it has to start a Rhino itself because no Rhino 9 server is running. `MCPConnect`'s entry leaves it out by default; its Advanced options list a Default version setting.
+   The Windows path is where Rhino 9's plugin keeps its router (`%APPDATA%\McNeel\Rhinoceros\ai\bin`), read from the plugin itself; McNeel's documentation does not give it. `MCPConnect` writes the right path on either system.
+
+   `RHINO_MCP_DEFAULT_VERSION=9` makes the connection start Rhino 9 rather than Rhino 8, its default, when it has to start a Rhino itself because no Rhino 9 server is running. `MCPConnect`'s entry leaves it out by default; its Advanced options list a Default version setting. To set it for every agent instead, in PowerShell: `[Environment]::SetEnvironmentVariable("RHINO_MCP_DEFAULT_VERSION", "9", "User")`, then start a new terminal.
 2. Open the model in Rhino 9 and start its MCP server with `MCPStart`, or turn on "Load MCP server at startup" in Rhino's AI settings. The agent then works on that document.
 3. In a terminal, `claude mcp list` should show `rhino` as connected. Start a new session and name the skill, for example "Use /as:rhino-setup to check the connection". In Claude Code the skills load as plugin skills; the startup hook still names their lessons folder.
 
-Tested once on Rhino 9.0.26300 for Mac with Claude Code: from a clean install and the entry above without `RHINO_MCP_DEFAULT_VERSION` (the plugin loaded with `--plugin-dir` under the tester's normal login, and Rhino's MCP server started on a document with no window instead of with `MCPStart`), the agent ran `rhino-setup`, modeled a 12 by 16 ft gable shed whose requirements check passed, and exported an axonometric sheet whose sheet and PDF checks passed. On that Mac, which also had Rhino 8 and its MCP package, the agent's first call launched Rhino 8 instead of using the Rhino 9 server; the two versions' MCP connectors share one list of running Rhinos. Not yet tested: the entry with `RHINO_MCP_DEFAULT_VERSION=9`, a model started with `MCPStart` in a visible window, agents other than Claude Code, and Windows.
+Tested once on Rhino 9.0.26300 for Mac with Claude Code: from a clean install and the entry above without `RHINO_MCP_DEFAULT_VERSION` (the plugin loaded with `--plugin-dir` under the tester's normal login, and Rhino's MCP server started on a document with no window instead of with `MCPStart`), the agent ran `rhino-setup`, modeled a 12 by 16 ft gable shed whose requirements check passed, and exported an axonometric sheet whose sheet and PDF checks passed. On that Mac, which also had Rhino 8 and its MCP package, the agent's first call launched Rhino 8 instead of using the Rhino 9 server; the two versions' MCP connectors share one list of running Rhinos. Not yet tested: the entry with `RHINO_MCP_DEFAULT_VERSION=9`, a model started with `MCPStart` in a visible window, agents other than Claude Code, and this way in on Windows.
 
 **Agent teams** (`rhino-agent-team`) need one agent per owner file, each with that file open in Rhino 9 and Rhino's `run_python` tool, and every machine on the same plugin release. Either way in provides that; neither has been run with a team yet. The team's measured runs used a test harness with documents opened without a window.
 
-**Both ways:** Mac only; Windows is not supported yet. Claude Code is the only agent tested. A custom agent prompt or an extra MCP server set in Rhino's AI settings can override the plugin's startup line; if the panel does not find the Arch Studio skills, reset those settings. The skills that run helper scripts need the installed plugin and are not available through hosted MCP. Known limits are in the [CHANGELOG](./CHANGELOG.md).
+**Both ways:** macOS and Windows, with Git for Windows on Windows. Claude Code is the only agent tested. A custom agent prompt or an extra MCP server set in Rhino's AI settings can override the plugin's startup line; if the panel does not find the Arch Studio skills, reset those settings. The skills that run helper scripts need the installed plugin and are not available through hosted MCP. Known limits are in the [CHANGELOG](./CHANGELOG.md).
 
 ### Check that it works
 
@@ -278,7 +281,7 @@ Claude Code loads four hook handlers across two events. Codex loads one. See the
 | Hook | Host | When | What it does |
 |------|------|------|--------------|
 | [session-start-welcome](./hooks/session-start-welcome.sh) | Claude Code | First session after install | Confirms the skills are ready and points to setup and the course |
-| [as-rhino-context](./hooks/as-rhino-context.py) | Claude Code | Session start, resume, clear and compaction | Adds one line pointing to the Rhino skill index, for the Rhino AI panel |
+| [as-rhino-context](./hooks/as-rhino-context.sh) | Claude Code | Session start, resume, clear and compaction | Adds one line pointing to the Rhino skill index, for the Rhino AI panel |
 | [version-check](./hooks/version-check.sh) | Claude Code | Session start, at most daily | Checks for a newer release (see [telemetry](#data-privacy-and-telemetry)) |
 | [post-write-disclaimer-check](./hooks/post-write-disclaimer-check.sh) | Claude Code | After Write or Edit | Flags regulatory output missing the professional disclaimer |
 | [session-start-ambient](./hooks/session-start-ambient.sh) | Codex | Session start | Adds short Arch Studio routing context; reads and writes nothing |
