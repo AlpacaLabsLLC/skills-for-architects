@@ -41,6 +41,16 @@ The recorded policy complements existing governance, including provenance; it do
 
 This local version stores studio and project records in this workspace. Arch Studio does not send them to or store them with ALPA. Content provided to the configured LLM is handled by that provider under the user’s account and data terms. Future cloud-based versions may require an account and use different storage.
 
+## Practice areas
+
+The practice areas this studio offers, chosen at setup. Advisory: they order skill suggestions and never hide or block a skill.
+
+<!-- practice-areas:start -->
+| Cluster | Practice area |
+|---|---|
+{{PRACTICE_AREA_ROWS}}
+<!-- practice-areas:end -->
+
 ## Studio resources
 
 - Ongoing studio operations and administrative records: `{{OPERATIONS_ROOT}}/`

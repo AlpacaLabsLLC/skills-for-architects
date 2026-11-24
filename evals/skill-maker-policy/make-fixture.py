@@ -29,6 +29,7 @@ def main():
             TASK_MODE='project', NAMING_POLICY='none', PROJECT_ID_CONVENTION='None',
             FOLDER_TAXONOMY='firm', PROJECT_FOLDER_CONVENTION='None', STUDIO_FOLDER_ID=folder_id,
             STAGE_ROWS='| initiative | review |', DEFAULT_SCOPE_ROWS='| initiative | operations |',
+            PRACTICE_AREA_ROWS='| cluster:firm-operations | Firm Operations |',
             FIRM_POLICY='Standards/governance/ai-policy.md', FIRM_POLICY_ADOPTION='existing')
         identity(studio, 'studio', folder_id)
         for index, root in enumerate(('Projects', 'Operations', 'Standards', 'References'), 1):
