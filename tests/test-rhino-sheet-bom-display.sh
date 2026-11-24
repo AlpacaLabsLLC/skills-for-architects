@@ -307,6 +307,17 @@ PDF = load(root / 'rhino-thinline/scripts/as-pdf-check.py')
 THIN_CORE = load(root / 'rhino-thinline/scripts/as-sheet-core.py')
 CORE = load(root / 'rhino-axon/scripts/as-axon-core.py', **THIN_CORE)   # as-axon.py loads both into one namespace
 
+# Text height: sheet text sized in mm must be drawn at that size, whatever the document's dimension style scales by.
+# The old text() kept the style's scale: Rhino 9's Meters template (1.5) drew 7 mm text at 10.5 mm, Foot-Inch (96) at 672 mm.
+thf = THIN_CORE['text_height_failure']
+old = [thf('Title', 7.0, 7.0 * s) for s in (1.5, 10.0, 12.0, 96.0, 100.0)]
+ok(all(f and f.startswith('text drawn at') for f in old), 'sheet: text drawn at the old style scale (1.5x to 100x) fails', old)
+ok(thf('Title', 7.0, 7.0 * 1.0) is None and thf('Note', 2.6, 2.6) is None, 'sheet: text drawn at the asked height passes')
+ok(thf('Title', 7.0, 7.6) is None and thf('Title', 7.0, 7.8) is not None and thf('Title', 7.0, 6.2) is not None, 'sheet: the tolerance is 10% either way')
+src = (root / 'rhino-thinline/scripts/as-sheet.py').read_text(encoding='utf-8')
+ok('attr.SetUserString(TEXT_HEIGHT_KEY' in src and 'text_height_failure(item.Geometry.PlainText' in src and 'entity.DimensionScale = 1.0' in src,
+   'sheet: text() records the asked height and resets the style scale, and read_sheet checks it')
+
 
 def pdf(content, media='0 0 2592 1728', extra=b''):
     body = zlib.compress(content)
@@ -716,8 +727,9 @@ class Pt:
 
 
 class Text:
-    def __init__(self, body, box):
+    def __init__(self, body, box, height=1.0, scale=1.0):
         self.PlainText, self.box = body, box
+        self.TextHeight, self.DimensionScale = height, scale
 
     def GetBoundingBox(self, accurate):
         return types.SimpleNamespace(Min=Pt(*self.box[:2]), Max=Pt(*self.box[2:]))
@@ -727,8 +739,9 @@ fake_geo.TextEntity = Text
 fake_geo.Curve = type('NoCurve', (), {})  # replaced by the Polyline stub below
 sheet_view = types.SimpleNamespace(PageName='A-1', MainViewport=types.SimpleNamespace(Id='main'))
 
-def page_item(name, geometry):
-    return types.SimpleNamespace(Attributes=types.SimpleNamespace(Name=name, ViewportId='main'), Geometry=geometry)
+def page_item(name, geometry, user=None):
+    user = dict(user or {})
+    return types.SimpleNamespace(Attributes=types.SimpleNamespace(Name=name, ViewportId='main', GetUserString=user.get), Geometry=geometry)
 
 def leader(a, b):
     return types.SimpleNamespace(PointAtStart=Pt(*a), PointAtEnd=Pt(*b))
@@ -757,6 +770,16 @@ result = SHEET['check_sheet'](sheet_doc([caption, page_item('Locator leader D1',
 ok(result == [], 'sheet: check_sheet passes a locator leader clear of the caption', result)
 result = SHEET['check_sheet'](sheet_doc([caption, page_item('Label leader 1', leader((0, 5), (20, 5)))]), 'A-1', 'Sheet', [])
 ok(result == [], 'sheet: a label leader is not held to the locator rule', result)
+
+# check_sheet reads each text's drawn height (text height x dimension scale) against the height text() recorded
+asked = {SHEET['TEXT_HEIGHT_KEY']: '7.0000'}
+for scale in (1.5, 96.0):   # the old text(): the document's dimension style scale stayed on the text
+    title = page_item('Title', Text('Camera obscura', (10, 10, 60, 17), 7.0, scale), asked)
+    result = SHEET['check_sheet'](sheet_doc([title]), 'A-1', 'Sheet', [])
+    ok(result == ['text drawn at %.1f mm, asked 7.0 mm: Camera obscura' % (7.0 * scale)], 'sheet: check_sheet fails text drawn at %gx the asked height' % scale, result)
+title = page_item('Title', Text('Camera obscura', (10, 10, 60, 17), 7.0, 1.0), asked)
+result = SHEET['check_sheet'](sheet_doc([title]), 'A-1', 'Sheet', [])
+ok(result == [], 'sheet: check_sheet passes text drawn at the asked height (the fixed text())', result)
 
 
 class Polyline:

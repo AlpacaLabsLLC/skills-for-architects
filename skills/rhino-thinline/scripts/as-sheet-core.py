@@ -13,6 +13,8 @@ import re
 
 COLOUR_WORDS = re.compile(r"\b(red|blue|green|yellow|orange|purple|pink|brown|magenta|cyan|colou?red)\b", re.I)
 OUTLINE_TYPES = ("Boundary", "Projecting", "Tangent", "TangentProjects")
+TEXT_HEIGHT_KEY = "as-sheet:text-mm"   # object user string: the text height text() was asked for, in mm
+TEXT_HEIGHT_TOLERANCE = 0.10
 EDGE_TYPES = ("Crease", "NonSilhouetteCrease")
 
 
@@ -581,6 +583,14 @@ def clip_out(segments, holes, margin=0.0):
         segments = result
     return segments
 
+
+
+def text_height_failure(body, asked_mm, drawn_mm, tolerance=TEXT_HEIGHT_TOLERANCE):
+    """A failure when sheet text is drawn at another height than text() was asked for: drawn_mm is the height
+    Rhino draws (text height times its dimension scale), so a dimension style's scale cannot enlarge it unseen."""
+    if asked_mm > 0 and abs(drawn_mm / asked_mm - 1.0) > tolerance:
+        return "text drawn at %.1f mm, asked %.1f mm: %s" % (drawn_mm, asked_mm, body)
+    return None
 
 def hatch_x(u0, v0, u1, v1):
     """Sawn lumber across the grain: corner to corner."""

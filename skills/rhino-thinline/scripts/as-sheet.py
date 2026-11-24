@@ -191,6 +191,7 @@ def text(doc, page, index, x, y, body, height, name, bold=False, justification=N
     another anchor pass one, such as G.TextJustification.MiddleCenter."""
     plane = G.Plane(G.Point3d(x, y, 0), G.Vector3d.ZAxis)
     attr = page_attr(doc, page, index, name)
+    attr.SetUserString(TEXT_HEIGHT_KEY, "%.4f" % (height / mm(doc)))
     if justification is None:
         guid = doc.Objects.AddText(body, plane, height, font, bold, False, attr)
     else:
@@ -435,6 +436,12 @@ def read_sheet(doc, page_name, root, frames, field=None):
             for pattern, frame in frames:
                 if fnmatch.fnmatchcase(name, pattern) and outside(bounds, frame):
                     failures.append("text outside its frame: %s" % item.Geometry.PlainText)
+            asked = item.Attributes.GetUserString(TEXT_HEIGHT_KEY)
+            if asked:
+                drawn = item.Geometry.TextHeight * item.Geometry.DimensionScale / one_mm
+                failure = text_height_failure(item.Geometry.PlainText, float(asked), drawn)
+                if failure:
+                    failures.append(failure)
         elif "Locator leader" in name or "label leader" in name.lower():
             c = item.Geometry
             segments.append(((c.PointAtStart.X, c.PointAtStart.Y), (c.PointAtEnd.X, c.PointAtEnd.Y)))
