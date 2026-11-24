@@ -13,7 +13,7 @@ A compatible release on 1.5.3 that adds the Rhino cluster: seven skills for arch
 ### Added
 
 - **Rhino cluster (3D / BIM modeling).**
-  - **`rhino-setup`** checks that Rhino 9 and the AI panel's tools are ready, reads the open document and its units, and names the user action when something is missing.
+  - **`rhino-setup`** checks that Rhino 9 and the AI panel's tools are ready, reads the open document and its units, and names the user action when something is missing. It also says when the hosted Arch Studio MCP is connected beside the plugin: use one or the other.
   - **`rhino-model`** plans, builds and checks architectural models from a plain-language brief: it asks one table of recommended values, writes the model's requirements (each with its source) into the document before building, builds by script, and runs a requirements check that covers dimensions, counts, clearances, clashes, connectivity, hardware plausibility, proportion, cover and bearing. It reports what was met and what was not checked.
   - **`rhino-batch-image-export`** batch-exports view images of a model (options, views, layer sets) in one display mode, setting up the display modes, views and materials the export needs; every PNG is read back and the batch fails when a file is blank or has colour in a mode that must have none.
   - **`rhino-thinline`** holds the drawing conventions for black and white vector sheets (line hierarchy, hatch, labels and leaders, title block, layout) and checks the exported PDF.

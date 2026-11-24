@@ -83,5 +83,11 @@ with tempfile.TemporaryDirectory() as tmp:
     cmd = command.replace('${CLAUDE_PLUGIN_ROOT}', str(cache / '1.5.2'))
     run = subprocess.run(['/bin/sh', '-c', cmd], input=STDIN, env=env, capture_output=True, text=True, cwd=tmp)
     assert run.returncode == 0 and run.stdout == '' and run.stderr == '', run
-print('PASS: startup hook gives one short line, resolves each installed version, stays silent when incomplete')
+# rhino-setup flags the hosted Arch Studio MCP connected beside the plugin, from the tool list only.
+setup = (root / 'skills/rhino-setup/SKILL.md').read_text()
+tools_step = setup.split('2. **Document.**')[0]
+assert '`as_*`' in tools_step and 'other than Rhino' in tools_step and 'do not call those tools' in tools_step and 'do not compare versions' in tools_step, tools_step
+report = setup.split('## Report', 1)[1]
+assert 'The hosted Arch Studio MCP is also connected; use the Arch Studio plugin or the MCP, not both' in report, report
+print('PASS: startup hook gives one short line, resolves each installed version, stays silent when incomplete; rhino-setup flags the hosted MCP')
 PY
