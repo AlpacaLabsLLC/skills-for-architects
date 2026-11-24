@@ -13,12 +13,19 @@ Runs by file path through run_python (no Rhino needed):
 
 AS_MODE
   read     firm rules for the skill, then its lessons, repeats counted, newest first
-  write    append AS_LESSONS = [{"tag": "U" | "F" | "M" | "J", "text": "...",
-           "user_wrote": false}]. Terms in AS_PRIVATE (project, client, people, places, the
+  write    append AS_LESSONS = [{"tag": "U" | "F" | "M" | "J", "kind": "practice" | "preference",
+           "text": "...", "user_said": "...", "user_wrote": false}]. Every lesson declares a kind:
+           practice (how to build in Rhino: construction, normals, joins, duplicates, tolerances)
+           or preference (the user's own: tolerances, layers, naming, or a design preference the
+           user stated). A preference needs tag U and user_said, what the user said; it is kept
+           with the lesson. Anything else is refused, so a design, architectural or engineering
+           rule the agent inferred is never stored. The script cannot judge the text: the kind is
+           declared by the agent under the skill's rules, and the script enforces the declaration. Terms in AS_PRIVATE (project, client, people, places, the
            document name) and paths, emails, phone numbers, URLs and street addresses are
            stripped unless user_wrote is true: the user wrote that wording into the lesson
-  offer    lessons that may become firm rules: only [U] lessons (the user's own design
-           preferences or practice) not already covered by a firm rule. Lessons about tools,
+  offer    lessons that may become firm rules: only [U] lessons with a kind (the user's own
+           preferences or practice) not already covered by a firm rule. A lesson written
+           before kinds existed is read but never offered until a kind is added to its line. Lessons about tools,
            scripts or checks ([F], [M], [J]) are never offered, however often they repeat.
            Ask the user with ask_user before promoting, each candidate in plain words
   promote  AS_PROMOTE = {"ids": ["a1b2c3"], "confirmed": true, "answer": "<the user's
@@ -29,6 +36,7 @@ AS_MODE
            declines them all) in declined.txt, so they are not offered again
 
 Tags: [U] user correction, [F] failure then fix, [M] measured, [J] judgment (unconfirmed).
+Kinds: practice or preference, written after the tag: "time [U] preference: text (user said: ...)".
 
 From a shell or a test: python3 as-rhino-lessons.py MODE --skill S --dir D [--json FILE],
 where FILE holds {"lessons": [...], "private": [...], "promote": {...}}.
@@ -49,7 +57,9 @@ DECLINED = "declined.txt"
 SUBDIR = "rhino-lessons"
 MAX_TEXT = 300
 MAX_READ = 30
-LINE = re.compile(r"^(\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ) \[([UFMJ])\] (.+)$")
+KINDS = {"practice": "modeling practice", "preference": "the user's own preference, stated by the user"}
+MAX_SAID = 200
+LINE = re.compile(r"^(\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ) \[([UFMJ])\] (?:(practice|preference): )?(.+)$")
 RULE = re.compile(r"^(\d{4}-\d\d-\d\d) (rhino-[a-z]+|all): (.+?)(?: \(from ([0-9a-f]{6})\))?$")
 STOP = set("a an the to of in on at and or is are be by for with it its that this as from when "
            "than then so do does".split())
@@ -57,7 +67,8 @@ STOP = set("a an the to of in on at and or is are be by for with it its that thi
 HEADERS = {
     "lessons": ("# Arch Studio lessons for {skill}, written by the skill at the end of each run.\n"
                 "# One lesson per line: time [tag] text. Tags: [U] user correction, [F] failure then\n"
-                "# fix, [M] measured, [J] judgment (unconfirmed). Plain text; edit or delete freely.\n"),
+                "# fix, [M] measured, [J] judgment (unconfirmed). Kinds: practice, or preference (the\n"
+                "# user's own, with what the user said). Plain text; edit or delete freely.\n"),
     "firm": ("# Arch Studio firm rules for the as-rhino skills. A rule is added only after the user\n"
              "# agreed to it. One rule per line: date skill-or-all: text (from lesson id).\n"),
     "declined": ("# Preferences the user chose not to make firm rules; they are not offered again.\n"
@@ -195,7 +206,7 @@ def load_lessons(folder, skill):
     for ln in _read_lines(_path(folder, skill)):
         m = LINE.match(ln)
         if m:
-            out.append({"time": m.group(1), "tag": m.group(2), "text": m.group(3)})
+            out.append({"time": m.group(1), "tag": m.group(2), "kind": m.group(3), "text": m.group(4)})
     return out
 
 
@@ -225,12 +236,16 @@ def clusters(lessons):
             if similar(g["text"], les["text"]):
                 g["runs"].add(les["time"])
                 g["tags"].add(les["tag"])
+                g["kinds"].add(les["kind"])
+                if les["tag"] == "U":
+                    g["ukinds"].add(les["kind"])
                 if les["time"] >= g["last"]:
-                    g["last"], g["text"], g["tag"] = les["time"], les["text"], les["tag"]
+                    g["last"], g["text"], g["tag"], g["kind"] = les["time"], les["text"], les["tag"], les["kind"]
                 break
         else:
-            groups.append({"id": lesson_id(les["text"]), "text": les["text"], "tag": les["tag"],
-                           "tags": {les["tag"]}, "runs": {les["time"]}, "last": les["time"]})
+            groups.append({"id": lesson_id(les["text"]), "text": les["text"], "tag": les["tag"], "kind": les["kind"],
+                           "tags": {les["tag"]}, "kinds": {les["kind"]}, "runs": {les["time"]}, "last": les["time"],
+                           "ukinds": {les["kind"]} if les["tag"] == "U" else set()})
     for g in groups:
         g["count"] = len(g["runs"])
     return sorted(groups, key=lambda g: g["last"], reverse=True)
@@ -243,7 +258,7 @@ def offerable(folder, skill):
     for g in clusters(load_lessons(folder, skill)):
         if g["id"] in firm or any(similar(g["text"], t) for t in firm_text):
             continue
-        if "U" in g["tags"]:
+        if g["ukinds"] & set(KINDS):   # a [U] lesson that declared practice or preference
             out.append(g)
     return out
 
@@ -261,7 +276,10 @@ def do_read(folder, skill):
             note = "unconfirmed" if g["tags"] == {"J"} and g["count"] < 2 else ""
             seen = "seen in %d runs" % g["count"] if g["count"] > 1 else ""
             extra = ", ".join(x for x in (seen, note) if x)
-            lines.append("- [%s] %s%s" % (g["tag"], g["text"], " (%s)" % extra if extra else ""))
+            kind = "%s: " % g["kind"] if g["kind"] else ""
+            if not g["kind"]:
+                extra = ", ".join(x for x in (extra, "no kind: read only, never promoted") if x)
+            lines.append("- [%s] %s%s%s" % (g["tag"], kind, g["text"], " (%s)" % extra if extra else ""))
         if len(groups) > MAX_READ:
             lines.append("- ... %d older lessons not shown" % (len(groups) - MAX_READ))
     if not rules and not groups:
@@ -279,15 +297,29 @@ def do_write(folder, skill, lessons, private=(), now=None):
         tag = str(item.get("tag", "")).strip("[] ").upper()
         if tag not in TAGS:
             raise LessonError("tag %r is not one of U, F, M, J" % item.get("tag"))
+        kind = str(item.get("kind", "")).strip().lower()
+        if kind not in KINDS:
+            raise LessonError("refused: every lesson declares kind 'practice' (modeling practice) or 'preference' "
+                              "(the user's own, as the user stated it); got %r. A design, architectural or engineering "
+                              "rule you inferred is not saved: mention it to the user instead" % item.get("kind"))
         text, removed = strip_private(item.get("text", ""), private, bool(item.get("user_wrote")))
         check_text(text)
+        if kind == "preference":
+            said, more = strip_private(item.get("user_said", ""), private, bool(item.get("user_wrote")))
+            if tag != "U" or not said.strip():
+                raise LessonError("refused: a preference is the user's own: tag U and user_said, what the user said. "
+                                  "Something you inferred is not a preference: mention it to the user instead")
+            if len(said) > MAX_SAID:
+                raise LessonError("refused: user_said is at most %d characters" % MAX_SAID)
+            removed += more
+            text = "%s (user said: %s)" % (text, said.replace("\n", " "))
         if any(similar(text, s) for s in seen):
             continue
         seen.append(text)
         repeat = next((g for g in before if similar(g["text"], text)), None)
-        keep.append("%s [%s] %s" % (stamp, tag, text))
+        keep.append("%s [%s] %s: %s" % (stamp, tag, kind, text))
         note = " (repeats %s, now %d runs)" % (repeat["id"], repeat["count"] + 1) if repeat else ""
-        report.append("- [%s] %s%s%s" % (tag, text, note, " - stripped %d private detail(s)" % len(removed) if removed else ""))
+        report.append("- [%s] %s: %s%s%s" % (tag, kind, text, note, " - stripped %d private detail(s)" % len(removed) if removed else ""))
     if not keep:
         return "LESSONS %s: nothing to write" % skill
     os.makedirs(folder, exist_ok=True)
@@ -306,7 +338,7 @@ def do_write(folder, skill, lessons, private=(), now=None):
 def do_offer(folder, skill):
     offer = offerable(folder, skill)
     if not offer:
-        return "OFFER %s: none (only the user's own corrections qualify); ask nothing" % skill
+        return "OFFER %s: none (only the user's own corrections with a kind qualify); ask nothing" % skill
     lines = ["OFFER %s: candidates below, from the user's own corrections. Drop any that is about a tool, "
              "a script or a check, or that a firm rule already covers. Ask about the rest in one ask_user "
              "question: each option is the rule in plain words an architect would recognise (no id, no tag), "
@@ -330,6 +362,10 @@ def do_promote(folder, skill, promote, now=None):
     if not ids and not declined:
         raise LessonError("no ids to promote or decline")
     missing = [i for i in ids + declined if i not in offer]
+    legacy = [g["id"] for g in clusters(load_lessons(folder, skill)) if g["id"] in missing and not (g["ukinds"] & set(KINDS)) and "U" in g["tags"]]
+    if legacy:
+        raise LessonError("refused: %s has no kind (written before kinds); add 'practice: ' or 'preference: ' after its tag "
+                          "in the lessons file before it can be promoted" % ", ".join(legacy))
     if missing:
         raise LessonError("refused: not offered for %s: %s (run AS_MODE offer)" % (skill, ", ".join(missing)))
     if set(ids) & set(declined):

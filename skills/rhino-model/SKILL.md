@@ -72,7 +72,7 @@ P = "<absolute path of the skills folder, the parent of this skill's folder>/as-
 exec(compile(open(P).read(), P, "exec"), {"AS_SCRIPT_FILE": P, "AS_MODE": "read", "AS_SKILL": "rhino-model", "AS_LESSONS_DIR": "<lessons folder from the startup line>"})
 ```
 
-Follow every firm rule. Name the firm rules and user preferences you apply in the reply (Report, item 6), and every other lesson you apply in `as:run-notes`. To write, use `"AS_MODE": "write"` with `AS_LESSONS`, `AS_PRIVATE` and `__rhino_doc__`, then `"offer"`. A firm rule is written only with `"promote"`, after the user said yes in `ask_user`. Never edit the checker, its tests or answer keys to apply a lesson.
+Follow every firm rule. Name the firm rules and user preferences you apply in the reply (Report, item 6), and every other lesson you apply in `as:run-notes`. To write, use `"AS_MODE": "write"` with `AS_LESSONS`, `AS_PRIVATE` and `__rhino_doc__`, then `"offer"`. Each lesson declares its kind: `practice` (modeling practice) or `preference` (the user's own, with what the user said). Never save a design, architectural or engineering rule you inferred; mention it to the user instead ([lessons](../as-rhino-lessons.md)). A firm rule is written only with `"promote"`, after the user said yes in `ask_user`. Never edit the checker, its tests or answer keys to apply a lesson.
 
 ## Questions
 

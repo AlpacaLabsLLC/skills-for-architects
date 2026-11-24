@@ -42,9 +42,9 @@ with tempfile.TemporaryDirectory() as tmp:
     # Write: one line per lesson, plain text, tagged, in the skill's own file.
     t0 = 1_800_000_000
     out = L['run']('write', 'rhino-model', d, [
-        {'tag': 'F', 'text': 'CreateBooleanDifference with a Python list hit the single-Brep overload; a List[G.Brep] worked'},
-        {'tag': 'J', 'text': 'Show the requirements table before the first build script, even for one element'},
-        {'tag': '[M]', 'text': 'Sheathing of 13 mm per side ate the knee clearance; recheck tight widths after an added layer'},
+        {'tag': 'F', 'kind': 'practice', 'text': 'CreateBooleanDifference with a Python list hit the single-Brep overload; a List[G.Brep] worked'},
+        {'tag': 'J', 'kind': 'practice', 'text': 'Show the requirements table before the first build script, even for one element'},
+        {'tag': '[M]', 'kind': 'practice', 'text': 'Sheathing of 13 mm per side ate the knee clearance; recheck tight widths after an added layer'},
     ], now=t0)
     assert 'wrote 3' in out, out
     text = (Path(d) / 'rhino-model.txt').read_text()
@@ -52,12 +52,12 @@ with tempfile.TemporaryDirectory() as tmp:
     assert len(rows) == 3 and all(re.match(r'^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ \[[UFMJ]\] ', r) for r in rows), rows
     assert set(os.listdir(d)) == {'rhino-model.txt'}, os.listdir(d)
     assert 'none to offer' in out, out
-    assert refused(L['run'], 'write', 'rhino-model', d, [{'tag': 'X', 'text': 'an unknown tag is refused here'}])
+    assert refused(L['run'], 'write', 'rhino-model', d, [{'tag': 'X', 'kind': 'practice', 'text': 'an unknown tag is refused here'}])
 
     # Read: the next run, a fresh chat, sees them; a lone [J] is marked unconfirmed.
     out = L['run']('read', 'rhino-model', d)
     assert 'List[G.Brep] worked' in out and '13 mm per side' in out, out
-    assert re.search(r'\[J\] Show the requirements table.*\(unconfirmed\)', out), out
+    assert re.search(r'\[J\] practice: Show the requirements table.*\(unconfirmed\)', out), out
     assert 'name any you apply in the report' in out, out
     assert 'No lessons yet' in L['run']('read', 'rhino-bom', d)
 
@@ -66,14 +66,14 @@ with tempfile.TemporaryDirectory() as tmp:
 
     # Repeat detection: the same lesson in other words, in a later run, counts twice.
     out = L['run']('write', 'rhino-model', d, [
-        {'tag': 'J', 'text': 'show the requirements table before the first build script, even for a single element.'},
-        {'tag': 'J', 'text': 'Show the requirements table before the first build script even for one element'},  # same run: once
+        {'tag': 'J', 'kind': 'practice', 'text': 'show the requirements table before the first build script, even for a single element.'},
+        {'tag': 'J', 'kind': 'practice', 'text': 'Show the requirements table before the first build script even for one element'},  # same run: once
     ], now=t0 + 3600)
     assert 'wrote 1' in out and 'now 2 runs' in out and 'none to offer' in out, out
     out = L['run']('read', 'rhino-model', d)
     assert 'seen in 2 runs' in out and 'unconfirmed' not in out, out
     # The same run written twice by mistake (one timestamp) is still one run.
-    L['run']('write', 'rhino-model', d, [{'tag': 'M', 'text': 'Sheathing of 13 mm per side ate the knee clearance; recheck tight widths after an added layer'}], now=t0)
+    L['run']('write', 'rhino-model', d, [{'tag': 'M', 'kind': 'practice', 'text': 'Sheathing of 13 mm per side ate the knee clearance; recheck tight widths after an added layer'}], now=t0)
     assert not any('13 mm' in g['text'] and g['count'] > 1 for g in L['clusters'](L['load_lessons'](d, 'rhino-model')))
     # A different lesson is not a repeat.
     assert not L['similar']('Name every object by element type', 'Restore layer visibility after every batch')
@@ -82,7 +82,7 @@ with tempfile.TemporaryDirectory() as tmp:
     assert 'OFFER rhino-model: none' in L['run']('offer', 'rhino-model', d)
 
     # A [U] lesson (the user's own preference) is offered at once, without id tags or run counts.
-    out = L['run']('write', 'rhino-model', d, [{'tag': 'U', 'text': 'The user wants wall, floor and roof thickness asked as three questions'}], now=t0 + 7200)
+    out = L['run']('write', 'rhino-model', d, [{'tag': 'U', 'kind': 'preference', 'text': 'The user wants wall, floor and roof thickness asked as three questions', 'user_said': 'ask me wall, floor and roof separately'}], now=t0 + 7200)
     offer = L['run']('offer', 'rhino-model', d)
     ids = re.findall(r'^- ([0-9a-f]{6}) ', offer, re.M)
     assert len(ids) == 1 and 'ask_user' in offer and 'None, keep them as lessons' in offer and 'plain words' in offer, offer
@@ -108,7 +108,7 @@ with tempfile.TemporaryDirectory() as tmp:
     assert out.index('Firm rules') < out.index('Lessons from earlier runs') and '1 firm rules' in out, out
     assert 'Firm rules' not in L['run']('read', 'rhino-display', d)
     # scope all reaches every skill; the firm rule keeps the plain wording the user saw.
-    L['run']('write', 'rhino-model', d, [{'tag': 'U', 'text': 'user wants the requirements table shown before the first build script'}], now=t0 + 7400)
+    L['run']('write', 'rhino-model', d, [{'tag': 'U', 'kind': 'preference', 'text': 'user wants the requirements table shown before the first build script', 'user_said': 'show me the table before you build'}], now=t0 + 7400)
     j_id = re.search(r'^- ([0-9a-f]{6}) ', L['run']('offer', 'rhino-model', d), re.M).group(1)
     assert 'wording maps' in refused(L['run'], 'promote', 'rhino-model', d, promote={'ids': [j_id], 'confirmed': True, 'answer': 'yes', 'wording': {'ffffff': 'x y z'}})
     L['run']('promote', 'rhino-model', d, promote={'ids': [j_id], 'confirmed': True, 'answer': 'yes, for every skill', 'scope': 'all',
@@ -116,7 +116,7 @@ with tempfile.TemporaryDirectory() as tmp:
     for s in SKILLS:
         assert 'Show the requirements table before building' in L['run']('read', s, d), s
     # A declined preference ("None") is recorded and not offered again, so the next run asks nothing.
-    L['run']('write', 'rhino-model', d, [{'tag': 'U', 'text': 'user wants 300 mm roof overhangs on sheds'}], now=t0 + 7500)
+    L['run']('write', 'rhino-model', d, [{'tag': 'U', 'kind': 'preference', 'text': 'user wants 300 mm roof overhangs on sheds', 'user_said': 'I always use 300 mm overhangs on sheds'}], now=t0 + 7500)
     k_id = re.search(r'^- ([0-9a-f]{6}) ', L['run']('offer', 'rhino-model', d), re.M).group(1)
     assert 'either promoted or declined' in refused(L['run'], 'promote', 'rhino-model', d, promote={'ids': [k_id], 'declined': [k_id], 'confirmed': True, 'answer': 'x'})
     out = L['run']('promote', 'rhino-model', d, promote={'declined': [k_id], 'confirmed': True, 'answer': 'None, keep them as lessons'})
@@ -145,28 +145,62 @@ with tempfile.TemporaryDirectory() as tmp:
         L['check_text'](clean)
     clean, _ = L['strip_private']('Stud spacing 16 in, header 2x10, clear width 2400 x 1200 mm, sections 16-18 in', private)
     assert clean == 'Stud spacing 16 in, header 2x10, clear width 2400 x 1200 mm, sections 16-18 in', clean
-    out = L['run']('write', 'rhino-bom', d, [{'tag': 'U', 'text': cases[0][0]}, {'tag': 'F', 'text': cases[3][0]}], private)
+    out = L['run']('write', 'rhino-bom', d, [{'tag': 'U', 'kind': 'practice', 'text': cases[0][0]}, {'tag': 'F', 'kind': 'practice', 'text': cases[3][0]}], private)
     stored = (Path(d) / 'rhino-bom.txt').read_text()
     assert 'Sample Ridge' not in stored and '/Users' not in stored and 'user0' not in stored and '<project>' in stored and '<path>' in stored, stored
     assert 'stripped' in out, out
     # Too little left after stripping: refused, nothing written.
     before = (Path(d) / 'rhino-bom.txt').read_text()
-    assert 'too little left' in refused(L['run'], 'write', 'rhino-bom', d, [{'tag': 'U', 'text': 'Sample Ridge Cabin, Quillby'}], private)
+    assert 'too little left' in refused(L['run'], 'write', 'rhino-bom', d, [{'tag': 'U', 'kind': 'practice', 'text': 'Sample Ridge Cabin, Quillby'}], private)
     assert (Path(d) / 'rhino-bom.txt').read_text() == before
     # The user wrote the name in: kept.
-    L['run']('write', 'rhino-bom', d, [{'tag': 'U', 'text': 'Quillby wants every BOM grouped by layout', 'user_wrote': True}], private)
+    L['run']('write', 'rhino-bom', d, [{'tag': 'U', 'kind': 'preference', 'text': 'Quillby wants every BOM grouped by layout', 'user_said': 'group every BOM by layout', 'user_wrote': True}], private)
     assert 'Quillby wants every BOM' in (Path(d) / 'rhino-bom.txt').read_text()
     # The document name passed from Rhino is stripped too.
     class Doc:
         Name = 'Samplefield-Shed.3dm'
         Path = '/Users/user0/Projects/Samplefield-Shed.3dm'
     g = {'__rhino_doc__': Doc(), 'AS_SCRIPT_FILE': str(SCRIPT), 'AS_MODE': 'write', 'AS_SKILL': 'rhino-display',
-         'AS_LESSONS_DIR': d, 'AS_LESSONS': [{'tag': 'F', 'text': 'Samplefield-Shed exported in colour until the mode was named in the capture call'}]}
+         'AS_LESSONS_DIR': d, 'AS_LESSONS': [{'tag': 'F', 'kind': 'practice', 'text': 'Samplefield-Shed exported in colour until the mode was named in the capture call'}]}
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
         exec(compile(SCRIPT.read_text(), str(SCRIPT), 'exec'), g)
     assert 'wrote 1' in buf.getvalue(), buf.getvalue()
     assert 'Sample Ridge' not in (Path(d) / 'rhino-display.txt').read_text()
+
+    # Scope: only two kinds are stored. Modeling practice, and the user's own preference with what the user said.
+    b = str(tmp / 'kinds' / 'rhino-lessons')
+    out = L['run']('write', 'rhino-model', b, [
+        {'tag': 'F', 'kind': 'practice', 'text': 'Join the wall faces before offsetting, or the offset leaves open edges'},
+        {'tag': 'U', 'kind': 'preference', 'text': 'Put the door on the short end wall of sheds', 'user_said': 'doors go on the short end for my sheds'},
+    ], now=t0)
+    assert 'wrote 2' in out, out
+    stored = (Path(b) / 'rhino-model.txt').read_text()
+    assert '[F] practice: Join the wall faces' in stored and '[U] preference: Put the door on the short end wall of sheds (user said: doors go on the short end for my sheds)' in stored, stored
+    # No kind, another kind, an inferred design rule, a preference the user did not state: refused, nothing written.
+    for bad in ({'tag': 'J', 'text': 'Roof overhangs on sheds are 300 mm'},
+                {'tag': 'J', 'kind': 'design', 'text': 'Roof overhangs on sheds are 300 mm'},
+                {'tag': 'J', 'kind': 'engineering', 'text': 'Size the ridge beam at span over 20'},
+                {'tag': 'J', 'kind': 'preference', 'text': 'Put the door on the gable end', 'user_said': 'agent thought it looked better'},
+                {'tag': 'U', 'kind': 'preference', 'text': 'Put the door on the gable end'},
+                {'tag': 'U', 'kind': 'preference', 'text': 'Put the door on the gable end', 'user_said': '  '}):
+        msg = refused(L['run'], 'write', 'rhino-model', b, [bad])
+        assert 'refused' in msg and 'mention it to the user' in msg, (bad, msg)
+    assert (Path(b) / 'rhino-model.txt').read_text() == stored
+    # A lessons file from before kinds: read, kept, but not offered or promoted until a kind is added.
+    legacy = Path(b) / 'rhino-bom.txt'
+    legacy.write_text('2026-01-01T00:00:00Z [U] user wants every BOM grouped by layout\n')
+    out = L['run']('read', 'rhino-bom', b)
+    assert 'user wants every BOM grouped by layout' in out and 'no kind' in out, out
+    assert 'OFFER rhino-bom: none' in L['run']('offer', 'rhino-bom', b)
+    old_id = L['lesson_id']('user wants every BOM grouped by layout')
+    assert 'has no kind' in refused(L['run'], 'promote', 'rhino-bom', b, promote={'ids': [old_id], 'confirmed': True, 'answer': 'yes'})
+    assert legacy.read_text().startswith('2026-01-01T00:00:00Z [U] user wants') and not (Path(b) / 'firm-rules.txt').exists()
+    legacy.write_text('2026-01-01T00:00:00Z [U] preference: user wants every BOM grouped by layout\n')
+    assert old_id in L['run']('offer', 'rhino-bom', b)
+    # Promotion stays inside the boundary: practice and preference lessons from the user ([U]) only.
+    offer = L['run']('offer', 'rhino-model', b)
+    assert 'Put the door on the short end wall' in offer and 'Join the wall faces' not in offer, offer
 
     # The learner never edits the checker, its tests or answer keys.
     for text in ('Relax the clearance tolerance in as-check-model.py so the seat passes',
@@ -192,7 +226,7 @@ with tempfile.TemporaryDirectory() as tmp:
 
     # The command line runs the same logic (the stand-in for run_python in CI).
     spec = tmp / 'spec.json'
-    spec.write_text(json.dumps({'lessons': [{'tag': 'M', 'text': 'Arctic exports read back with zero coloured pixels at 3840 wide'}]}))
+    spec.write_text(json.dumps({'lessons': [{'tag': 'M', 'kind': 'practice', 'text': 'Arctic exports read back with zero coloured pixels at 3840 wide'}]}))
     run = subprocess.run([sys.executable, '-I', str(SCRIPT), 'write', '--skill', 'rhino-display', '--dir', d, '--json', str(spec)], capture_output=True, text=True)
     assert run.returncode == 0 and 'wrote 1' in run.stdout, run
     run = subprocess.run([sys.executable, '-I', str(SCRIPT), 'read', '--skill', 'rhino-display', '--dir', d], capture_output=True, text=True)
