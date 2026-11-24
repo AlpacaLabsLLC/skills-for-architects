@@ -223,6 +223,13 @@ with tempfile.TemporaryDirectory() as tmp:
     assert L['resolve_dir'](None, fake, {}) == str(tmp / 'plugins/data/as-mkt/rhino-lessons')
     assert 'no lessons folder' in refused(L['resolve_dir'], None, str(tmp / 'dev/skills/as-rhino-lessons.py'), {})
     assert L['sanitize_id']('as@skills-for-architects') == 'as-skills-for-architects'
+    if os.name == 'nt':
+        # Windows: a drive path in either separator, as Rhino's Python or the startup line gives it.
+        want = r'C:\Users\user0\.claude\plugins\data\as-skills-for-architects'
+        for given in ('C:/Users/user0/.claude/plugins/cache/skills-for-architects/as/1.5.4',
+                      r'C:\Users\user0\.claude\plugins\cache\skills-for-architects\as\1.5.4'):
+            assert L['derive_data_dir'](given) == want, (given, L['derive_data_dir'](given))
+        assert L['resolve_dir']('C:/Users/user0/.claude/plugins/data/as-skills-for-architects/rhino-lessons', None, {}) == want + '\\rhino-lessons'
 
     # The command line runs the same logic (the stand-in for run_python in CI).
     spec = tmp / 'spec.json'

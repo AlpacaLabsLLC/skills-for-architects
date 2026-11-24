@@ -43,6 +43,20 @@ for name in ("pointer", "pointer-derived"):
     ok(line.endswith("Their lessons folder: %s." % lessons), name + ": names the lessons folder", line)
     ok("\n" not in line and len(line.encode()) < 2048, name + ": one short line", len(line.encode()))
 
+# The lessons script takes the folder exactly as the pointer prints it (forward slashes) and writes there.
+import re, subprocess, tempfile
+line = json.loads(rec("pointer")[0])["hookSpecificOutput"]["additionalContext"]
+folder = re.search(r"Their lessons folder: (.+)\.$", line).group(1)
+script = str(repo / "skills/as-rhino-lessons.py")
+with tempfile.TemporaryDirectory() as td:
+    spec = Path(td) / "spec.json"
+    spec.write_text(json.dumps({"lessons": [{"tag": "F", "kind": "practice", "text": "Join the wall faces before offsetting so no open edges remain"}]}))
+    w = subprocess.run([sys.executable, "-I", script, "write", "--skill", "rhino-model", "--dir", folder, "--json", str(spec)], capture_output=True, text=True)
+    ok(w.returncode == 0 and "wrote 1" in w.stdout, "lessons: write to the pointer's folder", (w.stdout, w.stderr))
+    r = subprocess.run([sys.executable, "-I", script, "read", "--skill", "rhino-model", "--dir", folder], capture_output=True, text=True)
+    ok(r.returncode == 0 and "Join the wall faces" in r.stdout, "lessons: read it back", (r.stdout, r.stderr))
+    ok(Path(folder.replace("/", "\\")).joinpath("rhino-model.txt").is_file(), "lessons: the file sits in the folder named by the pointer", folder)
+
 stdout, stderr, rc = rec("pointer-broken")
 ok(rc == 0 and stdout == "" and stderr == "", "pointer-broken: silent, exit 0", (rc, stdout, stderr))
 

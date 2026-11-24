@@ -37,7 +37,8 @@ exec(compile(open(P).read(), P, "exec"), S)
 ```
 
 3. **Build in this order** with one script per step, following [views](references/views.md) and thinline's [sheets](../rhino-thinline/references/sheets.md): `setup_sheet` for the layout and parallel detail, with its target document active (a headless document need not be); main linework, with every owner's top layer as the source when the model was assembled from several files; annotation and callouts; details, each with `cut_detail`; title block and table. Annotation goes after linework, so it draws on top.
-   - **When a detail or label cannot be placed** (`place_locator` or `place_label` refuses every point and `check_sheet` names it), the joint is inside the drawing. Never edit, trim or delete the model to clear a path. Instead:
+   - **When a label cannot be placed** (`place_label` refuses every point), never cut the building away for it: give it other points on the part's visible outside edge, shorten or drop the label, and report any label left unplaced. A cut-away is for showing a joint, not for making room for text.
+   - **When a detail cannot be placed** (`place_locator` refuses every point and `check_sheet` names it), the joint is inside the drawing. Never edit, trim or delete the model to clear a path. Instead:
      1. Draw a cut-away with `main_linework(crop=(x0, y0, z0, x1, y1, z1))`, ending the box at the edge of the window, door or joint you want to show, so that joint sits on the drawing's outline. The cut-away's cut faces are drawn in outline, not hatched; only details hatch their cut faces.
      2. Try the other view side (for example `direction` with x negated), so the cut face of the cut-away turns away from the viewer and the joint becomes the drawing's edge.
      3. Give the placers several points along the part's visible outside edge, nearest the details.
