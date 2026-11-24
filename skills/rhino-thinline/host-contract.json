@@ -1,0 +1,45 @@
+{
+  "path": "skills/rhino-thinline/SKILL.md",
+  "responsibility": "Drawing conventions for black and white vector sheets from a Rhino 9 model: a line hierarchy, line styles, hatch by material, labels and leaders, detail tags, a title block, the sheet layout, a tamper-proof request record and a parsed PDF check.",
+  "inputs": "The open Rhino 9 document reached through the Rhino AI panel's Rhino tools, the user's request and the output folder they name. Load project context only when the task needs project records.",
+  "owned_records": [],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "answer"
+    },
+    {
+      "mode": "model-edit"
+    },
+    {
+      "mode": "file-output",
+      "when": "Only for a requested PDF of a layout; the file is read back by the PDF check. Also this skill's lessons, appended in the plugin data folder the startup line names.",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "skills/rhino-thinline/SKILL.md",
+    "operations": [],
+    "delivery": "plugin-only"
+  }
+}

@@ -13,7 +13,7 @@ root = Path.cwd()
 spec = importlib.util.spec_from_file_location('categories', root/'tools/validators/validate-categories.py')
 m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
 components, clusters = m.validate(root)
-assert len(clusters) == 9
+assert len(clusters) == 10
 assert {x for x in components if x.startswith('skill:')} == {'skill:'+p.parent.name for p in root.glob('skills/*/SKILL.md')}
 assert m.render(components, clusters) == (root/'docs/practice-clusters.md').read_text()
 with tempfile.TemporaryDirectory(prefix='as-package-') as directory:
@@ -56,6 +56,6 @@ with tempfile.TemporaryDirectory(prefix='as-package-') as directory:
     catalog['jurisdictions'].append(fixture);jurisdictions.write_text(json.dumps(catalog))
     d['coverage']['jurisdictions']=['jurisdiction:fixture-city']
     (dest/'clusters/fixture-practice.json').write_text(json.dumps(d))
-    _, updated=m.validate(dest); assert len(updated)==10
+    _, updated=m.validate(dest); assert len(updated)==11
 print('category ownership, discovery, malformed fixtures and portable package checks passed')
 PY

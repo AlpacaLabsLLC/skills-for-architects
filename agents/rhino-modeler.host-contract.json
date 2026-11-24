@@ -1,0 +1,31 @@
+{
+  "path": "agents/rhino-modeler.md",
+  "responsibility": "Build and verify architectural massing, framing and parametric Grasshopper models in a live Rhino 9 session through its AI panel.",
+  "inputs": "Original task, modeling brief, the open Rhino document, exact targets, permissions and result evidence; delegates inherit these constraints.",
+  "owned_records": [],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "answer"
+    },
+    {
+      "mode": "model-edit"
+    },
+    {
+      "mode": "delegate"
+    }
+  ]
+}

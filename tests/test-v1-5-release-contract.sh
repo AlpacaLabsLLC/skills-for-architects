@@ -11,20 +11,21 @@ from pathlib import Path
 plugin = json.loads(Path('.claude-plugin/plugin.json').read_text())
 codex_plugin = json.loads(Path('.codex-plugin/plugin.json').read_text())
 marketplace = json.loads(Path('.claude-plugin/marketplace.json').read_text())
-assert plugin['version'] == '1.5.3'
+assert plugin['version'] == '1.5.4'
 assert codex_plugin['version'] == plugin['version']
 assert marketplace['metadata']['version'] == plugin['version']
 assert plugin['description'].startswith('Arch Studio —')
 assert marketplace['plugins'][0]['description'].startswith('Arch Studio —')
 components = json.loads(Path('corpus/components.json').read_text())['components']
 skills = {item['id'] for item in components if item['category'] == 'skills'}
-assert len(skills) == 61
+assert len(skills) == 68
 assert 'skill:ffe-spec-book' in skills and 'skill:spec-book' not in skills
 assert not Path('skills/spec-book').exists()
-assert '61 skills' in Path('rules/terminology.md').read_text()
+assert '68 skills' in Path('rules/terminology.md').read_text()
 PY
 
 grep -q '^## \[Unreleased\]$' CHANGELOG.md
+grep -q '^## \[1\.5\.4\] - 2026-11-25$' CHANGELOG.md
 grep -q '^## \[1\.5\.3\] - 2026-11-11$' CHANGELOG.md
 grep -q '^## \[1\.5\.2\] - 2026-10-14$' CHANGELOG.md
 grep -Fq '[@dajiaohuang](https://github.com/dajiaohuang) implemented the context audit fix' CHANGELOG.md
@@ -40,7 +41,8 @@ grep -q '^## \[1\.4\.2\] - 2026-08-10$' CHANGELOG.md
 grep -q '^## \[1\.4\.1\] - 2026-07-29$' CHANGELOG.md
 grep -q '^## \[1\.4\.0\] - 2026-07-26$' CHANGELOG.md
 grep -q 'sequential `major.minor.patch` release scheme' CHANGELOG.md
-grep -q '^\[Unreleased\]: .*compare/v1\.5\.3\.\.\.HEAD$' CHANGELOG.md
+grep -q '^\[Unreleased\]: .*compare/v1\.5\.4\.\.\.HEAD$' CHANGELOG.md
+grep -q '^\[1\.5\.4\]: .*compare/v1\.5\.3\.\.\.v1\.5\.4$' CHANGELOG.md
 grep -q '^\[1\.5\.3\]: .*compare/v1\.5\.2\.\.\.v1\.5\.3$' CHANGELOG.md
 grep -q '^\[1\.5\.2\]: .*compare/v1\.5\.1\.2\.\.\.v1\.5\.2$' CHANGELOG.md
 grep -q '^\[1\.5\.1\.2\]: .*compare/v1\.5\.1\.1\.\.\.v1\.5\.1\.2$' CHANGELOG.md

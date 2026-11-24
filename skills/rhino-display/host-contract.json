@@ -1,0 +1,45 @@
+{
+  "path": "skills/rhino-display/SKILL.md",
+  "responsibility": "Set up display modes, views and materials in Rhino 9, and export image batches checked file by file against the requested display mode.",
+  "inputs": "The open Rhino 9 document reached through the Rhino AI panel's Rhino tools, the user's request and the output folder they name. Load project context only when the task needs project records.",
+  "owned_records": [],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "answer"
+    },
+    {
+      "mode": "model-edit"
+    },
+    {
+      "mode": "file-output",
+      "when": "Only for a requested image batch; the PNGs are read back and checked. Also this skill's lessons, appended in the plugin data folder the startup line names.",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "skills/rhino-display/SKILL.md",
+    "operations": [],
+    "delivery": "plugin-only"
+  }
+}

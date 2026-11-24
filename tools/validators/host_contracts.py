@@ -92,6 +92,12 @@ def validate(document, root):
             if (not contract.resolve().is_relative_to(root.resolve())
                     or contract.is_symlink() or not contract.is_file()):
                 raise ValueError(key + ': native semantic contract is missing or escapes package')
+            if execution.get('delivery') == 'plugin-only':
+                # Declared plugin-only: it must ship the helpers that make it so, and say so to the reader.
+                if not any(path.parent.joinpath('scripts').glob('*.py')):
+                    raise ValueError(key + ': plugin-only without helper scripts')
+                if 'Plugin-only' not in path.read_text(encoding='utf-8'):
+                    raise ValueError(key + ': plugin-only is not stated in the instruction')
         text = path.read_text(encoding='utf-8')
         prefix = '../../' if key.startswith('skill:') else '../'
         own_link = 'host-contract.json' if key.startswith('skill:') else path.stem + '.host-contract.json'
@@ -147,6 +153,7 @@ def validate_mode(mode):
         'render': ('artifact-write', 'write-within-scope', 'artifact-inspection', {'file.write', 'document.render', 'document.inspect'}),
         'image-transform': ('artifact-write', 'write-within-scope', 'artifact-inspection', {'file.read', 'file.write', 'image.read', 'image.transform'}),
         'external-open': ('external-open', 'explicit-outbound', 'source-evidence', {'browser.open'}),
+        'model-edit': ('document-edit', 'write-within-scope', 'provider-or-native-readback', {'model.edit', 'model.inspect'}),
     }
     if mode['mode'] in writes:
         effect, permission, completion, capabilities = writes[mode['mode']]

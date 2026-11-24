@@ -6,6 +6,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [1.5.4] - 2026-11-25
+
+A compatible release on 1.5.3 that adds the Rhino cluster: seven skills for architectural modeling in Rhino 9, used from Rhino's AI panel or another agent session connected to Rhino's tools. Nothing changes for the other skills. Install or update the plugin, then open a new AI panel session in Rhino 9.
+
+### Added
+
+- **Rhino cluster (3D / BIM modeling).**
+  - **`rhino-setup`** checks that Rhino 9 and the AI panel's tools are ready, reads the open document and its units, and names the user action when something is missing.
+  - **`rhino-model`** plans, builds and checks architectural models from a plain-language brief: it asks one table of recommended values, writes the model's requirements (each with its source) into the document before building, builds by script, and runs a requirements check that covers dimensions, counts, clearances, clashes, connectivity, hardware plausibility, proportion, cover and bearing. It reports what was met and what was not checked.
+  - **`rhino-display`** sets up display modes, views and materials and exports image batches; every PNG is read back and the batch fails when a file is blank or has colour in a mode that must have none.
+  - **`rhino-thinline`** holds the drawing conventions for black and white vector sheets (line hierarchy, hatch, labels and leaders, title block, layout) and checks the exported PDF.
+  - **`rhino-axon`** makes the view for an axonometric sheet (camera, cut-away, hidden-line occlusion, detail cuts) and hands the linework to `rhino-thinline`.
+  - **`rhino-bom`** takes quantities from a model built under one parent layer, reconciled to the object count, with a source on every line and a list of what is not counted.
+  - **`rhino-agent-team`** runs several agents on one model split into one file per owner: a coordinator writes the set-out first (levels read off the host, each owner's share of shared space), the team check measures across the files every round and writes one issue note per fault to the owner who must move, and the model is settled only when every owner's own check passes and no note is open. It first tells the user when one agent would do.
+  - The **`rhino-modeler`** agent coordinates `rhino-setup` and `rhino-model`.
+- **Arch Studio in the Rhino AI panel.** The panel does not load plugin skills, so a Claude Code `SessionStart` hook (`hooks/as-rhino-context.py`) adds one line pointing to `skills/as-rhino-index.md` in the installed version. When the user names an as-rhino skill or Arch Studio in Rhino, the model reads the skill by path. The hook runs Rhino 9's bundled Python in isolated mode (`-I`), reads nothing, sends nothing and never blocks a session.
+- **Local lessons for the Rhino skills.** `rhino-model`, `rhino-bom`, `rhino-display`, `rhino-thinline` and `rhino-axon` read what earlier runs learned before planning and write what each run learned at the end, as plain text in the plugin's data folder, which survives updates. A lesson becomes a firm rule only after the user agrees, and it can never change a checker or its tests.
+- **Host contract.** `model-read` and `model-edit` modes for connected modeling applications, a `delivery: "plugin-only"` declaration, and a named exception that lets the Rhino skills ship helper scripts that run inside the user's Rhino.
+
+### Known limits
+
+- **Rhino 9 on macOS, plugin only.** The skills that run helper scripts (`rhino-model`'s requirements check, `rhino-display`, `rhino-thinline`, `rhino-axon`, `rhino-bom`, `rhino-agent-team`) need the installed plugin; they are not available through hosted MCP. The panel hook is silent on Windows and when neither Rhino 9's Python nor Apple's Command Line Tools are present.
+- **Name the skill or Arch Studio** in the AI panel; a plain modeling request loads no skill, by design. A panel session opened before the update needs a new session.
+- **Checks are geometric, not engineering.** Nothing checks structure, code compliance, slopes or clearances beyond the requirements written for the model. `rhino-display` judges colour only for Arctic and Monochrome and makes no interior views. `rhino-thinline` line weights and hatch patterns are working conventions, not proven in print.
+- **Lessons can record design rules.** Lessons are meant to hold modeling practice and the user's own preferences, but the skill does not yet refuse a design or engineering rule; review lessons before promoting them to firm rules.
+- **Rhino teams need the same release on every machine.** `rhino-agent-team` stamps every file with the plugin version and its helpers' fingerprint and refuses "settled" until every owner matches the coordinator. Setup for teams is in `docs/firm-deployment.md`.
+- **Evidence.** The skills were run in Rhino 9's AI panel and in a headless test harness on test buildings; `rhino-agent-team` reached a settled model in one Sonnet run of a five-owner barn test. These are single runs, not reliability measurements.
+
 ## [1.5.3] - 2026-11-11
 
 A compatible patch on 1.5.2. It removes the optional local runner, fixes a maintainer script and restores the Governance pillar name. No user action is required after installation; firms that installed through the local runner install from the marketplace like individuals.
@@ -359,7 +387,8 @@ First public release.
 - **3 hooks** — post-write disclaimer check, post-output metadata, pre-commit spec lint.
 - Marketplace install: `claude plugin marketplace add AlpacaLabsLLC/skills-for-architects`.
 
-[Unreleased]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.3...HEAD
+[Unreleased]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.4...HEAD
+[1.5.4]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.3...v1.5.4
 [1.5.3]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.2...v1.5.3
 [1.5.2]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.1.2...v1.5.2
 [1.5.1.2]: https://github.com/AlpacaLabsLLC/skills-for-architects/compare/v1.5.1.1...v1.5.1.2

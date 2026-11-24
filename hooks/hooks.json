@@ -15,6 +15,16 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/bin/sh \"${CLAUDE_PLUGIN_ROOT}/hooks/lib/as-run-python.sh\" \"${CLAUDE_PLUGIN_ROOT}/hooks/as-rhino-context.py\"",
+            "timeout": 10
+          }
+        ]
       }
     ],
     "PostToolUse": [

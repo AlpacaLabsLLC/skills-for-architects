@@ -8,6 +8,7 @@ Hooks are event-driven automations that run automatically during Codex or Claude
 |------|-------|-------------|
 | [session-start-ambient](./session-start-ambient.sh) | Codex `SessionStart` | Adds compact Arch Studio routing context to root sessions without reading or writing state |
 | [session-start-welcome](./session-start-welcome.sh) | First session after install | Displays a short `/as:studio` and `/as:learn` discovery notice, then records that it was emitted |
+| [as-rhino-context](./as-rhino-context.py) | Claude Code `SessionStart` (startup, resume, clear, compact) | Adds one line pointing to the Rhino skill index with this installed version's path |
 | [post-write-disclaimer-check](./post-write-disclaimer-check.sh) | After Write or Edit | Flags a regulatory output (zoning, occupancy, code analysis) that is missing the professional disclaimer |
 | [version-check](./version-check.sh) | Enabled session startup, at most daily | Checks for a newer release and notifies once per version |
 
@@ -25,9 +26,10 @@ Run `/hooks` in Claude Code to confirm they're loaded. Disable them by disabling
 
 ## Behavior
 
-All three Claude Code hooks surface their output so Claude actually receives it (stderr with exit 0 is shown to no one in Claude Code):
+The Claude Code hooks surface their output so Claude actually receives it (stderr with exit 0 is shown to no one in Claude Code):
 
 - **session-start-welcome** (SessionStart) emits a concise visible system message once, after checking required plugin sentinels. It says the built-in tools are ready, points to `/as:tool-catalog`, optional `/as:studio` setup, and `/as:learn`, and does not rewrite the user’s first response. It records the one-time marker only after output succeeds.
+- **as-rhino-context** (SessionStart) runs through `lib/as-run-python.sh` because the Rhino AI panel has no `node` and passes a broken Python environment. It emits one short `additionalContext` line naming `skills/as-rhino-index.md`, which the model reads by path with `run_python` only when the user names an as-rhino skill or Arch Studio in Rhino. It never blocks; any problem means no output and exit 0.
 - **post-write-disclaimer-check** (PostToolUse) emits JSON `{"decision": "block", "reason": …}` on stdout on findings, which surfaces the reason to Claude so it restores the disclaimer block.
 - **version-check** (SessionStart) is on by default. The first session seeds a private local cache silently. Later sessions make at most one two-second request per 24 hours, fail silently, and notify once for each newer version. The same request carries the anonymous usage ping (a random local install ID and the plugin version). Disable the update notice with `AS_UPDATE_CHECK_DISABLED=1` or `/as:studio updates disable`; disable the ping with `AS_TELEMETRY_DISABLED=1`. With both off the hook does no filesystem or network work.
 
@@ -42,6 +44,6 @@ Checks written or edited `.md` files for the `<!-- architecture-studio:requires-
 
 ## Customization
 
-Each script is a standalone bash file, portable across macOS (BSD sed/grep) and Linux. Edit to fit your workflow:
+Each `.sh` script is a standalone bash file, portable across macOS (BSD sed/grep) and Linux. Edit to fit your workflow:
 
 - Downgrade enforcement to advisory: replace the JSON `block` output with `exit 0`

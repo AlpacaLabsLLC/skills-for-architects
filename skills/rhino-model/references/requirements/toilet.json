@@ -1,0 +1,518 @@
+{
+ "template": "toilet",
+ "version": 1,
+ "units": "Inches",
+ "about": "Requirements for a floor-mounted water closet: the fixture itself, its wall clearances and, in the ADA variant, grab bars and flush control. Read by the rhino-model skill's planner; each entry becomes one or more checks in the document's requirements once the layout is known.",
+ "status": "Code values checked on 2026-11-04 against the text of the 2010 ADA Standards for Accessible Design (ada.gov) and of IPC 405.3.1 as reproduced in IBC 2024 [P] 2903.1.1; product dimensions are defaults, not code. Use the project's adopted code and edition when the brief names one, and say which edition each value comes from.",
+ "local_code": "These variants are US codes. For a project elsewhere, ask for the local code as a blocking question and never supply its values from memory. When none is available, a value from here is a stand-in: set the requirements' `code` to status stand-in, so every report says so.",
+ "frame": {
+  "origin": "finished floor, on the toilet centerline, at the face of the finished back wall",
+  "x": "along the back wall; the nearest side wall, when there is one, is on -x; the open (transfer) side is +x",
+  "y": "out from the back wall into the room",
+  "z": "up from the finished floor",
+  "use": "Convert every value to world coordinates from the layout constants before writing checks. A toilet facing -y or with its side wall on +x mirrors the signs and swaps min and max."
+ },
+ "symbols": {
+  "P": "projection: y of the front of the bowl (the Toilet extent max_y as built)",
+  "W": "x of the side wall's finished face (negative)",
+  "B": "z of the underside of the rear grab bar"
+ },
+ "layers": {
+  "note": "Child layers under the brief's parent. Checks find layers by keyword, so keep these words in the layer names, and keep them out of other elements' names: a layer named \"Toilet paper dispenser\" is counted as part of the toilet. Keep the seat lid off the Seat layer: seat height is measured to the top of the seat.",
+  "names": [
+   "Toilet::Bowl",
+   "Toilet::Seat",
+   "Toilet::Lid",
+   "Toilet::Tank",
+   "Toilet::Flush",
+   "Walls::Back wall",
+   "Walls::Side wall",
+   "Grab bars::Side grab bar",
+   "Grab bars::Rear grab bar",
+   "Accessories::Paper dispenser"
+  ]
+ },
+ "variants": {
+  "standard": {
+   "use_when": "the brief asks for a toilet, WC or bathroom without accessibility terms",
+   "requirements": [
+    {
+     "id": "solids",
+     "what": "Every toilet part is a closed, named solid",
+     "check": {
+      "closed": [
+       "Toilet"
+      ],
+      "named": true
+     },
+     "source": "default: modeling convention"
+    },
+    {
+     "id": "parts",
+     "what": "Bowl, seat, lid, tank and flush handle modeled",
+     "check": {
+      "layers": {
+       "Toilet": {
+        "min": 4,
+        "max": 12,
+        "type": "Brep",
+        "exclude": [
+         "dispenser"
+        ]
+       }
+      }
+     },
+     "source": "default: two-piece toilet"
+    },
+    {
+     "id": "seat-height",
+     "what": "Top of seat 15-16 in above the finished floor (standard height)",
+     "check": {
+      "extent": {
+       "Seat": {
+        "max_z": [
+         15,
+         16
+        ]
+       }
+      }
+     },
+     "source": "default: standard-height two-piece toilet, manufacturer data"
+    },
+    {
+     "id": "projection",
+     "what": "Front of bowl 28-31 in from the finished back wall (elongated bowl)",
+     "check": {
+      "extent": {
+       "Toilet": {
+        "max_y": [
+         28,
+         31
+        ]
+       }
+      }
+     },
+     "source": "default: elongated two-piece toilet, manufacturer data"
+    },
+    {
+     "id": "width",
+     "what": "Overall width 17-22 in (the tank is the widest part)",
+     "check": {
+      "extent": {
+       "Toilet": {
+        "size_x": [
+         17,
+         22
+        ]
+       }
+      }
+     },
+     "source": "default: two-piece toilet, manufacturer data"
+    },
+    {
+     "id": "tank-top",
+     "what": "Top of tank lid 27-31 in above the finished floor",
+     "check": {
+      "extent": {
+       "Tank": {
+        "max_z": [
+         27,
+         31
+        ]
+       }
+      }
+     },
+     "source": "default: two-piece toilet, manufacturer data"
+    },
+    {
+     "id": "tank-gap",
+     "what": "Tank stands 0.25-2 in off the finished back wall",
+     "check": {
+      "extent": {
+       "Toilet": {
+        "min_y": [
+         0.25,
+         2
+        ]
+       }
+      }
+     },
+     "source": "default: 12 in rough-in with a standard tank"
+    },
+    {
+     "id": "side-clearance",
+     "what": "Centerline 15 in min from any side wall, partition or obstruction",
+     "check": {
+      "extent": {
+       "Side wall": {
+        "max_x": [
+         null,
+         -15
+        ]
+       }
+      },
+      "clear": {
+       "Walls": {
+        "segments": [
+         [
+          [
+           0,
+           12,
+           20
+          ],
+          [
+           14.9,
+           12,
+           20
+          ]
+         ]
+        ]
+       }
+      }
+     },
+     "source": "IPC 2021 405.3.1",
+     "verified": "2026-11-04"
+    },
+    {
+     "id": "front-clearance",
+     "what": "21 in min clear in front of the toilet to any wall, fixture or door",
+     "check": {
+      "clear": {
+       "Walls": {
+        "segments": [
+         [
+          [
+           0,
+           "P+0.1",
+           12
+          ],
+          [
+           0,
+           "P+21",
+           12
+          ]
+         ],
+         [
+          [
+           -9,
+           "P+0.1",
+           12
+          ],
+          [
+           -9,
+           "P+21",
+           12
+          ]
+         ],
+         [
+          [
+           9,
+           "P+0.1",
+           12
+          ],
+          [
+           9,
+           "P+21",
+           12
+          ]
+         ]
+        ]
+       }
+      }
+     },
+     "repeat_for": "each other fixture or door layer in the model",
+     "source": "IPC 2021 405.3.1",
+     "verified": "2026-11-04"
+    },
+    {
+     "id": "rough-in",
+     "what": "Drain centered 12 in from the finished back wall (rough-in)",
+     "stated": "rough-in 12 in: a placement constant; the drain is not modeled",
+     "source": "default: standard rough-in (10 and 14 in also exist)"
+    },
+    {
+     "id": "flush-side",
+     "what": "Flush handle on the tank front, left side facing the toilet",
+     "stated": "flush handle side: typical product, not a requirement",
+     "source": "default: typical product"
+    }
+   ]
+  },
+  "ada": {
+   "use_when": "the brief says ADA, accessible, wheelchair, barrier-free or public; confirm the variant with the user when the brief is unclear",
+   "extends": "standard",
+   "replaces": [
+    "seat-height",
+    "side-clearance",
+    "flush-side",
+    "tank-top"
+   ],
+   "requirements": [
+    {
+     "id": "seat-height",
+     "what": "Top of seat 17-19 in above the finished floor",
+     "check": {
+      "extent": {
+       "Seat": {
+        "max_z": [
+         17,
+         19
+        ]
+       }
+      }
+     },
+     "source": "ADA 2010 604.4",
+     "verified": "2026-11-04"
+    },
+    {
+     "id": "centerline",
+     "what": "Centerline 16-18 in from the side wall or partition",
+     "check": {
+      "extent": {
+       "Side wall": {
+        "max_x": [
+         -18,
+         -16
+        ]
+       }
+      }
+     },
+     "source": "ADA 2010 604.2",
+     "verified": "2026-11-04"
+    },
+    {
+     "id": "clearance",
+     "what": "Clearance 60 in min measured perpendicular from the side wall and 56 in min measured perpendicular from the rear wall, free of walls and other fixtures (the toilet, its grab bars and the room's own routes may overlap it)",
+     "check": {
+      "clear": {
+       "Walls": {
+        "segments": [
+         [
+          [
+           "W+59.9",
+           0.5,
+           2
+          ],
+          [
+           "W+59.9",
+           55.9,
+           2
+          ]
+         ],
+         [
+          [
+           "W+0.5",
+           55.9,
+           2
+          ],
+          [
+           "W+59.9",
+           55.9,
+           2
+          ]
+         ],
+         [
+          [
+           "W+0.5",
+           55.9,
+           30
+          ],
+          [
+           "W+59.9",
+           0.5,
+           30
+          ]
+         ]
+        ]
+       }
+      }
+     },
+     "repeat_for": "each other fixture layer (lavatory, shower, door swing)",
+     "source": "ADA 2010 604.3.1, 604.3.2",
+     "verified": "2026-11-04"
+    },
+    {
+     "id": "side-grab-bar",
+     "what": "Side wall grab bar 42 in min long, starting 12 in max from the rear wall and extending 54 in min from it",
+     "check": {
+      "extent": {
+       "Side grab": {
+        "min_y": [
+         null,
+         12
+        ],
+        "max_y": [
+         54,
+         null
+        ],
+        "size_y": [
+         42,
+         null
+        ]
+       }
+      }
+     },
+     "source": "ADA 2010 604.5.1",
+     "verified": "2026-11-04"
+    },
+    {
+     "id": "rear-grab-bar",
+     "what": "Rear wall grab bar 36 in min long, extending 12 in min from the centerline toward the side wall and 24 in min toward the open side",
+     "check": {
+      "extent": {
+       "Rear grab": {
+        "min_x": [
+         null,
+         -12
+        ],
+        "max_x": [
+         24,
+         null
+        ],
+        "size_x": [
+         36,
+         null
+        ]
+       }
+      }
+     },
+     "source": "ADA 2010 604.5.2",
+     "verified": "2026-11-04"
+    },
+    {
+     "id": "grab-bar-height",
+     "what": "Top of gripping surface 33-36 in above the finished floor, both bars",
+     "check": {
+      "extent": {
+       "Side grab": {
+        "max_z": [
+         33,
+         36
+        ]
+       },
+       "Rear grab": {
+        "max_z": [
+         33,
+         36
+        ]
+       }
+      }
+     },
+     "source": "ADA 2010 609.4",
+     "verified": "2026-11-04"
+    },
+    {
+     "id": "grab-bar-wall-gap",
+     "what": "1.5 in between each grab bar and its wall",
+     "check": {
+      "extent": {
+       "Side grab": {
+        "min_x": [
+         "W+1.375",
+         "W+1.625"
+        ]
+       },
+       "Rear grab": {
+        "min_y": [
+         1.375,
+         1.625
+        ]
+       }
+      }
+     },
+     "note": "measure the gripping bar only; put mounting flanges on their own layer",
+     "source": "ADA 2010 609.3",
+     "verified": "2026-11-04"
+    },
+    {
+     "id": "tank-below-bar",
+     "what": "Top of tank lid 27 in min above the floor and 1.5 in min below the rear grab bar",
+     "check": {
+      "extent": {
+       "Tank": {
+        "max_z": [
+         27,
+         "B-1.5"
+        ]
+       }
+      }
+     },
+     "note": "1.5 in min to projecting objects below the bar (609.3). The 604.5.2 exceptions cover a recessed fixture beside the toilet and flush valves only; if the tank cannot clear the bar, ask before departing from the code.",
+     "source": "default: two-piece toilet, manufacturer data; ADA 2010 609.3",
+     "verified": "2026-11-04"
+    },
+    {
+     "id": "grab-bar-size",
+     "what": "Circular grab bars 1.25-2 in outside diameter",
+     "stated": "grab bar diameter 1.25-2 in: set by the modeling constant",
+     "source": "ADA 2010 609.2.1",
+     "verified": "2026-11-04"
+    },
+    {
+     "id": "grab-bar-strength",
+     "what": "Grab bars and mounts resist 250 lbf",
+     "stated": "grab bar strength 250 lbf: not modeled",
+     "source": "ADA 2010 609.8",
+     "verified": "2026-11-04"
+    },
+    {
+     "id": "flush-control",
+     "what": "Flush control on the open side of the water closet, operable part 15-48 in above the floor",
+     "check": {
+      "extent": {
+       "Flush": {
+        "mid_x": [
+         0,
+         null
+        ],
+        "min_z": [
+         15,
+         null
+        ],
+        "max_z": [
+         null,
+         48
+        ]
+       }
+      }
+     },
+     "source": "ADA 2010 604.6, 309.3, 308.2.1",
+     "verified": "2026-11-04"
+    },
+    {
+     "id": "dispenser",
+     "what": "Toilet paper dispenser 7-9 in in front of the water closet, measured to its centerline, outlet 15-48 in above the floor, not behind grab bars, and 1.5 in min below the grab bar above it",
+     "check": {
+      "extent": {
+       "Dispenser": {
+        "mid_y": [
+         "P+7",
+         "P+9"
+        ],
+        "min_z": [
+         15,
+         48
+        ],
+        "max_z": [
+         null,
+         "B-1.5"
+        ]
+       }
+      }
+     },
+     "note": "min_z takes the housing underside as the outlet; say so. B is the rear bar's underside; use the side bar's if it differs. Continuous paper flow (604.7) is a product specification: state it. 604.7 also says the dispenser shall not be located behind grab bars: never between the bar and the wall; below the bar with the 609.3 clearance is fine.",
+     "source": "ADA 2010 604.7, 609.3",
+     "verified": "2026-11-04"
+    },
+    {
+     "id": "seat-not-sprung",
+     "what": "Seat not sprung to return to a lifted position",
+     "stated": "seat not sprung: product specification",
+     "source": "ADA 2010 604.4",
+     "verified": "2026-11-04"
+    }
+   ]
+  }
+ },
+ "merge": "When two entries constrain the same layer and key, use the intersection of their ranges and cite both sources; a variant's 'replaces' list names the base entries it supersedes."
+}

@@ -40,6 +40,7 @@
     "skill:project": "portable",
     "skill:proposal": "portable",
     "skill:resize-images": "portable",
+    "skill:rhino-model": "portable",
     "skill:sif-to-csv": "portable",
     "skill:site-history": "site-research",
     "skill:site-visit-report": "portable",
@@ -85,7 +86,13 @@
     "tool:assistant-preference": "portable",
     "skill:receive": "portable",
     "tool:workbook-preservation": "portable",
-    "skill:norma-support": "portable"
+    "skill:norma-support": "portable",
+    "skill:rhino-setup": "portable",
+    "skill:rhino-display": "portable",
+    "skill:rhino-thinline": "portable",
+    "skill:rhino-axon": "portable",
+    "skill:rhino-bom": "portable",
+    "skill:rhino-agent-team": "portable"
   },
   "references": [
     {

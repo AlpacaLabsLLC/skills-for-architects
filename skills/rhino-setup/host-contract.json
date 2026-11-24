@@ -1,0 +1,33 @@
+{
+  "path": "skills/rhino-setup/SKILL.md",
+  "responsibility": "Connect and verify Rhino 9 and its AI panel; report the exact user action when anything is missing.",
+  "inputs": "Modeling brief and, where needed, the open Rhino document through the Rhino AI panel's Rhino tools; exact destination only for a requested record write. Load project context only when the task needs project records.",
+  "owned_records": [],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "answer"
+    },
+    {
+      "mode": "model-read"
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "skills/rhino-setup/SKILL.md",
+    "operations": []
+  }
+}

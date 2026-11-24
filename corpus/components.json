@@ -4452,6 +4452,299 @@
           }
         ]
       }
+    },
+    {
+      "id": "skill:rhino-model",
+      "category": "skills",
+      "path": "skills/rhino-model/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Plan, build and check architectural models in a live Rhino 9 session through the Rhino AI panel's Rhino tools, from a plain-language brief. Writes the model's requirements (dimensions, clearances, code values, each with its source) into the document before building, builds by script, and checks the model against them with the requirements check before replying. Use when the user asks to model, frame, mass or parametrize geometry in Rhino. Not for rendering, structural analysis, construction documents, BIM export or editing models it did not create.",
+        "hostContract": "skills/rhino-model/host-contract.json",
+        "executionOwner": "host",
+        "triggers": [
+          "Plan, build and check architectural models in a live Rhino 9 session through the Rhino AI panel's Rhino tools, from a plain-language brief. Writes the model's requirements (dimensions, clearances, code values, each with its source) into the document before building, builds by script, and checks the model against them with the requirements check before replying. Use when the user asks to model, frame, mass or parametrize geometry in Rhino. Not for rendering, structural analysis, construction documents, BIM export or editing models it did not create."
+        ],
+        "exclusions": [
+          "No connector installation or registration; no rendering, structural analysis, construction documents or BIM export; no edits to objects the task did not create"
+        ],
+        "inputs": [
+          "Plain-language modeling brief and the open Rhino 9 document reached through the Rhino AI panel's Rhino tools"
+        ],
+        "outputs": [
+          "Requirements with sources and revision history stored in the document, the model under one parent layer, a requirements check result against the requirements, dimension and layer tables, listed assumptions and save state"
+        ],
+        "references": [
+          "skills/rhino-model/SKILL.md",
+          "skills/rhino-model/references/rhinocommon.md",
+          "skills/rhino-model/references/grasshopper.md",
+          "skills/rhino-model/references/elements.md",
+          "skills/rhino-model/references/checks.md",
+          "skills/rhino-model/references/report-template.md",
+          "skills/rhino-model/references/requirements/toilet.json",
+          "skills/rhino-model/scripts/as-check.py",
+          "skills/rhino-model/scripts/as-check-model.py",
+          "skills/rhino-model/host-contract.json",
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "docs/completion-reporting.md",
+          "corpus/host-contracts.json"
+        ],
+        "conditionalReferences": [],
+        "handoffs": []
+      }
+    },
+    {
+      "id": "skill:rhino-setup",
+      "category": "skills",
+      "path": "skills/rhino-setup/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Connect and verify Rhino 9 and its AI panel for the rhino cluster: detect the panel's Rhino tools, confirm an open document and its units, and run a one-object smoke test. Use when the user asks to connect Rhino, or when another rhino skill finds the Rhino tools missing. Guides the user; never installs or registers anything.",
+        "hostContract": "skills/rhino-setup/host-contract.json",
+        "executionOwner": "host",
+        "triggers": [
+          "Connect and verify Rhino 9 and its AI panel for the rhino cluster: detect the panel's Rhino tools, confirm an open document and its units, and run a one-object smoke test. Use when the user asks to connect Rhino, or when another rhino skill finds the Rhino tools missing. Guides the user; never installs or registers anything."
+        ],
+        "exclusions": [
+          "No connector installation or registration; no rendering, structural analysis, construction documents or BIM export; no edits to objects the task did not create"
+        ],
+        "inputs": [
+          "Plain-language modeling brief and the open Rhino document reached through the connected Rhino MCP"
+        ],
+        "outputs": [
+          "Connect and verify Rhino 9 and its AI panel; report the exact user action when anything is missing."
+        ],
+        "references": [
+          "skills/rhino-setup/SKILL.md",
+          "skills/rhino-setup/host-contract.json",
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "docs/completion-reporting.md",
+          "corpus/host-contracts.json"
+        ],
+        "conditionalReferences": [],
+        "handoffs": []
+      }
+    },
+    {
+      "id": "skill:rhino-display",
+      "category": "skills",
+      "path": "skills/rhino-display/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Set up display modes, views and materials in Rhino 9 and export batches of images that are checked file by file against the requested display mode. Use when the user asks for captures, viewport images, renders in a display mode, or views and materials set up for presenting a Rhino model. Not for photorealistic rendering, or black and white vector sheets, which rhino-thinline makes.",
+        "hostContract": "skills/rhino-display/host-contract.json",
+        "executionOwner": "host",
+        "triggers": [
+          "Set up display modes, views and materials in Rhino 9 and export batches of images that are checked file by file against the requested display mode. Use when the user asks for captures, viewport images, renders in a display mode, or views and materials set up for presenting a Rhino model. Not for photorealistic rendering, or black and white vector sheets, which rhino-thinline makes."
+        ],
+        "exclusions": [
+          "No photorealistic rendering, black and white vector sheets, or installing display modes; no edits to objects the task did not create"
+        ],
+        "inputs": [
+          "The open Rhino 9 document reached through the Rhino AI panel"
+        ],
+        "outputs": [
+          "Set up display modes, views and materials in Rhino 9, and export image batches checked file by file against the requested display mode."
+        ],
+        "references": [
+          "skills/rhino-display/SKILL.md",
+          "skills/rhino-display/host-contract.json",
+          "skills/rhino-display/references/display.md",
+          "skills/rhino-display/scripts/as-display.py",
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "docs/completion-reporting.md",
+          "corpus/host-contracts.json"
+        ],
+        "conditionalReferences": [],
+        "handoffs": []
+      }
+    },
+    {
+      "id": "skill:rhino-thinline",
+      "category": "skills",
+      "path": "skills/rhino-thinline/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Drawing conventions for black and white vector sheets from a Rhino 9 model: a line hierarchy, line styles, hatch by material on cut faces, labels and leaders, detail tags, a title block, the sheet layout, a tamper-proof request record and a checked PDF. Use when the user asks for a line drawing, drawing sheet or black and white export from a Rhino model; for an axonometric, load rhino-axon, which chooses the view and loads this skill's library. Not for construction documents, coloured images or renders; line weights and hatch patterns are working conventions.",
+        "hostContract": "skills/rhino-thinline/host-contract.json",
+        "executionOwner": "host",
+        "triggers": [
+          "Drawing conventions for black and white vector sheets from a Rhino 9 model: a line hierarchy, line styles, hatch by material on cut faces, labels and leaders, detail tags, a title block, the sheet layout, a tamper-proof request record and a checked PDF. Use when the user asks for a line drawing, drawing sheet or black and white export from a Rhino model; for an axonometric, load rhino-axon, which chooses the view and loads this skill's library. Not for construction documents, coloured images or renders; line weights and hatch patterns are working conventions."
+        ],
+        "exclusions": [
+          "No construction documents, code review, engineering, coloured images or renders; line weights are provisional and hatch patterns are working conventions"
+        ],
+        "inputs": [
+          "The open Rhino 9 document reached through the Rhino AI panel"
+        ],
+        "outputs": [
+          "Drawing conventions for black and white vector sheets from a Rhino 9 model: a line hierarchy, line styles, hatch by material, labels and leaders, detail tags, a title block, the sheet layout, a tamper-proof request record and a parsed PDF check."
+        ],
+        "references": [
+          "skills/rhino-thinline/SKILL.md",
+          "skills/rhino-thinline/host-contract.json",
+          "skills/rhino-thinline/references/sheets.md",
+          "skills/rhino-thinline/references/linework.md",
+          "skills/rhino-thinline/scripts/as-sheet.py",
+          "skills/rhino-thinline/scripts/as-sheet-core.py",
+          "skills/rhino-thinline/scripts/as-pdf-check.py",
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "docs/completion-reporting.md",
+          "corpus/host-contracts.json"
+        ],
+        "conditionalReferences": [],
+        "handoffs": [
+          {
+            "target": "skill:rhino-axon",
+            "when": "When the sheet is an axonometric: the view, cut-away, occlusion and detail cuts."
+          }
+        ]
+      }
+    },
+    {
+      "id": "skill:rhino-axon",
+      "category": "skills",
+      "path": "skills/rhino-axon/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "The view for an axonometric sheet from a Rhino 9 model: camera and projection, exclusions and cut-away crop, hidden-line occlusion, joint and detail-cut selection, and the building lock, handing linework and cut faces to rhino-thinline. Use when the user asks for an axonometric, axon sheet or exploded axon from a Rhino model; read rhino-thinline too, for the conventions. Not for coloured images or renders, and it never edits the model to get a view.",
+        "hostContract": "skills/rhino-axon/host-contract.json",
+        "executionOwner": "host",
+        "triggers": [
+          "The view for an axonometric sheet from a Rhino 9 model: camera and projection, exclusions and cut-away crop, hidden-line occlusion, joint and detail-cut selection, and the building lock, handing linework and cut faces to rhino-thinline. Use when the user asks for an axonometric, axon sheet or exploded axon from a Rhino model; read rhino-thinline too, for the conventions. Not for coloured images or renders, and it never edits the model to get a view."
+        ],
+        "exclusions": [
+          "No editing the model to get a view, no coloured images or renders; drawing conventions belong to rhino-thinline"
+        ],
+        "inputs": [
+          "The open Rhino 9 document reached through the Rhino AI panel"
+        ],
+        "outputs": [
+          "The view for an axonometric sheet from a Rhino 9 model: camera and projection, exclusions and cut-away crop, hidden-line occlusion, joint and detail-cut selection, and the building lock, handing linework to rhino-thinline."
+        ],
+        "references": [
+          "skills/rhino-axon/SKILL.md",
+          "skills/rhino-axon/host-contract.json",
+          "skills/rhino-axon/references/views.md",
+          "skills/rhino-axon/scripts/as-axon.py",
+          "skills/rhino-axon/scripts/as-axon-core.py",
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "docs/completion-reporting.md",
+          "corpus/host-contracts.json"
+        ],
+        "conditionalReferences": [],
+        "handoffs": [
+          {
+            "target": "skill:rhino-thinline",
+            "when": "Always: the drawing conventions, annotation, request record and PDF check for the sheet this view draws."
+          }
+        ]
+      }
+    },
+    {
+      "id": "skill:rhino-bom",
+      "category": "skills",
+      "path": "skills/rhino-bom/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Take quantities from a Rhino model built under one parent layer with every object named by element type: a bill of quantities per layout in which every object lands in exactly one line, every line states its source, and what the model does not contain is listed with the reason. Use when the user asks for a BOM, takeoff or quantities from a Rhino model. Not for pricing, procurement or structural sizing, and a count does not validate the thing counted.",
+        "hostContract": "skills/rhino-bom/host-contract.json",
+        "executionOwner": "host",
+        "triggers": [
+          "Take quantities from a Rhino model built under one parent layer with every object named by element type: a bill of quantities per layout in which every object lands in exactly one line, every line states its source, and what the model does not contain is listed with the reason. Use when the user asks for a BOM, takeoff or quantities from a Rhino model. Not for pricing, procurement or structural sizing, and a count does not validate the thing counted."
+        ],
+        "exclusions": [
+          "No pricing, procurement or supplier selection; a count does not validate the connection counted"
+        ],
+        "inputs": [
+          "The open Rhino 9 document reached through the Rhino AI panel"
+        ],
+        "outputs": [
+          "Take quantities from a named Rhino 9 model, reconciled to the object count, with a source on every line and a list of what is not counted."
+        ],
+        "references": [
+          "skills/rhino-bom/SKILL.md",
+          "skills/rhino-bom/host-contract.json",
+          "skills/rhino-bom/references/quantities.md",
+          "skills/rhino-bom/scripts/as-bom.py",
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "docs/completion-reporting.md",
+          "corpus/host-contracts.json"
+        ],
+        "conditionalReferences": [],
+        "handoffs": []
+      }
+    },
+    {
+      "id": "skill:rhino-agent-team",
+      "category": "skills",
+      "path": "skills/rhino-agent-team/SKILL.md",
+      "owner": "Arch Studio maintainers",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "capability": {
+        "description": "Run several agents on one Rhino 9 model split into one file per owner: a coordinator writes the set-out first (datum, levels, required points, minimum sizes and each owner's share of shared space), then reviews the combined model every round and sends each owner issue notes at the objects that must change, and reissues the set-out when something changes; each owner builds its part with rhino-model. Use when the user has decided to split a Rhino model across agents (separate owners, or more than one session can hold). Not for a model one agent can build alone.",
+        "hostContract": "skills/rhino-agent-team/host-contract.json",
+        "executionOwner": "host",
+        "triggers": [
+          "Run several agents on one Rhino 9 model split into one file per owner: a coordinator writes the set-out first (datum, levels, required points, minimum sizes and each owner's share of shared space), then reviews the combined model every round and sends each owner issue notes at the objects that must change, and reissues the set-out when something changes; each owner builds its part with rhino-model. Use when the user has decided to split a Rhino model across agents (separate owners, or more than one session can hold). Not for a model one agent can build alone."
+        ],
+        "exclusions": [
+          "No shared-file editing, live sync, rendering, structural or MEP design, or code compliance; one agent is recommended unless the user has a reason to split the model"
+        ],
+        "inputs": [
+          "The agent's own open Rhino 9 document and a shared folder of per-owner model files with a set-out file"
+        ],
+        "outputs": [
+          "Per-owner model files on the current set-out revision and a team check of clashes, shares, openings, required points, revision stamps, open notes and each owner's own requirements check"
+        ],
+        "references": [
+          "skills/rhino-agent-team/SKILL.md",
+          "skills/rhino-agent-team/host-contract.json",
+          "skills/rhino-agent-team/references/protocol.md",
+          "skills/rhino-agent-team/references/evidence.md",
+          "skills/rhino-agent-team/scripts/as-agent-team.py",
+          "skills/rhino-model/SKILL.md",
+          "docs/host-harness-contract.md",
+          "docs/host-adapters.md",
+          "docs/completion-reporting.md",
+          "corpus/host-contracts.json"
+        ],
+        "conditionalReferences": [],
+        "handoffs": []
+      }
     }
   ]
 }

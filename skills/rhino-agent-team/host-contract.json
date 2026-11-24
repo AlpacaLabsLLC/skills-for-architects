@@ -1,0 +1,48 @@
+{
+  "path": "skills/rhino-agent-team/SKILL.md",
+  "responsibility": "Coordinate several agents on one Rhino 9 model: per-owner files, a set-out the coordinator writes first and reissues on change, notes in the model, and a check across the files each round.",
+  "inputs": "The agent's own open Rhino 9 document reached through a run_python tool, the shared folder the user names, and the other agents' files there as last saved. Load project context only when the task needs project records.",
+  "owned_records": [],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "answer"
+    },
+    {
+      "mode": "model-read"
+    },
+    {
+      "mode": "model-edit"
+    },
+    {
+      "mode": "file-output",
+      "when": "Only the coordinator's team check report in the shared folder (reports/round-<n>.json), and saving the agent's own model file in place.",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "skills/rhino-agent-team/SKILL.md",
+    "operations": [],
+    "delivery": "plugin-only"
+  }
+}

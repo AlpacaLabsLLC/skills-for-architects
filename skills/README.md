@@ -118,10 +118,22 @@ Explicitly adopted FF&E schedules use immutable item/schedule records; workbooks
 | [`/as:color-palette-generator`](./color-palette-generator) | Create palettes with WCAG contrast checks |
 | [`/as:resize-images`](./resize-images) | Resize images for web, social, slides, and print |
 
+### 3D / BIM modeling
+
+| Skill | Description |
+|-------|-------------|
+| [`/as:rhino-setup`](./rhino-setup) | Connect and verify Rhino 9 and its AI panel |
+| [`/as:rhino-model`](./rhino-model) | Plan, build and check massing, framing and parametric Grasshopper models in a live Rhino 9 through its AI panel |
+| [`/as:rhino-display`](./rhino-display) | Display modes, views and materials, and image batches checked against the requested mode |
+| [`/as:rhino-thinline`](./rhino-thinline) | Drawing conventions for black and white vector sheets from a Rhino model, with a checked PDF |
+| [`/as:rhino-axon`](./rhino-axon) | The view for an axonometric sheet from a Rhino model: camera, cut-away, occlusion, details |
+| [`/as:rhino-bom`](./rhino-bom) | Quantities from a Rhino model, reconciled to the object count |
+| [`/as:rhino-agent-team`](./rhino-agent-team) | Several agents on one Rhino model: a set-out written first, one file per owner, notes in the model and a check across the files |
+
 ## Individual skill documentation
 
 Each directory contains an authoritative `SKILL.md`, any needed human-facing guide, and its owned procedures, scripts, schemas or templates; external knowledge is routed through the source catalog. Create or update studio or project capabilities with `/as:skill-maker`; to contribute a built-in skill, read [CONTRIBUTING.md](../CONTRIBUTING.md).
 
-Practice discovery is generated from the [nine maintained cluster manifests](../docs/practice-clusters.md).
+Practice discovery is generated from the [ten maintained cluster manifests](../docs/practice-clusters.md).
 See the [category authoring contract](../docs/category-authoring.md) for shared ownership;
 public skill names and invocation syntax remain unchanged.

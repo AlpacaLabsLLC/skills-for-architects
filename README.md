@@ -15,11 +15,11 @@
 [![Release](https://img.shields.io/github/v/release/AlpacaLabsLLC/skills-for-architects)](https://github.com/AlpacaLabsLLC/skills-for-architects/releases)
 [![Claude Code: plugin](https://img.shields.io/badge/Claude_Code-plugin-blue)](https://code.claude.com/docs)
 [![Codex: plugin](https://img.shields.io/badge/Codex-plugin-blue)](https://developers.openai.com/codex/)
-[![skills: 61](https://img.shields.io/badge/skills-61-blue)](./skills/README.md)
+[![skills: 68](https://img.shields.io/badge/skills-68-blue)](./skills/README.md)
 [![website: architecturestudio.ai](https://img.shields.io/badge/website-architecturestudio.ai-blue)](https://architecturestudio.ai)
 [![Last commit](https://img.shields.io/github/last-commit/AlpacaLabsLLC/skills-for-architects)](https://github.com/AlpacaLabsLLC/skills-for-architects/commits/main)
 
-**Current release: 1.5.3**
+**Current release: 1.5.4**
 
 </div>
 
@@ -48,7 +48,7 @@ Before a studio can trust AI with real work, it has to make a few decisions. Arc
 - **Governance: who approves what.** Adopt your own AI-use policy or start from the default one. The assistant works within it. It shows a work plan before larger jobs, offers findings to your records instead of writing them on its own, and marks building-code, zoning and specification output for professional review. The architect still signs off.
 - **Practice areas: where AI helps.** Skills are grouped by [practice area](docs/practice-clusters.md), from due diligence and programming to specifications and FF&E. Use the areas that fit your practice and ignore the rest.
 - **Memory: what the studio remembers.** Studio settings, project facts, decisions, documents, tasks and time live in plain files in folders you own, so the next session can pick up where the last one ended.
-- **Tooling: what the assistant can use.** Start with the 61 bundled skills as working references. Then write your own with `/as:skill-maker`. Your skills live in your studio or project folder, and plugin updates never overwrite them.
+- **Tooling: what the assistant can use.** Start with the 68 bundled skills as working references. Then write your own with `/as:skill-maker`. Your skills live in your studio or project folder, and plugin updates never overwrite them.
 
 Run `/as:studio` to set up the governance and memory side: your AI-use policy, naming and filing rules, units, jurisdiction and project phases. It shows exactly what it will create and writes nothing until you approve. Then register projects. From there, Norma, the coordinator, sends each request to the right skills within the rules you set. You can also skip setup and try a skill on a single task first.
 
@@ -87,13 +87,23 @@ codex
 
 Open **Customize → Plugins → + → Add marketplace**, choose a repository source, enter `AlpacaLabsLLC/skills-for-architects`, and install **Arch Studio**. Workspace, hook, and subagent behavior depends on the Claude surface and permissions your organization enables; the workflow below is tested with Claude Code.
 
+### Rhino 9
+
+The Rhino skills run in Rhino 9 for Mac, from its AI panel (or another agent session connected to Rhino's `run_python` tool).
+
+1. Install the plugin in Claude Code as above, at user scope (the default): the AI panel reads your user settings, so it runs the plugin's startup hook, which points it to the Rhino skills.
+2. Open a model in Rhino 9 and start a new AI panel session.
+3. Name the skill or Arch Studio, for example "Use Arch Studio rhino-setup to check the connection", then "Use /as:rhino-model to model a 12 by 16 ft shed with a gable roof".
+
+The skills that run helper scripts need the installed plugin and are not available through hosted MCP. Windows is not supported yet. Known limits are in the [CHANGELOG](./CHANGELOG.md).
+
 ### Check that it works
 
 Type `/as:studio` in Claude Code, or `$studio` in Codex. It offers four paths: set up a studio, use the skills without setup, open an existing studio, or learn on a fictional practice project. Nothing is created (no studio, project, ALPA account, cloud store, or git repository) until you approve an exact local folder. Using the skills without setup creates no workspace files; a skill creates only the output you ask for.
 
 New to AI assistants? Start the six-module course with `/as:learn` (Codex: `$learn`).
 
-For teams, Arch Studio MCP is connected rather than installed; see [Two editions](#two-editions). Install the plugin or connect the MCP, not both: the MCP delivers instructions only, does not run skills, and cannot reach your local files. See [release delivery](docs/release-delivery.md).
+For teams, Arch Studio MCP is connected rather than installed; see [Two editions](#two-editions). Install the plugin or connect the MCP, not both: the MCP delivers instructions only, does not run skills, and cannot reach your local files. The exception is Rhino: the Rhino skills that run helper scripts (`rhino-agent-team`, `rhino-display`, `rhino-thinline`, `rhino-axon`, `rhino-bom`, and `rhino-model`'s requirements check) are plugin-only for now, so every teammate in a Rhino team installs the plugin, on the same release ([firm deployment](docs/firm-deployment.md#rhino-agent-teams)). See [release delivery](docs/release-delivery.md).
 
 ## The basic workflow
 
@@ -110,7 +120,7 @@ Not sure what is available? `/as:tool-catalog` lists every skill and agent on yo
 
 ## What's inside
 
-61 skills, 8 agents, 8 rules, and 4 hooks. Everything installs together. The full catalog, with inputs and outputs, is in [skills/README.md](./skills/README.md).
+68 skills, 9 agents, 8 rules, and 5 hooks. Everything installs together. The full catalog, with inputs and outputs, is in [skills/README.md](./skills/README.md).
 
 ### Skills
 
@@ -199,11 +209,20 @@ Not sure what is available? `/as:tool-catalog` lists every skill and agent on yo
 - **color-palette-generator** — Color palettes with contrast checks
 - **resize-images** — Resize images for web, social, slides, and print
 
+**3D modeling (Rhino)**
+- **rhino-model** — Builds and checks massing, framing, and Grasshopper models in a live Rhino through its AI panel
+- **rhino-setup** — Checks that Rhino and the AI panel's tools are ready
+- **rhino-display** — Display modes, views and materials, and image batches checked against the requested mode
+- **rhino-thinline** — Drawing conventions for black and white vector sheets from a Rhino model, with a checked PDF
+- **rhino-axon** — The view for an axonometric sheet from a Rhino model: camera, cut-away, occlusion and details
+- **rhino-bom** — Quantities from a Rhino model, reconciled to the object count
+- **rhino-agent-team** — Several agents on one Rhino model: a set-out written first, one file per owner, notes in the model and a check across the files
+
 **Which specification skill?** A Project Manual section → **spec-writer**. Its EPD and GWP requirements → **epd-to-spec**. One product from a PDF or URL → **product-cut-sheet**. A bound FF&E book → **ffe-spec-book**.
 
 ### Agents (Claude Code)
 
-Eight agents: seven specialists and an optional Norma worker. Each one combines a group of skills for a kind of work. They run only where the host supports delegation and the request allows it; otherwise the same skills run directly. Codex installs the skills but not these agents. See the [agents index](./docs/agents.md).
+Nine agents: eight specialists and an optional Norma worker. Each one combines a group of skills for a kind of work. They run only where the host supports delegation and the request allows it; otherwise the same skills run directly. Codex installs the skills but not these agents. See the [agents index](./docs/agents.md).
 
 | Agent | What it does |
 |-------|--------------|
@@ -214,6 +233,7 @@ Eight agents: seven specialists and an optional Norma worker. Each one combines 
 | [ffe-designer](./agents/ffe-designer.md) | Builds schedules and room packages, checks them, and prepares dealer files |
 | [sustainability-specialist](./agents/sustainability-specialist.md) | Researches and compares EPDs and prepares spec limits |
 | [brand-manager](./agents/brand-manager.md) | Builds decks and palettes and checks deliverables before they go out |
+| [rhino-modeler](./agents/rhino-modeler.md) | Builds and checks massing, framing and Grasshopper models in a live Rhino 9 through its AI panel |
 | [norma](./agents/norma.md) | Optional worker that carries out an already approved assignment; questions go back to you |
 
 ### Rules
@@ -233,11 +253,12 @@ Shared conventions the skills follow. They guide output; only the hooks below ch
 
 ### Hooks
 
-Claude Code loads three hook handlers across two events. Codex loads one. See the [hooks index](./hooks/README.md).
+Claude Code loads four hook handlers across two events. Codex loads one. See the [hooks index](./hooks/README.md).
 
 | Hook | Host | When | What it does |
 |------|------|------|--------------|
 | [session-start-welcome](./hooks/session-start-welcome.sh) | Claude Code | First session after install | Confirms the skills are ready and points to setup and the course |
+| [as-rhino-context](./hooks/as-rhino-context.py) | Claude Code | Session start, resume, clear and compaction | Adds one line pointing to the Rhino skill index, for the Rhino AI panel |
 | [version-check](./hooks/version-check.sh) | Claude Code | Session start, at most daily | Checks for a newer release (see [telemetry](#data-privacy-and-telemetry)) |
 | [post-write-disclaimer-check](./hooks/post-write-disclaimer-check.sh) | Claude Code | After Write or Edit | Flags regulatory output missing the professional disclaimer |
 | [session-start-ambient](./hooks/session-start-ambient.sh) | Codex | Session start | Adds short Arch Studio routing context; reads and writes nothing |
@@ -285,7 +306,7 @@ For setup or access questions, ask `/as:norma-support`. You can also [open an is
 
 ## Updating and what's new
 
-Current version: **1.5.3**. On Claude Code, a daily check tells you when a newer release is out. Release notes, including breaking changes and upgrade steps, are in the [CHANGELOG](./CHANGELOG.md).
+Current version: **1.5.4**. On Claude Code, a daily check tells you when a newer release is out. Release notes, including breaking changes and upgrade steps, are in the [CHANGELOG](./CHANGELOG.md).
 
 ## Contributing
 

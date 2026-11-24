@@ -22,6 +22,7 @@ follows the relevant skills directly. Direct skill calls and existing profile na
 | [product-and-materials-researcher](../agents/product-and-materials-researcher.md) | Materials Research | product-research, product-spec-bulk-fetch, product-spec-pdf-parser, product-match, product-enrich |
 | [ffe-designer](../agents/ffe-designer.md) | FF&E Design | product-pair, product-data-cleanup, product-data-import, product-enrich, product-image-processor, csv-to-sif, sif-to-csv |
 | [brand-manager](../agents/brand-manager.md) | Presentations | slide-deck-generator, color-palette-generator, resize-images |
+| [rhino-modeler](../agents/rhino-modeler.md) | 3D / BIM modeling | rhino-setup, rhino-model |
 
 | [norma](../agents/norma.md) | Optional Claude Code worker | Executes an already resolved authorized assignment; returns questions to the main harness |
 

@@ -172,7 +172,7 @@ agent_count = sum(1 for p in pathlib.Path('agents').glob('*.md')
                   if p.name != 'README.md')
 rule_count = sum(1 for p in pathlib.Path('rules').glob('*.md')
                  if p.name != 'README.md')
-hook_count = len(list(pathlib.Path('hooks').glob('*.sh')))
+hook_count = len(list(pathlib.Path('hooks').glob('*.sh'))) + len(list(pathlib.Path('hooks').glob('*.py')))
 
 readme = pathlib.Path('README.md').read_text(encoding='utf-8')
 skill_catalog = pathlib.Path('skills/README.md').read_text(encoding='utf-8')
