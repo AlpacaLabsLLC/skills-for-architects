@@ -97,6 +97,18 @@ The Rhino skills run in Rhino 9 for Mac, from its AI panel (or another agent ses
 
 The skills that run helper scripts need the installed plugin and are not available through hosted MCP. Windows is not supported yet. Known limits are in the [CHANGELOG](./CHANGELOG.md).
 
+#### Rhino from Claude Code or another agent
+
+Rhino 9 includes McNeel's Rhino MCP server; nothing else needs installing in Rhino.
+
+1. Install the plugin in Claude Code as above.
+2. In Rhino 9, run `MCPConnect` and choose Install next to your agent (Claude Code, Codex, Cursor, Gemini CLI, Windsurf or OpenCode). It adds a `rhino` server to that agent's user settings. For Claude Code the same entry is:
+   `claude mcp add --scope user rhino -- "$HOME/Library/Application Support/McNeel/Rhinoceros/ai/bin/rhino-mcp-router"`
+3. Open the model in Rhino 9 and start its MCP server with `MCPStart`, or turn on "Load MCP server at startup" in Rhino's AI settings. The agent then works on that document.
+4. In a terminal, `claude mcp list` should show `rhino` as connected. Start a new session and name the skill, for example "Use /as:rhino-setup to check the connection". In Claude Code the skills load as plugin skills; the startup hook still names their lessons folder.
+
+Tested on Rhino 9.0.26300 for Mac, without a model: the entry above is the one `MCPConnect` writes for Claude Code, `claude mcp list` connects to it, and the server lists Rhino's tools and answers `get_context` and `run_python` for the open document. Not yet tested: a full agent session this way, and agents other than Claude Code.
+
 ### Check that it works
 
 Type `/as:studio` in Claude Code, or `$studio` in Codex. It offers four paths: set up a studio, use the skills without setup, open an existing studio, or learn on a fictional practice project. Nothing is created (no studio, project, ALPA account, cloud store, or git repository) until you approve an exact local folder. Using the skills without setup creates no workspace files; a skill creates only the output you ask for.
