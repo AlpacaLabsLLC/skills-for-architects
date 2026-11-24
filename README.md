@@ -103,11 +103,13 @@ Rhino 9 includes McNeel's Rhino MCP server; nothing else needs installing in Rhi
 
 1. Install the plugin in Claude Code as above.
 2. In Rhino 9, run `MCPConnect` and choose Install next to your agent (Claude Code, Codex, Cursor, Gemini CLI, Windsurf or OpenCode). It adds a `rhino` server to that agent's user settings. For Claude Code the same entry is:
-   `claude mcp add --scope user rhino -- "$HOME/Library/Application Support/McNeel/Rhinoceros/ai/bin/rhino-mcp-router"`
+   `claude mcp add --scope user rhino -e RHINO_MCP_DEFAULT_VERSION=9 -- "$HOME/Library/Application Support/McNeel/Rhinoceros/ai/bin/rhino-mcp-router"`
+
+   `RHINO_MCP_DEFAULT_VERSION=9` makes the connection start Rhino 9 rather than Rhino 8, its default, when it has to start a Rhino itself because no Rhino 9 server is running. `MCPConnect`'s entry leaves it out by default; its Advanced options list a Default version setting.
 3. Open the model in Rhino 9 and start its MCP server with `MCPStart`, or turn on "Load MCP server at startup" in Rhino's AI settings. The agent then works on that document.
 4. In a terminal, `claude mcp list` should show `rhino` as connected. Start a new session and name the skill, for example "Use /as:rhino-setup to check the connection". In Claude Code the skills load as plugin skills; the startup hook still names their lessons folder.
 
-Tested once on Rhino 9.0.26300 for Mac with Claude Code: from a clean install and the entry above (the plugin loaded with `--plugin-dir` under the tester's normal login, and Rhino's MCP server started on a document with no window instead of with `MCPStart`), the agent ran `rhino-setup`, modeled a 12 by 16 ft gable shed whose requirements check passed, and exported an axonometric sheet whose sheet and PDF checks passed. On that Mac, which also had Rhino 8 and its MCP package, the agent's first call launched Rhino 8 instead of using the Rhino 9 server; the two versions' MCP connectors share one list of running Rhinos. Not yet tested: a model started with `MCPStart` in a visible window, agents other than Claude Code, and Windows.
+Tested once on Rhino 9.0.26300 for Mac with Claude Code: from a clean install and the entry above without `RHINO_MCP_DEFAULT_VERSION` (the plugin loaded with `--plugin-dir` under the tester's normal login, and Rhino's MCP server started on a document with no window instead of with `MCPStart`), the agent ran `rhino-setup`, modeled a 12 by 16 ft gable shed whose requirements check passed, and exported an axonometric sheet whose sheet and PDF checks passed. On that Mac, which also had Rhino 8 and its MCP package, the agent's first call launched Rhino 8 instead of using the Rhino 9 server; the two versions' MCP connectors share one list of running Rhinos. Not yet tested: the entry with `RHINO_MCP_DEFAULT_VERSION=9`, a model started with `MCPStart` in a visible window, agents other than Claude Code, and Windows.
 
 ### Check that it works
 

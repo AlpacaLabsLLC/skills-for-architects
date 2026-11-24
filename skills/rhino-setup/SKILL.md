@@ -17,7 +17,7 @@ A confirmed working connection (tools present, a document open, units known, a s
 ## Procedure
 
 1. **Tools.** Look for Rhino's tools (`run_python`, `get_context`), from the AI panel or a connected agent. If absent, stop and give the user this action: "Open a document in Rhino 9 and make this request in its AI panel. To use an agent outside Rhino, such as Claude Code in a terminal, run `MCPConnect` once in Rhino 9 and install it for your agent, then run `MCPStart` on the open model and start a new agent session." Arch Studio never installs, registers or configures anything.
-2. **Document.** `get_context` must answer with the open document. Then one `run_python` script reads `__rhino_doc__` and `Rhino.RhinoApp.Version`: Rhino version, units, name, path, live object count, top-level layers. If the version is below 9, report that the skills are written for Rhino 9.
+2. **Document.** `get_context` must answer with the open document. Then one `run_python` script reads `__rhino_doc__` and `Rhino.RhinoApp.Version`: Rhino version, units, name, path, live object count, top-level layers. If the version is below 9, report that the skills are written for Rhino 9. These values hold for this turn only; a later turn reads them again.
 3. **Smoke test** only when the user asked to verify: add one named point on a layer `Rhino Setup Check`, read it back, delete it and the layer, and report both steps. Never touch other objects.
 
 ## Report

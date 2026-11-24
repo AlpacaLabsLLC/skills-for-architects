@@ -34,7 +34,7 @@ This skill owns how the sheet looks: weights, styles, hatch, annotation, layout,
 Read the [lessons](#lessons) after setup and before asking; write them after the report.
 
 1. **Setup.** If the Rhino tools are absent, follow [rhino-setup](../rhino-setup/SKILL.md) for the user action.
-2. **Ask** in one `ask_user` batch only what is open: drawing, scale, sheet size, details, title text. Scale and title are open unless the request gives them: ask for both; when nobody can answer, choose them and say in the report that you chose them. Details follow from the drawing, not the reverse.
+2. **Ask** in one `ask_user` batch only what is open: drawing, scale, sheet size, details, title text. Scale and title are open unless the request gives them: ask for both; when nobody can answer, choose them and say in the report that you chose them. Propose a scale in the document's unit system: an imperial architectural scale (such as 1/4" = 1'-0", 1:48) for a document in feet or inches, a metric one (such as 1:50) for a metric document, and write it that way in the title block. Details follow from the drawing, not the reverse.
 3. **Load the library** by file path. For an axonometric, load [rhino-axon](../rhino-axon/SKILL.md)'s `as-axon.py` instead: it loads this library first, and the sheet script then has both. For linework from another view, load this one alone. Build the path from the folder you read this `SKILL.md` from, which belongs to the installed plugin version; never hard-code it or reuse one from an earlier version:
 
 ```python

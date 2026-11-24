@@ -15,7 +15,7 @@ Layout, annotation, leaders, the request record and the PDF: conventions for lin
 
 ## Sheet layout
 
-- Ask for the title and the scale when the request does not give them; if nobody answers, set them yourself and say so in the report. Do not take a title from a file or folder name.
+- Ask for the title and the scale when the request does not give them; if nobody answers, set them yourself and say so in the report. Take the scale from the document's unit system: imperial architectural scales (1/8", 1/4", 1/2" = 1'-0", that is 1:96, 1:48, 1:24) for feet or inches, metric (1:20, 1:50, 1:100) otherwise. Do not take a title from a file or folder name.
 
 - Size details to the space left, not the reverse. Small axons in corners worked where 1:1 sections did not.
 - Build the title block on an explicit grid: fixed rows, a shared baseline per row, one padding constant, frame flush with the view (`title_block`).
