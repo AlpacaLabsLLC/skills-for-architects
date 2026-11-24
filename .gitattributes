@@ -1,0 +1,5 @@
+# Shell scripts run in sh / Git Bash, which stop on a CR at the end of a line. Keep them LF on every
+# checkout, including Git for Windows with core.autocrlf=true (its default) and the clone
+# Claude Code makes when it installs the plugin from a marketplace.
+*.sh text eol=lf
+hooks/** text eol=lf

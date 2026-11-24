@@ -56,6 +56,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Shell scripts are LF after a Windows checkout with core.autocrlf=true
+        run: |
+          # Git for Windows defaults to core.autocrlf=true; .gitattributes must keep *.sh LF, or sh stops on the CR.
+          git config --global core.autocrlf true
+          rm -rf "$RUNNER_TEMP/crlf-clone"
+          git clone -q --no-local . "$RUNNER_TEMP/crlf-clone"
+          bad=$(cd "$RUNNER_TEMP/crlf-clone" && grep -lI $'\r' hooks/*.sh tests/windows/*.sh || true)
+          if [ -n "$bad" ]; then echo "CRLF in: $bad"; exit 1; fi
+          echo "hooks and Windows test scripts are LF with core.autocrlf=true"
+
       - name: Hooks under Git Bash, no Python, jq or node on PATH
         run: bash tests/windows/run-hooks-no-python.sh "$RUNNER_TEMP/hooks-out"
 
