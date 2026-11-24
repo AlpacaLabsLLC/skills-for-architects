@@ -7,7 +7,7 @@
   "members": [
     "skill:rhino-setup",
     "skill:rhino-model",
-    "skill:rhino-display",
+    "skill:rhino-batch-image-export",
     "skill:rhino-thinline",
     "skill:rhino-axon",
     "skill:rhino-bom",

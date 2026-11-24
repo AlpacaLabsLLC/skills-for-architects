@@ -29,7 +29,7 @@ Firms install approved plugin releases from the documented marketplace, the same
 
 ### Rhino agent teams
 
-`rhino-agent-team`, `rhino-display`, `rhino-thinline`, `rhino-bom`, and `rhino-model`'s requirements check run helper scripts from the installed plugin inside each person's Rhino, so they are plugin-only for now ([Rhino skill helpers](host-harness-contract.md#rhino-skill-helpers)).
+`rhino-agent-team`, `rhino-batch-image-export`, `rhino-thinline`, `rhino-bom`, and `rhino-model`'s requirements check run helper scripts from the installed plugin inside each person's Rhino, so they are plugin-only for now ([Rhino skill helpers](host-harness-contract.md#rhino-skill-helpers)).
 
 - **Every machine installs the `as` plugin:** `claude plugin marketplace add AlpacaLabsLLC/skills-for-architects`, then `claude plugin install as@skills-for-architects`. For the Rhino AI panel, keep the default user scope.
 - **Shared project settings (Claude Code):** commit the marketplace and the enabled plugin in the project's `.claude/settings.json`, under `extraKnownMarketplaces` (`"skills-for-architects": {"source": {"source": "github", "repo": "AlpacaLabsLLC/skills-for-architects"}}`) and `enabledPlugins` (`"as@skills-for-architects": true`). Claude Code registers the marketplace after each teammate trusts the folder; enabling the plugin there does not install it, so each teammate still runs the install.

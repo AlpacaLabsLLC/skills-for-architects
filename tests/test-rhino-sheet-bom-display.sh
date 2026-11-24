@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Seeded cases for as-rhino-bom, as-rhino-display and as-rhino-thinline.
+# Seeded cases for as-rhino-bom, as-rhino-batch-image-export and as-rhino-thinline.
 # Rhino is not available here. A small stub stands in for the part of RhinoCommon the BOM reads
 # (layers, object attributes, bounding boxes, mass properties). The display and PDF checks read
 # real files written by this test. The Rhino drawing calls in as-sheet.py and the capture calls
-# in as-display.py are not run; they need a live Rhino.
+# in as-batch-image-export.py are not run; they need a live Rhino.
 set -euo pipefail
 export PYTHONDONTWRITEBYTECODE=1
 cd "$(dirname "$0")/.."
@@ -236,8 +236,8 @@ for mod in ('Rhino', 'Rhino.Geometry'):
     del sys.modules[mod]
 
 
-# ---- as-rhino-display ----
-DISPLAY = load(root / 'rhino-display/scripts/as-display.py')
+# ---- as-rhino-batch-image-export ----
+DISPLAY = load(root / 'rhino-batch-image-export/scripts/as-batch-image-export.py')
 
 
 def png(path, width, height, colour):

@@ -88,7 +88,7 @@
     "tool:workbook-preservation": "portable",
     "skill:norma-support": "portable",
     "skill:rhino-setup": "portable",
-    "skill:rhino-display": "portable",
+    "skill:rhino-batch-image-export": "portable",
     "skill:rhino-thinline": "portable",
     "skill:rhino-axon": "portable",
     "skill:rhino-bom": "portable",

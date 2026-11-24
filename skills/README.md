@@ -124,7 +124,7 @@ Explicitly adopted FF&E schedules use immutable item/schedule records; workbooks
 |-------|-------------|
 | [`/as:rhino-setup`](./rhino-setup) | Connect and verify Rhino 9 and its AI panel |
 | [`/as:rhino-model`](./rhino-model) | Plan, build and check massing, framing and parametric Grasshopper models in a live Rhino 9 through its AI panel |
-| [`/as:rhino-display`](./rhino-display) | Display modes, views and materials, and image batches checked against the requested mode |
+| [`/as:rhino-batch-image-export`](./rhino-batch-image-export) | Batch-export view images (options, views, layer sets) in one display mode, each file checked against the mode |
 | [`/as:rhino-thinline`](./rhino-thinline) | Drawing conventions for black and white vector sheets from a Rhino model, with a checked PDF |
 | [`/as:rhino-axon`](./rhino-axon) | The view for an axonometric sheet from a Rhino model: camera, cut-away, occlusion, details |
 | [`/as:rhino-bom`](./rhino-bom) | Quantities from a Rhino model, reconciled to the object count |

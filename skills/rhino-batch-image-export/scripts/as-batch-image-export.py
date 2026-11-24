@@ -1,12 +1,12 @@
 #! python3
-"""Image exports that are checked against the requested display mode (Arch Studio, as-rhino-display).
+"""Image exports that are checked against the requested display mode (Arch Studio, as-rhino-batch-image-export).
 
 The file on disk is what gets checked, not the viewport. A batch fails when any file does not
 match the requested mode, is blank, or when the document was left changed.
 
 Runs by file path through run_python (uses __rhino_doc__):
 
-    P = "<absolute path of this skill's folder>/scripts/as-display.py"
+    P = "<absolute path of this skill's folder>/scripts/as-batch-image-export.py"
     exec(compile(open(P).read(), P, "exec"), {"__rhino_doc__": __rhino_doc__, "AS_SCRIPT_FILE": P, "AS_MODE": "export", "AS_EXPORT": SPEC})
 
 AS_MODE  "modes"   list the display modes in this Rhino

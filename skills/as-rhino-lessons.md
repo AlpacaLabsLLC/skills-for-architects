@@ -1,6 +1,8 @@
 # Arch Studio for Rhino: local lessons
 
-The as-rhino skills (`rhino-model`, `rhino-bom`, `rhino-display`, `rhino-thinline`, `rhino-axon`) learn on purpose, on this machine: each run writes what it learned, and the next run reads it before planning. Nothing leaves the machine.
+The as-rhino skills (`rhino-model`, `rhino-bom`, `rhino-batch-image-export`, `rhino-thinline`, `rhino-axon`) learn on purpose, on this machine: each run writes what it learned, and the next run reads it before planning. Nothing leaves the machine.
+
+`rhino-batch-image-export` was called `rhino-display` in earlier test builds. Lessons, firm rules and declined lines saved under the old name still count for it, and the script accepts the old name; new lines are written under the new name.
 
 **What a lesson may hold: two kinds only.**
 

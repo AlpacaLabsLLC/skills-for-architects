@@ -531,11 +531,11 @@ for gone in ('reserve', 'control'):
 ok('"AS_MODE": "check"' in text and 'Team: settled' in text, 'skill: the check call and its status line are named')
 contract = (repo / 'docs/host-harness-contract.md').read_text(encoding='utf-8')
 exception = contract.split('### Named exception: Rhino skill helpers', 1)[1].split('\n## ', 1)[0] if '### Named exception: Rhino skill helpers' in contract else ''
-ok(exception and all('`%s`' % s in exception for s in ('rhino-model', 'rhino-display', 'rhino-thinline', 'rhino-bom', 'rhino-agent-team'))
+ok(exception and all('`%s`' % s in exception for s in ('rhino-model', 'rhino-batch-image-export', 'rhino-thinline', 'rhino-bom', 'rhino-agent-team'))
    and 'only exception' in exception and 'hosted MCP' in exception and '**Plugin-only**' in exception,
    'contract: the Rhino helper exception names its skills, its limit and the plugin-only decision')
 import json as _json
-for name in ('rhino-agent-team', 'rhino-model', 'rhino-display', 'rhino-thinline', 'rhino-bom'):
+for name in ('rhino-agent-team', 'rhino-model', 'rhino-batch-image-export', 'rhino-thinline', 'rhino-bom'):
     hc = _json.loads((repo / 'skills' / name / 'host-contract.json').read_text())
     ok(hc['execution'].get('delivery') == 'plugin-only', 'plugin-only: %s declares it in its host contract' % name)
     ok('**Plugin-only' in (repo / 'skills' / name / 'SKILL.md').read_text(), 'plugin-only: %s says so in its requirements' % name)
@@ -544,7 +544,7 @@ ok('### Known limits' in changelog and 'plugin-only' in changelog, 'plugin-only:
 scripted = sorted(p.parent.parent.name for p in repo.glob('skills/*/scripts/*.py') if p.parent.parent.name.startswith('rhino-'))
 ok(all(_json.loads((repo / 'skills' / n / 'host-contract.json').read_text())['execution'].get('delivery') == 'plugin-only' for n in set(scripted)),
    'plugin-only: every script-backed Rhino skill declares it', sorted(set(scripted)))
-for name in ('rhino-model', 'rhino-display', 'rhino-thinline', 'rhino-bom', 'rhino-agent-team'):
+for name in ('rhino-model', 'rhino-batch-image-export', 'rhino-thinline', 'rhino-bom', 'rhino-agent-team'):
     ok(any((repo / 'skills' / name / 'scripts').glob('*.py')), 'contract: %s ships the helpers the exception covers' % name)
 model = (repo / 'skills/rhino-model/SKILL.md').read_text(encoding='utf-8')
 section = model.split('## When a set-out exists', 1)[1].split('\n## ', 1)[0] if '## When a set-out exists' in model else ''

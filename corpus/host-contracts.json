@@ -300,7 +300,7 @@
     "agent:norma": "agents/norma.host-contract.json",
     "skill:norma-support": "skills/norma-support/host-contract.json",
     "skill:rhino-setup": "skills/rhino-setup/host-contract.json",
-    "skill:rhino-display": "skills/rhino-display/host-contract.json",
+    "skill:rhino-batch-image-export": "skills/rhino-batch-image-export/host-contract.json",
     "skill:rhino-thinline": "skills/rhino-thinline/host-contract.json",
     "skill:rhino-axon": "skills/rhino-axon/host-contract.json",
     "skill:rhino-bom": "skills/rhino-bom/host-contract.json",

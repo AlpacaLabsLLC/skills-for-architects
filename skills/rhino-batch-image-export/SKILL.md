@@ -1,14 +1,14 @@
 ---
-name: rhino-display
-description: "Set up display modes, views and materials in Rhino 9 and export batches of images that are checked file by file against the requested display mode. Use when the user asks for captures, viewport images, renders in a display mode, or views and materials set up for presenting a Rhino model. Not for photorealistic rendering, or black and white vector sheets, which rhino-thinline makes."
+name: rhino-batch-image-export
+description: "Batch-export view images of a Rhino 9 model (options, views, layer sets) in one display mode, each file checked against the mode: a blank image, or colour in a mode that must have none, fails the batch. Sets up the display modes, views and materials the export needs. Use when the user asks for a batch of captures or viewport images of options, views or layer sets, or for images in a display mode. Not for photorealistic rendering, or black and white vector sheets, which rhino-thinline makes."
 ---
 
-# /as:rhino-display
+# /as:rhino-batch-image-export
 
-Before acting, read the [host contract](../../docs/host-harness-contract.md), this component's [declaration](host-contract.json) (`skill:rhino-display`) and the mode profiles it references in the [shared catalog](../../corpus/host-contracts.json). Declarations are requirements, not proof of access or permission.
+Before acting, read the [host contract](../../docs/host-harness-contract.md), this component's [declaration](host-contract.json) (`skill:rhino-batch-image-export`) and the mode profiles it references in the [shared catalog](../../corpus/host-contracts.json). Declarations are requirements, not proof of access or permission.
 
 <!-- architecture-studio:harness-compatibility -->
-Use the [host adapter](../../docs/host-adapters.md) for native invocation. Requires Rhino 9 with an open document and its `run_python` tool. **Plugin-only:** the image export and its file-by-file check use `scripts/as-display.py` from the installed plugin's folder ([Rhino skill helpers](../../docs/host-harness-contract.md#rhino-skill-helpers)); through hosted MCP instruction delivery this skill is not available. If you cannot find this skill's folder on disk, stop and tell the user to install the plugin. In the Rhino AI panel, there is no Skill tool: read this file and its reference by path with `run_python`.
+Use the [host adapter](../../docs/host-adapters.md) for native invocation. Requires Rhino 9 with an open document and its `run_python` tool. **Plugin-only:** the image export and its file-by-file check use `scripts/as-batch-image-export.py` from the installed plugin's folder ([Rhino skill helpers](../../docs/host-harness-contract.md#rhino-skill-helpers)); through hosted MCP instruction delivery this skill is not available. If you cannot find this skill's folder on disk, stop and tell the user to install the plugin. In the Rhino AI panel, there is no Skill tool: read this file and its reference by path with `run_python`.
 
 ## Outcome
 
@@ -31,7 +31,7 @@ Read the [lessons](#lessons) after setup and before asking; write them after the
 3. **Export** by file path. Build the path from the folder you read this `SKILL.md` from, which belongs to the installed plugin version; never hard-code it or reuse one from an earlier version:
 
 ```python
-P = "<absolute path of this skill's folder>/scripts/as-display.py"
+P = "<absolute path of this skill's folder>/scripts/as-batch-image-export.py"
 SPEC = {"out": "<folder>", "mode": "Arctic", "size": [3840, 2160], "shots": [{"name": "option-a-birdseye", "direction": "birdseye", "layers": ["Building::Option A"]}]}
 exec(compile(open(P).read(), P, "exec"), {"__rhino_doc__": __rhino_doc__, "AS_SCRIPT_FILE": P, "AS_MODE": "export", "AS_EXPORT": SPEC})
 ```
@@ -45,7 +45,7 @@ Colour is judged only for modes that must have none (Arctic and Monochrome): a f
 
 ## Interior views are not supported
 
-`as-display.py` frames every shot from outside: it places the camera beyond the bounding box of the shot's layers, looking in along `direction`. No shot can put the camera inside a room. Hiding layers only opens a cutaway seen from outside, which is not an interior view. Leave interiors out of the batch and name them in the report as not exported.
+`as-batch-image-export.py` frames every shot from outside: it places the camera beyond the bounding box of the shot's layers, looking in along `direction`. No shot can put the camera inside a room. Hiding layers only opens a cutaway seen from outside, which is not an interior view. Leave interiors out of the batch and name them in the report as not exported.
 
 ## Lessons
 
@@ -53,7 +53,7 @@ This skill learns locally. Before planning, read its lessons and the firm rules;
 
 ```python
 P = "<absolute path of the skills folder, the parent of this skill's folder>/as-rhino-lessons.py"
-exec(compile(open(P).read(), P, "exec"), {"AS_SCRIPT_FILE": P, "AS_MODE": "read", "AS_SKILL": "rhino-display", "AS_LESSONS_DIR": "<lessons folder from the startup line>"})
+exec(compile(open(P).read(), P, "exec"), {"AS_SCRIPT_FILE": P, "AS_MODE": "read", "AS_SKILL": "rhino-batch-image-export", "AS_LESSONS_DIR": "<lessons folder from the startup line>"})
 ```
 
 Follow every firm rule, and name each lesson you apply in the report. To write, use `"AS_MODE": "write"` with `AS_LESSONS`, `AS_PRIVATE` and `__rhino_doc__`, then `"offer"`. Each lesson declares its kind: `practice` (modeling practice) or `preference` (the user's own, with what the user said). Never save a design, architectural or engineering rule you inferred; mention it to the user instead ([lessons](../as-rhino-lessons.md)). A firm rule is written only with `"promote"`, after the user said yes in `ask_user`. Never edit the checker, its tests or answer keys to apply a lesson.

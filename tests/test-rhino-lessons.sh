@@ -10,7 +10,7 @@ from pathlib import Path
 
 root = Path.cwd()
 SCRIPT = root / 'skills/as-rhino-lessons.py'
-SKILLS = ('rhino-model', 'rhino-bom', 'rhino-display', 'rhino-thinline', 'rhino-axon')
+SKILLS = ('rhino-model', 'rhino-bom', 'rhino-batch-image-export', 'rhino-thinline', 'rhino-axon')
 
 
 def load():
@@ -106,7 +106,7 @@ with tempfile.TemporaryDirectory() as tmp:
     assert u_id not in offer2 and 'OFFER rhino-model: none' in offer2, offer2
     out = L['run']('read', 'rhino-model', d)
     assert out.index('Firm rules') < out.index('Lessons from earlier runs') and '1 firm rules' in out, out
-    assert 'Firm rules' not in L['run']('read', 'rhino-display', d)
+    assert 'Firm rules' not in L['run']('read', 'rhino-batch-image-export', d)
     # scope all reaches every skill; the firm rule keeps the plain wording the user saw.
     L['run']('write', 'rhino-model', d, [{'tag': 'U', 'kind': 'preference', 'text': 'user wants the requirements table shown before the first build script', 'user_said': 'show me the table before you build'}], now=t0 + 7400)
     j_id = re.search(r'^- ([0-9a-f]{6}) ', L['run']('offer', 'rhino-model', d), re.M).group(1)
@@ -160,13 +160,13 @@ with tempfile.TemporaryDirectory() as tmp:
     class Doc:
         Name = 'Samplefield-Shed.3dm'
         Path = '/Users/user0/Projects/Samplefield-Shed.3dm'
-    g = {'__rhino_doc__': Doc(), 'AS_SCRIPT_FILE': str(SCRIPT), 'AS_MODE': 'write', 'AS_SKILL': 'rhino-display',
+    g = {'__rhino_doc__': Doc(), 'AS_SCRIPT_FILE': str(SCRIPT), 'AS_MODE': 'write', 'AS_SKILL': 'rhino-batch-image-export',
          'AS_LESSONS_DIR': d, 'AS_LESSONS': [{'tag': 'F', 'kind': 'practice', 'text': 'Samplefield-Shed exported in colour until the mode was named in the capture call'}]}
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
         exec(compile(SCRIPT.read_text(), str(SCRIPT), 'exec'), g)
     assert 'wrote 1' in buf.getvalue(), buf.getvalue()
-    assert 'Sample Ridge' not in (Path(d) / 'rhino-display.txt').read_text()
+    assert 'Sample Ridge' not in (Path(d) / 'rhino-batch-image-export.txt').read_text()
 
     # Scope: only two kinds are stored. Modeling practice, and the user's own preference with what the user said.
     b = str(tmp / 'kinds' / 'rhino-lessons')
@@ -234,15 +234,30 @@ with tempfile.TemporaryDirectory() as tmp:
     # The command line runs the same logic (the stand-in for run_python in CI).
     spec = tmp / 'spec.json'
     spec.write_text(json.dumps({'lessons': [{'tag': 'M', 'kind': 'practice', 'text': 'Arctic exports read back with zero coloured pixels at 3840 wide'}]}))
-    run = subprocess.run([sys.executable, '-I', str(SCRIPT), 'write', '--skill', 'rhino-display', '--dir', d, '--json', str(spec)], capture_output=True, text=True)
+    run = subprocess.run([sys.executable, '-I', str(SCRIPT), 'write', '--skill', 'rhino-batch-image-export', '--dir', d, '--json', str(spec)], capture_output=True, text=True)
     assert run.returncode == 0 and 'wrote 1' in run.stdout, run
-    run = subprocess.run([sys.executable, '-I', str(SCRIPT), 'read', '--skill', 'rhino-display', '--dir', d], capture_output=True, text=True)
+    run = subprocess.run([sys.executable, '-I', str(SCRIPT), 'read', '--skill', 'rhino-batch-image-export', '--dir', d], capture_output=True, text=True)
     assert run.returncode == 0 and 'zero coloured pixels' in run.stdout, run
     run = subprocess.run([sys.executable, '-I', str(SCRIPT), 'read', '--skill', 'rhino-setup', '--dir', d], capture_output=True, text=True)
     assert run.returncode == 1 and 'unknown skill' in run.stdout, run
 
+    # The skill's earlier name: old lesson files, firm rules and declined lines still count, the old
+    # name is accepted, and new lines go under the new name.
+    with tempfile.TemporaryDirectory() as old:
+        (Path(old) / 'rhino-display.txt').write_text('2026-01-02T00:00:00Z [M] practice: Monochrome exports need the grid off before capture\n')
+        (Path(old) / 'firm-rules.txt').write_text('2026-01-03 rhino-display: Export at 3840 wide unless asked (from a1b2c3)\n')
+        (Path(old) / 'declined.txt').write_text('2026-01-03 rhino-display: d4e5f6 some declined lesson\n')
+        out = L['run']('read', 'rhino-batch-image-export', old)
+        assert 'grid off before capture' in out and 'Export at 3840 wide' in out and '1 firm rules, 1 lessons' in out, out
+        assert L['run']('read', 'rhino-display', old) == out
+        assert 'd4e5f6' in L['load_declined'](old, 'rhino-batch-image-export')
+        assert 'Export at 3840 wide' not in L['run']('read', 'rhino-model', old)
+        L['run']('write', 'rhino-display', old, [{'tag': 'M', 'kind': 'practice', 'text': 'Shaded exports read back with no blank files at 1920 wide'}])
+        assert 'no blank files' in (Path(old) / 'rhino-batch-image-export.txt').read_text()
+        assert 'no blank files' not in (Path(old) / 'rhino-display.txt').read_text()
+
     # Only plain text files, all in the one folder.
-    assert sorted(os.listdir(d)) == ['declined.txt', 'firm-rules.txt', 'rhino-bom.txt', 'rhino-display.txt', 'rhino-model.txt'], os.listdir(d)
+    assert sorted(os.listdir(d)) == ['declined.txt', 'firm-rules.txt', 'rhino-batch-image-export.txt', 'rhino-bom.txt', 'rhino-model.txt'], os.listdir(d)
 
 # The four skills read before planning, write at the end, promote only after ask_user.
 for s in SKILLS:

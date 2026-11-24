@@ -86,7 +86,7 @@ Do not silently substitute a hosted execution service, project store or another 
 ### Named exception: Rhino skill helpers
 
 Decided by the product owner on 2026-11-18 and reconfirmed on 2026-11-19. The Rhino skills
-`rhino-model`, `rhino-display`, `rhino-thinline`, `rhino-axon`, `rhino-bom` and `rhino-agent-team` may ship
+`rhino-model`, `rhino-batch-image-export`, `rhino-thinline`, `rhino-axon`, `rhino-bom` and `rhino-agent-team` may ship
 helper scripts that run inside the user's Rhino, and their procedures may require them. This is the
 only exception to the rule above.
 
@@ -106,7 +106,7 @@ only exception to the rule above.
   available and those checks do not run.
 - **Plugin-only** (decided 2026-11-19): a component whose procedure depends on these helpers
   declares `"delivery": "plugin-only"` in its `execution` block and says so in its instruction;
-  it is not offered through hosted MCP. This covers every script-backed Rhino skill: `rhino-agent-team`, `rhino-display`,
+  it is not offered through hosted MCP. This covers every script-backed Rhino skill: `rhino-agent-team`, `rhino-batch-image-export`,
   `rhino-thinline`, `rhino-axon`, `rhino-bom`, and `rhino-model` for its requirements check. No hosted MCP path is
   built for them.
 

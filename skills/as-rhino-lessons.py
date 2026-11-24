@@ -50,7 +50,10 @@ import re
 import sys
 import time
 
-SKILLS = ("rhino-model", "rhino-bom", "rhino-display", "rhino-thinline", "rhino-axon")
+SKILLS = ("rhino-model", "rhino-bom", "rhino-batch-image-export", "rhino-thinline", "rhino-axon")
+# Earlier names. A lesson file, firm rule or declined line written under one still counts for the
+# skill it now names, and --skill / AS_SKILL accept it; new lines are written under the new name.
+LEGACY = {"rhino-display": "rhino-batch-image-export"}
 TAGS = {"U": "user correction", "F": "failure then fix", "M": "measured", "J": "judgment, unconfirmed"}
 FIRM = "firm-rules.txt"
 DECLINED = "declined.txt"
@@ -60,7 +63,7 @@ MAX_READ = 30
 KINDS = {"practice": "modeling practice", "preference": "the user's own preference, stated by the user"}
 MAX_SAID = 200
 LINE = re.compile(r"^(\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ) \[([UFMJ])\] (?:(practice|preference): )?(.+)$")
-RULE = re.compile(r"^(\d{4}-\d\d-\d\d) (rhino-[a-z]+|all): (.+?)(?: \(from ([0-9a-f]{6})\))?$")
+RULE = re.compile(r"^(\d{4}-\d\d-\d\d) (rhino-[a-z-]+|all): (.+?)(?: \(from ([0-9a-f]{6})\))?$")
 STOP = set("a an the to of in on at and or is are be by for with it its that this as from when "
            "than then so do does".split())
 
@@ -188,6 +191,10 @@ def check_text(text):
         raise LessonError("refused: a lesson never changes the checker, its tests or answer keys: %r" % text)
 
 
+def canonical(skill):
+    return LEGACY.get(skill, skill)
+
+
 def _path(folder, skill):
     if skill not in SKILLS:
         raise LessonError("unknown skill %r; one of %s" % (skill, ", ".join(SKILLS)))
@@ -203,7 +210,8 @@ def _read_lines(path):
 
 def load_lessons(folder, skill):
     out = []
-    for ln in _read_lines(_path(folder, skill)):
+    paths = [_path(folder, skill)] + [os.path.join(folder, old + ".txt") for old, new in LEGACY.items() if new == skill]
+    for ln in [ln for path in paths for ln in _read_lines(path)]:
         m = LINE.match(ln)
         if m:
             out.append({"time": m.group(1), "tag": m.group(2), "kind": m.group(3), "text": m.group(4)})
@@ -215,15 +223,15 @@ def load_rules(folder):
     for ln in _read_lines(os.path.join(folder, FIRM)):
         m = RULE.match(ln)
         if m:
-            out.append({"date": m.group(1), "scope": m.group(2), "text": m.group(3), "from": m.group(4)})
+            out.append({"date": m.group(1), "scope": canonical(m.group(2)), "text": m.group(3), "from": m.group(4)})
     return out
 
 
 def load_declined(folder, skill):
     ids = set()
     for ln in _read_lines(os.path.join(folder, DECLINED)):
-        m = re.match(r"^\d{4}-\d\d-\d\d (rhino-[a-z]+): ([0-9a-f]{6})\b", ln)
-        if m and m.group(1) == skill:
+        m = re.match(r"^\d{4}-\d\d-\d\d (rhino-[a-z-]+): ([0-9a-f]{6})\b", ln)
+        if m and canonical(m.group(1)) == skill:
             ids.add(m.group(2))
     return ids
 
@@ -406,6 +414,7 @@ def do_promote(folder, skill, promote, now=None):
 
 
 def run(mode, skill, folder, lessons=None, private=(), promote=None, now=None):
+    skill = canonical(skill)
     if skill not in SKILLS:
         raise LessonError("unknown skill %r; one of %s" % (skill, ", ".join(SKILLS)))
     if mode == "read":

@@ -4,7 +4,7 @@ Read when setting up a view or material, or when a capture misbehaves.
 
 ## Safe capture
 
-The method `as-display.py` uses. Scripted captures worked every time; the capture tool's `cameraLocation` and `target` produced an empty view, and its `view` argument turned the Perspective viewport into a second Front view.
+The method `as-batch-image-export.py` uses. Scripted captures worked every time; the capture tool's `cameraLocation` and `target` produced an empty view, and its `view` argument turned the Perspective viewport into a second Front view.
 
 1. Use an existing view. Save it first: `ViewportInfo(vp)`, and restore with `vp.SetViewProjection(saved, True)`.
 2. Show the shot's layers only, remembering what to restore.
@@ -13,7 +13,7 @@ The method `as-display.py` uses. Scripted captures worked every time; the captur
 5. Capture with the mode named, `view.CaptureToBitmap(Size(w * 2, h * 2), mode)`, scale down with bicubic interpolation, and save.
 6. Read the file back. A capture that returned a picture of nothing fails as blank.
 
-`AS_EXPORT` keys are listed at the top of [as-display.py](../scripts/as-display.py). Set `direction` to `birdseye` or `top` or a vector from the model to the camera. The camera always ends up outside the shot's layers, so an interior view cannot be framed this way.
+`AS_EXPORT` keys are listed at the top of [as-batch-image-export.py](../scripts/as-batch-image-export.py). Set `direction` to `birdseye` or `top` or a vector from the model to the camera. The camera always ends up outside the shot's layers, so an interior view cannot be framed this way.
 
 The thresholds are working values, not calibrated: a sample is coloured above a channel spread of 12, a file fails above 0.1% coloured samples, and it is blank below 0.2% content. Override with `max_coloured_pct` and `min_content_pct`. A false failure prints the measured values.
 

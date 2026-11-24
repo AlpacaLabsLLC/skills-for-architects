@@ -70,4 +70,4 @@ The `ASPDF` result and the measurements it printed, the path of the PDF and the 
 
 ## Out of scope
 
-Choosing the view, cutting details and occlusion: [rhino-axon](../rhino-axon/SKILL.md). Construction documents, code review and engineering. For coloured images use [rhino-display](../rhino-display/SKILL.md). Quantity tables are drawn from a [rhino-bom](../rhino-bom/SKILL.md) CSV, and a lookup that does not match exactly one row fails.
+Choosing the view, cutting details and occlusion: [rhino-axon](../rhino-axon/SKILL.md). Construction documents, code review and engineering. For coloured images use [rhino-batch-image-export](../rhino-batch-image-export/SKILL.md). Quantity tables are drawn from a [rhino-bom](../rhino-bom/SKILL.md) CSV, and a lookup that does not match exactly one row fails.

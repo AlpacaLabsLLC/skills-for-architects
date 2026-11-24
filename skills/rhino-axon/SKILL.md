@@ -62,4 +62,4 @@ rhino-thinline's report, plus: the scale read back, what was excluded or cut awa
 
 ## Out of scope
 
-Editing the model to get a view, coloured images ([rhino-display](../rhino-display/SKILL.md)), and the drawing conventions themselves ([rhino-thinline](../rhino-thinline/SKILL.md)). A ghosted envelope for closed buildings is not built yet.
+Editing the model to get a view, coloured images ([rhino-batch-image-export](../rhino-batch-image-export/SKILL.md)), and the drawing conventions themselves ([rhino-thinline](../rhino-thinline/SKILL.md)). A ghosted envelope for closed buildings is not built yet.

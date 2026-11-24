@@ -10,7 +10,7 @@ To load a skill, read its whole `SKILL.md` with `run_python` (`for line in open(
 |---|---|---|---|
 | `as-rhino-model` | `/as:rhino-model` | `rhino-model/SKILL.md` | Plan, build and check architectural models in the open Rhino document |
 | `as-rhino-setup` | `/as:rhino-setup` | `rhino-setup/SKILL.md` | Connect and verify Rhino, and name the action needed when something is missing |
-| `as-rhino-display` | `/as:rhino-display` | `rhino-display/SKILL.md` | Display modes, views, materials and image exports checked against the requested mode |
+| `as-rhino-batch-image-export` | `/as:rhino-batch-image-export` | `rhino-batch-image-export/SKILL.md` | Batch-export view images (options, views, layer sets) in one display mode, each file checked against the mode |
 | `as-rhino-thinline` | `/as:rhino-thinline` | `rhino-thinline/SKILL.md` | Drawing conventions for black and white vector sheets, with a checked PDF |
 | `as-rhino-axon` | `/as:rhino-axon` | `rhino-axon/SKILL.md` | The view for axonometric sheets: camera, cut-away, occlusion, details; loads thinline too |
 | `as-rhino-bom` | `/as:rhino-bom` | `rhino-bom/SKILL.md` | Quantities from the model, reconciled to the object count |

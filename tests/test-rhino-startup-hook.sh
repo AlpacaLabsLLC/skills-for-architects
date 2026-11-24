@@ -10,7 +10,7 @@ from pathlib import Path
 root = Path.cwd()
 FILES = ['hooks/as-rhino-context.sh', 'skills/as-rhino-index.md',
          'skills/rhino-model/SKILL.md', 'skills/rhino-model/scripts/as-check.py', 'skills/rhino-setup/SKILL.md',
-         'skills/rhino-display/SKILL.md', 'skills/rhino-display/scripts/as-display.py',
+         'skills/rhino-batch-image-export/SKILL.md', 'skills/rhino-batch-image-export/scripts/as-batch-image-export.py',
          'skills/rhino-thinline/SKILL.md', 'skills/rhino-thinline/scripts/as-sheet.py',
          'skills/rhino-thinline/scripts/as-sheet-core.py', 'skills/rhino-thinline/scripts/as-pdf-check.py',
          'skills/rhino-axon/SKILL.md', 'skills/rhino-axon/scripts/as-axon.py', 'skills/rhino-axon/scripts/as-axon-core.py',
@@ -36,7 +36,7 @@ assert not re.search(r'\b(python3?|node|jq)\b(?! or)', hook_text.split('\n\nroot
 
 index_text = (root / 'skills/as-rhino-index.md').read_text()
 rows = re.findall(r'^\| `(as-rhino-[a-z-]+)` \| `(/as:[a-z-]+)` \| `([^`]+)` \|', index_text, re.M)
-assert {r[0] for r in rows} == {'as-rhino-model', 'as-rhino-setup', 'as-rhino-display', 'as-rhino-thinline', 'as-rhino-axon', 'as-rhino-bom', 'as-rhino-agent-team'}, rows
+assert {r[0] for r in rows} == {'as-rhino-model', 'as-rhino-setup', 'as-rhino-batch-image-export', 'as-rhino-thinline', 'as-rhino-axon', 'as-rhino-bom', 'as-rhino-agent-team'}, rows
 for name, slash, rel in rows:
     assert (root / 'skills' / rel).is_file(), rel
     assert slash == '/as:' + rel.split('/')[0], (slash, rel)
@@ -74,7 +74,7 @@ with tempfile.TemporaryDirectory() as tmp:
         # Index to skill to checker stays inside the same version.
         checker = index.parent / 'rhino-model/SKILL.md'
         assert checker.is_file() and (checker.parent / 'scripts/as-check.py').is_file()
-        for name, script in (('rhino-agent-team', 'as-agent-team.py'), ('rhino-display', 'as-display.py'), ('rhino-thinline', 'as-sheet.py'), ('rhino-thinline', 'as-pdf-check.py'), ('rhino-axon', 'as-axon.py'), ('rhino-bom', 'as-bom.py')):
+        for name, script in (('rhino-agent-team', 'as-agent-team.py'), ('rhino-batch-image-export', 'as-batch-image-export.py'), ('rhino-thinline', 'as-sheet.py'), ('rhino-thinline', 'as-pdf-check.py'), ('rhino-axon', 'as-axon.py'), ('rhino-bom', 'as-bom.py')):
             skill = index.parent / name / 'SKILL.md'
             assert skill.is_file() and (skill.parent / 'scripts' / script).is_file(), (name, script)
             assert skill.parent.parent.parent == plugin, skill

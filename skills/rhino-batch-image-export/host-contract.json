@@ -1,5 +1,5 @@
 {
-  "path": "skills/rhino-display/SKILL.md",
+  "path": "skills/rhino-batch-image-export/SKILL.md",
   "responsibility": "Set up display modes, views and materials in Rhino 9, and export image batches checked file by file against the requested display mode.",
   "inputs": "The open Rhino 9 document reached through the Rhino AI panel's Rhino tools, the user's request and the output folder they name. Load project context only when the task needs project records.",
   "owned_records": [],
@@ -38,7 +38,7 @@
   ],
   "execution": {
     "model": "harness-native",
-    "contract": "skills/rhino-display/SKILL.md",
+    "contract": "skills/rhino-batch-image-export/SKILL.md",
     "operations": [],
     "delivery": "plugin-only"
   }

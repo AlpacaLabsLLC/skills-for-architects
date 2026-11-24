@@ -126,7 +126,7 @@ Type `/as:studio` in Claude Code, or `$studio` in Codex. It offers four paths: s
 
 New to AI assistants? Start the six-module course with `/as:learn` (Codex: `$learn`).
 
-For teams, Arch Studio MCP is connected rather than installed; see [Two editions](#two-editions). Install the plugin or connect the MCP, not both: the MCP delivers instructions only, does not run skills, and cannot reach your local files. The exception is Rhino: the Rhino skills that run helper scripts (`rhino-agent-team`, `rhino-display`, `rhino-thinline`, `rhino-axon`, `rhino-bom`, and `rhino-model`'s requirements check) are plugin-only for now, so every teammate in a Rhino team installs the plugin, on the same release ([firm deployment](docs/firm-deployment.md#rhino-agent-teams)). See [release delivery](docs/release-delivery.md).
+For teams, Arch Studio MCP is connected rather than installed; see [Two editions](#two-editions). Install the plugin or connect the MCP, not both: the MCP delivers instructions only, does not run skills, and cannot reach your local files. The exception is Rhino: the Rhino skills that run helper scripts (`rhino-agent-team`, `rhino-batch-image-export`, `rhino-thinline`, `rhino-axon`, `rhino-bom`, and `rhino-model`'s requirements check) are plugin-only for now, so every teammate in a Rhino team installs the plugin, on the same release ([firm deployment](docs/firm-deployment.md#rhino-agent-teams)). See [release delivery](docs/release-delivery.md).
 
 ## The basic workflow
 
@@ -235,7 +235,7 @@ Not sure what is available? `/as:tool-catalog` lists every skill and agent on yo
 **3D modeling (Rhino)**
 - **rhino-model** — Builds and checks massing, framing, and Grasshopper models in a live Rhino through its AI panel
 - **rhino-setup** — Checks that Rhino and the AI panel's tools are ready
-- **rhino-display** — Display modes, views and materials, and image batches checked against the requested mode
+- **rhino-batch-image-export** — Batch-export view images (options, views, layer sets) in one display mode, each file checked against the mode
 - **rhino-thinline** — Drawing conventions for black and white vector sheets from a Rhino model, with a checked PDF
 - **rhino-axon** — The view for an axonometric sheet from a Rhino model: camera, cut-away, occlusion and details
 - **rhino-bom** — Quantities from a Rhino model, reconciled to the object count

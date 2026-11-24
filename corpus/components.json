@@ -4536,20 +4536,20 @@
       }
     },
     {
-      "id": "skill:rhino-display",
+      "id": "skill:rhino-batch-image-export",
       "category": "skills",
-      "path": "skills/rhino-display/SKILL.md",
+      "path": "skills/rhino-batch-image-export/SKILL.md",
       "owner": "Arch Studio maintainers",
       "execution": "instructions",
       "dependencies": [
         "knowledge:host-contracts"
       ],
       "capability": {
-        "description": "Set up display modes, views and materials in Rhino 9 and export batches of images that are checked file by file against the requested display mode. Use when the user asks for captures, viewport images, renders in a display mode, or views and materials set up for presenting a Rhino model. Not for photorealistic rendering, or black and white vector sheets, which rhino-thinline makes.",
-        "hostContract": "skills/rhino-display/host-contract.json",
+        "description": "Batch-export view images of a Rhino 9 model (options, views, layer sets) in one display mode, each file checked against the mode: a blank image, or colour in a mode that must have none, fails the batch. Sets up the display modes, views and materials the export needs. Use when the user asks for a batch of captures or viewport images of options, views or layer sets, or for images in a display mode. Not for photorealistic rendering, or black and white vector sheets, which rhino-thinline makes.",
+        "hostContract": "skills/rhino-batch-image-export/host-contract.json",
         "executionOwner": "host",
         "triggers": [
-          "Set up display modes, views and materials in Rhino 9 and export batches of images that are checked file by file against the requested display mode. Use when the user asks for captures, viewport images, renders in a display mode, or views and materials set up for presenting a Rhino model. Not for photorealistic rendering, or black and white vector sheets, which rhino-thinline makes."
+          "Batch-export view images of a Rhino 9 model (options, views, layer sets) in one display mode, each file checked against the mode: a blank image, or colour in a mode that must have none, fails the batch. Sets up the display modes, views and materials the export needs. Use when the user asks for a batch of captures or viewport images of options, views or layer sets, or for images in a display mode. Not for photorealistic rendering, or black and white vector sheets, which rhino-thinline makes."
         ],
         "exclusions": [
           "No photorealistic rendering, black and white vector sheets, or installing display modes; no edits to objects the task did not create"
@@ -4558,13 +4558,13 @@
           "The open Rhino 9 document reached through the Rhino AI panel"
         ],
         "outputs": [
-          "Set up display modes, views and materials in Rhino 9, and export image batches checked file by file against the requested display mode."
+          "Batch-export view images of a Rhino 9 model (options, views, layer sets) in one display mode, each file checked against the mode; sets up the display modes, views and materials the export needs."
         ],
         "references": [
-          "skills/rhino-display/SKILL.md",
-          "skills/rhino-display/host-contract.json",
-          "skills/rhino-display/references/display.md",
-          "skills/rhino-display/scripts/as-display.py",
+          "skills/rhino-batch-image-export/SKILL.md",
+          "skills/rhino-batch-image-export/host-contract.json",
+          "skills/rhino-batch-image-export/references/display.md",
+          "skills/rhino-batch-image-export/scripts/as-batch-image-export.py",
           "docs/host-harness-contract.md",
           "docs/host-adapters.md",
           "docs/completion-reporting.md",
