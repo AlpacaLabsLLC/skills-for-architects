@@ -197,6 +197,13 @@ def text(doc, page, index, x, y, body, height, name, bold=False, justification=N
         guid = doc.Objects.AddText(body, plane, height, font, bold, False, justification, attr)
     if guid == System.Guid.Empty:
         raise ValueError("text failed: " + body)
+    # Page text takes the document's current dimension style, whose dimension scale multiplies its height: Rhino's
+    # Foot-Inch Architectural style has 96, which turns 7 mm text into 670 mm. Sheet text is sized on the page itself.
+    entity = doc.Objects.FindId(guid).Geometry
+    if abs(entity.DimensionScale - 1.0) > 1e-9:
+        entity.DimensionScale = 1.0
+        if not doc.Objects.Replace(guid, entity):
+            raise ValueError("text scale could not be reset: " + body)
     return guid
 
 
