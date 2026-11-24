@@ -98,7 +98,7 @@ For working in Rhino with an agent beside you.
 1. Open a model in Rhino 9 and start a new AI panel session. The panel reads your user settings, so it runs the plugin's startup hook, which points it to the Rhino skills.
 2. Name the skill or Arch Studio, for example "Use Arch Studio rhino-setup to check the connection", then "Use /as:rhino-model to model a 12 by 16 ft shed with a gable roof".
 
-Tested in the Rhino 9 AI panel on test buildings, one run each, on macOS. On Windows 11 with Rhino 9.1, from Claude Code in a terminal, `rhino-setup`, `rhino-model` (including a build with a layout as the active view), `rhino-batch-image-export`, `rhino-bom` and `rhino-axon` each passed once, and their lessons were saved; in the AI panel, the skills were found through the startup line and `rhino-setup`'s connection check and smoke test passed. These are single runs, not reliability measurements; agent teams have not been run on Windows.
+Tested in the Rhino 9 AI panel on test buildings, one run each, on macOS. On Windows 11 (10.0.26200) with Rhino 9.1.26315, from Claude Code in a terminal, `rhino-setup`, `rhino-model` (including a build with a layout as the active view), `rhino-batch-image-export`, `rhino-bom` and `rhino-axon` each passed once, and their lessons were saved; in the AI panel, the skills were found through the startup line and `rhino-setup`'s connection check and smoke test passed. These are single runs, not reliability measurements; agent teams have not been run on Windows.
 
 #### Way 2: from your terminal
 
@@ -114,7 +114,7 @@ For automation and agent teams: Claude Code, or another agent, connected to Rhin
 2. Open the model in Rhino 9 and start its MCP server with `MCPStart`, or turn on "Load MCP server at startup" in Rhino's AI settings. The agent then works on that document.
 3. In a terminal, `claude mcp list` should show `rhino` as connected. Start a new session and name the skill, for example "Use /as:rhino-setup to check the connection". In Claude Code the skills load as plugin skills; the startup hook still names their lessons folder.
 
-Tested once on Rhino 9.0.26300 for Mac with Claude Code: from a clean install and the entry above without `RHINO_MCP_DEFAULT_VERSION` (the plugin loaded with `--plugin-dir` under the tester's normal login, and Rhino's MCP server started on a document with no window instead of with `MCPStart`), the agent ran `rhino-setup`, modeled a 12 by 16 ft gable shed whose requirements check passed, and exported an axonometric sheet whose sheet and PDF checks passed. On that Mac, which also had Rhino 8 and its MCP package, the agent's first call launched Rhino 8 instead of using the Rhino 9 server; the two versions' MCP connectors share one list of running Rhinos. On Windows 11 with Rhino 9.1, this way in ran `rhino-setup`, `rhino-model` (also with a layout active), `rhino-batch-image-export`, `rhino-bom` and `rhino-axon`, each passing once. Not yet tested on macOS: the entry with `RHINO_MCP_DEFAULT_VERSION=9` and a model started with `MCPStart` in a visible window; on either system: agents other than Claude Code.
+Tested once on Rhino 9.0.26300 for Mac with Claude Code: from a clean install and the entry above without `RHINO_MCP_DEFAULT_VERSION` (the plugin loaded with `--plugin-dir` under the tester's normal login, and Rhino's MCP server started on a document with no window instead of with `MCPStart`), the agent ran `rhino-setup`, modeled a 12 by 16 ft gable shed whose requirements check passed, and exported an axonometric sheet whose sheet and PDF checks passed. On that Mac, which also had Rhino 8 and its MCP package, the agent's first call launched Rhino 8 instead of using the Rhino 9 server; the two versions' MCP connectors share one list of running Rhinos. On Windows 11 (10.0.26200) with Rhino 9.1.26315, the Windows entry above, with `RHINO_MCP_DEFAULT_VERSION=9`, started Rhino 9 by itself when no Rhino was running, and this way in ran `rhino-setup`, `rhino-model` (also with a layout active), `rhino-batch-image-export`, `rhino-bom` and `rhino-axon`, each passing once. Not yet tested on macOS: the entry with `RHINO_MCP_DEFAULT_VERSION=9` and a model started with `MCPStart` in a visible window; on either system: agents other than Claude Code.
 
 **Agent teams** (`rhino-agent-team`) need one agent per owner file, each with that file open in Rhino 9 and Rhino's `run_python` tool, and every machine on the same plugin release. Either way in provides that; neither has been run with a team yet. The team's measured runs used a test harness with documents opened without a window.
 
@@ -148,7 +148,7 @@ Not sure what is available? `/as:tool-catalog` lists every skill and agent on yo
 ### Skills
 
 **Getting started and studio**
-- **start** — Shows the Arch Studio card: release, what is set up, and prompts to try
+- **start** — Shows the Arch Studio card: release, what is set up, and prompts to try (plugin only; with the hosted MCP, `as_connect` is the card)
 - **support** — Help with setup, access, memory, and troubleshooting
 - **studio** — Set up or open a studio and register projects
 - **tool-catalog** — Lists the skills and agents available on your host

@@ -2,4 +2,4 @@
 
 Shows the Arch Studio card: the logotype, the installed release, a short checklist (plugin installed, studio set up or not, Rhino 9 connected or not, Norma index connected or not), what Arch Studio is, how to use it, a tour of the practice areas and prompts to try.
 
-It is the plugin's version of the hosted Arch Studio MCP's `as_connect` welcome. It only reads: no setup, no connection, no file written. `/as:studio` sets up a studio; `/as:tool-catalog` lists every skill. See [SKILL.md](SKILL.md).
+It is the plugin's version of the hosted Arch Studio MCP's `as_connect` welcome, and plugin-only: the hosted MCP does not offer it, since `as_connect` is the card there. It only reads: no setup, no connection, no file written. `/as:studio` sets up a studio; `/as:tool-catalog` lists every skill. See [SKILL.md](SKILL.md).
