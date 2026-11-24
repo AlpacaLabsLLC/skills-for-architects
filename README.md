@@ -115,7 +115,7 @@ Tested once on Rhino 9.0.26300 for Mac with Claude Code: from a clean install an
 
 **Agent teams** (`rhino-agent-team`) need one agent per owner file, each with that file open in Rhino 9 and Rhino's `run_python` tool, and every machine on the same plugin release. Either way in provides that; neither has been run with a team yet. The team's measured runs used a test harness with documents opened without a window.
 
-**Both ways:** Mac only; Windows is not supported yet. Claude Code is the only agent tested. The skills that run helper scripts need the installed plugin and are not available through hosted MCP. Known limits are in the [CHANGELOG](./CHANGELOG.md).
+**Both ways:** Mac only; Windows is not supported yet. Claude Code is the only agent tested. A custom agent prompt or an extra MCP server set in Rhino's AI settings can override the plugin's startup line; if the panel does not find the Arch Studio skills, reset those settings. The skills that run helper scripts need the installed plugin and are not available through hosted MCP. Known limits are in the [CHANGELOG](./CHANGELOG.md).
 
 ### Check that it works
 

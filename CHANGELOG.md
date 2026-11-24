@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [1.5.4] - 2026-11-25
 
-A compatible release on 1.5.3 that adds the Rhino cluster: seven skills for architectural modeling in Rhino 9, used from Rhino's AI panel or another agent session connected to Rhino's tools. Nothing changes for the other skills. Install or update the plugin, then open a new AI panel session in Rhino 9.
+A compatible release on 1.5.3 that adds the Rhino cluster: seven skills for architectural modeling in Rhino 9, with two ways in and the same skills in both: from Rhino's AI panel, or from your terminal, with Claude Code or another agent connected through Rhino 9's built-in MCP server (see the README). Nothing changes for the other skills. Install or update the plugin, then open a new AI panel session in Rhino 9, or connect your agent with `MCPConnect` and `MCPStart`.
 
 ### Added
 
@@ -27,13 +27,15 @@ A compatible release on 1.5.3 that adds the Rhino cluster: seven skills for arch
 
 ### Known limits
 
-- **Rhino 9 on macOS, plugin only.** The skills that run helper scripts (`rhino-model`'s requirements check, `rhino-display`, `rhino-thinline`, `rhino-axon`, `rhino-bom`, `rhino-agent-team`) need the installed plugin; they are not available through hosted MCP. The panel hook is silent on Windows and when neither Rhino 9's Python nor Apple's Command Line Tools are present.
+- **Rhino 9 on macOS, plugin only.** The skills that run helper scripts (`rhino-model`'s requirements check, `rhino-display`, `rhino-thinline`, `rhino-axon`, `rhino-bom`, `rhino-agent-team`) need the installed plugin; they are not available through hosted MCP. The panel hook is silent on Windows and when neither Rhino 9's Python nor Apple's Command Line Tools are present. Claude Code is the only agent tested, either way in.
 - **Name the skill or Arch Studio** in the AI panel; a plain modeling request loads no skill, by design. A panel session opened before the update needs a new session.
 - **Checks are geometric, not engineering.** Nothing checks structure, code compliance, slopes or clearances beyond the requirements written for the model. `rhino-display` judges colour only for Arctic and Monochrome and makes no interior views. `rhino-thinline` line weights and hatch patterns are working conventions, not proven in print.
 - **Cut faces are hatched in details only.** A cut-away in the main drawing is drawn in outline, not hatched, and there is no hatched main-view section.
 - **Lessons hold two kinds only.** A lesson is either modeling practice or the user's own preference, recorded with what the user said; the lessons script refuses any other kind, so a design, architectural or engineering rule the agent inferred is not saved, and only those two kinds can become firm rules. The script cannot judge meaning: the agent declares the kind under the skill's rules and the script enforces the declaration. Lessons written before this release are kept and read but cannot be promoted until a kind is added.
 - **Rhino teams need the same release on every machine.** `rhino-agent-team` stamps every file with the plugin version and its helpers' fingerprint and refuses "settled" until every owner matches the coordinator. Setup for teams is in `docs/firm-deployment.md`.
-- **Evidence.** The skills were run in Rhino 9's AI panel and in a headless test harness on test buildings; `rhino-agent-team` reached a settled model in one Sonnet run of a five-owner barn test. These are single runs, not reliability measurements.
+- **Rhino's AI settings can override the startup line.** A custom agent prompt or an extra MCP server set in Rhino's AI settings can override the plugin's startup line, so the panel may not find the Arch Studio skills; reset those settings.
+- **The terminal connection can start Rhino 8.** On a Mac that also has Rhino 8, the Rhino MCP connection starts Rhino 8 by default when it has to start a Rhino itself. Start the model's server with `MCPStart` first, and set `RHINO_MCP_DEFAULT_VERSION=9` in the connection (the README's `claude mcp add` line does).
+- **Evidence.** The skills were run in Rhino 9's AI panel and in a headless test harness on test buildings, and once from Claude Code in a terminal through Rhino 9's MCP server; `rhino-agent-team` reached a settled model in one Sonnet run of a five-owner barn test, in the harness, and has not yet been run through either way in. These are single runs, not reliability measurements.
 
 ## [1.5.3] - 2026-11-11
 
