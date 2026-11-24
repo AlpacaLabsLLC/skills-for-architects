@@ -2,7 +2,7 @@
 
 Read when the user asks whether this works, or whether several agents are worth it. Quote these figures with their limits; do not round them into a claim.
 
-**No measured run used rhino-model or any Arch Studio skill**, including all of test 3. Every agent was a bare model with the test harness's Python helpers, working in headless documents, with a script that started each round, saved, reopened and measured the files. Unserved points and undersized runs, the most common failures below, are what rhino-model's own requirements check is meant to catch, so part of what a coordinator seemed to add may overlap with it.
+**No run in tests 1 to 3 used rhino-model or any Arch Studio skill.** Test 4 is the only one where the agents loaded the skills. Every agent was a bare model with the test harness's Python helpers, working in headless documents, with a script that started each round, saved, reopened and measured the files. Unserved points and undersized runs, the most common failures below, are what rhino-model's own requirements check is meant to catch, so part of what a coordinator seemed to add may overlap with it.
 
 ## Where each part comes from
 
@@ -70,6 +70,19 @@ What the reviewing coordinator did: each round it read the script's report and t
 
 Limits: 2 or 3 runs per setup show direction only. No setup recovered from the change in the round it arrived.
 
+## Test 4: five-owner barn, with the skills loaded
+
+A one-storey gable timber-frame barn with a loft, about 30 by 40 ft: five owners (structure, windows, plumbing, electrical, HVAC) and a coordinator, 18 required points and 5 windows, a change at round 3. Every agent loaded the Arch Studio skills: the coordinator `rhino-agent-team`, each owner `rhino-agent-team` and `rhino-model`. As in tests 1 to 3, the agents worked in headless documents through the test harness's own tool server, not through Rhino's MCP connection, and a script ran the rounds. All runs were on Sonnet, with fixes to the helpers between them.
+
+| Run | Result | Cost |
+|---|---|---|
+| Harness, 1 | Did not settle: 16 of 18 points served, 12 notes open after 5 rounds | $8.17 |
+| Harness, 2 | Did not settle: 18 of 18 points served, no clash, 3 notes open after 6 rounds | $8.70 |
+| Harness, 3 | **Settled at round 5**, two rounds after the change: no clash, 18 of 18 points served, all windows set, no note open | $7.58 |
+| Sessions in Orca terminals | Stable but did not settle: no clash and 18 of 18 points served from round 4, one note open after 5 rounds, on four opening requests an owner left on the revision before the change (`stamp()` now re-stamps them) | $7.71 |
+
+One settled run in four shows that a team can settle with the skills loaded, not how often it does.
+
 ## Corrections that limit these results
 
 - **In test 2 the change was delivered to the owners before the coordinator,** so every coordinator run carried a one-round delay after the change; its after-change figures are not used. Test 3 fixed this: the change arrived as a note to the coordinator, who went first.
@@ -79,4 +92,4 @@ Limits: 2 or 3 runs per setup show direction only. No setup recovered from the c
 
 ## Not tested
 
-Owners using rhino-model (the next step is test 3 with both skills loaded); window documents; a person driving the rounds; saving from the agent's own session; agents of different people; more than four owners; larger models; Opus.
+Owners using rhino-model through Rhino's own MCP connection (test 4 loaded it through the harness); window documents; a person driving the rounds; saving from the agent's own session; agents of different people; more than five owners; larger models; Opus.

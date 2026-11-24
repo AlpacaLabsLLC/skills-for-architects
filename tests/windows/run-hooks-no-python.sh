@@ -55,6 +55,17 @@ json_path() { win "$1" | sed -e 's/\\/\\\\/g'; }
 run disclaimer-marked "{\"tool_name\":\"Write\",\"tool_input\":{\"file_path\":\"$(json_path "$tmp/docs dir/marked.md")\",\"content\":\"x\"}}" "$CMD_DISCLAIMER"
 run disclaimer-plain "{\"tool_name\":\"Edit\",\"tool_input\":{\"file_path\":\"$(json_path "$tmp/docs dir/plain.md")\",\"old_string\":\"a\",\"new_string\":\"b\"}}" "$CMD_DISCLAIMER"
 
+# A Windows user folder with a space and non-ASCII letters, as on many PCs (C:\Users\José García\...).
+uplugin="$tmp/Users/José García/.claude/plugins/cache/skills-for-architects/as/1.5.4"
+mkdir -p "$uplugin" && cp -R "$plugin/hooks" "$plugin/skills" "$plugin/rules" "$plugin/.claude-plugin" "$uplugin/"
+printf '%s\n' "$(win "$uplugin")" > "$out/unicode-root.txt"
+printf '%s\n' "$(win "$tmp/Users/José García/.claude/plugins/data/as-skills-for-architects")" > "$out/unicode-data.txt"
+for h in pointer welcome; do
+  c=$CMD_POINTER; [ "$h" = welcome ] && c=$CMD_WELCOME
+  printf '%s' "$start" | env CLAUDE_PLUGIN_ROOT="$(win "$uplugin")" bash -c "$c" > "$out/$h-unicode.out" 2> "$out/$h-unicode.err"
+  echo $? > "$out/$h-unicode.rc"
+done
+
 # A broken package (a separate copy): the pointer stays silent and exits 0.
 broken="$tmp/broken/plugins/cache/skills-for-architects/as/1.5.4"
 mkdir -p "$broken" && cp -R "$plugin/hooks" "$plugin/skills" "$broken/" && rm "$broken/skills/as-rhino-index.md"

@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
-    branches: [main, as-rhino-1.5.3-fineline-bom-display, "release/**"]
+    branches: [main, "release/**"]
   workflow_dispatch:
 
 jobs:

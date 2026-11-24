@@ -57,6 +57,21 @@ with tempfile.TemporaryDirectory() as td:
     ok(r.returncode == 0 and "Join the wall faces" in r.stdout, "lessons: read it back", (r.stdout, r.stderr))
     ok(Path(folder.replace("/", "\\")).joinpath("rhino-model.txt").is_file(), "lessons: the file sits in the folder named by the pointer", folder)
 
+# A user folder with a space and non-ASCII letters: one valid JSON line naming that folder.
+uroot = (out / "unicode-root.txt").read_text(encoding="utf-8").strip().replace("\\", "/")
+udata = (out / "unicode-data.txt").read_text(encoding="utf-8").strip().replace("\\", "/")
+stdout, stderr, rc = rec("pointer-unicode")
+try:
+    uline = json.loads(stdout)["hookSpecificOutput"]["additionalContext"]
+except Exception as e:
+    uline = ""
+    fails.append("pointer-unicode: one JSON line: %s %r" % (e, stdout[:300]))
+ok(rc == 0 and stderr == "", "pointer-unicode: exit 0, nothing on stderr", (rc, stderr))
+ok("José García" in uroot and ("read %s/skills/as-rhino-index.md with run_python" % uroot) in uline, "pointer-unicode: names the index under the user folder as given", uline)
+ok(uline.endswith("Their lessons folder: %s/rhino-lessons." % udata), "pointer-unicode: names the lessons folder under the user folder", uline)
+stdout, stderr, rc = rec("welcome-unicode")
+ok(rc == 0 and json.loads(stdout)["hookSpecificOutput"]["hookEventName"] == "SessionStart" and "incomplete" not in stdout, "welcome-unicode: finds the package under that folder", stdout)
+
 stdout, stderr, rc = rec("pointer-broken")
 ok(rc == 0 and stdout == "" and stderr == "", "pointer-broken: silent, exit 0", (rc, stdout, stderr))
 

@@ -28,7 +28,7 @@ An axonometric on a layout in the open document: the view chosen, projected and 
 
 Read the [lessons](#lessons) after setup and before asking; write them after the report.
 
-1. **Setup and ask** as in [rhino-thinline](../rhino-thinline/SKILL.md) steps 1 and 2: one `ask_user` batch for drawing, scale, sheet size, details and title text.
+1. **Setup and ask** as in [rhino-thinline](../rhino-thinline/SKILL.md) steps 1 and 2: one `ask_user` batch for drawing, scale, sheet size, details and title text. Without `ask_user`, ask the same in chat, as thinline says.
 2. **Load the library** by file path. It loads rhino-thinline's library into the same namespace first, so one load gives both. Build the path from the folder you read this `SKILL.md` from, which belongs to the installed plugin version; never hard-code it or reuse one from an earlier version:
 
 ```python

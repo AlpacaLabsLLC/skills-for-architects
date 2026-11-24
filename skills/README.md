@@ -11,7 +11,7 @@ The [generated capability catalog](../docs/capabilities.md) provides task-first 
 | [`/as:start`](./start) | Show the Arch Studio card: release, setup checklist, practice areas and prompts to try |
 | [`/as:support`](./support) | Arch Studio onboarding, access and memory guidance, and evidence-bound troubleshooting |
 | [`/as:studio`](./studio) | Set up and inspect the studio and register projects |
-| [`/as:tool-catalog`](./tool-catalog) | Show the available skills and agents |
+| [`/as:tool-catalog`](./tool-catalog) | Show the available skills |
 | [`/as:learn`](./learn) | Guided, resumable introduction to Codex and Claude Code for architects (use `$learn` on Codex) |
 | [`/as:skill-maker`](./skill-maker) | Create or update governed studio, project or catalog skills using native host authoring |
 | [`/as:studio-feedback`](./studio-feedback) | Prepare a reviewed bug report or feature request without automatic submission |
@@ -122,8 +122,8 @@ Explicitly adopted FF&E schedules use immutable item/schedule records; workbooks
 
 | Skill | Description |
 |-------|-------------|
-| [`/as:rhino-setup`](./rhino-setup) | Connect and verify Rhino 9 and its AI panel |
-| [`/as:rhino-model`](./rhino-model) | Plan, build and check massing, framing and parametric Grasshopper models in a live Rhino 9 through its AI panel |
+| [`/as:rhino-setup`](./rhino-setup) | Connect and verify Rhino 9, from its AI panel or a connected agent |
+| [`/as:rhino-model`](./rhino-model) | Plan, build and check massing, framing and parametric Grasshopper models in a live Rhino 9, from its AI panel or a connected agent |
 | [`/as:rhino-batch-image-export`](./rhino-batch-image-export) | Batch-export view images (options, views, layer sets) in one display mode, each file checked against the mode |
 | [`/as:rhino-thinline`](./rhino-thinline) | Drawing conventions for black and white vector sheets from a Rhino model, with a checked PDF |
 | [`/as:rhino-axon`](./rhino-axon) | The view for an axonometric sheet from a Rhino model: camera, cut-away, occlusion, details |

@@ -25,7 +25,7 @@ For questions asking what Arch Studio offers, use this catalog to name skills an
 | start | Show the Arch Studio card: release, setup checklist, practice areas and prompts to try |
 | support | Arch Studio onboarding, access and memory guidance, and evidence-bound troubleshooting |
 | studio | Set up and inspect the studio and register projects |
-| tool-catalog | Show the available skills and agents |
+| tool-catalog | Show the available skills |
 | learn | Guided, resumable introduction to Codex and Claude Code for architects (use `$learn` on Codex) |
 | skill-maker | Create or update governed studio, project or catalog skills using native host authoring |
 | studio-feedback | Prepare a reviewed bug report or feature request without automatic submission |
@@ -83,8 +83,8 @@ For questions asking what Arch Studio offers, use this catalog to name skills an
 | slide-deck-generator | Create self-contained HTML slide decks |
 | color-palette-generator | Create palettes with WCAG contrast checks |
 | resize-images | Resize images for web, social, slides, and print |
-| rhino-setup | Connect and verify Rhino 9 and its AI panel |
-| rhino-model | Plan, build and check massing, framing and parametric Grasshopper models in a live Rhino 9 through its AI panel |
+| rhino-setup | Connect and verify Rhino 9, from its AI panel or a connected agent |
+| rhino-model | Plan, build and check massing, framing and parametric Grasshopper models in a live Rhino 9, from its AI panel or a connected agent |
 | rhino-batch-image-export | Batch-export view images (options, views, layer sets) in one display mode, each file checked against the mode |
 | rhino-thinline | Drawing conventions for black and white vector sheets from a Rhino model, with a checked PDF |
 | rhino-axon | The view for an axonometric sheet from a Rhino model: camera, cut-away, occlusion, details |

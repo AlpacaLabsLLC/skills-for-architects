@@ -83,6 +83,35 @@ with tempfile.TemporaryDirectory() as tmp:
     cmd = command.replace('${CLAUDE_PLUGIN_ROOT}', str(cache / '1.5.2'))
     run = subprocess.run(['/bin/sh', '-c', cmd], input=STDIN, env=env, capture_output=True, text=True, cwd=tmp)
     assert run.returncode == 0 and run.stdout == '' and run.stderr == '', run
+# Control characters never make invalid JSON: the pointer stays silent, the disclaimer check writes them as spaces.
+with tempfile.TemporaryDirectory() as tmp:
+    tools = Path(tmp) / 'bin'
+    tools.mkdir()
+    for name in ('tr', 'sed', 'dirname', 'sh', 'bash', 'grep', 'cat', 'head'):
+        if shutil.which(name):
+            (tools / name).symlink_to(shutil.which(name))
+    env = {'HOME': tmp, 'PATH': str(tools)}
+    odd = Path(tmp) / 'cache\tdir' / 'plugins/cache/skills-for-architects/as/1.5.4'
+    for f in FILES:
+        dst = odd / f
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(root / f, dst)
+    run = subprocess.run(['/bin/sh', str(odd / 'hooks/as-rhino-context.sh')], env=dict(env, CLAUDE_PLUGIN_ROOT=str(odd)), capture_output=True, text=True)
+    assert run.returncode == 0 and run.stdout == '' and run.stderr == '', ('pointer with a tab in its path must stay silent', run)
+    hook = root / 'hooks/post-write-disclaimer-check.sh'
+    doc = Path(tmp) / 'zoning\tsummary.md'   # a tab in the file name: the no-jq fallback cannot find it, so it stays silent
+    doc.write_text('Zoning summary\n\n<!-- architecture-studio:requires-disclaimer -->\n')
+    payload = json.dumps({'tool_name': 'Write', 'tool_input': {'file_path': str(doc), 'content': 'x'}})
+    run = subprocess.run(['bash', str(hook)], input=payload, env=dict(env, CLAUDE_PLUGIN_ROOT=str(root)), capture_output=True, text=True)
+    assert run.returncode == 0 and (run.stdout == '' or json.loads(run.stdout)), run
+    doc = Path(tmp) / 'zoning summary.md'      # the reason quotes the plugin root: a tab there must come out as a space
+    doc.write_text('Zoning summary\n\n<!-- architecture-studio:requires-disclaimer -->\n')
+    payload = json.dumps({'tool_name': 'Write', 'tool_input': {'file_path': str(doc), 'content': 'x'}})
+    run = subprocess.run(['bash', str(hook)], input=payload, env=dict(env, CLAUDE_PLUGIN_ROOT=tmp + '/plug\tin'), capture_output=True, text=True)
+    assert run.returncode == 0, run
+    out = json.loads(run.stdout)
+    assert out['decision'] == 'block' and 'plug in/rules/professional-disclaimer.md' in out['reason'] and '\t' not in out['reason'], out
+
 # rhino-setup flags the hosted Arch Studio MCP connected beside the plugin, from the tool list only.
 setup = (root / 'skills/rhino-setup/SKILL.md').read_text()
 tools_step = setup.split('2. **Document.**')[0]

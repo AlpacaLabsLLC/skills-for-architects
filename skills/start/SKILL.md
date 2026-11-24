@@ -43,7 +43,7 @@ Bold title **Arch Studio check**, then one line per item, ✅ when observed and 
 One bold heading per section, the text as given, lists as bullets, and each **Say:** line as written. Do not add claims.
 
 1. **What it is**
-   Arch Studio gives Claude or ChatGPT an architecture office’s skills, tools and references. Your firm adds its own standards, procedures and project records, and decides what the assistant can access.
+   Arch Studio gives Claude Code or Codex an architecture office’s skills, tools and references. Your firm adds its own standards, procedures and project records, and decides what the assistant can access.
    A framework with four connected pillars:
    - Studio — How your firm sets up and assures the work.
    - Knowledge — What the work draws on.

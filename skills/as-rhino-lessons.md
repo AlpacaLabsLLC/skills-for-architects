@@ -23,7 +23,7 @@ Plain text, one file per skill (`rhino-model.txt`, ...) and one `firm-rules.txt`
 
 ## The script
 
-[as-rhino-lessons.py](as-rhino-lessons.py), in this folder, used by all four skills. Build its path from the folder this file is in; never reuse one from another version.
+[as-rhino-lessons.py](as-rhino-lessons.py), in this folder, used by all five skills. Build its path from the folder this file is in; never reuse one from another version.
 
 ```python
 P = "<absolute path of the skills folder>/as-rhino-lessons.py"
@@ -71,6 +71,8 @@ If nothing is left, ask nothing. Otherwise end the reply with one `ask_user` que
 - one option per candidate, written as one plain rule an architect would recognise ("On sheds, put the door centred on a short end wall unless I say otherwise", where the user said so). The option label is the rule itself: no id, no tag, no run count, no tool names;
 - a last option "None, keep them as lessons".
 
+Where `ask_user` is not available (an agent connected to Rhino from outside it), ask the same question in chat, with the same options as a numbered list, and end the turn; promote only what the user names in the reply.
+
 None is proposed by default. Ids stay in the file and in your call to `promote`, never in the question. Run `promote` only on the answer, with the ids the user chose, `"confirmed": True`, the answer in the user's words and, for each id, the wording the user saw, which is what the firm rule keeps:
 
 ```python
@@ -80,7 +82,7 @@ AS_PROMOTE = {"ids": ["a1b2c3"], "confirmed": True, "answer": "<the user's answe
 
 Pass every candidate the user did not choose in `"declined"` (all of them when the answer is "None"): they go to `declined.txt` and are not offered again, so the next run asks nothing about them. The user can delete a line there to have it offered again.
 
-`"scope": "all"` makes the rule apply to all four skills. The script refuses `promote` without a confirmation and an answer, and refuses an id `offer` did not list.
+`"scope": "all"` makes the rule apply to all five skills. The script refuses `promote` without a confirmation and an answer, and refuses an id `offer` did not list.
 
 **Lessons written before kinds existed** are read and kept, never deleted, but are not offered or promoted. The user can add `practice: ` or `preference: ` after the tag in the file to make one eligible.
 

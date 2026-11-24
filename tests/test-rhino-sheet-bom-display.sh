@@ -990,6 +990,42 @@ result = SHEET['check_sheet'](loc, 'A-1', 'Sheet', [])
 ok(result == ["locator 'D3' was requested and is not on the sheet"], 'sheet: a locator with nothing drawn fails, a drawn one passes', result)
 ok(any('never delete a request or failure record' in r for r in SHEET['check_sheet'](sheet_doc([], strings=Strings()), 'A-1', 'Sheet', [])), 'sheet: a sheet not started by setup_sheet fails check_sheet')
 
+# clear() only ever deletes sheet output: a model layer (the building) is refused before anything is deleted.
+class _L:
+    def __init__(self, path, lid): self.FullPath, self.Id, self.IsDeleted = path, lid, False
+class _O:
+    def __init__(self, name, space): self.Name, self.Attributes = name, types.SimpleNamespace(Space=space)
+def clear_doc(layout):
+    layers = [_L(path, 'id-%d' % i) for i, path in enumerate(layout)]
+    by = {l.FullPath: l for l in layers}
+    deleted = []
+    objs = types.SimpleNamespace(FindByLayer=lambda layer: list(layout[layer.FullPath]), Delete=lambda item, quiet: deleted.append(item.Name) or True)
+    return types.SimpleNamespace(Layers=layers, Objects=objs, Strings=Strings()), by, deleted
+d, by, deleted = clear_doc({'Barn': [_O('post 1', 'ModelSpace')], 'Barn::Frame': [_O('beam 1', 'ModelSpace'), _O('beam 2', 'ModelSpace')]})
+try:
+    SHEET['clear'](d, 'Barn')
+    ok(False, 'clear: a user layer holding the building is refused')
+except ValueError as e:
+    ok('refused to clear Barn' in str(e) and deleted == [], 'clear: a user layer holding the building is refused and nothing is deleted', (str(e), deleted))
+d, by, deleted = clear_doc({'Sheet': [_O('Sheet border', 'PageSpace')], 'Sheet::Main': [_O('Linework outline', 'PageSpace')], 'Sheet::Cut': [_O('cut copy', 'ModelSpace')]})
+d.Strings.SetString(SHEET['OWNED_KEY'], json.dumps([by['Sheet::Cut'].Id]))
+SHEET['clear'](d, 'Sheet')
+ok(sorted(deleted) == ['Linework outline', 'Sheet border', 'cut copy'], 'clear: sheet output (page linework, and model copies on a layer the scripts made) is cleared', deleted)
+d, by, deleted = clear_doc({'Sheet': [_O('Sheet border', 'PageSpace'), _O('a wall someone drew here', 'ModelSpace')]})
+try:
+    SHEET['clear'](d, 'Sheet')
+    ok(False, 'clear: a model object on an unowned sheet layer is refused')
+except ValueError as e:
+    ok(deleted == [], 'clear: one model object on a layer the scripts did not make refuses the whole clear', deleted)
+for out_root, src in (('Barn', 'Barn'), ('Barn::Sheet', 'Barn'), ('Sheet', ['Barn', 'Sheet::Model'])):
+    try:
+        SHEET['main_linework'](types.SimpleNamespace(), None, None, src, out_root)
+        ok(False, 'main_linework: out_root %s over source %s is refused' % (out_root, src))
+    except ValueError as e:
+        ok('overlaps the source layer' in str(e), 'main_linework: out_root %s over source %s is refused before anything is drawn' % (out_root, src), str(e))
+grep_src = (root / 'rhino-thinline/scripts/as-sheet.py').read_text()
+ok('_own_layer(doc, index)' in grep_src, 'clear: layer_index records the layers it creates')
+
 # One sheet per document: a second sheet is refused before anything is drawn, the first sheet's records untouched.
 second = types.SimpleNamespace(Strings=started())
 before = list(second.Strings.items)

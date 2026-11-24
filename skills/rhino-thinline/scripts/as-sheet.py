@@ -67,6 +67,7 @@ def layer_index(doc, path, weight=None):
             layer.Name = path
         layer.Color = SD.Color.Black
         index = doc.Layers.Add(layer)
+        _own_layer(doc, index)
     if weight is not None:
         layer = doc.Layers[index]
         layer.PlotWeight, layer.Color, layer.PlotColor = weight, SD.Color.Black, SD.Color.Black
@@ -74,11 +75,42 @@ def layer_index(doc, path, weight=None):
     return index
 
 
+OWNED_KEY = "as-sheet:layers"   # document string: ids of the layers the sheet scripts created (layer_index)
+
+
+def _owned_layers(doc):
+    raw = string_value(doc, OWNED_KEY)
+    try:
+        return set(json.loads(raw)) if raw else set()
+    except ValueError:
+        return set()
+
+
+def _own_layer(doc, index):
+    table = getattr(doc, "Strings", None)
+    if table is None:
+        return
+    owned = _owned_layers(doc)
+    owned.add(str(doc.Layers[index].Id))
+    table.SetString(OWNED_KEY, json.dumps(sorted(owned)))
+
+
 def clear(doc, root):
-    """Delete the objects on a layer and its sublayers, so a rerun replaces, not adds."""
-    for layer in [x for x in doc.Layers if not x.IsDeleted and x.FullPath and (x.FullPath == root or x.FullPath.startswith(root + "::"))]:
+    """Delete the objects on a layer and its sublayers, so a rerun replaces, not adds. Only sheet output: every object
+    must be on a layer the sheet scripts created, or be page-space linework. Anything else (the building, any model
+    object on a layer the user made) refuses the whole clear before a single object is deleted."""
+    layers = [x for x in doc.Layers if not x.IsDeleted and x.FullPath and (x.FullPath == root or x.FullPath.startswith(root + "::"))]
+    owned = _owned_layers(doc)
+    doomed = []
+    for layer in layers:
         for item in list(doc.Objects.FindByLayer(layer) or []):
-            doc.Objects.Delete(item, True)
+            on_page = str(getattr(item.Attributes, "Space", "")).endswith("PageSpace")
+            if str(layer.Id) not in owned and not on_page:
+                raise ValueError("refused to clear %s: %s holds model objects on a layer the sheet scripts did not create; "
+                                 "give the sheet its own root layer (for example 'Sheet'), never a layer of the model" % (root, layer.FullPath))
+            doomed.append(item)
+    for item in doomed:
+        doc.Objects.Delete(item, True)
 
 
 def find_page(doc, name):

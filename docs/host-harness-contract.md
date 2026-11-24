@@ -200,7 +200,7 @@ The capability vocabulary is semantic: file access is local; spreadsheet access 
 workbook/provider operation; spreadsheet.features means the relevant formulas, true links, images
 and structure can actually be inspected/preserved. spreadsheet.backup means a suitable recoverable
 native version can be retained. model.edit means the host can create and change geometry in an open
-document of a connected modeling application (for example Rhino 9 through its AI panel's `run_python` tool), and
+document of a connected modeling application (for example Rhino 9 through its `run_python` tool, from the AI panel or an agent connected through Rhino's MCP), and
 model.inspect means it can read that document's geometry, layers and viewport back; model-edit
 completes only on a fresh readback from the application, never on a script's success; model-read
 inspects the same document without changing it. Arch Studio

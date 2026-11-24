@@ -45,6 +45,8 @@ line="Arch Studio: if the user names an as-rhino skill or Arch Studio in Rhino, 
 if [ -n "$data" ] && [ -f "$root/skills/as-rhino-lessons.py" ]; then
   line="$line Their lessons folder: $data/rhino-lessons."
 fi
+# A path with a control character (tab, newline, ...) would not be valid JSON: stay silent rather than print it.
+case $line in *[[:cntrl:]]*) exit 0 ;; esac
 line=$(printf '%s' "$line" | sed -e 's/\\/\\\\/g' -e 's/"/\\"/g') || exit 0
 printf '{"hookSpecificOutput": {"hookEventName": "SessionStart", "additionalContext": "%s"}}\n' "$line" || true
 exit 0

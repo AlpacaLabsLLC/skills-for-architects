@@ -1,6 +1,6 @@
 ---
 name: rhino-setup
-description: "Connect and verify Rhino 9 and its AI panel for the rhino cluster: detect the panel's Rhino tools, confirm an open document and its units, and run a one-object smoke test. Use when the user asks to connect Rhino, or when another rhino skill finds the Rhino tools missing. Guides the user; never installs or registers anything."
+description: "Connect and verify Rhino 9 for the rhino cluster, from its AI panel or a connected agent: detect Rhino's tools, confirm an open document and its units, and run a one-object smoke test. Use when the user asks to connect Rhino, or when another rhino skill finds the Rhino tools missing. Guides the user; never installs or registers anything."
 ---
 
 # /as:rhino-setup

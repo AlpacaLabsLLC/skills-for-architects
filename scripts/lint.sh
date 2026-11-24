@@ -3,7 +3,6 @@
 #
 # Layout assumptions (flat-plugin structure):
 #   skills/<name>/SKILL.md + README.md   — all skills, flat, one dir each
-#   agents/<name>.md                     — native subagents (documentation lives outside this directory)
 #   hooks/<name>.sh + hooks/hooks.json   — event-driven automations
 #   .codex-plugin/plugin.json            — Codex plugin manifest
 #   .agents/plugins/marketplace.json     — Codex Git marketplace

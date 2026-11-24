@@ -2891,11 +2891,11 @@
       "dependencies": [
         "knowledge:host-contracts"
       ],
-      "description": "Connect and verify Rhino 9 and its AI panel for the rhino cluster: detect the panel's Rhino tools, confirm an open document and its units, and run a one-object smoke test. Use when the user asks to connect Rhino, or when another rhino skill finds the Rhino tools missing. Guides the user; never installs or registers anything.",
+      "description": "Connect and verify Rhino 9 for the rhino cluster, from its AI panel or a connected agent: detect Rhino's tools, confirm an open document and its units, and run a one-object smoke test. Use when the user asks to connect Rhino, or when another rhino skill finds the Rhino tools missing. Guides the user; never installs or registers anything.",
       "hostContract": "skills/rhino-setup/host-contract.json",
       "executionOwner": "host",
       "triggers": [
-        "Connect and verify Rhino 9 and its AI panel for the rhino cluster: detect the panel's Rhino tools, confirm an open document and its units, and run a one-object smoke test. Use when the user asks to connect Rhino, or when another rhino skill finds the Rhino tools missing. Guides the user; never installs or registers anything."
+        "Connect and verify Rhino 9 for the rhino cluster, from its AI panel or a connected agent: detect Rhino's tools, confirm an open document and its units, and run a one-object smoke test. Use when the user asks to connect Rhino, or when another rhino skill finds the Rhino tools missing. Guides the user; never installs or registers anything."
       ],
       "exclusions": [
         "No connector installation or registration; no rendering, structural analysis, construction documents or BIM export; no edits to objects the task did not create"
@@ -3694,10 +3694,10 @@
       "dependencies": [
         "knowledge:host-contracts"
       ],
-      "description": "Show Arch Studio help, available skills, agents and host-specific commands. Use for help, how do I use Arch Studio, or a capability directory.",
+      "description": "Show Arch Studio help, available skills and host-specific commands. Use for help, how do I use Arch Studio, or a capability directory.",
       "triggers": [
         "show Arch Studio help",
-        "what skills and agents are available"
+        "what skills are available"
       ],
       "exclusions": [
         "activate workflows from a directory listing",

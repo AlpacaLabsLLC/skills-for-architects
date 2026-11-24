@@ -1,6 +1,6 @@
 ---
 name: tool-catalog
-description: "Show Arch Studio help, available skills, agents and host-specific commands. Use for help, how do I use Arch Studio, or a capability directory."
+description: "Show Arch Studio help, available skills and host-specific commands. Use for help, how do I use Arch Studio, or a capability directory."
 allowed-tools:
   - Read
 ---
@@ -9,7 +9,7 @@ allowed-tools:
 
 Before acting, read the [host contract](../../docs/host-harness-contract.md) and this component’s [declaration](host-contract.json) (`skill:tool-catalog`). Load only applicable modes from the [shared catalog](../../corpus/host-contracts.json); declarations do not grant access or permission. Use the actual host’s [delivery route](../../docs/host-adapters.md).
 
-Provide read-only help for “help”, “how do I use Arch Studio”, available skills, agents and commands. Start with the actual delivery channel and known workspace state when relevant; do not run setup just to answer help.
+Provide read-only help for “help”, “how do I use Arch Studio”, available skills and commands. Start with the actual delivery channel and known workspace state when relevant; do not run setup just to answer help.
 
 Read the current [component registry](../../corpus/components.json) and [generated practice discovery](../../docs/practice-clusters.md). Select the requested scope and show names, short purposes and actual host-discovered entry points. A directory is generated from maintained metadata, not a second static skill list. For a broad help request give two or three useful next actions; a focused capability question gets a focused answer.
 

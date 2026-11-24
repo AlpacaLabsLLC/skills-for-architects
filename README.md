@@ -98,15 +98,17 @@ For working in Rhino with an agent beside you.
 1. Open a model in Rhino 9 and start a new AI panel session. The panel reads your user settings, so it runs the plugin's startup hook, which points it to the Rhino skills.
 2. Name the skill or Arch Studio, for example "Use Arch Studio rhino-setup to check the connection", then "Use /as:rhino-model to model a 12 by 16 ft shed with a gable roof".
 
-Tested in the Rhino 9 AI panel on test buildings, one run each, on macOS. On Windows 11 (10.0.26200) with Rhino 9.1.26315, from Claude Code in a terminal, `rhino-setup`, `rhino-model` (including a build with a layout as the active view), `rhino-batch-image-export`, `rhino-bom` and `rhino-axon` each passed once, and their lessons were saved; in the AI panel, the skills were found through the startup line and `rhino-setup`'s connection check and smoke test passed. These are single runs, not reliability measurements; agent teams have not been run on Windows.
+Tested in the Rhino 9 AI panel on test buildings, one run each, on macOS. On Windows 11 (10.0.26200) with Rhino 9.1.26315, a new panel session found the skills through the startup line, and `rhino-setup`'s connection check and smoke test passed; on an earlier build, with the skill index opened by hand, `rhino-model`, `rhino-bom` and the image export also ran in the Windows panel. The Windows terminal results are under Way 2. These are single runs, not reliability measurements.
 
 #### Way 2: from your terminal
 
 For automation and agent teams: Claude Code, or another agent, connected to Rhino 9 through its built-in Rhino MCP server. Nothing else needs installing in Rhino.
 
-1. In Rhino 9, run `MCPConnect` and choose Install next to your agent (Claude Code, Codex, Cursor, Gemini CLI, Windsurf or OpenCode). It adds a `rhino` server to that agent's user settings. For Claude Code the same entry is:
-   - macOS (Terminal): `claude mcp add --scope user rhino -e RHINO_MCP_DEFAULT_VERSION=9 -- "$HOME/Library/Application Support/McNeel/Rhinoceros/ai/bin/rhino-mcp-router"`
-   - Windows (PowerShell): `claude mcp add --scope user rhino -e RHINO_MCP_DEFAULT_VERSION=9 -- "$env:APPDATA\McNeel\Rhinoceros\ai\bin\rhino-mcp-router.exe"`
+1. Add the `rhino` server to your agent **one way, not both**, or it is registered twice:
+   - **Either** in Rhino 9, run `MCPConnect` and choose Install next to your agent (Claude Code, Codex, Cursor, Gemini CLI, Windsurf or OpenCode). It adds a `rhino` server to that agent's user settings.
+   - **Or**, for Claude Code, add it from a terminal:
+     - macOS (Terminal): `claude mcp add --scope user rhino -e RHINO_MCP_DEFAULT_VERSION=9 -- "$HOME/Library/Application Support/McNeel/Rhinoceros/ai/bin/rhino-mcp-router"`
+     - Windows (PowerShell): `claude mcp add --scope user rhino -e RHINO_MCP_DEFAULT_VERSION=9 -- "$env:APPDATA\McNeel\Rhinoceros\ai\bin\rhino-mcp-router.exe"`
 
    The Windows path is where Rhino 9's plugin keeps its router (`%APPDATA%\McNeel\Rhinoceros\ai\bin`), read from the plugin itself; McNeel's documentation does not give it. `MCPConnect` writes the right path on either system.
 
@@ -114,7 +116,7 @@ For automation and agent teams: Claude Code, or another agent, connected to Rhin
 2. Open the model in Rhino 9 and start its MCP server with `MCPStart`, or turn on "Load MCP server at startup" in Rhino's AI settings. The agent then works on that document.
 3. In a terminal, `claude mcp list` should show `rhino` as connected. Start a new session and name the skill, for example "Use /as:rhino-setup to check the connection". In Claude Code the skills load as plugin skills; the startup hook still names their lessons folder.
 
-Tested once on Rhino 9.0.26300 for Mac with Claude Code: from a clean install and the entry above without `RHINO_MCP_DEFAULT_VERSION` (the plugin loaded with `--plugin-dir` under the tester's normal login, and Rhino's MCP server started on a document with no window instead of with `MCPStart`), the agent ran `rhino-setup`, modeled a 12 by 16 ft gable shed whose requirements check passed, and exported an axonometric sheet whose sheet and PDF checks passed. On that Mac, which also had Rhino 8 and its MCP package, the agent's first call launched Rhino 8 instead of using the Rhino 9 server; the two versions' MCP connectors share one list of running Rhinos. On Windows 11 (10.0.26200) with Rhino 9.1.26315, the Windows entry above, with `RHINO_MCP_DEFAULT_VERSION=9`, started Rhino 9 by itself when no Rhino was running, and this way in ran `rhino-setup`, `rhino-model` (also with a layout active), `rhino-batch-image-export`, `rhino-bom` and `rhino-axon`, each passing once. Not yet tested on macOS: the entry with `RHINO_MCP_DEFAULT_VERSION=9` and a model started with `MCPStart` in a visible window; on either system: agents other than Claude Code.
+Tested once on Rhino 9.0.26300 for Mac with Claude Code: from a clean install and the entry above without `RHINO_MCP_DEFAULT_VERSION` (the plugin loaded with `--plugin-dir` under the tester's normal login, and Rhino's MCP server started on a document with no window instead of with `MCPStart`), the agent ran `rhino-setup`, modeled a 12 by 16 ft gable shed whose requirements check passed, and exported an axonometric sheet whose sheet and PDF checks passed. On that Mac, which also had Rhino 8 and its MCP package, the agent's first call launched Rhino 8 instead of using the Rhino 9 server; the two versions' MCP connectors share one list of running Rhinos. On Windows 11 (10.0.26200) with Rhino 9.1.26315, the Windows entry above, with `RHINO_MCP_DEFAULT_VERSION=9`, started Rhino 9 by itself when no Rhino was running, and this way in ran `rhino-setup`, `rhino-model` (also with a layout active), `rhino-batch-image-export`, `rhino-bom` and `rhino-axon`, each passing once, with their lessons saved; agent teams have not been run on Windows. Not yet tested on macOS: the entry with `RHINO_MCP_DEFAULT_VERSION=9` and a model started with `MCPStart` in a visible window; on either system: agents other than Claude Code.
 
 **Agent teams** (`rhino-agent-team`) need one agent per owner file, each with that file open in Rhino 9 and Rhino's `run_python` tool, and every machine on the same plugin release. Either way in provides that; neither has been run with a team yet. The team's measured runs used a test harness with documents opened without a window.
 
@@ -137,7 +139,7 @@ For teams, Arch Studio MCP is connected rather than installed; see [Two editions
 5. **Record skills** — **project**, **receive**, **meeting-minutes**, **tasklist** and **timetracker** keep facts, documents, decisions, tasks, and time in your project folder. They offer what to save rather than writing silently, and time is logged only in amounts you confirm.
 6. **skill-maker** — When your firm repeats a procedure, run `/as:skill-maker` to turn it into a studio or project skill.
 
-Not sure what is available? `/as:tool-catalog` lists every skill and agent on your host. `/as:studio` stays the place for studio administration. Optional [default preferences](skills/studio/references/assistant-preference.md) make your assistant use Arch Studio by default for architecture and project work; they need a supported target, an exact diff, and your approval.
+Not sure what is available? `/as:tool-catalog` lists every skill on your host. `/as:studio` stays the place for studio administration. Optional [default preferences](skills/studio/references/assistant-preference.md) make your assistant use Arch Studio by default for architecture and project work; they need a supported target, an exact diff, and your approval.
 
 **Host syntax.** Claude Code uses `/as:<skill>`; Codex uses `$<skill>`. `as` is the plugin namespace. Use the exact name your assistant shows.
 
@@ -151,7 +153,7 @@ Not sure what is available? `/as:tool-catalog` lists every skill and agent on yo
 - **start** — Shows the Arch Studio card: release, what is set up, and prompts to try (plugin only; with the hosted MCP, `as_connect` is the card)
 - **support** — Help with setup, access, memory, and troubleshooting
 - **studio** — Set up or open a studio and register projects
-- **tool-catalog** — Lists the skills and agents available on your host
+- **tool-catalog** — Lists the skills available on your host
 - **learn** — Six-module, resumable course using a sample museum project
 - **skill-maker** — Create or update your own studio or project skills
 - **studio-feedback** — Prepare a bug report or feature request for you to review and send
@@ -207,7 +209,7 @@ Not sure what is available? `/as:tool-catalog` lists every skill and agent on yo
 
 **FF&E and materials**
 
-For product search, connect the optional [Norma index](https://normaindex.com) MCP (`https://mcp.normaindex.com`, no login); product-research and product-match use it when it is connected and work without it. Setup: [docs/norma-index.md](./docs/norma-index.md).
+For product search, connect the optional [Norma index](https://normaindex.com) MCP (`https://mcp.normaindex.com`, no login); product-research and product-match use it when it is connected, ffe-spec-book suggests it when an item has no product, and all three work without it. Setup: [docs/norma-index.md](./docs/norma-index.md).
 
 - **product-research** — Find products from a design brief
 - **product-match** — Find similar products from an image, name, or description
@@ -236,8 +238,8 @@ For product search, connect the optional [Norma index](https://normaindex.com) M
 - **resize-images** — Resize images for web, social, slides, and print
 
 **3D modeling (Rhino)**
-- **rhino-model** — Builds and checks massing, framing, and Grasshopper models in a live Rhino through its AI panel
-- **rhino-setup** — Checks that Rhino and the AI panel's tools are ready
+- **rhino-model** — Builds and checks massing, framing, and Grasshopper models in a live Rhino 9, from its AI panel or a connected agent
+- **rhino-setup** — Checks that Rhino 9's tools are ready, in the AI panel or a connected agent
 - **rhino-batch-image-export** — Batch-export view images (options, views, layer sets) in one display mode, each file checked against the mode
 - **rhino-thinline** — Drawing conventions for black and white vector sheets from a Rhino model, with a checked PDF
 - **rhino-axon** — The view for an axonometric sheet from a Rhino model: camera, cut-away, occlusion and details
@@ -267,8 +269,8 @@ Claude Code loads four hook handlers across two events. Codex loads one. See the
 
 | Hook | Host | When | What it does |
 |------|------|------|--------------|
-| [session-start-welcome](./hooks/session-start-welcome.sh) | Claude Code | First session after install | Confirms the skills are ready and points to setup and the course |
-| [as-rhino-context](./hooks/as-rhino-context.sh) | Claude Code | Session start, resume, clear and compaction | Adds one line pointing to the Rhino skill index, for the Rhino AI panel |
+| [session-start-welcome](./hooks/session-start-welcome.sh) | Claude Code | Every session start | Shows a short message pointing to `/as:start`, and the session line; writes nothing |
+| [as-rhino-context](./hooks/as-rhino-context.sh) | Claude Code | Session start, resume, clear and compaction | Adds one line pointing to the Rhino skill index and naming the lessons folder, for the Rhino AI panel and terminal sessions |
 | [version-check](./hooks/version-check.sh) | Claude Code | Session start, at most daily | Checks for a newer release (see [telemetry](#data-privacy-and-telemetry)) |
 | [post-write-disclaimer-check](./hooks/post-write-disclaimer-check.sh) | Claude Code | After Write or Edit | Flags regulatory output missing the professional disclaimer |
 | [session-start-ambient](./hooks/session-start-ambient.sh) | Codex | Session start | Adds short Arch Studio routing context; reads and writes nothing |

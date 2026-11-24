@@ -252,6 +252,9 @@ def main_linework(doc, page, detail, source_root, out_root, weights=None, tolera
     (receding_from of the depth) light. The sources and exclusions are kept on the document for cut_detail.
     Every model layer is then hidden in this detail, so nothing else
     shows through and the sheet is static: it must be regenerated after a model change."""
+    for src in ([source_root] if isinstance(source_root, str) else list(source_root)):
+        if out_root == src or out_root.startswith(src + "::") or src.startswith(out_root + "::"):
+            raise ValueError("refused: out_root %r overlaps the source layer %r; draw the sheet under its own root layer" % (out_root, src))
     w = dict(WEIGHTS, **(weights or {}))
     one_mm = mm(doc)
     clear(doc, out_root)
