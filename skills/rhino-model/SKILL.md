@@ -80,14 +80,14 @@ List the values the brief leaves open that would change the design: overall dime
 
 Compare the units the brief uses with the document's units read in step 2. If they differ (a "3 by 2 meter room" in a document in feet), make that the first question, proposing to keep the document's units and convert the brief's values.
 
-Every routine design value lives in one recommendations table, never in a question of its own. In the reply, show the table (value, recommendation, why) with every open value, most consequential first: one decision per row (wall, floor and roof thickness are three rows). A value that barely affects the design is a stated assumption in the same table. Before you show it, check that the recommendations fit together (a door head under a raked plate, a roof against an existing wall); a table that conflicts with itself is not a recommendation.
+Every routine design value lives in one recommendations table, never in a question of its own. In the reply, show every open value, most consequential first, one decision per line (wall, floor and roof thickness are three lines): "Wall thickness: 6 in, 2×6 studs with sheathing (why)". Use a Markdown table only when every cell is a few words: Rhino's AI panel cuts long cells off at its width. A value that barely affects the design is a stated assumption in the same table. Before you show it, check that the recommendations fit together (a door head under a raked plate, a roof against an existing wall); a table that conflicts with itself is not a recommendation.
 
 **Blocking questions come first, in their own call.** A question is blocking only when it cannot be defaulted: a units mismatch, a conflict with the document (it already holds another project's requirements or geometry), a contradiction in the brief, a destructive action (replacing or deleting work you did not create), or a code jurisdiction you have no text for. A design value is never blocking, even when it is phrased as a choice. If any blocking question exists, ask all of them in one `ask_user` call and end the turn; build the table from the answers.
 
 **The table question is alone in its call.** Make one `ask_user` call with exactly one question that accepts the table, with exactly these options: "Use all recommended" and "Change selected values (say which, and to what)". Put no other question in that call, and end the turn.
 
 - **"Use all recommended" ends the questioning.** Write the requirements and build. Ask nothing more about design values in this run. If a recommended value turns out not to work while building (a conflict you missed), apply the smallest change that keeps the brief and the firm rules, write it as a new revision with `change`, and name it in the report as a changed recommendation; do not ask. The only questions still allowed are a new blocking question (as defined above) and, at the end, promotion.
-- **"Change selected values"** changes only the values the user named. If they named a value without a new figure, ask about those values only, in one call. Every other row stays as recommended.
+- **"Change selected values"** changes only the values the user named. If they named a value without a new figure, ask about those values only, in one call. If they named none, ask in one call one question per row, with "Keep <recommended value>" first and their own value as the free answer; never ask which values first. Every other row stays as recommended.
 
 Skip both calls when nothing open remains or the user said to proceed ("use defaults", "use recommended", "just build"), and list the recommendations as assumptions. Do not ask about what the brief, the document, the user or a firm rule already settles. Values the user set or changed are source `user`; accepted recommendations are source `user (accepted recommendation)`.
 
@@ -117,7 +117,7 @@ exec(compile(open(P).read(), P, "exec"), {"__rhino_doc__": __rhino_doc__, "AS_SC
 
 Never write `as:requirements` with `SetString` directly. Start a new revision from the stored one (read it, edit it, write it) so nothing earlier is lost silently.
 
-**State them.** Show the requirements as a table (requirement, value, source) in the reply, then build in the same turn. The accepted table is the confirmation; do not ask again.
+**State them.** Show the requirements in the reply, one per line ("Footprint: 12 × 16 ft, to the outside of the walls (brief)"), then build in the same turn. The accepted table is the confirmation; do not ask again.
 
 **When the brief changes or the user corrects the model,** write the new revision first (with `change` naming what changed and the source the user gave), show what the write printed as changed, then rebuild and check. A correction that adds an element adds its requirements, not just its geometry.
 
@@ -187,10 +187,10 @@ Scripting rules that prevent the common failures:
 
 ## Report
 
-One reply, after the requirements check, written for the architect who asked: plain words, document units, no internal names. Open with the check's `Requirements:` status line exactly as printed; the `ASCHECK status=...` line is for tools and stays out of the reply. A full score means only that the checks listed passed: never call a model verified, compliant or complete on the strength of it. Then, in this order:
+One reply, after the requirements check, written for the architect who asked: plain words, document units, no internal names, and lists rather than tables for anything with long values (Rhino's AI panel cuts long table cells off). Open with the check's `Requirements:` status line exactly as printed; the `ASCHECK status=...` line is for tools and stays out of the reply. A full score means only that the checks listed passed: never call a model verified, compliant or complete on the strength of it. Then, in this order:
 
 1. **What was built**, in two to four sentences: the element, its main sizes and materials, the layer it is on, and whether the checks passed. Name any changed recommendation and why ("the low wall went to 2.05 m so the door header fits").
-2. **The requirements table** (requirement, value, source) when the requirements are new or changed this turn; otherwise one line naming the revision.
+2. **The requirements**, one per line ("Footprint: 12 × 16 ft, to the outside of the walls (brief)"), when they are new or changed this turn; otherwise one line naming the revision.
 3. **Each unmet requirement**, if any, with the measured and the required value and what you tried, and any failure that changed what was built (a boolean that failed, with what was kept instead).
 4. **Not checked:** the list from the status line, in plain words (structure, code compliance, ...).
 5. **Assumptions:** at most five short bullets, the ones the user may want to change; the rest go in the notes.

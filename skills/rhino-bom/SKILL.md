@@ -56,7 +56,7 @@ Follow every firm rule, and name each lesson you apply in the report. To write, 
 
 ## Report
 
-Open with each `BOM:` line exactly as printed. Then: the file paths; when layouts share most lines, "same in every layout" and a short table of differences; every assumed line; the not-counted list; the stock lengths and waste used, as working values; the lessons applied and written, or "none". Complete under the [completion contract](../../docs/completion-reporting.md).
+Open with each `BOM:` line exactly as printed. Then: the file paths; when layouts share most lines, "same in every layout" and the differences, as a short table only when every cell is a few words, otherwise one line each (Rhino's AI panel cuts long cells off); every assumed line; the not-counted list; the stock lengths and waste used, as working values; the lessons applied and written, or "none". Complete under the [completion contract](../../docs/completion-reporting.md).
 
 ## Out of scope
 
