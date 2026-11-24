@@ -293,12 +293,33 @@ def restore_layers(doc, restore):
             layer.CommitChanges()
 
 
+def model_view(doc, name=None):
+    """The model view to capture in: the named one, else the active one, else the first model view when a
+    layout is active. A layout (a page view, which has a PageName) is never captured."""
+    if name:
+        view = doc.Views.Find(name, False)
+        if view is None:
+            raise ExportError("view not found: %s" % name)
+        if getattr(view, "PageName", None) is not None:
+            raise ExportError("%s is a layout, not a model view; name a model view such as Perspective" % name)
+        return view
+    view = doc.Views.ActiveView
+    if view is not None and getattr(view, "PageName", None) is None:
+        return view
+    views = list(doc.Views.GetViewList(True, False))  # model views only
+    if not views:
+        raise ExportError("a layout is active and the document has no model view; open one (Perspective) and run again")
+    return views[0]
+
+
 def frame_points(doc, shot):
     """Bounding box corners of the visible objects of the shot, as tuples."""
     import Rhino
 
     points = []
     for item in doc.Objects.GetObjectList(Rhino.DocObjects.ObjectEnumeratorSettings()):
+        if str(getattr(item.Attributes, "Space", "ModelSpace")).endswith("PageSpace"):
+            continue  # a layout's linework or labels: page coordinates, not part of the model's frame
         path = doc.Layers[item.Attributes.LayerIndex].FullPath
         if _in(path, shot.get("layers") or []) and not _in(path, shot.get("hide") or []):
             points += [(p.X, p.Y, p.Z) for p in item.Geometry.GetBoundingBox(True).GetCorners()]
@@ -364,9 +385,7 @@ def export(doc, spec):
     found = Rhino.Display.DisplayModeDescription.FindByName(spec["mode"])
     if found is None:
         raise ExportError("no display mode named %s; run AS_MODE modes" % spec["mode"])
-    view = doc.Views.Find(spec["view"], False) if spec.get("view") else doc.Views.ActiveView
-    if view is None:
-        raise ExportError("view not found: %s" % spec.get("view"))
+    view = model_view(doc, spec.get("view"))
     os.makedirs(spec["out"], exist_ok=True)
     size = spec.get("size") or [1920, 1080]
     supersample = int(spec.get("supersample", 2))

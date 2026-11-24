@@ -8,7 +8,18 @@ Patterns for scripts run through Rhino's `run_python` tool (first measured on Rh
 import traceback, Rhino, System
 G = Rhino.Geometry
 d = __rhino_doc__            # injected document handle; do not rely on scriptcontext
+
+def model_view(d):
+    """Make a model viewport the active view. With a layout active, added objects land on its page."""
+    if isinstance(d.Views.ActiveView, Rhino.Display.RhinoPageView):
+        views = list(d.Views.GetViewList(True, False))   # model views only
+        if not views:
+            raise RuntimeError("no model viewport to build in; open one (for example Perspective) and run again")
+        d.Views.ActiveView = views[0]
+    return d.Views.ActiveView
+
 try:
+    model_view(d)
     # --- constants (document units) ---
     BAY = 144.0
     # --- build ---
@@ -81,6 +92,7 @@ def layer(path, color=None):
 
 def attrs(layer_index, name):
     a = Rhino.DocObjects.ObjectAttributes(); a.LayerIndex = layer_index; a.Name = name
+    a.Space = Rhino.DocObjects.ActiveSpace.ModelSpace   # with model_view(d) first: model, not a layout page
     return a
 ```
 

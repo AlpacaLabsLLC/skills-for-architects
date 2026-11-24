@@ -173,6 +173,9 @@ class Box:
     def __init__(self, d):
         self.Min, self.Max = P(0, 0, 0), P(*d)
 
+    def GetCorners(self):
+        return [self.Min, self.Max]
+
 
 class Geo:
     def __init__(self, d, volume=1.0, area=1.0):
@@ -231,6 +234,56 @@ with tempfile.TemporaryDirectory() as tmp:
     status, out = run_print(BOM['run'], doc_with([Item('Mystery', 2, Geo([1, 1, 1]))]), spec, True)
     ok(status == 1 and 'BOM: FAILED' in out and 'unclassified: 1 x Mystery' in out and 'ASBOM status=fail files=0' in out, 'bom: an unclassified object fails the run', out)
     ok(not Path(tmp + '/bom/bom-a.csv').exists(), 'bom: a failed run writes no CSV')
+    paged = Item('Stud', 2, Geo([.038, .14, 2.4]))
+    paged.Attributes.Space = 'PageSpace'   # str() of Rhino's ActiveSpace.PageSpace: built while a layout was active
+    status, out = run_print(BOM['run'], doc_with([paged]), spec, True)
+    ok(status == 1 and "1 objects under B::A are on a layout's page" in out and 'ASBOM status=fail files=0' in out, 'bom: a part on a layout page fails the run, it is not counted at page size', out)
+    ok(not Path(tmp + '/bom/bom-a.csv').exists(), 'bom: a page-space run writes no CSV')
+
+# Display: never capture a layout, and leave a layout's page objects out of the frame.
+VIEWS = load(root / 'rhino-batch-image-export/scripts/as-batch-image-export.py')
+class View:
+    def __init__(self, name, page=False):
+        self.Name, self.PageName = name, (name if page else None)
+
+
+class Views:
+    def __init__(self, active, views):
+        self.ActiveView, self.views = active, views
+    def Find(self, name, _compare):
+        return next((v for v in self.views if v.Name == name), None)
+    def GetViewList(self, model, page):
+        assert model and not page, 'model views only'
+        return [v for v in self.views if v.PageName is None]
+
+
+persp, sheet = View('Perspective'), View('Axon A1', page=True)
+vd = Doc()
+vd.Views = Views(sheet, [sheet, persp])
+ok(VIEWS['model_view'](vd) is persp, 'display: with a layout active, the export uses a model view')
+vd.Views.ActiveView = persp
+ok(VIEWS['model_view'](vd) is persp, 'display: the active model view is used')
+for name, want in (('Axon A1', 'is a layout'), ('Nowhere', 'view not found')):
+    try:
+        VIEWS['model_view'](vd, name)
+        ok(False, 'display: %s refused' % name)
+    except VIEWS['ExportError'] as e:
+        ok(want in str(e), 'display: naming %s is refused' % name, str(e))
+vd.Views = Views(sheet, [sheet])
+try:
+    VIEWS['model_view'](vd)
+    ok(False, 'display: no model view refused')
+except VIEWS['ExportError'] as e:
+    ok('no model view' in str(e), 'display: a layout with no model view is refused', str(e))
+fd = doc_with()
+fd.Layers = [Layer('B'), Layer('B::A'), Layer('B::A::Walls')]
+page_item = Item('Label', 2, Geo([500, 300, 0]))
+page_item.Attributes.Space = 'PageSpace'
+fd.Objects = Objects([Item('Stud', 2, Geo([1, 1, 2])), page_item])
+rhino.DocObjects.ObjectEnumeratorSettings = lambda: types.SimpleNamespace(HiddenObjects=True, LockedObjects=True)
+pts = VIEWS['frame_points'](fd, {'layers': ['B']})
+ok(pts and max(p[0] for p in pts) == 1, 'display: page-space objects are left out of the frame', pts)
+rhino.DocObjects.ObjectEnumeratorSettings = Settings
 
 for mod in ('Rhino', 'Rhino.Geometry'):
     del sys.modules[mod]
@@ -936,6 +989,16 @@ SHEET['record_request'](loc, 'locator', 'D1'); SHEET['record_request'](loc, 'loc
 result = SHEET['check_sheet'](loc, 'A-1', 'Sheet', [])
 ok(result == ["locator 'D3' was requested and is not on the sheet"], 'sheet: a locator with nothing drawn fails, a drawn one passes', result)
 ok(any('never delete a request or failure record' in r for r in SHEET['check_sheet'](sheet_doc([], strings=Strings()), 'A-1', 'Sheet', [])), 'sheet: a sheet not started by setup_sheet fails check_sheet')
+
+# One sheet per document: a second sheet is refused before anything is drawn, the first sheet's records untouched.
+second = types.SimpleNamespace(Strings=started())
+before = list(second.Strings.items)
+try:
+    SHEET['new_sheet'](second, 'A-2', 841, 594, 'Sheet 2')
+    ok(False, 'sheet: a second sheet in the same document is refused')
+except ValueError as e:
+    ok("already holds the sheet 'A-1'" in str(e) and 'another document' in str(e), 'sheet: a second sheet in the same document is refused, naming the first', str(e))
+ok(list(second.Strings.items) == before, 'sheet: the refusal leaves the first sheet\'s records as they were')
 
 # place_label keeps only target points no other part covers in the main view (visible_points).
 clip = CORE['clip_segment_to_box']

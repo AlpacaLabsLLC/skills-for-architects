@@ -700,5 +700,18 @@ c = next(l for l in t.splitlines() if "clash Flashing" in l)
 ok(c.strip().startswith("PASS") and '"undecided": 1' in c, "an undecided pair passes and is counted as undecided", t)
 ok("undecided: drip edge x lap siding course 15 mid" in t or "undecided: drip edge x weather-resistive barrier" in t, "the undecided pair is named in the output", t)
 
+# ---- objects added while a layout was the active view are on its page, not in the model ----
+d = building()
+t = check(d, BASE)
+ok(status(t) == "status=pass" and "baseline model space" in t, "model-space baseline runs and passes on a model built in model space", t)
+for o in list.__iter__(d.Objects):
+    o.Attributes.Space = "PageSpace"   # str() of Rhino's ActiveSpace.PageSpace
+t = run(d)
+ok(status(t) == "status=fail" and line(t, "FAIL  baseline model space"), "every part on a layout's page fails the check", t)
+d = building()
+list.__getitem__(d.Objects, 0).Attributes.Space = "PageSpace"
+t = check(d, BASE)
+ok(status(t) == "status=fail" and "pier 1" in line(t, "FAIL  baseline model space"), "one part in page space fails and is named", t)
+
 print("rhino-model checks: %d seeded assertions passed (stub geometry, not Rhino)" % passed)
 PY

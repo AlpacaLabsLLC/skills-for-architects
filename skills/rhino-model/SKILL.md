@@ -42,6 +42,7 @@ The order is required. Read the [lessons](#lessons) after setup and before step 
 3. **Questions**, when the brief leaves anything open (below).
 4. **Requirements.** Write them and state them (below).
 5. **Build** structure, envelope, openings and circulation, each as one script, then redraw. Simple briefs are one script.
+   Every build script starts by making a model viewport the active view when a layout is active (`model_view(d)` in the [RhinoCommon patterns](references/rhinocommon.md#script-skeleton)); otherwise Rhino puts the objects on the layout's page, and the requirements check fails them (`baseline model space`).
    When the brief is reference images or a named product: read every supplied view before the first script, take stated dimensions as fixed and label everything read off images as an estimate, and after each stage compare a capture from each reference angle with its photo.
 6. **Grasshopper** only when control is asked for.
 7. **Check** by running the requirements check, and act by the cause of each result:

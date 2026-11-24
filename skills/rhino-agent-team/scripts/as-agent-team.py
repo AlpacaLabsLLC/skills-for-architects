@@ -679,9 +679,21 @@ def _layer(doc, path):
     return parent
 
 
+def _model_view(doc):
+    """With a layout active, Rhino puts added objects on its page; make a model view active first."""
+    view = doc.Views.ActiveView
+    if view is not None and getattr(view, "PageName", None) is not None:
+        views = list(doc.Views.GetViewList(True, False))  # model views only
+        if not views:
+            raise RuntimeError("a layout is active and the document has no model view; open Perspective and run again")
+        doc.Views.ActiveView = views[0]
+
+
 def _attrs(doc, layer, name, **user):
     import Rhino
+    _model_view(doc)
     a = Rhino.DocObjects.ObjectAttributes()
+    a.Space = Rhino.DocObjects.ActiveSpace.ModelSpace
     a.LayerIndex = _layer(doc, layer)
     a.Name = name
     for k, v in user.items():

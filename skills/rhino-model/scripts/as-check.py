@@ -106,6 +106,10 @@ def baseline(doc, req):
     add("objects", len(objs) > 0, {"count": len(objs)})
     unnamed = [str(o.Id)[:8] for o in objs if not (o.Attributes.Name or "").strip()]
     add("named", not unnamed, {"unnamed": len(unnamed)})
+    # An object added while a layout is the active view lands on that layout's page, not in the model,
+    # and its coordinates are page coordinates. Every part of the model must be in model space.
+    paged = [o for o in objs if str(getattr(o.Attributes, "Space", "ModelSpace")).endswith("PageSpace")]
+    add("model space", not paged, {"in page space": len(paged), "names": sorted({o.Attributes.Name or "" for o in paged})[:10]})
     try:
         import Grasshopper
         from Grasshopper.Kernel import GH_RuntimeMessageLevel, IGH_ActiveObject
@@ -121,6 +125,7 @@ def baseline(doc, req):
 
 FIXED = {"baseline objects": "at least 1 object under the parent",
          "baseline named": "every object named",
+         "baseline model space": "every object in model space, none on a layout's page",
          "baseline grasshopper errors": "no Grasshopper component in error",
          "named": "every object named", "valid": "valid geometry",
          "parent": "parent layer exists"}

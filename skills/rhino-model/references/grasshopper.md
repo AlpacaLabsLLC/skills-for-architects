@@ -76,7 +76,7 @@ try:
 
     # bake the default result
     li = d.Layers.FindByFullPath("Wall::Panel", -1)       # created beforehand with the layer helper
-    a = Rhino.DocObjects.ObjectAttributes(); a.LayerIndex = li; a.Name = "wall panel"
+    a = Rhino.DocObjects.ObjectAttributes(); a.LayerIndex = li; a.Name = "wall panel"; a.Space = Rhino.DocObjects.ActiveSpace.ModelSpace
     for g in bs.Params.Output[0].VolatileData.AllData(True):
         if isinstance(getattr(g, "Value", None), G.Brep):
             d.Objects.AddBrep(g.Value, a)

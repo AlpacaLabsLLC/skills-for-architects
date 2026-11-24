@@ -452,7 +452,9 @@ def read_scope(doc, scope):
 
         out.append({"name": item.Attributes.Name or "", "layer": full[len(scope) + 2:],
                     "dims": sorted([box.Max.X - box.Min.X, box.Max.Y - box.Min.Y, box.Max.Z - box.Min.Z]),
-                    "volume": volume, "area": area})
+                    "volume": volume, "area": area,
+                    # on a layout's page, not in the model: its size is in page units, so it cannot be counted
+                    "page": str(getattr(item.Attributes, "Space", "ModelSpace")).endswith("PageSpace")})
     return out
 
 
@@ -482,6 +484,13 @@ def run(doc, spec, write):
         objects = read_scope(doc, scope["layer"])
         if not objects:
             print("  no objects under %s: check the layer path" % scope["layer"])
+            failed = True
+            continue
+        paged = [o for o in objects if o.get("page")]
+        if paged:
+            names = sorted({o["name"] or "(no name)" for o in paged})
+            print("  %d objects under %s are on a layout's page, not in the model (%s): move them to model space,"
+                  " or rebuild them with a model viewport active, then run again" % (len(paged), scope["layer"], ", ".join(names[:10])))
             failed = True
             continue
         results[scope.get("label") or scope["layer"]] = build(objects, spec, unit)
@@ -517,7 +526,7 @@ def main():
         for scope in spec.get("scopes") or []:
             counts = {}
             for obj in read_scope(doc, scope["layer"]):
-                key = (obj["layer"], obj["name"] or "(no name)")
+                key = (obj["layer"], (obj["name"] or "(no name)") + (" (on a layout's page)" if obj.get("page") else ""))
                 counts[key] = counts.get(key, 0) + 1
             print("%s: %d objects" % (scope["layer"], sum(counts.values())))
             for (layer, name), count in sorted(counts.items()):

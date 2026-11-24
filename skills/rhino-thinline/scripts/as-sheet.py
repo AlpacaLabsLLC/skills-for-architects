@@ -169,7 +169,15 @@ def new_sheet(doc, name, width_mm, height_mm, root, margin_mm=12.0, title_column
     sheet's request ledger, which check_sheet needs (covering the building record when a view has made one): a sheet
     not started here fails check_sheet. Returns {"page", "field", "title"}. Sheet layers go under root. It chooses
     no view: as-rhino-axon's setup_sheet puts the main detail in the field."""
-    if string_value(doc, REQUESTS_KEY) is None:
+    started = string_value(doc, REQUESTS_KEY)
+    first = (json.loads(started) or [{}])[0] if started else {}
+    if started and first.get("kind") == "sheet" and first.get("key") != name:
+        # One sheet per document: the request record, the building record and the main drawing's settings are
+        # document-wide, so a second sheet's requests would land in the first sheet's record and fail its check.
+        raise ValueError("this document already holds the sheet %r, and its request, building and main drawing records "
+                         "are for that sheet only; draw %r in another document that holds the model but no sheet, "
+                         "and never delete the records to make room" % (first.get("key"), name))
+    if started is None:
         building = doc.Strings.GetValue(BUILDING_KEY)
         record_request(doc, "sheet", name, **({"building": hashlib.sha256(building.encode("utf-8")).hexdigest()} if building else {}))
     page = new_page(doc, name, width_mm, height_mm, page_units)

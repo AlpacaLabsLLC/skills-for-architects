@@ -5,7 +5,7 @@ set -euo pipefail
 export PYTHONDONTWRITEBYTECODE=1
 cd "$(dirname "$0")/.."
 python3 - <<'PY'
-import copy, hashlib, re, sys
+import copy, hashlib, re, sys, types
 from pathlib import Path
 
 repo = Path.cwd()
@@ -24,6 +24,22 @@ script = skill / 'scripts/as-agent-team.py'
 ns = {'AS_SCRIPT_FILE': str(script)}
 exec(compile(script.read_text(encoding='utf-8'), str(script), 'exec'), ns)
 ok('Rhino' not in sys.modules, 'team: loading the helpers does not import Rhino')
+
+# Records are added in model space: a layout that happens to be active is switched to a model view first.
+class _View:
+    def __init__(self, page):
+        self.PageName = 'Sheet' if page else None
+class _Views:
+    def __init__(self):
+        self.model, self.ActiveView = _View(False), _View(True)
+    def GetViewList(self, model, page):
+        assert model and not page
+        return [self.model]
+_doc = types.SimpleNamespace(Views=_Views())
+ns['_model_view'](_doc)
+ok(_doc.Views.ActiveView is _doc.Views.model, 'team: a layout view is replaced by a model view before records are added')
+ns['_model_view'](_doc)
+ok(_doc.Views.ActiveView is _doc.Views.model, 'team: a model view is left as it is')
 analyse, status_line = ns['analyse'], ns['status_line']
 
 # A small two-owner model: a shell with one floor slab, plumbing with a riser from its source through the slab

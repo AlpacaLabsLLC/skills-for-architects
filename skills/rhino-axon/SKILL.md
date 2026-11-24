@@ -22,6 +22,7 @@ An axonometric on a layout in the open document: the view chosen, projected and 
 4. **Leave out or cut away in the drawing only.** `exclude` and `crop` act on in-memory copies; the model is never trimmed to show what is behind.
 5. **Hand linework, not choices.** This skill decides what is seen and draws it on the page under its own layer roots; rhino-thinline's conventions read it from there and never move the camera ([the handoff](references/views.md#the-linework-handoff)).
 6. **Never change a check's threshold, and never delete a failure record or request to pass a check;** report what could not be placed.
+7. **One sheet per document.** `setup_sheet` refuses a second sheet in a document that already holds one, because the request, building and main drawing records are the document's, not the layout's. Tell the user, and draw the new sheet in another document that holds the model and no sheet; never delete the first sheet's records.
 
 ## Procedure
 
