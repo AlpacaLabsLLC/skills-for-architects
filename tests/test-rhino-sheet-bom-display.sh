@@ -86,6 +86,18 @@ ok(any('not_counted' in x for x in p), 'bom: a spec without not_counted is refus
 p = BOM['validate'](dict(SPEC, allowances=[{'item': 'X', 'source': 'measured'}]))
 ok(any('calculated or assumed' in x for x in p), 'bom: an allowance cannot claim to be measured', p)
 
+# Qty counts pieces unless qty_is_total: a measure unit there is refused ("4.0 cu ft" for 4 walls).
+WALL = {'match': 'Wall', 'category': 'Walls', 'item': 'Wall', 'measure': 'volume'}
+for unit in ('cu ft', 'ft3', 'm3', 'sq ft', 'm2', 'ft', 'lf', 'ft\u00b3', 'Cubic feet'):
+    p = BOM['validate'](dict(SPEC, rules=[dict(WALL, unit=unit)]))
+    ok(any('labels Qty, which counts pieces' in x for x in p), 'bom: a %r count is refused' % unit, p)
+for unit in ('sheets', 'pairs', 'pcs', 'ea', 'sets'):
+    ok(BOM['validate'](dict(SPEC, rules=[dict(WALL, unit=unit)])) == [], 'bom: a %r count label is fine' % unit)
+ok(BOM['validate'](dict(SPEC, rules=[dict(WALL, unit='m3 incl waste', qty_is_total=True)])) == [], 'bom: a measure unit on a qty_is_total line is fine')
+walls = BOM['build']([obj('Wall', 'Walls', [.15, 3, 4], volume=1.8) for _ in range(4)], dict(SPEC, rules=[WALL], allowances=[], excluded=[]), 'ft')
+line = [row for row in walls['rows'][1:] if len(row) == len(BOM['HEADER']) and row[1] == 'Wall'][0]
+ok(line[3] == 4 and line[4] == 'pcs' and abs(line[6] - 7.2) < 1e-9 and line[7] == 'ft3', 'bom: four walls read 4 pcs, with the volume in Total as ft3', line)
+
 n, spliced = BOM['nest']([3.0, 3.0, 0.5, 0.5], 3.6, .003)
 ok((n, spliced) == (2, 0), 'bom: nesting first-fit descending', (n, spliced))
 ok(BOM['nest']([4.0], 3.6, 0)[1] == 1, 'bom: a cut over stock is a splice')

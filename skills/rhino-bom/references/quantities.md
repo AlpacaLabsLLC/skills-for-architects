@@ -34,7 +34,7 @@ SPEC = {
 
 A rule applies to a name, and to a layer path below the scope when `layer` is given. The first match wins. Each object is counted in one line.
 
-Rule keys beyond those shown: `length_group` (see Grouping cut lengths), `per` (a count per object, such as 0.5 when two modeled parts make one item; fragile, so say so in `note`), `cut` (send a length measure to the cut list and nesting), `allowance` (added to `hypotenuse`), `waste` and `qty_is_total` (Qty is the total including waste), `unit`, `source` (`measured`, `calculated`, `assumed`), `note`, `material_to_confirm`.
+Rule keys beyond those shown: `length_group` (see Grouping cut lengths), `per` (a count per object, such as 0.5 when two modeled parts make one item; fragile, so say so in `note`), `cut` (send a length measure to the cut list and nesting), `allowance` (added to `hypotenuse`), `waste` and `qty_is_total` (Qty is the total including waste), `unit` (labels Qty: a count label such as `sheets` or `pairs`, since Qty counts pieces unless `qty_is_total` is set; a length, area or volume unit there is refused, because Total already carries the measure in its own unit), `source` (`measured`, `calculated`, `assumed`), `note`, `material_to_confirm`.
 
 ## Picking the measure
 

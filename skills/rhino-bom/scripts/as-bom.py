@@ -167,6 +167,10 @@ def total_unit(rule, unit):
     return unit
 
 
+# A length, area or volume unit, as a rule might label it: Qty is a piece count unless qty_is_total.
+MEASURE_UNIT = re.compile(r"^\s*(?:(?:cu|cubic|sq|square|lin|linear)\.?\s*)?(?:m|mm|cm|in|inch|inches|ft|feet|foot|yd|yds|yard|yards|lf|sf|cf|cy)\.?\s*(?:2|3)?\s*$|[\u00b2\u00b3]", re.I)
+
+
 def validate(spec, need_out=False):
     """Every problem with the specification, as text. Empty when it can run."""
     problems = []
@@ -201,6 +205,9 @@ def validate(spec, need_out=False):
             problems.append("%s: section %r is not in sections" % (where, rule.get("section")))
         if rule.get("cut") and rule.get("measure") not in CUT_MEASURES:
             problems.append("%s: cut needs a length measure" % where)
+        if rule.get("unit") and not rule.get("qty_is_total") and MEASURE_UNIT.search(str(rule["unit"])):
+            problems.append("%s: unit %r labels Qty, which counts pieces on this line; leave unit out (pcs) or set "
+                            "qty_is_total to put the measure in Qty. Total carries the measure in its own unit." % (where, rule["unit"]))
     for entry in spec.get("excluded") or []:
         if not entry.get("reason"):
             problems.append("exclusion %s: missing reason" % entry.get("match"))
