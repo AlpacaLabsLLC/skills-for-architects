@@ -62,8 +62,13 @@ jobs:
           git config --global core.autocrlf true
           rm -rf "$RUNNER_TEMP/crlf-clone"
           git clone -q --no-local . "$RUNNER_TEMP/crlf-clone"
-          bad=$(cd "$RUNNER_TEMP/crlf-clone" && grep -lI $'\r' hooks/*.sh tests/windows/*.sh || true)
-          if [ -n "$bad" ]; then echo "CRLF in: $bad"; exit 1; fi
+          cd "$RUNNER_TEMP/crlf-clone"
+          git ls-files --eol -- hooks tests/windows
+          bad=""
+          for f in hooks/*.sh tests/windows/*.sh; do
+            tr -d '\015' < "$f" | cmp -s - "$f" || bad="$bad $f"
+          done
+          if [ -n "$bad" ]; then echo "CRLF in:$bad"; exit 1; fi
           echo "hooks and Windows test scripts are LF with core.autocrlf=true"
 
       - name: Hooks under Git Bash, no Python, jq or node on PATH
