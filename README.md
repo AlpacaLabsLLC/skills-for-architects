@@ -98,7 +98,7 @@ For working in Rhino with an agent beside you.
 1. Open a model in Rhino 9 and start a new AI panel session. The panel reads your user settings, so it runs the plugin's startup hook, which points it to the Rhino skills.
 2. Name the skill or Arch Studio, for example "Use Arch Studio rhino-setup to check the connection", then "Use /as:rhino-model to model a 12 by 16 ft shed with a gable roof".
 
-Tested in the Rhino 9 AI panel on test buildings, one run each, on macOS. On Windows (Rhino 9.1.26315), `rhino-setup` and its smoke test have been run in the panel, with the skill index opened by hand; the startup line and the other skills are not yet tested there.
+Tested in the Rhino 9 AI panel on test buildings, one run each, on macOS. On Windows (Rhino 9.1.26315), the panel found `rhino-setup` through the startup line and its connection check passed; its smoke test has also been run there. The other skills are not yet tested in the Windows panel on this release.
 
 #### Way 2: from your terminal
 

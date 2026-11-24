@@ -89,5 +89,8 @@ tools_step = setup.split('2. **Document.**')[0]
 assert '`as_*`' in tools_step and 'other than Rhino' in tools_step and 'do not call those tools' in tools_step and 'do not compare versions' in tools_step, tools_step
 report = setup.split('## Report', 1)[1]
 assert 'The hosted Arch Studio MCP is also connected; use the Arch Studio plugin or the MCP, not both' in report, report
+# The Git for Windows advice is only for a missing startup line; when the hook ran, the report says nothing about it.
+assert 'only when your context has no Arch Studio startup line' in report and 'When that line is there, the hook ran: say nothing about Git for Windows' in report, report
+assert 'pointed it to the skill index by hand' not in setup, 'the old by-hand wording is gone'
 print('PASS: startup hook gives one short line, resolves each installed version, stays silent when incomplete; rhino-setup flags the hosted MCP')
 PY
