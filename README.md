@@ -265,7 +265,7 @@ Shared conventions the skills follow. They guide output; only the hooks below ch
 
 ### Hooks
 
-Claude Code loads four hook handlers across two events. Current Codex releases run no plugin hooks, so Codex loads none of them; it finds the skills without them. See the [hooks index](./hooks/README.md).
+Claude Code loads four hook handlers across two events. Codex loads one, `session-start-ambient`, and runs it only once you trust it: with Codex CLI 0.163 it ran in a session with hook trust and did not run without. Codex finds the skills either way. See the [hooks index](./hooks/README.md).
 
 | Hook | Host | When | What it does |
 |------|------|------|--------------|
@@ -273,7 +273,7 @@ Claude Code loads four hook handlers across two events. Current Codex releases r
 | [as-rhino-context](./hooks/as-rhino-context.sh) | Claude Code | Session start, resume, clear and compaction | Adds one line pointing to the Rhino skill index and naming the lessons folder, for the Rhino AI panel and terminal sessions |
 | [version-check](./hooks/version-check.sh) | Claude Code | Session start, at most daily | Checks for a newer release (see [telemetry](#data-privacy-and-telemetry)) |
 | [post-write-disclaimer-check](./hooks/post-write-disclaimer-check.sh) | Claude Code | After Write or Edit | Flags regulatory output missing the professional disclaimer |
-| [session-start-ambient](./hooks/session-start-ambient.sh) | Codex (not run by current Codex releases) | Session start | Adds short Arch Studio routing context; reads and writes nothing |
+| [session-start-ambient](./hooks/session-start-ambient.sh) | Codex (runs once you trust it) | Session start | Adds short Arch Studio routing context; reads and writes nothing |
 
 ## Make it yours
 

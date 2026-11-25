@@ -64,4 +64,4 @@ A note lives in the file of the agent who wrote it, so only its author closes it
 
 ## Reading others
 
-`others(owner)` reads the other files with `Rhino.FileIO.File3dm`, as last saved, without opening them as documents. The measured runs read them as linked blocks instead; both give the file as last saved, but this way has not itself been run in a test.
+`others(owner)` reads the other files with `Rhino.FileIO.File3dm`, as last saved, without opening them as documents. In the measured runs without the skills (tests 1 to 3), each owner's document held the other files as linked blocks, relinked every round, and the agents read those. In the runs with the skills loaded (tests 4 and 5), nothing was linked: the test harness read the other files from disk with `File3dm`, as last saved, as `others()` does.

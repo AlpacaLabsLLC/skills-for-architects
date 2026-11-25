@@ -6,7 +6,7 @@ Hooks are event-driven automations that run automatically during Codex or Claude
 
 | Hook | Event | What it does |
 |------|-------|-------------|
-| [session-start-ambient](./session-start-ambient.sh) | Codex `SessionStart` (current Codex releases run no plugin hooks) | Adds compact Arch Studio routing context to root sessions without reading or writing state |
+| [session-start-ambient](./session-start-ambient.sh) | Codex `SessionStart` (runs once you trust it) | Adds compact Arch Studio routing context to root sessions without reading or writing state |
 | [session-start-welcome](./session-start-welcome.sh) | Every session start | Shows a short message pointing to `/as:start`, and the session line; writes nothing |
 | [as-rhino-context](./as-rhino-context.sh) | Claude Code `SessionStart` (startup, resume, clear, compact) | Adds one line pointing to the Rhino skill index with this installed version's path |
 | [post-write-disclaimer-check](./post-write-disclaimer-check.sh) | After Write or Edit | Flags a regulatory output (zoning, occupancy, code analysis) that is missing the professional disclaimer |
