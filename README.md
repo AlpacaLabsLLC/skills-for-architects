@@ -55,7 +55,7 @@ Run `/as:studio` to set up the governance and memory side: your AI-use policy, n
 ## Two editions
 
 - **Arch Studio OSS** (this repository) is the single-user setup. You install the plugin in your own Claude Code or Codex, and your studio and project records stay in local folders. It is free and MIT-licensed.
-- **Arch Studio MCP** is the hosted service, for teams. It delivers the same Arch Studio content to a connected assistant through a signed-in firm account. It also adds hosted modules, such as the Materials Library, whose records only members of that firm can reach. It sends instructions; your assistant still does the work with its own tools, and the service cannot reach your local files. Project records stay local in both editions. Only records you save to a hosted module are held by the service ([data governance](docs/data-governance.md)).
+- **Arch Studio MCP** is the hosted service, for teams. It delivers Arch Studio content to a connected assistant through a signed-in firm account. It is updated separately after each plugin release, so it may be a release behind: it currently serves 1.5.3, with 1.5.3's skills (no Rhino skills or `start`; `norma` and `norma-support` are still there). It also adds hosted modules, such as the Materials Library, whose records only members of that firm can reach. It sends instructions; your assistant still does the work with its own tools, and the service cannot reach your local files. Project records stay local in both editions. Only records you save to a hosted module are held by the service ([data governance](docs/data-governance.md)).
 
 Use one or the other, not both. To ask about Arch Studio MCP, email `hello@alpa.llc`.
 
