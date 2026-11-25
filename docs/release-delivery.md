@@ -67,14 +67,14 @@ Before a release can include a record-holding hosted module:
 
 No firm enablement, merge, publication, release or deployment is authorized by this projection.
 
-## Claims ledger
+## Claims preflight
 
-Before the public content review, keep the release's claims ledger: one tracker issue per release, not a file.
+There is no central claims ledger. Each claim traces to its own source:
 
-1. One entry per public claim: the claim; its primary evidence, a run record, test, script or skill text at `path@commit`; its status (proven, untested or known limit); and every surface it appears on. An article, marketing copy, release note or summary is never evidence.
-2. Copy for the README, CHANGELOG, release notes, sites, posts and newsletter uses only claims in the ledger.
-3. The claims preflight checks every surface against the ledger issue. It fails on a claim the ledger does not list, a claim without primary evidence, or an untested claim stated as fact.
-4. When a run changes what a skill's evidence notes say (its `references/evidence.md` or the evidence sections of its `SKILL.md`), update those notes in the same pull request.
+1. **Measured claims come from their eval.** Each eval is the source of truth for its measures. Its tracker issue and its record carry a "Claims this eval supports" takeaway: the claim worded as it may be used, the run record at `path@commit`, n, and the limits.
+2. **Facts that are not measured are sourced to the code, skill text or tests at `path@commit`.**
+3. **Before the publish approval, a claims preflight traces every claim on every surface** (README, CHANGELOG, release notes, sites, posts, newsletter) to one of those two. It fails on any claim that traces to neither, or that is stated more strongly than its eval's claim. The result is posted on the release issue.
+4. **When a run changes an eval's results, its claims takeaway is updated in the same change,** together with any skill evidence notes (`references/evidence.md`, the evidence sections of a `SKILL.md`) that report it.
 
 ## Prepare and publish the OSS release
 
