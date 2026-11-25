@@ -67,6 +67,15 @@ Before a release can include a record-holding hosted module:
 
 No firm enablement, merge, publication, release or deployment is authorized by this projection.
 
+## Claims ledger
+
+Before the public content review, keep a claims ledger for the release:
+
+1. One row per public claim: the claim; its evidence (a run record, a test, or skill or script text, as `path@commit`); its status (proven, untested or known limit); and every surface it appears on.
+2. Copy for the README, CHANGELOG, release notes, sites, posts and newsletter uses only claims in the ledger.
+3. The preflight checks every surface against the ledger. It fails on any claim missing from the ledger, and on any claim marked untested that is stated as fact.
+4. When a run changes what a skill's evidence notes say (its `references/evidence.md` or the evidence sections of its `SKILL.md`), update those notes in the same pull request.
+
 ## Prepare and publish the OSS release
 
 1. Review the exact intended public content, dependencies and licensing. Private evaluation fixtures, client records and service-only material must not enter a public package implicitly. Reuse the approved shared core and review the plugin adapter differences.
