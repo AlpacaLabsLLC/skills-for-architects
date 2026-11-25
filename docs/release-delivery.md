@@ -67,6 +67,15 @@ Before a release can include a record-holding hosted module:
 
 No firm enablement, merge, publication, release or deployment is authorized by this projection.
 
+## Claims preflight
+
+There is no central claims ledger. Each claim traces to its own source:
+
+1. **Measured claims come from their eval.** Each eval is the source of truth for its measures. Its tracker issue and its record carry a "Claims this eval supports" takeaway: the claim worded as it may be used, the run record at `path@commit`, n, and the limits.
+2. **Facts that are not measured are sourced to the code, skill text or tests at `path@commit`.**
+3. **Before the publish approval, a claims preflight traces every claim on every surface** (README, CHANGELOG, release notes, sites, posts, newsletter) to one of those two. It fails on any claim that traces to neither, or that is stated more strongly than its eval's claim. The result is posted on the release issue.
+4. **When a run changes an eval's results, its claims takeaway is updated in the same change,** together with any skill evidence notes (`references/evidence.md`, the evidence sections of a `SKILL.md`) that report it.
+
 ## Prepare and publish the OSS release
 
 1. Review the exact intended public content, dependencies and licensing. Private evaluation fixtures, client records and service-only material must not enter a public package implicitly. Reuse the approved shared core and review the plugin adapter differences.
@@ -82,4 +91,4 @@ Do not move, delete or recreate a published tag. Correct a factual or credit err
 
 ## Acceptance boundary
 
-Hosted/private and OSS releases have separate gates and receipts. Earlier-version client evidence must be rerun where content or bindings changed. Unverified clients remain unverified, and unsupported execution is explicit. No shared-team store, synchronization, independent Norma runtime or email authority is implied by this release.
+Hosted/private and OSS releases have separate gates and receipts. Earlier-version client evidence must be rerun where content or bindings changed. Unverified clients remain unverified, and unsupported execution is explicit. No shared-team store, synchronization, independent assistant runtime or email authority is implied by this release.

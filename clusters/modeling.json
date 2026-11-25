@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "id": "cluster:modeling",
+  "name": "3D / BIM modeling",
+  "maintainer": "Arch Studio maintainers",
+  "scope": "Architectural massing, framing and parametric models in connected modeling applications, starting with Rhino 9 and Grasshopper, by one agent or by several agents on one model split into files by owner.",
+  "members": [
+    "skill:rhino-setup",
+    "skill:rhino-model",
+    "skill:rhino-batch-image-export",
+    "skill:rhino-thinline",
+    "skill:rhino-axon",
+    "skill:rhino-bom",
+    "skill:rhino-agent-team",
+    "studio:workspace-contract"
+  ],
+  "dependencies": [],
+  "coverage": {
+    "jurisdictions": [],
+    "limitations": "Rhino 9 for Mac with an open document and a run_python tool: the Rhino AI panel, or another agent session connected to Rhino's tools. The skills that run helper scripts are plugin-only (the installed Arch Studio plugin, not hosted MCP), and a Rhino team needs the same plugin release on every machine. No rendering, structural analysis, construction documents or Revit/IFC export. Measured so far by the maintainers: test buildings in the Rhino 9 AI panel and in a headless harness, single runs; no with-skill workflow validation is claimed.",
+    "sources_indexed": false,
+    "procedures_available": true,
+    "execution_implemented": false,
+    "workflow_validated": false
+  },
+  "host_requirements": [
+    "agent instruction following",
+    "read resources",
+    "Rhino 9 with an open document and a run_python tool (the AI panel or another connected session)",
+    "the installed Arch Studio plugin for skills that run helper scripts"
+  ],
+  "evaluations": [
+    {
+      "id": "modeling-discovery",
+      "kind": "contract",
+      "path": "tests/test-category-contracts.sh",
+      "claim": "Manifest membership and portability only; not workflow acceptance"
+    },
+    {
+      "id": "rhino-agent-team-check",
+      "kind": "contract",
+      "path": "tests/test-rhino-agent-team.sh",
+      "claim": "Team check logic on synthetic records, without Rhino; not workflow acceptance"
+    },
+    {
+      "id": "modeling-rhino-model-checks",
+      "kind": "contract",
+      "path": "tests/test-rhino-model-checks.sh",
+      "claim": "The requirements checker on stub geometry, without Rhino; not workflow acceptance"
+    }
+  ],
+  "reviewed_on": "2026-11-19"
+}

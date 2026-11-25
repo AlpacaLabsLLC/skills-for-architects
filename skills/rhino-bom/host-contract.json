@@ -1,0 +1,45 @@
+{
+  "path": "skills/rhino-bom/SKILL.md",
+  "responsibility": "Take quantities from a named Rhino 9 model, reconciled to the object count, with a source on every line and a list of what is not counted.",
+  "inputs": "The open Rhino 9 document reached through the Rhino AI panel's Rhino tools, the user's request and the output folder they name. Load project context only when the task needs project records.",
+  "owned_records": [],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "answer"
+    },
+    {
+      "mode": "model-read"
+    },
+    {
+      "mode": "file-output",
+      "when": "Only for a requested BOM; the CSVs go to the folder the user named. Also this skill's lessons, appended in the plugin data folder the startup line names.",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "skills/rhino-bom/SKILL.md",
+    "operations": [],
+    "delivery": "plugin-only"
+  }
+}

@@ -136,7 +136,8 @@ class Contracts(unittest.TestCase):
     def test_write_modes_cannot_downgrade_effect_or_permission(self):
         cases = [('skill:master-schedule', 'workbook-edit'), ('skill:project', 'record-write'),
                  ('skill:csv-to-sif', 'file-output'), ('skill:ffe-spec-book', 'render'),
-                 ('skill:resize-images', 'image-transform'), ('skill:studio-feedback', 'external-open')]
+                 ('skill:resize-images', 'image-transform'), ('skill:studio-feedback', 'external-open'),
+                 ('skill:rhino-model', 'model-edit')]
         for component, mode in cases:
             for patch in [{'effects': []}, {'effects': ['none']}, {'permission': 'read-within-scope'},
                           {'effects': [], 'permission': 'read-within-scope'}]:
@@ -146,6 +147,33 @@ class Contracts(unittest.TestCase):
                     selection.update(patch)
                     with self.assertRaises(ValueError):
                         host.validate(document, ROOT)
+
+    def test_model_edit_requires_application_readback(self):
+        for patch in [{'completion': 'answer-evidence'}, {'required': ['model.edit']}]:
+            with self.subTest(patch=patch):
+                document = copy.deepcopy(self.document)
+                selection = next(m for m in document['components']['skill:rhino-model']['modes'] if m['mode'] == 'model-edit')
+                selection.update(patch)
+                with self.assertRaises(ValueError):
+                    host.validate(document, ROOT)
+
+    def test_plugin_only_is_checked(self):
+        for key, patch in (('skill:rhino-agent-team', {'delivery': 'hosted'}), ('skill:project', {'delivery': 'plugin-only'})):
+            with self.subTest(component=key, patch=patch):
+                document = copy.deepcopy(self.document)
+                document['components'][key]['execution'].update(patch)
+                with self.assertRaises(ValueError):
+                    host.validate(document, ROOT)
+        document = copy.deepcopy(self.document)
+        self.assertEqual(document['components']['skill:rhino-agent-team']['execution']['delivery'], 'plugin-only')
+        host.validate(document, ROOT)
+
+    def test_model_read_cannot_carry_write_effects(self):
+        document = copy.deepcopy(self.document)
+        selection = next(m for m in document['components']['skill:rhino-setup']['modes'] if m['mode'] == 'model-read')
+        selection.update({'effects': ['document-edit']})
+        with self.assertRaises(ValueError):
+            host.validate(document, ROOT)
 
     def test_native_record_modes_use_file_capabilities_without_mandatory_process(self):
         for component, declaration in self.document['components'].items():

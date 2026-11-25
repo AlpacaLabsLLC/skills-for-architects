@@ -1,0 +1,45 @@
+{
+  "path": "skills/rhino-axon/SKILL.md",
+  "responsibility": "The view for an axonometric sheet from a Rhino 9 model: camera and projection, exclusions and cut-away crop, hidden-line occlusion, joint and detail-cut selection, and the building lock, handing linework to rhino-thinline.",
+  "inputs": "The open Rhino 9 document reached through the Rhino AI panel's Rhino tools, the user's request and the output folder they name. Load project context only when the task needs project records.",
+  "owned_records": [],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "answer"
+    },
+    {
+      "mode": "model-edit"
+    },
+    {
+      "mode": "file-output",
+      "when": "Only for a requested PDF of a layout, written through rhino-thinline's export and read back by its PDF check. Also this skill's lessons, appended in the plugin data folder the startup line names.",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": [
+        "process.run"
+      ]
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "skills/rhino-axon/SKILL.md",
+    "operations": [],
+    "delivery": "plugin-only"
+  }
+}

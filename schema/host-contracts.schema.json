@@ -40,6 +40,8 @@
         "delegate",
         "answer",
         "file-read",
+        "model-read",
+        "model-edit",
         "render",
         "file-output",
         "research",
@@ -62,6 +64,12 @@
           "$ref": "#/$defs/mode"
         },
         "file-read": {
+          "$ref": "#/$defs/mode"
+        },
+        "model-read": {
+          "$ref": "#/$defs/mode"
+        },
+        "model-edit": {
           "$ref": "#/$defs/mode"
         },
         "render": {
@@ -172,6 +180,8 @@
             "record-write",
             "workbook-read",
             "workbook-edit",
+            "model-read",
+            "model-edit",
             "render",
             "image-transform",
             "external-open",
@@ -205,7 +215,9 @@
               "spreadsheet.edit",
               "spreadsheet.features",
               "spreadsheet.backup",
-              "email.read"
+              "email.read",
+              "model.edit",
+              "model.inspect"
             ]
           }
         },
@@ -228,7 +240,9 @@
               "spreadsheet.edit",
               "spreadsheet.features",
               "spreadsheet.backup",
-              "email.read"
+              "email.read",
+              "model.edit",
+              "model.inspect"
             ]
           }
         },
@@ -281,6 +295,8 @@
             "record-write",
             "workbook-read",
             "workbook-edit",
+            "model-read",
+            "model-edit",
             "render",
             "image-transform",
             "external-open",
@@ -314,7 +330,9 @@
               "spreadsheet.edit",
               "spreadsheet.features",
               "spreadsheet.backup",
-              "email.read"
+              "email.read",
+              "model.edit",
+              "model.inspect"
             ]
           }
         },
@@ -337,7 +355,9 @@
               "spreadsheet.edit",
               "spreadsheet.features",
               "spreadsheet.backup",
-              "email.read"
+              "email.read",
+              "model.edit",
+              "model.inspect"
             ]
           }
         },
@@ -396,6 +416,12 @@
             "type": "string",
             "pattern": "^[a-z][a-z0-9_]*(?:\\.[a-z][a-z0-9_-]*)+$"
           }
+        },
+        "delivery": {
+          "enum": [
+            "plugin-only"
+          ],
+          "description": "plugin-only: the procedure runs helper scripts from the installed plugin folder (host-harness-contract, Rhino skill helpers), so it is not offered through hosted MCP instruction delivery."
         }
       }
     }

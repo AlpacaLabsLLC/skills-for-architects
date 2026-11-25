@@ -1,0 +1,46 @@
+{
+  "path": "skills/rhino-model/SKILL.md",
+  "responsibility": "Plan, build and check architectural models in a live Rhino 9 session: write sourced requirements into the document before building, build by script from a plain-language brief, check with the requirements check, and report against the requirements.",
+  "inputs": "Plain-language modeling brief and the open Rhino 9 document reached through Rhino's tools (the AI panel or a connected agent); exact destination only for a requested record write-back. Load project context only when the task needs project records.",
+  "owned_records": [],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md",
+    "TASKS.csv",
+    "TIME.csv",
+    "proposals/",
+    "agreement/",
+    "INVOICES.csv",
+    "ffe/items-and-schedules",
+    "product-library.csv",
+    "epd-library.csv",
+    "ffe/jobs/input-manifests"
+  ],
+  "delegation": "inherit-scope-target-permissions-and-evidence",
+  "modes": [
+    {
+      "mode": "answer"
+    },
+    {
+      "mode": "model-edit"
+    },
+    {
+      "mode": "delegate"
+    },
+    {
+      "mode": "file-output",
+      "when": "Only this skill's lessons, appended in the plugin data folder the startup line names.",
+      "required": [
+        "file.read",
+        "file.write"
+      ],
+      "optional": []
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "skills/rhino-model/SKILL.md",
+    "operations": [],
+    "delivery": "plugin-only"
+  }
+}

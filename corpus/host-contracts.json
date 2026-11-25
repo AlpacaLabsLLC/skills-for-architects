@@ -75,6 +75,41 @@
       "permission": "read-within-scope",
       "completion": "source-evidence"
     },
+    "model-read": {
+      "mode": "model-read",
+      "when": "When inspecting geometry, layers or views in a connected modeling application's open document without changing it.",
+      "target": "Exact open application document and the objects under inspection.",
+      "required": [
+        "model.inspect"
+      ],
+      "optional": [
+        "image.read",
+        "file.write"
+      ],
+      "effects": [
+        "none"
+      ],
+      "permission": "read-within-scope",
+      "completion": "provider-or-native-readback"
+    },
+    "model-edit": {
+      "mode": "model-edit",
+      "when": "When creating or changing geometry in a connected modeling application's open document.",
+      "target": "Exact open application document, the task's own parent layer or definition, and the requested geometry.",
+      "required": [
+        "model.edit",
+        "model.inspect"
+      ],
+      "optional": [
+        "image.read",
+        "file.write"
+      ],
+      "effects": [
+        "document-edit"
+      ],
+      "permission": "write-within-scope",
+      "completion": "provider-or-native-readback"
+    },
     "render": {
       "mode": "render",
       "when": "When creating and inspecting requested visual artifacts.",
@@ -230,6 +265,7 @@
     "skill:project": "skills/project/host-contract.json",
     "skill:proposal": "skills/proposal/host-contract.json",
     "skill:resize-images": "skills/resize-images/host-contract.json",
+    "skill:rhino-model": "skills/rhino-model/host-contract.json",
     "skill:sif-to-csv": "skills/sif-to-csv/host-contract.json",
     "skill:site-history": "skills/site-history/host-contract.json",
     "skill:site-visit-report": "skills/site-visit-report/host-contract.json",
@@ -242,25 +278,23 @@
     "skill:tasklist": "skills/tasklist/host-contract.json",
     "skill:timetracker": "skills/timetracker/host-contract.json",
     "skill:tool-catalog": "skills/tool-catalog/host-contract.json",
+    "skill:start": "skills/start/host-contract.json",
     "skill:workplace-programmer": "skills/workplace-programmer/host-contract.json",
     "skill:workplan": "skills/workplan/host-contract.json",
     "skill:zoning-analysis-nyc": "skills/zoning-analysis-nyc/host-contract.json",
     "skill:zoning-envelope": "skills/zoning-envelope/host-contract.json",
-    "agent:brand-manager": "agents/brand-manager.host-contract.json",
-    "agent:ffe-designer": "agents/ffe-designer.host-contract.json",
-    "agent:nyc-zoning-expert": "agents/nyc-zoning-expert.host-contract.json",
-    "agent:product-and-materials-researcher": "agents/product-and-materials-researcher.host-contract.json",
-    "agent:site-planner": "agents/site-planner.host-contract.json",
-    "agent:sustainability-specialist": "agents/sustainability-specialist.host-contract.json",
-    "agent:workplace-strategist": "agents/workplace-strategist.host-contract.json",
     "skill:product-library": "skills/product-library/host-contract.json",
     "skill:product-url-clip": "skills/product-url-clip/host-contract.json",
     "skill:drawing-quantity-extract": "skills/drawing-quantity-extract/host-contract.json",
     "skill:schedule-quantity-reconcile": "skills/schedule-quantity-reconcile/host-contract.json",
     "skill:lighting-report-extract": "skills/lighting-report-extract/host-contract.json",
-    "skill:norma": "skills/norma/host-contract.json",
     "skill:receive": "skills/receive/host-contract.json",
-    "agent:norma": "agents/norma.host-contract.json",
-    "skill:norma-support": "skills/norma-support/host-contract.json"
+    "skill:support": "skills/support/host-contract.json",
+    "skill:rhino-setup": "skills/rhino-setup/host-contract.json",
+    "skill:rhino-batch-image-export": "skills/rhino-batch-image-export/host-contract.json",
+    "skill:rhino-thinline": "skills/rhino-thinline/host-contract.json",
+    "skill:rhino-axon": "skills/rhino-axon/host-contract.json",
+    "skill:rhino-bom": "skills/rhino-bom/host-contract.json",
+    "skill:rhino-agent-team": "skills/rhino-agent-team/host-contract.json"
   }
 }

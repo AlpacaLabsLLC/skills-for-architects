@@ -1,4 +1,4 @@
-# Host-harness contract for every Arch Studio skill and agent
+# Host-harness contract for every Arch Studio skill
 
 Required architecture contract, adopted for the Sharmila 1.5 release plan on 2026-09-07.
 Documentation adoption does not establish that all existing skills/agents or hosts pass it.
@@ -82,6 +82,34 @@ host must download, reconstruct or install. A process capability is required onl
 native method that needs one. Missing Arch Studio executable paths are never a normal workflow prerequisite.
 Do not silently substitute a hosted execution service, project store or another destination.
 
+<a id="rhino-skill-helpers"></a>
+### Named exception: Rhino skill helpers
+
+Decided by the product owner on 2026-11-18 and reconfirmed on 2026-11-19. The Rhino skills
+`rhino-model`, `rhino-batch-image-export`, `rhino-thinline`, `rhino-axon`, `rhino-bom` and `rhino-agent-team` may ship
+helper scripts that run inside the user's Rhino, and their procedures may require them. This is the
+only exception to the rule above.
+
+- **What:** the Python files under each of those skills' `scripts/` folder, bundled in the installed
+  plugin at the same version as the skill. The skill tells the agent to run them by path through
+  Rhino's own `run_python` tool, built from the folder the skill was read from. Nothing is
+  downloaded, installed, reconstructed or registered.
+- **Where they run:** only inside the user's Rhino, on the open document or on `.3dm` files in a
+  folder the user named; RhinoCommon and the Python standard library only; no network. Never on a
+  hosted service.
+- **Why:** the measured Rhino results (the requirements check, image checks, sheet and quantity
+  checks, the team check) were produced with these helpers, and their checks are the evidence the
+  skills complete on.
+- **Limits:** the exception covers these helpers and these skills only. It does not make a helper a
+  prerequisite for any other skill, and each helper still needs its semantic contract in its skill.
+  Without a local plugin folder, as over hosted MCP instruction delivery, the helpers are not
+  available and those checks do not run.
+- **Plugin-only** (decided 2026-11-19): a component whose procedure depends on these helpers
+  declares `"delivery": "plugin-only"` in its `execution` block and says so in its instruction;
+  it is not offered through hosted MCP. This covers every script-backed Rhino skill: `rhino-agent-team`, `rhino-batch-image-export`,
+  `rhino-thinline`, `rhino-axon`, `rhino-bom`, and `rhino-model` for its requirements check. No hosted MCP path is
+  built for them.
+
 For MCP instruction delivery, Arch Studio verifies its source resources against the selected release;
 the host retrieves all required pages at that release pin and stops on delivery or integrity
 errors. A host with exact-byte access may independently recompute instruction-resource hashes.
@@ -130,7 +158,7 @@ as well as intended outputs when testing this boundary.
 
 Preserve authorized scope, identity, accepted selections, current revisions, declared file/workbook features and evidence provenance. Allow valid alternative methods and layouts. Tools may establish mechanical properties; harness interpretation and visual inspection retain their own provenance and limits. A validator of supplied claims cannot certify the underlying observations.
 
-For substantial multistep work, Norma/workplan presents concrete steps, outputs, checks and useful team assignments before execution. Prior exact authorization persists. Quick tasks and direct skill calls do not gain another planning gate. The main harness actually creates any approved team through exposed tools, verifies creation and integrates results; a worker never acquires new authority or owns the user's approval channel.
+For substantial multistep work, workplan presents concrete steps, outputs, checks and useful team assignments before execution. Prior exact authorization persists. Quick tasks and direct skill calls do not gain another planning gate. The main harness actually creates any approved team through exposed tools, verifies creation and integrates results; a worker never acquires new authority or owns the user's approval channel.
 
 ## Google Sheets example
 
@@ -171,7 +199,12 @@ does not cover the requested task, state the gap and use an available owner hand
 The capability vocabulary is semantic: file access is local; spreadsheet access is a host-operated
 workbook/provider operation; spreadsheet.features means the relevant formulas, true links, images
 and structure can actually be inspected/preserved. spreadsheet.backup means a suitable recoverable
-native version can be retained. process.run applies only when the selected native method uses a
+native version can be retained. model.edit means the host can create and change geometry in an open
+document of a connected modeling application (for example Rhino 9 through its `run_python` tool, from the AI panel or an agent connected through Rhino's MCP), and
+model.inspect means it can read that document's geometry, layers and viewport back; model-edit
+completes only on a fresh readback from the application, never on a script's success; model-read
+inspects the same document without changing it. Arch Studio
+never installs or registers the application connector. process.run applies only when the selected native method uses a
 process, with its actual inputs, side effects and available dependencies checked before execution.
 It is not an Arch Studio runner requirement or authority for arbitrary shell commands. Bundled instruction/resource delivery is a prerequisite,
 not user-workspace access; missing referenced instructions block their dependent operation.

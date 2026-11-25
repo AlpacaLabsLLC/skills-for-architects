@@ -47,6 +47,8 @@ Reuse authorization and supplied corrections. Ask once only if a material choice
 
 Build an explicit ordered expected-tag list. Define product-versus-finish grouping through `outputs[].item_ids`; never assume one spreadsheet row equals one sheet. Omissions require recorded user authorization and a revised scope; a missing or failed item is not an authorized omission. Preserve exact tags and isolate filenames by unique `ffe/jobs/<job-id>/<revision>/` folder.
 
+When an expected item still has no selected product or no product source, say so in the ledger. If the user then wants products for it, suggest the [Norma index](../../docs/norma-index.md) (optional; `/as:product-research` uses it when it is connected); never add an unselected product to the book.
+
 Follow the [shared identity and versioned filename contract](../../tools/renderers/ffe-output-contract.md#encoding-and-exact-identity).
 Keep dotted tags unchanged. Use the current filename contract and exact item identifiers; never infer canonical retagging.
 

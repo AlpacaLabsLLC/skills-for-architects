@@ -110,6 +110,8 @@ Example Product A | Example Manufacturer | quantity 2 | supplied specification p
 
 ## Step 3: Search for Matches
 
+**Norma index first, when connected.** If the [Norma index](../../docs/norma-index.md) tools (`search_products`, `get_product`) are in your tool list, search it for the source product's category, material and style first, and keep its results as sourced candidates. If they are not, suggest connecting it once, as that page says, and go on with web searches; it is optional.
+
 Run 3-5 web searches targeting different angles:
 
 1. **Direct alternatives**: `lounge chairs similar to Eames`

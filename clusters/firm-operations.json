@@ -17,8 +17,8 @@
     "studio:studio-template",
     "tool:plugin-namespace",
     "tool:category-validation",
-    "skill:norma",
-    "skill:norma-support"
+    "skill:start",
+    "skill:support"
   ],
   "dependencies": [],
   "coverage": {

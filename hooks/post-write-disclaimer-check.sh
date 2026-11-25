@@ -38,8 +38,14 @@ except (KeyError, TypeError, ValueError, json.JSONDecodeError) as exc:
     exit 0
   fi
 else
-  exit 0
+  # No jq or python3 (a stock Windows PC under Git Bash): read the one field with sed. JSON
+  # escapes in the path (\\ on Windows, \" in a name) are undone after the match.
+  FILE_PATH=$(printf '%s' "$INPUT" | tr -d '\n\r' | sed -nE 's/.*"tool_input"[[:space:]]*:[[:space:]]*\{.*"file_path"[[:space:]]*:[[:space:]]*"(([^"\\]|\\.)*)".*/\1/p' | sed -e 's/\\"/"/g' -e 's/\\\\/\\/g')
+  [ -n "$FILE_PATH" ] || exit 0
 fi
+
+# Windows paths arrive with backslashes; Git Bash reads them with forward slashes.
+case "$FILE_PATH" in [A-Za-z]:\\*) FILE_PATH=$(printf '%s' "$FILE_PATH" | tr '\\' '/') ;; esac
 
 # Only check writes/edits to markdown files.
 [[ "$FILE_PATH" != *.md ]] && exit 0
@@ -57,19 +63,19 @@ MARKER_RE='^[[:space:]]*<!-- architecture-studio:requires-disclaimer -->[[:space
 DISCLAIMER_PHRASE='AI-generated analysis for preliminary planning purposes'
 
 # If no marker, this isn't a regulatory output; nothing to check.
-if ! grep -qE "$MARKER_RE" "$FILE_PATH"; then
+if ! grep -qE -- "$MARKER_RE" "$FILE_PATH"; then
   exit 0
 fi
 
 PROBLEMS=""
 
 # Marker present → canonical disclaimer text must also be present.
-if ! grep -qF "$DISCLAIMER_PHRASE" "$FILE_PATH"; then
+if ! grep -qF -- "$DISCLAIMER_PHRASE" "$FILE_PATH"; then
   PROBLEMS="$FILE_PATH carries the architecture-studio:requires-disclaimer marker but is missing the canonical disclaimer block. Restore the block from ${CLAUDE_PLUGIN_ROOT:-<plugin-root>}/rules/professional-disclaimer.md."
 fi
 
 # Marker should be a single end-of-file sentinel; flag duplicates.
-MARKER_COUNT=$(grep -cE "$MARKER_RE" "$FILE_PATH")
+MARKER_COUNT=$(grep -cE -- "$MARKER_RE" "$FILE_PATH")
 if [ "$MARKER_COUNT" -gt 1 ]; then
   [ -n "$PROBLEMS" ] && PROBLEMS="$PROBLEMS
 "
@@ -82,7 +88,9 @@ if [ -n "$PROBLEMS" ]; then
   elif command -v python3 >/dev/null 2>&1; then
     PROBLEMS="$PROBLEMS" python3 -c 'import json,os; print(json.dumps({"decision":"block","reason":os.environ["PROBLEMS"]}))'
   else
-    printf '{"decision":"block","reason":"Arch Studio disclaimer check failed; restore the canonical block from %s/rules/professional-disclaimer.md."}\n' "${CLAUDE_PLUGIN_ROOT:-<plugin-root>}"
+    # Control characters (tabs, newlines, ...) cannot stand in a JSON string: make them spaces.
+    reason=$(printf '%s' "$PROBLEMS" | tr '\001-\037' ' ' | sed -e 's/\\/\\\\/g' -e 's/"/\\"/g')
+    printf '{"decision":"block","reason":"%s"}\n' "$reason"
   fi
 fi
 

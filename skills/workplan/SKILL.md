@@ -20,7 +20,7 @@ Use the [host adapter](../../docs/host-adapters.md) and available native tools o
 
 Plan work, not a building/site/floor design. Route regulated/domain analysis to its proper owner. Inspect only enough evidence to make the plan reliable; distinguish facts from assumptions. Use applicable originals for external claims.
 
-Quick straightforward tasks proceed within existing authorization. Meaningful multistep work that benefits from advance review receives a concise inline plan: intended result, concrete steps/outputs, relevant dependencies and checks. A durable plan is needed only when requested or useful for project continuity; do not create a file as an invocation tax. No rigid time threshold or compulsory Norma hop applies.
+Quick straightforward tasks proceed within existing authorization. Meaningful multistep work that benefits from advance review receives a concise inline plan: intended result, concrete steps/outputs, relevant dependencies and checks. A durable plan is needed only when requested or useful for project continuity; do not create a file as an invocation tax. No rigid time threshold or compulsory coordinator hop applies.
 
 When parallel work benefits the task, state team size, roles, bounded assignments, concurrent work/dependencies, exclusive file ownership and integrator. Obtain only missing approval of that concrete work/team. Plan-only requests end at the plan. Prior exact approval survives resume. The main harness creates approved agents through actual exposed tools, verifies their identities and integrates results; workers return questions to the main loop. Unavailable/failed delegation is disclosed; only a material unapproved fallback needs further approval.
 

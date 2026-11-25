@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
-    branches: [main]
+    branches: [main, "release/**"]
   workflow_dispatch:
 
 jobs:
@@ -46,3 +46,53 @@ jobs:
         run: |
           python3 tests/test-documents.py
           python3 tests/test-document-records.py
+
+  windows:
+    # Rhino 9 on Windows: Claude Code runs plugin hooks in Git Bash, and the PC may have no Python.
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Shell scripts are LF after a Windows checkout with core.autocrlf=true
+        run: |
+          # Git for Windows defaults to core.autocrlf=true; .gitattributes must keep *.sh LF, or sh stops on the CR.
+          git config --global core.autocrlf true
+          rm -rf "$RUNNER_TEMP/crlf-clone"
+          git clone -q --no-local . "$RUNNER_TEMP/crlf-clone"
+          cd "$RUNNER_TEMP/crlf-clone"
+          git ls-files --eol -- hooks tests/windows
+          bad=""
+          for f in hooks/*.sh tests/windows/*.sh; do
+            tr -d '\015' < "$f" | cmp -s - "$f" || bad="$bad $f"
+          done
+          if [ -n "$bad" ]; then echo "CRLF in:$bad"; exit 1; fi
+          echo "hooks and Windows test scripts are LF with core.autocrlf=true"
+
+      - name: Hooks under Git Bash, no Python, jq or node on PATH
+        run: bash tests/windows/run-hooks-no-python.sh "$RUNNER_TEMP/hooks-out"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Check the hook outputs
+        run: python tests/windows/check-hooks.py "$RUNNER_TEMP/hooks-out"
+
+      - name: Portable shell tests (Rhino helper scripts and hooks)
+        env:
+          PYTHONUTF8: "1"
+        run: |
+          status=0
+          # Not run here, for harness reasons: test-rhino-startup-hook.sh starts /bin/sh from Windows Python
+          # (the hook itself is run above under Git Bash); test-hook-enforcement.sh makes a file name with
+          # a quote and a backslash, which Windows does not allow; test-version-check.sh checks POSIX file
+          # modes and calls python3 by that name. The disclaimer and version-check hooks run above too.
+          for test_file in tests/test-rhino-sheet-bom-display.sh tests/test-rhino-model-checks.sh tests/test-rhino-agent-team.sh tests/test-rhino-lessons.sh tests/test-session-start-welcome.sh; do
+            echo "::group::$test_file"
+            if bash "$test_file"; then echo "PASS $test_file"; else echo "FAIL $test_file"; status=1; fi
+            echo "::endgroup::"
+          done
+          exit $status

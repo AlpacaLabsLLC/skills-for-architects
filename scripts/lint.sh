@@ -3,7 +3,6 @@
 #
 # Layout assumptions (flat-plugin structure):
 #   skills/<name>/SKILL.md + README.md   — all skills, flat, one dir each
-#   agents/<name>.md                     — native subagents (documentation lives outside this directory)
 #   hooks/<name>.sh + hooks/hooks.json   — event-driven automations
 #   .codex-plugin/plugin.json            — Codex plugin manifest
 #   .agents/plugins/marketplace.json     — Codex Git marketplace
@@ -172,7 +171,7 @@ agent_count = sum(1 for p in pathlib.Path('agents').glob('*.md')
                   if p.name != 'README.md')
 rule_count = sum(1 for p in pathlib.Path('rules').glob('*.md')
                  if p.name != 'README.md')
-hook_count = len(list(pathlib.Path('hooks').glob('*.sh')))
+hook_count = len(list(pathlib.Path('hooks').glob('*.sh'))) + len(list(pathlib.Path('hooks').glob('*.py')))
 
 readme = pathlib.Path('README.md').read_text(encoding='utf-8')
 skill_catalog = pathlib.Path('skills/README.md').read_text(encoding='utf-8')
@@ -183,7 +182,7 @@ plugin_namespace = 'as'
 for label, actual in (('agents', agent_count), ('rules', rule_count),
                       ('hooks', hook_count)):
     claims = re.findall(rf'\b(\d+) {label}\b', readme)
-    if not claims:
+    if not claims and not (label == 'agents' and actual == 0):   # no agent definitions ship, so none to count
         errors.append(f"README never states a '{label}' count (expected {actual})")
     for c in claims:
         if int(c) != actual:

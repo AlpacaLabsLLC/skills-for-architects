@@ -732,6 +732,10 @@
         {
           "path": "schema/ffe-record.schema.json",
           "when": "When validating exact adopted item/schedule envelopes and historical/current pins."
+        },
+        {
+          "path": "docs/norma-index.md",
+          "when": "When the user needs products: use the Norma index if its tools are connected, otherwise suggest connecting it once; optional."
         }
       ],
       "executionOwner": "host",
@@ -1059,360 +1063,6 @@
         }
       ],
       "hostContract": "skills/mobility-analysis/host-contract.json"
-    },
-    {
-      "id": "skill:norma",
-      "path": "skills/norma/SKILL.md",
-      "execution": "instructions",
-      "dependencies": [
-        "knowledge:host-contracts"
-      ],
-      "description": "Use Norma to coordinate architecture, buildings, projects, clients, proposals, schedules, specifications, sites, zoning, FF&E and firm work through the relevant Arch Studio owners. Direct skill requests stay with their owner.",
-      "triggers": [
-        "Architecture or project task without a named skill owner",
-        "Coordinate requested outputs across existing skills",
-        "Explicitly set up, update or remove the Arch Studio default preference"
-      ],
-      "exclusions": [
-        "Directly named skill work stays with that owner",
-        "Unrelated requests remain with the host",
-        "No independent hosted agent, model, memory or email service"
-      ],
-      "inputs": [
-        "User request and extent, supplied sources and corrections",
-        "Known project/studio or explicit standalone scope",
-        "Actual host capabilities and current authorization"
-      ],
-      "outputs": [
-        "Selected owner with preserved scope, evidence and validation handoff",
-        "Coherent result of the authorized work or precise incomplete status",
-        "Only if requested and approved: one removable Arch Studio preference block"
-      ],
-      "references": [
-        "skills/norma/host-contract.json",
-        "docs/host-harness-contract.md",
-        "docs/host-adapters.md",
-        "corpus/host-contracts.json",
-        "corpus/components.json",
-        "corpus/capabilities.json",
-        "skills/README.md",
-        "rules/moments.md",
-        "docs/completion-reporting.md",
-        "skills/norma/SKILL.md",
-        "docs/workspace-model.md",
-        "skills/norma/references/assistant-preference.md",
-        "skills/project/references/context-resolution.md"
-      ],
-      "conditionalReferences": [
-        {
-          "path": "docs/agents.md",
-          "when": "An available authorized host specialist profile may help the requested work."
-        },
-        {
-          "path": "skills/studio/SKILL.md",
-          "when": "Opening, configuring or registering a studio/project; do not bounce the administration request back to Norma."
-        },
-        {
-          "path": "skills/norma-support/SKILL.md",
-          "when": "Arch Studio onboarding, installation, access, memory or troubleshooting support."
-        }
-      ],
-      "hostContract": "skills/norma/host-contract.json",
-      "executionOwner": "host",
-      "handoffs": [
-        {
-          "target": "skill:agreement",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:architecture-knowledge",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:color-palette-generator",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:csv-to-sif",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:demographics-analysis",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:drawing-quantity-extract",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:environmental-analysis",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:epd-compare",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:epd-parser",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:epd-research",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:epd-to-spec",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:invoice",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:learn",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:lighting-report-extract",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:master-schedule",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:meeting-minutes",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:mobility-analysis",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:nyc-acris",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:nyc-bsa",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:nyc-dob-permits",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:nyc-dob-violations",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:nyc-hpd",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:nyc-landmarks",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:nyc-property-report",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:occupancy-calculator",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:product-audit",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:product-cut-sheet",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:product-data-cleanup",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:product-data-import",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:product-enrich",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:product-image-processor",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:product-library",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:product-match",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:product-pair",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:product-research",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:product-spec-bulk-fetch",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:product-spec-pdf-parser",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:product-url-clip",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:project",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:proposal",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:resize-images",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:schedule-quantity-reconcile",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:sif-to-csv",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:site-history",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:site-visit-report",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:skill-maker",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:slide-deck-generator",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:ffe-spec-book",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:spec-writer",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:studio",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:studio-feedback",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:tasklist",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:timetracker",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:workplace-programmer",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:workplan",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:zoning-analysis-nyc",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:zoning-envelope",
-          "when": "Selected from the release inventory for the requested outcome; preserve its ownership and host contract."
-        },
-        {
-          "target": "skill:norma-support",
-          "when": "Arch Studio onboarding, installation, access, memory or troubleshooting support; general Norma remains the front door."
-        }
-      ]
-    },
-    {
-      "id": "skill:norma-support",
-      "path": "skills/norma-support/SKILL.md",
-      "execution": "instructions",
-      "dependencies": [
-        "knowledge:host-contracts"
-      ],
-      "description": "Help users connect Arch Studio, understand its access and memory, choose a first workflow, and troubleshoot from reported evidence. General architecture and project execution stays with its owning skill.",
-      "triggers": [
-        "Install or authenticate Arch Studio",
-        "Understand a reported Arch Studio or connector failure",
-        "Explain Norma support access, memory or an authorized case handoff"
-      ],
-      "exclusions": [
-        "General architecture or production project execution",
-        "Automatic email or conversation synchronization",
-        "Unverified account or firm access",
-        "File processing, diagnostics and external execution through support"
-      ],
-      "inputs": [
-        "User question and confirmed context with provenance",
-        "Actual channel, capabilities, release identity and scoped evidence"
-      ],
-      "outputs": [
-        "Evidence-bound answer and one useful next action",
-        "Text-based troubleshooting guidance and explicit evidence limitations",
-        "Authorized support handoff summary; stored or sent only with a receipt"
-      ],
-      "references": [
-        "skills/norma-support/host-contract.json",
-        "docs/host-harness-contract.md",
-        "docs/host-adapters.md",
-        "docs/completion-reporting.md",
-        "corpus/host-contracts.json",
-        "skills/norma-support/references/conversation-knowledge.md",
-        "skills/norma-support/SKILL.md"
-      ],
-      "conditionalReferences": [
-        {
-          "path": "skills/norma-support/references/access-and-installation.md",
-          "when": "Connection, runner, release acquisition or memory questions."
-        },
-        {
-          "path": "skills/norma-support/references/capability-observations.md",
-          "when": "Google, Miro or Figma capability questions."
-        },
-        {
-          "path": "skills/norma-support/references/case-handoff.md",
-          "when": "Protected email case context or a channel handoff."
-        }
-      ],
-      "hostContract": "skills/norma-support/host-contract.json",
-      "executionOwner": "host",
-      "handoffs": [
-        {
-          "target": "skill:norma",
-          "when": "General architecture or project work in the native host; preserve scope and authorization."
-        }
-      ]
     },
     {
       "id": "skill:nyc-acris",
@@ -2475,6 +2125,10 @@
         {
           "path": "tools/workspace/product-library-contract.md",
           "when": "Only when preparing an explicitly requested reusable CSV library save for its owner."
+        },
+        {
+          "path": "docs/norma-index.md",
+          "when": "When the user needs products: use the Norma index if its tools are connected, otherwise suggest connecting it once; optional."
         }
       ],
       "executionOwner": "host",
@@ -2615,6 +2269,10 @@
         {
           "path": "tools/validators/workbook-preservation-contract.md",
           "when": "When an explicitly selected before/after native OOXML pair and permitted cell aspects are available for preservation comparison; actual editing and complete workbook verification remain separate."
+        },
+        {
+          "path": "docs/norma-index.md",
+          "when": "When the user needs products: use the Norma index if its tools are connected, otherwise suggest connecting it once; optional."
         }
       ],
       "executionOwner": "host",
@@ -3038,6 +2696,271 @@
       "handoffs": []
     },
     {
+      "id": "skill:rhino-agent-team",
+      "path": "skills/rhino-agent-team/SKILL.md",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "description": "Run several agents on one Rhino 9 model split into one file per owner: a coordinator writes the set-out first (datum, levels, required points, minimum sizes and each owner's share of shared space), then reviews the combined model every round and sends each owner issue notes at the objects that must change, and reissues the set-out when something changes; each owner builds its part with rhino-model. Use when the user has decided to split a Rhino model across agents (separate owners, or more than one session can hold). Not for a model one agent can build alone.",
+      "hostContract": "skills/rhino-agent-team/host-contract.json",
+      "executionOwner": "host",
+      "triggers": [
+        "Run several agents on one Rhino 9 model split into one file per owner: a coordinator writes the set-out first (datum, levels, required points, minimum sizes and each owner's share of shared space), then reviews the combined model every round and sends each owner issue notes at the objects that must change, and reissues the set-out when something changes; each owner builds its part with rhino-model. Use when the user has decided to split a Rhino model across agents (separate owners, or more than one session can hold). Not for a model one agent can build alone."
+      ],
+      "exclusions": [
+        "No shared-file editing, live sync, rendering, structural or MEP design, or code compliance; one agent is recommended unless the user has a reason to split the model"
+      ],
+      "inputs": [
+        "The agent's own open Rhino 9 document and a shared folder of per-owner model files with a set-out file"
+      ],
+      "outputs": [
+        "Per-owner model files on the current set-out revision and a team check of clashes, shares, openings, required points, revision stamps, open notes and each owner's own requirements check"
+      ],
+      "references": [
+        "skills/rhino-agent-team/SKILL.md",
+        "skills/rhino-agent-team/host-contract.json",
+        "skills/rhino-agent-team/references/protocol.md",
+        "skills/rhino-agent-team/references/evidence.md",
+        "skills/rhino-agent-team/scripts/as-agent-team.py",
+        "skills/rhino-model/SKILL.md",
+        "docs/host-harness-contract.md",
+        "docs/host-adapters.md",
+        "docs/completion-reporting.md",
+        "corpus/host-contracts.json"
+      ],
+      "conditionalReferences": [],
+      "handoffs": []
+    },
+    {
+      "id": "skill:rhino-axon",
+      "path": "skills/rhino-axon/SKILL.md",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "description": "The view for an axonometric sheet from a Rhino 9 model: camera and projection, exclusions and cut-away crop, hidden-line occlusion, joint and detail-cut selection, and the building lock, handing linework and cut faces to rhino-thinline. Use when the user asks for an axonometric, axon sheet or exploded axon from a Rhino model; read rhino-thinline too, for the conventions. Not for coloured images or renders, and it never edits the model to get a view.",
+      "hostContract": "skills/rhino-axon/host-contract.json",
+      "executionOwner": "host",
+      "triggers": [
+        "The view for an axonometric sheet from a Rhino 9 model: camera and projection, exclusions and cut-away crop, hidden-line occlusion, joint and detail-cut selection, and the building lock, handing linework and cut faces to rhino-thinline. Use when the user asks for an axonometric, axon sheet or exploded axon from a Rhino model; read rhino-thinline too, for the conventions. Not for coloured images or renders, and it never edits the model to get a view."
+      ],
+      "exclusions": [
+        "No editing the model to get a view, no coloured images or renders; drawing conventions belong to rhino-thinline"
+      ],
+      "inputs": [
+        "The open Rhino 9 document reached through the Rhino AI panel"
+      ],
+      "outputs": [
+        "The view for an axonometric sheet from a Rhino 9 model: camera and projection, exclusions and cut-away crop, hidden-line occlusion, joint and detail-cut selection, and the building lock, handing linework to rhino-thinline."
+      ],
+      "references": [
+        "skills/rhino-axon/SKILL.md",
+        "skills/rhino-axon/host-contract.json",
+        "skills/rhino-axon/references/views.md",
+        "skills/rhino-axon/scripts/as-axon.py",
+        "skills/rhino-axon/scripts/as-axon-core.py",
+        "docs/host-harness-contract.md",
+        "docs/host-adapters.md",
+        "docs/completion-reporting.md",
+        "corpus/host-contracts.json"
+      ],
+      "conditionalReferences": [],
+      "handoffs": [
+        {
+          "target": "skill:rhino-thinline",
+          "when": "Always: the drawing conventions, annotation, request record and PDF check for the sheet this view draws."
+        }
+      ]
+    },
+    {
+      "id": "skill:rhino-batch-image-export",
+      "path": "skills/rhino-batch-image-export/SKILL.md",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "description": "Batch-export view images of a Rhino 9 model (options, views, layer sets) in one display mode, each file checked against the mode: a blank image, or colour in a mode that must have none, fails the batch. Sets up the display modes, views and materials the export needs. Use when the user asks for a batch of captures or viewport images of options, views or layer sets, or for images in a display mode. Not for photorealistic rendering, or black and white vector sheets, which rhino-thinline makes.",
+      "hostContract": "skills/rhino-batch-image-export/host-contract.json",
+      "executionOwner": "host",
+      "triggers": [
+        "Batch-export view images of a Rhino 9 model (options, views, layer sets) in one display mode, each file checked against the mode: a blank image, or colour in a mode that must have none, fails the batch. Sets up the display modes, views and materials the export needs. Use when the user asks for a batch of captures or viewport images of options, views or layer sets, or for images in a display mode. Not for photorealistic rendering, or black and white vector sheets, which rhino-thinline makes."
+      ],
+      "exclusions": [
+        "No photorealistic rendering, black and white vector sheets, or installing display modes; no edits to objects the task did not create"
+      ],
+      "inputs": [
+        "The open Rhino 9 document reached through the Rhino AI panel"
+      ],
+      "outputs": [
+        "Batch-export view images of a Rhino 9 model (options, views, layer sets) in one display mode, each file checked against the mode; sets up the display modes, views and materials the export needs."
+      ],
+      "references": [
+        "skills/rhino-batch-image-export/SKILL.md",
+        "skills/rhino-batch-image-export/host-contract.json",
+        "skills/rhino-batch-image-export/references/display.md",
+        "skills/rhino-batch-image-export/scripts/as-batch-image-export.py",
+        "docs/host-harness-contract.md",
+        "docs/host-adapters.md",
+        "docs/completion-reporting.md",
+        "corpus/host-contracts.json"
+      ],
+      "conditionalReferences": [],
+      "handoffs": []
+    },
+    {
+      "id": "skill:rhino-bom",
+      "path": "skills/rhino-bom/SKILL.md",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "description": "Take quantities from a Rhino model built under one parent layer with every object named by element type: a bill of quantities per layout in which every object lands in exactly one line, every line states its source, and what the model does not contain is listed with the reason. Use when the user asks for a BOM, takeoff or quantities from a Rhino model. Not for pricing, procurement or structural sizing, and a count does not validate the thing counted.",
+      "hostContract": "skills/rhino-bom/host-contract.json",
+      "executionOwner": "host",
+      "triggers": [
+        "Take quantities from a Rhino model built under one parent layer with every object named by element type: a bill of quantities per layout in which every object lands in exactly one line, every line states its source, and what the model does not contain is listed with the reason. Use when the user asks for a BOM, takeoff or quantities from a Rhino model. Not for pricing, procurement or structural sizing, and a count does not validate the thing counted."
+      ],
+      "exclusions": [
+        "No pricing, procurement or supplier selection; a count does not validate the connection counted"
+      ],
+      "inputs": [
+        "The open Rhino 9 document reached through the Rhino AI panel"
+      ],
+      "outputs": [
+        "Take quantities from a named Rhino 9 model, reconciled to the object count, with a source on every line and a list of what is not counted."
+      ],
+      "references": [
+        "skills/rhino-bom/SKILL.md",
+        "skills/rhino-bom/host-contract.json",
+        "skills/rhino-bom/references/quantities.md",
+        "skills/rhino-bom/scripts/as-bom.py",
+        "docs/host-harness-contract.md",
+        "docs/host-adapters.md",
+        "docs/completion-reporting.md",
+        "corpus/host-contracts.json"
+      ],
+      "conditionalReferences": [],
+      "handoffs": []
+    },
+    {
+      "id": "skill:rhino-model",
+      "path": "skills/rhino-model/SKILL.md",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "description": "Plan, build and check architectural models in a live Rhino 9 session through Rhino's tools (the AI panel or a connected agent), from a plain-language brief. Writes the model's requirements (dimensions, clearances, code values, each with its source) into the document before building, builds by script, and checks the model against them with the requirements check before replying. Use when the user asks to model, frame, mass or parametrize geometry in Rhino. Not for rendering, structural analysis, construction documents, BIM export or editing models it did not create.",
+      "hostContract": "skills/rhino-model/host-contract.json",
+      "executionOwner": "host",
+      "triggers": [
+        "Plan, build and check architectural models in a live Rhino 9 session through Rhino's tools (the AI panel or a connected agent), from a plain-language brief. Writes the model's requirements (dimensions, clearances, code values, each with its source) into the document before building, builds by script, and checks the model against them with the requirements check before replying. Use when the user asks to model, frame, mass or parametrize geometry in Rhino. Not for rendering, structural analysis, construction documents, BIM export or editing models it did not create."
+      ],
+      "exclusions": [
+        "No connector installation or registration; no rendering, structural analysis, construction documents or BIM export; no edits to objects the task did not create"
+      ],
+      "inputs": [
+        "Plain-language modeling brief and the open Rhino 9 document reached through Rhino's tools (the AI panel or a connected agent)"
+      ],
+      "outputs": [
+        "Requirements with sources and revision history stored in the document, the model under one parent layer, a requirements check result against the requirements, dimension and layer tables, listed assumptions and save state"
+      ],
+      "references": [
+        "skills/rhino-model/SKILL.md",
+        "skills/rhino-model/references/rhinocommon.md",
+        "skills/rhino-model/references/grasshopper.md",
+        "skills/rhino-model/references/elements.md",
+        "skills/rhino-model/references/checks.md",
+        "skills/rhino-model/references/report-template.md",
+        "skills/rhino-model/references/requirements/toilet.json",
+        "skills/rhino-model/scripts/as-check.py",
+        "skills/rhino-model/scripts/as-check-model.py",
+        "skills/rhino-model/host-contract.json",
+        "docs/host-harness-contract.md",
+        "docs/host-adapters.md",
+        "docs/completion-reporting.md",
+        "corpus/host-contracts.json"
+      ],
+      "conditionalReferences": [],
+      "handoffs": []
+    },
+    {
+      "id": "skill:rhino-setup",
+      "path": "skills/rhino-setup/SKILL.md",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "description": "Connect and verify Rhino 9 for the rhino cluster, from its AI panel or a connected agent: detect Rhino's tools, confirm an open document and its units, and run a one-object smoke test. Use when the user asks to connect Rhino, or when another rhino skill finds the Rhino tools missing. Guides the user; never installs or registers anything.",
+      "hostContract": "skills/rhino-setup/host-contract.json",
+      "executionOwner": "host",
+      "triggers": [
+        "Connect and verify Rhino 9 for the rhino cluster, from its AI panel or a connected agent: detect Rhino's tools, confirm an open document and its units, and run a one-object smoke test. Use when the user asks to connect Rhino, or when another rhino skill finds the Rhino tools missing. Guides the user; never installs or registers anything."
+      ],
+      "exclusions": [
+        "No connector installation or registration; no rendering, structural analysis, construction documents or BIM export; no edits to objects the task did not create"
+      ],
+      "inputs": [
+        "Plain-language modeling brief and the open Rhino document reached through the connected Rhino MCP"
+      ],
+      "outputs": [
+        "Connect and verify Rhino 9 and its AI panel; report the exact user action when anything is missing."
+      ],
+      "references": [
+        "skills/rhino-setup/SKILL.md",
+        "skills/rhino-setup/host-contract.json",
+        "docs/host-harness-contract.md",
+        "docs/host-adapters.md",
+        "docs/completion-reporting.md",
+        "corpus/host-contracts.json"
+      ],
+      "conditionalReferences": [],
+      "handoffs": []
+    },
+    {
+      "id": "skill:rhino-thinline",
+      "path": "skills/rhino-thinline/SKILL.md",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "description": "Drawing conventions for black and white vector sheets from a Rhino 9 model: a line hierarchy, line styles, hatch by material on the cut faces of details, labels and leaders, detail tags, a title block, the sheet layout, a tamper-proof request record and a checked PDF. Use when the user asks for a line drawing, drawing sheet or black and white export from a Rhino model; for an axonometric, load rhino-axon, which chooses the view and loads this skill's library. Not for construction documents, coloured images or renders; line weights and hatch patterns are working conventions.",
+      "hostContract": "skills/rhino-thinline/host-contract.json",
+      "executionOwner": "host",
+      "triggers": [
+        "Drawing conventions for black and white vector sheets from a Rhino 9 model: a line hierarchy, line styles, hatch by material on the cut faces of details, labels and leaders, detail tags, a title block, the sheet layout, a tamper-proof request record and a checked PDF. Use when the user asks for a line drawing, drawing sheet or black and white export from a Rhino model; for an axonometric, load rhino-axon, which chooses the view and loads this skill's library. Not for construction documents, coloured images or renders; line weights and hatch patterns are working conventions."
+      ],
+      "exclusions": [
+        "No construction documents, code review, engineering, coloured images or renders; line weights are provisional and hatch patterns are working conventions"
+      ],
+      "inputs": [
+        "The open Rhino 9 document reached through the Rhino AI panel"
+      ],
+      "outputs": [
+        "Drawing conventions for black and white vector sheets from a Rhino 9 model: a line hierarchy, line styles, hatch by material, labels and leaders, detail tags, a title block, the sheet layout, a tamper-proof request record and a parsed PDF check."
+      ],
+      "references": [
+        "skills/rhino-thinline/SKILL.md",
+        "skills/rhino-thinline/host-contract.json",
+        "skills/rhino-thinline/references/sheets.md",
+        "skills/rhino-thinline/references/linework.md",
+        "skills/rhino-thinline/scripts/as-sheet.py",
+        "skills/rhino-thinline/scripts/as-sheet-core.py",
+        "skills/rhino-thinline/scripts/as-pdf-check.py",
+        "docs/host-harness-contract.md",
+        "docs/host-adapters.md",
+        "docs/completion-reporting.md",
+        "corpus/host-contracts.json"
+      ],
+      "conditionalReferences": [],
+      "handoffs": [
+        {
+          "target": "skill:rhino-axon",
+          "when": "When the sheet is an axonometric: the view, cut-away, occlusion and detail cuts."
+        }
+      ]
+    },
+    {
       "id": "skill:schedule-quantity-reconcile",
       "path": "skills/schedule-quantity-reconcile/SKILL.md",
       "execution": "instructions",
@@ -3418,6 +3341,66 @@
       "hostContract": "skills/spec-writer/host-contract.json"
     },
     {
+      "id": "skill:start",
+      "path": "skills/start/SKILL.md",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "description": "Show the Arch Studio card: logotype, installed release, a short setup checklist, what Arch Studio is, how to use it, a tour of the practice areas and prompts to try. Use for start, welcome, connect, is Arch Studio installed or working, or how do I begin. Read-only: runs no task and changes nothing.",
+      "triggers": [
+        "start Arch Studio",
+        "is Arch Studio installed",
+        "show the Arch Studio card"
+      ],
+      "exclusions": [
+        "run setup, connect a server or install anything",
+        "start a task before the user chooses one",
+        "infer a connection that is not in the session's tool list"
+      ],
+      "inputs": [
+        "The installed plugin manifest, the bundled clusters, and the session's observed tool list and working folder"
+      ],
+      "outputs": [
+        "The Arch Studio card as text: logotype, release, checklist, welcome sections, prompts and footer"
+      ],
+      "references": [
+        "docs/host-harness-contract.md",
+        "docs/host-adapters.md",
+        "corpus/host-contracts.json",
+        "docs/completion-reporting.md",
+        "skills/start/host-contract.json",
+        "skills/start/SKILL.md",
+        "docs/practice-clusters.md"
+      ],
+      "conditionalReferences": [
+        {
+          "path": "skills/project/references/context-resolution.md",
+          "when": "When checking whether a studio is set up above the working folder."
+        }
+      ],
+      "executionOwner": "host",
+      "handoffs": [
+        {
+          "target": "skill:tool-catalog",
+          "when": "The user asks what Arch Studio can do or picks a practice-area tour."
+        },
+        {
+          "target": "skill:skill-maker",
+          "when": "The user picks Build my first skill."
+        },
+        {
+          "target": "skill:studio",
+          "when": "The user asks to set up a studio."
+        },
+        {
+          "target": "skill:support",
+          "when": "Setup, access or troubleshooting questions."
+        }
+      ],
+      "hostContract": "skills/start/host-contract.json"
+    },
+    {
       "id": "skill:studio",
       "path": "skills/studio/SKILL.md",
       "execution": "instructions",
@@ -3466,7 +3449,7 @@
           "when": "When explicitly initializing a studio."
         },
         {
-          "path": "skills/norma/references/assistant-preference.md",
+          "path": "skills/studio/references/assistant-preference.md",
           "when": "When optional default-assistant preference setup, update or removal is selected."
         },
         {
@@ -3515,10 +3498,6 @@
         {
           "target": "skill:project",
           "when": "For project-owned facts, identity or decisions"
-        },
-        {
-          "target": "skill:norma",
-          "when": "A general architecture or project-work request needs a domain owner; forward once, excluding studio administration."
         }
       ],
       "hostContract": "skills/studio/host-contract.json"
@@ -3558,6 +3537,66 @@
       "executionOwner": "host",
       "handoffs": [],
       "hostContract": "skills/studio-feedback/host-contract.json"
+    },
+    {
+      "id": "skill:support",
+      "path": "skills/support/SKILL.md",
+      "execution": "instructions",
+      "dependencies": [
+        "knowledge:host-contracts"
+      ],
+      "description": "Help users connect Arch Studio, understand its access and memory, choose a first workflow, and troubleshoot from reported evidence. General architecture and project execution stays with its owning skill.",
+      "triggers": [
+        "Install or authenticate Arch Studio",
+        "Understand a reported Arch Studio or connector failure",
+        "Explain Arch Studio support access, memory or an authorized case handoff"
+      ],
+      "exclusions": [
+        "General architecture or production project execution",
+        "Automatic email or conversation synchronization",
+        "Unverified account or firm access",
+        "File processing, diagnostics and external execution through support"
+      ],
+      "inputs": [
+        "User question and confirmed context with provenance",
+        "Actual channel, capabilities, release identity and scoped evidence"
+      ],
+      "outputs": [
+        "Evidence-bound answer and one useful next action",
+        "Text-based troubleshooting guidance and explicit evidence limitations",
+        "Authorized support handoff summary; stored or sent only with a receipt"
+      ],
+      "references": [
+        "skills/support/host-contract.json",
+        "docs/host-harness-contract.md",
+        "docs/host-adapters.md",
+        "docs/completion-reporting.md",
+        "corpus/host-contracts.json",
+        "skills/support/references/conversation-knowledge.md",
+        "skills/support/SKILL.md"
+      ],
+      "conditionalReferences": [
+        {
+          "path": "skills/support/references/access-and-installation.md",
+          "when": "Connection, runner, release acquisition or memory questions."
+        },
+        {
+          "path": "skills/support/references/capability-observations.md",
+          "when": "Google, Miro or Figma capability questions."
+        },
+        {
+          "path": "skills/support/references/case-handoff.md",
+          "when": "Protected email case context or a channel handoff."
+        }
+      ],
+      "hostContract": "skills/support/host-contract.json",
+      "executionOwner": "host",
+      "handoffs": [
+        {
+          "target": "skill:workplan",
+          "when": "General architecture or project work that benefits from a plan in the native host; otherwise the skill that owns the task. Preserve scope and existing authorization."
+        }
+      ]
     },
     {
       "id": "skill:tasklist",
@@ -3655,10 +3694,10 @@
       "dependencies": [
         "knowledge:host-contracts"
       ],
-      "description": "Show Arch Studio help, available skills, agents and host-specific commands. Use for help, how do I use Arch Studio, what is Norma, or a capability directory.",
+      "description": "Show Arch Studio help, available skills and host-specific commands. Use for help, how do I use Arch Studio, or a capability directory.",
       "triggers": [
         "show Arch Studio help",
-        "what skills and agents are available"
+        "what skills are available"
       ],
       "exclusions": [
         "activate workflows from a directory listing",
@@ -3692,7 +3731,7 @@
       "executionOwner": "host",
       "handoffs": [
         {
-          "target": "skill:norma-support",
+          "target": "skill:support",
           "when": "For requested onboarding or troubleshooting beyond a directory answer; no automatic service activation."
         }
       ],

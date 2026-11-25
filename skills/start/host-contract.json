@@ -1,0 +1,21 @@
+{
+  "path": "skills/start/SKILL.md",
+  "responsibility": "Show the Arch Studio card: logotype, installed release, setup checklist, welcome sections and prompts to try. Read-only.",
+  "inputs": "The installed plugin's manifest, the bundled clusters and the session's observed tool list and working folder; no project, workspace, account or application requirement.",
+  "owned_records": [],
+  "non_owned_records": [
+    "PROJECT.md",
+    "STUDIO.md"
+  ],
+  "delegation": "not-applicable",
+  "modes": [
+    {
+      "mode": "answer"
+    }
+  ],
+  "execution": {
+    "model": "harness-native",
+    "contract": "skills/start/SKILL.md",
+    "operations": []
+  }
+}

@@ -8,10 +8,10 @@ The [generated capability catalog](../docs/capabilities.md) provides task-first 
 
 | Skill | Description |
 |-------|-------------|
-| [`/as:norma`](./norma) | Coordinate architectural intent, scope and handoffs through available skills |
-| [`/as:norma-support`](./norma-support) | Arch Studio onboarding, access and memory guidance, and evidence-bound troubleshooting |
-| [`/as:studio`](./studio) | Set up and inspect the studio, register projects, and forward general requests to Norma |
-| [`/as:tool-catalog`](./tool-catalog) | Show the available skills and agents |
+| [`/as:start`](./start) | Show the Arch Studio card: release, setup checklist, practice areas and prompts to try |
+| [`/as:support`](./support) | Arch Studio onboarding, access and memory guidance, and evidence-bound troubleshooting |
+| [`/as:studio`](./studio) | Set up and inspect the studio and register projects |
+| [`/as:tool-catalog`](./tool-catalog) | Show the available skills |
 | [`/as:learn`](./learn) | Guided, resumable introduction to Codex and Claude Code for architects (use `$learn` on Codex) |
 | [`/as:skill-maker`](./skill-maker) | Create or update governed studio, project or catalog skills using native host authoring |
 | [`/as:studio-feedback`](./studio-feedback) | Prepare a reviewed bug report or feature request without automatic submission |
@@ -118,10 +118,22 @@ Explicitly adopted FF&E schedules use immutable item/schedule records; workbooks
 | [`/as:color-palette-generator`](./color-palette-generator) | Create palettes with WCAG contrast checks |
 | [`/as:resize-images`](./resize-images) | Resize images for web, social, slides, and print |
 
+### 3D / BIM modeling
+
+| Skill | Description |
+|-------|-------------|
+| [`/as:rhino-setup`](./rhino-setup) | Connect and verify Rhino 9, from its AI panel or a connected agent |
+| [`/as:rhino-model`](./rhino-model) | Plan, build and check massing, framing and parametric Grasshopper models in a live Rhino 9, from its AI panel or a connected agent |
+| [`/as:rhino-batch-image-export`](./rhino-batch-image-export) | Batch-export view images (options, views, layer sets) in one display mode, each file checked against the mode |
+| [`/as:rhino-thinline`](./rhino-thinline) | Drawing conventions for black and white vector sheets from a Rhino model, with a checked PDF |
+| [`/as:rhino-axon`](./rhino-axon) | The view for an axonometric sheet from a Rhino model: camera, cut-away, occlusion, details |
+| [`/as:rhino-bom`](./rhino-bom) | Quantities from a Rhino model, reconciled to the object count |
+| [`/as:rhino-agent-team`](./rhino-agent-team) | Several agents on one Rhino model: a set-out written first, one file per owner, notes in the model and a check across the files |
+
 ## Individual skill documentation
 
 Each directory contains an authoritative `SKILL.md`, any needed human-facing guide, and its owned procedures, scripts, schemas or templates; external knowledge is routed through the source catalog. Create or update studio or project capabilities with `/as:skill-maker`; to contribute a built-in skill, read [CONTRIBUTING.md](../CONTRIBUTING.md).
 
-Practice discovery is generated from the [nine maintained cluster manifests](../docs/practice-clusters.md).
+Practice discovery is generated from the [ten maintained cluster manifests](../docs/practice-clusters.md).
 See the [category authoring contract](../docs/category-authoring.md) for shared ownership;
 public skill names and invocation syntax remain unchanged.

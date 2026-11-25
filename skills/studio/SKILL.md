@@ -34,7 +34,7 @@ Use `studio.init` for a confirmed exact fresh target. Gather only missing studio
 
 Show the exact target, files, managed roots and data boundary: records stay in the user workspace; content supplied to a configured model follows that provider's terms; setup creates no ALPA account/cloud storage/Git repository. One concrete setup gate covers those choices. Format version stays 3; Document model 1 identifies the fresh record shape. No existing workspace conversion or backward-compatibility setup is provided.
 
-Finish setup preferences with: “Would you like this assistant to use Arch Studio by default for architecture and project work?” Follow the [preference protocol](../norma/references/assistant-preference.md). When the exact scoped preference edit has been previewed, the same setup approval can cover it; a general yes never approves an unseen file edit. Otherwise retain session guidance and obtain only missing concrete authorization. Do not persist a global preference implicitly.
+Finish setup preferences with: “Would you like this assistant to use Arch Studio by default for architecture and project work?” Follow the [preference protocol](references/assistant-preference.md). When the exact scoped preference edit has been previewed, the same setup approval can cover it; a general yes never approves an unseen file edit. Otherwise retain session guidance and obtain only missing concrete authorization. Do not persist a global preference implicitly.
 
 MCP instruction delivery does not install lifecycle hooks. Background update preference is an installed-package feature outside this MCP workflow; report it unavailable here without inspecting or creating package state. Do not infer enablement from connection or general setup approval.
 
@@ -51,11 +51,11 @@ Apply the reviewed `studio.init` preparation with native tools. Reopen STUDIO.md
 
 Only studio owns `.mcp.json`, at studio root. Setup leaves it empty; connector configuration/authentication requires separately available capabilities and scope. Projects never receive this manifest. Firm extensions stay in the relevant host's studio skill root.
 
-General domain work may hand off once to Norma with scope, completed outputs and existing authorization; an explicit studio administration task stays here. Main-harness agent creation follows approved roles/assignments and real capabilities. Do not claim that instructions or a welcome executed a workflow.
+General domain work goes to the skill that owns it, with scope, completed outputs and existing authorization; an explicit studio administration task stays here. Do not claim that instructions or a welcome executed a workflow.
 
 ## Optional preferences and connectors
 
-Use `studio.preference` only for the optional default-assistant choice, applying the [preference protocol](../norma/references/assistant-preference.md) with the verified native instruction mechanism and concrete authorized diff. No persistence claim follows from connection or a saved file alone. MCP background lifecycle update checks remain unavailable; do not invoke installed-package update operations through this workflow.
+Use `studio.preference` only for the optional default-assistant choice, applying the [preference protocol](references/assistant-preference.md) with the verified native instruction mechanism and concrete authorized diff. No persistence claim follows from connection or a saved file alone. MCP background lifecycle update checks remain unavailable; do not invoke installed-package update operations through this workflow.
 
 `studio.connectors` owns the studio `.mcp.json` boundary. Fresh setup creates exactly an empty `mcpServers` object. A later explicitly requested configuration must use verified connector/host documentation and a reviewed exact change, preserving other entries. Configure only the known authorized server; authentication, external messages and account provisioning require their actual separate capabilities and authorization. No arbitrary connector endpoint or secret is inferred from workspace setup.
 

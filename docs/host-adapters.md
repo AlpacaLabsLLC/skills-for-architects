@@ -81,4 +81,4 @@ background work, new credentials or additional write authority.
 Use the shared [completion report](completion-reporting.md) for source data, instructions,
 host operations, outputs, checks, unresolved work and actual canonical writes. A successful retrieval
 is not a completed workflow; an export is not adoption. Verify each supported host path separately
-and retain existing machine status fields. Include a relevant Norma next action only when it helps the current task; no mandatory footer.
+and retain existing machine status fields. Include a relevant next action only when it helps the current task; no mandatory footer.

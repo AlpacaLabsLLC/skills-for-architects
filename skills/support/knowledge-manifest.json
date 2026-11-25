@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "skillId": "skill:support",
+  "mode": "conversation-only",
+  "files": [
+    {
+      "path": "skills/support/references/conversation-knowledge.md",
+      "sha256": "2929abefd8f90954e42be0e5ee91ec127b26bd121a2256a58abac4bff53a8435"
+    },
+    {
+      "path": "skills/support/references/access-and-installation.md",
+      "sha256": "b2309f57c56b0a693085fe1b4df37c20fad1416ae16191d01f166419b49f08f6"
+    },
+    {
+      "path": "skills/support/references/capability-observations.md",
+      "sha256": "af514f45858cb8fc2536de365f2a97b95d696825ea3345f79334773b536c8520"
+    },
+    {
+      "path": "skills/support/references/case-handoff.md",
+      "sha256": "d7bd2403d8f015ab84f1db6a4db33550278f4261a602f594a7370539de9ab00e"
+    }
+  ]
+}

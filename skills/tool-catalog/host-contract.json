@@ -1,6 +1,6 @@
 {
   "path": "skills/tool-catalog/SKILL.md",
-  "responsibility": "Show Arch Studio help, available skills, agents and host-specific commands. Use for help, how do I use Arch Studio, what is Norma, or a capability directory.",
+  "responsibility": "Show Arch Studio help, available skills and host-specific commands. Use for help, how do I use Arch Studio, or a capability directory.",
   "inputs": "Supplied question and relevant bundled references/catalog; no project, workspace, account or application requirement.",
   "owned_records": [],
   "non_owned_records": [

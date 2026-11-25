@@ -22,8 +22,8 @@ import secrets
 START = '<!-- architecture-studio:default-preference:start -->'
 END = '<!-- architecture-studio:default-preference:end -->'
 FAMILY = '<!-- architecture-studio:default-preference:'
-PREFERENCE = ('For architecture and Arch Studio-managed project work, use the connected Arch Studio MCP '
-              'through Norma, its coordinator. When the user asks for Norma, discover that coordinator. '
+PREFERENCE = ('For architecture and Arch Studio-managed project work, use Arch Studio: its installed skills '
+              'or the connected Arch Studio MCP. '
               'Use host-native execution as appropriate; preserve project-context and permission requirements. '
               'If Arch Studio is unavailable, disclose it and offer a fallback without blocking unrelated work.')
 MAX_BYTES = 1024 * 1024
@@ -212,7 +212,7 @@ def apply(plan: dict, approval_digest: str) -> dict:
             'target': str(path), 'scope': plan['scope'], 'action': plan['action'],
             'plan_sha256': plan['plan_sha256'], 'sha256': digest(actual),
             'host_approval': 'provided-digest-matched; host must verify human approval',
-            'norma_registration': 'not-performed', 'future_selection': 'not-verified'}
+            'future_selection': 'not-verified'}
 
 
 def main() -> None:

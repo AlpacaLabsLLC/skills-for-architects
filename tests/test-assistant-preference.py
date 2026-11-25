@@ -43,7 +43,7 @@ class PreferenceTests(unittest.TestCase):
     def test_create_repeat_remove_and_absent_remove_do_not_claim_registration(self):
         plan, receipt = self.run_plan(scope='user')
         self.assertEqual(receipt['status'], 'preference-bytes-updated')
-        self.assertEqual(receipt['norma_registration'], 'not-performed')
+        self.assertNotIn('norma_registration', receipt)
         self.assertEqual(receipt['future_selection'], 'not-verified')
         self.assertEqual(self.target.stat().st_mode & 0o777, 0o600)
         before = self.target.stat().st_mtime_ns

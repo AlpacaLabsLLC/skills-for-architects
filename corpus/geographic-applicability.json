@@ -40,6 +40,7 @@
     "skill:project": "portable",
     "skill:proposal": "portable",
     "skill:resize-images": "portable",
+    "skill:rhino-model": "portable",
     "skill:sif-to-csv": "portable",
     "skill:site-history": "site-research",
     "skill:site-visit-report": "portable",
@@ -52,6 +53,7 @@
     "skill:tasklist": "portable",
     "skill:timetracker": "portable",
     "skill:tool-catalog": "portable",
+    "skill:start": "portable",
     "skill:workplace-programmer": "portable",
     "skill:workplan": "portable",
     "skill:zoning-analysis-nyc": "nyc-zoning",
@@ -81,11 +83,16 @@
     "tool:lighting-report": "portable",
     "tool:product-identity": "portable",
     "tool:capability-metadata": "portable",
-    "skill:norma": "portable",
     "tool:assistant-preference": "portable",
     "skill:receive": "portable",
     "tool:workbook-preservation": "portable",
-    "skill:norma-support": "portable"
+    "skill:support": "portable",
+    "skill:rhino-setup": "portable",
+    "skill:rhino-batch-image-export": "portable",
+    "skill:rhino-thinline": "portable",
+    "skill:rhino-axon": "portable",
+    "skill:rhino-bom": "portable",
+    "skill:rhino-agent-team": "portable"
   },
   "references": [
     {

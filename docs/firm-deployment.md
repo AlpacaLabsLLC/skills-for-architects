@@ -1,6 +1,6 @@
 # Firm deployment guide
 
-Arch Studio v1.5.3 supplies governed workflows through plugin and hosted instruction delivery. Project records remain local. Assign a technology owner before firm distribution and keep the studio workspace in firm-controlled storage. The [release guide](release-delivery.md) separates candidate, host acceptance and publication.
+Arch Studio v1.5.4 supplies governed workflows through plugin and hosted instruction delivery. Project records remain local. Assign a technology owner before firm distribution and keep the studio workspace in firm-controlled storage. The [release guide](release-delivery.md) separates candidate, host acceptance and publication.
 
 ## Pilot ownership
 
@@ -25,6 +25,14 @@ Arch Studio v1.5.3 supplies governed workflows through plugin and hosted instruc
 
 ## Distribution, rollback, and support
 
-Firms install approved plugin releases from the documented marketplace, the same way individuals do. Skills and hosted MCP workflows are harness-native: the connected host performs them with its own tools and needs no local Arch Studio package or installer. Distribute private firm skills through firm-controlled tooling into the relevant host skill root. The 1.5 series uses fresh new-model setup; there is no historical register converter. Retain user-file backups independently of plugin versions; selecting another plugin release never restores or downgrades records.
+Firms install approved plugin releases from the documented marketplace, the same way individuals do. Skills and hosted MCP workflows are harness-native: the connected host performs them with its own tools and needs no local Arch Studio package or installer, except the plugin-only Rhino skills below. Distribute private firm skills through firm-controlled tooling into the relevant host skill root. The 1.5 series uses fresh new-model setup; there is no historical register converter. Retain user-file backups independently of plugin versions; selecting another plugin release never restores or downgrades records.
+
+### Rhino agent teams
+
+`rhino-agent-team`, `rhino-batch-image-export`, `rhino-thinline`, `rhino-axon`, `rhino-bom`, and `rhino-model`'s requirements check run helper scripts from the installed plugin inside each person's Rhino, so they are plugin-only for now ([Rhino skill helpers](host-harness-contract.md#rhino-skill-helpers)).
+
+- **Every machine installs the `as` plugin:** `claude plugin marketplace add AlpacaLabsLLC/skills-for-architects`, then `claude plugin install as@skills-for-architects`. For the Rhino AI panel, keep the default user scope.
+- **Shared project settings (Claude Code):** commit the marketplace and the enabled plugin in the project's `.claude/settings.json`, under `extraKnownMarketplaces` (`"skills-for-architects": {"source": {"source": "github", "repo": "AlpacaLabsLLC/skills-for-architects"}}`) and `enabledPlugins` (`"as@skills-for-architects": true`). Claude Code registers the marketplace after each teammate trusts the folder; enabling the plugin there does not install it, so each teammate still runs the install.
+- **Same release before a team session:** `claude plugin marketplace update skills-for-architects`, then `claude plugin update as@skills-for-architects` on every machine. Each file records the plugin version and a fingerprint of the helpers that wrote it (including `rhino-model`'s check scripts), and the team check refuses to call the model settled until every owner matches the coordinator.
 
 Arch Studio issues belong in `$studio-feedback` on Codex or `/as:studio-feedback` on Claude Code after the outbound fields are reviewed. Account, billing, model, and retention questions belong with OpenAI or Anthropic and the firm's host administrator. Storage, sync, access, and backup incidents belong with the firm's provider and internal owners.
