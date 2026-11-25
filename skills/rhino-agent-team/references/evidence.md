@@ -2,7 +2,7 @@
 
 Read when the user asks whether this works, or whether several agents are worth it. Quote these figures with their limits; do not round them into a claim.
 
-**No run in tests 1 to 3 used rhino-model or any Arch Studio skill.** Test 4 is the only one where the agents loaded the skills. Every agent was a bare model with the test harness's Python helpers, working in headless documents, with a script that started each round, saved, reopened and measured the files. Unserved points and undersized runs, the most common failures below, are what rhino-model's own requirements check is meant to catch, so part of what a coordinator seemed to add may overlap with it.
+**No run in tests 1 to 3 used rhino-model or any Arch Studio skill.** Tests 4 and 5 are the ones where the agents loaded the skills. In tests 1 to 3 every agent was a bare model with the test harness's Python helpers, working in headless documents, with a script that started each round, saved, reopened and measured the files. Unserved points and undersized runs, the most common failures below, are what rhino-model's own requirements check is meant to catch, so part of what a coordinator seemed to add may overlap with it.
 
 ## Where each part comes from
 
@@ -70,9 +70,24 @@ What the reviewing coordinator did: each round it read the script's report and t
 
 Limits: 2 or 3 runs per setup show direction only. No setup recovered from the change in the round it arrived.
 
-## Test 4: five-owner barn, with the skills loaded
+## Test 4: the same house, three owners, with the skills loaded
 
-A one-storey gable timber-frame barn with a loft, about 30 by 40 ft: five owners (structure, windows, plumbing, electrical, HVAC) and a coordinator, 18 required points and 5 windows, a change at round 3. Every agent loaded the Arch Studio skills: the coordinator `rhino-agent-team`, each owner `rhino-agent-team` and `rhino-model`. As in tests 1 to 3, the agents worked in headless documents through the test harness's own tool server, not through Rhino's MCP connection, and a script ran the rounds. All runs were on Sonnet, with fixes to the helpers between them.
+Test 3's house, owners, shaft, wall opening and change (the post in the shaft at round 5), on Sonnet, up to 8 rounds. Two setups of 3 runs: a team, with the coordinator loading `rhino-agent-team` and each owner `rhino-model`, against the three owners alone, each loading `rhino-model`. The agents worked in headless documents through the test harness's own tool server, as in tests 1 to 3. The skills were fixed after the first series and the second was run on the same house, so the second series is a development result, not a held-out test.
+
+| | Team, series 1 | Owners alone, series 1 | Team, series 2 | Owners alone, series 2 |
+|---|---|---|---|---|
+| Passed | 0 of 3 | 2 of 3 | 2 of 3 | 1 of 3 |
+| Ended coordinated | 3 of 3 | 2 of 3 | 3 of 3 | 1 of 3 |
+| Clashes in round 1 | 0 13 0 | 93 56 47 | 21 21 0 | 65 79 48 |
+| Cost per run, mean | $5.90 | $5.21 | $6.19 | $5.19 |
+
+- **The round-1 gap repeats tests 2 and 3:** every team run started with fewer clashes than every run of owners alone.
+- **Passed is stricter for the team:** it adds a fault-free set-out, which owners alone are never graded on, and no series-1 team run passed it.
+- **The setups end differently:** a team run stops once its team check says settled and the model is clean (at rounds 6 to 8); owners alone always play 8 rounds. "Ended coordinated" is therefore not a like-for-like comparison.
+
+## Test 5: five-owner barn, with the skills loaded
+
+A one-storey gable timber-frame barn with a loft, about 30 by 40 ft: five owners (structure, windows, plumbing, electrical, HVAC) and a coordinator, 18 required points and 5 windows, a change at round 3. Every agent loaded the Arch Studio skills: the coordinator `rhino-agent-team`, each owner `rhino-agent-team` and `rhino-model`. As in tests 1 to 4, the agents worked in headless documents through the test harness's own tool server, not through Rhino's MCP connection, and a script ran the rounds. All runs were on Sonnet, with fixes to the helpers between them.
 
 | Run | Result | Cost |
 |---|---|---|
@@ -92,4 +107,4 @@ One settled run in four shows that a team can settle with the skills loaded, not
 
 ## Not tested
 
-Owners using rhino-model through Rhino's own MCP connection (test 4 loaded it through the harness); window documents; a person driving the rounds; saving from the agent's own session; agents of different people; more than five owners; larger models; Opus.
+Owners using rhino-model through Rhino's own MCP connection (tests 4 and 5 loaded it through the harness); window documents; a person driving the rounds; saving from the agent's own session; agents of different people; more than five owners; larger models; Opus.

@@ -531,7 +531,7 @@ for judgment in ('disputes', 'set-out changes', "architect's change order"):
     ok(judgment in step6, 'skill: step 6 keeps judgment: %s' % judgment)
 ok('ask for space' not in text.lower() and 'reserve(' not in text, 'skill: asking for space is not the main mode')
 ok(re.search(r'A change goes to the coordinator first.*issue\(', text), 'skill: a change goes to the coordinator first, through issue()')
-ok('Only the five-owner barn test loaded the skills' in text and 'No run in tests 1 to 3 used rhino-model' in evidence and '## Test 4' in evidence and 'One settled run in four' in evidence and 'not through Rhino\'s MCP connection' in evidence, 'claims: only test 4 loaded the skills, one settled run in four, through the harness')
+ok('loaded only through the test harness' in text and 'three-owner house' in text and 'No run in tests 1 to 3 used rhino-model' in evidence and '## Test 4: the same house' in evidence and '## Test 5' in evidence and 'One settled run in four' in evidence and 'not through Rhino\'s MCP connection' in evidence, 'claims: tests 4 and 5 loaded the skills, one settled barn run in four, through the harness')
 ok('delivered to the owners before the coordinator' in evidence, 'claims: the change-order correction is stated')
 ok('direction only' in evidence and '$0.28' in evidence and '18 runs' in evidence, 'claims: evidence keeps its limits and the single-agent cost')
 ok('## Test 3' in evidence and '**2 of 2**' in evidence and 'No run in tests 1 to 3' in evidence and 'not comparable' in evidence,

@@ -99,7 +99,7 @@ It reads the saved files only. It accepts an owner's own check only when the sto
 
 ## Not tested yet
 
-- **Owners using rhino-model through Rhino's own connection.** Only the five-owner barn test loaded the skills, through the test harness; one of its four Sonnet runs settled ([evidence](references/evidence.md)).
+- **Owners using rhino-model through Rhino's own connection.** The skills were loaded only through the test harness: on a three-owner house, two series of three team runs against three of owners alone, and on the five-owner barn, where one of four Sonnet runs settled ([evidence](references/evidence.md)).
 - **Real sessions.** Every measured run used headless documents and a script that ran the rounds, saved, reopened and measured. Several agent sessions on window documents, a person driving rounds, and `save()` have not been run.
 - **Recovering from a change in one round.** With the change delivered as a note to the coordinator, who went first that round, no setup recovered in the change round; 2 to 4 rounds where it recovered at all.
 - **Agents belonging to different people,** more than five owners, and larger models.
