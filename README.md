@@ -98,7 +98,7 @@ For working in Rhino with an agent beside you.
 1. Open a model in Rhino 9 and start a new AI panel session. The panel reads your user settings, so it runs the plugin's startup hook, which points it to the Rhino skills.
 2. Name the skill or Arch Studio, for example "Use Arch Studio rhino-setup to check the connection", then "Use /as:rhino-model to model a 12 by 16 ft shed with a gable roof".
 
-Tested in Rhino 9's AI panel with Claude Code, once each, on pre-release builds. On macOS (build `173b1e1`), `rhino-setup` passed and `rhino-model` built a 12 by 16 ft gable shed. On Windows 11 (10.0.26200) with Rhino 9.1.26315 (build `584e284`), a new panel session found the skills through the startup line and `rhino-setup`'s connection check passed. The other Rhino skills have not been run in the panel on these builds. The terminal results are under Way 2. These are single runs, not reliability measurements.
+Tested in Rhino 9's AI panel with Claude Code, once each, on pre-release builds. On macOS (build `173b1e1`), `rhino-setup` passed and `rhino-model` built a 12 by 16 ft gable shed. On Windows 11 (10.0.26200) with Rhino 9.1.26315, all five Rhino skills that drive a document (`rhino-setup`, `rhino-model`, `rhino-batch-image-export`, `rhino-bom` and `rhino-axon`) ran in the panel on an earlier build, with the skill index opened by hand before the startup-hook fix; on build `584e284`, a new panel session found the skills through the startup line and `rhino-setup`'s connection check passed. The terminal results are under Way 2. These are single runs, not reliability measurements.
 
 #### Way 2: from your terminal
 
