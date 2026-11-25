@@ -69,11 +69,11 @@ No firm enablement, merge, publication, release or deployment is authorized by t
 
 ## Claims ledger
 
-Before the public content review, keep a claims ledger for the release:
+Before the public content review, keep the release's claims ledger: one tracker issue per release, not a file.
 
-1. One row per public claim: the claim; its evidence (a run record, a test, or skill or script text, as `path@commit`); its status (proven, untested or known limit); and every surface it appears on.
+1. One entry per public claim: the claim; its primary evidence, a run record, test, script or skill text at `path@commit`; its status (proven, untested or known limit); and every surface it appears on. An article, marketing copy, release note or summary is never evidence.
 2. Copy for the README, CHANGELOG, release notes, sites, posts and newsletter uses only claims in the ledger.
-3. The preflight checks every surface against the ledger. It fails on any claim missing from the ledger, and on any claim marked untested that is stated as fact.
+3. The claims preflight checks every surface against the ledger issue. It fails on a claim the ledger does not list, a claim without primary evidence, or an untested claim stated as fact.
 4. When a run changes what a skill's evidence notes say (its `references/evidence.md` or the evidence sections of its `SKILL.md`), update those notes in the same pull request.
 
 ## Prepare and publish the OSS release
